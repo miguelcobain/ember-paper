@@ -1,0 +1,12 @@
+{{paper-ripple recenteringTouch=recenteringTouch
+      lastDownEvent=lastDownEvent lastUpEvent=lastUpEvent}}
+
+{{#if raised}}
+  {{paper-shadow z=z animated=animatedShadow}}
+{{/if}}
+
+{{#if template}}
+  <div style="position:relative">
+    {{yield}}
+  </div>
+{{/if}}
