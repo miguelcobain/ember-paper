@@ -1,0 +1,89 @@
+/* PAPER BUTTON */
+.paper-button {
+  user-select: none;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  overflow: hidden;
+  min-width: 10em;
+  line-height: 25px;
+  margin: 0 1em;
+}
+.paper-button .paper-button-inner {
+  display: block;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  outline: none;
+  text-transform: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  white-space: nowrap;
+  padding: 6px;
+  cursor:pointer;
+}
+
+/* theme */
+.paper-button {
+  border-radius: 3px;
+}
+.paper-button.disabled {
+  background-color: rgba(158, 158, 158, 0.145) !important;
+  color: #9e9e9e !important;
+  fill: #9e9e9e !important;
+  cursor: auto;
+}
+.paper-button:not(.disabled):hover, .paper-button:not(.disabled).focus {
+  background-color: rgba(158, 158, 158, 0.2);
+}
+.paper-button.paper-fab {
+  border-radius: 50%;
+}
+.paper-button.paper-primary {
+  color: #29b6f6;
+  fill: #29b6f6;
+}
+.paper-button.paper-warn {
+  color: #e84e40;
+  fill: #e84e40;
+}
+.paper-button.paper-raised, .paper-button.paper-fab {
+  background-color: rgba(158, 158, 158, 0.185);
+}
+.paper-button.paper-raised:not(.disabled):hover, .paper-button.paper-raised:not(.disabled).focus, .paper-button.paper-fab:not(.disabled):hover, .paper-button.paper-fab:not(.disabled).focus {
+  background-color: rgba(158, 158, 158, 0.3);
+}
+.paper-button.paper-raised.paper-primary, .paper-button.paper-fab.paper-primary {
+  color: white;
+  background-color: #03a9f4;
+}
+.paper-button.paper-raised.paper-primary:not(.disabled):hover, .paper-button.paper-raised.paper-primary:not(.disabled).focus, .paper-button.paper-fab.paper-primary:not(.disabled):hover, .paper-button.paper-fab.paper-primary:not(.disabled).focus {
+  background-color: #039be5;
+}
+.paper-button.paper-raised.paper-warn, .paper-button.paper-fab.paper-warn {
+  color: white;
+  background-color: #e51c23;
+}
+.paper-button.paper-raised.paper-warn:not(.disabled):hover, .paper-button.paper-raised.paper-warn:not(.disabled).focus, .paper-button.paper-fab.paper-warn:not(.disabled):hover, .paper-button.paper-fab.paper-warn:not(.disabled).focus {
+  background-color: #d01716;
+}

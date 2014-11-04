@@ -5,22 +5,34 @@ export default Ember.Component.extend(EventsMixin,{
   disabled:false,
   pressed:false,
   active:false,
-  focused:false,
-  attributeBindings: ['disabled','pressed','active','focused'],
+  focus:false,
+  hover:false,
+  classNameBindings: ['disabled','pressed','active','focus','hover'],
 
   toggle:false,
 
+  /*
+   * Listen to `focusIn` and `focusOut` events instead of `focus` and `blur`.
+   * This way we don't need to explicitly bubble the events.
+   */
   focusIn: function() {
     if (!this.get('pressed')){
       // Only render the "focused" state if the element gains focus due to
       // keyboard navigation.
-      this.set('focused',true);
+      this.set('focus',true);
     }
   },
   focusOut: function(){
-    this.set('focused',false);
+    this.set('focus',false);
   },
-  
+  mouseEnter:function(){
+    this.set('hover',true);
+  },
+  mouseLeave:function(e){
+    this.set('hover',false);
+    this._super(e);
+  },
+
   down:function(){
     this.set('pressed',true);
     if (this.toggle) {

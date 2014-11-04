@@ -1,0 +1,12 @@
+/* PAPER SHADOW */
+.paper-shadow-bottom-z-1{
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.paper-shadow-bottom-z-2 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+.paper-shadow-animated.paper-shadow {
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
