@@ -1,5 +1,36 @@
 /* PAPER RIPPLE */
 
+/* Checkbox ripple keyframes */
+@-webkit-keyframes inkRippleCheckbox {
+  0% {
+    transform: scale(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.0);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes inkRippleCheckbox {
+  0% {
+    transform: scale(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.0);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
 /* Button ripple keyframes */
 @-webkit-keyframes inkRippleButton {
   0% {

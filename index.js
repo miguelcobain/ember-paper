@@ -1,5 +1,7 @@
 'use strict';
 
+var path = require('path');
+
 module.exports = {
   name: 'ember-paper',
   blueprintsPath: function blueprintsPath() {
@@ -16,6 +18,7 @@ module.exports = {
     app.import('vendor/ember-paper/paper-ripple.css');
     app.import('vendor/ember-paper/paper-shadow.css');
     app.import('vendor/ember-paper/paper-button.css');
+    app.import('vendor/ember-paper/paper-checkbox.css');
     app.import('vendor/ember-paper/styles.css');
 
     app.import(app.bowerDirectory+'/hammerjs/hammer.js');

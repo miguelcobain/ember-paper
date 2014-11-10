@@ -1,10 +1,8 @@
-<div class="paper-checkbox-container">
-  {{paper-ripple recenteringTouch=true
-      lastDownEvent=lastDownEvent lastUpEvent=lastUpEvent classNames="circle"}}
-  <div {{bind-attr class="checked:checked:unchecked checkmark box :paper-checkbox-mark"}}></div>
+<div class="paper-container">
+  <div class="paper-icon"></div>
 </div>
 {{#if template}}
-  <div class="paper-checkbox-label">
+  <div class="paper-label">
     {{yield}}
   </div>
 {{/if}}

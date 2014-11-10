@@ -56,11 +56,14 @@ export default Ember.Mixin.create({
     //TODO handle mouse hold case
   },
 
+  // Override to place ripple container in a different element,
+  // otherwise it will be appended on root element
+  rippleContainerSelector:'',
   rippleContainer:null,
   createRippleContainer:function(){
     if(!this.rippleContainer){
       this.rippleContainer = Ember.$('<div class="paper-ripple-container">');
-      this.$().append(this.rippleContainer);
+      this.$(this.rippleContainerSelector).append(this.rippleContainer);
     }
     return this.rippleContainer;
   },

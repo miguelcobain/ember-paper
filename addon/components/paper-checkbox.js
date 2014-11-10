@@ -1,30 +1,37 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
+import RippleMixin from '../mixins/ripple-mixin';
 
-export default BaseFocusable.extend({
+var KEY_CODE_SPACE = 32;
+
+export default BaseFocusable.extend(RippleMixin,{
   classNames:['paper-checkbox'],
-  classNameBindings:['checked'],
+  classNameBindings:['checked:paper-checked'],
+
+  //Alow element to be focusable by supplying a tabindex 0
+  attributeBindings:['tabindex'],
+  tabindex:function(){
+    return this.get('disabled') ? '-1' : '0';
+  }.property('disabled'),
+  checked:false,
+
   toggle:true,
-  checked:Ember.computed.alias('active'),
-  didInsertElement:function(){
-    this._super();
-    this.$('.paper-checkbox-mark').on('animationend MSAnimationEnd webkitAnimationEnd',
-      Ember.$.proxy(this.checkboxAnimationEnd,this));
+  rippleContainerSelector:'.paper-container',
+
+  center: true,
+  animationDuration: 300,
+  mousedownPauseTime: 180,
+  animationName: 'inkRippleCheckbox',
+  animationTimingFunction: 'linear',
+
+  click:function(){
+    if(!this.get('disabled')){
+      this.toggleProperty('checked');
+    }
   },
-  willDestroyElement:function(){
-    this._super();
-    this.$('.paper-checkbox-mark').off('animationend MSAnimationEnd webkitAnimationEnd');
-  },
-  checkedDidChange:Ember.observer('checked',function(){
-    this.setProperties({
-      checkmark: !this.get('checked'),
-      box: this.get('checked')
-    });
-  }).on('didInsertElement'),
-  checkboxAnimationEnd:function(){
-    this.setProperties({
-      checkmark: this.get('checked'),
-      box: !this.get('checked')
-    });
+  keyPress:function(ev){
+    if(ev.which === KEY_CODE_SPACE) {
+      this.click();
+    }
   }
 });
