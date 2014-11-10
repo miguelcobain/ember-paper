@@ -1,6 +1,6 @@
-# Ember-paper
+# Ember Paper
 
-This project aims to bring Google's new [Material Design](https://www.google.com/design/spec/material-design/introduction.html) to Ember. The goal is to encapsulate everything possible in Ember components. This project is packaged as an [Ember-cli](http://www.ember-cli.com/) addon. This a allows a much nicer "plug and play" experience, as you can see for yourself in the "Installation" section.
+This project aims to bring Google's new [Material Design](https://www.google.com/design/spec/material-design/introduction.html) to Ember. The goal is to encapsulate everything possible in Ember components. This project is packaged as an [Ember-cli](http://www.ember-cli.com/) addon. This allows a much nicer "plug and play" experience, as you can see for yourself in the "Installation" section.
 
 ## Installation
 
