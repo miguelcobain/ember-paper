@@ -1,0 +1,103 @@
+/* PAPER RADIO BUTTON */
+.paper-radio,
+.paper-switch-thumb {
+  display: block;
+  margin: 15px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.paper-radio input,
+.paper-switch-thumb input {
+  display: none;
+}
+.paper-radio .paper-container,
+.paper-switch-thumb .paper-container {
+  position: relative;
+  top: 4px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.paper-radio .paper-container .paper-ripple-container,
+.paper-switch-thumb .paper-container .paper-ripple-container {
+  position: absolute;
+  display: block;
+  width: 48px;
+  height: 48px;
+  left: -16px;
+  top: -16px;
+}
+.paper-radio .paper-off,
+.paper-switch-thumb .paper-off {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 16px;
+  height: 16px;
+  border: solid 2px;
+  border-radius: 50%;
+  transition: border-color ease 0.28s;
+}
+.paper-radio .paper-on,
+.paper-switch-thumb .paper-on {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: transform ease 0.28s;
+  transform: scale(0);
+}
+.paper-radio.paper-checked .paper-on,
+.paper-switch-thumb.paper-checked .paper-on {
+  transform: scale(0.55);
+}
+.paper-radio .paper-label,
+.paper-switch-thumb .paper-label {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+  white-space: normal;
+  pointer-events: none;
+  width: auto;
+}
+.paper-radio .circle,
+.paper-switch-thumb .circle {
+  border-radius: 50%;
+}
+
+.paper-radio .paper-container .paper-ripple,
+.paper-switch .paper-switch-thumb .paper-container .paper-ripple {
+  color: #0a8f08;
+}
+.paper-radio .paper-off,
+.paper-switch .paper-switch-thumb .paper-off {
+  border-color: rgba(0, 0, 0, 0.54);
+}
+.paper-radio .paper-on,
+.paper-switch .paper-switch-thumb .paper-on {
+  background-color: rgba(43, 175, 43, 0.87);
+}
+.paper-radio.paper-checked .paper-off,
+.paper-switch .paper-switch-thumb.paper-checked .paper-off {
+  border-color: rgba(43, 175, 43, 0.87);
+}
+.paper-radio.paper-checked .paper-ink-ripple,
+.paper-switch .paper-switch-thumb.paper-checked .paper-ink-ripple {
+  color: rgba(43, 175, 43, 0.87);
+}
+
+.paper-radio.disabled .paper-off{
+  border-color: rgba(0, 0, 0, 0.26);
+}
+
+.paper-radio.disabled .paper-on{
+  background-color: rgba(0, 0, 0, 0.26);
+}
+
+.paper-radio-group:focus {
+  border-color: rgba(0, 0, 0, 0.73);
+}

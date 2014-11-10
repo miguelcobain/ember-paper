@@ -34,7 +34,7 @@
 .paper-checkbox.paper-checked .paper-icon {
   border: none;
 }
-.paper-checkbox[disabled] {
+.paper-checkbox.disabled {
   cursor: no-drop;
 }
 .paper-checkbox:focus .paper-label {

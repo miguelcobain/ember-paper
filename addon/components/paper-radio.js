@@ -1,10 +1,19 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
+import RippleMixin from '../mixins/ripple-mixin';
 
-export default BaseFocusable.extend({
+export default BaseFocusable.extend(RippleMixin,{
   classNames:['paper-radio'],
-  classNameBindings:['checked'],
+  classNameBindings:['checked:paper-checked'],
   toggle:false,
+
+  center: true,
+  animationDuration: 300,
+  mousedownPauseTime: 180,
+  animationName: 'inkRippleCheckbox',
+  animationTimingFunction: 'linear',
+
+  rippleContainerSelector:'.paper-container',
 
   checked: function() {
     return this.get('value') === this.get('selected');
@@ -16,8 +25,7 @@ export default BaseFocusable.extend({
     }
   }),
 
-  down:function(){
-    this._super();
+  click:function(){
     if(this.toggle){
       this.set('selected', this.get('checked')?null:this.get('value'));
     } else {

@@ -1,11 +1,9 @@
-<div class="paper-radio-container">
-  <div class="paper-radio-off"></div>
-  <div {{bind-attr class="checked:fill :paper-radio-on"}}></div>
-  {{paper-ripple recenteringTouch=true
-      lastDownEvent=lastDownEvent lastUpEvent=lastUpEvent classNames="circle"}}
+<div class="paper-container">
+  <div class="paper-off"></div>
+  <div class="paper-on"></div>
 </div>
 {{#if template}}
-  <div class="paper-radio-label">
+  <div class="paper-label">
     {{yield}}
   </div>
 {{/if}}
