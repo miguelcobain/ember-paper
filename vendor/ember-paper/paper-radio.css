@@ -13,7 +13,6 @@
 .paper-radio .paper-container,
 .paper-switch-thumb .paper-container {
   position: relative;
-  top: 4px;
   display: inline-block;
   width: 16px;
   height: 16px;
@@ -52,8 +51,16 @@
 }
 .paper-radio.paper-checked .paper-on,
 .paper-switch-thumb.paper-checked .paper-on {
-  transform: scale(0.55);
+  transform: scale(1);
 }
+.paper-radio.paper-checked,
+.paper-switch-thumb.paper-checked {
+  -webkit-transform: translate(48px, 0);
+  transform: translate(48px, 0);
+  padding: 8px 0 8px 48px;
+  margin: -8px 0 -8px -48px;
+}
+
 .paper-radio .paper-label,
 .paper-switch-thumb .paper-label {
   position: relative;
