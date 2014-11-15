@@ -16,6 +16,9 @@ export default BaseFocusable.extend(RippleMixin,{
   rippleContainerSelector:'.paper-container',
 
   checked: function() {
+    if (this.get('disabled')) {
+      return false;
+    }
     return this.get('value') === this.get('selected');
   }.property('value', 'selected'),
 
@@ -26,6 +29,9 @@ export default BaseFocusable.extend(RippleMixin,{
   }),
 
   click:function(){
+    if (this.get('disabled')) {
+      return false;
+    }
     if(this.toggle){
       this.set('selected', this.get('checked')?null:this.get('value'));
     } else {
