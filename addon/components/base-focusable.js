@@ -34,9 +34,6 @@ export default Ember.Component.extend(EventsMixin,{
   },
 
   down:function(){
-    if (this.disabled) {
-      return true;
-    }
     this.set('pressed',true);
     if (this.toggle) {
       this.toggleProperty('active');
@@ -51,7 +48,7 @@ export default Ember.Component.extend(EventsMixin,{
   up:function(){
     this.set('pressed',false);
 
-    if (!this.toggle && !this.disabled) {
+    if (!this.toggle) {
       this.set('active',false);
     }
   }
