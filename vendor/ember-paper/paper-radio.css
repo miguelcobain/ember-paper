@@ -1,17 +1,17 @@
 /* PAPER RADIO BUTTON */
 .paper-radio,
-.paper-switch-thumb {
+.paper-toggle-thumb {
   display: block;
   margin: 15px;
   white-space: nowrap;
   cursor: pointer;
 }
 .paper-radio input,
-.paper-switch-thumb input {
+.paper-toggle-thumb input {
   display: none;
 }
 .paper-radio .paper-container,
-.paper-switch-thumb .paper-container {
+.paper-toggle-thumb .paper-container {
   position: relative;
   top: 4px;
   display: inline-block;
@@ -20,7 +20,7 @@
   cursor: pointer;
 }
 .paper-radio .paper-container .paper-ripple-container,
-.paper-switch-thumb .paper-container .paper-ripple-container {
+.paper-toggle-thumb .paper-container .paper-ripple-container {
   position: absolute;
   display: block;
   width: 48px;
@@ -29,7 +29,7 @@
   top: -16px;
 }
 .paper-radio .paper-off,
-.paper-switch-thumb .paper-off {
+.paper-toggle-thumb .paper-off {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -40,7 +40,7 @@
   transition: border-color ease 0.28s;
 }
 .paper-radio .paper-on,
-.paper-switch-thumb .paper-on {
+.paper-toggle-thumb .paper-on {
   position: absolute;
   top: 0;
   left: 0;
@@ -51,11 +51,11 @@
   transform: scale(0);
 }
 .paper-radio.paper-checked .paper-on,
-.paper-switch-thumb.paper-checked .paper-on {
+.paper-toggle-thumb.paper-checked .paper-on {
   transform: scale(0.55);
 }
 .paper-radio .paper-label,
-.paper-switch-thumb .paper-label {
+.paper-toggle-thumb .paper-label {
   position: relative;
   display: inline-block;
   margin-left: 10px;
@@ -65,28 +65,28 @@
   width: auto;
 }
 .paper-radio .circle,
-.paper-switch-thumb .circle {
+.paper-toggle-thumb .circle {
   border-radius: 50%;
 }
 
 .paper-radio .paper-container .paper-ripple,
-.paper-switch .paper-switch-thumb .paper-container .paper-ripple {
+.paper-toggle .paper-toggle-thumb .paper-container .paper-ripple {
   color: #0a8f08;
 }
 .paper-radio .paper-off,
-.paper-switch .paper-switch-thumb .paper-off {
+.paper-toggle .paper-toggle-thumb .paper-off {
   border-color: rgba(0, 0, 0, 0.54);
 }
 .paper-radio .paper-on,
-.paper-switch .paper-switch-thumb .paper-on {
+.paper-toggle .paper-toggle-thumb .paper-on {
   background-color: rgba(43, 175, 43, 0.87);
 }
 .paper-radio.paper-checked .paper-off,
-.paper-switch .paper-switch-thumb.paper-checked .paper-off {
+.paper-toggle .paper-toggle-thumb.paper-checked .paper-off {
   border-color: rgba(43, 175, 43, 0.87);
 }
 .paper-radio.paper-checked .paper-ink-ripple,
-.paper-switch .paper-switch-thumb.paper-checked .paper-ink-ripple {
+.paper-toggle .paper-toggle-thumb.paper-checked .paper-ink-ripple {
   color: rgba(43, 175, 43, 0.87);
 }
 

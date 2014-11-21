@@ -1,4 +1,4 @@
-<div {{bind-attr class="checked :paper-toggle-container"}}>
-  <div {{bind-attr class="checked :paper-toggle-bar"}}></div>
-  {{paper-radio checked=checked disabled=disabled}}
-</div>
+<div class="paper-toggle-bar"></div>
+{{#paper-radio classNames="paper-toggle-thumb" checked=value disabled=disabled noink=noink}}
+  {{yield}}
+{{/paper-radio}}

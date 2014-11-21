@@ -20,6 +20,7 @@ module.exports = {
     app.import('vendor/ember-paper/paper-button.css');
     app.import('vendor/ember-paper/paper-checkbox.css');
     app.import('vendor/ember-paper/paper-radio.css');
+    app.import('vendor/ember-paper/paper-toggle.css');
     app.import('vendor/ember-paper/styles.css');
 
     app.import(app.bowerDirectory+'/hammerjs/hammer.js');

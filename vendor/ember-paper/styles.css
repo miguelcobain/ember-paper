@@ -6,7 +6,7 @@
 }
 
 /* PAPER TOGGLE BUTTON */
-.paper-toggle {
+/*.paper-toggle {
   display: inline-block;
 }
 
@@ -56,7 +56,6 @@
   transition: none;
 }
 
-/* disabled state */
 .paper-toggle[disabled] {
   pointer-events: none;
 }
@@ -64,7 +63,7 @@
 .paper-toggle .paper-radio-container{
   display:block;
 }
-
+*/
 /* SIDE NAV */
 .sidenav {
   display: block;
