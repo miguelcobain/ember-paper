@@ -17,6 +17,7 @@ module.exports = {
     //styles in vendor folder for now. Temporary fix.
 
     app.import('vendor/ember-paper.css');
+    app.import('vendor/ember-paper.css.map');
 
     app.import(app.bowerDirectory+'/hammerjs/hammer.js');
 

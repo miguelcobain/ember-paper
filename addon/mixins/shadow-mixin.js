@@ -1,8 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  classNames:['paper-shadow'],
-  classNameBindings:['bottomShadowCSS','animatedShadow:paper-shadow-animated','raised:paper-raised'],
+  classNameBindings:[
+    'raised:md-raised'
+  ],
   raised:false,
   animatedShadow:true,
   bottomShadowCSS:Ember.computed('z',function(){

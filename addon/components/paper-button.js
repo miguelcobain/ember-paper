@@ -4,12 +4,12 @@ import ShadowMixin from '../mixins/shadow-mixin';
 import RippleMixin from '../mixins/ripple-mixin';
 
 export default BaseFocusable.extend(ShadowMixin,RippleMixin,{
-  classNames:['paper-button'],
+  tagName:'button',
+  classNames:['md-button','md-default-theme'],
 
   /* RippleMixin overrides */
-  animationName: 'inkRippleButton',
-  animationDuration: 350,
-  mousedownPauseTime: 175,
+  center: false,
+  dimBackground: true,
 
   /* ShadowMixin properties */
   z:1,

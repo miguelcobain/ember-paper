@@ -7,7 +7,7 @@ export default Ember.Component.extend(EventsMixin,{
   active:false,
   focus:false,
   hover:false,
-  classNameBindings: ['disabled','pressed','active','focus','hover'],
+  attributeBindings: ['disabled'],
 
   toggle:false,
 
