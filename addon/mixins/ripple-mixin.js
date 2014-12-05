@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import sniffer from '../utils/sniffer';
+/* global Hammer */
 
 var webkit = /webkit/i.test(sniffer.vendorPrefix);
 function vendorProperty(name) {
