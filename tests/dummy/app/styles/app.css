@@ -1,3 +1,20 @@
-html, body {
-  margin: 20px;
+body {
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+  font-size: 14px;
+}
+
+.md-button {
+  margin: 1em;
+  line-height: 25px;
+}
+
+.md-button:not(.md-fab) {
+  min-width: 10em;
+}
+
+.preview-block {
+  background: #f5f5f5;
+  padding: 20px;
 }
