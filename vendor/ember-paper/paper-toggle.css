@@ -25,10 +25,13 @@
 .paper-toggle .paper-toggle-thumb .paper-container {
   position: absolute;
   transition: transform 0.2s linear;
+  -webkit-transition: transform 0.2s linear;
   transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
 }
 .paper-toggle .paper-toggle-thumb.paper-checked .paper-container {
   transform: translate3d(48px, 0, 0);
+  -webkit-transform: translate3d(48px, 0, 0);
 }
 .paper-toggle .paper-toggle-thumb .paper-label {
   margin-left: 72px;
