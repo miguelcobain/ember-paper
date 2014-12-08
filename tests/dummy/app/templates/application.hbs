@@ -1,3 +1,18 @@
-<h2 id='title'>Welcome to Ember.js</h2>
+{{#paper-sidenav}}
+    {{#paper-drawer}}
 
-{{outlet}}
+      <h1 class="logo">Ember Paper</h1>
+      <nav class="sidenav-nav">
+        <ul>
+          <li>{{#link-to 'checkboxes'}}Checkboxes{{/link-to}}</li>
+          <li>{{#link-to 'toggles'}}Toggles{{/link-to}}</li>
+        </ul>
+      </nav>
+
+    {{/paper-drawer}}
+    {{#paper-content}}
+
+      {{outlet}}
+
+    {{/paper-content}}
+  {{/paper-sidenav}}

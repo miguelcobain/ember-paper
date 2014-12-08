@@ -1,3 +1,4 @@
+/* global Hammer */
 import Ember from 'ember';
 import sniffer from '../utils/sniffer';
 
@@ -8,16 +9,16 @@ function vendorProperty(name) {
     name;
 }
 
-var TRANSITIONEND_EVENT = 'transitionend' + (webkit ? ' webkitTransitionEnd' : ''),
-  ANIMATIONEND_EVENT = 'animationend' + (webkit ? ' webkitAnimationEnd' : ''),
-  TRANSFORM = vendorProperty('transform'),
-  TRANSITION = vendorProperty('transition'),
-  TRANSITION_DURATION = vendorProperty('transitionDuration'),
-  ANIMATION_PLAY_STATE = vendorProperty('animationPlayState'),
+//var TRANSITIONEND_EVENT = 'transitionend' + (webkit ? ' webkitTransitionEnd' : ''),
+var ANIMATIONEND_EVENT = 'animationend' + (webkit ? ' webkitAnimationEnd' : ''),
+  //TRANSFORM = vendorProperty('transform'),
+  //TRANSITION = vendorProperty('transition'),
+  //TRANSITION_DURATION = vendorProperty('transitionDuration'),
+  //ANIMATION_PLAY_STATE = vendorProperty('animationPlayState'),
   ANIMATION_DURATION = vendorProperty('animationDuration'),
   ANIMATION_NAME = vendorProperty('animationName'),
-  ANIMATION_TIMING = vendorProperty('animationTimingFunction'),
-  ANIMATION_DIRECTION = vendorProperty('animationDirection');
+  ANIMATION_TIMING = vendorProperty('animationTimingFunction');
+  //ANIMATION_DIRECTION = vendorProperty('animationDirection');
 
 export default Ember.Mixin.create({
   //classNames:['paper-ripple'],

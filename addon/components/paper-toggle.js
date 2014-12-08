@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 
 export default BaseFocusable.extend({
