@@ -7,6 +7,7 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('checkboxes');
+  this.route('toggles');
 });
 
 export default Router;
