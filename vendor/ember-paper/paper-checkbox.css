@@ -42,6 +42,7 @@
 }
 .paper-checkbox.paper-checked .paper-icon:after {
   transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
   position: absolute;
   left: 6px;
   top: 2px;
