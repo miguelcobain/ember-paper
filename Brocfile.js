@@ -17,12 +17,4 @@ var app = new EmberAddon();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
-/*app.import('vendor/material-icons/styles.css');
-app.import('vendor/material-icons/fonts/material-icon-font.eot', { destDir: 'fonts' });
-app.import('vendor/material-icons/fonts/material-icon-font.svg', { destDir: 'fonts' });
-app.import('vendor/material-icons/fonts/material-icon-font.ttf', { destDir: 'fonts' });
-app.import('vendor/material-icons/fonts/material-icon-font.woff', { destDir: 'fonts' });
-
-app.import('bower_components/hammerjs/hammer.js');*/
-
 module.exports = app.toTree();
