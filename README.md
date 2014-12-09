@@ -16,7 +16,7 @@ Navigate through the docs to understand how to use each component.
 
 ## Contribution
 
-This is a very ambitious project. Google's design specs are extensive, and not trivial to implement. I've been porting [Polymer Paper Elements](https://www.polymer-project.org/docs/elements/paper-elements.html) and [Google Web Starter Kit](https://github.com/google/web-starter-kit/tree/material-sprint) (material-spring branch) to Ember. These seem to be the most useful resources at the moment. If you feel like porting or fixing an element or two, please drop a pull request or issue at GitHub!
+This is a very ambitious project. Google's design specs are extensive, and not trivial to implement. I've been porting [Angular Material](https://github.com/angular/material) to Ember. This seems to be the most useful resource at the moment. If you feel like porting or fixing an element or two, please drop a pull request or issue at GitHub!
 
 
 I believe that with the help of everyone we can bring these amazing design spec to Ember in a modular and robust way. The Ember way. **Help us on Github!**
