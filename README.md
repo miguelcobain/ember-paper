@@ -8,6 +8,7 @@ Install the ember-cli addon in your ember-cli project:
 
 ```
 $ npm install --save-dev ember-paper
+$ ember g ember-paper
 ```
 
 All the components and styles are ready to use in your application templates.
