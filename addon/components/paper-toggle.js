@@ -1,8 +1,8 @@
-import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 
 export default BaseFocusable.extend({
-  classNames:['paper-toggle'],
+  tagName:'md-switch',
+  classNames:['md-switch','md-default-theme'],
   toggle:true,
 
   click:function(){

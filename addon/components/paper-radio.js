@@ -3,17 +3,13 @@ import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 
 export default BaseFocusable.extend(RippleMixin,{
-  classNames:['paper-radio'],
-  classNameBindings:['checked:paper-checked'],
+  tagName:'md-radio-button',
+  classNames:['md-radio-button','md-default-theme'],
+  classNameBindings:['checked:md-checked'],
   toggle:false,
 
   center: true,
-  animationDuration: 300,
-  mousedownPauseTime: 180,
-  animationName: 'inkRippleCheckbox',
-  animationTimingFunction: 'linear',
-
-  rippleContainerSelector:'.paper-container',
+  rippleContainerSelector:'.md-container',
 
   checked: function() {
     return this.get('value') === this.get('selected');

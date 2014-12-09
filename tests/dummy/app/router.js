@@ -6,6 +6,15 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('introduction');
+  this.route('button');
+  this.route('checkbox');
+  this.route('radio');
+  this.route('toggle');
+  this.route('typography');
+  this.route('lists');
+  this.route('navigation');
+  //this.route('index',);
 });
 
 export default Router;
