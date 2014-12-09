@@ -1,59 +1,168 @@
-$sidenav-default-width: 304px;
+/* SIDE NAV */
+.sidenav {
+  display: block;
+  width: 240px;
+  height: 100%;
+  max-height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-right: 1px solid #e0e0e0;
+  background: #fafafa;
+  -webkit-transform: translateX(-240px);
+  -ms-transform: translateX(-240px);
+  transform: translateX(-240px);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  will-change: transform;
+  color: #424242;
+  z-index: 4;
+}
+.sidenav .logo {
+  padding: 18px 24px 18px 24px;
+  font-size: 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
 
-md-sidenav {
-  position: absolute;
+.sidenav.visible {
+  -webkit-transform: translateX(0px);
+  -ms-transform: translateX(0px);
+  transform: translateX(0px);
+}
 
-  width: $sidenav-default-width;
-  bottom: 0;
-  z-index: $z-index-sidenav;
-  background-color: white;
-  overflow: auto;
-  flex-direction: column;
+.sidenav.animatable {
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  &.md-closed {
+.sidenav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.sidenav ul li > a {
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+  color: #424242;
+  font-weight: 700;
+  padding: 1.6em 1.6em;
+}
+.sidenav ul li a:hover {
+  background-color: #e0e0e0;
+}
+
+.nav-button {
+  display: block;
+  width: 48px;
+  height: 48px;
+  position: fixed;
+  left: auto;
+  right: 0px;
+  top: 0;
+  border: 0;
+  overflow: hidden;
+  font-size: 24px;
+  z-index: 2;
+  line-height: 48px;
+  text-align: center;
+}
+
+.sidenav-modal-bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  will-change: opacity;
+  opacity: 0.000001;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.sidenav-modal-bg.animatable {
+  -webkit-transition: visibility 0 linear 0.4s, opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: visibility 0 linear 0.4s, opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidenav-modal-bg.visible {
+  opacity: 1;
+  pointer-events: all;
+  -webkit-transition-delay: 0;
+  transition-delay: 0;
+}
+
+.sidenav-content, .sidenav-static-content {
+  padding: 16px 24px;
+}
+
+@media screen and (min-width: 850px) {
+  .nav-button {
     display: none;
   }
-  &.md-closed-add,
-  &.md-closed-remove {
-    display: flex;
-    /* this is required as of 1.3x to properly
-    apply all styling in a show/hide animation */
-    transition: 0s all;
-  }
-  &.md-closed-add.md-closed-add-active,
-  &.md-closed-remove.md-closed-remove-active {
-    transition: $swift-ease-out;
-  }
 
-  &.md-locked-open,
-  &.md-locked-open.md-closed,
-  &.md-locked-open.md-closed.md-sidenav-left,
-  &.md-locked-open.md-closed.md-sidenav-right {
-    position: static;
-    display: flex;
-    transform: translate3d(0, 0, 0);
-  }
-
-  @extend .md-sidenav-left;
-}
-.md-sidenav-backdrop.md-locked-open {
-  display: none;
-}
-
-.md-sidenav-left {
-  left: 0;
-  top: 0;
-  transform: translate3d(0%, 0, 0);
-  &.md-closed {
-    transform: translate3d(-100%, 0, 0);
+  .sidenav-modal-bg.visible {
+    opacity: 0.1;
+    pointer-events: none;
   }
 }
+.sidenav-static {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.sidenav-static .sidenav-nav {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow-y: auto;
+}
 
-.md-sidenav-right {
-  left: 100%;
-  top: 0;
-  transform: translate3d(-100%, 0, 0);
-  &.md-closed {
-    transform: translate3d(0%, 0, 0);
+@media screen and (min-width: 850px) {
+  .sidenav-static {
+    -webkit-transform: translateX(0px);
+    -ms-transform: translateX(0px);
+    transform: translateX(0px);
+  }
+
+  .sidenav ul li a {
+    padding: 1.1em 1.6em;
+  }
+
+  .sidenav-static.transparent {
+    background: none;
+    box-shadow: none;
+    border-right: none;
+  }
+
+  .sidenav-static.transparent h1 {
+    color: #fafafa;
+  }
+
+  .sidenav-static.transparent .sidenav-nav ul li a {
+    color: #eeeeee;
+  }
+  .sidenav-static.transparent .sidenav-nav ul li a:hover {
+    background-color: rgba(97, 97, 97, 0.6);
+  }
+
+  .sidenav-static-content {
+    padding: 16px 264px;
   }
 }

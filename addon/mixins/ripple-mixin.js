@@ -19,6 +19,8 @@ export default Ember.Mixin.create({
   ripples:[],
   rippleStates:[],
 
+  rippleContainerSelector:'',
+
   onDidInsertElement:function(){
     if(!this.noink){
       this.element = this.$();
@@ -66,7 +68,7 @@ export default Ember.Mixin.create({
       return this.rippleContainer;
     }
     this.rippleContainer = Ember.$('<div class="md-ripple-container">');
-    this.element.append(this.rippleContainer);
+    this.$(this.rippleContainerSelector).append(this.rippleContainer);
     return this.rippleContainer;
   },
   /**

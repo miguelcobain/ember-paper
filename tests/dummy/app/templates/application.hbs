@@ -1,20 +1,22 @@
 {{#paper-sidenav}}
   {{#paper-drawer}}
     <h1 class="logo"><img src="ember-logo.png" height="30"/>&nbsp;&nbsp;<strong>Paper</strong></h1>
-    <nav class="sidenav-nav">
-      <ul>
-      <li>{{#link-to "index"}}Introduction{{/link-to}}</li>
-        <li>{{#link-to "typography"}}Typography{{/link-to}}</li>
-        <li>{{#link-to "lists"}}Lists{{/link-to}}</li>
-        <li>{{#link-to "button"}}Button{{/link-to}}</li>
-        <li>{{#link-to "checkbox"}}Checkbox{{/link-to}}</li>
-        <li>{{#link-to "toggle"}}Toggle{{/link-to}}</li>
-        <li>{{#link-to "radio"}}Radio{{/link-to}}</li>
-        <li>{{#link-to "navigation"}}Navigation{{/link-to}}</li>
-      </ul>
-    </nav>
+    {{#paper-content}}
+      <nav class="sidenav-nav">
+        <ul>
+        <li>{{#link-to "index"}}Introduction{{/link-to}}</li>
+          <li>{{#link-to "typography"}}Typography{{/link-to}}</li>
+          <li>{{#link-to "lists"}}Lists{{/link-to}}</li>
+          <li>{{#link-to "button"}}Button{{/link-to}}</li>
+          <li>{{#link-to "checkbox"}}Checkbox{{/link-to}}</li>
+          <li>{{#link-to "toggle"}}Toggle{{/link-to}}</li>
+          <li>{{#link-to "radio"}}Radio{{/link-to}}</li>
+          <li>{{#link-to "navigation"}}Navigation{{/link-to}}</li>
+        </ul>
+      </nav>
+    {{/paper-content}}
   {{/paper-drawer}}
-  {{#paper-content}}
+  {{#paper-content classNames="sidenav-static-content"}}
     {{outlet}}
   {{/paper-content}}
 {{/paper-sidenav}}
