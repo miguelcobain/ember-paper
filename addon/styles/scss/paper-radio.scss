@@ -1,103 +1,124 @@
-/* PAPER RADIO BUTTON */
-.paper-radio,
-.paper-toggle-thumb {
+$radio-width: 16px;
+$radio-height: $radio-width;
+
+md-radio-button,
+.md-switch-thumb { // Used in switch
   display: block;
   margin: 15px;
   white-space: nowrap;
   cursor: pointer;
+
+  input {
+    display: none;
+  }
+
+  .md-container {
+    position: relative;
+    top: 4px;
+    display: inline-block;
+    width: $radio-width;
+    height: $radio-width;
+    cursor: pointer;
+
+    .md-ripple-container {
+      position: absolute;
+      display: block;
+      width: $radio-width * 3;
+      height: $radio-width * 3;
+      left: -$radio-width;
+      top: -$radio-width;
+    }
+  }
+
+
+  .md-off {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: $radio-width;
+    height: $radio-width;
+    border: solid 2px;
+    border-radius: 50%;
+    transition: border-color ease 0.28s;
+  }
+
+  .md-on {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $radio-width;
+    height: $radio-width;
+    border-radius: 50%;
+    transition: transform ease 0.28s;
+    transform: scale(0);
+  }
+
+  &.md-checked .md-on {
+    transform: scale(0.55);
+  }
+
+  .md-label {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+    white-space: normal;
+    pointer-events: none;
+    width: auto;
+  }
+
+  .circle {
+    border-radius: 50%;
+  }
+
 }
-.paper-radio input,
-.paper-toggle-thumb input {
-  display: none;
-}
-.paper-radio .paper-container,
-.paper-toggle-thumb .paper-container {
-  position: relative;
-  top: 4px;
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-.paper-radio .paper-container .paper-ripple-container,
-.paper-toggle-thumb .paper-container .paper-ripple-container {
-  position: absolute;
+md-radio-group {
+  border: 1px dotted transparent;
   display: block;
-  width: 48px;
-  height: 48px;
-  left: -16px;
-  top: -16px;
-}
-.paper-radio .paper-off,
-.paper-toggle-thumb .paper-off {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 16px;
-  height: 16px;
-  border: solid 2px;
-  border-radius: 50%;
-  transition: border-color ease 0.28s;
-}
-.paper-radio .paper-on,
-.paper-toggle-thumb .paper-on {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  transition: transform ease 0.28s;
-  transform: scale(0);
-}
-.paper-radio.paper-checked .paper-on,
-.paper-toggle-thumb.paper-checked .paper-on {
-  transform: scale(0.55);
-}
-.paper-radio .paper-label,
-.paper-toggle-thumb .paper-label {
-  position: relative;
-  display: inline-block;
-  margin-left: 10px;
-  vertical-align: middle;
-  white-space: normal;
-  pointer-events: none;
-  width: auto;
-}
-.paper-radio .circle,
-.paper-toggle-thumb .circle {
-  border-radius: 50%;
+  outline: none;
 }
 
-.paper-radio .paper-container .paper-ripple,
-.paper-toggle .paper-toggle-thumb .paper-container .paper-ripple {
-  color: #0a8f08;
-}
-.paper-radio .paper-off,
-.paper-toggle .paper-toggle-thumb .paper-off {
-  border-color: rgba(0, 0, 0, 0.54);
-}
-.paper-radio .paper-on,
-.paper-toggle .paper-toggle-thumb .paper-on {
-  background-color: rgba(43, 175, 43, 0.87);
-}
-.paper-radio.paper-checked .paper-off,
-.paper-toggle .paper-toggle-thumb.paper-checked .paper-off {
-  border-color: rgba(43, 175, 43, 0.87);
-}
-.paper-radio.paper-checked .paper-ink-ripple,
-.paper-toggle .paper-toggle-thumb.paper-checked .paper-ink-ripple {
-  color: rgba(43, 175, 43, 0.87);
+//THEME
+$radio-color-palette: $color-green !default;
+$radio-on-background-color: rgba(map-get($radio-color-palette, '400'), 0.87) !default;
+$radio-ripple-color: map-get($radio-color-palette, '600') !default;
+$radio-off-border-color: $foreground-secondary-color !default;
+$radio-group-focus-border-color: $foreground-primary-color !default;
+$checkbox-disabled-border-color: $input-disabled-border-color !default;
+
+md-radio-button.md-#{$theme-name}-theme,
+md-switch.md-#{$theme-name}-theme .md-switch-thumb {
+  .md-container .md-ripple {
+    color: $radio-ripple-color;
+  }
+
+  .md-off {
+    border-color: $radio-off-border-color;
+  }
+
+
+  .md-on {
+    background-color: $radio-on-background-color;
+  }
+
+  &.md-checked .md-off {
+    border-color: $radio-on-background-color;
+  }
+
+  &.md-checked .md-ink-ripple {
+    color: $radio-on-background-color;
+  }
+
+  &[disabled] .md-off {
+    border-color: $checkbox-disabled-border-color;
+  }
+
+  &[disabled] .md-on {
+    background-color: $checkbox-disabled-border-color;
+  }
+
 }
 
-.paper-radio.disabled .paper-off{
-  border-color: rgba(0, 0, 0, 0.26);
-}
-
-.paper-radio.disabled .paper-on{
-  background-color: rgba(0, 0, 0, 0.26);
-}
-
-.paper-radio-group:focus {
-  border-color: rgba(0, 0, 0, 0.73);
+md-radio-group.md-#{$theme-name}-theme:focus {
+  border-color: $radio-group-focus-border-color;
 }
