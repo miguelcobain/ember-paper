@@ -14,6 +14,7 @@ Router.map(function() {
   this.route('typography');
   this.route('lists');
   this.route('navigation');
+  this.route('textfield');
   //this.route('index',);
 });
 

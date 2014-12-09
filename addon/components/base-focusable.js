@@ -49,10 +49,6 @@ export default Ember.Component.extend(EventsMixin,{
       this.set('active',true);
     }
   },
-  contextMenu:function(){
-    this.up();
-    this.focusIn();
-  },
   up:function(){
     this.set('pressed',false);
 
