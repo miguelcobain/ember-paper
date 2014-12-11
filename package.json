@@ -9,7 +9,8 @@
     "start": "ember server",
     "build": "ember build",
     "test": "ember test",
-    "sass": "node -e \"require('./compile-css.js')()\""
+    "sass": "node -e \"require('./compile-css.js')()\"",
+    "postinstall": "./postinstall.sh"
   },
   "repository": "https://github.com/miguelcobain/ember-paper",
   "engines": {
