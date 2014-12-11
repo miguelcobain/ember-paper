@@ -1,12 +1,12 @@
 <h3>Buttons</h3>
 <p>
-  {{#paper-button}}Button{{/paper-button}}
+  {{#paper-button action="flatButton"}}Button with action{{/paper-button}}
   {{#paper-button noink=true classNames="md-primary"}}Primary (noink){{/paper-button}}
   {{#paper-button disabled=true}}disabled{{/paper-button}}
   {{#paper-button classNames="md-warn"}}warn{{/paper-button}}
 </p>
 <p>
-  {{#paper-button raised=true action="raisedButton"}}Button{{/paper-button}}
+  {{#paper-button raised=true action="raisedButton"}}Button with action{{/paper-button}}
   {{#paper-button raised=true classNames="md-primary"}}Primary{{/paper-button}}
   {{#paper-button raised=true disabled=true}}disabled{{/paper-button}}
   {{#paper-button raised=true classNames="md-warn"}}warn{{/paper-button}}
@@ -14,13 +14,13 @@
 <h3>Template</h3>
 <pre>
 &lt;p&gt;
-  \{{#paper-button}}Button\{{/paper-button}}
+  \{{#paper-button action="flatButton"}}Button with action\{{/paper-button}}
   \{{#paper-button noink=true classNames="paper-primary"}}Primary (noink)\{{/paper-button}}
   \{{#paper-button disabled=true}}disabled\{{/paper-button}}
   \{{#paper-button classNames="paper-warn"}}warn\{{/paper-button}}
 &lt;/p&gt;
 &lt;p&gt;
-  \{{#paper-button raised=true}}Button\{{/paper-button}}
+  \{{#paper-button raised=true action="raisedButton"}}Button with action\{{/paper-button}}
   \{{#paper-button raised=true classNames="paper-primary"}}Primary\{{/paper-button}}
   \{{#paper-button raised=true disabled=true}}disabled\{{/paper-button}}
   \{{#paper-button raised=true classNames="paper-warn"}}warn\{{/paper-button}}
