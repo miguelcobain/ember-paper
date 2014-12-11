@@ -28,12 +28,15 @@ export default BaseFocusable.extend(ShadowMixin,RippleMixin,{
       hover = this.get('hover'),
       focus = this.get('focus');
     if (active || focus || hover) {
-      this.sendAction('action', this.get('param'));
       this.set('z',this.get('activeZ'));
     } else if (disabled) {
       this.set('z',this.get('disabledZ'));
     } else {
       this.set('z',this.get('defaultZ'));
     }
-  })
+  }),
+
+  click:function(){
+    this.sendAction();
+  }
 });
