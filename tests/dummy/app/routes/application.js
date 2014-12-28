@@ -7,6 +7,9 @@ export default Ember.Route.extend({
     },
     flatButton:function(){
       alert('You pressed a flat button.');
+    },
+    targetButton:function() {
+      alert('You pressed a target button. -from route');
     }
   }
 });
