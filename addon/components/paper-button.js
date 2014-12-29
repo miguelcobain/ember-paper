@@ -4,6 +4,7 @@ import ShadowMixin from '../mixins/shadow-mixin';
 import RippleMixin from '../mixins/ripple-mixin';
 
 export default BaseFocusable.extend(ShadowMixin,RippleMixin,{
+  attributeBindings: ['target', 'action'],
   tagName:'button',
   classNames:['md-button','md-default-theme'],
 
@@ -37,6 +38,16 @@ export default BaseFocusable.extend(ShadowMixin,RippleMixin,{
   }),
 
   click:function(){
+    var target = this.get('target');
+
+    if (target) {
+      this.get('target').send(this.get('action'));
+
+      if (typeof this.get('bubbles') !== 'undefined' && !this.get('bubbles')) {
+        return;
+      }
+    }
+
     this.sendAction();
   }
 });

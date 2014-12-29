@@ -9,7 +9,7 @@ module.exports = function (env) {
   var cssFile = 'vendor/' + config.addonPrefix + '.css';
   var vendorFile = path.resolve(__dirname, cssFile);
 
-  sass.renderFile({
+  sass.render({
     file: path.resolve(__dirname, config.sassMain),
     success: function(/*css*/) {
       console.log('node-sass compiled', vendorFile.split(__dirname)[1]);
