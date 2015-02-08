@@ -1,29 +1,44 @@
 <h3>Lists</h3>
-<div class="preview-block">
+<div class="preview-block list-demo">
 
-  <h3>Ordered</h3>
-  <ol>
-    <li>Item 1</li>
-    <li>Item 2</li>
-    <li>Item 3</li>
-    <li>Item 4</li>
-    <li>Item 5</li>
-  </ol>
-  <h3>Unordered</h3>
-  <ul>
-    <li>Item 1</li>
-    <li>Item 2</li>
-    <li>Item 3</li>
-    <li>Item 4</li>
-    <li>Item 5</li>
-  </ul>
-  <h3>Inlined</h3>
-  <ul class="paper-list-inline">
-    <li>Item 1</li>
-    <li>Item 2</li>
-    <li>Item 3</li>
-    <li>Item 4</li>
-    <li>Item 5</li>
-  </ul>
+
+  {{#paper-list}}
+    {{#each listData}}
+      {{#paper-item}}
+        {{#paper-tile-left}}
+          <img {{bind-attr src=face alt=who}} class="face">
+        {{/paper-tile-left}}
+
+        {{#paper-tile-content}}
+          <h3>{{what}}</h3>
+          <h4>{{who}}</h4>
+          <p>
+            {{notes}}
+          </p>
+        {{/paper-tile-content}}
+      {{/paper-item}}
+    {{/each}}
+  {{/paper-list}}
 
 </div>
+
+<h3>Template</h3>
+<pre>
+  \{{#paper-list}}
+    \{{#each listData}}
+      \{{#paper-item}}
+        \{{#paper-tile-left}}
+          &lt;img \{{bind-attr src=face alt=who}} class=&quot;face&quot;&gt;
+        \{{/paper-tile-left}}
+
+        \{{#paper-tile-content}}
+          &lt;h3&gt;\{{what}}&lt;/h3&gt;
+          &lt;h4&gt;\{{who}}&lt;/h4&gt;
+          &lt;p&gt;
+            \{{notes}}
+          &lt;/p&gt;
+        \{{/paper-tile-content}}
+      \{{/paper-item}}
+    \{{/each}}
+  \{{/paper-list}}
+</pre>
