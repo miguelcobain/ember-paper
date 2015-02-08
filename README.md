@@ -7,8 +7,7 @@ This project aims to bring Google's new [Material Design](https://www.google.com
 Install the ember-cli addon in your ember-cli project:
 
 ```
-$ npm install --save-dev ember-paper
-$ ember g ember-paper
+$ ember install:addon ember-paper
 ```
 
 All the components and styles are ready to use in your application templates.
