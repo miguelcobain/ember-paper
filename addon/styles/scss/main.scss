@@ -27,6 +27,19 @@
   src: local('RobotoDraft Italic'), local('RobotoDraft-Italic'), url(https://fonts.gstatic.com/s/robotodraft/v1/er-TIW55l9KWsTS1x9bTfgeOulFbQKHxPa89BaxZzA0.woff2) format('woff2'), url(https://fonts.gstatic.com/s/robotodraft/v1/er-TIW55l9KWsTS1x9bTfoo3ZslTYfJv0R05CazkwN8.woff) format('woff');
 }
 
+/* TODO is this part of the spec? Demos rely on this. */
+.paper-list-inline {
+  list-style  : none;
+  margin-left : -5px;
+  padding-left: 0;
+}
+
+.paper-list-inline > li {
+  display      : inline-block;
+  padding-left : 5px;
+  padding-right: 5px;
+}
+
 @import 'color-palette';
 @import 'mixins';
 @import 'variables';

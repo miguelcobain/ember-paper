@@ -1,3 +1,7 @@
+body{
+  font-size:14px;
+}
+
 .preview-block {
   background: #f5f5f5;
   padding: 20px;
@@ -7,4 +11,11 @@
   border-radius: 30px;
   border: 1px solid #ddd;
   width: 48px;
-  margin: 16px; }
+  margin: 16px;
+}
+
+.md-button {
+  min-width: 10em;
+  margin: 1em;
+  line-height: 25px;
+}
