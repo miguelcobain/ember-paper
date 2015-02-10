@@ -16,11 +16,13 @@ $foreground-text-shadow: none !default;
 $input-border-color: $foreground-secondary-color !default;
 $input-disabled-border-color: $foreground-tertiary-color !default;
 
-$background-color-palette: $color-grey !default;
-$background-color-base: map-get($background-color-palette, 'A100') !default;
-
+// Palettes for default theme
 $primary-color-palette: $color-light-blue !default;
+$accent-color-palette: $color-pink !default;
 $warn-color-palette: $color-red !default;
+$background-color-palette: $color-grey !default;
+
+$background-color-base: map-get($background-color-palette, 'A100') !default;
 $primary-color-palette-contrast-color: white !default;
 
 // Layout

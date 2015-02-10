@@ -10,7 +10,7 @@ Router.map(function() {
   this.route('button');
   this.route('checkbox');
   this.route('radio');
-  this.route('toggle');
+  this.route('switch');
   this.route('typography');
   this.route('list');
   this.route('divider');
