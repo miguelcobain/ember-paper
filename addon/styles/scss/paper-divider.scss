@@ -1,0 +1,13 @@
+md-divider {
+  display: block;
+  border-top: 1px solid;
+  margin: 0;
+
+  &[md-inset] {
+    margin-left: $baseline-grid * 10;
+  }
+}
+
+md-divider.md-#{$theme-name}-theme {
+  border-top-color: $foreground-quarternary-color;
+}

@@ -12,7 +12,8 @@ Router.map(function() {
   this.route('radio');
   this.route('toggle');
   this.route('typography');
-  this.route('lists');
+  this.route('list');
+  this.route('divider');
   this.route('navigation');
   this.route('textfield');
   //this.route('index',);

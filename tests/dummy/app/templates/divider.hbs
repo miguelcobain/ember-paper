@@ -1,7 +1,7 @@
-<h3>Lists</h3>
-<div class="preview-block list-demo">
+<h3>Dividers</h3>
 
-
+<h4>Full width dividers</h4>
+{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
   {{#paper-list}}
     {{#each listData}}
       {{#paper-item}}
@@ -17,13 +17,36 @@
           </p>
         {{/paper-tile-content}}
       {{/paper-item}}
+      {{paper-divider}}
     {{/each}}
   {{/paper-list}}
+{{/paper-content}}
 
-</div>
+<h4>Inset dividers</h4>
+{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
+  {{#paper-list}}
+    {{#each listData}}
+      {{#paper-item}}
+        {{#paper-tile-left}}
+          <img {{bind-attr src=face alt=who}} class="face">
+        {{/paper-tile-left}}
+
+        {{#paper-tile-content}}
+          <h3>{{what}}</h3>
+          <h4>{{who}}</h4>
+          <p>
+            {{notes}}
+          </p>
+        {{/paper-tile-content}}
+      {{/paper-item}}
+      {{paper-divider inset=true}}
+    {{/each}}
+  {{/paper-list}}
+{{/paper-content}}
 
 <h3>Template</h3>
 <pre>
+\{{#paper-content classNames="md-whiteframe-z1"}}
   \{{#paper-list}}
     \{{#each listData}}
       \{{#paper-item}}
@@ -39,6 +62,8 @@
           &lt;/p&gt;
         \{{/paper-tile-content}}
       \{{/paper-item}}
+      \{{paper-divider}} \{{! OR \{{paper-divider inset=true}} }}
     \{{/each}}
   \{{/paper-list}}
+\{{/paper-content}}
 </pre>
