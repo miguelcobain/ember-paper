@@ -10,7 +10,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border-right: 1px solid #e0e0e0;
   background: #fafafa;
   -webkit-transform: translateX(-240px);
   -ms-transform: translateX(-240px);
@@ -22,9 +21,8 @@
   z-index: 4;
 }
 .sidenav .logo {
-  padding: 18px 24px 18px 24px;
   font-size: 24px;
-  border-bottom: 1px solid #e0e0e0;
+  text-align:center;
 }
 
 .sidenav.visible {
@@ -163,6 +161,6 @@
   }
 
   .sidenav-static-content {
-    padding: 16px 264px;
+    padding: 0 0 0 240px;
   }
 }
