@@ -13,6 +13,7 @@
 </p>
 <p>
   {{#paper-button raised=true action="targetButton" target=view}}Button with target{{/paper-button}}
+  {{#paper-button raised=true classNames="md-primary" action="targetButton" target=view}}Button with bubble{{/paper-button}}
   {{#paper-button raised=true classNames="md-primary" action="targetButton" target=view bubbles=false}}Button no bubble{{/paper-button}}
 </p>
 <h3>Template</h3>
@@ -24,13 +25,14 @@
   \{{#paper-button classNames="md-warn"}}warn\{{/paper-button}}
 &lt;/p&gt;
 &lt;p&gt;
-  \{{#paper-button raised=true action="targetButton" target=view}}Button with target\{{/paper-button}}
-  \{{#paper-button raised=true classNames="md-primary" action="targetButton" target=view bubbles=false}}Button no bubble\{{/paper-button}}
-&lt;/p&gt;
-&lt;p&gt;
   \{{#paper-button raised=true action="raisedButton"}}Button with action\{{/paper-button}}
   \{{#paper-button raised=true classNames="md-primary"}}Primary\{{/paper-button}}
   \{{#paper-button raised=true disabled=true}}disabled\{{/paper-button}}
   \{{#paper-button raised=true classNames="md-warn"}}warn\{{/paper-button}}
+&lt;/p&gt;
+&lt;p&gt;
+  \{{#paper-button raised=true action="targetButton" target=view}}Button with target\{{/paper-button}}
+  \{{#paper-button raised=true classNames="md-primary" action="targetButton" target=view}}Button with bubble\{{/paper-button}}
+  \{{#paper-button raised=true classNames="md-primary" action="targetButton" target=view bubbles=false}}Button no bubble\{{/paper-button}}
 &lt;/p&gt;
 </pre>
