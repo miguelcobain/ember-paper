@@ -33,11 +33,9 @@
     {{/paper-content}}
   {{/paper-sidenav}}
 
-  <div layout="column" flex>
-    {{#paper-content flex="true"}}
-      {{outlet}}
-    {{/paper-content}}
-  </div>
+  {{#paper-content flex-layout="column" flex="true"}}
+    {{outlet}}
+  {{/paper-content}}
 
 {{/paper-nav-container}}
 
