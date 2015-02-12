@@ -3,9 +3,11 @@
   {{#paper-sidenav classNames="md-sidenav-left md-whiteframe-z2"}}
 
     {{#paper-toolbar}}
-      <h2 class="md-toolbar-tools logo">
-        <img src="ember-logo-white.png" height="30"/>&nbsp;&nbsp;<strong>Paper</strong>
-      </h2>
+      <div class="md-toolbar-tools">
+        <div class="logo">
+          <img src="ember-logo-white.png" height="30"/>&nbsp;&nbsp;<strong>Paper</strong>
+        </div>
+      </div>
     {{/paper-toolbar}}
 
     {{#paper-sidenav-toggle}}
@@ -13,7 +15,7 @@
     {{/paper-sidenav-toggle}}
 
     {{#paper-content}}
-      <nav class="sidenav-nav">
+      <nav class="sidenav">
         <ul>
         <li>{{#link-to "index"}}Introduction{{/link-to}}</li>
           <li>{{#link-to "navigation"}}Navigation{{/link-to}}</li>

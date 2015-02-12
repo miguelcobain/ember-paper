@@ -17,6 +17,43 @@ body {
   height: 100%;
 }
 
+.logo{
+  font-size:24px;
+}
+
+.sidenav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.sidenav ul li > a {
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+  color: #424242;
+  font-weight: 700;
+  padding: 1.1em 1.6em;
+}
+.sidenav ul li a:hover {
+  background-color: #e0e0e0;
+}
+
+.nav-button {
+  display: block;
+  width: 48px;
+  height: 48px;
+  position: fixed;
+  left: auto;
+  right: 0px;
+  top: 0;
+  border: 0;
+  overflow: hidden;
+  font-size: 24px;
+  z-index: 2;
+  line-height: 48px;
+  text-align: center;
+}
+
 .preview-block {
   background: #f5f5f5;
   padding: 20px;
