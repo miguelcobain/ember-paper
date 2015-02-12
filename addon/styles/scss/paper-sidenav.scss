@@ -24,11 +24,19 @@ md-sidenav {
   &.md-sidenav-left{
     left:-$sidenav-default-width;
     transition-property: left;
+
+    @media screen and (min-width: $locked-breakpoint) {
+      left:0;
+    }
   }
 
   &.md-sidenav-right{
     right:-$sidenav-default-width;
     transition-property: right;
+
+    @media screen and (min-width: $locked-breakpoint) {
+      right:0;
+    }
   }
 
   //revert to normal flex layout when locked
