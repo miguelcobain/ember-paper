@@ -1,6 +1,11 @@
-{{#paper-sidenav}}
-  {{#paper-drawer}}
+{{#paper-nav-container classNames="ember-app sidenav-locked"}}
+
+  {{#paper-sidenav classNames="md-sidenav-left md-whiteframe-z2"}}
+
     <h1 class="logo"><img src="ember-logo.png" height="30"/>&nbsp;&nbsp;<strong>Paper</strong></h1>
+    {{#paper-sidenav-toggle}}
+      TOGGLE SIDENAV
+    {{/paper-sidenav-toggle}}
     {{#paper-content}}
       <nav class="sidenav-nav">
         <ul>
@@ -17,10 +22,13 @@
         </ul>
       </nav>
     {{/paper-content}}
-  {{/paper-drawer}}
-  {{#paper-content classNames="sidenav-static-content"}}
-    {{outlet}}
-  {{/paper-content}}
-{{/paper-sidenav}}
+  {{/paper-sidenav}}
+  <div layout="column" flex>
+    {{#paper-content classNames="md-padding" flex="true"}}
+      {{outlet}}
+    {{/paper-content}}
+  </div>
+{{/paper-nav-container}}
+
 <!-- Place this tag right after the last button or just before your close body tag. -->
 <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
