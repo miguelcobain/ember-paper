@@ -22,12 +22,12 @@ md-sidenav {
   transition-timing-function: $swift-ease-in-timing-function;
 
   &.md-sidenav-left{
-    left:0;
+    left:-$sidenav-default-width;
     transition-property: left;
   }
 
   &.md-sidenav-right{
-    right:0;
+    right:-$sidenav-default-width;
     transition-property: right;
   }
 
@@ -58,12 +58,21 @@ md-nav-container {
   &.sidenav-expanded{
     md-sidenav{
       &.md-sidenav-left{
-        left:-$sidenav-default-width;
+        left:0;
       }
 
       &.md-sidenav-right{
-        right:-$sidenav-default-width;
+        right:0;
       }
+    }
+  }
+}
+
+//hide backdrop if locked
+md-nav-container{
+  &>md-backdrop {
+    @media screen and (min-width: $locked-breakpoint) {
+      display: none;
     }
   }
 }
