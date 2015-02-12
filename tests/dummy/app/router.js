@@ -16,7 +16,7 @@ Router.map(function() {
   this.route('divider');
   this.route('navigation');
   this.route('textfield');
-  //this.route('index',);
+  this.route('toolbar');
 });
 
 export default Router;

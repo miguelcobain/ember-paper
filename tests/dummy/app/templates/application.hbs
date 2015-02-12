@@ -2,10 +2,14 @@
 
   {{#paper-sidenav classNames="md-sidenav-left md-whiteframe-z2"}}
 
-    <h1 class="logo"><img src="ember-logo.png" height="30"/>&nbsp;&nbsp;<strong>Paper</strong></h1>
+    {{#paper-toolbar}}
+      <h1 class="logo"><img src="ember-logo.png" height="30"/>&nbsp;&nbsp;<strong>Paper</strong></h1>
+    {{/paper-toolbar}}
+
     {{#paper-sidenav-toggle}}
       TOGGLE SIDENAV
     {{/paper-sidenav-toggle}}
+
     {{#paper-content}}
       <nav class="sidenav-nav">
         <ul>
@@ -19,15 +23,18 @@
           <li>{{#link-to "switch"}}Switch{{/link-to}}</li>
           <li>{{#link-to "radio"}}Radio{{/link-to}}</li>
           <li>{{#link-to "textfield"}}Text Field{{/link-to}}</li>
+          <li>{{#link-to "toolbar"}}Toolbar{{/link-to}}</li>
         </ul>
       </nav>
     {{/paper-content}}
   {{/paper-sidenav}}
+
   <div layout="column" flex>
     {{#paper-content classNames="md-padding" flex="true"}}
       {{outlet}}
     {{/paper-content}}
   </div>
+  
 {{/paper-nav-container}}
 
 <!-- Place this tag right after the last button or just before your close body tag. -->

@@ -1,38 +1,44 @@
-<h3>Buttons</h3>
-<p>
-  {{#paper-button action="flatButton"}}Button with action{{/paper-button}}
-  {{#paper-button noink=true classNames="md-primary"}}Primary (noink){{/paper-button}}
-  {{#paper-button disabled=true}}disabled{{/paper-button}}
-  {{#paper-button classNames="md-warn"}}warn{{/paper-button}}
-</p>
-<p>
-  {{#paper-button raised=true action="raisedButton"}}Button with action{{/paper-button}}
-  {{#paper-button raised=true classNames="md-primary"}}Primary{{/paper-button}}
-  {{#paper-button raised=true disabled=true}}disabled{{/paper-button}}
-  {{#paper-button raised=true classNames="md-warn"}}warn{{/paper-button}}
-</p>
-<p>
-  {{#paper-button raised=true action="targetButton" target=view}}Button with target{{/paper-button}}
-  {{#paper-button raised=true classNames="md-primary" action="targetButton" target=view}}Button with bubble{{/paper-button}}
-  {{#paper-button raised=true classNames="md-primary" action="targetButton" target=view bubbles=false}}Button no bubble{{/paper-button}}
-</p>
-<h3>Template</h3>
-<pre>
-&lt;p&gt;
-  \{{#paper-button action="flatButton"}}Button with action\{{/paper-button}}
-  \{{#paper-button noink=true classNames="md-primary"}}Primary (noink)\{{/paper-button}}
-  \{{#paper-button disabled=true}}disabled\{{/paper-button}}
-  \{{#paper-button classNames="md-warn"}}warn\{{/paper-button}}
-&lt;/p&gt;
-&lt;p&gt;
-  \{{#paper-button raised=true action="raisedButton"}}Button with action\{{/paper-button}}
-  \{{#paper-button raised=true classNames="md-primary"}}Primary\{{/paper-button}}
-  \{{#paper-button raised=true disabled=true}}disabled\{{/paper-button}}
-  \{{#paper-button raised=true classNames="md-warn"}}warn\{{/paper-button}}
-&lt;/p&gt;
-&lt;p&gt;
-  \{{#paper-button raised=true action="targetButton" target=view}}Button with target\{{/paper-button}}
-  \{{#paper-button raised=true classNames="md-primary" action="targetButton" target=view}}Button with bubble\{{/paper-button}}
-  \{{#paper-button raised=true classNames="md-primary" action="targetButton" target=view bubbles=false}}Button no bubble\{{/paper-button}}
-&lt;/p&gt;
-</pre>
+{{#paper-toolbar}}
+  <h2 class="md-toolbar-tools">
+    <span>Buttons</span>
+  </h2>
+{{/paper-toolbar}}
+{{#paper-content classNames="md-padding"}}
+  <p>
+    {{#paper-button action="flatButton"}}Button with action{{/paper-button}}
+    {{#paper-button noink=true classNames="md-primary"}}Primary (noink){{/paper-button}}
+    {{#paper-button disabled=true}}disabled{{/paper-button}}
+    {{#paper-button classNames="md-warn"}}warn{{/paper-button}}
+  </p>
+  <p>
+    {{#paper-button raised=true action="raisedButton"}}Button with action{{/paper-button}}
+    {{#paper-button raised=true classNames="md-primary"}}Primary{{/paper-button}}
+    {{#paper-button raised=true disabled=true}}disabled{{/paper-button}}
+    {{#paper-button raised=true classNames="md-warn"}}warn{{/paper-button}}
+  </p>
+  <p>
+    {{#paper-button raised=true action="targetButton" target=view}}Button with target{{/paper-button}}
+    {{#paper-button raised=true classNames="md-primary" action="targetButton" target=view}}Button with bubble{{/paper-button}}
+    {{#paper-button raised=true classNames="md-primary" action="targetButton" target=view bubbles=false}}Button no bubble{{/paper-button}}
+  </p>
+  <h3>Template</h3>
+  <pre>
+  &lt;p&gt;
+    \{{#paper-button action="flatButton"}}Button with action\{{/paper-button}}
+    \{{#paper-button noink=true classNames="md-primary"}}Primary (noink)\{{/paper-button}}
+    \{{#paper-button disabled=true}}disabled\{{/paper-button}}
+    \{{#paper-button classNames="md-warn"}}warn\{{/paper-button}}
+  &lt;/p&gt;
+  &lt;p&gt;
+    \{{#paper-button raised=true action="raisedButton"}}Button with action\{{/paper-button}}
+    \{{#paper-button raised=true classNames="md-primary"}}Primary\{{/paper-button}}
+    \{{#paper-button raised=true disabled=true}}disabled\{{/paper-button}}
+    \{{#paper-button raised=true classNames="md-warn"}}warn\{{/paper-button}}
+  &lt;/p&gt;
+  &lt;p&gt;
+    \{{#paper-button raised=true action="targetButton" target=view}}Button with target\{{/paper-button}}
+    \{{#paper-button raised=true classNames="md-primary" action="targetButton" target=view}}Button with bubble\{{/paper-button}}
+    \{{#paper-button raised=true classNames="md-primary" action="targetButton" target=view bubbles=false}}Button no bubble\{{/paper-button}}
+  &lt;/p&gt;
+  </pre>
+{{/paper-content}}
