@@ -1,15 +1,21 @@
-<h3>Checkboxes</h3>
-{{#paper-checkbox checked=value1}}A checkbox: {{value1}}{{/paper-checkbox}}
-{{#paper-checkbox checked=value2}}A checkbox: {{#if value2}}yep{{else}}nope{{/if}}{{/paper-checkbox}}
-{{#paper-checkbox disabled=true}}Checkbox (disabled){{/paper-checkbox}}
-{{#paper-checkbox disabled=true checked=true}}Checkbox (disabled and checked){{/paper-checkbox}}
-{{#paper-checkbox noink=true}}Checkbox (no ink){{/paper-checkbox}}
+{{#paper-toolbar}}
+  <h2 class="md-toolbar-tools">
+    <span>Checkboxes</span>
+  </h2>
+{{/paper-toolbar}}
+{{#paper-content classNames="md-padding"}}
+  {{#paper-checkbox checked=value1}}A checkbox: {{value1}}{{/paper-checkbox}}
+  {{#paper-checkbox checked=value2}}A checkbox: {{#if value2}}yep{{else}}nope{{/if}}{{/paper-checkbox}}
+  {{#paper-checkbox disabled=true}}Checkbox (disabled){{/paper-checkbox}}
+  {{#paper-checkbox disabled=true checked=true}}Checkbox (disabled and checked){{/paper-checkbox}}
+  {{#paper-checkbox noink=true}}Checkbox (no ink){{/paper-checkbox}}
 
-<h3>Template</h3>
-<pre>
-  \{{#paper-checkbox checked=value1}}A checkbox: \{{value1}}\{{/paper-checkbox}}
-  \{{#paper-checkbox checked=value2}}A checkbox: \{{#if value2}}yep\{{else}}nope\{{/if}}\{{/paper-checkbox}}
-  \{{#paper-checkbox disabled=true}}Checkbox (disabled)\{{/paper-checkbox}}
-  \{{#paper-checkbox disabled=true checked=true}}Checkbox (disabled and checked)\{{/paper-checkbox}}
-  \{{#paper-checkbox noink=true}}Checkbox (no ink)\{{/paper-checkbox}}
-</pre>
+  <h3>Template</h3>
+  <pre>
+    \{{#paper-checkbox checked=value1}}A checkbox: \{{value1}}\{{/paper-checkbox}}
+    \{{#paper-checkbox checked=value2}}A checkbox: \{{#if value2}}yep\{{else}}nope\{{/if}}\{{/paper-checkbox}}
+    \{{#paper-checkbox disabled=true}}Checkbox (disabled)\{{/paper-checkbox}}
+    \{{#paper-checkbox disabled=true checked=true}}Checkbox (disabled and checked)\{{/paper-checkbox}}
+    \{{#paper-checkbox noink=true}}Checkbox (no ink)\{{/paper-checkbox}}
+  </pre>
+{{/paper-content}}

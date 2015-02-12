@@ -1,23 +1,30 @@
-<h3>Radio Buttons</h3>
-<ul class="paper-list-inline">
-  <li>{{#paper-radio}}A radio button{{/paper-radio}}</li>
-  <li>{{#paper-radio toggle=true}}Toggable radio button{{/paper-radio}}</li>
-  <li>{{#paper-radio disabled=true}}Disabled radio button{{/paper-radio}}</li>
-</ul>
-<h3>Radio Button Group</h3>
-<ul class="paper-list-inline">
-  <li>{{#paper-radio value="1" selected=selectedValue}}Radio button 1{{/paper-radio}}</li>
-  <li>{{#paper-radio value="2" selected=selectedValue}}Radio button 2{{/paper-radio}}</li>
-  <li>{{#paper-radio value="3" selected=selectedValue}}Radio button 3{{/paper-radio}}</li>
-</ul>
-<p>Selected value: {{selectedValue}}</p>
-<h3>Template</h3>
-<pre>
-  \{{#paper-radio}}A radio button\{{/paper-radio}}
-  \{{#paper-radio toggle=true}}Toggable radio button\{{/paper-radio}}
-  \{{#paper-radio disabled=true}}Disabled radio button\{{/paper-radio}}
+{{#paper-toolbar}}
+  <h2 class="md-toolbar-tools">
+    <span>Radio buttons</span>
+  </h2>
+{{/paper-toolbar}}
 
-  \{{#paper-radio value="1" selected=selectedValue}}Radio button 1\{{/paper-radio}}
-  \{{#paper-radio value="2" selected=selectedValue}}Radio button 2\{{/paper-radio}}
-  \{{#paper-radio value="3" selected=selectedValue}}Radio button 3\{{/paper-radio}}
-</pre>
+{{#paper-content classNames="md-padding"}}
+  <ul class="paper-list-inline">
+    <li>{{#paper-radio}}A radio button{{/paper-radio}}</li>
+    <li>{{#paper-radio toggle=true}}Toggable radio button{{/paper-radio}}</li>
+    <li>{{#paper-radio disabled=true}}Disabled radio button{{/paper-radio}}</li>
+  </ul>
+  <h3>Radio Button Group</h3>
+  <ul class="paper-list-inline">
+    <li>{{#paper-radio value="1" selected=selectedValue}}Radio button 1{{/paper-radio}}</li>
+    <li>{{#paper-radio value="2" selected=selectedValue}}Radio button 2{{/paper-radio}}</li>
+    <li>{{#paper-radio value="3" selected=selectedValue}}Radio button 3{{/paper-radio}}</li>
+  </ul>
+  <p>Selected value: {{selectedValue}}</p>
+  <h3>Template</h3>
+  <pre>
+    \{{#paper-radio}}A radio button\{{/paper-radio}}
+    \{{#paper-radio toggle=true}}Toggable radio button\{{/paper-radio}}
+    \{{#paper-radio disabled=true}}Disabled radio button\{{/paper-radio}}
+
+    \{{#paper-radio value="1" selected=selectedValue}}Radio button 1\{{/paper-radio}}
+    \{{#paper-radio value="2" selected=selectedValue}}Radio button 2\{{/paper-radio}}
+    \{{#paper-radio value="3" selected=selectedValue}}Radio button 3\{{/paper-radio}}
+  </pre>
+{{/paper-content}}

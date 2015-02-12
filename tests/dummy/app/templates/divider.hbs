@@ -1,69 +1,77 @@
-<h3>Dividers</h3>
+{{#paper-toolbar}}
+  <h2 class="md-toolbar-tools">
+    <span>Dividers</span>
+  </h2>
+{{/paper-toolbar}}
 
-<h4>Full width dividers</h4>
-{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
-  {{#paper-list}}
-    {{#each listData}}
-      {{#paper-item}}
-        {{#paper-tile-left}}
-          <img {{bind-attr src=face alt=who}} class="face">
-        {{/paper-tile-left}}
+{{#paper-content classNames="md-padding"}}
 
-        {{#paper-tile-content}}
-          <h3>{{what}}</h3>
-          <h4>{{who}}</h4>
-          <p>
-            {{notes}}
-          </p>
-        {{/paper-tile-content}}
-      {{/paper-item}}
-      {{paper-divider}}
-    {{/each}}
-  {{/paper-list}}
+  <h4>Full width dividers</h4>
+  {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
+    {{#paper-list}}
+      {{#each listData}}
+        {{#paper-item}}
+          {{#paper-tile-left}}
+            <img {{bind-attr src=face alt=who}} class="face">
+          {{/paper-tile-left}}
+
+          {{#paper-tile-content}}
+            <h3>{{what}}</h3>
+            <h4>{{who}}</h4>
+            <p>
+              {{notes}}
+            </p>
+          {{/paper-tile-content}}
+        {{/paper-item}}
+        {{paper-divider}}
+      {{/each}}
+    {{/paper-list}}
+  {{/paper-content}}
+
+  <h4>Inset dividers</h4>
+  {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
+    {{#paper-list}}
+      {{#each listData}}
+        {{#paper-item}}
+          {{#paper-tile-left}}
+            <img {{bind-attr src=face alt=who}} class="face">
+          {{/paper-tile-left}}
+
+          {{#paper-tile-content}}
+            <h3>{{what}}</h3>
+            <h4>{{who}}</h4>
+            <p>
+              {{notes}}
+            </p>
+          {{/paper-tile-content}}
+        {{/paper-item}}
+        {{paper-divider inset=true}}
+      {{/each}}
+    {{/paper-list}}
+  {{/paper-content}}
+
+  <h3>Template</h3>
+  <pre>
+  \{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
+    \{{#paper-list}}
+      \{{#each listData}}
+        \{{#paper-item}}
+          \{{#paper-tile-left}}
+            &lt;img \{{bind-attr src=face alt=who}} class=&quot;face&quot;&gt;
+          \{{/paper-tile-left}}
+
+          \{{#paper-tile-content}}
+            &lt;h3&gt;\{{what}}&lt;/h3&gt;
+            &lt;h4&gt;\{{who}}&lt;/h4&gt;
+            &lt;p&gt;
+              \{{notes}}
+            &lt;/p&gt;
+          \{{/paper-tile-content}}
+        \{{/paper-item}}
+        \{{paper-divider}} \{{! OR \{{paper-divider inset=true}} }}
+      \{{/each}}
+    \{{/paper-list}}
+  \{{/paper-content}}
+  </pre>
+
 {{/paper-content}}
-
-<h4>Inset dividers</h4>
-{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
-  {{#paper-list}}
-    {{#each listData}}
-      {{#paper-item}}
-        {{#paper-tile-left}}
-          <img {{bind-attr src=face alt=who}} class="face">
-        {{/paper-tile-left}}
-
-        {{#paper-tile-content}}
-          <h3>{{what}}</h3>
-          <h4>{{who}}</h4>
-          <p>
-            {{notes}}
-          </p>
-        {{/paper-tile-content}}
-      {{/paper-item}}
-      {{paper-divider inset=true}}
-    {{/each}}
-  {{/paper-list}}
-{{/paper-content}}
-
-<h3>Template</h3>
-<pre>
-\{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
-  \{{#paper-list}}
-    \{{#each listData}}
-      \{{#paper-item}}
-        \{{#paper-tile-left}}
-          &lt;img \{{bind-attr src=face alt=who}} class=&quot;face&quot;&gt;
-        \{{/paper-tile-left}}
-
-        \{{#paper-tile-content}}
-          &lt;h3&gt;\{{what}}&lt;/h3&gt;
-          &lt;h4&gt;\{{who}}&lt;/h4&gt;
-          &lt;p&gt;
-            \{{notes}}
-          &lt;/p&gt;
-        \{{/paper-tile-content}}
-      \{{/paper-item}}
-      \{{paper-divider}} \{{! OR \{{paper-divider inset=true}} }}
-    \{{/each}}
-  \{{/paper-list}}
-\{{/paper-content}}
-</pre>

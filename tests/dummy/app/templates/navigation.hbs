@@ -1,30 +1,37 @@
-<h3>Navigation</h3>
-<p>Try to resize this webpage.</p>
-{{#paper-sidenav-toggle}}
-  TOGGLE SIDENAV
-{{/paper-sidenav-toggle}}
-<h3>Template</h3>
-<pre>
-  \{{#paper-sidenav}}
-    \{{#paper-drawer}}
+{{#paper-toolbar}}
+  <h2 class="md-toolbar-tools">
+    <span>Navigation</span>
+  </h2>
+{{/paper-toolbar}}
 
-      &lt;h1 class="logo"&gt;&lt;img src="ember-logo.png" height="30"/&gt;&nbsp;&nbsp;&lt;strong&gt;Paper&lt;/strong&gt;&lt;/h1&gt;
-      &lt;nav class="sidenav-nav"&gt;
-        &lt;ul&gt;
-          &lt;li&gt;\{{#link-to "typography"}}Typography\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "lists"}}Lists\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "button"}}Button\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "checkbox"}}Checkbox\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "toggle"}}Toggle\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "radio"}}Radio\{{/link-to}}&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/nav&gt;
+{{#paper-content classNames="md-padding"}}
+  <p>Try to resize this webpage.</p>
+  {{#paper-sidenav-toggle}}
+    TOGGLE SIDENAV
+  {{/paper-sidenav-toggle}}
+  <h3>Template</h3>
+  <pre>
+    \{{#paper-sidenav}}
+      \{{#paper-drawer}}
 
-    \{{/paper-drawer}}
-    \{{#paper-content  classNames="sidenav-static-content"}}
+        &lt;h1 class="logo"&gt;&lt;img src="ember-logo.png" height="30"/&gt;&nbsp;&nbsp;&lt;strong&gt;Paper&lt;/strong&gt;&lt;/h1&gt;
+        &lt;nav class="sidenav-nav"&gt;
+          &lt;ul&gt;
+            &lt;li&gt;\{{#link-to "typography"}}Typography\{{/link-to}}&lt;/li&gt;
+            &lt;li&gt;\{{#link-to "lists"}}Lists\{{/link-to}}&lt;/li&gt;
+            &lt;li&gt;\{{#link-to "button"}}Button\{{/link-to}}&lt;/li&gt;
+            &lt;li&gt;\{{#link-to "checkbox"}}Checkbox\{{/link-to}}&lt;/li&gt;
+            &lt;li&gt;\{{#link-to "toggle"}}Toggle\{{/link-to}}&lt;/li&gt;
+            &lt;li&gt;\{{#link-to "radio"}}Radio\{{/link-to}}&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/nav&gt;
 
-      \{{outlet}}
+      \{{/paper-drawer}}
+      \{{#paper-content  classNames="sidenav-static-content"}}
 
-    \{{/paper-content}}
-  \{{/paper-sidenav}}
-</pre>
+        \{{outlet}}
+
+      \{{/paper-content}}
+    \{{/paper-sidenav}}
+  </pre>
+{{/paper-content}}

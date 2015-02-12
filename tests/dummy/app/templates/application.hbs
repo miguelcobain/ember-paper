@@ -3,7 +3,9 @@
   {{#paper-sidenav classNames="md-sidenav-left md-whiteframe-z2"}}
 
     {{#paper-toolbar}}
-      <h1 class="logo"><img src="ember-logo.png" height="30"/>&nbsp;&nbsp;<strong>Paper</strong></h1>
+      <h2 class="md-toolbar-tools logo">
+        <img src="ember-logo.png" height="30"/>&nbsp;&nbsp;<strong>Paper</strong>
+      </h2>
     {{/paper-toolbar}}
 
     {{#paper-sidenav-toggle}}
@@ -30,11 +32,11 @@
   {{/paper-sidenav}}
 
   <div layout="column" flex>
-    {{#paper-content classNames="md-padding" flex="true"}}
+    {{#paper-content flex="true"}}
       {{outlet}}
     {{/paper-content}}
   </div>
-  
+
 {{/paper-nav-container}}
 
 <!-- Place this tag right after the last button or just before your close body tag. -->

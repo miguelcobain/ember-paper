@@ -1,16 +1,23 @@
-<h3>Text fields</h3>
-<ul class="paper-list-inline">
-  <li>{{paper-text label="Name" value=name}}</li>
-  <li>{{paper-text label="E-mail" type="email" value=email}}</li>
-  <li>{{paper-text label="Password" type="password"}}</li>
-  <li>{{paper-text label="E-mail" type="email" disabled=true}}</li>
-</ul>
-<p>Name: {{name}}</p>
-<p>Email: {{email}}</p>
-<h3>Template</h3>
-<pre>
-  \{{paper-text label="Name" value=name}}
-  \{{paper-text label="E-mail" type="email" value=email}}
-  \{{paper-text label="Password" type="password"}}
-  \{{paper-text label="E-mail" type="email" disabled=true}}
-</pre>
+{{#paper-toolbar}}
+  <h2 class="md-toolbar-tools">
+    <span>Text fields</span>
+  </h2>
+{{/paper-toolbar}}
+
+{{#paper-content classNames="md-padding"}}
+  <ul class="paper-list-inline">
+    <li>{{paper-text label="Name" value=name}}</li>
+    <li>{{paper-text label="E-mail" type="email" value=email}}</li>
+    <li>{{paper-text label="Password" type="password"}}</li>
+    <li>{{paper-text label="E-mail" type="email" disabled=true}}</li>
+  </ul>
+  <p>Name: {{name}}</p>
+  <p>Email: {{email}}</p>
+  <h3>Template</h3>
+  <pre>
+    \{{paper-text label="Name" value=name}}
+    \{{paper-text label="E-mail" type="email" value=email}}
+    \{{paper-text label="Password" type="password"}}
+    \{{paper-text label="E-mail" type="email" disabled=true}}
+  </pre>
+{{/paper-content}}
