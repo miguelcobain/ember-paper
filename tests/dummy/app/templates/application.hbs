@@ -1,6 +1,6 @@
 {{#paper-nav-container classNames="ember-app"}}
 
-  {{#paper-sidenav classNames="md-sidenav-left md-whiteframe-z2"}}
+  {{#paper-sidenav classNames="md-sidenav-left md-whiteframe-z2" flex-layout="column"}}
 
     {{#paper-toolbar}}
       <div class="md-toolbar-tools">
@@ -30,7 +30,7 @@
     {{/paper-content}}
   {{/paper-sidenav}}
 
-  {{#paper-content flex-layout="column" flex=true}}
+  {{#paper-content flex-layout="column"}}
     {{outlet}}
   {{/paper-content}}
 
