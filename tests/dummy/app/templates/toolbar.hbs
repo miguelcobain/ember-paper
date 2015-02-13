@@ -1,8 +1,30 @@
 {{#paper-toolbar}}
   <h2 class="md-toolbar-tools">
-    <span>Toolbar</span>
+    {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
+      {{paper-icon icon="menu"}}
+    {{/paper-sidenav-toggle}}
+    <span>Toolbars</span>
   </h2>
 {{/paper-toolbar}}
 {{#paper-content classNames="md-padding"}}
-  <h3>Stuff</h3>
+
+  {{#paper-toolbar}}
+    <div class="md-toolbar-tools">
+      {{#paper-button}}Example button{{/paper-button}}
+      {{#paper-button}}Example button{{/paper-button}}
+    </div>
+  {{/paper-toolbar}}
+
+  <p>"md-toolbar-tools" is a class that centers your elements in the toolbar.</p>
+
+  <h3>Template</h3>
+  <pre>
+    \{{#paper-toolbar}}
+      &lt;div class="md-toolbar-tools"&gt;
+        \{{#paper-button}}Example button\{{/paper-button}}
+        \{{#paper-button}}Example button\{{/paper-button}}
+      &lt;/div&gt;
+    \{{/paper-toolbar}}
+  </pre>
+
 {{/paper-content}}

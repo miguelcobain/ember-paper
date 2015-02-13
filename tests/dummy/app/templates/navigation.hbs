@@ -1,14 +1,14 @@
 {{#paper-toolbar}}
   <h2 class="md-toolbar-tools">
+    {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
+      {{paper-icon icon="menu"}}
+    {{/paper-sidenav-toggle}}
     <span>Navigation</span>
   </h2>
 {{/paper-toolbar}}
 
 {{#paper-content classNames="md-padding"}}
   <p>Try to resize this webpage.</p>
-  {{#paper-sidenav-toggle}}
-    TOGGLE SIDENAV
-  {{/paper-sidenav-toggle}}
   <h3>Template</h3>
   <pre>
     \{{#paper-sidenav}}
