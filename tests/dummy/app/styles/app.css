@@ -77,3 +77,10 @@ body {
   margin: 1em;
   line-height: 25px;
 }
+
+.icon-demo {
+  font-size: 24px;
+}
+.icon-demo md-icon{
+  margin:16px;
+}

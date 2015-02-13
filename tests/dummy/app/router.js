@@ -17,6 +17,7 @@ Router.map(function() {
   this.route('navigation');
   this.route('textfield');
   this.route('toolbar');
+  this.route('icons');
 });
 
 export default Router;
