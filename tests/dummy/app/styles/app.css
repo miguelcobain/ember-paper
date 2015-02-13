@@ -78,9 +78,13 @@ body {
   line-height: 25px;
 }
 
-.icon-demo {
+.icon-demo md-icon {
   font-size: 24px;
-}
-.icon-demo md-icon{
   margin:16px;
+}
+
+.icon-demo .icon-tile{
+  float:left;
+  min-width:200px;
+  text-align:center;
 }
