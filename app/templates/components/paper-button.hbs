@@ -1,3 +1,7 @@
 <span {{bind-attr type=type disabled=disabled}}>
-  {{yield}}
+  {{#if template}}
+    {{yield}}
+  {{else}}
+    {{label}}
+  {{/if}}
 </span>

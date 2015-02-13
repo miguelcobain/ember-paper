@@ -20,6 +20,8 @@
     <li>{{#paper-radio value="3" selected=selectedValue}}Radio button 3{{/paper-radio}}</li>
   </ul>
   <p>Selected value: {{selectedValue}}</p>
+
+  <p>{{paper-radio toggle=true label="Blockless version"}}</p>
   <h3>Template</h3>
   <pre>
     \{{#paper-radio}}A radio button\{{/paper-radio}}
@@ -29,5 +31,7 @@
     \{{#paper-radio value="1" selected=selectedValue}}Radio button 1\{{/paper-radio}}
     \{{#paper-radio value="2" selected=selectedValue}}Radio button 2\{{/paper-radio}}
     \{{#paper-radio value="3" selected=selectedValue}}Radio button 3\{{/paper-radio}}
+
+    \{{paper-radio toggle=true label="Blockless version"}}
   </pre>
 {{/paper-content}}
