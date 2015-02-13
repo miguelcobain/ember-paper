@@ -14,7 +14,7 @@ Router.map(function() {
   this.route('typography');
   this.route('list');
   this.route('divider');
-  this.route('navigation');
+  this.route('sidenav');
   this.route('textfield');
   this.route('toolbar');
   this.route('icons');
