@@ -11,27 +11,42 @@
   <p>Try to resize this webpage.</p>
   <h3>Template</h3>
   <pre>
-    \{{#paper-sidenav}}
-      \{{#paper-drawer}}
+    \{{#paper-nav-container classNames="ember-app"}}
 
-        &lt;h1 class="logo"&gt;&lt;img src="ember-logo.png" height="30"/&gt;&nbsp;&nbsp;&lt;strong&gt;Paper&lt;/strong&gt;&lt;/h1&gt;
-        &lt;nav class="sidenav-nav"&gt;
-          &lt;ul&gt;
-            &lt;li&gt;\{{#link-to "typography"}}Typography\{{/link-to}}&lt;/li&gt;
-            &lt;li&gt;\{{#link-to "lists"}}Lists\{{/link-to}}&lt;/li&gt;
-            &lt;li&gt;\{{#link-to "button"}}Button\{{/link-to}}&lt;/li&gt;
-            &lt;li&gt;\{{#link-to "checkbox"}}Checkbox\{{/link-to}}&lt;/li&gt;
-            &lt;li&gt;\{{#link-to "toggle"}}Toggle\{{/link-to}}&lt;/li&gt;
-            &lt;li&gt;\{{#link-to "radio"}}Radio\{{/link-to}}&lt;/li&gt;
-          &lt;/ul&gt;
-        &lt;/nav&gt;
+      \{{#paper-sidenav classNames="md-sidenav-left md-whiteframe-z2"}}
 
-      \{{/paper-drawer}}
-      \{{#paper-content  classNames="sidenav-static-content"}}
+        \{{#paper-toolbar}}
+          &lt;div class="md-toolbar-tools"&gt;
+            &lt;div class="logo"&gt;
+              &lt;img src="ember-logo-white.png" height="30"/&gt;&nbsp;&nbsp;&lt;strong&gt;Paper&lt;/strong&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        \{{/paper-toolbar}}
 
+        \{{#paper-content}}
+          &lt;nav class="sidenav"&gt;
+            &lt;ul&gt;
+              &lt;li&gt;\{{#link-to "index"}}Introduction\{{/link-to}}&lt;/li&gt;
+              &lt;li&gt;\{{#link-to "navigation"}}Navigation\{{/link-to}}&lt;/li&gt;
+              &lt;li&gt;\{{#link-to "typography"}}Typography\{{/link-to}}&lt;/li&gt;
+              &lt;li&gt;\{{#link-to "list"}}List\{{/link-to}}&lt;/li&gt;
+              &lt;li&gt;\{{#link-to "divider"}}Divider\{{/link-to}}&lt;/li&gt;
+              &lt;li&gt;\{{#link-to "button"}}Button\{{/link-to}}&lt;/li&gt;
+              &lt;li&gt;\{{#link-to "checkbox"}}Checkbox\{{/link-to}}&lt;/li&gt;
+              &lt;li&gt;\{{#link-to "switch"}}Switch\{{/link-to}}&lt;/li&gt;
+              &lt;li&gt;\{{#link-to "radio"}}Radio\{{/link-to}}&lt;/li&gt;
+              &lt;li&gt;\{{#link-to "textfield"}}Text Field\{{/link-to}}&lt;/li&gt;
+              &lt;li&gt;\{{#link-to "toolbar"}}Toolbar\{{/link-to}}&lt;/li&gt;
+              &lt;li&gt;\{{#link-to "icons"}}Icons\{{/link-to}}&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/nav&gt;
+        \{{/paper-content}}
+      \{{/paper-sidenav}}
+
+      \{{#paper-content flex-layout="column" flex=true}}
         \{{outlet}}
-
       \{{/paper-content}}
-    \{{/paper-sidenav}}
+
+    \{{/paper-nav-container}}
   </pre>
 {{/paper-content}}
