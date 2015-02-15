@@ -21,6 +21,6 @@ export default BaseFocusable.extend(RippleMixin,{
       this.sendAction();
     }
 
-    return typeof this.get('bubbles') == 'undefined' || this.get('bubbles') == true;
+    return typeof this.get('bubbles') === 'undefined' || this.get('bubbles') === true;
   }
 });

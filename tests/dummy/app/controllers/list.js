@@ -27,4 +27,4 @@ export default Ember.Controller.extend({
     what: 'a message for you',
     notes: 'this is a message for you about ember'
   }]
-})
+});

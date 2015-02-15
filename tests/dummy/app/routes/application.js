@@ -11,7 +11,7 @@ export default Ember.Route.extend({
     targetButton:function() {
       alert('You pressed a target button. -from route');
     },
-    willTransition: function(transition) {
+    willTransition: function() {
       this.controller.set('drawerOpen',false);
     }
   }
