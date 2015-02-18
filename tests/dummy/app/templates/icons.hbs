@@ -10,10 +10,23 @@
 {{#paper-content classNames="md-padding icon-demo"}}
 
   <h3>Template</h3>
+  <h4>Basic Icons</h4>
   <pre>
     \{{paper-icon icon="check"}}
   </pre>
-
+  <h4>Larger Icons</h4>
+    <pre>
+      \{{paper-icon icon="check" class="md-lg"}}
+      \{{paper-icon icon="check" class="md-2x"}}
+      \{{paper-icon icon="check" class="md-3x"}}
+      \{{paper-icon icon="check" class="md-4x"}}
+      \{{paper-icon icon="check" class="md-5x"}}
+    </pre>
+  <h4>Spinners</h4>
+    <pre>
+      \{{paper-icon icon="rotate-right" class="md-spin"}}
+      \{{paper-icon icon="rotate-left" class="md-spin-reverse"}}
+    </pre>
   <div>
     {{#each icon in icons}}
       <div class="icon-tile">
