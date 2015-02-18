@@ -8,6 +8,7 @@ var Router = Ember.Router.extend({
 Router.map(function() {
   this.route('introduction');
   this.route('button');
+  this.route('card');
   this.route('checkbox');
   this.route('radio');
   this.route('switch');

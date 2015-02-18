@@ -22,7 +22,7 @@ md-content {
 }
 
 @media (min-width: $layout-breakpoint-sm) {
-  .md-content.md-padding {
+  md-content.md-padding {
     padding: 16px;
   }
 }

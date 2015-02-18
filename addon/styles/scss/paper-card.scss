@@ -1,0 +1,35 @@
+$card-margin: 8px !default;
+$card-padding: 16px !default;
+$card-box-shadow: $whiteframe-shadow-z1 !default;
+
+md-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: $card-margin;
+
+  box-shadow: $card-box-shadow;
+
+  > img,
+  > :not(md-card-content) img {
+    order: 0;
+    width: 100%;
+  }
+
+  md-card-content {
+    order: 1;
+    padding: $card-padding;
+  }
+}
+
+// THEME
+
+$card-border-radius: 2px !default;
+
+md-card.md-#{$theme-name}-theme {
+  border-radius: $card-border-radius;
+
+  .md-card-image {
+    border-radius: $card-border-radius $card-border-radius 0 0;
+  }
+}

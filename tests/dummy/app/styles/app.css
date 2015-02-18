@@ -88,3 +88,8 @@ body {
   min-width:200px;
   text-align:center;
 }
+
+.doc-content {
+  max-width: 864px;
+  margin: auto;
+}
