@@ -3,38 +3,35 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   tagName: 'md-icon',
   classNames: ['paper-icon'],
-  classNameBindings: ['iconClass'],
+  classNameBindings: ['iconClass', 'sizeClass', 'spinClass'],
 
   spin: false,
   reverseSpin: false,
 
   iconClass: function(){
-    var iconClasses = 'ic-'+this.get('icon');
+    return 'ic-'+this.get('icon');
+  }.property('icon'),
 
+  spinClass: function(){
     if(this.get('spin')){
-      iconClasses +=' md-spin';
+      return ' md-spin';
     } else if (this.get('reverseSpin')){
-      iconClasses +=' md-spin-reverse';
+      return ' md-spin-reverse';
     }
+  }.property('spin','reverseSpin'),
 
+  sizeClass : function(){
     switch(this.get('size')){
       case 'lg':
-        iconClasses += ' md-lg';
-        break;
+        return ' md-lg';
       case 2:
-        iconClasses += ' md-2x';
-        break;
+        return ' md-2x';
       case 3:
-        iconClasses += ' md-3x';
-        break;
+        return ' md-3x';
       case 4:
-        iconClasses += ' md-4x';
-        break;
+        return ' md-4x';
       case 5:
-        iconClasses += ' md-5x';
-        break;
+        return ' md-5x';
     }
-
-    return iconClasses;
-  }.property('icon')
+  }.property('size')
 });
