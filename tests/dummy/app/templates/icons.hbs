@@ -16,17 +16,18 @@
   </pre>
   <h4>Larger Icons</h4>
     <pre>
-      \{{paper-icon icon="check" class="md-lg"}}
-      \{{paper-icon icon="check" class="md-2x"}}
-      \{{paper-icon icon="check" class="md-3x"}}
-      \{{paper-icon icon="check" class="md-4x"}}
-      \{{paper-icon icon="check" class="md-5x"}}
+      \{{paper-icon icon="check" size="lg"}
+      \{{paper-icon icon="check" size=2}}
+      \{{paper-icon icon="check" size=3}}
+      \{{paper-icon icon="check" size=4}}
+      \{{paper-icon icon="check" size=5}}
     </pre>
   <h4>Spinners</h4>
     <pre>
-      \{{paper-icon icon="rotate-right" class="md-spin"}}
-      \{{paper-icon icon="rotate-left" class="md-spin-reverse"}}
+      \{{paper-icon icon="rotate-right" spin=true}}
+      \{{paper-icon icon="rotate-left" reverseSpin=true}}
     </pre>
+    {{paper-icon icon="rotate-right" spin=true size="lg"}}
   <div>
     {{#each icon in icons}}
       <div class="icon-tile">
