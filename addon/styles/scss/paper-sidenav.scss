@@ -18,8 +18,8 @@ md-sidenav {
   top:0;
   bottom:0;
 
-  transition-duration: $swift-ease-in-duration;
-  transition-timing-function: $swift-ease-in-timing-function;
+  transition-duration: $swift-ease-out-duration;
+  transition-timing-function: $swift-ease-out-timing-function;
 
   &.md-sidenav-left{
     left:-$sidenav-default-width;
