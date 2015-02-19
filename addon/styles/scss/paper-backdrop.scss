@@ -1,3 +1,14 @@
+md-nav-container {
+
+  &.sidenav-expanded {
+    md-backdrop {
+      animation: $swift-ease-out-timing-function mdBackdropFadeIn 0.5s both;
+    }
+  }
+}
+
+
+// angular material styles
 md-backdrop {
   z-index: $z-index-backdrop;
   &.md-dialog-backdrop {
