@@ -22,20 +22,18 @@ md-sidenav {
   transition-timing-function: $swift-ease-out-timing-function;
 
   &.md-sidenav-left{
-    left:-$sidenav-default-width;
-    transition-property: left;
+    transform: translate3d(-100%, 0, 0);
 
     @media screen and (min-width: $locked-breakpoint) {
-      left:0;
+      transform: translate3d(0, 0, 0);
     }
   }
 
   &.md-sidenav-right{
-    right:-$sidenav-default-width;
-    transition-property: right;
+    transform: translate3d(0, 0, 0);
 
     @media screen and (min-width: $locked-breakpoint) {
-      right:0;
+      transform: translate3d(0, 0, 0);
     }
   }
 
@@ -66,11 +64,11 @@ md-nav-container {
   &.sidenav-expanded{
     md-sidenav{
       &.md-sidenav-left{
-        left:0;
+        transform: translate3d(0, 0, 0);
       }
 
       &.md-sidenav-right{
-        right:0;
+        transform: translate3d(-100%, 0, 0);
       }
     }
   }
