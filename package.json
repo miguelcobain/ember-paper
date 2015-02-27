@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.0",
+    "broccoli-autoprefixer": "^2.1.0",
     "broccoli-merge-trees": "^0.1.4",
     "broccoli-sass": "^0.4.0",
     "broccoli-static-compiler": "^0.1.4",

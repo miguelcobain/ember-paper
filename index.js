@@ -1,6 +1,7 @@
 'use strict';
 
 var path = require('path');
+var autoprefixer = require('broccoli-autoprefixer');
 
 module.exports = {
   name: 'ember-paper',
@@ -16,5 +17,14 @@ module.exports = {
 
     app.import(app.bowerDirectory+'/hammerjs/hammer.js');
 
+  },
+  postprocessTree: function(type, tree) {
+    if (type === 'all' || type === 'styles') {
+      tree = autoprefixer(tree, {
+        browsers: ['last 2 versions']
+      });
+    }
+
+    return tree;
   }
 };
