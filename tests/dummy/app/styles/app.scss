@@ -1,3 +1,5 @@
+@import 'ember-paper';
+
 *, *:before, *:after {
 box-sizing: border-box;
 }
@@ -12,7 +14,7 @@ body {
   outline: none;
 }
 
-.ember-app{
+.ember-app {
   width: 100%;
   height: 100%;
 }
@@ -23,7 +25,7 @@ body {
   padding: 0;
 }
 
-.logo{
+.logo {
   font-size:24px;
 }
 
@@ -83,7 +85,7 @@ body {
   margin:16px;
 }
 
-.icon-demo .icon-tile{
+.icon-demo .icon-tile {
   float:left;
   min-width:200px;
   text-align:center;

@@ -12,17 +12,20 @@ Install the ember-cli addon in your ember-cli project:
 $ ember install:addon ember-paper
 ```
 
-All the components and styles are ready to use in your application templates.
-Navigate through the docs to understand how to use each component.
+Ember-paper uses sass for its styles. To import them run:
 
-We currently need to manually install these packages
 ```
 $ npm install --save-dev broccoli-sass
-$ npm install --save-dev broccoli-autoprefixer
 ```
-and then create a file in `app/styles/app.scss`.
 
-This is a known issue and a temporary fix. When we fix it, we remove this note.
+and then create a file in `app/styles/app.scss` and import the styles at the beginning of your file:
+
+```sass
+@import 'ember-paper';
+```
+
+All the components and styles are ready to use in your application templates.
+Navigate through the docs to understand how to use each component.
 
 ## Contribution
 
