@@ -14,10 +14,6 @@ module.exports = {
     app.import('vendor/material-icons/fonts/material-icon-font.ttf', { destDir: 'assets/fonts' });
     app.import('vendor/material-icons/fonts/material-icon-font.woff', { destDir: 'assets/fonts' });
 
-    //styles in vendor folder for now. Temporary fix.
-
-    app.import('vendor/ember-paper.css');
-
     app.import(app.bowerDirectory+'/hammerjs/hammer.js');
 
   }

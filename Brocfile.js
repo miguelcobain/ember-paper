@@ -18,6 +18,4 @@ var app = new EmberAddon();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
-//require('./compile-css')(app.env);
-
 module.exports = app.toTree();

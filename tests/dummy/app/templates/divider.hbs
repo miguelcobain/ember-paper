@@ -12,17 +12,17 @@
   <h4>Full width dividers</h4>
   {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
     {{#paper-list}}
-      {{#each listData}}
+      {{#each item in listData}}
         {{#paper-item}}
           {{#paper-tile-left}}
-            <img {{bind-attr src=face alt=who}} class="face">
+            <img {{bind-attr src=item.face alt=item.who}} class="face">
           {{/paper-tile-left}}
 
           {{#paper-tile-content}}
-            <h3>{{what}}</h3>
-            <h4>{{who}}</h4>
+            <h3>{{item.what}}</h3>
+            <h4>{{item.who}}</h4>
             <p>
-              {{notes}}
+              {{item.notes}}
             </p>
           {{/paper-tile-content}}
         {{/paper-item}}
@@ -34,17 +34,17 @@
   <h4>Inset dividers</h4>
   {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
     {{#paper-list}}
-      {{#each listData}}
+      {{#each item in listData}}
         {{#paper-item}}
           {{#paper-tile-left}}
-            <img {{bind-attr src=face alt=who}} class="face">
+            <img {{bind-attr src=item.face alt=item.who}} class="face">
           {{/paper-tile-left}}
 
           {{#paper-tile-content}}
-            <h3>{{what}}</h3>
-            <h4>{{who}}</h4>
+            <h3>{{item.what}}</h3>
+            <h4>{{item.who}}</h4>
             <p>
-              {{notes}}
+              {{item.notes}}
             </p>
           {{/paper-tile-content}}
         {{/paper-item}}
@@ -57,17 +57,17 @@
   <pre>
   \{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
     \{{#paper-list}}
-      \{{#each listData}}
+      \{{#each item in listData}}
         \{{#paper-item}}
           \{{#paper-tile-left}}
-            &lt;img \{{bind-attr src=face alt=who}} class=&quot;face&quot;&gt;
+            &lt;img \{{bind-attr src=item.face alt=item.who}} class=&quot;face&quot;&gt;
           \{{/paper-tile-left}}
 
           \{{#paper-tile-content}}
-            &lt;h3&gt;\{{what}}&lt;/h3&gt;
-            &lt;h4&gt;\{{who}}&lt;/h4&gt;
+            &lt;h3&gt;\{{item.what}}&lt;/h3&gt;
+            &lt;h4&gt;\{{item.who}}&lt;/h4&gt;
             &lt;p&gt;
-              \{{notes}}
+              \{{item.notes}}
             &lt;/p&gt;
           \{{/paper-tile-content}}
         \{{/paper-item}}
