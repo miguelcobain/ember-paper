@@ -15,6 +15,15 @@ $ ember install:addon ember-paper
 All the components and styles are ready to use in your application templates.
 Navigate through the docs to understand how to use each component.
 
+We currently need to manually install these packages
+```
+$ npm install --save-dev broccoli-sass
+$ npm install --save-dev broccoli-autoprefixer
+```
+and then create a file in `app/styles/app.scss`.
+
+This is a known issue and a temporary fix. When we fix it, we remove this note.
+
 ## Contribution
 
 This is a very ambitious project. Google's design specs are extensive, and not trivial to implement. `ember-paper` is heavily based on [Angular Material](https://github.com/angular/material) and [Web Starter Kit (material-sprint branch)](https://github.com/google/web-starter-kit/tree/material-sprint). These seem to be the most useful resources at the moment. If you feel like porting or fixing an element or two, please drop a pull request or issue at GitHub!
