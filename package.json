@@ -1,6 +1,6 @@
 {
   "name": "ember-paper",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "directories": {
     "doc": "doc",
     "test": "tests"
