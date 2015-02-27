@@ -1,7 +1,6 @@
 'use strict';
 
 var path = require('path');
-
 var autoprefixer = require('broccoli-autoprefixer');
 
 function AutoprefixerPreprocessor(options) {

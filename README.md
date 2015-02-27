@@ -6,6 +6,8 @@ This project aims to bring Google's new [Material Design](https://www.google.com
 
 ## Installation
 
+Temporary workaround. For now you need to run `$ npm install --save-dev broccoli-autoprefixer` before installing ember-paper.
+
 Install the ember-cli addon in your ember-cli project:
 
 ```
