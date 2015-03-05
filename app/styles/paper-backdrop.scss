@@ -1,8 +1,18 @@
+@mixin animateFadeIn() {
+  -webkit-animation: $swift-ease-out-timing-function mdBackdropFadeIn 0.5s both;
+  animation: $swift-ease-out-timing-function mdBackdropFadeIn 0.5s both;
+}
+
+@mixin animateFadeOut() {
+  -webkit-animation: $swift-ease-in-timing-function mdBackdropFadeOut 0.2s both;
+  animation: $swift-ease-in-timing-function mdBackdropFadeOut 0.2s both;
+}
+
 md-nav-container {
 
   &.sidenav-expanded {
     md-backdrop {
-      animation: $swift-ease-out-timing-function mdBackdropFadeIn 0.5s both;
+      @include animateFadeIn();
     }
   }
 }
@@ -29,11 +39,14 @@ md-backdrop {
   right: 0;
   bottom: 0;
 
+  @include animateFadeIn();
+
   &.ng-enter {
-    animation: $swift-ease-out-timing-function mdBackdropFadeIn 0.5s both;
+    @include animateFadeIn();
   }
+
   &.ng-leave {
-    animation: $swift-ease-in-timing-function mdBackdropFadeOut 0.2s both;
+    @include animateFadeOut();
   }
 }
 
@@ -41,7 +54,16 @@ md-backdrop {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+@-webkit-keyframes mdBackdropFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @keyframes mdBackdropFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@-webkit-keyframes mdBackdropFadeOut {
   from { opacity: 1; }
   to { opacity: 0; }
 }
