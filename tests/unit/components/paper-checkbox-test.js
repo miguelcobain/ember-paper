@@ -25,7 +25,7 @@ test('should set checked css class', function(assert) {
   var component = this.subject();
   this.render();
 
-  Ember.run(function(){
+  Ember.run(function() {
     component.set('checked', true);
   });
 
@@ -42,7 +42,7 @@ test('element should not be focusable if disabled', function(assert) {
   var component = this.subject();
   this.render();
 
-  Ember.run(function(){
+  Ember.run(function() {
     component.set('disabled', true);
   });
 
@@ -60,7 +60,7 @@ test('it is possible to check and set checked to true', function(assert) {
 test('it is possible to uncheck and set checked to false', function(assert) {
   var component = this.subject();
 
-  Ember.run(function(){
+  Ember.run(function() {
     component.set('checked', true);
   });
 
@@ -82,7 +82,7 @@ test('it is possible to check using spacebar', function(assert) {
 test('it is possible to uncheck using spacebar', function(assert) {
   var component = this.subject();
 
-  Ember.run(function(){
+  Ember.run(function() {
     component.set('checked', true);
   });
 
@@ -97,7 +97,7 @@ test('blockless version should set label inside', function(assert) {
   var component = this.subject();
   this.render();
 
-  Ember.run(function(){
+  Ember.run(function() {
     component.set('label', 'Button');
   });
 

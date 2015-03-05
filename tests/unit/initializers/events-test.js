@@ -14,10 +14,35 @@ module('EventsInitializer', {
   }
 });
 
-// Replace this with your real tests.
-test('it works', function(assert) {
+test('it registers sidenav events', function(assert) {
   initialize(container, application);
 
-  // you would normally confirm the results of the initializer here
-  assert.ok(true);
+  var customEvents = application.get('customEvents');
+
+  assert.ok(customEvents);
+  assert.deepEqual(customEvents, {
+    toggleSidenav: 'toggleSidenav',
+    expandSidenav: 'expandSidenav',
+    collapseSidenav: 'collapseSidenav'
+  });
+
+});
+
+test('it doesn\'t override any previously set events', function(assert) {
+  application.set('customEvents', {
+    aCustomEvent: 'aCustomEvent'
+  });
+
+  initialize(container, application);
+
+  var customEvents = application.get('customEvents');
+
+  assert.ok(customEvents);
+  assert.deepEqual(customEvents, {
+    aCustomEvent: 'aCustomEvent',
+    toggleSidenav: 'toggleSidenav',
+    expandSidenav: 'expandSidenav',
+    collapseSidenav: 'collapseSidenav'
+  });
+
 });
