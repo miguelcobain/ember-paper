@@ -3,13 +3,13 @@ import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 
 export default BaseFocusable.extend(RippleMixin,{
-  tagName:'md-switch',
-  classNames:['paper-switch','md-default-theme'],
-  classNameBindings:['checked:md-checked', 'dragging:md-dragging'],
-  toggle:true,
+  tagName: 'md-switch',
+  classNames: ['paper-switch', 'md-default-theme'],
+  classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],
+  toggle: true,
 
   center: true,
-  rippleContainerSelector:'.md-thumb',
+  rippleContainerSelector: '.md-thumb',
 
   checked: false,
   disabled: false,
@@ -17,6 +17,7 @@ export default BaseFocusable.extend(RippleMixin,{
   dragging: false,
   dragAmount: null,
   switchWidth: null,
+
 
   _setupSwitchDragging: function() {
     // Don't set up anything if the switch is disabled
@@ -26,7 +27,7 @@ export default BaseFocusable.extend(RippleMixin,{
 
     // Enable dragging the switch
     var thumbElement = this.get('element').getElementsByClassName('md-thumb-container')[0];
-    var thumbElementHammer= new Hammer(thumbElement);
+    var thumbElementHammer = new Hammer(thumbElement);
     thumbElementHammer.get('pan').set({ threshold: 1 });
     thumbElementHammer.on('panstart', Ember.run.bind(this, this._dragStart));
     thumbElementHammer.on('panmove', Ember.run.bind(this, this._drag));
