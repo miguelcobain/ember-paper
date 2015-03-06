@@ -59,12 +59,7 @@ export default BaseFocusable.extend(RippleMixin,{
     var eventLeft = event.clientX - switchLeftOffset;
     var switchWidth = 34;
     var offsetLeft = eventLeft / switchWidth;
-    if (offsetLeft > 1) {
-      offsetLeft = 1;
-    } else if (offsetLeft < 0) {
-      offsetLeft = 0;
-    }
-    offsetLeft = offsetLeft * 100;
+    offsetLeft = Math.max(0, Math.min(1, offsetLeft)) * 100;
     offsetLeft = Math.floor(offsetLeft);
     this.set('dragOffset', offsetLeft);
     this.$('.md-thumb-container').css('transform', 'translate3d(' + offsetLeft + '%, 0, 0');
