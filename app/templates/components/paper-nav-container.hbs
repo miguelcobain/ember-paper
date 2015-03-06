@@ -1,4 +1,2 @@
 {{yield}}
-{{#if open}}
-  {{paper-backdrop classNames="md-sidenav-backdrop"}}
-{{/if}}
+{{paper-backdrop classBinding="open:ng-enter:ng-leave :md-sidenav-backdrop"}}

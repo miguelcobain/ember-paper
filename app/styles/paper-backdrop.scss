@@ -1,8 +1,16 @@
 md-nav-container {
 
+  md-backdrop {
+    &.ng-leave {
+      opacity: 0;
+    }
+    pointer-events: none;
+  }
+
   &.sidenav-expanded {
     md-backdrop {
-      animation: $swift-ease-out-timing-function mdBackdropFadeIn 0.5s both;
+      pointer-events: auto;
+      //animation: $swift-ease-out-timing-function mdBackdropFadeOut 0.5s both;
     }
   }
 }
