@@ -32,17 +32,6 @@ md-icon {
 }
 
 // Spin
-@-webkit-keyframes md-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
-}
-
 @keyframes md-spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -55,17 +44,6 @@ md-icon {
 }
 
 // Spin Reverse
-@-webkit-keyframes md-spin-reverse {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(-359deg);
-    transform: rotate(-359deg);
-  }
-}
-
 @keyframes md-spin-reverse {
   0% {
     -webkit-transform: rotate(0deg);

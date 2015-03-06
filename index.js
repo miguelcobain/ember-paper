@@ -10,6 +10,7 @@ function AutoprefixerPreprocessor(options) {
 }
 
 AutoprefixerPreprocessor.prototype.toTree = function(tree) {
+  console.log('I\'m running!!!!!!!!!', tree);
   return autoprefixer(tree, { browsers: ['last 2 versions'] });
 };
 
@@ -27,8 +28,11 @@ module.exports = {
 
     app.import(app.bowerDirectory+'/hammerjs/hammer.js');
   },
-  setupPreprocessorRegistry: function(type, registry){
-    registry.add('css', new AutoprefixerPreprocessor());
-    if (registry.remove) registry.remove('css', 'broccoli-autoprefixer');
+  postprocessTree: function(type, tree){
+    if (type === 'all' || type === 'styles') {
+      tree = autoprefixer(tree, this.options);
+    }
+
+    return tree;
   }
 };
