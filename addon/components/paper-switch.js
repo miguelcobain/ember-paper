@@ -2,7 +2,7 @@ import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 
-export default BaseFocusable.extend(RippleMixin,{
+export default BaseFocusable.extend(RippleMixin, {
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],
@@ -18,7 +18,6 @@ export default BaseFocusable.extend(RippleMixin,{
   dragAmount: null,
   switchWidth: null,
 
-
   _setupSwitchDragging: function() {
     // Don't set up anything if the switch is disabled
     if (this.get('disabled')) { return; }
@@ -29,6 +28,7 @@ export default BaseFocusable.extend(RippleMixin,{
     var element = this.get('element')[0] || this.get('element');
     var thumbElement = element.getElementsByClassName('md-thumb-container')[0];
     var thumbElementHammer = new Hammer(thumbElement);
+    this.thumbElementHammer = thumbElementHammer;
     thumbElementHammer.get('pan').set({ threshold: 1 });
     thumbElementHammer.on('panstart', Ember.run.bind(this, this._dragStart));
     thumbElementHammer.on('panmove', Ember.run.bind(this, this._drag));
@@ -36,14 +36,22 @@ export default BaseFocusable.extend(RippleMixin,{
 
     // Allow the switch to be clicked to toggle the value
     var switchHammer = new Hammer(element);
+    this.switchHammer = switchHammer;
     switchHammer.on('tap', Ember.run.bind(this, this._dragEnd));
   }.on('didInsertElement').observes('disabled'),
 
+  onWillDestroyElement: function() {
+    if (this.switchHammer) {
+      this.switchHammer.destroy();
+    }
+    if (this.thumbElementHammer) {
+      this.switchHammer.destroy();
+    }
+  }.on('willDestroyElement'),
 
   _dragStart: function() {
     this.set('dragging', true);
   },
-
 
   _drag: function(event) {
     if (this.get('disabled')) { return; }
@@ -60,11 +68,10 @@ export default BaseFocusable.extend(RippleMixin,{
     this.$('.md-thumb-container').css('-webkit-transform', transformProp);
   },
 
-
   _dragEnd: function() {
     if (this.get('disabled')) { return; }
 
-    if ( (!this.get('dragging')) ||
+    if ((!this.get('dragging')) ||
          (this.get('checked') && this.get('dragAmount') < 0.5) ||
          (!this.get('checked') && this.get('dragAmount') > 0.5)) {
       this.toggleProperty('checked');
