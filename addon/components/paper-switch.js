@@ -26,7 +26,8 @@ export default BaseFocusable.extend(RippleMixin,{
     this.set('switchWidth', this.$('.md-bar').width());
 
     // Enable dragging the switch
-    var thumbElement = this.get('element').getElementsByClassName('md-thumb-container')[0];
+    var element = this.get('element')[0] || this.get('element');
+    var thumbElement = element.getElementsByClassName('md-thumb-container')[0];
     var thumbElementHammer = new Hammer(thumbElement);
     thumbElementHammer.get('pan').set({ threshold: 1 });
     thumbElementHammer.on('panstart', Ember.run.bind(this, this._dragStart));
@@ -34,7 +35,7 @@ export default BaseFocusable.extend(RippleMixin,{
     thumbElementHammer.on('panend', Ember.run.bind(this, this._dragEnd));
 
     // Allow the switch to be clicked to toggle the value
-    var switchHammer = new Hammer(this.get('element'));
+    var switchHammer = new Hammer(element);
     switchHammer.on('tap', Ember.run.bind(this, this._dragEnd));
   }.on('didInsertElement').observes('disabled'),
 
