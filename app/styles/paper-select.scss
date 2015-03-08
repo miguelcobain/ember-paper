@@ -1,0 +1,82 @@
+$tff-transition: all 0.5s $swift-ease-in-out-timing-function;
+
+md-select {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+
+  .md-select-bar {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.26);
+    border-color: rgba(0, 0, 0, 0.12);
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    padding-top: 24px;
+    padding-bottom: 7px;
+
+    md-icon {
+      float: right;
+      &.ic-arrow-drop-down:before {
+        display: inline-block;
+        transition: $tff-transition;
+      }
+    }
+  }
+
+  .md-select-options {
+    width: 100%;
+    transition: $tff-transition;
+    position: absolute;
+    background-color: white;
+    opacity: 0;
+    max-height: 10px;
+    overflow-y: scroll;
+    box-shadow: $whiteframe-shadow-z1;
+    transform: translate3d(0, -50%, 0);
+    top: 50%;
+    pointer-events: none;
+
+    .md-option {
+      display: block;
+      font-size: 14px;
+      text-decoration: none;
+      padding: 1.1em 1.6em;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+
+  &.valid {
+    .md-select-bar {
+      color: rgba(0, 0, 0, 0.73);
+      border-color: #03a9f4;
+      border-width: 0 0 2px 0;
+    }
+  }
+
+  &.active {
+    .md-select-bar {
+      md-icon {
+        &.ic-arrow-drop-down:before {
+          transform: rotate(-180deg);
+        }
+      }
+    }
+    .md-select-options {
+      pointer-events: auto;
+      opacity: 1;
+      max-height: 256px;
+    }
+  }
+
+  select {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    height: 1px;
+    width: 1px;
+  }
+}

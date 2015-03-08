@@ -1,3 +1,5 @@
+/* globals Hammer */
+
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';

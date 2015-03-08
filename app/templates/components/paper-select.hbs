@@ -1,0 +1,18 @@
+<div class="md-select-bar" {{action 'toggleActiveState'}}>
+  {{activeOption.nodeText}}
+  {{#paper-icon icon="arrow-drop-down"}}{{/paper-icon}}
+</div>
+
+<div class="md-select-options">
+  {{#each option in selectOptions}}
+    <div class="md-option" {{action 'selectOption' option}}>
+      {{option.nodeText}}
+    </div>
+  {{/each}}
+</div>
+
+{{view 'select' content=content
+  optionLabelPath=optionLabelPath
+  optionValuePath=optionValuePath
+  selection=selection
+  prompt=prompt}}
