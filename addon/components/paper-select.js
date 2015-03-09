@@ -1,17 +1,10 @@
-import PaperMenuContainer from './paper-menu-container';
+import PaperMenuSelectable from './paper-menu-selectable';
 
-export default PaperMenuContainer.extend({
-  //TODO change to `md-menu-container` after styles are added
+export default PaperMenuSelectable.extend({
+  //TODO change to `md-select` after styles are added
   tagName: 'div',
   classNames: ['paper-select'],
 
   prompt: null,
-  selectedOption: null,
-
-  actions: {
-    select: function(option) {
-      this.set('selectedOption', option);
-      this.send('toggleMenu');
-    }
-  }
+  selectedOption: null
 });
