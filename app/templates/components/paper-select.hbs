@@ -1,10 +1,10 @@
-<button {{action "toggleMenu"}}>
+{{#paper-button action="toggleMenu" raised=true}}
   {{#if selectedOption}}
     {{selectedOption}}
   {{else}}
     {{prompt}}
   {{/if}}
-</button>
+{{/paper-button}}
 {{#if isOpen}}
   {{#paper-menu}}
     {{#each item in content}}
