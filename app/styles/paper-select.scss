@@ -1,3 +1,12 @@
+$select-option-height: 48px;
+$select-option-padding: 16px;
+$select-container-padding: 16px;
+$select-container-transition-duration: 350ms;
+
+
+
+
+
 $tff-transition: all 0.5s $swift-ease-in-out-timing-function;
 
 md-select {
@@ -5,7 +14,9 @@ md-select {
   position: relative;
   display: inline-block;
 
-  .md-select-bar {
+  .md-select-label {
+    display: flex;
+    // Old SCSS
     cursor: pointer;
     color: rgba(0, 0, 0, 0.26);
     border-color: rgba(0, 0, 0, 0.12);
@@ -14,43 +25,38 @@ md-select {
     padding-top: 24px;
     padding-bottom: 7px;
 
-    md-icon {
-      float: right;
-      &.ic-arrow-drop-down:before {
-        display: inline-block;
-        transition: $tff-transition;
-      }
+    .md-select-icon {
+      align-items: flex-end;
+      text-align: end;
+      width: 3 * $baseline-grid;
+      margin: 0 .5 * $baseline-grid;
+    }
+
+    .md-select-icon:after {
+      display: block;
+      content: '\25BC';
+      position: relative;
+      top: 2px;
+      speak: none;
+      transform: scaleY(0.6) scaleX(1);
     }
   }
 
-  .md-select-options {
+  .md-select-menu {
     width: 100%;
-    transition: $tff-transition;
+    transition: $tff-transition 0.2s;
     position: absolute;
     background-color: white;
     opacity: 0;
     max-height: 10px;
     overflow-y: scroll;
-    box-shadow: $whiteframe-shadow-z1;
     transform: translate3d(0, -50%, 0);
     top: 50%;
     pointer-events: none;
-
-    .md-option {
-      display: block;
-      font-size: 14px;
-      text-decoration: none;
-      padding: 1.1em 1.6em;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #e0e0e0;
-      }
-    }
   }
 
   &.valid {
-    .md-select-bar {
+    .md-select-label {
       color: rgba(0, 0, 0, 0.73);
       border-color: #03a9f4;
       border-width: 0 0 2px 0;
@@ -58,25 +64,12 @@ md-select {
   }
 
   &.active {
-    .md-select-bar {
-      md-icon {
-        &.ic-arrow-drop-down:before {
-          transform: rotate(-180deg);
-        }
-      }
-    }
-    .md-select-options {
+    .md-select-menu {
+      transition: $tff-transition;
       pointer-events: auto;
       opacity: 1;
       max-height: 256px;
+      cursor: pointer;
     }
-  }
-
-  select {
-    visibility: hidden;
-    position: absolute;
-    top: 0;
-    height: 1px;
-    width: 1px;
   }
 }

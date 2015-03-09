@@ -3,80 +3,50 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   tagName:'md-select',
   classNames: ['paper-select'],
-  classNameBindings: ['active', 'valid'],
+  classNameBindings: ['active', 'selection:valid'],
   active: false,
-  selectOptions: null,
-  $select: null,
-  $view: null,
-  activeOption: null,
-  promptOption: null,
+  prompt: null,
+  content: null,
+  optionValuePath: null,
+  optionLabelPath: null,
+  selection: null,
 
-  valid: Ember.computed('activeOption', function() {
-    if (this.get('hasPrompt')) {
-      return this.get('activeOption') !== this.get('promptOption');
+  displayString: Ember.computed('selection', function() {
+    var promptString = this.get('prompt') || "Select an option";
+    var selection    = this.get('selection');
+    if (!selection) { return promptString; }
+
+    var optionLabelPath = this.get('optionLabelPath');
+    var selectionString;
+    if (optionLabelPath) {
+      var relativeOptionLabelPath = optionLabelPath.replace(/^content\.?/, '');
+      selectionString             = this.get('selection.'+relativeOptionLabelPath);
     } else {
-      return true;
+      selectionString = selection.toString();
     }
+    return selectionString;
   }),
 
-  hasPrompt: Ember.computed('prompt', function() {
-    return this.get('prompt') ? true : false;
-  }),
-
+  /* Use willInsertElement to validate & setup input data */
   willInsertElement: function() {
-    var optionValuePath = this.get('optionValuePath');
     var content         = this.get('content');
+    var selection       = this.get('selection');
 
     if (!content) {
       throw new Error("Paper Select: You must provide a content array.");
     }
 
-    if (optionValuePath) {
-      var optionValues = content.mapBy(optionValuePath.replace(/^content\.?/, '')).uniq();
-      if (optionValues.length !== content.length) {
-        throw new Error("Paper Select: Your optionValuePath must be unique for each item in the content array.");
-      }
-    } else {
-      throw new Error("Paper Select: You must set an optionValuePath.");
+    if (selection && !content.contains(selection)) {
+      throw new Error("Paper Select: Your selection value is not present in your content array.");
     }
   },
 
+  /* Setup Out Of Bounds click listener */
   didInsertElement: function() {
-    var $select = this.$().find('select');
-    this.set('$select', $select);
-    this.set('$view', this.$());
-
-    /* Unpack the hidden Ember Select */
-    var options = $select.find('option');
-    var optionsData = [];
-    for (var i = 0; i < options.length; i++) {
-      var $node  = Ember.$(options[i]);
-
-      var optionData = {
-        nodeValue: $node.val(),
-        nodeText:  $node.text()
-      };
-
-      optionsData.push(optionData);
-
-      if ($node.prop('selected')) {
-        this.set('activeOption', optionData);
-      }
-    }
-
-    /* Remove Prompt Option from Data Set */
-    if (this.get('hasPrompt')) {
-      var promptOption = optionsData.objectAt(0);
-      this.set('promptOption', promptOption);
-      optionsData.removeObject(promptOption);
-    }
-    this.set('selectOptions', optionsData);
-
-    /* Setup Out Of Bounds click listenr */
+    var $view = this.$();
     var _this = this;
     Ember.$(document).mouseup(function(e){
       var isActive    = _this.get('active');
-      var $view       = _this.get('$view');
       var outOfBounds = !$view.is(e.target) && $view.has(e.target).length === 0;
 
       if (isActive && outOfBounds) {
@@ -89,14 +59,8 @@ export default Ember.Component.extend({
     toggleActiveState: function() {
       this.toggleProperty('active');
     },
-    selectOption: function(option) {
-      var $select = this.get('$select');
-      var value   = option.nodeValue;
-
-      $select.find('option[value="'+value+'"]').prop('selected', true);
-
-      this.set('activeOption', option);
-      $select.trigger('change');
+    selectItem: function(item) {
+      this.set('selection', item);
       this.set('active', false);
     }
   }

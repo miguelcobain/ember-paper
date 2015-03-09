@@ -1,18 +1,11 @@
-<div class="md-select-bar" {{action 'toggleActiveState'}}>
-  {{activeOption.nodeText}}
-  {{#paper-icon icon="arrow-drop-down"}}{{/paper-icon}}
+<div class="md-select-label" {{action 'toggleActiveState'}}>
+  {{displayString}}
+  <div class="md-select-icon">
+  </div>
 </div>
 
-<div class="md-select-options">
-  {{#each option in selectOptions}}
-    <div class="md-option" {{action 'selectOption' option}}>
-      {{option.nodeText}}
-    </div>
+{{#paper-list classNames="md-select-menu md-whiteframe-z1"}}
+  {{#each item in content}}
+    {{#paper-item classNames="md-tile-content" ripple=true action="selectItem" param=item activeParam=selection}}{{item.name}}{{/paper-item}}
   {{/each}}
-</div>
-
-{{view 'select' content=content
-  optionLabelPath=optionLabelPath
-  optionValuePath=optionValuePath
-  selection=selection
-  prompt=prompt}}
+{{/paper-list}}
