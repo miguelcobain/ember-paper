@@ -1,0 +1,16 @@
+<button {{action "toggleMenu"}}>
+  {{#if selectedOption}}
+    {{selectedOption}}
+  {{else}}
+    {{prompt}}
+  {{/if}}
+</button>
+{{#if isOpen}}
+  {{#paper-menu}}
+    {{#each item in content}}
+      {{#paper-menu-item action="select" param=item}}
+        {{item}}
+      {{/paper-menu-item}}
+    {{/each}}
+  {{/paper-menu}}
+{{/if}}

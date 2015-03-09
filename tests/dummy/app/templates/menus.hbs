@@ -1,0 +1,15 @@
+{{#paper-toolbar}}
+  <h2 class="md-toolbar-tools">
+    {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
+      {{paper-icon icon="menu"}}
+    {{/paper-sidenav-toggle}}
+    <span>Menus</span>
+  </h2>
+{{/paper-toolbar}}
+
+
+{{#paper-content classNames="md-padding"}}
+<div class="doc-content">
+  {{paper-select content=items prompt="Select an item"}}
+</div>
+{{/paper-content}}
