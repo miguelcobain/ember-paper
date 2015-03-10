@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
+/* globals Hammer */
 
 export default BaseFocusable.extend(RippleMixin, {
   tagName: 'md-switch',
