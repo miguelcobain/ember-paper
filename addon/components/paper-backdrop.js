@@ -1,4 +1,5 @@
 import Ember from 'ember';
+/* globals Hammer */
 
 export default Ember.Component.extend({
   tagName: 'md-backdrop',
