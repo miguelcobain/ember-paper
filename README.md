@@ -45,6 +45,8 @@ ENV.contentSecurityPolicy = {
 }
 ```
 
+You can find out more information on the CSP addon page [here](https://github.com/rwjblue/ember-cli-content-security-policy#ember-cli-content-security-policy).
+
 ## Contribution
 
 This is a very ambitious project. Google's design specs are extensive, and not trivial to implement. `ember-paper` is heavily based on [Angular Material](https://github.com/angular/material) and [Web Starter Kit (material-sprint branch)](https://github.com/google/web-starter-kit/tree/material-sprint). These seem to be the most useful resources at the moment. If you feel like porting or fixing an element or two, please drop a pull request or issue at GitHub!
