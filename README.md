@@ -30,6 +30,21 @@ and then create a file in `app/styles/app.scss` and import the styles at the beg
 All the components and styles are ready to use in your application templates.
 Navigate through the docs to understand how to use each component.
 
+### Content Security Policy
+
+Ember Paper uses fonts from Google Fonts, so the URL to them has to be white listed.  You can set this by adding to the Content Security Policy defined in `config/environment.js` like so:
+
+```js
+ENV.contentSecurityPolicy = {
+  'default-src': "'none'",
+  'script-src': "'self' https://cdn.mxpnl.com",
+  'font-src': "'self' http://fonts.gstatic.com",
+  'connect-src': "'self'",
+  'img-src': "'self'",
+  'media-src': "'self'"
+}
+```
+
 ## Contribution
 
 This is a very ambitious project. Google's design specs are extensive, and not trivial to implement. `ember-paper` is heavily based on [Angular Material](https://github.com/angular/material) and [Web Starter Kit (material-sprint branch)](https://github.com/google/web-starter-kit/tree/material-sprint). These seem to be the most useful resources at the moment. If you feel like porting or fixing an element or two, please drop a pull request or issue at GitHub!
