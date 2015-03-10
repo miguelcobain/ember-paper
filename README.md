@@ -37,7 +37,7 @@ Ember Paper uses fonts from Google Fonts, so the URL to them has to be white lis
 ```js
 ENV.contentSecurityPolicy = {
   'default-src': "'none'",
-  'script-src': "'self' https://cdn.mxpnl.com",
+  'script-src': "'self'",
   'font-src': "'self' http://fonts.gstatic.com",
   'connect-src': "'self'",
   'img-src': "'self'",
