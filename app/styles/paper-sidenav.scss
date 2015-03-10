@@ -78,7 +78,7 @@ md-nav-container {
 md-nav-container{
   &>md-backdrop {
     @media screen and (min-width: $locked-breakpoint) {
-      display: none;
+      visibility: hidden;
     }
   }
 }
