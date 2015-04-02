@@ -1,18 +1,21 @@
 import Ember from 'ember';
+import PaperNavContainer from './paper-nav-container';
 
 export default Ember.Component.extend({
   tagName: 'md-sidenav-toggle',
   classNames: ['paper-sidenav-toggle'],
   toggle: true,
 
-  click: function(evt) {
-    var eventName;
+  navContainer: Ember.computed(function() {
+    return this.nearestOfType(PaperNavContainer);
+  }),
+
+  click: function() {
     if (this.get('toggle')) {
-      eventName = 'toggleSidenav';
+      this.get('navContainer').toggleSidenav();
     } else {
-      eventName = 'expandSidenav';
+      this.get('navContainer').expandSidenav();
     }
-    Ember.$(evt.target).trigger(eventName);
     return false;
   }
 });

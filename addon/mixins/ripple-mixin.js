@@ -21,29 +21,29 @@ export default Ember.Mixin.create({
 
   rippleContainerSelector:'',
 
-  onDidInsertElement:function(){
-    if(!this.noink){
+  onDidInsertElement: Ember.on('didInsertElement', function() {
+    if (!this.noink) {
       this.element = this.$();
       this.colorElement = this.$();
       this.node = this.element[0];
       this.hammertime = new Hammer(this.node);
       this.color = this.parseColor(this.element.attr('md-ink-ripple')) || this.parseColor(window.getComputedStyle(this.colorElement[0]).color || 'rgb(0, 0, 0)');
-      if(this.mousedown){
+      if (this.mousedown) {
         this.hammertime.on('hammer.input', Ember.$.proxy(this.onInput,this));
       }
     }
-  }.on('didInsertElement'),
+  }),
 
-  onWillDestroyElement:function(){
-    if(this.rippleContainer){
+  onWillDestroyElement: Ember.on('willDestroyElement', function() {
+    if (this.rippleContainer) {
       this.rippleContainer.remove();
     }
-    if(this.hammertime){
+    if (this.hammertime) {
       this.hammertime.destroy();
     }
-  }.on('willDestroyElement'),
+  }),
 
-  onInput:function(ev){
+  onInput: function(ev) {
     var ripple, index;
     if (ev.eventType === Hammer.INPUT_START && ev.isFirst && !this.get('disabled')) {
       ripple = this.createRipple(ev.center.x, ev.center.y);

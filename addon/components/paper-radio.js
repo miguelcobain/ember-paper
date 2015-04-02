@@ -12,9 +12,9 @@ export default BaseFocusable.extend(RippleMixin, {
   center: true,
   rippleContainerSelector: '.md-container',
 
-  checked: function() {
+  checked: Ember.computed('value', 'selected', function() {
     return this.get('value') === this.get('selected');
-  }.property('value', 'selected'),
+  }),
 
   checkedDidChange: Ember.observer('checked', function() {
     if (this.get('checked')) {

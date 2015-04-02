@@ -8,19 +8,19 @@ export default Ember.Component.extend({
   spin: false,
   reverseSpin: false,
 
-  iconClass: function(){
-    return 'ic-'+this.get('icon');
-  }.property('icon'),
+  iconClass: Ember.computed('icon', function(){
+    return 'ic-' + this.get('icon');
+  }),
 
-  spinClass: function(){
+  spinClass: Ember.computed('spin', 'reverseSpin', function(){
     if(this.get('spin')){
       return ' md-spin';
     } else if (this.get('reverseSpin')){
       return ' md-spin-reverse';
     }
-  }.property('spin','reverseSpin'),
+  }),
 
-  sizeClass : function(){
+  sizeClass : Ember.computed('size', function(){
     switch(this.get('size')){
       case 'lg':
         return ' md-lg';
@@ -33,5 +33,5 @@ export default Ember.Component.extend({
       case 5:
         return ' md-5x';
     }
-  }.property('size')
+  })
 });

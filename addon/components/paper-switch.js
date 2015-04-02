@@ -19,7 +19,7 @@ export default BaseFocusable.extend(RippleMixin, {
   dragAmount: null,
   switchWidth: null,
 
-  _setupSwitchDragging: function() {
+  onDidInsertElement: Ember.on('didInsertElement', function() {
     // Don't set up anything if the switch is disabled
     if (this.get('disabled')) { return; }
 
@@ -39,16 +39,20 @@ export default BaseFocusable.extend(RippleMixin, {
     var switchHammer = new Hammer(element);
     this.switchHammer = switchHammer;
     switchHammer.on('tap', Ember.run.bind(this, this._dragEnd));
-  }.on('didInsertElement').observes('disabled'),
+  }),
 
-  onWillDestroyElement: function() {
+  disabledDidChange: Ember.observer('disabled', function() {
+    this.onDidInsertElement();
+  }),
+
+  onWillDestroyElement: Ember.on('willDestroyElement', function() {
     if (this.switchHammer) {
       this.switchHammer.destroy();
     }
     if (this.thumbElementHammer) {
       this.switchHammer.destroy();
     }
-  }.on('willDestroyElement'),
+  }),
 
   _dragStart: function() {
     this.set('dragging', true);

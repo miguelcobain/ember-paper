@@ -13,9 +13,9 @@ export default Ember.Component.extend(EventsMixin,{
    * Not binding boolean values in Ember 1.8.1?
    * https://github.com/emberjs/ember.js/issues/9595
    */
-  disabledAttr:function(){
+  disabledAttr: Ember.computed('disabled', function() {
     return this.get('disabled') ? 'disabled' : null;
-  }.property('disabled'),
+  }),
 
   toggle:false,
 

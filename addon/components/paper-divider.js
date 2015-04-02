@@ -8,7 +8,7 @@ export default Ember.Component.extend({
    * Not binding boolean values in Ember 1.8.1?
    * https://github.com/emberjs/ember.js/issues/9595
    */
-  insetAttr:function(){
+  insetAttr: Ember.computed('inset', function() {
     return this.get('inset') ? 'md-inset' : null;
-  }.property('inset')
+  })
 });

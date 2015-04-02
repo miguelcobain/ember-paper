@@ -22,7 +22,7 @@ test('it renders', function(assert) {
   assert.equal(component.get('element').tagName, 'md-nav-container'.toUpperCase(), 'matches `md-nav-container`');
 });
 
-test('expandSidenav event sets open property to true', function(assert) {
+test('expandSidenav call sets open property to true', function(assert) {
   assert.expect(2);
   var component = this.subject();
   assert.equal(component.get('open'), false, 'default value for open prop is false');
@@ -31,7 +31,7 @@ test('expandSidenav event sets open property to true', function(assert) {
   assert.equal(component.get('open'), true, 'expandSidenav event sets open prop to true');
 });
 
-test('toggleSidenav event sets open property from false to true', function(assert) {
+test('toggleSidenav call sets open property from false to true', function(assert) {
   assert.expect(3);
   var component = this.subject();
   assert.equal(component.get('open'), false, 'default value for open prop is false');
@@ -43,7 +43,7 @@ test('toggleSidenav event sets open property from false to true', function(asser
   assert.equal(component.get('open'), false, 'toggleSidenav event sets open prop to false');
 });
 
-test('collapseSidenav event sets open property to false', function(assert) {
+test('collapseSidenav call sets open property to false', function(assert) {
   assert.expect(1);
   var component = this.subject();
 
