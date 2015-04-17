@@ -19,6 +19,7 @@ export default BaseFocusable.extend(RippleMixin, {
   checkedDidChange: Ember.observer('checked', function() {
     if (this.get('checked')) {
       this.set('selected', this.get('value'));
+      this.sendAction('changed', this.get('value'));
     }
   }),
 
