@@ -5,6 +5,12 @@ export default Ember.Component.extend({
   classNames: ['paper-icon'],
   classNameBindings: ['iconClass', 'sizeClass', 'spinClass'],
 
+  attributeBindings: ['title'],
+
+  click: function () {
+    this.sendAction('action', this.get('param'));
+  },
+
   spin: false,
   reverseSpin: false,
 
