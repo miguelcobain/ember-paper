@@ -11,16 +11,17 @@
 <div class="doc-content">
   <ul class="paper-list-inline">
     <li>{{paper-text label="Name" value=name}}</li>
-    <li>{{paper-text label="E-mail" type="email" value=email}}</li>
+    <li>{{paper-text label="E-mail" type="email" value=email focusIn="notifyEditingText" focusOut="alertFocusedOut"}}</li>
     <li>{{paper-text label="Password" type="password"}}</li>
     <li>{{paper-text label="E-mail" type="email" disabled=true}}</li>
   </ul>
   <p>Name: {{name}}</p>
   <p>Email: {{email}}</p>
+  {{#if isEditingText}}<p>Currently editing text</p>{{/if}}
   <h3>Template</h3>
   <pre>
     \{{paper-text label="Name" value=name}}
-    \{{paper-text label="E-mail" type="email" value=email}}
+    \{{paper-text label="E-mail" type="email" value=email focusIn="notifyEditingText" focusOut="alertFocusedOut"}}
     \{{paper-text label="Password" type="password"}}
     \{{paper-text label="E-mail" type="email" disabled=true}}
   </pre>
