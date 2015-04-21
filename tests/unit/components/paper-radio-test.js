@@ -109,3 +109,16 @@ test('it is possible to uncheck and set selected property to null if toggle is t
 
   assert.equal(component.get('selected'), null);
 });
+
+test('it isn\'t possible to check a disabled radio button', function(assert) {
+  var component = this.subject();
+
+  Ember.run(function() {
+    component.set('disabled', true);
+    component.set('selected', false);
+  });
+
+  this.$().trigger('click');
+
+  assert.equal(component.get('selected'), false);
+});
