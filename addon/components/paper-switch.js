@@ -80,6 +80,7 @@ export default BaseFocusable.extend(RippleMixin, {
          (this.get('checked') && this.get('dragAmount') < 0.5) ||
          (!this.get('checked') && this.get('dragAmount') > 0.5)) {
       this.toggleProperty('checked');
+      this.sendAction('changed', this.get('checked'));
     }
 
     // Cleanup

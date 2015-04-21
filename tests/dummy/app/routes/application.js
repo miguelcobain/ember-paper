@@ -19,6 +19,9 @@ export default Ember.Route.extend({
     },
     alertCheckboxValue: function(value) {
       if(value) { alert('The box is checked!'); }
+    },
+    alertSwitchValue: function(value) {
+      alert('Switch is toggling to: ' + value);
     }
   }
 });
