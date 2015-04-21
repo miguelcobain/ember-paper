@@ -24,6 +24,10 @@ export default BaseFocusable.extend(RippleMixin, {
   }),
 
   click: function() {
+    if (this.get('disabled')) {
+      return;
+    }
+
     if (this.get('toggle')) {
       this.set('selected', this.get('checked') ? null : this.get('value'));
     } else {
