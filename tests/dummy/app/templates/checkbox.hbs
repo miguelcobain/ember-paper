@@ -8,7 +8,7 @@
 {{/paper-toolbar}}
 {{#paper-content classNames="md-padding"}}
 <div class="doc-content">
-  {{#paper-checkbox checked=value1}}A checkbox: {{value1}}{{/paper-checkbox}}
+  {{#paper-checkbox checked=value1 changed="alertCheckboxValue"}}A checkbox: {{value1}}{{/paper-checkbox}}
   {{#paper-checkbox checked=value2}}A checkbox: {{#if value2}}yep{{else}}nope{{/if}}{{/paper-checkbox}}
   {{#paper-checkbox disabled=true}}Checkbox (disabled){{/paper-checkbox}}
   {{#paper-checkbox disabled=true checked=true}}Checkbox (disabled and checked){{/paper-checkbox}}
@@ -18,7 +18,7 @@
 
   <h3>Template</h3>
   <pre>
-    \{{#paper-checkbox checked=value1}}A checkbox: \{{value1}}\{{/paper-checkbox}}
+    \{{#paper-checkbox checked=value1 changed="alertCheckboxValue"}}A checkbox: \{{value1}}\{{/paper-checkbox}}
     \{{#paper-checkbox checked=value2}}A checkbox: \{{#if value2}}yep\{{else}}nope\{{/if}}\{{/paper-checkbox}}
     \{{#paper-checkbox disabled=true}}Checkbox (disabled)\{{/paper-checkbox}}
     \{{#paper-checkbox disabled=true checked=true}}Checkbox (disabled and checked)\{{/paper-checkbox}}

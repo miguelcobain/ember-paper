@@ -14,8 +14,11 @@ export default Ember.Route.extend({
     willTransition: function() {
       this.controller.set('drawerOpen',false);
     },
-    alertValue: function(value) {
+    alertRadioValue: function(value) {
       alert('You clicked Radio button: ' + value);
+    },
+    alertCheckboxValue: function(value) {
+      if(value) { alert('The box is checked!'); }
     }
   }
 });

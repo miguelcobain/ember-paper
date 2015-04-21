@@ -18,7 +18,7 @@
   <ul class="paper-list-inline">
     <li>{{#paper-radio value="1" selected=selectedValue}}Radio button 1{{/paper-radio}}</li>
     <li>{{#paper-radio value="2" selected=selectedValue}}Radio button 2{{/paper-radio}}</li>
-    <li>{{#paper-radio value="3" selected=selectedValue changed="alertValue"}}Radio button 3{{/paper-radio}}</li>
+    <li>{{#paper-radio value="3" selected=selectedValue changed="alertRadioValue"}}Radio button 3{{/paper-radio}}</li>
   </ul>
   <p>Selected value: {{selectedValue}}</p>
 
@@ -32,7 +32,7 @@
 
     \{{#paper-radio value="1" selected=selectedValue}}Radio button 1\{{/paper-radio}}
     \{{#paper-radio value="2" selected=selectedValue}}Radio button 2\{{/paper-radio}}
-    \{{#paper-radio value="3" selected=selectedValue changed="alertValue"}}Radio button 3\{{/paper-radio}}
+    \{{#paper-radio value="3" selected=selectedValue changed="alertRadioValue"}}Radio button 3\{{/paper-radio}}
 
     \{{paper-radio toggle=true label="Blockless version"}}
   </pre>
