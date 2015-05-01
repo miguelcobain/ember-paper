@@ -75,6 +75,7 @@ md-input-group,
   input[type="tel"],
   input[type="color"] {
     display: block;
+    border-radius: 0;
     border-width: 0 0 1px 0;
     padding-top: 2px;
     line-height: $tff-line-height;
