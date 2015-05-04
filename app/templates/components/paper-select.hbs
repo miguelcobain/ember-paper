@@ -1,15 +1,12 @@
-{{#paper-button action="toggleMenu" raised=true}}
-  {{#if selection}}
-    {{selection}}
-  {{else}}
-    {{prompt}}
-  {{/if}}
-{{/paper-button}}
+{{#paper-menu-toggle}}
+  <span>{{if selection selection prompt}}</span>
+  <div class="md-select-icon"></div>
+{{/paper-menu-toggle}}
 {{#if isOpen}}
   {{#paper-menu}}
     {{#each item in content}}
       {{#paper-menu-item action="select" param=item}}
-        {{item}}
+        <div class="md-text">{{item}}</div>
       {{/paper-menu-item}}
     {{/each}}
   {{/paper-menu}}

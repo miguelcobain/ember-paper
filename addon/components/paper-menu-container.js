@@ -1,8 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  //TODO change to `md-menu-container` after styles are added
-  tagName: 'div',
+  tagName: 'md-menu-container',
   classNames: ['paper-menu-container'],
 
   isOpen: false,

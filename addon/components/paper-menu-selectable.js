@@ -1,8 +1,7 @@
 import PaperMenuContainer from './paper-menu-container';
 
 export default PaperMenuContainer.extend({
-  //TODO change to `md-menu-selectable` after styles are added
-  tagName: 'div',
+  tagName: 'md-menu-selectable',
   classNames: ['paper-menu-selectable'],
 
   prompt: null,
