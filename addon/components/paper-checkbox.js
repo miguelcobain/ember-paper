@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 
@@ -10,9 +11,9 @@ export default BaseFocusable.extend(RippleMixin, {
 
   //Alow element to be focusable by supplying a tabindex 0
   attributeBindings: ['tabindex'],
-  tabindex: function() {
+  tabindex: Ember.computed('disabled', function() {
     return this.get('disabled') ? '-1' : '0';
-  }.property('disabled'),
+  }),
 
   checked: false,
   toggle: true,

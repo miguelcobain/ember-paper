@@ -13,12 +13,45 @@
   <p><br>This project aims to bring Google's new <a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design</a> to Ember. The goal is to encapsulate everything possible in Ember components. This project is packaged as an <a href="http://www.ember-cli.com/">Ember-cli</a> addon.</p>
 
   <h3>Installation</h3>
+  <p>Temporary workaround. For now you need to run <pre style="display:inline">$ npm install --save-dev broccoli-autoprefixer</pre> before installing ember-paper.</p>
+
   <p>Install the ember-cli addon in your ember-cli project:</p>
+
   <div class="preview-block">
-    <pre style="margin:0">$ ember install:addon ember-paper</pre>
+    <pre style="margin:0">$ ember install ember-paper</pre>
   </div>
+
+  <p>Ember-paper uses sass for its styles. To import them run:</p>
+
+  <div class="preview-block">
+    <pre style="margin:0">$ npm install --save-dev broccoli-sass</pre>
+  </div>
+
+  <p>and then create a file in <pre style="display:inline">app/styles/app.scss</pre> and import the styles at the beginning of your file:</p>
+
+  <div class="preview-block">
+    <pre style="margin:0">@import 'ember-paper';</pre>
+  </div>
+
   <p>All the components and styles are ready to use in your application templates.</p>
   <p>Navigate through the docs to understand how to use each component.</p>
+
+  <h3>Content Security Policy</h3>
+
+  <p>Ember Paper uses fonts from Google Fonts, so the URL to them has to be white listed.  You can set this by adding to the Content Security Policy defined in <pre style="display:inline">config/environment.js</pre> like so:</p>
+
+  <div class="preview-block">
+    <pre style="margin:0">ENV.contentSecurityPolicy = {
+  'default-src': "'none'",
+  'script-src': "'self'",
+  'font-src': "'self' http://fonts.gstatic.com",
+  'connect-src': "'self'",
+  'img-src': "'self'",
+  'media-src': "'self'"
+}</pre>
+  </div>
+
+<p>You can find out more information on the CSP addon page <a href="https://github.com/rwjblue/ember-cli-content-security-policy#ember-cli-content-security-policy">here</a>.</p>
 
   <h3>Contribution</h3>
   <p>This is a very ambitious project. Google's design specs are extensive, and not trivial to implement. <strong>ember-paper</strong> is heavily based on <a href="https://github.com/angular/material">Angular Material</a> and <a href="https://github.com/google/web-starter-kit/tree/material-sprint">Web Starter Kit (material-sprint branch)</a>. These seem to be the most useful resources at the moment. If you feel like porting or fixing an element or two, please drop a pull request or issue at GitHub!</p>

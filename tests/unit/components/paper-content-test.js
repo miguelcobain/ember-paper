@@ -16,6 +16,6 @@ test('it renders', function(assert) {
   assert.equal(component._state, 'preRender');
 
   // appends the component to the page
-  this.append();
+  this.render();
   assert.equal(component._state, 'inDOM');
 });

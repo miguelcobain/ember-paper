@@ -22,34 +22,39 @@ test('it renders', function(assert) {
   assert.equal(component.get('element').tagName, 'md-sidenav-toggle'.toUpperCase(), 'matches `md-sidenav-toggle`');
 });
 
-test('when clicked triggers `toggleSidenav` event by default', function(assert) {
+test('when clicked triggers `toggleSidenav` on navContainer', function(assert) {
   assert.expect(1);
   var component = this.subject();
+
   var didFire = false;
+  component.set('navContainer', Ember.Object.create({
+    toggleSidenav: function() {
+      didFire = true;
+    }
+  }));
 
   var $component = this.$();
   Ember.run(function() {
-    $component.on('toggleSidenav', function() {
-      didFire = true;
-    });
     $component.trigger('click');
   });
 
-  assert.ok(didFire, 'toggleSidenav event fired');
+  assert.ok(didFire, 'toggleSidenav called');
 });
 
-test('when clicked triggers `expandSidenav` event if toggle is false', function(assert) {
+test('when clicked triggers `expandSidenav` if toggle is false on navContainer', function(assert) {
   assert.expect(1);
   var component = this.subject({toggle: false});
   var didFire = false;
+  component.set('navContainer', Ember.Object.create({
+    expandSidenav: function() {
+      didFire = true;
+    }
+  }));
 
   var $component = this.$();
   Ember.run(function() {
-    $component.on('expandSidenav', function() {
-      didFire = true;
-    });
     $component.trigger('click');
   });
 
-  assert.ok(didFire, 'expandSidenav event fired');
+  assert.ok(didFire, 'expandSidenav called');
 });

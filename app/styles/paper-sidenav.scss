@@ -1,6 +1,6 @@
 $sidenav-default-width: 254px !default;
 $sidenav-min-space: 56px !default;
-$locked-breakpoint: 850px;
+$locked-breakpoint: 850px !default;
 
 // NOT PORTED FROM ANGULAR MATERIAL
 
@@ -78,7 +78,7 @@ md-nav-container {
 md-nav-container{
   &>md-backdrop {
     @media screen and (min-width: $locked-breakpoint) {
-      display: none;
+      visibility: hidden;
     }
   }
 }

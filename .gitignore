@@ -3,8 +3,6 @@
 # compiled output
 /dist
 /tmp
-/vendor/ember-paper.css
-/vendor/ember-paper.css.map
 
 # dependencies
 /node_modules
@@ -17,4 +15,3 @@
 /libpeerconnection.log
 npm-debug.log
 testem.log
-.DS_Store

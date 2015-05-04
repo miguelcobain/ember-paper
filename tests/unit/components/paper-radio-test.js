@@ -32,6 +32,36 @@ test('should set checked css class', function(assert) {
   assert.ok(this.$().hasClass('md-checked'));
 });
 
+test('it updates when clicked, and triggers the `changed` action', function(assert) {
+  var changedActionCallCount = 0;
+  var component = this.subject({
+    value: 'component-value',
+    selected: 'initial-selected-value',
+    changed: 'changed',
+    targetObject: Ember.Controller.createWithMixins({
+      actions: {
+        changed: function() {
+          changedActionCallCount++;
+        }
+      }
+    })
+  });
+  this.append();
+
+  assert.equal(changedActionCallCount, 0);
+  assert.equal(component.$().hasClass('md-checked'), false);
+
+  Ember.run(function() {
+    component.$().trigger('click');
+  });
+
+  assert.equal(component.$().hasClass('md-checked'), true, 'updates element property');
+  assert.equal(component.get('checked'), true, 'updates component property');
+  assert.equal(component.get('selected'), 'component-value', 'updates selected ');
+
+  assert.equal(changedActionCallCount, 1);
+});
+
 test('it is possible to check and set selected property to value', function(assert) {
   var component = this.subject();
 
@@ -78,4 +108,17 @@ test('it is possible to uncheck and set selected property to null if toggle is t
   this.$().trigger('click');
 
   assert.equal(component.get('selected'), null);
+});
+
+test('it isn\'t possible to check a disabled radio button', function(assert) {
+  var component = this.subject();
+
+  Ember.run(function() {
+    component.set('disabled', true);
+    component.set('selected', false);
+  });
+
+  this.$().trigger('click');
+
+  assert.equal(component.get('selected'), false);
 });

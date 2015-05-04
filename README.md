@@ -1,5 +1,4 @@
-# Ember Paper [![Build Status](https://travis-ci.org/miguelcobain/ember-paper.svg)](https://travis-ci.org/miguelcobain/ember-paper)
-
+# Ember Paper [![Build Status](https://travis-ci.org/miguelcobain/ember-paper.svg)](https://travis-ci.org/miguelcobain/ember-paper) [![Ember Observer Score](http://emberobserver.com/badges/ember-paper.svg)](http://emberobserver.com/addons/ember-paper)
 
 [![Join the chat at https://gitter.im/miguelcobain/ember-paper](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/miguelcobain/ember-paper?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -12,7 +11,7 @@ Temporary workaround. For now you need to run `$ npm install --save-dev broccoli
 Install the ember-cli addon in your ember-cli project:
 
 ```
-$ ember install:addon ember-paper
+$ ember install ember-paper
 ```
 
 Ember-paper uses sass for its styles. To import them run:

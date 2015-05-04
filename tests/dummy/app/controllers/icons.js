@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  icons:[
+  icons: Ember.A([
     'access-alarms',
     'access-time',
     'accessibility',
@@ -435,5 +435,5 @@ export default Ember.Controller.extend({
     'whatshot',
     'wifi-tethering',
     'work'
-  ]
+  ])
 });
