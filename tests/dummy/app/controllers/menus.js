@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  items: [
+  items: Ember.A([
     'Item 1',
     'Item 2',
     'Item 3',
@@ -9,5 +9,5 @@ export default Ember.Controller.extend({
     'Item 5',
     'Item 6',
     'Item 7'
-  ]
+  ])
 });
