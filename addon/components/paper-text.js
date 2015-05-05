@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import BaseFocusable from './base-focusable';
+import BaseFocusableMixin from '../mixins/base-focusable';
 
-export default BaseFocusable.extend({
+export default Ember.Component.extend(BaseFocusableMixin, {
   tagName: 'md-input-group',
   classNames: ['md-default-theme'],
   classNameBindings: ['hasValue:md-input-has-value', 'focus:md-input-focused'],

@@ -24,13 +24,13 @@ $select-max-visible-options: 5;
       cursor: pointer
     }
     &.ng-invalid.ng-dirty {
-      .md-select-label {
+      .paper-menu-toggle {
         padding-bottom: 7px;
         border-bottom: 2px solid;
       }
     }
     &:focus {
-      .md-select-label {
+      .paper-menu-toggle {
         border-bottom: 2px solid;
         padding-bottom: $baseline-grid - 1;
       }
@@ -55,6 +55,7 @@ $select-max-visible-options: 5;
     overflow: hidden;
     line-height: 1.2rem;
     max-width: calc(100% - 2*#{$baseline-grid});
+    font-size: rem(1.6);
   }
 
   .md-select-icon {
@@ -82,10 +83,8 @@ $select-max-visible-options: 5;
   }
 
   &:not(.md-overflow) {
-    md-content {
       padding-top: $baseline-grid;
       padding-bottom: $baseline-grid;
-    }
   }
 
   box-shadow: $whiteframe-shadow-z1;
@@ -124,3 +123,68 @@ $select-max-visible-options: 5;
 }
 
 //THEME
+$select-primary-color-palette: $primary-color-palette !default;
+$select-primary-color: map-get($select-primary-color-palette, '400') !default;
+
+$select-warn-color-palette: $warn-color-palette !default;
+$select-warn-color: map-get($select-warn-color-palette, '400') !default;
+
+$foreground-1: rgba(0,0,0,0.87);
+$foreground-2: rgba(0,0,0,0.54);
+$foreground-3: rgba(0,0,0,0.26);
+$foreground-4: rgba(0,0,0,0.12);
+
+md-select.md-default-theme {
+  &.ng-invalid.ng-dirty {
+    .md-select-label {
+      color: $select-warn-color !important;
+      border-bottom-color: $select-warn-color !important;
+    }
+  }
+  &:not([disabled]):focus {
+    .paper-menu-toggle {
+      border-bottom-color: $select-primary-color;
+      color: $foreground-1;
+      &.md-placeholder {
+        color: $foreground-1;
+      }
+    }
+    &.md-warn .paper-menu-toggle {
+      border-bottom-color: $select-warn-color;
+    }
+  }
+  &[disabled] {
+    .paper-menu-toggle {
+      color: $foreground-3;
+      &.md-placeholder {
+        color: $foreground-3;
+      }
+    }
+  }
+  .paper-menu-toggle {
+    &.md-placeholder {
+      color: $foreground-2;
+    }
+    border-bottom-color: $foreground-4;
+  }
+}
+
+md-select.md-default-theme {
+
+  md-optgroup {
+    color: $foreground-2;
+    md-menu-item {
+      color: $foreground-1;
+    }
+  }
+  md-menu-item[selected] {
+    color: map-get($select-primary-color-palette, '500');
+    &:focus {
+      color: map-get($select-primary-color-palette, '600');
+    }
+  }
+  md-menu-item:focus:not([selected]) {
+    background: map-get($background-color-palette, '200');
+  }
+
+}

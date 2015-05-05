@@ -1,7 +1,8 @@
-import BaseFocusable from './base-focusable';
+import Ember from 'ember';
+import BaseFocusableMixin from '../mixins/base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 
-export default BaseFocusable.extend(RippleMixin,{
+export default Ember.Component.extend(BaseFocusableMixin, RippleMixin,{
   attributeBindings: ['target', 'action'],
   tagName: 'button',
   classNames: ['md-button','md-default-theme'],

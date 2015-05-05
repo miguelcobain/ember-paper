@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import BaseFocusable from './base-focusable';
+import BaseFocusableMixin from '../mixins/base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 
-export default BaseFocusable.extend(RippleMixin, {
+export default Ember.Component.extend(BaseFocusableMixin, RippleMixin, {
   tagName: 'md-radio-button',
   classNames: ['md-radio-button', 'md-default-theme'],
   classNameBindings: ['checked:md-checked'],

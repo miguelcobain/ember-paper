@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import BaseFocusable from './base-focusable';
+import BaseFocusableMixin from '../mixins/base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 /* globals Hammer */
 
-export default BaseFocusable.extend(RippleMixin, {
+export default Ember.Component.extend(BaseFocusableMixin, RippleMixin, {
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],

@@ -1,19 +1,13 @@
 import Ember from 'ember';
-import BaseFocusable from './base-focusable';
+import BaseFocusableMixin from '../mixins/base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 
 var KEY_CODE_SPACE = 32;
 
-export default BaseFocusable.extend(RippleMixin, {
+export default Ember.Component.extend(BaseFocusableMixin, RippleMixin, {
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
   classNameBindings: ['checked:md-checked'],
-
-  //Alow element to be focusable by supplying a tabindex 0
-  attributeBindings: ['tabindex'],
-  tabindex: Ember.computed('disabled', function() {
-    return this.get('disabled') ? '-1' : '0';
-  }),
 
   checked: false,
   toggle: true,

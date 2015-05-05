@@ -1,6 +1,7 @@
 import PaperMenuContainer from './paper-menu-container';
+import BaseFocusableMixin from '../mixins/base-focusable';
 
-export default PaperMenuContainer.extend({
+export default PaperMenuContainer.extend(BaseFocusableMixin, {
   tagName: 'md-menu-selectable',
   classNames: ['paper-menu-selectable'],
 
@@ -9,7 +10,7 @@ export default PaperMenuContainer.extend({
 
   actions: {
     select: function(option) {
-      this.set('selection', option);
+      this.set('value', option);
       this.send('toggleMenu');
     }
   }
