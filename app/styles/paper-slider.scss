@@ -276,7 +276,7 @@ md-slider {
   }
 }
 
-md-slider {
+md-slider.md-#{$theme-name}-theme {
 
   &.md-warn {
     .md-track.md-track-fill {
@@ -294,7 +294,7 @@ md-slider {
       }
     }
     .md-thumb-text {
-      color: color($warn-color-palette, "contrast");
+      color: color($warn-color-palette, 'contrast');
     }
   }
 
@@ -314,27 +314,27 @@ md-slider {
       }
     }
     .md-thumb-text {
-      color: color($primary-color-palette, "contrast");
+      color: color($primary-color-palette, 'contrast');
     }
   }
 
   .md-track {
-    background-color: color($foreground, "3");
+    background-color: color($foreground, '3');
   }
   .md-track-ticks {
-    background-color: color($foreground, "4");
+    background-color: color($foreground, '4');
   }
   .md-focus-thumb {
-    background-color: color($foreground, "2");
+    background-color: color($foreground, '2');
   }
   .md-focus-ring {
-    border-color: color($foreground, "4");
+    border-color: color($foreground, '4');
   }
   .md-disabled-thumb {
-    border-color: color($background-color-palette, "A100");
+    border-color: color($background-color-palette, 'A100');
   }
   &.md-min .md-thumb:after {
-    background-color: color($background-color-palette, "A100");
+    background-color: color($background-color-palette, 'A100');
   }
 
   .md-track.md-track-fill {
@@ -351,15 +351,15 @@ md-slider {
     }
   }
   .md-thumb-text {
-    color: color($accent-color-palette, "contrast");
+    color: color($accent-color-palette, 'contrast');
   }
 
   &[disabled] {
     .md-thumb:after {
-      border-color: color($foreground, "3");
+      border-color: color($foreground, '3');
     }
     &:not(.md-min) .md-thumb:after {
-      background-color: color($foreground, "3");
+      background-color: color($foreground, '3');
     }
   }
 }

@@ -10,6 +10,7 @@ var MdSlider = BaseFocusable.extend(EventsMixin, {
 
   attributeBindings: ['min', 'max', 'step', 'md-discrete', 'flex', 'tabindex'],
 
+  classNames: ['md-default-theme'],
   classNameBindings: ['isMinimum:md-min', 'active', 'dragging'],
 
   min: 0,
