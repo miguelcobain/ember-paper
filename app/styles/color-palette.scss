@@ -1,3 +1,26 @@
+// Utility Color Classes
+
+$light-contrast-color: rgba(255, 255, 255, 0.87);
+$dark-contrast-color: rgba(0, 0, 0, 0.87);
+$strong-light-contrast-color: rgb(255, 255, 255);
+
+$foreground-light: (
+  "1": rgba(255, 255, 255, 1.0),
+  "2": rgba(255, 255, 255, 0.7),
+  "3": rgba(255, 255, 255, 0.3),
+  "4": rgba(255, 255, 255, 0.12)
+);
+
+$foreground-dark: (
+  "1": rgba(0, 0, 0, 0.87),
+  "2": rgba(0, 0, 0, 0.54),
+  "3": rgba(0, 0, 0, 0.26),
+  "4": rgba(0, 0, 0, 0.12)
+);
+
+$foreground-dark-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4), -1px -1px 0px rgba(0, 0, 0, 0.4);
+$foreground-light-shadow: none;
+
 $color-red: (
   '50': #ffebee,
   '100': #ffcdd2,
@@ -12,7 +35,8 @@ $color-red: (
   'A100': #ff8a80,
   'A200': #ff5252,
   'A400': #ff1744,
-  'A700': #d50000
+  'A700': #d50000,
+  "contrast": $light-contrast-color
 );
 
 // Pink
@@ -32,7 +56,8 @@ $color-pink: (
   'A100': #ff80ab,
   'A200': #ff4081,
   'A400': #f50057,
-  'A700': #c51162
+  'A700': #c51162,
+  "contrast" : $light-contrast-color
 );
 
 // Purple
@@ -52,9 +77,9 @@ $color-purple: (
   'A100': #ea80fc,
   'A200': #e040fb,
   'A400': #d500f9,
-  'A700': #aa00ff
+  'A700': #aa00ff,
+  "contrast": $light-contrast-color
 );
-
 
 // Deep Purple
 // ----------------------------
@@ -73,7 +98,8 @@ $color-deep-purple: (
   'A100': #b388ff,
   'A200': #7c4dff,
   'A400': #651fff,
-  'A700': #6200ea
+  'A700': #6200ea,
+  "contrast": $light-contrast-color
 );
 
 // Indigo
@@ -93,9 +119,9 @@ $color-indigo: (
   'A100': #8c9eff,
   'A200': #536dfe,
   'A400': #3d5afe,
-  'A700': #304ffe
+  'A700': #304ffe,
+  "contrast": $light-contrast-color
 );
-
 
 // Blue
 // ----------------------------
@@ -114,9 +140,9 @@ $color-blue: (
   'A100': #82b1ff,
   'A200': #448aff,
   'A400': #2979ff,
-  'A700': #2962ff
+  'A700': #2962ff,
+  "contrast": $light-contrast-color
 );
-
 
 // Light Blue
 // ----------------------------
@@ -135,9 +161,9 @@ $color-light-blue: (
   'A100': #80d8ff,
   'A200': #40c4ff,
   'A400': #00b0ff,
-  'A700': #0091ea
+  'A700': #0091ea,
+  "contrast": $dark-contrast-color
 );
-
 
 // Cyan
 // ----------------------------
@@ -156,9 +182,9 @@ $color-cyan: (
   'A100': #84ffff,
   'A200': #18ffff,
   'A400': #00e5ff,
-  'A700': #00b8d4
+  'A700': #00b8d4,
+  "contrast": $dark-contrast-color
 );
-
 
 // Teal
 // ----------------------------
@@ -177,9 +203,9 @@ $color-teal: (
   'A100': #a7ffeb,
   'A200': #64ffda,
   'A400': #1de9b6,
-  'A700': #00bfa5
+  'A700': #00bfa5,
+  "contrast": $dark-contrast-color
 );
-
 
 // Green
 // ----------------------------
@@ -198,9 +224,9 @@ $color-green: (
   'A100': #b9f6ca,
   'A200': #69f0ae,
   'A400': #00e676,
-  'A700': #00c853
+  'A700': #00c853,
+  "contrast": $dark-contrast-color
 );
-
 
 // Light Green
 // ----------------------------
@@ -219,9 +245,9 @@ $color-light-green: (
   'A100': #ccff90,
   'A200': #b2ff59,
   'A400': #76ff03,
-  'A700': #64dd17
+  'A700': #64dd17,
+  "contrast": $dark-contrast-color
 );
-
 
 // Lime
 // ----------------------------
@@ -240,9 +266,9 @@ $color-lime: (
   'A100': #f4ff81,
   'A200': #eeff41,
   'A400': #c6ff00,
-  'A700': #aeea00
+  'A700': #aeea00,
+  "contrast": $dark-contrast-color
 );
-
 
 // Yellow
 // ----------------------------
@@ -260,9 +286,9 @@ $color-yellow: (
   'A100': #ffff8d,
   'A200': #ffff00,
   'A400': #ffea00,
-  'A700': #ffd600
+  'A700': #ffd600,
+  "contrast": $dark-contrast-color
 );
-
 
 // Amber
 // ----------------------------
@@ -281,9 +307,9 @@ $color-amber: (
   'A100': #ffe57f,
   'A200': #ffd740,
   'A400': #ffc400,
-  'A700': #ffab00
+  'A700': #ffab00,
+  "contrast": $dark-contrast-color
 );
-
 
 // Orange
 // ----------------------------
@@ -302,9 +328,9 @@ $color-orange: (
   'A100': #ffd180,
   'A200': #ffab40,
   'A400': #ff9100,
-  'A700': #ff6d00
+  'A700': #ff6d00,
+  "contrast": $dark-contrast-color
 );
-
 
 // Deep Orange
 // ----------------------------
@@ -323,9 +349,9 @@ $color-deep-orange: (
   'A100': #ff9e80,
   'A200': #ff6e40,
   'A400': #ff3d00,
-  'A700': #dd2c00
+  'A700': #dd2c00,
+  "contrast": $light-contrast-color
 );
-
 
 // Brown
 // ----------------------------
@@ -340,9 +366,13 @@ $color-brown: (
   '600': #6d4c41,
   '700': #5d4037,
   '800': #4e342e,
-  '900': #3e2723
+  '900': #3e2723,
+  "A100": #d7ccc8,
+  "A200": #bcaaa4,
+  "A400": #8d6e63,
+  "A700": #5d4037,
+  "contrast": $light-contrast-color
 );
-
 
 // Grey
 // ----------------------------
@@ -359,7 +389,11 @@ $color-grey: (
   '800': #424242,
   '900': #212121,
   '1000': #000000,
-  'A100': #ffffff
+  'A100': #ffffff,
+  "A200": #eeeeee,
+  "A400": #bdbdbd,
+  "A700": #616161,
+  "contrast": $dark-contrast-color
 );
 
 // Blue Grey
@@ -374,5 +408,56 @@ $color-blue-grey: (
   '600': #546e7a,
   '700': #455a64,
   '800': #37474f,
-  '900': #263238
+  '900': #263238,
+  "A100": #cfd8dc,
+  "A200": #b0bec5,
+  "A400": #78909c,
+  "A700": #455a64,
+  "contrast": $light-contrast-color
 );
+
+$shades: (
+  "black": #000000,
+  "white": #FFFFFF
+);
+
+$colors: (
+  "red": $color-red,
+  "pink": $color-pink,
+  "purple": $color-purple,
+  "deep-purple": $color-deep-purple,
+  "indigo": $color-indigo,
+  "blue": $color-blue,
+  "light-blue": $color-light-blue,
+  "cyan": $color-cyan,
+  "teal": $color-teal,
+  "green": $color-green,
+  "light-green": $color-light-green,
+  "lime": $color-lime,
+  "yellow": $color-yellow,
+  "amber": $color-amber,
+  "orange": $color-orange,
+  "deep-orange": $color-deep-orange,
+  "brown": $color-brown,
+  "blue-grey": $color-blue-grey,
+  "grey": $color-grey,
+  "shades": $shades,
+  "foreground-light": $foreground-light,
+  "foreground-dark": $foreground-dark
+);
+
+@function color($color, $type: $default-color) {
+  @if map-has-key($colors, $color) {
+    $curr_color: map-get($colors, $color);
+    @if map-has-key($curr_color, $type) {
+      @return map-get($curr_color, $type);
+    }
+  } @else {
+    @if map-has-key($color, $type) {
+      @return map-get($color, $type);
+    }
+  }
+
+  @warn "Unknown `#{$type}` in $colors. `#{$color}`";
+  @return null;
+}

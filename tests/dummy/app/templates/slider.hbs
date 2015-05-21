@@ -1,0 +1,74 @@
+{{#paper-toolbar}}
+    <h2 class="md-toolbar-tools">
+      {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
+        {{paper-icon icon="menu"}}
+      {{/paper-sidenav-toggle}}
+        <span>Switches</span>
+    </h2>
+{{/paper-toolbar}}
+
+{{#paper-content classNames="md-padding"}}
+
+        <h3>
+            RGB <span style={{colorStyle}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </h3>
+
+        <div layout>
+            <div flex="10" layout layout-align="center center">
+                <span>R</span>
+            </div>
+          {{paper-slider flex='' min='0' max='255' value=color.red}}
+            <div flex="20" layout layout-align="center center">
+              {{input type="number" value=color.red}}
+            </div>
+        </div>
+
+        <div layout>
+            <div flex="10" layout layout-align="center center">
+                <span>G</span>
+            </div>
+          {{paper-slider flex='' min='0' max='255' value=color.green classNames='md-accent'}}
+            <div flex="20" layout layout-align="center center">
+              {{input type="number" value=color.green}}
+            </div>
+        </div>
+
+        <div layout>
+            <div flex="10" layout layout-align="center center">
+                <span>B</span>
+            </div>
+          {{paper-slider flex='' min='0' max='255' value=color.blue classNames='md-primary'}}
+            <div flex="20" layout layout-align="center center">
+              {{input type="number" value=color.blue}}
+            </div>
+        </div>
+
+        <h3>Rating: {{rating}}/5 - demo of theming classes</h3>
+        <div layout>
+            <div flex="10" layout layout-align="center center">
+                <span>default</span>
+            </div>
+          {{paper-slider flex='' md-discrete='' value=rating1 step='1' min='1' max='5'}}
+        </div>
+        <div layout>
+            <div flex="10" layout layout-align="center center">
+                <span>md-warn</span>
+            </div>
+          {{paper-slider flex='' classNames="md-warn" md-discrete='' value=rating2 step="1" min="1" max="5"}}
+        </div>
+        <div layout>
+            <div flex="10" layout layout-align="center center">
+                <span>md-primary</span>
+            </div>
+          {{paper-slider flex='' classNames="md-primary" md-discrete='' value=rating3 step="1" min="1" max="5"}}
+        </div>
+
+        <h3>Disabled</h3>
+      {{paper-slider value=disabled1 disabled=true}}
+      {{paper-slider value=disabled2 disabled=true}}
+
+        <h3>Disabled, Discrete</h3>
+      {{paper-slider value=disabled1 disabled=true step="3" md-discrete='' min="0" max="10"}}
+      {{paper-slider value=disabled2 disabled=true step="10" md-discrete=''}}
+
+{{/paper-content}}

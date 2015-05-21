@@ -19,4 +19,5 @@ export default Router.map(function() {
   this.route('textfield');
   this.route('toolbar');
   this.route('icons');
+  this.route('slider');
 });
