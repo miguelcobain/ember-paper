@@ -9,6 +9,6 @@ module.exports = {
 
   afterInstall: function() {
     this.addBowerPackageToProject('hammerjs');
-    this.addPackageToProject('ember-cli-sass');
+    this.addPackageToProject('ember-cli-sass', '4.0.0');
   }
 };
