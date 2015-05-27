@@ -13,7 +13,6 @@
   <p><br>This project aims to bring Google's new <a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design</a> to Ember. The goal is to encapsulate everything possible in Ember components. This project is packaged as an <a href="http://www.ember-cli.com/">Ember-cli</a> addon.</p>
 
   <h3>Installation</h3>
-  <p>Temporary workaround. For now you need to run <pre style="display:inline">$ npm install --save-dev broccoli-autoprefixer</pre> before installing ember-paper.</p>
 
   <p>Install the ember-cli addon in your ember-cli project:</p>
 
@@ -21,16 +20,11 @@
     <pre style="margin:0">$ ember install ember-paper</pre>
   </div>
 
-  <p>Ember-paper uses sass for its styles. To import them run:</p>
+  <p>This should also automatically create an scss file under <pre style="display:inline">app/styles/app.scss</pre> with <pre style="display:inline">@import 'ember-paper';</pre>.</p>
+  <p>Sass is an important part of Ember-paper. Using sass you can override default variables and easily change the default behavior of Ember-paper. To use sass run:</p>
 
   <div class="preview-block">
-    <pre style="margin:0">$ npm install --save-dev broccoli-sass</pre>
-  </div>
-
-  <p>and then create a file in <pre style="display:inline">app/styles/app.scss</pre> and import the styles at the beginning of your file:</p>
-
-  <div class="preview-block">
-    <pre style="margin:0">@import 'ember-paper';</pre>
+    <pre style="margin:0">$ ember install ember-cli-sass</pre>
   </div>
 
   <p>All the components and styles are ready to use in your application templates.</p>

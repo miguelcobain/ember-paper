@@ -6,24 +6,17 @@ This project aims to bring Google's new [Material Design](https://www.google.com
 
 ## Installation
 
-Temporary workaround. For now you need to run `$ npm install --save-dev broccoli-autoprefixer` before installing ember-paper.
-
 Install the ember-cli addon in your ember-cli project:
 
 ```
 $ ember install ember-paper
 ```
 
-Ember-paper uses sass for its styles. To import them run:
+This should also automatically create an scss file under `app/styles/app.scss` with `@import 'ember-paper';`.
+Sass is an important part of Ember-paper. Using sass you can override default variables and easily change the default behavior of Ember-paper. To use sass run:
 
 ```
-$ npm install --save-dev broccoli-sass
-```
-
-and then create a file in `app/styles/app.scss` and import the styles at the beginning of your file:
-
-```sass
-@import 'ember-paper';
+$ ember install ember-cli-sass
 ```
 
 All the components and styles are ready to use in your application templates.
