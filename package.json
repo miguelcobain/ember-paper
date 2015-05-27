@@ -41,18 +41,15 @@
     "ember-try": "0.0.4"
   },
   "keywords": [
-    "ember-addon"
-  ],
-  "dependencies": {
-    "ember-cli-babel": "^5.0.0"
-  },
-  "keywords": [
     "ember-addon",
     "material",
     "design",
     "ember",
     "paper"
   ],
+  "dependencies": {
+    "ember-cli-babel": "^5.0.0"
+  },
   "ember-addon": {
     "configPath": "tests/dummy/config"
   }
