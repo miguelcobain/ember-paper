@@ -12,12 +12,9 @@ Install the ember-cli addon in your ember-cli project:
 $ ember install ember-paper
 ```
 
-This should also automatically create an scss file under `app/styles/app.scss` with `@import 'ember-paper';`.
-Sass is an important part of Ember-paper. Using sass you can override default variables and easily change the default behavior of Ember-paper. To use sass run:
+This should also automatically create an scss file under `app/styles/app.scss` with `@import 'ember-paper';` and install `ember-cli-sass`.
 
-```
-$ ember install ember-cli-sass
-```
+Sass is an important part of Ember-paper. Using sass you can override default variables and easily change the default behavior of Ember-paper.
 
 All the components and styles are ready to use in your application templates.
 Navigate through the docs to understand how to use each component.
