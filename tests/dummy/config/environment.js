@@ -19,12 +19,13 @@ module.exports = function(environment) {
     },
     contentSecurityPolicy: {
       'default-src': "'none'",
-      'script-src': "'self' https://buttons.github.io",
+      'script-src': "'self' 'unsafe-inline' https://buttons.github.io https://api.github.com",
       'font-src': "'self' https://fonts.gstatic.com",
       'style-src': "'self' 'unsafe-inline' https://buttons.github.io",
       'connect-src': "'self'",
       'img-src': "'self'",
-      'media-src': "'self'"
+      'media-src': "'self'",
+      'frame-src': "https://buttons.github.io"
     }
   };
 
