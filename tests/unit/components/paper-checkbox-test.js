@@ -39,6 +39,34 @@ test('element should be focusable if not disabled', function(assert) {
   assert.equal(this.$().attr('tabindex'), '0');
 });
 
+test('it updates when clicked, and triggers the `changed` action', function(assert) {
+  var changedActionCallCount = 0;
+  var component = this.subject({
+    checked: false,
+    changed: 'changed',
+    targetObject: Ember.Controller.createWithMixins({
+      actions: {
+        changed: function() {
+          changedActionCallCount++;
+        }
+      }
+    })
+  });
+  this.append();
+
+  assert.equal(changedActionCallCount, 0);
+  assert.equal(component.$().hasClass('md-checked'), false);
+
+  Ember.run(function() {
+    component.$().trigger('click');
+  });
+
+  assert.equal(component.$().hasClass('md-checked'), true, 'updates element property');
+  assert.equal(component.get('checked'), true, 'updates component property');
+
+  assert.equal(changedActionCallCount, 1);
+});
+
 test('element should not be focusable if disabled', function(assert) {
   var component = this.subject();
   this.render();

@@ -26,6 +26,7 @@ export default BaseFocusable.extend(RippleMixin, {
   click: function() {
     if (!this.get('disabled')) {
       this.toggleProperty('checked');
+      this.sendAction('changed', this.get('checked'));
     }
   },
 

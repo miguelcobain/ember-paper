@@ -13,9 +13,11 @@ export default BaseFocusable.extend({
   actions: {
     focusIn: function() {
       this.set('focus',true);
+      this.sendAction('focusIn', this.get('value'));
     },
     focusOut: function() {
       this.set('focus',false);
+      this.sendAction('focusOut', this.get('value'));
     }
   }
 });
