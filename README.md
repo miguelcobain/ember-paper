@@ -17,7 +17,7 @@ $ ember install ember-paper
 Ember-paper uses sass for its styles. To import them run:
 
 ```
-$ npm install --save-dev broccoli-sass
+$ ember install ember-cli-sass
 ```
 
 and then create a file in `app/styles/app.scss` and import the styles at the beginning of your file:
