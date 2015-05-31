@@ -1,6 +1,8 @@
+// This file imports the key setup files for ember-paper in a specific order
+// DO NOT add files here alphabetically.
 @import 'color-palette';
-@import 'fonts';
-@import 'flex-layout';
 @import 'mixins';
-@import 'structure';
 @import 'variables';
+@import 'fonts';
+@import 'structure';
+@import 'flex-layout';
