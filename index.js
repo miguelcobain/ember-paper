@@ -25,5 +25,9 @@ module.exports = {
     }
 
     return tree;
+  },
+
+  isDevelopingAddon: function() {
+    return true;
   }
 };

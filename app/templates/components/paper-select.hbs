@@ -1,0 +1,11 @@
+<div class="md-select-label" {{action 'toggleActiveState'}}>
+  {{displayString}}
+  <div class="md-select-icon">
+  </div>
+</div>
+
+{{#paper-list classNames="md-select-menu md-whiteframe-z1"}}
+  {{#each item in content}}
+    {{#paper-item classNames="md-tile-content" ripple=true action="selectItem" param=item activeParam=selection}}{{item.name}}{{/paper-item}}
+  {{/each}}
+{{/paper-list}}

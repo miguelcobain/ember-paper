@@ -1,0 +1,75 @@
+$select-option-height: 48px;
+$select-option-padding: 16px;
+$select-container-padding: 16px;
+$select-container-transition-duration: 350ms;
+
+
+
+
+
+$tff-transition: all 0.5s $swift-ease-in-out-timing-function;
+
+md-select {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+
+  .md-select-label {
+    display: flex;
+    // Old SCSS
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.26);
+    border-color: rgba(0, 0, 0, 0.12);
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    padding-top: 24px;
+    padding-bottom: 7px;
+
+    .md-select-icon {
+      align-items: flex-end;
+      text-align: end;
+      width: 3 * $baseline-grid;
+      margin: 0 .5 * $baseline-grid;
+    }
+
+    .md-select-icon:after {
+      display: block;
+      content: '\25BC';
+      position: relative;
+      top: 2px;
+      speak: none;
+      transform: scaleY(0.6) scaleX(1);
+    }
+  }
+
+  .md-select-menu {
+    width: 100%;
+    transition: $tff-transition 0.2s;
+    position: absolute;
+    background-color: white;
+    opacity: 0;
+    max-height: 10px;
+    overflow-y: scroll;
+    transform: translate3d(0, -50%, 0);
+    top: 50%;
+    pointer-events: none;
+  }
+
+  &.valid {
+    .md-select-label {
+      color: rgba(0, 0, 0, 0.73);
+      border-color: #03a9f4;
+      border-width: 0 0 2px 0;
+    }
+  }
+
+  &.active {
+    .md-select-menu {
+      transition: $tff-transition;
+      pointer-events: auto;
+      opacity: 1;
+      max-height: 256px;
+      cursor: pointer;
+    }
+  }
+}

@@ -34,6 +34,10 @@ md-item-content {
   position: relative;
 
   padding: $item-padding-top $item-padding-right $item-padding-bottom $item-padding-left;
+
+  &.active {
+    background-color: map-get($background-color-palette, '100');
+  }
 }
 
 /**
