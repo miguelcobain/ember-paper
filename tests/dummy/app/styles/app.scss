@@ -1,4 +1,6 @@
 @import 'ember-paper';
+@import 'prism-overrides';
+@import 'modules/all';
 
 *, *:before, *:after {
 box-sizing: border-box;
