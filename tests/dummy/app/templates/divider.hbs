@@ -54,27 +54,26 @@
   {{/paper-content}}
 
   <h3>Template</h3>
-  <pre>
-  \{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
-    \{{#paper-list}}
-      \{{#each item in listData}}
-        \{{#paper-item}}
-          \{{#paper-tile-left}}
-            &lt;img \{{bind-attr src=item.face alt=item.who}} class=&quot;face&quot;&gt;
-          \{{/paper-tile-left}}
+{{#code-block language='handlebars'}}
+\{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
+  \{{#paper-list}}
+    \{{#each item in listData}}
+      \{{#paper-item}}
+        \{{#paper-tile-left}}
+          &lt;img \{{bind-attr src=item.face alt=item.who}} class=&quot;face&quot;&gt;
+        \{{/paper-tile-left}}
 
-          \{{#paper-tile-content}}
-            &lt;h3&gt;\{{item.what}}&lt;/h3&gt;
-            &lt;h4&gt;\{{item.who}}&lt;/h4&gt;
-            &lt;p&gt;
-              \{{item.notes}}
-            &lt;/p&gt;
-          \{{/paper-tile-content}}
-        \{{/paper-item}}
-        \{{paper-divider}} \{{! OR \{{paper-divider inset=true}} }}
-      \{{/each}}
-    \{{/paper-list}}
-  \{{/paper-content}}
-  </pre>
+        \{{#paper-tile-content}}
+          &lt;h3&gt;\{{item.what}}&lt;/h3&gt;
+          &lt;h4&gt;\{{item.who}}&lt;/h4&gt;
+          &lt;p&gt;
+            \{{item.notes}}
+          &lt;/p&gt;
+        \{{/paper-tile-content}}
+      \{{/paper-item}}
+      \{{paper-divider}} \{{! OR \{{paper-divider inset=true}} }}
+    \{{/each}}
+  \{{/paper-list}}
+\{{/paper-content}}{{/code-block}}
 </div>
 {{/paper-content}}
