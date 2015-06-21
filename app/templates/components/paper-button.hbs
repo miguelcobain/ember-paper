@@ -1,5 +1,7 @@
-<span {{type=type disabled=disabled}}>
-  {{#if hasBlock}}
+<span {{classNameBindings="type disabled"
+  type=type
+  disabled=disabled}}>
+  {{#if template hasBlock}}
     {{yield}}
   {{else}}
     {{label}}
