@@ -20,7 +20,7 @@ export default BaseFocusable.extend({
       this.sendAction();
     },
     insertNewline() {
-
+      this.sendAction();
     },
     escapePress() {
       this.sendAction();
