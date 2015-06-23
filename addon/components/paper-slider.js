@@ -2,13 +2,14 @@ import Ember from 'ember';
 import EventsMixin from '../mixins/events-mixin';
 import BaseFocusable from './base-focusable';
 
-var MdSlider = BaseFocusable.extend(EventsMixin, {
+import FlexMixin from '../mixins/flex-mixin';
+import constants from '../utils/constants';
 
-  constants: Ember.inject.service('constants'),
+export default BaseFocusable.extend(EventsMixin, FlexMixin, {
 
   tagName: 'md-slider',
 
-  attributeBindings: ['min', 'max', 'step', 'md-discrete', 'flex', 'tabindex'],
+  attributeBindings: ['min', 'max', 'step', 'md-discrete', 'tabindex'],
 
   classNames: ['md-default-theme'],
   classNameBindings: ['isMinimum:md-min', 'active', 'dragging'],
@@ -124,9 +125,9 @@ var MdSlider = BaseFocusable.extend(EventsMixin, {
 
     var changeAmount;
 
-    if (event.keyCode === this.get('constants.KEYCODE.LEFT_ARROW')) {
+    if (event.keyCode === constants.KEYCODE.LEFT_ARROW) {
       changeAmount = this.get('step') * -1;
-    } else if (event.keyCode === this.get('constants.KEYCODE.RIGHT_ARROW')) {
+    } else if (event.keyCode === constants.KEYCODE.RIGHT_ARROW) {
       changeAmount = this.get('step');
     }
 
@@ -143,5 +144,3 @@ var MdSlider = BaseFocusable.extend(EventsMixin, {
   }
 
 });
-
-export default MdSlider;
