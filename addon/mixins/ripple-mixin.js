@@ -14,12 +14,12 @@ export default Ember.Mixin.create({
 
   isActive: false,
   isHeld: false,
-  counter:0,
+  counter: 0,
 
-  ripples:[],
-  rippleStates:[],
+  ripples: [],
+  rippleStates: [],
 
-  rippleContainerSelector:'',
+  rippleContainerSelector: '',
 
   onDidInsertElement: Ember.on('didInsertElement', function() {
     if (!this.noink) {
@@ -29,7 +29,7 @@ export default Ember.Mixin.create({
       this.hammertime = new Hammer(this.node);
       this.color = this.parseColor(this.element.attr('md-ink-ripple')) || this.parseColor(window.getComputedStyle(this.colorElement[0]).color || 'rgb(0, 0, 0)');
       if (this.mousedown) {
-        this.hammertime.on('hammer.input', Ember.$.proxy(this.onInput,this));
+        this.hammertime.on('hammer.input', Ember.run.bind(this, this.onInput));
       }
     }
   }),
@@ -43,7 +43,7 @@ export default Ember.Mixin.create({
     }
   }),
 
-  onInput: function(ev) {
+  onInput(ev) {
     var ripple, index;
     if (ev.eventType === Hammer.INPUT_START && ev.isFirst && !this.get('disabled')) {
       ripple = this.createRipple(ev.center.x, ev.center.y);
@@ -63,7 +63,7 @@ export default Ember.Mixin.create({
   *
   * @returns {angular.element} ripple container element
   */
-  getRippleContainer: function() {
+  getRippleContainer() {
     if (this.rippleContainer){
       return this.rippleContainer;
     }
@@ -78,7 +78,7 @@ export default Ember.Mixin.create({
   *
   * @returns {angular.element} the generated ripple element
   */
-  getRippleElement: function(css) {
+  getRippleElement(css) {
     var elem = Ember.$('<div class="md-ripple" data-counter="' + this.counter++ + '">');
     this.ripples.unshift(elem);
     this.rippleStates.unshift({ animating: true });
@@ -93,7 +93,7 @@ export default Ember.Mixin.create({
   *
   * @returns {number} calculated ripple diameter
   */
-  getRippleSize: function(left, top) {
+  getRippleSize(left, top) {
     var width = this.rippleContainer.prop('offsetWidth'),
     height = this.rippleContainer.prop('offsetHeight'),
     multiplier, size, rect;
@@ -112,7 +112,7 @@ export default Ember.Mixin.create({
     }
     return size;
   },
-  parseColor: function(color) {
+  parseColor(color) {
     if (!color){ return; }
     if (color.indexOf('rgba') === 0){ return color; }
     if (color.indexOf('rgb')  === 0){ return rgbToRGBA(color); }
@@ -159,7 +159,7 @@ export default Ember.Mixin.create({
   *
   * @returns {angular.element} the generated ripple element
   */
-  createRipple:function(left, top){
+  createRipple(left, top) {
     var color = this.color = this.parseColor(this.element.attr('md-ink-ripple')) || this.parseColor(window.getComputedStyle(this.colorElement[0]).color || 'rgb(0, 0, 0)');
 
     var container = this.getRippleContainer(),
@@ -173,7 +173,7 @@ export default Ember.Mixin.create({
 
     state.animating = true;
 
-    Ember.run.later(this,function () {
+    Ember.run.later(this, function() {
       if (this.dimBackground) {
         container.css({ backgroundColor: color });
       }
@@ -196,7 +196,7 @@ export default Ember.Mixin.create({
 
     return elem;
   },
-  removeElement: function(elem, wait) {
+  removeElement(elem, wait) {
     var ripples = this.ripples;
     ripples.splice(ripples.indexOf(elem), 1);
     if (ripples.length === 0 && this.rippleContainer) {
@@ -206,7 +206,7 @@ export default Ember.Mixin.create({
       elem.remove();
     }, wait);
   },
-  updateElement: function(elem) {
+  updateElement(elem) {
     var index = this.ripples.indexOf(elem),
     state = this.rippleStates[index] || {},
     elemIsActive = this.ripples.length > 1 ? false : this.isActive,
@@ -235,7 +235,7 @@ export default Ember.Mixin.create({
   *
   * @returns {{backgroundColor: *, width: string, height: string, marginLeft: string, marginTop: string}}
   */
-  getRippleCss: function(size, left, top) {
+  getRippleCss(size, left, top) {
     var rect,
     css = {
       backgroundColor: rgbaToRGB(this.color),

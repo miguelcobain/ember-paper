@@ -1,25 +1,43 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  touchStart: function(e){
+  touchStart(e) {
     return this.down(e);
   },
-  mouseDown: function(e){
+  mouseDown(e) {
     this.down(e);
   },
-  touchEnd: function(e){
+  touchEnd(e) {
     return this.up(e);
   },
-  mouseUp: function(e){
+  mouseUp(e) {
     return this.up(e);
   },
-  touchCancel: function(e){
+  touchCancel(e) {
     return this.up(e);
   },
-  mouseLeave: function(e){
+  mouseLeave(e) {
     return this.up(e);
   },
   up: Ember.K,
   down: Ember.K,
-  contextMenu: Ember.K
+  contextMenu: Ember.K,
+
+  /*
+   * Move events
+   */
+
+  mouseMove: function(e) {
+    return this.move(e);
+  },
+
+  touchMove: function(e) {
+    return this.move(e);
+  },
+
+  pointerMove: function(e) {
+    return this.move(e);
+  },
+
+  move: Ember.K
 });

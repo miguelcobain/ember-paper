@@ -19,7 +19,7 @@ export default Ember.Component.extend({
     this.set('tapHammer', hammer);
   }),
 
-  _collapseSidenav: function() {
+  _collapseSidenav() {
     this.get('navContainer').collapseSidenav();
     return false;
   },

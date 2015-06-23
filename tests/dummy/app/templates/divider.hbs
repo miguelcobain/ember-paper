@@ -12,10 +12,10 @@
   <h4>Full width dividers</h4>
   {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
     {{#paper-list}}
-      {{#each item in listData}}
+      {{#each listData as |item|}}
         {{#paper-item}}
           {{#paper-tile-left}}
-            <img {{bind-attr src=item.face alt=item.who}} class="face">
+            <img src={{item.face}} alt={{item.who}} class="face">
           {{/paper-tile-left}}
 
           {{#paper-tile-content}}
@@ -34,10 +34,10 @@
   <h4>Inset dividers</h4>
   {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
     {{#paper-list}}
-      {{#each item in listData}}
+      {{#each listData as |item|}}
         {{#paper-item}}
           {{#paper-tile-left}}
-            <img {{bind-attr src=item.face alt=item.who}} class="face">
+            <img src={{item.face}} alt={{item.who}} class="face">
           {{/paper-tile-left}}
 
           {{#paper-tile-content}}
@@ -57,10 +57,10 @@
 {{#code-block language='handlebars'}}
 \{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
   \{{#paper-list}}
-    \{{#each item in listData}}
+    \{{#each listData as |item|}}
       \{{#paper-item}}
         \{{#paper-tile-left}}
-          &lt;img \{{bind-attr src=item.face alt=item.who}} class=&quot;face&quot;&gt;
+          &lt;img src=\{{item.face}} alt=\{{item.who}} class=&quot;face&quot;&gt;
         \{{/paper-tile-left}}
 
         \{{#paper-tile-content}}

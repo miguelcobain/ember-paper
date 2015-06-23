@@ -1,18 +1,18 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  actions:{
-    raisedButton:function(){
+  actions: {
+    raisedButton: function() {
       alert('You pressed a raised button.');
     },
-    flatButton:function(){
+    flatButton: function() {
       alert('You pressed a flat button.');
     },
-    targetButton:function() {
+    targetButton: function() {
       alert('You pressed a target button. -from route');
     },
     willTransition: function() {
-      this.controller.set('drawerOpen',false);
+      this.controller.set('drawerOpen', false);
     },
     alertValue: function(value) {
       alert('You clicked Radio button: ' + value);

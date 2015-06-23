@@ -10,7 +10,7 @@ export default Ember.Component.extend({
     return this.nearestOfType(PaperNavContainer);
   }),
 
-  click: function() {
+  click() {
     if (this.get('toggle')) {
       this.get('navContainer').toggleSidenav();
     } else {
