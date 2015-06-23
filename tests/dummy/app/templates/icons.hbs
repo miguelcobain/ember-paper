@@ -25,7 +25,7 @@
 \{{paper-icon icon="rotate-right" spin=true}}
 \{{paper-icon icon="rotate-left" reverseSpin=true}}{{/code-block}}
   <div>
-    {{#each icon in icons}}
+    {{#each icons as |icon|}}
       <div class="icon-tile">
         {{paper-icon icon=icon}}
         <p>{{icon}}</p>
