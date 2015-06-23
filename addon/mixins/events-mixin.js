@@ -21,5 +21,23 @@ export default Ember.Mixin.create({
   },
   up: Ember.K,
   down: Ember.K,
-  contextMenu: Ember.K
+  contextMenu: Ember.K,
+
+  /*
+   * Move events
+   */
+
+  mouseMove: function(e) {
+    return this.move(e);
+  },
+
+  touchMove: function(e) {
+    return this.move(e);
+  },
+
+  pointerMove: function(e) {
+    return this.move(e);
+  },
+
+  move: Ember.K
 });
