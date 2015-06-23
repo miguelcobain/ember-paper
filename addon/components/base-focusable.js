@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import EventsMixin from '../mixins/events-mixin';
 
-export default Ember.Component.extend(EventsMixin,{
-  disabled:false,
-  pressed:false,
-  active:false,
-  focus:false,
-  hover:false,
+export default Ember.Component.extend(EventsMixin, {
+  disabled: false,
+  pressed: false,
+  active: false,
+  focus: false,
+  hover: false,
   attributeBindings: ['disabledAttr:disabled'],
 
   /*
@@ -17,31 +17,31 @@ export default Ember.Component.extend(EventsMixin,{
     return this.get('disabled') ? 'disabled' : null;
   }),
 
-  toggle:false,
+  toggle: false,
 
   /*
    * Listen to `focusIn` and `focusOut` events instead of `focus` and `blur`.
    * This way we don't need to explicitly bubble the events.
    */
-  focusIn: function() {
-    if (!this.get('pressed')){
+  focusIn() {
+    if (!this.get('pressed')) {
       // Only render the "focused" state if the element gains focus due to
       // keyboard navigation.
       this.set('focus',true);
     }
   },
-  focusOut: function(){
+  focusOut() {
     this.set('focus',false);
   },
-  mouseEnter:function(){
+  mouseEnter() {
     this.set('hover',true);
   },
-  mouseLeave:function(e){
+  mouseLeave(e) {
     this.set('hover',false);
     this._super(e);
   },
 
-  down:function(){
+  down() {
     this.set('pressed',true);
     if (this.toggle) {
       this.toggleProperty('active');
@@ -49,7 +49,7 @@ export default Ember.Component.extend(EventsMixin,{
       this.set('active',true);
     }
   },
-  up:function(){
+  up() {
     this.set('pressed',false);
 
     if (!this.toggle) {

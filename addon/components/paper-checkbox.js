@@ -23,13 +23,13 @@ export default BaseFocusable.extend(RippleMixin, {
   dimBackground: false,
   rippleContainerSelector: '.md-container',
 
-  click: function() {
+  click() {
     if (!this.get('disabled')) {
       this.toggleProperty('checked');
     }
   },
 
-  keyPress: function(ev) {
+  keyPress(ev) {
     if (ev.which === KEY_CODE_SPACE) {
       this.click();
     }

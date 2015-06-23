@@ -9,15 +9,15 @@ export default Ember.Component.extend(FlexMixin, {
   open: false,
 
   // Custom events
-  toggleSidenav: function() {
+  toggleSidenav() {
     this.toggleProperty('open');
   },
 
-  expandSidenav: function() {
+  expandSidenav() {
     this.set('open', true);
   },
 
-  collapseSidenav: function() {
+  collapseSidenav() {
     this.set('open', false);
   }
 });

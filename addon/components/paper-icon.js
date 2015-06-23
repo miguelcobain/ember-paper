@@ -8,20 +8,20 @@ export default Ember.Component.extend({
   spin: false,
   reverseSpin: false,
 
-  iconClass: Ember.computed('icon', function(){
+  iconClass: Ember.computed('icon', function() {
     return 'ic-' + this.get('icon');
   }),
 
-  spinClass: Ember.computed('spin', 'reverseSpin', function(){
-    if(this.get('spin')){
+  spinClass: Ember.computed('spin', 'reverseSpin', function() {
+    if (this.get('spin')) {
       return ' md-spin';
-    } else if (this.get('reverseSpin')){
+    } else if (this.get('reverseSpin')) {
       return ' md-spin-reverse';
     }
   }),
 
-  sizeClass : Ember.computed('size', function(){
-    switch(this.get('size')){
+  sizeClass : Ember.computed('size', function() {
+    switch(this.get('size')) {
       case 'lg':
         return ' md-lg';
       case 2:
