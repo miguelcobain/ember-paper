@@ -13,26 +13,26 @@ export default BaseFocusable.extend({
   actions: {
     focusIn() {
       this.set('focus',true);
-      this.sendAction();
+      this.sendAction('focusIn');
     },
     focusOut() {
       this.set('focus',false);
-      this.sendAction();
+      this.sendAction('focusOut');
     },
     insertNewline() {
-      this.sendAction();
+      this.sendAction('insertNewline');
     },
     escapePress() {
-      this.sendAction();
+      this.sendAction('escapePress');
     },
     keyPress() {
-      this.sendAction();
+      this.sendAction('keyPress');
     },
     keyUp() {
-      this.sendAction();
+      this.sendAction('keyUp');
     },
     keyDown() {
-      this.sendAction();
+      this.sendAction('keyDown');
     }
   }
 });
