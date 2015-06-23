@@ -14,12 +14,12 @@ export default Ember.Mixin.create({
 
   isActive: false,
   isHeld: false,
-  counter:0,
+  counter: 0,
 
-  ripples:[],
-  rippleStates:[],
+  ripples: [],
+  rippleStates: [],
 
-  rippleContainerSelector:'',
+  rippleContainerSelector: '',
 
   onDidInsertElement: Ember.on('didInsertElement', function() {
     if (!this.noink) {
@@ -159,7 +159,7 @@ export default Ember.Mixin.create({
   *
   * @returns {angular.element} the generated ripple element
   */
-  createRipple:function(left, top){
+  createRipple: function(left, top) {
     var color = this.color = this.parseColor(this.element.attr('md-ink-ripple')) || this.parseColor(window.getComputedStyle(this.colorElement[0]).color || 'rgb(0, 0, 0)');
 
     var container = this.getRippleContainer(),

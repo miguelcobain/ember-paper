@@ -1,7 +1,7 @@
 import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 
-export default BaseFocusable.extend(RippleMixin,{
+export default BaseFocusable.extend(RippleMixin, {
   attributeBindings: ['target', 'action'],
   tagName: 'button',
   classNames: ['md-button','md-default-theme'],
@@ -11,7 +11,7 @@ export default BaseFocusable.extend(RippleMixin,{
   center: false,
   dimBackground: true,
 
-  click: function(){
+  click: function() {
     var target = this.get('target');
 
     if (target) {
