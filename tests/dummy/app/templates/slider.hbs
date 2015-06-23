@@ -48,19 +48,19 @@
     <div flex="10" layout layout-align="center center">
       <span>default</span>
     </div>
-    {{paper-slider flex=true md-discrete='' value=rating1 step='1' min='1' max='5'}}
+    {{paper-slider flex=true discrete=true value=rating1 step='1' min='1' max='5'}}
   </div>
   <div layout>
     <div flex="10" layout layout-align="center center">
       <span>md-warn</span>
     </div>
-    {{paper-slider flex=true classNames="md-warn" md-discrete='' value=rating2 step="1" min="1" max="5"}}
+    {{paper-slider flex=true classNames="md-warn" discrete=true value=rating2 step="1" min="1" max="5"}}
   </div>
   <div layout>
     <div flex="10" layout layout-align="center center">
       <span>md-primary</span>
     </div>
-    {{paper-slider flex=true classNames="md-primary" md-discrete='' value=rating3 step="1" min="1" max="5"}}
+    {{paper-slider flex=true classNames="md-primary" discrete=true value=rating3 step="1" min="1" max="5"}}
   </div>
 
   <h3>Disabled</h3>
@@ -68,20 +68,72 @@
   {{paper-slider value=disabled2 disabled=true}}
 
   <h3>Disabled, Discrete</h3>
-  {{paper-slider value=disabled1 disabled=true step="3" md-discrete='' min="0" max="10"}}
-  {{paper-slider value=disabled2 disabled=true step="10" md-discrete=''}}
+  {{paper-slider value=disabled1 disabled=true step="3" discrete=true min="0" max="10"}}
+  {{paper-slider value=disabled2 disabled=true step="10" discrete=true}}
 
   <h3>Template</h3>
   {{#code-block language='handlebars'}}
-    \{{#paper-radio}}A radio button\{{/paper-radio}}
-    \{{#paper-radio toggle=true}}Toggable radio button\{{/paper-radio}}
-    \{{#paper-radio disabled=true}}Disabled radio button\{{/paper-radio}}
+    &lt;h3&gt;
+      RGB &lt;span style=\{{colorStyle}}&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;
+    &lt;/h3&gt;
 
-    \{{#paper-radio value="1" selected=selectedValue}}Radio button 1\{{/paper-radio}}
-    \{{#paper-radio value="2" selected=selectedValue}}Radio button 2\{{/paper-radio}}
-    \{{#paper-radio value="3" selected=selectedValue changed="alertValue"}}Radio button 3\{{/paper-radio}}
+    &lt;div layout&gt;
+      &lt;div flex="10" layout layout-align="center center"&gt;
+        &lt;span&gt;R&lt;/span&gt;
+      &lt;/div&gt;
+      \{{paper-slider flex=true min='0' max='255' value=color.red}}
+      &lt;div flex="20" layout layout-align="center center"&gt;
+        \{{input type="number" value=color.red}}
+      &lt;/div&gt;
+    &lt;/div&gt;
 
-    \{{paper-radio toggle=true label="Blockless version"}}
+    &lt;div layout&gt;
+      &lt;div flex="10" layout layout-align="center center"&gt;
+        &lt;span&gt;G&lt;/span&gt;
+      &lt;/div&gt;
+      \{{paper-slider flex=true min='0' max='255' value=color.green classNames='md-accent'}}
+      &lt;div flex="20" layout layout-align="center center"&gt;
+        \{{input type="number" value=color.green}}
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div layout&gt;
+      &lt;div flex="10" layout layout-align="center center"&gt;
+        &lt;span&gt;B&lt;/span&gt;
+      &lt;/div&gt;
+      \{{paper-slider flex=true min='0' max='255' value=color.blue classNames='md-primary'}}
+      &lt;div flex="20" layout layout-align="center center"&gt;
+        \{{input type="number" value=color.blue}}
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;h3&gt;Rating: \{{rating}}/5 - demo of theming classes&lt;/h3&gt;
+    &lt;div layout&gt;
+      &lt;div flex="10" layout layout-align="center center"&gt;
+        &lt;span&gt;default&lt;/span&gt;
+      &lt;/div&gt;
+      \{{paper-slider flex=true discrete=true value=rating1 step='1' min='1' max='5'}}
+    &lt;/div&gt;
+    &lt;div layout&gt;
+      &lt;div flex="10" layout layout-align="center center"&gt;
+        &lt;span&gt;md-warn&lt;/span&gt;
+      &lt;/div&gt;
+      \{{paper-slider flex=true classNames="md-warn" discrete=true value=rating2 step="1" min="1" max="5"}}
+    &lt;/div&gt;
+    &lt;div layout&gt;
+      &lt;div flex="10" layout layout-align="center center"&gt;
+        &lt;span&gt;md-primary&lt;/span&gt;
+      &lt;/div&gt;
+      \{{paper-slider flex=true classNames="md-primary" discrete=true value=rating3 step="1" min="1" max="5"}}
+    &lt;/div&gt;
+
+    &lt;h3&gt;Disabled&lt;/h3&gt;
+    \{{paper-slider value=disabled1 disabled=true}}
+    \{{paper-slider value=disabled2 disabled=true}}
+
+    &lt;h3&gt;Disabled, Discrete&lt;/h3&gt;
+    \{{paper-slider value=disabled1 disabled=true step="3" discrete=true min="0" max="10"}}
+    \{{paper-slider value=disabled2 disabled=true step="10" discrete=true}}
   {{/code-block}}
 </div>
 {{/paper-content}}

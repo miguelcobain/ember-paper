@@ -9,7 +9,7 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, {
 
   tagName: 'md-slider',
 
-  attributeBindings: ['min', 'max', 'step', 'md-discrete', 'tabindex'],
+  attributeBindings: ['min', 'max', 'step', 'discrete:md-discrete', 'tabindex'],
 
   classNames: ['md-default-theme'],
   classNameBindings: ['isMinimum:md-min', 'active', 'dragging'],
