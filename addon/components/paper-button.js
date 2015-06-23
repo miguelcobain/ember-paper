@@ -11,7 +11,7 @@ export default BaseFocusable.extend(RippleMixin, {
   center: false,
   dimBackground: true,
 
-  click: function() {
+  click() {
     var target = this.get('target');
 
     if (target) {

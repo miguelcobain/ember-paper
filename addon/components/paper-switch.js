@@ -59,11 +59,11 @@ export default BaseFocusable.extend(RippleMixin, {
     }
   }),
 
-  _dragStart: function() {
+  _dragStart() {
     this.set('dragging', true);
   },
 
-  _drag: function(event) {
+  _drag(event) {
     if (this.get('disabled')) { return; }
 
     // Get the amount amount the switch has been dragged
@@ -78,7 +78,7 @@ export default BaseFocusable.extend(RippleMixin, {
     this.$('.md-thumb-container').css('-webkit-transform', transformProp);
   },
 
-  _dragEnd: function() {
+  _dragEnd() {
     if (this.get('disabled')) { return; }
 
     if ((!this.get('dragging')) ||

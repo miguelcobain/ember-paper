@@ -23,7 +23,7 @@ export default BaseFocusable.extend(RippleMixin, {
     }
   }),
 
-  click: function() {
+  click() {
     if (this.get('disabled')) {
       return;
     }
