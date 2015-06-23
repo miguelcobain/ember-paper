@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import RippleMixin from '../mixins/ripple-mixin';
 
 export default Ember.Component.extend({
   tagName: 'md-list-item',
@@ -119,7 +118,6 @@ export default Ember.Component.extend({
   click (e) {
     var proxies = this.proxies,
       firstChild = this.firstChild,
-      $element = this.$(),
       that = this;
 
     if (proxies.length && firstChild) {
@@ -142,9 +140,9 @@ export default Ember.Component.extend({
 
     if (!this.hasClick && !this.proxies.length && this.firstChild) {
       var tagName = Ember.$(e.target).prop("tagName");
-      if (tagName != 'INPUT' && tagName != 'TEXTAREA') {
+      if (tagName !== 'INPUT' && tagName !== 'TEXTAREA') {
         var keyCode = e.which || e.keyCode;
-        if (keyCode == 32) {
+        if (keyCode === 32) {
           if (that.firstChild) {
             that.firstChild.click();
             e.preventDefault();
