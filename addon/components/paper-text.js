@@ -11,11 +11,28 @@ export default BaseFocusable.extend({
     return 'input-' + this.get('elementId');
   }),
   actions: {
-    focusIn: function() {
+    focusIn() {
       this.set('focus',true);
+      this.sendAction();
     },
-    focusOut: function() {
+    focusOut() {
       this.set('focus',false);
+      this.sendAction();
+    },
+    insertNewline() {
+
+    },
+    escapePress() {
+      this.sendAction();
+    },
+    keyPress() {
+      this.sendAction();
+    },
+    keyUp() {
+      this.sendAction();
+    },
+    keyDown() {
+      this.sendAction();
     }
   }
 });
