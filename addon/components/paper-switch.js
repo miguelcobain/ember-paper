@@ -23,6 +23,8 @@ export default BaseFocusable.extend(RippleMixin, {
     // Don't set up anything if the switch is disabled
     if (this.get('disabled')) { return; }
 
+    this._super();
+
     this.set('switchWidth', this.$('.md-bar').width());
 
     // Enable dragging the switch
@@ -46,6 +48,9 @@ export default BaseFocusable.extend(RippleMixin, {
   }),
 
   onWillDestroyElement: Ember.on('willDestroyElement', function() {
+
+    this._super();
+
     if (this.switchHammer) {
       this.switchHammer.destroy();
     }

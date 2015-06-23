@@ -29,7 +29,7 @@ export default Ember.Mixin.create({
       this.hammertime = new Hammer(this.node);
       this.color = this.parseColor(this.element.attr('md-ink-ripple')) || this.parseColor(window.getComputedStyle(this.colorElement[0]).color || 'rgb(0, 0, 0)');
       if (this.mousedown) {
-        this.hammertime.on('hammer.input', Ember.$.proxy(this.onInput,this));
+        this.hammertime.on('hammer.input', Ember.run.bind(this, this.onInput));
       }
     }
   }),
