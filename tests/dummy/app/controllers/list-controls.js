@@ -26,5 +26,25 @@ export default Ember.Controller.extend({
     who: 'tomster 5',
     what: 'a message for you',
     notes: 'this is a message for you about ember'
-  }])
+  }]),
+
+  actions: {
+    transitionToWifiMenu: function () {
+      alert("Imagine you transition to wifi settings here.");
+    },
+    transitionToBluetoothMenu: function () {
+      alert("Imagine you transition to Bluetooth settings here.");
+    },
+    secondaryMessageClick: function () {
+      alert("Secondary actions can be used for one click actions.");
+    },
+    goToPerson: function (person) {
+      alert("Imagine you transition to the person full view for '" + person.who + "' here.");
+    },
+    secondaryPersonClick: function (person) {
+      alert("'" + person.who + "'. Secondary actions can be used for one click actions.");
+    }
+
+  }
+
 });

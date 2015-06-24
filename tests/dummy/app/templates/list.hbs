@@ -34,46 +34,18 @@
   \{{#paper-list}}
     \{{#each listData as |item|}}
       \{{#paper-item}}
-        \{{#paper-tile-left}}
-          &lt;img src=\{{item.face}} alt=\{{item.who}} class=&quot;face&quot;&gt;
-        \{{/paper-tile-left}}
-
-        \{{#paper-tile-content}}
+        &lt;img src=\{{item.face}} alt=\{{item.who}} class=&quot;md-avatar&quot;&gt;
+        &lt;div class="md-list-item-text"&gt;
           &lt;h3&gt;\{{item.what}}&lt;/h3&gt;
           &lt;h4&gt;\{{item.who}}&lt;/h4&gt;
           &lt;p&gt;
             \{{item.notes}}
           &lt;/p&gt;
-        \{{/paper-tile-content}}
+        &lt;/div&gt;
       \{{/paper-item}}
     \{{/each}}
   \{{/paper-list}}
 \{{/paper-content}}{{/code-block}}
-
-  <h3>List Controls</h3>
-  {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
-    {{#paper-list}}
-
-      {{#paper-item}}
-        <p> Wifi Enabled </p>
-        {{#paper-checkbox checked=wifiEnabled}}{{/paper-checkbox}}
-      {{/paper-item}}
-      {{#each listData as |item|}}
-        {{#paper-item class="md-3-line" param=item action="clickItem"}}
-            <img src={{item.face}} alt={{item.who}} class="md-avatar">
-            <div class="md-list-item-text">
-
-                <h3>{{item.what}}</h3>
-                <h4>{{item.who}}</h4>
-                <p>
-                  {{item.notes}}
-                </p>
-            </div>
-        {{/paper-item}}
-      {{/each}}
-    {{/paper-list}}
-  {{/paper-content}}
-
 
 </div>
 {{/paper-content}}

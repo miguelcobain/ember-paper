@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['md-tile-left']
+  tagName: 'h2',
+  classNames: ['md-subheader']
 });

@@ -1,31 +1,42 @@
 import Ember from 'ember';
+import RippleMixin from '../mixins/ripple-mixin';
 
-export default Ember.Component.extend({
+
+export default Ember.Component.extend(RippleMixin, {
   tagName: 'md-list-item',
-  classNameBindings: ['hasProxiedElement::md-no-proxy'],
   hasProxiedElement: false,
   proxiedTypes: ['md-checkbox', 'md-switch'],
 
-  hasClick: false,
-  proxies: [],
-  firstChild: null,
 
-  didInsertElement() {
+
+  /* RippleMixin overrides */
+  center: false,
+  dimBackground: false,
+  isMenuItem: true,
+  rippleContainerSelector: '.md-no-style',
+
+
+  didInsertElement () {
     this._super(...arguments);
     this.setupComponent();
   },
-  setupComponent() {
-    var tEl = this.$();
-    // Check for proxy controls (no ng-click on parent, and a control inside)
-    var proxyElement;
+  setupComponent () {
+    var that = this,
+      tEl = this.$(),
+      proxyElement,
+      secondaryItem = tEl[0].querySelector('.md-secondary'),
+      proxiedTypes = this.proxiedTypes;
 
     tEl[0].setAttribute('role', 'listitem');
 
+
     if (!this.get("action")) {
-      for (var i = 0, type; type = this.proxiedTypes[i]; ++i) {
+      for (var i = 0, type; type = proxiedTypes[i]; ++i) {
         if (proxyElement = tEl[0].querySelector(type)) {
           this.set('hasProxiedElement', true);
           break;
+        } else if (!tEl[0].querySelector('md-button')) {
+          tEl.addClass('md-no-proxy');
         }
       }
 
@@ -36,8 +47,12 @@ export default Ember.Component.extend({
       wrapIn('button');
     }
 
-    this.postInsertElement();
+    postInsertElement();
 
+
+    ///
+    /// Private API
+    ///
 
 
     function wrapIn (type) {
@@ -49,6 +64,9 @@ export default Ember.Component.extend({
         tEl.addClass('md-proxy-focus');
       } else {
         container = Ember.$('<md-button class="md-no-style"><div class="md-list-item-inner"></div></md-button>');
+        container.click(function () {
+          that.sendAction('action', that.get('param'));
+        });
         var copiedAttrs = ['aria-label'];
         copiedAttrs.forEach(function(attr) {
           if (tEl[0].hasAttribute(attr)) {
@@ -61,98 +79,114 @@ export default Ember.Component.extend({
 
       tEl[0].setAttribute('tabindex', '-1');
       tEl.append(container);
-    }
 
-  },
+      if (secondaryItem) {
+        var secondaryItemEl = Ember.$(secondaryItem);
 
-  postInsertElement: function () {
-    var that = this,
-      proxiedTypes = this.proxiedTypes,
-      $element = this.$();
-      this.proxies    = [];
-      this.firstChild = $element.find(">:first-child");
-      this.hasClick   = this.firstChild && this.get("action");
+        var childViews = that.get("childViews");
+        childViews.forEach(function (childView) {
+          if (secondaryItemEl.attr('id') === childView.elementId) {
 
+            if (childView.action) {
+              var buttonWrapper = Ember.$('<md-button class="md-secondary-container md-icon-button">');
+              secondaryItemEl.attr('tabindex', '-1');
+              secondaryItemEl.removeClass('md-secondary');
+              buttonWrapper.append(secondaryItemEl);
+              secondaryItemEl = buttonWrapper[0];
+            }
 
-    var children = $element.children();
-    if (children.length && !that.get("action")) {
-      proxiedTypes.forEach(function(type) {
-        that.firstChild.find(type).each(function() {
-          that.proxies.push(this);
+            // Check for a secondary item and move it outside
+            if (childView.action || ( that.get("action") && isProxiedElement(secondaryItem) )) {
+              tEl.addClass('md-with-secondary');
+              tEl.append(secondaryItemEl);
+            }
+          }
         });
-      });
+      }
     }
 
-    if (this.proxies.length || this.hasClick) {
-      $element.addClass('md-clickable');
-      // @todo Create ripple container inside md-no-style.
-      //that.get('rippleService').setupButton(that, $element.find('.md-no-style'));
+
+    function isProxiedElement(el) {
+      return proxiedTypes.indexOf(Ember.$(el).prop("tagName").toLowerCase()) !== -1;
     }
 
-    if ($element.hasClass('md-proxy-focus') && this.proxies.length) {
-      this.proxies.forEach(function(proxy) {
-        proxy = Ember.$(proxy);
 
-        that.mouseActive = false;
-        proxy.on('mousedown', function() {
-          that.mouseActive = true;
-          Ember.run.later(function(){
-            that.mouseActive = false;
-          }, 100);
-        })
-          .on('focus', function() {
-            if (that.mouseActive === false) { $element.addClass('md-focused'); }
-            proxy.on('blur', function proxyOnBlur() {
-              $element.removeClass('md-focused');
-              proxy.off('blur', proxyOnBlur);
-            });
+    function postInsertElement   () {
+      var $element = that.$(),
+        proxies    = [],
+        firstChild = $element.find(">:first-child"),
+        hasClick = firstChild && that.get("action");
+
+
+      var children = $element.children();
+      if (children.length && !that.get("action")) {
+        proxiedTypes.forEach(function(type) {
+          firstChild.find(type).each(function() {
+            proxies.push(this);
           });
-      });
-    }
+        });
+      }
 
+      if (proxies.length || hasClick) {
+        $element.addClass('md-clickable');
+      }
 
-  },
-
-
-
-  click (e) {
-    var proxies = this.proxies,
-      firstChild = this.firstChild,
-      that = this;
-
-    if (proxies.length && firstChild) {
-      if (firstChild.find()) {
+      if ($element.hasClass('md-proxy-focus') && proxies.length) {
         proxies.forEach(function(proxy) {
-          var proxyEl = Ember.$(proxy);
-          if (e.target !== proxy && proxyEl.find(e.target).length === 0) {
-            proxyEl.trigger('click');
-            console.log(proxy);
+          proxy = Ember.$(proxy);
+
+          that.mouseActive = false;
+          proxy.on('mousedown', function() {
+            that.mouseActive = true;
+            Ember.run.later(function(){
+              that.mouseActive = false;
+            }, 100);
+          })
+            .on('focus', function() {
+              if (that.mouseActive === false) { $element.addClass('md-focused'); }
+              proxy.on('blur', function proxyOnBlur() {
+                $element.removeClass('md-focused');
+                proxy.off('blur', proxyOnBlur);
+              });
+            });
+        });
+      }
+
+
+
+      if (!hasClick && !proxies.length && firstChild) {
+        firstChild.on('keypress', function(e) {
+          var tagName = Ember.$(e.target).prop("tagName");
+          if (tagName !== 'INPUT' && tagName !== 'TEXTAREA') {
+            var keyCode = e.which || e.keyCode;
+            if (keyCode === 32) {
+              if (firstChild) {
+                firstChild.click();
+                e.preventDefault();
+                e.stopPropagation();
+              }
+            }
           }
         });
       }
-    } else if (this.hasClick) {
-      this.sendAction('action', that.get('param'));
+
+
+      if (proxies.length && firstChild) {
+        $element.children().eq(0).on('click', function(e) {
+          if (firstChild.find()) {
+            proxies.forEach(function (proxy) {
+              var proxyEl = Ember.$(proxy);
+              if (e.target !== proxy && proxyEl.find(e.target).length === 0) {
+                proxyEl.click();
+              }
+            });
+          }
+        });
+      }
+
     }
   },
 
-  keyPress (e) {
-    var that = this;
-
-    if (!this.hasClick && !this.proxies.length && this.firstChild) {
-      var tagName = Ember.$(e.target).prop("tagName");
-      if (tagName !== 'INPUT' && tagName !== 'TEXTAREA') {
-        var keyCode = e.which || e.keyCode;
-        if (keyCode === 32) {
-          if (that.firstChild) {
-            that.firstChild.click();
-            e.preventDefault();
-            e.stopPropagation();
-          }
-        }
-      }
-    }
-
-  }
 
 
 });

@@ -1,3 +1,10 @@
+// Function
+//-- Must be defined before variables
+@function rem($multiplier) {
+  $font-size: 10px;
+  @return $multiplier * $font-size;
+}
+
 $default-color: '500' !default;
 
 $foreground: 'foreground-dark' !default;
