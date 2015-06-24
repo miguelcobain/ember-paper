@@ -28,6 +28,14 @@ export default Ember.Controller.extend({
     notes: 'this is a message for you about ember'
   }]),
 
+  messageData: Ember.A([{
+    message: 'Message A'
+  }, {
+    message: 'Message B'
+  }, {
+    message: 'Message C'
+  }]),
+
   actions: {
     transitionToWifiMenu: function () {
       alert("Imagine you transition to wifi settings here.");
@@ -43,8 +51,10 @@ export default Ember.Controller.extend({
     },
     secondaryPersonClick: function (person) {
       alert("'" + person.who + "'. Secondary actions can be used for one click actions.");
+    },
+    transitionToDataUsage: function () {
+      alert("Imagine you would be taken to data-usage.");
     }
-
   }
 
 });
