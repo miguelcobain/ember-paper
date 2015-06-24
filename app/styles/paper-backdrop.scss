@@ -4,7 +4,7 @@ md-nav-container {
     &.ng-leave {
       opacity: 0;
     }
-    pointer-events: none;
+    pointer-events: auto;
   }
 
   &.sidenav-expanded {
