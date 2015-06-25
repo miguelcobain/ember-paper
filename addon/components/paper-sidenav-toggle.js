@@ -1,20 +1,17 @@
 import Ember from 'ember';
-import PaperNavContainer from './paper-nav-container';
 
 export default Ember.Component.extend({
   tagName: 'md-sidenav-toggle',
   classNames: ['paper-sidenav-toggle'],
   toggle: true,
 
-  navContainer: Ember.computed(function() {
-    return this.nearestOfType(PaperNavContainer);
-  }),
+  paperEventBus: Ember.inject.service('paper-eventbus'),
 
   click() {
     if (this.get('toggle')) {
-      this.get('navContainer').toggleSidenav();
+      this.get("paperEventBus").publish('paper:toggle-sidenav');
     } else {
-      this.get('navContainer').expandSidenav();
+      this.get("paperEventBus").publish('paper:expand-sidenav');
     }
     return false;
   }

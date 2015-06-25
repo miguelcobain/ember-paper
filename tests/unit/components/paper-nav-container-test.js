@@ -6,7 +6,7 @@ import {
 
 moduleForComponent('paper-nav-container', 'PaperNavContainerComponent', {
   // specify the other units that are required for this test
-  needs: ['component:paper-backdrop']
+  needs: ['component:paper-backdrop', 'service:paper-eventbus']
 });
 
 test('it renders', function(assert) {

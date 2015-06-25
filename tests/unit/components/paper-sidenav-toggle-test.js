@@ -6,7 +6,7 @@ import {
 
 moduleForComponent('paper-sidenav-toggle', 'PaperSidenavToggleComponent', {
   // specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar']
+  needs: ['service:paper-eventbus']
 });
 
 test('it renders', function(assert) {
@@ -27,11 +27,9 @@ test('when clicked triggers `toggleSidenav` on navContainer', function(assert) {
   var component = this.subject();
 
   var didFire = false;
-  component.set('navContainer', Ember.Object.create({
-    toggleSidenav: function() {
-      didFire = true;
-    }
-  }));
+  component.get('paperEventBus').subscribe('paper:toggle-sidenav', function () {
+    didFire = true;
+  });
 
   var $component = this.$();
   Ember.run(function() {
@@ -45,11 +43,10 @@ test('when clicked triggers `expandSidenav` if toggle is false on navContainer',
   assert.expect(1);
   var component = this.subject({toggle: false});
   var didFire = false;
-  component.set('navContainer', Ember.Object.create({
-    expandSidenav: function() {
-      didFire = true;
-    }
-  }));
+
+  component.get('paperEventBus').subscribe('paper:expand-sidenav', function () {
+    didFire = true;
+  });
 
   var $component = this.$();
   Ember.run(function() {
