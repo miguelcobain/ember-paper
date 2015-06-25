@@ -13,11 +13,9 @@ export default BaseFocusable.extend({
   actions: {
     focusIn() {
       this.set('focus',true);
-      this.sendAction('focusIn');
     },
     focusOut() {
       this.set('focus',false);
-      this.sendAction('focusOut');
     },
     insertNewline() {
       this.sendAction('insertNewline');
