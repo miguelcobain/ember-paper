@@ -1,0 +1,188 @@
+{{#paper-toolbar}}
+    <h2 class="md-toolbar-tools">
+      {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
+        {{paper-icon icon="menu"}}
+      {{/paper-sidenav-toggle}}
+        <span>List Controls</span>
+    </h2>
+{{/paper-toolbar}}
+
+{{#paper-content classNames="md-padding"}}
+  <div class="doc-content">
+    <h3>Basic Usage</h3>
+    {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
+      {{#paper-list}}
+        {{#paper-subheader classNames="md-no-sticky"}}Single Action Checkboxes{{/paper-subheader}}
+
+        {{#paper-item}}
+            <p>Checkbox 1</p>
+          {{#paper-checkbox classNames="md-secondary" checked=checkboxEnabled1}}{{/paper-checkbox}}
+        {{/paper-item}}
+
+        {{#paper-item}}
+            <p>Checkbox 2</p>
+          {{#paper-checkbox classNames="md-secondary" checked=checkboxEnabled2}}{{/paper-checkbox}}
+        {{/paper-item}}
+
+        {{#paper-divider}}{{/paper-divider}}
+
+        {{#paper-subheader classNames="md-no-sticky"}}Clickable Items with Secondary Controls{{/paper-subheader}}
+
+        {{#paper-item action="transitionToWifiMenu"}}
+          {{paper-icon icon="network-wifi" size=2}}
+            <p>Wi-Fi</p>
+          {{#paper-switch classNames="md-secondary" checked=wifiEnabled}}{{/paper-switch}}
+        {{/paper-item}}
+
+        {{#paper-item action="transitionToBluetoothMenu"}}
+          {{paper-icon icon="bluetooth" size=2}}
+            <p>Bluetooth</p>
+          {{#paper-switch classNames="md-secondary" checked=bluetoothEnabled}}{{/paper-switch}}
+        {{/paper-item}}
+
+        {{#paper-item action="transitionToDataUsage"}}
+          {{paper-icon icon="refresh" size=2}}
+            <p>Data Usage</p>
+        {{/paper-item}}
+
+        {{#paper-divider}}{{/paper-divider}}
+
+        {{#paper-subheader classNames="md-no-sticky"}}Checkbox with Secondary Action{{/paper-subheader}}
+
+        {{#each messageData as |item|}}
+          {{#paper-item}}
+            {{#paper-checkbox}}{{/paper-checkbox}}
+              <p>{{item.message}}</p>
+            {{paper-icon classNames="md-secondary" action="secondaryMessageClick" icon="message" size=2}}
+          {{/paper-item}}
+        {{/each}}
+
+        {{#paper-divider}}{{/paper-divider}}
+
+        {{#paper-subheader classNames="md-no-sticky"}}Clickable Avatars{{/paper-subheader}}
+
+        {{#each listData as |item|}}
+          {{#paper-item class="md-3-line" param=item action="goToPerson"}}
+              <img src={{item.face}} alt={{item.who}} class="md-avatar">
+              <div class="md-list-item-text">
+                <h3>{{item.what}}</h3>
+                <h4>{{item.who}}</h4>
+                <p>
+                  {{item.notes}}
+                </p>
+              </div>
+          {{/paper-item}}
+        {{/each}}
+
+        {{#paper-divider}}{{/paper-divider}}
+
+        {{#paper-subheader classNames="md-no-sticky"}}Avatar with Secondary Action Icon{{/paper-subheader}}
+
+        {{#each listData as |item|}}
+          {{#paper-item class="md-3-line" param=item action="goToPerson"}}
+              <img src={{item.face}} alt={{item.who}} class="md-avatar">
+              <div class="md-list-item-text">
+                <h3>{{item.what}}</h3>
+                <h4>{{item.who}}</h4>
+                <p>
+                  {{item.notes}}
+                </p>
+              </div>
+            {{paper-icon classNames="md-secondary" param=item action="secondaryPersonClick" icon="phone" size=2}}
+          {{/paper-item}}
+        {{/each}}
+
+      {{/paper-list}}
+    {{/paper-content}}
+
+    <h4>Template</h4>
+
+{{#code-block language='handlebars'}}
+\{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
+\{{#paper-list}}
+\{{#paper-subheader classNames="md-no-sticky"}}Single Action Checkboxes\{{/paper-subheader}}
+
+\{{#paper-item}}
+  &lt;p&gt;Checkbox 1&lt;/p&gt;
+\{{#paper-checkbox classNames="md-secondary" checked=checkboxEnabled1}}\{{/paper-checkbox}}
+\{{/paper-item}}
+
+\{{#paper-item}}
+  &lt;p&gt;Checkbox 2&lt;/p&gt;
+\{{#paper-checkbox classNames="md-secondary" checked=checkboxEnabled2}}\{{/paper-checkbox}}
+\{{/paper-item}}
+
+\{{#paper-divider}}\{{/paper-divider}}
+
+\{{#paper-subheader classNames="md-no-sticky"}}Clickable Items with Secondary Controls\{{/paper-subheader}}
+
+\{{#paper-item action="transitionToWifiMenu"}}
+\{{paper-icon icon="network-wifi" size=2}}
+  &lt;p&gt;Wi-Fi&lt;/p&gt;
+\{{#paper-switch classNames="md-secondary" checked=wifiEnabled}}\{{/paper-switch}}
+\{{/paper-item}}
+
+\{{#paper-item action="transitionToBluetoothMenu"}}
+\{{paper-icon icon="bluetooth" size=2}}
+  &lt;p&gt;Bluetooth&lt;/p&gt;
+\{{#paper-switch classNames="md-secondary" checked=bluetoothEnabled}}\{{/paper-switch}}
+\{{/paper-item}}
+
+\{{#paper-item action="transitionToDataUsage"}}
+\{{paper-icon icon="refresh" size=2}}
+  &lt;p&gt;Data Usage&lt;/p&gt;
+\{{/paper-item}}
+
+\{{#paper-divider}}\{{/paper-divider}}
+
+\{{#paper-subheader classNames="md-no-sticky"}}Checkbox with Secondary Action\{{/paper-subheader}}
+
+\{{#each messageData as |item|}}
+\{{#paper-item}}
+\{{#paper-checkbox}}\{{/paper-checkbox}}
+  &lt;p&gt;\{{item.message}}&lt;/p&gt;
+\{{paper-icon classNames="md-secondary" action="secondaryMessageClick" icon="message" size=2}}
+\{{/paper-item}}
+\{{/each}}
+
+\{{#paper-divider}}\{{/paper-divider}}
+
+\{{#paper-subheader classNames="md-no-sticky"}}Clickable Avatars\{{/paper-subheader}}
+
+\{{#each listData as |item|}}
+\{{#paper-item class="md-3-line" param=item action="goToPerson"}}
+  &lt;img src=\{{item.face}} alt=\{{item.who}} class="md-avatar"&gt;
+  &lt;div class="md-list-item-text"&gt;
+  &lt;h3&gt;\{{item.what}}&lt;/h3&gt;
+  &lt;h4&gt;\{{item.who}}&lt;/h4&gt;
+  &lt;p&gt;
+\{{item.notes}}
+  &lt;/p&gt;
+  &lt;/div&gt;
+\{{/paper-item}}
+\{{/each}}
+
+\{{#paper-divider}}\{{/paper-divider}}
+
+\{{#paper-subheader classNames="md-no-sticky"}}Avatar with Secondary Action Icon\{{/paper-subheader}}
+
+\{{#each listData as |item|}}
+\{{#paper-item class="md-3-line" param=item action="goToPerson"}}
+  &lt;img src=\{{item.face}} alt=\{{item.who}} class="md-avatar"&gt;
+  &lt;div class="md-list-item-text"&gt;
+  &lt;h3&gt;\{{item.what}}&lt;/h3&gt;
+  &lt;h4&gt;\{{item.who}}&lt;/h4&gt;
+  &lt;p&gt;
+\{{item.notes}}
+  &lt;/p&gt;
+  &lt;/div&gt;
+\{{paper-icon classNames="md-secondary" param=item action="secondaryPersonClick" icon="phone" size=2}}
+\{{/paper-item}}
+\{{/each}}
+
+\{{/paper-list}}
+\{{/paper-content}}{{/code-block}}
+
+
+  </div>
+{{/paper-content}}

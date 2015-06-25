@@ -33,5 +33,11 @@ export default Ember.Component.extend({
       case 5:
         return ' md-5x';
     }
-  })
+  }),
+
+  click() {
+    if (this.get("action")) {
+      this.sendAction('action', this.get("param"));
+    }
+  }
 });
