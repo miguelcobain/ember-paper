@@ -140,6 +140,15 @@ md-checkbox {
 }
 
 //THEME
+$checkbox-color-palette: $color-green !default;
+$checkbox-checked-background-color: rgba(map-get($checkbox-color-palette, '400'), 0.87) !default;
+$checkbox-checked-color: map-get($foreground-color-palette, '200') !default;
+$checkbox-ripple-color: map-get($checkbox-color-palette, '600') !default;
+$checkbox-checked-ripple-color: map-get($color-grey, '600') !default;
+$checkbox-border-color: $input-border-color !default;
+$checkbox-disabled-border-color: $input-disabled-border-color !default;
+$checkbox-focused-background-color: rgba(map-get($checkbox-color-palette, '400'), 0.26) !default;
+
 md-checkbox.md-#{$theme-name}-theme {
 
   .md-ripple {
@@ -151,6 +160,11 @@ md-checkbox.md-#{$theme-name}-theme {
   &.md-checked.md-focused .md-container:before {
     background-color: rgba(color($accent), 0.26);
   }
+
+  &.md-checked.md-focused .md-container:before {
+    background-color: $checkbox-focused-background-color;
+  }
+
 
   .md-icon {
     border-color: color($foreground, '2');
