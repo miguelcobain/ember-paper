@@ -9,6 +9,13 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],
+
+  attributeBindings: ['tabindex', 'role', 'ariaLabel:aria-label'],
+  tabindex: Ember.computed('disabled', function() {
+    return this.get('disabled') ? '-1' : '0';
+  }),
+  role: 'checkbox',
+
   toggle: true,
 
   center: true,
@@ -59,6 +66,16 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     }
     if (this.thumbElementHammer) {
       this.switchHammer.destroy();
+    }
+  },
+
+  ariaLabel: Ember.computed('label', function () {
+    return this.get("label") || null;
+  }),
+
+  keyPress(ev) {
+    if (ev.which === KEY_CODE_SPACE) {
+      this.switchHammer.emit('tap', ev);
     }
   },
 
