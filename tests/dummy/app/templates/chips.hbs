@@ -1,26 +1,33 @@
 {{#paper-toolbar}}
   <h2 class="md-toolbar-tools">
-    {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
+    {{#paper-sidenav-toggle class="menu-sidenav-toggle" }}
       {{paper-icon icon="menu"}}
     {{/paper-sidenav-toggle}}
     <span>Chips</span>
   </h2>
 {{/paper-toolbar}}
-{{#paper-content classNames="md-padding demo-buttons"}}
-<div class="doc-content">
-  {{#paper-card}}
-    <md-card-content>
-      {{paper-chips content=fruitNames readOnly=readOnly removeItem="removeItem" addItem="addItem" placeholder="Add a tag"}}
+{{#paper-content classNames="md-padding demo-buttons" }}
+  <div class="doc-content">
+    {{#paper-card}}
+      <md-card-content>
+        <h2>Default Template</h2>
+        {{paper-chips content=fruitNames readOnly=readOnly removeItem="removeItem" addItem="addItem" placeholder="Add a tag"}}
 
-      {{#paper-checkbox checked=readOnly}}Read Only{{/paper-checkbox}}
-    </md-card-content>
-  {{/paper-card}}
+        <h2>Custom Template</h2>
+        {{#paper-chips readOnly=readOnly removeItem="removeCustomItem" addItem="addCustomItem" placeholder="Add a tag" content=customFruitNames as |item|}}
+          <strong>{{item}}</strong>
+          <em>(fruit)</em>
+        {{/paper-chips}}
 
-  <h3>Template</h3>
-  {{#code-block language='handlebars'}}
-\{{paper-chips content=fruitNames readOnly=readOnly placeholder="Add a tag" removeItem="removeItem" addItem="addItem"}}
+        {{#paper-checkbox checked=readOnly}}Read Only{{/paper-checkbox}}
+      </md-card-content>
+    {{/paper-card}}
 
-\{{#paper-checkbox checked=readOnly}}Read Only\{{/paper-checkbox}}
-  {{/code-block}}
-</div>
+    <h3>Template</h3>
+    {{#code-block language='handlebars' }}
+      \{{paper-chips content=fruitNames readOnly=readOnly placeholder="Add a tag" removeItem="removeItem" addItem="addItem"}} \
+
+      \{{#paper-checkbox checked=readOnly}}Read Only\{{/paper-checkbox}}
+    {{/code-block}}
+  </div>
 {{/paper-content}}
