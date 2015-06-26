@@ -25,9 +25,16 @@
 
     <h3>Template</h3>
     {{#code-block language='handlebars' }}
-      \{{paper-chips content=fruitNames readOnly=readOnly placeholder="Add a tag" removeItem="removeItem" addItem="addItem"}} \
+&lt;h2&gt;Default Template&lt;/h2&gt;
+\{{paper-chips content=fruitNames readOnly=readOnly removeItem=&quot;removeItem&quot; addItem=&quot;addItem&quot; placeholder=&quot;Add a tag&quot;}}
 
-      \{{#paper-checkbox checked=readOnly}}Read Only\{{/paper-checkbox}}
+&lt;h2&gt;Custom Template&lt;/h2&gt;
+\{{#paper-chips readOnly=readOnly removeItem=&quot;removeCustomItem&quot; addItem=&quot;addCustomItem&quot; placeholder=&quot;Add a tag&quot; content=customFruitNames as |item|}}
+  &lt;strong&gt;{{item}}&lt;/strong&gt;
+  &lt;em&gt;(fruit)&lt;/em&gt;
+\{{/paper-chips}}
+
+\{{#paper-checkbox checked=readOnly}}Read Only\{{/paper-checkbox}}
     {{/code-block}}
   </div>
 {{/paper-content}}
