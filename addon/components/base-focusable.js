@@ -28,10 +28,12 @@ export default Ember.Component.extend(EventsMixin, {
       // Only render the "focused" state if the element gains focus due to
       // keyboard navigation.
       this.set('focus',true);
+      this.sendAction('focusIn');
     }
   },
   focusOut() {
     this.set('focus',false);
+    this.sendAction('focusOut');
   },
   mouseEnter() {
     this.set('hover',true);
