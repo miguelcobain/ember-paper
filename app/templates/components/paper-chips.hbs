@@ -23,7 +23,7 @@
   {{/each}}
   {{#unless readOnly}}
     <div class="md-chip-input-container ng-scope">
-      {{input tabindex="0" placeholder=placeholder aria-label="Add Tag" value=newItem focus-in="inputFocus" focus-out="inputBlur" action='addItem'}}
+      {{input tabindex="0" placeholder=placeholder aria-label="Add Tag" value=newItem focus-in="inputFocus" focus-out="inputBlur" enter='addItem'}}
     </div>
   {{/unless}}
 </md-chips-wrap>
