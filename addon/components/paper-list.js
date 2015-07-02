@@ -2,5 +2,5 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   tagName: 'md-list',
-  classNames: ['paper-list']
+  classNames: ['paper-list', 'md-default-theme']
 });

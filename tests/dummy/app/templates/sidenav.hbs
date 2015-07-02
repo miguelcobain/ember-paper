@@ -11,7 +11,7 @@
 <div class="doc-content">
   <p>Try to resize this webpage.</p>
   <h3>Template</h3>
-{{#code-block language='handlebars'}}\{{#paper-nav-container classNames="ember-app"}}
+{{#code-block language='handlebars'}}\{{#paper-nav-container open=drawerOpen classNames="ember-app"}}
 
   \{{#paper-sidenav classNames="md-sidenav-left md-whiteframe-z2" flex-layout="column" flex=true}}
 
@@ -24,22 +24,25 @@
     \{{/paper-toolbar}}
 
     \{{#paper-content}}
-      &lt;nav class="sidenav"&gt;
-        &lt;ul&gt;
-          &lt;li&gt;\{{#link-to "index"}}Introduction\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "navigation"}}Navigation\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "typography"}}Typography\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "list"}}List\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "divider"}}Divider\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "button"}}Button\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "checkbox"}}Checkbox\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "switch"}}Switch\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "radio"}}Radio\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "textfield"}}Text Field\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "toolbar"}}Toolbar\{{/link-to}}&lt;/li&gt;
-          &lt;li&gt;\{{#link-to "icons"}}Icons\{{/link-to}}&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/nav&gt;
+
+      \{{#paper-list}}
+        \{{#paper-item action="transitionTo" param="index"}}Introduction\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="sidenav"}}Sidenav\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="typography"}}Typography\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="list"}}List\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="list-controls"}}List Controls\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="divider"}}Divider\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="card"}}Card\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="button"}}Button\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="checkbox"}}Checkbox\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="switch"}}Switch\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="slider"}}Slider\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="radio"}}Radio\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="textfield"}}Text Field\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="toolbar"}}Toolbar\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="icons"}}Icons\{{/paper-item}}
+      \{{/paper-list}}
+
     \{{/paper-content}}
   \{{/paper-sidenav}}
 

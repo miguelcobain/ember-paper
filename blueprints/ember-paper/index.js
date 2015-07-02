@@ -9,8 +9,8 @@ module.exports = {
 
   afterInstall: function() {
     var _this = this;
-    return this.addBowerPackageToProject('hammerjs').then(function() {
-      return _this.addPackageToProject('ember-cli-sass');
+    return this.addBowerPackagesToProject(['hammerjs', 'material-design-icons']).then(function() {
+      return _this.addPackagesToProject(['ember-cli-sass']);
     });
   }
 };

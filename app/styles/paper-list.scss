@@ -29,12 +29,10 @@ md-list {
   display: block;
   padding: $list-padding-top $list-padding-right $list-padding-bottom $list-padding-left;
 
-
   .md-subheader {
     @include md-body-2();
     line-height: $list-header-line-height;
   }
-
 }
 
 md-list-item {
@@ -216,5 +214,39 @@ md-list-item.md-3-line > .md-no-style {
   > md-icon:first-child,
   > .md-avatar:first-child {
     margin-top: $baseline-grid * 2;
+  }
+}
+
+//THEME
+md-list.md-#{$theme-name}-theme {
+  md-list-item.md-2-line .md-list-item-text,
+  md-list-item.md-3-line .md-list-item-text {
+    h3, h4 {
+      color: color($foreground, '1');
+    }
+    p {
+      color: color($foreground, '2');
+    }
+  }
+  .md-proxy-focus.md-focused div.md-no-style {
+    background-color: color($background, '100');
+  }
+
+  md-list-item > md-icon {
+    color: color($foreground, '2');
+
+    &.md-highlight {
+      color: color($primary);
+      &.md-accent {
+        color: color($accent);
+      }
+    }
+  }
+  md-list-item button {
+    background-color: color($background);
+
+    &.md-button:not([disabled]):hover {
+      background-color: color($background);
+    }
   }
 }

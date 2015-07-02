@@ -24,10 +24,11 @@ export default Ember.Component.extend({
     return false;
   },
 
-  onWillDestroyElement: Ember.on('willDestroyElement', function() {
+  willDestroyElement() {
+    this._super(...arguments);
     if (Ember.isPresent(this.get('tapHammer'))) {
       this.get('tapHammer').destroy();
     }
-  })
+  }
 
 });

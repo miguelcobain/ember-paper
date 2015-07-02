@@ -26,7 +26,7 @@ md-card {
 
 $card-border-radius: 2px !default;
 
-md-card.md-#{$theme-name}-theme {
+md-card.md-default-theme {
   border-radius: $card-border-radius;
 
   .md-card-image {

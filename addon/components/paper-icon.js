@@ -2,14 +2,14 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   tagName: 'md-icon',
-  classNames: ['paper-icon'],
+  classNames: ['paper-icon', 'md-font', 'material-icons', 'md-default-theme'],
   classNameBindings: ['iconClass', 'sizeClass', 'spinClass'],
 
   spin: false,
   reverseSpin: false,
 
   iconClass: Ember.computed('icon', function() {
-    return 'ic-' + this.get('icon');
+    return Ember.String.dasherize(this.get('icon'));
   }),
 
   spinClass: Ember.computed('spin', 'reverseSpin', function() {
@@ -35,9 +35,9 @@ export default Ember.Component.extend({
     }
   }),
 
-  click() {
-    if (this.get("action")) {
-      this.sendAction('action', this.get("param"));
+  /*click() {
+    if (this.get('action')) {
+      this.sendAction('action', this.get('param'));
     }
-  }
+  }*/
 });

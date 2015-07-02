@@ -29,10 +29,12 @@ ENV.contentSecurityPolicy = {
   'script-src': "'self'",
   'font-src': "'self' fonts.gstatic.com",
   'connect-src': "'self'",
-  'img-src': "'self'",
+  'img-src': "'self' data:",
   'media-src': "'self'"
 }
 ```
+
+We also need to allow `data:` in `img-src` because of a [current hack](https://github.com/miguelcobain/ember-paper/blob/master/app%2Fstyles%2Fpaper-button.scss) in paper-button.
 
 You can find out more information on the CSP addon page [here](https://github.com/rwjblue/ember-cli-content-security-policy#ember-cli-content-security-policy).
 
