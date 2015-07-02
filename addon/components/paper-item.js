@@ -103,39 +103,6 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
     }
   },
 
-  _wrapIn (type) {
-    var container,
-      _this = this,
-      secondaryItem = this.get("secondaryItem"),
-      tEl = this.$();
-
-    if (type === 'div') {
-      container = Ember.$('<div class="md-no-style md-list-item-inner">');
-      container.append(tEl.contents());
-      tEl.addClass('md-proxy-focus');
-    } else {
-      container = Ember.$('<md-button class="md-no-style"><div class="md-list-item-inner"></div></md-button>');
-      container.click(function () {
-        _this.sendAction('action', _this.get('param'));
-      });
-      container.children().eq(0).append(tEl.contents());
-    }
-
-    tEl.append(container);
-
-    if (secondaryItem) {
-      var secondaryItemEl = secondaryItem.$();
-
-      if (secondaryItem.action) {
-        var buttonWrapper = Ember.$('<md-button class="md-secondary-container md-icon-button">');
-        secondaryItemEl.attr('tabindex', '-1');
-        secondaryItemEl.removeClass('md-secondary');
-        buttonWrapper.append(secondaryItemEl);
-        secondaryItemEl = buttonWrapper[0];
-      }
-    }
-  },
-
   actions: {
     buttonAction() {
       this.get('proxiedComponents').forEach(function(component) {
