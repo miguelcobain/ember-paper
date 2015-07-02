@@ -1,15 +1,18 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
-import RippleMixin from '../mixins/ripple-mixin';
+import RippleMixin from 'ember-paper/mixins/ripple-mixin';
+import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 /* globals Hammer */
 
-export default BaseFocusable.extend(RippleMixin, {
+export default BaseFocusable.extend(RippleMixin, ProxiableMixin, {
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],
   toggle: true,
 
   center: true,
+  dimBackground: false,
+  fitRipple: true,
   rippleContainerSelector: '.md-thumb',
 
   checked: false,
@@ -47,9 +50,8 @@ export default BaseFocusable.extend(RippleMixin, {
     this.onDidInsertElement();
   }),
 
-  onWillDestroyElement: Ember.on('willDestroyElement', function() {
-
-    this._super();
+  willDestroyElement() {
+    this._super(...arguments);
 
     if (this.switchHammer) {
       this.switchHammer.destroy();
@@ -57,7 +59,7 @@ export default BaseFocusable.extend(RippleMixin, {
     if (this.thumbElementHammer) {
       this.switchHammer.destroy();
     }
-  }),
+  },
 
   _dragStart() {
     this.set('dragging', true);
@@ -91,6 +93,14 @@ export default BaseFocusable.extend(RippleMixin, {
     this.$('.md-thumb-container').removeAttr('style');
     this.set('dragging', false);
     this.set('dragAmount', null);
+  },
+
+  processProxy() {
+    this.toggleProperty('checked');
+  },
+
+  click() {
+    return false;
   }
 
 });

@@ -1,12 +1,19 @@
-$radio-width: 16px;
-$radio-height: $radio-width;
+$radio-width: 16px !default;
+$radio-height: $radio-width !default;
 
 md-radio-button,
 .md-switch-thumb { // Used in switch
+  box-sizing: border-box;
   display: block;
   margin: 15px;
   white-space: nowrap;
   cursor: pointer;
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
 
   input {
     display: none;
@@ -28,16 +35,32 @@ md-radio-button,
       left: -$radio-width;
       top: -$radio-width;
     }
+
+    &:before {
+      background-color: transparent;
+      border-radius: 50%;
+      content: '';
+      position: absolute;
+      display: block;
+      height: auto;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      transition: all 0.5s;
+      width: auto;
+    }
   }
 
 
   .md-off {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: $radio-width;
     height: $radio-width;
-    border: solid 2px;
+    border-style: solid;
+    border-width: 2px;
     border-radius: 50%;
     transition: border-color ease 0.28s;
   }
@@ -54,13 +77,14 @@ md-radio-button,
   }
 
   &.md-checked .md-on {
-    transform: scale(0.55);
+    transform: scale(0.50);
   }
 
   .md-label {
     position: relative;
     display: inline-block;
     margin-left: 10px;
+    margin-right: 10px;
     vertical-align: middle;
     white-space: normal;
     pointer-events: none;
@@ -73,52 +97,117 @@ md-radio-button,
 
 }
 md-radio-group {
-  border: 1px dotted transparent;
-  display: block;
-  outline: none;
+  &:focus {
+    outline: none;
+  }
+  &.md-focused {
+    .md-checked .md-container:before {
+      left: -8px;
+      top: -8px;
+      right: -8px;
+      bottom: -8px;
+    }
+  }
+}
+
+@media screen and (-ms-high-contrast: active) {
+  md-radio-button.md-default-theme .md-on {
+    background-color: #fff;
+  }
 }
 
 //THEME
-$radio-color-palette: $color-green !default;
-$radio-on-background-color: rgba(map-get($radio-color-palette, '400'), 0.87) !default;
-$radio-ripple-color: map-get($radio-color-palette, '600') !default;
-$radio-off-border-color: $foreground-secondary-color !default;
-$radio-group-focus-border-color: $foreground-primary-color !default;
-$checkbox-disabled-border-color: $input-disabled-border-color !default;
-
-md-radio-button.md-#{$theme-name}-theme,
-md-switch.md-#{$theme-name}-theme .md-switch-thumb {
-  .md-container .md-ripple {
-    color: $radio-ripple-color;
-  }
-
+md-radio-button.md-#{$theme-name}-theme {
   .md-off {
-    border-color: $radio-off-border-color;
+    border-color: color($foreground, '2');
   }
-
 
   .md-on {
-    background-color: $radio-on-background-color;
+    background-color: rgba(color($accent), 0.87);
   }
-
   &.md-checked .md-off {
-    border-color: $radio-on-background-color;
+    border-color: rgba(color($accent), 0.87);
   }
-
   &.md-checked .md-ink-ripple {
-    color: $radio-on-background-color;
+    color: rgba(color($accent), 0.87);
+  }
+  .md-container .md-ripple {
+    color: color($accent, '600');
+  }
+}
+
+md-radio-group.md-#{$theme-name}-theme,
+md-radio-button.md-#{$theme-name}-theme {
+
+  &:not([disabled]) {
+    .md-primary,
+    &.md-primary {
+      .md-on {
+        background-color: rgba(color($primary), 0.87);
+      }
+      .md-checked,
+      &.md-checked {
+        .md-off {
+          border-color: rgba(color($primary), 0.87);
+        }
+      }
+      .md-checked,
+      &.md-checked {
+        .md-ink-ripple {
+          color: rgba(color($primary), 0.87);
+        }
+      }
+      .md-container .md-ripple {
+        color: color($primary, '600');
+      }
+    }
+
+    .md-warn,
+    &.md-warn {
+      .md-on {
+        background-color: rgba(color($warn), 0.87);
+      }
+      .md-checked,
+      &.md-checked {
+        .md-off {
+          border-color: rgba(color($warn), 0.87);
+        }
+      }
+      .md-checked,
+      &.md-checked {
+        .md-ink-ripple {
+          color: rgba(color($warn), 0.87);
+        }
+      }
+      .md-container .md-ripple {
+        color: color($warn, '600');
+      }
+    }
+
   }
 
-  &[disabled] .md-off {
-    border-color: $checkbox-disabled-border-color;
-  }
+  &[disabled] {
+    color: color($foreground, '3');
 
-  &[disabled] .md-on {
-    background-color: $checkbox-disabled-border-color;
+    .md-container .md-off {
+      border-color: color($foreground, '3');
+    }
+    .md-container .md-on {
+      border-color: color($foreground, '3');
+    }
   }
 
 }
 
-md-radio-group.md-#{$theme-name}-theme:focus {
-  border-color: $radio-group-focus-border-color;
+
+md-radio-group.md-#{$theme-name}-theme.md-focused:not(:empty) {
+  .md-checked .md-container:before {
+    background-color: rgba(color($accent), 0.26);
+  }
+  .md-checked:not([disabled]).md-primary .md-container:before {
+    background-color: rgba(color($primary), 0.26);
+  }
+  .md-checked.md-primary .md-container:before {
+    background-color: rgba(color($warn), 0.26);
+  }
 }
