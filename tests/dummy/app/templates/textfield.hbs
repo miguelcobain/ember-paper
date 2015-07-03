@@ -17,11 +17,20 @@
   </ul>
   <p>Name: {{name}}</p>
   <p>Email: {{email}}</p>
+
+  <h3>Input Errors</h3>
+  <p>
+    {{paper-text label="Address" value=address required=true errorText="Address is required."}}
+  </p>
+
   <h3>Template</h3>
 {{#code-block language='handlebars'}}
 \{{paper-text label="Name" value=name}}
 \{{paper-text label="E-mail" type="email" value=email}}
 \{{paper-text label="Password" type="password"}}
-\{{paper-text label="E-mail" type="email" disabled=true}}{{/code-block}}
+\{{paper-text label="E-mail" type="email" disabled=true}}
+
+\{{paper-text label="Address" value=address required=true errorText="Address is required."}}
+{{/code-block}}
 </div>
 {{/paper-content}}

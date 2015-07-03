@@ -1,5 +1,6 @@
 $tff-font-size: 0.75em;
 $tff-line-height:26px;
+$tff-error-line-height:24px;
 $tff-transition: all 0.15s $swift-ease-in-out-timing-function;
 // - `label` element (aka hint)
 $tff-hint-offset-large : 22px;
@@ -154,6 +155,7 @@ $foreground-primary-color: rgba($foreground-base-color, 0.73) !default;
 $foreground-secondary-color: rgba($foreground-base-color, 0.54) !default;
 $foreground-tertiary-color: rgba($foreground-base-color, 0.26) !default;
 $foreground-quarternary-color: rgba($foreground-base-color, 0.12) !default;
+$foreground-error-color: color($color-red, '500') !default;
 $foreground-text-shadow: none !default;
 $dark-theme: false !default;
 
@@ -164,6 +166,7 @@ $tff-hint-color: $foreground-tertiary-color !default;
 $tff-line-color: $foreground-quarternary-color !default;
 $tff-disabled-line-color: mix($foreground-tertiary-color, $foreground-quarternary-color) !default;
 $tff-disabled-color: $foreground-quarternary-color !default;
+$tff-error-color: $foreground-error-color !default;
 
 md-input-group.md-#{$theme-name}-theme {
   input, textarea {
@@ -208,6 +211,24 @@ md-input-group.md-#{$theme-name}-theme {
       border-bottom-color: $tff-disabled-color;
       color: $tff-hint-color;
       background-image: linear-gradient(to right, $tff-disabled-line-color 0%, $tff-disabled-line-color 50%, rgba(0, 0, 0, 0) 0%);
+    }
+  }
+
+  &.md-input-invalid {
+    [error-message] {
+      color: $tff-error-color;
+      -webkit-font-smoothing: antialiased;
+      position: absolute;
+      font-size: $tff-font-size;
+      line-height: $tff-error-line-height;
+    }
+    &.md-input-focused {
+      label {
+        color: $tff-error-color;
+      }
+    }
+    input {
+      border-color: $tff-error-color;
     }
   }
 }
