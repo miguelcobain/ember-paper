@@ -3,14 +3,6 @@
   @return $multiplier * $font-size;
 }
 
-@mixin pie-clearfix {
-  &:after {
-    content: '';
-    display: table;
-    clear: both;
-  }
-}
-
 $chip-font-size: rem(1.3) !default;
 $chip-height: rem(3.2) !default;
 $chip-padding: 0 rem(0.8) 0 rem(1.2) !default;
@@ -104,8 +96,6 @@ $contact-chip-name-width: rem(12) !default;
       margin: 0;
       position: relative;
       md-icon {
-        height: $chip-delete-icon-size;
-        width: $chip-delete-icon-size;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -189,17 +179,17 @@ md-chips {
   .md-chips {
     box-shadow: 0 1px color('grey', '300');
     &.md-focused {
-      box-shadow: 0 2px map-get($primary-color-palette, '500');
+      box-shadow: 0 2px color($background);
     }
   }
   .md-chip {
     background: color('grey', '300');
     color: color('grey', '800');
     &.md-focused {
-      background: map-get($primary-color-palette, '500');
-      color: $primary-color-palette-contrast-color;
+      background: color($background);
+      color: $accent;
       md-icon {
-        color: $primary-color-palette-contrast-color;
+        color: $accent;
       }
     }
   }
