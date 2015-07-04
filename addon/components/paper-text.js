@@ -2,7 +2,7 @@ import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 
 export default BaseFocusable.extend({
-  tagName: 'md-input-group',
+  tagName: 'md-input-container',
   classNames: ['md-default-theme'],
   classNameBindings: ['hasValue:md-input-has-value', 'focus:md-input-focused', 'isInvalid:md-input-invalid'],
   type: 'text',

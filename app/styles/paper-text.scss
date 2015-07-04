@@ -1,63 +1,40 @@
-$tff-font-size: 0.75em;
-$tff-line-height:26px;
-$tff-error-line-height:24px;
-$tff-transition: all 0.15s $swift-ease-in-out-timing-function;
-// - `label` element (aka hint)
-$tff-hint-offset-large : 22px;
-$tff-hint-offset-small : 4px;
-$ttf-hint-offset-scale : 0.75;
-// - `line` element
-$tff-line-focused-width: 2px;
-$tff-line-disabled-width: 0px;
-$tff-line-dot-width: 1px;
-$tff-line-dot-size: 3px;
-$tff-line-dashed: #cfcfcf;
+$input-container-padding: 2px !default;
 
-$tff-margin: 10px 0 (10px - $tff-line-focused-width) 0;
+$input-label-default-offset: 24px !default;
+$input-label-default-scale: 1.0 !default;
+$input-label-float-offset: 6px !default;
+$input-label-float-scale: 0.75 !default;
 
-// ******************************
-// Mixins: Text Fields
-// ******************************
+$input-placeholder-offset: $input-label-default-offset !default;
 
-@mixin text-field($transition:false, $borderWidth:1px ) {
-  input, textarea {
-    border-bottom-width: $borderWidth;
+$input-border-width-default: 1px !default;
+$input-border-width-focused: 2px !default;
+$input-line-height: 26px !default;
+$input-padding-top: 2px !default;
 
-    @if( $transition != false ) {
-      transition: $transition;
+$input-error-font-size: 12px !default;
+$input-error-height: 24px !default;
+
+$icon-offset : 36px !default;
+
+$icon-float-top: -16px !default;
+$icon-float-focused-top: -8px !default;
+
+md-input-container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  padding: $input-container-padding;
+  padding-bottom: $input-container-padding + $input-error-height;
+
+  > md-icon {
+    position: absolute;
+    top: 5px;
+    left: 2px;
+    + input {
+      margin-left: $icon-offset;
     }
-  }
-}
-
-@mixin text-hint($size:large, $transition:false ) {
-  label {
-    @if $size == "small" {
-      transform: translate3d(0, $tff-hint-offset-small, 0) scale($ttf-hint-offset-scale);
-    } @else {
-      transform: translate3d(0, $tff-hint-offset-large, 0);
-      transform-origin: left center;
-      transition: $tff-transition;
-    }
-
-    @if( $transition != false ) {
-      transition: $transition;
-    }
-  }
-}
-
-@mixin text-dashed-line( $dotGap, $dotSize) {
-  background-size: $dotSize $dotGap;
-  background-position: 0 bottom;
-  background-size: (1px + 1px) $dotGap;
-  background-repeat: repeat-x;
-}
-
-md-input-group,
-.md-input-group {
-
-  label {
-    display: block;
-    font-size: $tff-font-size;
   }
 
   textarea,
@@ -75,160 +52,296 @@ md-input-group,
   input[type="search"],
   input[type="tel"],
   input[type="color"] {
+    /* remove default appearance from all input/textarea */
+    -moz-appearance: none;
+    -webkit-appearance: none;
+  }
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"] {
+    min-height: $input-line-height;
+  }
+  textarea {
+    resize: none;
+    overflow: hidden;
+  }
+
+  textarea.md-input {
+    min-height: $input-line-height;
+    -ms-flex-preferred-size: auto; //IE fix
+  }
+
+  label {
+    position: relative;
+    top: -2px;
+  }
+
+
+  label:not(.md-no-float),
+  .md-placeholder {
+    order: 1;
+    pointer-events: none;
+    -webkit-font-smoothing: antialiased;
+    padding-left: $input-container-padding;
+    z-index: 1;
+    transform: translate3d(0, $input-label-default-offset + 4, 0) scale($input-label-default-scale);
+    transition: transform $swift-ease-out-timing-function 0.25s;
+
+    @include rtl(transform-origin, left top, right top);
+  }
+  .md-placeholder {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    transition-property: opacity, transform;
+    transform: translate3d(0, $input-placeholder-offset + $baseline-grid * 0.75, 0);
+    &.md-static {
+      position: static;
+    }
+  }
+  &.md-input-focused .md-placeholder {
+    opacity: 1;
+    transform: translate3d(0, $input-placeholder-offset, 0);
+  }
+  // Placeholder should immediately disappear when the user starts typing
+  &.md-input-has-value .md-placeholder {
+    transition: none;
+    opacity: 0;
+  }
+
+  &:not( .md-input-has-value ) input:not( :focus ) {
+    color: transparent;
+  }
+
+
+  /*
+   * The .md-input class is added to the input/textarea
+   */
+  .md-input {
+    order: 2;
     display: block;
+    margin-top: auto;
+
+    background: none;
+    padding-top: $input-padding-top;
+    padding-bottom: $input-border-width-focused - $input-border-width-default;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-width: 0 0 $input-border-width-default 0;
+    line-height: $input-line-height;
+    -ms-flex-preferred-size: $input-line-height; //IE fix
     border-radius: 0;
-    border-width: 0 0 1px 0;
-    padding-top: 2px;
-    line-height: $tff-line-height;
-    padding-bottom: 1px;
 
     &:focus {
-      outline: 0;
+      outline: none;
+    }
+    &:invalid {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &.md-no-flex {
+      flex: none !important;
     }
   }
 
-  input, textarea {
-    background: none;
+  ng-messages, data-ng-messages, x-ng-messages,
+  [ng-messages], [data-ng-messages], [x-ng-messages] {
+    order: 3;
+    position: relative;
+  }
+  ng-message, data-ng-message, x-ng-message,
+  [ng-message], [data-ng-message], [x-ng-message],
+  .md-char-counter {
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    font-size: $input-error-font-size;
+    line-height: $input-error-height;
+
+    &:not(.md-char-counter) {
+      padding-right: rem(3);
+    }
+
+    &.ng-enter {
+      transition: $swift-ease-out;
+      transition-delay: 0.2s;
+    }
+    &.ng-leave {
+      transition: $swift-ease-in;
+    }
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+      opacity: 0;
+      transform: translate3d(0, -20%, 0);
+    }
+    &.ng-leave,
+    &.ng-enter.ng-enter-active {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  .md-char-counter {
+    bottom: $input-container-padding;
+    right: $input-container-padding;
+  }
+
+  &.md-input-focused,
+  &.md-input-has-value {
+    label:not(.md-no-float)  {
+      transform: translate3d(0,$input-label-float-offset,0) scale($input-label-float-scale);
+    }
+  }
+
+  // Use wide border in error state or in focused state
+  &.md-input-focused .md-input,
+  .md-input.ng-invalid.ng-dirty {
+    padding-bottom: 0; // Increase border width by 1px, decrease padding by 1
+    border-width: 0 0 $input-border-width-focused 0;
+  }
+
+  .md-input {
+    &[disabled],
+    [disabled] & {
+      background-position: 0 bottom;
+      // This background-size is coordinated with a linear-gradient set in input-theme.scss
+      // to create a dotted line under the input.
+      background-size: 4px 1px;
+      background-repeat: repeat-x;
+      margin-bottom: -1px; // Shift downward so dotted line is positioned the same as other bottom borders
+    }
   }
 }
 
-// Light-Theme
-md-input-group,
-.md-input-group {
-  padding-bottom: $tff-line-focused-width;
-  margin: $tff-margin;
+md-input-container.md-icon-float {
 
-  position: relative;
-  display:  block;
+  margin-top : $icon-float-top;
+  transition : margin-top 0.5s $swift-ease-out-timing-function ;
 
-  label {
-    font-size: 1em;
-    z-index: 1;
-    pointer-events: none;
-    -webkit-font-smoothing: antialiased;
 
-    &:hover {
-      cursor: text;
+  > label  {
+    pointer-events:none;
+    position:absolute;
+    margin-left: $icon-offset;
+  }
+
+  > md-icon {
+    top: 26px;
+    left: 2px;
+    + input {
+      margin-left: $icon-offset;
     }
   }
 
-  @include text-hint( large, $tff-transition );
-  @include text-field( $tff-transition );
-
-
-  &.md-input-focused {
-    @include text-hint( small );
-    @include text-field( false, $tff-line-focused-width );
-    input {
-      padding-bottom: 0px;
-    }
+  > input {
+    padding-top : $input-line-height - $input-container-padding;
   }
 
+  &.md-input-focused,
   &.md-input-has-value {
-    @include text-hint( small );
 
-    &:not(.md-input-focused) {
-      @include text-hint( small );
+    margin-top: $icon-float-focused-top;
+
+    label {
+      transform: translate3d(0,$input-label-float-offset,0) scale($input-label-float-scale);
+      transition: transform $swift-ease-out-timing-function 0.5s;
     }
   }
 
-  &[disabled] {
+}
 
-    @include text-field( false, $tff-line-disabled-width );
-    input, textarea {
-      @include text-dashed-line( $tff-line-dot-width, $tff-line-dot-size);
-      pointer-events: none;
-    }
-
-    @include text-hint( small );
-
-    *:not(.md-input-has-value) {
-      @include text-hint( large );
-    }
-
+@media screen and (-ms-high-contrast: active) {
+  md-input-container.md-default-theme > md-icon {
+    fill: #fff;
   }
 }
 
 //THEME
-$foreground-base-color: color($color-grey, '1000') !default;
-$foreground-primary-color: rgba($foreground-base-color, 0.73) !default;
-$foreground-secondary-color: rgba($foreground-base-color, 0.54) !default;
-$foreground-tertiary-color: rgba($foreground-base-color, 0.26) !default;
-$foreground-quarternary-color: rgba($foreground-base-color, 0.12) !default;
-$foreground-error-color: color($color-red, '500') !default;
-$foreground-text-shadow: none !default;
-$dark-theme: false !default;
-
-$tff-focus-color: color($primary, '500') !default;
-$tff-text-color: $foreground-primary-color !default;
-$tff-hint-small-color: mix($foreground-secondary-color, $foreground-tertiary-color, 40%) !default;
-$tff-hint-color: $foreground-tertiary-color !default;
-$tff-line-color: $foreground-quarternary-color !default;
-$tff-disabled-line-color: mix($foreground-tertiary-color, $foreground-quarternary-color) !default;
-$tff-disabled-color: $foreground-quarternary-color !default;
-$tff-error-color: $foreground-error-color !default;
-
-md-input-group.md-#{$theme-name}-theme {
-  input, textarea {
-    text-shadow: $foreground-text-shadow;
-    @include input-placeholder($tff-hint-color);
-  }
-
-  label {
-    text-shadow: $foreground-text-shadow;
-    color: $tff-hint-color;
-  }
-
-  input, textarea {
-    color: $tff-text-color;
-    border-color: $tff-line-color;
-  }
-
-  &.md-input-focused {
-    input, textarea {
-      border-color: $tff-focus-color;
+md-input-container.md-#{$theme-name}-theme {
+  .md-input {
+    &::-webkit-input-placeholder,
+    &::-moz-placeholder, /* Firefox 19+ */
+    &:-moz-placeholder, /* Firefox 18- */
+    &:-ms-input-placeholder {
+      color: color($foreground, '3');
     }
-    label {
-      color: $tff-focus-color;
-    }
+    color: color($foreground, '1');
+    border-color: color($foreground, '4');
+    text-shadow: $foreground-shadow;
+  }
+
+  > md-icon {
+    color: color($foreground, '1');
+  }
+
+  label,
+  .md-placeholder {
+    text-shadow: $foreground-shadow;
+    color: $foreground-shadow;
+  }
+
+  ng-messages,
+  [ng-message], [data-ng-message], [x-ng-message] {
+    color: color($warn, '500');
+  }
+
+
+  &:not(.md-input-invalid) {
     &.md-input-has-value {
-      @if $dark-theme {
+      label {
+        color: color($foreground, '2');
+      }
+    }
+    &.md-input-focused {
+      .md-input {
+        border-color: color($primary, '500');
+      }
+      label {
+        color: color($primary, '500');
+      }
+      md-icon {
+        color: color($primary, '500');
+      }
+      &.md-accent {
+        .md-input {
+          border-color: color($accent, '500');
+        }
         label {
-          color: lighten($tff-focus-color, 10%);
+          color: color($accent, '500');
+        }
+      }
+      &.md-warn {
+        .md-input {
+          border-color: color($warn, '500');
+        }
+        label {
+          color: color($warn, '500');
         }
       }
     }
   }
-
-  &.md-input-has-value:not(.md-input-focused) {
-    label {
-      color: $tff-hint-small-color;
-    }
-  }
-
-  &[disabled] {
-    input, textarea {
-      border-bottom-color: $tff-disabled-color;
-      color: $tff-hint-color;
-      background-image: linear-gradient(to right, $tff-disabled-line-color 0%, $tff-disabled-line-color 50%, rgba(0, 0, 0, 0) 0%);
-    }
-  }
-
   &.md-input-invalid {
-    [error-message] {
-      color: $tff-error-color;
-      -webkit-font-smoothing: antialiased;
-      position: absolute;
-      font-size: $tff-font-size;
-      line-height: $tff-error-line-height;
+    .md-input {
+      border-color: color($warn, '500');
     }
-    &.md-input-focused {
-      label {
-        color: $tff-error-color;
-      }
+    &.md-input-focused label {
+      color: color($warn, '500');
     }
-    input {
-      border-color: $tff-error-color;
+    ng-message, data-ng-message, x-ng-message,
+    [ng-message], [data-ng-message], [x-ng-message],
+    .md-char-counter {
+      color: color($warn, '500');
+    }
+  }
+  .md-input {
+    &[disabled],
+    [disabled] & {
+      border-bottom-color: transparent;
+      color: color($foreground, '3');
+      background-image: linear-gradient(to right, color($foreground, '3') 0%, color($foreground, '3') 33%, transparent 0%);
+      background-image: -ms-linear-gradient(left, transparent 0%, color($foreground, '3') 100%);
     }
   }
 }
+

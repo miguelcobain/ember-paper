@@ -60,7 +60,7 @@ test('it adds md-input-invalid css class when isInvalid', function(assert) {
 
   this.render();
 
-  inputGroup = document.getElementsByTagName('md-input-group');
+  inputGroup = document.getElementsByTagName('md-input-container');
 
   assert.equal(inputGroup.length === 1, true);
   assert.equal(inputGroup[0].className.indexOf('md-input-invalid') >= 0, true, "Could not find md-input-invalid css class");
@@ -79,7 +79,7 @@ test('it sets error text when isInvalid', function(assert) {
 
   this.render();
 
-  inputGroup = document.getElementsByTagName('md-input-group');
+  inputGroup = document.getElementsByTagName('md-input-container');
 
   assert.equal(inputGroup.length === 1, true);
 
