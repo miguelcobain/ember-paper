@@ -6,6 +6,7 @@ export default BaseFocusable.extend({
   classNames: ['md-default-theme'],
   classNameBindings: ['hasValue:md-input-has-value', 'focus:md-input-focused', 'isInvalid:md-input-invalid'],
   type: 'text',
+  tabindex:-1,
   hasValue: Ember.computed.notEmpty('value'),
   inputElementId: Ember.computed('elementId', function() {
     return 'input-' + this.get('elementId');
