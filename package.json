@@ -1,7 +1,7 @@
 {
   "name": "ember-paper",
   "description": "The Ember approach to Material Design.",
-  "version": "0.1.2",
+  "version": "0.2.1",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -38,7 +38,7 @@
     "ember-disable-prototype-extensions": "^1.0.0",
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.2",
-    "ember-prism": "0.0.4",
+    "ember-prism": "0.0.5",
     "ember-try": "0.0.6"
   },
   "dependencies": {

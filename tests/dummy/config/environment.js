@@ -23,7 +23,7 @@ module.exports = function(environment) {
       'font-src': "'self' https://fonts.gstatic.com",
       'style-src': "'self' 'unsafe-inline' https://buttons.github.io",
       'connect-src': "'self'",
-      'img-src': "'self'",
+      'img-src': "'self' data:",
       'media-src': "'self'",
       'frame-src': "https://buttons.github.io"
     }

@@ -13,18 +13,15 @@
   {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
     {{#paper-list}}
       {{#each listData as |item|}}
-        {{#paper-item}}
-          {{#paper-tile-left}}
-            <img src={{item.face}} alt={{item.who}} class="face">
-          {{/paper-tile-left}}
-
-          {{#paper-tile-content}}
+        {{#paper-item class="md-3-line"}}
+          <img src={{item.face}} alt={{item.who}} class="md-avatar">
+          <div class="md-list-item-text">
             <h3>{{item.what}}</h3>
             <h4>{{item.who}}</h4>
             <p>
               {{item.notes}}
             </p>
-          {{/paper-tile-content}}
+          </div>
         {{/paper-item}}
         {{paper-divider}}
       {{/each}}
@@ -35,18 +32,15 @@
   {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
     {{#paper-list}}
       {{#each listData as |item|}}
-        {{#paper-item}}
-          {{#paper-tile-left}}
-            <img src={{item.face}} alt={{item.who}} class="face">
-          {{/paper-tile-left}}
-
-          {{#paper-tile-content}}
+        {{#paper-item class="md-3-line"}}
+          <img src={{item.face}} alt={{item.who}} class="md-avatar">
+          <div class="md-list-item-text">
             <h3>{{item.what}}</h3>
             <h4>{{item.who}}</h4>
             <p>
               {{item.notes}}
             </p>
-          {{/paper-tile-content}}
+          </div>
         {{/paper-item}}
         {{paper-divider inset=true}}
       {{/each}}
@@ -59,17 +53,14 @@
   \{{#paper-list}}
     \{{#each listData as |item|}}
       \{{#paper-item}}
-        \{{#paper-tile-left}}
-          &lt;img src=\{{item.face}} alt=\{{item.who}} class=&quot;face&quot;&gt;
-        \{{/paper-tile-left}}
-
-        \{{#paper-tile-content}}
+        &lt;img src=\{{item.face}} alt=\{{item.who}} class=&quot;md-avatar&quot;&gt;
+        &lt;div class="md-list-item-text"&gt;
           &lt;h3&gt;\{{item.what}}&lt;/h3&gt;
           &lt;h4&gt;\{{item.who}}&lt;/h4&gt;
           &lt;p&gt;
             \{{item.notes}}
           &lt;/p&gt;
-        \{{/paper-tile-content}}
+        &lt;/div&gt;
       \{{/paper-item}}
       \{{paper-divider}} \{{! OR \{{paper-divider inset=true}} }}
     \{{/each}}

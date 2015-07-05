@@ -1,5 +1,6 @@
 import Ember from 'ember';
 /* global Hammer */
+/* global propagating */
 
 export default Ember.Mixin.create({
   mousedown: true,
@@ -9,8 +10,9 @@ export default Ember.Mixin.create({
   mousedownPauseTime: 150,
   dimBackground: false,
   outline: false,
-  isFAB: false,
+  fullRipple: true,
   isMenuItem: false,
+  fitRipple: false,
 
   isActive: false,
   isHeld: false,
@@ -21,28 +23,31 @@ export default Ember.Mixin.create({
 
   rippleContainerSelector: '',
 
-  onDidInsertElement: Ember.on('didInsertElement', function() {
-    if (!this.noink) {
+  didInsertElement() {
+    this._super(...arguments);
+    if (!this.get('noink')) {
       this.element = this.$();
       this.colorElement = this.$();
       this.node = this.element[0];
-      this.hammertime = new Hammer(this.node);
+      this.hammertime = propagating(new Hammer(this.node));
       this.color = this.parseColor(this.element.attr('md-ink-ripple')) || this.parseColor(window.getComputedStyle(this.colorElement[0]).color || 'rgb(0, 0, 0)');
-      if (this.mousedown) {
+      if (this.get('mousedown')) {
         this.hammertime.on('hammer.input', Ember.run.bind(this, this.onInput));
       }
     }
-  }),
+  },
 
-  onWillDestroyElement: Ember.on('willDestroyElement', function() {
+  willDestroyElement() {
+    this._super(...arguments);
     if (this.rippleContainer) {
       this.rippleContainer.remove();
     }
     if (this.hammertime) {
       this.hammertime.destroy();
     }
-  }),
+  },
 
+  propagateRipple: false,
   onInput(ev) {
     var ripple, index;
     if (ev.eventType === Hammer.INPUT_START && ev.isFirst && !this.get('disabled')) {
@@ -56,6 +61,9 @@ export default Ember.Mixin.create({
         this.updateElement(ripple);
       }, 0);
     }
+    if (!this.get('propagateRipple')) {
+      ev.stopPropagation();
+    }
   },
   /**
   * Gets the current ripple container
@@ -68,7 +76,7 @@ export default Ember.Mixin.create({
       return this.rippleContainer;
     }
     this.rippleContainer = Ember.$('<div class="md-ripple-container">');
-    this.$(this.rippleContainerSelector).append(this.rippleContainer);
+    this.$(this.get('rippleContainerSelector')).append(this.rippleContainer);
     return this.rippleContainer;
   },
   /**
@@ -95,11 +103,11 @@ export default Ember.Mixin.create({
   */
   getRippleSize(left, top) {
     var width = this.rippleContainer.prop('offsetWidth'),
-    height = this.rippleContainer.prop('offsetHeight'),
-    multiplier, size, rect;
-    if (this.isMenuItem) {
+        height = this.rippleContainer.prop('offsetHeight'),
+        multiplier, size, rect;
+    if (this.get('isMenuItem')) {
       size = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
-    } else if (this.outline) {
+    } else if (this.get('outline')) {
       rect = this.node.getBoundingClientRect();
       left -= rect.left;
       top -= rect.top;
@@ -107,30 +115,33 @@ export default Ember.Mixin.create({
       height = Math.max(top, height - top);
       size = 2 * Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
     } else {
-      multiplier = this.isFAB ? 1.1 : 0.8;
-      size = Math.max(width, height) * multiplier;
+      multiplier = this.get('fullRipple') ? 1.1 : 0.8;
+      size = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2)) * multiplier;
+      if (this.get('fitRipple')) {
+        size = Math.min(height, width, size);
+      }
     }
     return size;
   },
   parseColor(color) {
-    if (!color){ return; }
-    if (color.indexOf('rgba') === 0){ return color; }
-    if (color.indexOf('rgb')  === 0){ return rgbToRGBA(color); }
-    if (color.indexOf('#')    === 0){ return hexToRGBA(color); }
+    if (!color) { return; }
+    if (color.indexOf('rgba') === 0) { return color.replace(/\d?\.?\d*\s*\)\s*$/, '0.1)'); }
+    if (color.indexOf('rgb')  === 0) { return rgbToRGBA(color); }
+    if (color.indexOf('#')    === 0) { return hexToRGBA(color); }
 
     /**
-    * Converts a hex value to an rgba string
-    *
-    * @param {string} hex value (3 or 6 digits) to be converted
-    *
-    * @returns {string} rgba color with 0.1 alpha
-    */
+     * Converts a hex value to an rgba string
+     *
+     * @param {string} hex value (3 or 6 digits) to be converted
+     *
+     * @returns {string} rgba color with 0.1 alpha
+     */
     function hexToRGBA(color) {
       var hex = color.charAt(0) === '#' ? color.substr(1) : color,
-      dig = hex.length / 3,
-      red = hex.substr(0, dig),
-      grn = hex.substr(dig, dig),
-      blu = hex.substr(dig * 2);
+        dig = hex.length / 3,
+        red = hex.substr(0, dig),
+        grn = hex.substr(dig, dig),
+        blu = hex.substr(dig * 2);
       if (dig === 1) {
         red += red;
         grn += grn;
@@ -140,12 +151,12 @@ export default Ember.Mixin.create({
     }
 
     /**
-    * Converts rgb value to rgba string
-    *
-    * @param {string} rgb color string
-    *
-    * @returns {string} rgba color with 0.1 alpha
-    */
+     * Converts rgb value to rgba string
+     *
+     * @param {string} rgb color string
+     *
+     * @returns {string} rgba color with 0.1 alpha
+     */
     function rgbToRGBA(color) {
       return color.replace(')', ', 0.1)').replace('(', 'a(');
     }
@@ -174,11 +185,11 @@ export default Ember.Mixin.create({
     state.animating = true;
 
     Ember.run.later(this, function() {
-      if (this.dimBackground) {
+      if (this.get('dimBackground')) {
         container.css({ backgroundColor: color });
       }
       elem.addClass('md-ripple-placed md-ripple-scaled');
-      if (this.outline) {
+      if (this.get('outline')) {
         elem.css({
           borderWidth: (size * 0.5) + 'px',
           marginLeft: (size * -0.5) + 'px',
@@ -191,7 +202,7 @@ export default Ember.Mixin.create({
       Ember.run.later(this,function () {
         state.animating = false;
         this.updateElement(elem);
-      }, (this.outline ? 450 : 225));
+      }, (this.get('outline') ? 450 : 225));
     }, 0);
 
     return elem;
@@ -215,7 +226,7 @@ export default Ember.Mixin.create({
       elem.addClass('md-ripple-visible');
     } else if (elem) {
       elem.removeClass('md-ripple-visible');
-      if (this.outline) {
+      if (this.get('outline')) {
         elem.css({
           width: this.rippleSize + 'px',
           height: this.rippleSize + 'px',
@@ -223,7 +234,7 @@ export default Ember.Mixin.create({
           marginTop: (this.rippleSize * -1) + 'px'
         });
       }
-      this.removeElement(elem, this.outline ? 450 : 650);
+      this.removeElement(elem, this.get('outline') ? 450 : 650);
     }
   },
   /**
@@ -244,14 +255,14 @@ export default Ember.Mixin.create({
       height: size + 'px'
     };
 
-    if (this.outline) {
+    if (this.get('outline')) {
       css.width = 0;
       css.height = 0;
     } else {
       css.marginLeft = css.marginTop = (size * -0.5) + 'px';
     }
 
-    if (this.center) {
+    if (this.get('center')) {
       css.left = css.top = '50%';
     } else {
       rect = this.node.getBoundingClientRect();
