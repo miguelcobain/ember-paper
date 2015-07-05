@@ -4,7 +4,7 @@ md-nav-container {
     &.ng-leave {
       opacity: 0;
     }
-    pointer-events: auto;
+    pointer-events: none;
   }
 
   &.sidenav-expanded {
@@ -12,6 +12,13 @@ md-nav-container {
       pointer-events: auto;
       //animation: $swift-ease-out-timing-function mdBackdropFadeOut 0.5s both;
     }
+  }
+}
+
+//fixing scroll inside md-dialog-backdrop
+md-backdrop {
+  &.md-dialog-backdrop {
+    pointer-events: auto;
   }
 }
 
