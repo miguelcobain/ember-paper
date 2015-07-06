@@ -345,3 +345,14 @@ md-input-container.md-#{$theme-name}-theme {
   }
 }
 
+
+.md-input-invalid [ng-messages] {
+  animation-duration: 500ms;
+  animation-fill-mode: both;
+  animation-name: fadeInDown;
+}
+[ng-messages] {
+  animation-duration: 500ms;
+  animation-fill-mode: both;
+  animation-name: fadeOutUp;
+}

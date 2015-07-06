@@ -147,7 +147,7 @@ test('validates min with no error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById('error-input-'+inputGroup[0].id);
-  assert.equal(errorDiv, null);
+  assert.equal(errorDiv.innerText, "");
 
 });
 
@@ -210,7 +210,7 @@ test('validates max with no error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById('error-input-'+inputGroup[0].id);
-  assert.equal(errorDiv, null);
+  assert.equal(errorDiv.innerText, "");
 
 });
 
@@ -281,7 +281,7 @@ test('validates md-maxlength with no error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById('error-input-'+inputGroup[0].id);
-  assert.equal(errorDiv, null);
+  assert.equal(errorDiv.innerText, "");
 
   charCounterDiv = document.getElementsByClassName('md-char-counter');
   assert.equal(charCounterDiv[0].innerHTML, "10/10");
