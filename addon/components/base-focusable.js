@@ -7,7 +7,7 @@ export default Ember.Component.extend(EventsMixin, {
   active: false,
   focus: false,
   hover: false,
-  attributeBindings: ['disabledAttr:disabled'],
+  attributeBindings: ['tabindex', 'disabledAttr:disabled'],
 
   /*
    * Not binding boolean values in Ember 1.8.1?
@@ -15,6 +15,11 @@ export default Ember.Component.extend(EventsMixin, {
    */
   disabledAttr: Ember.computed('disabled', function() {
     return this.get('disabled') ? 'disabled' : null;
+  }),
+
+  //Alow element to be focusable by supplying a tabindex 0
+  tabindex: Ember.computed('disabled', function() {
+    return this.get('disabled') ? '-1' : '0';
   }),
 
   toggle: false,
@@ -36,26 +41,26 @@ export default Ember.Component.extend(EventsMixin, {
     this.sendAction('focusOut');
   },
   mouseEnter() {
-    this.set('hover',true);
+    this.set('hover', true);
   },
   mouseLeave(e) {
-    this.set('hover',false);
+    this.set('hover', false);
     this._super(e);
   },
 
   down() {
-    this.set('pressed',true);
+    this.set('pressed', true);
     if (this.toggle) {
       this.toggleProperty('active');
     } else {
-      this.set('active',true);
+      this.set('active', true);
     }
   },
   up() {
-    this.set('pressed',false);
+    this.set('pressed', false);
 
     if (!this.toggle) {
-      this.set('active',false);
+      this.set('active', false);
     }
   }
 });

@@ -11,24 +11,25 @@
     {{/paper-toolbar}}
 
     {{#paper-content}}
-      <nav class="sidenav">
-        <ul>
-        <li>{{#link-to "index"}}Introduction{{/link-to}}</li>
-          <li>{{#link-to "sidenav"}}Sidenav{{/link-to}}</li>
-          <li>{{#link-to "typography"}}Typography{{/link-to}}</li>
-          <li>{{#link-to "list"}}List{{/link-to}}</li>
-          <li>{{#link-to "divider"}}Divider{{/link-to}}</li>
-          <li>{{#link-to "card"}}Card{{/link-to}}</li>
-          <li>{{#link-to "button"}}Button{{/link-to}}</li>
-          <li>{{#link-to "checkbox"}}Checkbox{{/link-to}}</li>
-          <li>{{#link-to "switch"}}Switch{{/link-to}}</li>
-          <li>{{#link-to "slider"}}Slider{{/link-to}}</li>
-          <li>{{#link-to "radio"}}Radio{{/link-to}}</li>
-          <li>{{#link-to "textfield"}}Text Field{{/link-to}}</li>
-          <li>{{#link-to "toolbar"}}Toolbar{{/link-to}}</li>
-          <li>{{#link-to "icons"}}Icons{{/link-to}}</li>
-        </ul>
-      </nav>
+
+      {{#paper-list}}
+        {{#paper-item action="transitionTo" param="index"}}Introduction{{/paper-item}}
+        {{#paper-item action="transitionTo" param="sidenav"}}Sidenav{{/paper-item}}
+        {{#paper-item action="transitionTo" param="typography"}}Typography{{/paper-item}}
+        {{#paper-item action="transitionTo" param="list"}}List{{/paper-item}}
+        {{#paper-item action="transitionTo" param="list-controls"}}List Controls{{/paper-item}}
+        {{#paper-item action="transitionTo" param="divider"}}Divider{{/paper-item}}
+        {{#paper-item action="transitionTo" param="card"}}Card{{/paper-item}}
+        {{#paper-item action="transitionTo" param="button"}}Button{{/paper-item}}
+        {{#paper-item action="transitionTo" param="checkbox"}}Checkbox{{/paper-item}}
+        {{#paper-item action="transitionTo" param="switch"}}Switch{{/paper-item}}
+        {{#paper-item action="transitionTo" param="slider"}}Slider{{/paper-item}}
+        {{#paper-item action="transitionTo" param="radio"}}Radio{{/paper-item}}
+        {{#paper-item action="transitionTo" param="textfield"}}Text Field{{/paper-item}}
+        {{#paper-item action="transitionTo" param="toolbar"}}Toolbar{{/paper-item}}
+        {{#paper-item action="transitionTo" param="icons"}}Icons{{/paper-item}}
+      {{/paper-list}}
+
     {{/paper-content}}
   {{/paper-sidenav}}
 

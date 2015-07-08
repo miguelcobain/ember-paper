@@ -1,0 +1,11 @@
+{{#if action}}
+  {{#paper-button classNames="md-no-style" noink=true action="buttonAction" skipProxy=true}}
+    <div class="md-list-item-inner">
+      {{yield}}
+    </div>
+  {{/paper-button}}
+{{else}}
+  <div class="md-no-style md-list-item-inner" {{action "buttonAction" on="click"}}>
+    {{yield}}
+  </div>
+{{/if}}
