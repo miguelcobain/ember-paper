@@ -16,6 +16,21 @@ export default BaseFocusable.extend({
     },
     focusOut() {
       this.set('focus',false);
+    },
+    insertNewline() {
+      this.sendAction('insertNewline');
+    },
+    escapePress() {
+      this.sendAction('escapePress');
+    },
+    keyPress() {
+      this.sendAction('keyPress');
+    },
+    keyUp() {
+      this.sendAction('keyUp');
+    },
+    keyDown() {
+      this.sendAction('keyDown');
     }
   }
 });
