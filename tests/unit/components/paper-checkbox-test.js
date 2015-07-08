@@ -102,5 +102,5 @@ test('blockless version should set label inside', function(assert) {
     component.set('label', 'Button');
   });
 
-  assert.equal(this.$('.md-label').html().trim(), 'Button');
+  assert.equal(this.$('.md-label span').html().trim(), 'Button');
 });

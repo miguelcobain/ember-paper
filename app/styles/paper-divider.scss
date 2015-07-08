@@ -1,6 +1,7 @@
 md-divider {
   display: block;
-  border-top: 1px solid;
+  border-top-width: 1px;
+  border-top-style: solid;
   margin: 0;
 
   &[md-inset] {
@@ -9,5 +10,5 @@ md-divider {
 }
 
 md-divider.md-#{$theme-name}-theme {
-  border-top-color: $foreground-quarternary-color;
+  border-top-color: color($foreground, '4');
 }
