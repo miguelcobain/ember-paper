@@ -345,14 +345,29 @@ md-input-container.md-#{$theme-name}-theme {
   }
 }
 
+// override ng-animation's translateY values
+md-input-container {
+  .slide-down {
+    &.ng-enter {
+      @include transform(translateY(-10px));
+      @include transitionDuration(250ms);
+      opacity: 0;
+    }
 
-.md-input-invalid [ng-messages] {
-  animation-duration: 500ms;
-  animation-fill-mode: both;
-  animation-name: fadeInDown;
-}
-[ng-messages] {
-  animation-duration: 500ms;
-  animation-fill-mode: both;
-  animation-name: fadeOutUp;
+    &.ng-enter-active {
+      @include transform(translateY(0));
+      opacity: 1;
+    }
+
+    &.ng-leave {
+      @include transform(translateY(0));
+      @include transitionDuration(250ms);
+      opacity: 1;
+    }
+
+    &.ng-leave-active {
+      @include transform(translateY(-10px));
+      opacity: 0;
+    }
+  }
 }

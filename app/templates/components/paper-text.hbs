@@ -1,6 +1,6 @@
 <label for={{inputElementId}}>{{label}}</label>
 {{input class="md-input" id=inputElementId type=type value=value focus-in="focusIn" focus-out="focusOut" disabled=disabled required=required}}
-<div ng-messages>
+<div ng-messages class="{{if isInvalid 'slide-down ng-enter ng-enter-active' 'slide-down ng-leave ng-leave-active'}}">
     <div id="error-{{inputElementId}}" ng-message="{{ng-message}}">{{errortext}}</div>
 </div>
 {{#if md-maxlength}}
