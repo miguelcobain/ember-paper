@@ -6,7 +6,7 @@ export default BaseFocusable.extend({
   classNames: ['md-default-theme'],
   classNameBindings: ['hasValue:md-input-has-value', 'focus:md-input-focused', 'isInvalid:md-input-invalid'],
   type: 'text',
-  tabindex:-1,
+  tabindex: -1,
   hasValue: Ember.computed.notEmpty('value'),
   inputElementId: Ember.computed('elementId', function() {
     return 'input-' + this.get('elementId');
@@ -16,39 +16,38 @@ export default BaseFocusable.extend({
   }),
   renderCharCount: Ember.computed('value', function() {
     var currentLength = this.get('value') ? this.get('value').length : 0;
-    return currentLength + "/" + this.get('md-maxlength');
+    return currentLength + '/' + this.get('maxlength');
   }),
 
-  validate: function() {
-    var that = this;
+  validate() {
     var returnValue = false;
     var currentValue = this.get('value');
     var constraints = [
       {
         attr: 'required',
         defaultError: 'This is required.',
-        isError: function() {return that.get('required') && (!that.get('hasValue'));}
+        isError: () => this.get('required') && !this.get('hasValue')
       },
       {
         attr: 'min',
-        defaultError: 'Must be at least '+this.get('min')+'.',
-        isError: function() {return +currentValue < +(that.get('min'));}
+        defaultError: 'Must be at least ' + this.get('min') + '.',
+        isError: () => +currentValue < +this.get('min')
       },
       {
         attr: 'max',
-        defaultError: 'Must be less than '+this.get('max')+'.',
-        isError: function() {return +currentValue > +(that.get('max'));}
+        defaultError: 'Must be less than ' + this.get('max') + '.',
+        isError: () => +currentValue > +this.get('max')
       },
       {
-        attr: 'md-maxlength',
-        defaultError: 'Must not exceed '+this.get('md-maxlength')+' characters.',
-        isError: function() {return currentValue && currentValue.length > +(that.get('md-maxlength'));}
+        attr: 'maxlength',
+        defaultError: 'Must not exceed ' + this.get('maxlength') + ' characters.',
+        isError: () => currentValue && currentValue.length > + this.get('maxlength')
       }
     ];
 
-    constraints.some(function(thisConstraint) {
+    constraints.some(thisConstraint => {
       if(thisConstraint.isError()) {
-        that.setError(thisConstraint);
+        this.setError(thisConstraint);
         returnValue = true;
         return true;
       }
@@ -57,7 +56,7 @@ export default BaseFocusable.extend({
     return returnValue;
   },
 
-  setError: function(constraint) {
+  setError(constraint) {
     this.set('ng-message', constraint.attr);
     this.set('errortext', this.get(constraint.attr + '-errortext') || constraint.defaultError);
   },

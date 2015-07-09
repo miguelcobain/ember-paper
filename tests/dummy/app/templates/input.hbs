@@ -1,0 +1,59 @@
+{{#paper-toolbar}}
+  <h2 class="md-toolbar-tools">
+    {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
+      {{paper-icon icon="menu"}}
+    {{/paper-sidenav-toggle}}
+    <span>Text fields</span>
+  </h2>
+{{/paper-toolbar}}
+
+{{#paper-content classNames="md-padding"}}
+<div class="doc-content">
+  <ul class="paper-list-inline">
+    <li>{{paper-input label="Name" value=name}}</li>
+    <li>{{paper-input label="E-mail" type="email" value=email}}</li>
+    <li>{{paper-input label="Password" type="password"}}</li>
+    <li>{{paper-input label="Submission date" type="date" value=date}}</li>
+    <li>{{paper-input label="Company (disabled)" type="text" value="Google" disabled=true}}</li>
+  </ul>
+  {{paper-input textarea=true label="Biography" value=biography}}
+  <p>Name: {{name}}</p>
+  <p>Email: {{email}}</p>
+
+  <h3>Input Errors</h3>
+  <p>
+    {{paper-input label="Address" value=address required=true required-errortext="Address is required."}}
+    {{paper-input type="number" label="Maximum Value" value=maxNumber max="5" max-errortext="Enter 5 or less."}}
+    {{paper-input type="number" label="Minimum Value" value=minNumber min="1" min-errortext="Enter at least 1."}}
+    {{paper-input label="Maximum Character Length" value=maxLength required=true maxlength="10" maxlength-errortext="Maximum length exceeded."}}
+    {{paper-input label="All Constraints" value=allConstraints
+        required=true
+        min="2"
+        max="10"
+        maxlength="2"
+        maxlength-errortext="Max length exceeded."
+    }}
+  </p>
+
+  <h3>Template</h3>
+{{#code-block language="handlebars"}}
+\{{paper-input label="Name" value=name}}
+\{{paper-input label="E-mail" type="email" value=email}}
+\{{paper-input label="Password" type="password"}}
+\{{paper-input label="Submission date" type="date" value=date}}
+\{{paper-input textarea=true label="Biography" value=biography}}
+
+\{{paper-input label="Address" value=address required=true required-errortext="Address is required."}}
+\{{paper-input label="Maximum Value" value=maxNumber max="5" max-errortext="Enter 5 or less."}}
+\{{paper-input label="Minimum Value" value=minNumber min="1" min-errortext="Enter at least 1."}}
+\{{paper-input label="Maximum Character Length" value=maxLength required=true maxlength="10" maxlength-errortext="Maximum length exceeded."}}
+\{{paper-input label="All Constraints" value=allConstraints
+   required=true
+   min="2"
+   max="10"
+   maxlength="2"
+   maxlength-errortext="Max length exceeded."
+}}
+{{/code-block}}
+</div>
+{{/paper-content}}

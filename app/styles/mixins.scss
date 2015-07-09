@@ -6,14 +6,19 @@
 }
 
 @mixin not-selectable($value:none) {
+  -webkit-touch-callout: $value;
+  -webkit-user-select: $value;
+  -khtml-user-select: $value;
+  -moz-user-select: $value;
+  -ms-user-select: $value;
   user-select: $value;
 }
 
-@mixin input-placeholder($color) {
+@mixin input-placeholder-color($color) {
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &:-moz-placeholder, 
   &:-ms-input-placeholder {
-    color: $color;
-  }
-  &::-webkit-input-placeholder {
     color: $color;
   }
 }

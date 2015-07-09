@@ -1,8 +1,0 @@
-<label for={{inputElementId}}>{{label}}</label>
-{{input class="md-input" id=inputElementId type=type value=value focus-in="focusIn" focus-out="focusOut" disabled=disabled required=required}}
-<div ng-messages>
-    <div id="error-{{inputElementId}}" ng-message="{{ng-message}}" class="{{if isInvalid 'ng-enter ng-enter-active' 'ng-leave ng-leave-active'}}">{{errortext}}</div>
-</div>
-{{#if md-maxlength}}
-<div class="md-char-counter">{{renderCharCount}}</div>
-{{/if}}

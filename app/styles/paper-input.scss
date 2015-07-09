@@ -33,7 +33,7 @@ md-input-container {
     top: 5px;
     left: 2px;
     + input {
-      margin-left: $icon-offset;
+          margin-left: $icon-offset;
     }
   }
 
@@ -52,6 +52,7 @@ md-input-container {
   input[type="search"],
   input[type="tel"],
   input[type="color"] {
+    /* remove default appearance from all input/textarea */
     -moz-appearance: none;
     -webkit-appearance: none;
   }
@@ -110,12 +111,23 @@ md-input-container {
     opacity: 0;
   }
 
-  &:not( .md-input-has-value ) input:not( :focus ) {
-    color: transparent;
+  &:not( .md-input-has-value ) input:not( :focus ),
+  &:not( .md-input-has-value ) input:not( :focus )::-webkit-datetime-edit-ampm-field,
+  &:not( .md-input-has-value ) input:not( :focus )::-webkit-datetime-edit-day-field,
+  &:not( .md-input-has-value ) input:not( :focus )::-webkit-datetime-edit-hour-field,
+  &:not( .md-input-has-value ) input:not( :focus )::-webkit-datetime-edit-millisecond-field,
+  &:not( .md-input-has-value ) input:not( :focus )::-webkit-datetime-edit-minute-field,
+  &:not( .md-input-has-value ) input:not( :focus )::-webkit-datetime-edit-month-field,
+  &:not( .md-input-has-value ) input:not( :focus )::-webkit-datetime-edit-second-field,
+  &:not( .md-input-has-value ) input:not( :focus )::-webkit-datetime-edit-week-field,
+  &:not( .md-input-has-value ) input:not( :focus )::-webkit-datetime-edit-year-field,
+  &:not( .md-input-has-value ) input:not( :focus )::-webkit-datetime-edit-text {
+      color: transparent;
   }
 
-
-   // The .md-input class is added to the input/textarea
+  /*
+   * The .md-input class is added to the input/textarea
+   */
   .md-input {
     order: 2;
     display: block;
@@ -152,7 +164,7 @@ md-input-container {
   ng-message, data-ng-message, x-ng-message,
   [ng-message], [data-ng-message], [x-ng-message],
   .md-char-counter {
-    -webkit-font-smoothing: antialiased;
+    //-webkit-font-smoothing: antialiased;
     position: absolute;
     font-size: $input-error-font-size;
     line-height: $input-error-height;
@@ -218,16 +230,16 @@ md-input-container.md-icon-float {
 
 
   > label  {
-    pointer-events:none;
-    position:absolute;
-    margin-left: $icon-offset;
+      pointer-events:none;
+      position:absolute;
+      margin-left: $icon-offset;
   }
 
   > md-icon {
     top: 26px;
     left: 2px;
     + input {
-      margin-left: $icon-offset;
+          margin-left: $icon-offset;
     }
   }
 
@@ -241,9 +253,9 @@ md-input-container.md-icon-float {
     margin-top: $icon-float-focused-top;
 
     label {
-      transform: translate3d(0,$input-label-float-offset,0) scale($input-label-float-scale);
-      transition: transform $swift-ease-out-timing-function 0.5s;
-    }
+        transform: translate3d(0,$input-label-float-offset,0) scale($input-label-float-scale);
+        transition: transform $swift-ease-out-timing-function 0.5s;
+      }
   }
 
 }
@@ -257,12 +269,7 @@ md-input-container.md-icon-float {
 //THEME
 md-input-container.md-#{$theme-name}-theme {
   .md-input {
-    &::-webkit-input-placeholder,
-    &::-moz-placeholder,
-    &:-moz-placeholder,
-    &:-ms-input-placeholder {
-      color: color($foreground, '3');
-    }
+    @include input-placeholder-color(color($foreground, '3'));
     color: color($foreground, '1');
     border-color: color($foreground, '4');
     text-shadow: $foreground-shadow;
@@ -275,12 +282,12 @@ md-input-container.md-#{$theme-name}-theme {
   label,
   .md-placeholder {
     text-shadow: $foreground-shadow;
-    color: $foreground-shadow;
+    color: color($foreground, '3');
   }
 
   ng-messages,
   [ng-message], [data-ng-message], [x-ng-message] {
-    color: color($warn, '500');
+    color: color($warn, '500')
   }
 
 
