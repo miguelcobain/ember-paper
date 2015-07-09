@@ -52,7 +52,6 @@ md-input-container {
   input[type="search"],
   input[type="tel"],
   input[type="color"] {
-    /* remove default appearance from all input/textarea */
     -moz-appearance: none;
     -webkit-appearance: none;
   }
@@ -116,9 +115,7 @@ md-input-container {
   }
 
 
-  /*
-   * The .md-input class is added to the input/textarea
-   */
+   // The .md-input class is added to the input/textarea
   .md-input {
     order: 2;
     display: block;
@@ -261,8 +258,8 @@ md-input-container.md-icon-float {
 md-input-container.md-#{$theme-name}-theme {
   .md-input {
     &::-webkit-input-placeholder,
-    &::-moz-placeholder, /* Firefox 19+ */
-    &:-moz-placeholder, /* Firefox 18- */
+    &::-moz-placeholder,
+    &:-moz-placeholder,
     &:-ms-input-placeholder {
       color: color($foreground, '3');
     }
