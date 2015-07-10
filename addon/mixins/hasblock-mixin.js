@@ -8,6 +8,9 @@ import Ember from 'ember';
  */
 export default Ember.Mixin.create({
   hasBlock: Ember.computed(function () {
-    return !!this.get("template");
+    if (typeof this._super.hasBlock === 'undefined') {
+      return !!this.get("template");
+    }
+    return this.hasBlock;
   })
 });
