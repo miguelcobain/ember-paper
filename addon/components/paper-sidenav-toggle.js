@@ -7,13 +7,7 @@ export default Ember.Component.extend({
   toggle: true,
 
   navContainer: Ember.computed(function () {
-    var parentView = this.get("parentView");
-    while(parentView) {
-      if (PaperNavContainer.detect(parentView.constructor)) {
-        return parentView;
-      }
-      parentView = parentView.get("parentView");
-    }
+    return this.nearestOfType(PaperNavContainer);
   }),
 
   click() {
