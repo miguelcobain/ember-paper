@@ -121,6 +121,15 @@ ul li {
 ul li:first-child {
   margin-top: 0;
 }
+
+body {
+
+  &> .ember-view {
+    width: 100%;
+    height: 100%;
+  }
+
+}
 /*
 *, *:before, *:after {
 box-sizing: border-box;
@@ -133,6 +142,12 @@ body {
   margin: 0;
   padding: 0;
   outline: none;
+
+  &> .ember-view {
+    width: 100%;
+    height: 100%;
+  }
+
 }
 
 p {

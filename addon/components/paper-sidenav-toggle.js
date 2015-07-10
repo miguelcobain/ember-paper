@@ -6,15 +6,16 @@ export default Ember.Component.extend({
   classNames: ['paper-sidenav-toggle'],
   toggle: true,
 
-  navContainer: Ember.computed(function() {
+  navContainer: Ember.computed(function () {
     return this.nearestOfType(PaperNavContainer);
   }),
 
   click() {
+    var navContainer = this.get("navContainer");
     if (this.get('toggle')) {
-      this.get('navContainer').toggleSidenav();
+      navContainer.toggleSidenav();
     } else {
-      this.get('navContainer').expandSidenav();
+      navContainer.expandSidenav();
     }
     return false;
   }
