@@ -9,9 +9,9 @@ export default Ember.Component.extend({
 
   click() {
     if (this.get('toggle')) {
-      this.get("paperEventBus").publish('paper:toggle-sidenav');
+      this.get("paperEventBus").publish('paper:toggle-sidenav:' + (this.get("references") || ''));
     } else {
-      this.get("paperEventBus").publish('paper:expand-sidenav');
+      this.get("paperEventBus").publish('paper:expand-sidenav:' + (this.get("references") || ''));
     }
     return false;
   }

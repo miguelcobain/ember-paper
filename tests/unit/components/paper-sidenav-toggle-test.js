@@ -24,10 +24,10 @@ test('it renders', function(assert) {
 
 test('when clicked triggers `toggleSidenav` on navContainer', function(assert) {
   assert.expect(1);
-  var component = this.subject();
+  var component = this.subject({references: 'main-sidebar'});
 
   var didFire = false;
-  component.get('paperEventBus').subscribe('paper:toggle-sidenav', function () {
+  component.get('paperEventBus').subscribe('paper:toggle-sidenav:main-sidebar', function () {
     didFire = true;
   });
 
@@ -41,10 +41,10 @@ test('when clicked triggers `toggleSidenav` on navContainer', function(assert) {
 
 test('when clicked triggers `expandSidenav` if toggle is false on navContainer', function(assert) {
   assert.expect(1);
-  var component = this.subject({toggle: false});
+  var component = this.subject({toggle: false, references: 'main-sidebar'});
   var didFire = false;
 
-  component.get('paperEventBus').subscribe('paper:expand-sidenav', function () {
+  component.get('paperEventBus').subscribe('paper:expand-sidenav:main-sidebar', function () {
     didFire = true;
   });
 
