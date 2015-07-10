@@ -123,12 +123,12 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, {
       return;
     }
 
-    var changeAmount;
+    var changeAmount, newValue;
 
     if (event.keyCode === constants.KEYCODE.LEFT_ARROW) {
-      changeAmount = this.get('step') * -1;
+      changeAmount = parseInt(this.get('step')) * -1;
     } else if (event.keyCode === constants.KEYCODE.RIGHT_ARROW) {
-      changeAmount = this.get('step');
+      changeAmount = parseInt(this.get('step'));
     }
 
     if (changeAmount) {
@@ -136,7 +136,9 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, {
         changeAmount *= 4;
       }
 
-      this.incrementProperty('value', changeAmount);
+      newValue = this.get('value') + changeAmount;
+
+      this.set('value', this.minMaxValidator(newValue));
 
       event.preventDefault();
       event.stopPropagation();

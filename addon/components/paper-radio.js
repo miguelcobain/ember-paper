@@ -4,12 +4,15 @@ import RippleMixin from '../mixins/ripple-mixin';
 
 export default BaseFocusable.extend(RippleMixin, {
   tagName: 'md-radio-button',
-  classNames: ['md-radio-button', 'md-default-theme'],
+  classNames: ['paper-radio', 'md-default-theme'],
   classNameBindings: ['checked:md-checked'],
   toggle: false,
   selected: null,
 
+  /* RippleMixin overrides */
   center: true,
+  dimBackground: false,
+  fitRipple: true,
   rippleContainerSelector: '.md-container',
 
   checked: Ember.computed('value', 'selected', function() {

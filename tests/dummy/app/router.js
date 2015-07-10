@@ -14,9 +14,10 @@ Router.map(function() {
   this.route('switch');
   this.route('typography');
   this.route('list');
+  this.route('list-controls');
   this.route('divider');
   this.route('sidenav');
-  this.route('textfield');
+  this.route('input');
   this.route('toolbar');
   this.route('icons');
   this.route('slider');

@@ -447,6 +447,7 @@ $colors: (
   'foreground-dark': $foreground-dark
 );
 
+$default-color: '500' !default;
 @function color($color, $type: $default-color) {
   @if map-has-key($colors, $color) {
     $curr_color: map-get($colors, $color);

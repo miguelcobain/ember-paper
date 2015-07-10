@@ -280,41 +280,41 @@ md-slider.md-#{$theme-name}-theme {
 
   &.md-warn {
     .md-track.md-track-fill {
-      background-color: color($warn-color-palette);
+      background-color: color($warn);
     }
     .md-thumb:after {
-      border-color: color($warn-color-palette);
-      background-color: color($warn-color-palette);
+      border-color: color($warn);
+      background-color: color($warn);
     }
     .md-sign {
-      background-color: color($warn-color-palette);
+      background-color: color($warn);
 
       &:after {
-        border-top-color: color($warn-color-palette);
+        border-top-color: color($warn);
       }
     }
     .md-thumb-text {
-      color: color($warn-color-palette, 'contrast');
+      color: color($warn, 'contrast');
     }
   }
 
   &.md-primary {
     .md-track.md-track-fill {
-      background-color: color($primary-color-palette);
+      background-color: color($primary);
     }
     .md-thumb:after {
-      border-color: color($primary-color-palette);
-      background-color: color($primary-color-palette);
+      border-color: color($primary);
+      background-color: color($primary);
     }
     .md-sign {
-      background-color: color($primary-color-palette);
+      background-color: color($primary);
 
       &:after {
-        border-top-color: color($primary-color-palette);
+        border-top-color: color($primary);
       }
     }
     .md-thumb-text {
-      color: color($primary-color-palette, 'contrast');
+      color: color($primary, 'contrast');
     }
   }
 
@@ -331,27 +331,27 @@ md-slider.md-#{$theme-name}-theme {
     border-color: color($foreground, '4');
   }
   .md-disabled-thumb {
-    border-color: color($background-color-palette, 'A100');
+    border-color: color($background, 'A100');
   }
   &.md-min .md-thumb:after {
-    background-color: color($background-color-palette, 'A100');
+    background-color: color($background, 'A100');
   }
 
   .md-track.md-track-fill {
-    background-color: color($accent-color-palette);
+    background-color: color($accent);
   }
   .md-thumb:after {
-    border-color: color($accent-color-palette);
-    background-color: color($accent-color-palette);
+    border-color: color($accent);
+    background-color: color($accent);
   }
   .md-sign {
-    background-color: color($accent-color-palette);
+    background-color: color($accent);
     &:after {
-      border-top-color: color($accent-color-palette);
+      border-top-color: color($accent);
     }
   }
   .md-thumb-text {
-    color: color($accent-color-palette, 'contrast');
+    color: color($accent, 'contrast');
   }
 
   &[disabled] {

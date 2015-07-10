@@ -1,0 +1,14 @@
+<label for={{inputElementId}}>{{label}}</label>
+
+{{#if textarea}}
+  {{textarea class="md-input" id=inputElementId value=value focus-in="focusIn" focus-out="focusOut" disabled=disabled required=required}}
+{{else}}
+  {{input class="md-input" id=inputElementId type=type value=value focus-in="focusIn" focus-out="focusOut" disabled=disabled required=required}}
+{{/if}}
+
+<div ng-messages>
+    <div id="error-{{inputElementId}}" ng-message="{{ng-message}}" class="{{if isInvalid 'ng-enter ng-enter-active' 'ng-leave ng-leave-active'}}">{{errortext}}</div>
+</div>
+{{#if maxlength}}
+<div class="md-char-counter">{{renderCharCount}}</div>
+{{/if}}
