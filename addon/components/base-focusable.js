@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import EventsMixin from '../mixins/events-mixin';
+import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
+import HasBlockMixin from '../mixins/hasblock-mixin';
 
-export default Ember.Component.extend(EventsMixin, {
+export default Ember.Component.extend(EventsMixin, HasBlockMixin, {
   disabled: false,
   pressed: false,
   active: false,
