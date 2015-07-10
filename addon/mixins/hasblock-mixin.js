@@ -7,9 +7,9 @@ import Ember from 'ember';
  * See also https://github.com/emberjs/ember.js/pull/11313
  */
 export default Ember.Mixin.create({
-  hasBlock: Ember.computed(function () {
+  hasBlock: Ember.computed(function() {
     if (typeof this._super.hasBlock === 'undefined') {
-      return !!this.get("template");
+      return !!this.get('template');
     }
     return this.hasBlock;
   })
