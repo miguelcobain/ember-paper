@@ -76,6 +76,8 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   keyPress(ev) {
     if (ev.which === constants.KEYCODE.SPACE) {
+      ev.preventDefault();
+      ev.stopPropagation();
       this.switchHammer.emit('tap', ev);
     }
   },
