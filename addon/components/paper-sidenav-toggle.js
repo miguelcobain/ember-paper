@@ -1,17 +1,27 @@
 import Ember from 'ember';
+import PaperNavContainer from './paper-nav-container';
 
 export default Ember.Component.extend({
   tagName: 'md-sidenav-toggle',
   classNames: ['paper-sidenav-toggle'],
   toggle: true,
 
-  paperEventBus: Ember.inject.service('paper-eventbus'),
+  navContainer: Ember.computed(function () {
+    var parentView = this.get("parentView");
+    while(parentView) {
+      if (PaperNavContainer.detect(parentView.constructor)) {
+        return parentView;
+      }
+      parentView = parentView.get("parentView");
+    }
+  }),
 
   click() {
+    var navContainer = this.get("navContainer");
     if (this.get('toggle')) {
-      this.get("paperEventBus").publish('paper:toggle-sidenav:' + (this.get("references") || ''));
+      navContainer.toggleSidenav();
     } else {
-      this.get("paperEventBus").publish('paper:expand-sidenav:' + (this.get("references") || ''));
+      navContainer.expandSidenav();
     }
     return false;
   }

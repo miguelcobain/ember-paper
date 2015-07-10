@@ -6,7 +6,7 @@ import {
 
 moduleForComponent('paper-sidenav-toggle', 'PaperSidenavToggleComponent', {
   // specify the other units that are required for this test
-  needs: ['service:paper-eventbus']
+  // needs: ['component:foo', 'helper:bar']
 });
 
 test('it renders', function(assert) {
@@ -24,12 +24,14 @@ test('it renders', function(assert) {
 
 test('when clicked triggers `toggleSidenav` on navContainer', function(assert) {
   assert.expect(1);
-  var component = this.subject({references: 'main-sidebar'});
+  var component = this.subject();
 
   var didFire = false;
-  component.get('paperEventBus').subscribe('paper:toggle-sidenav:main-sidebar', function () {
-    didFire = true;
-  });
+  component.set('navContainer', Ember.Object.create({
+    toggleSidenav: function() {
+      didFire = true;
+    }
+  }));
 
   var $component = this.$();
   Ember.run(function() {
@@ -41,12 +43,13 @@ test('when clicked triggers `toggleSidenav` on navContainer', function(assert) {
 
 test('when clicked triggers `expandSidenav` if toggle is false on navContainer', function(assert) {
   assert.expect(1);
-  var component = this.subject({toggle: false, references: 'main-sidebar'});
+  var component = this.subject({toggle: false});
   var didFire = false;
-
-  component.get('paperEventBus').subscribe('paper:expand-sidenav:main-sidebar', function () {
-    didFire = true;
-  });
+  component.set('navContainer', Ember.Object.create({
+    expandSidenav: function() {
+      didFire = true;
+    }
+  }));
 
   var $component = this.$();
   Ember.run(function() {
