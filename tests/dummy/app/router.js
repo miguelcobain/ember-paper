@@ -7,6 +7,7 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('introduction');
+  this.route('autocomplete');
   this.route('button');
   this.route('card');
   this.route('checkbox');

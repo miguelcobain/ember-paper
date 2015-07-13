@@ -1,0 +1,9 @@
+{{paper-autocomplete-wrap parent=this}}
+
+<aria-status class="md-visually-hidden" role="status" aria-live="assertive">
+  {{#each messages as |message index|}}
+    {{#if message}}
+        <p>{{message}}</p>
+    {{/if}}
+  {{/each}}
+</aria-status>
