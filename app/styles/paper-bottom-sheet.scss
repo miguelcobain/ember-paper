@@ -1,0 +1,41 @@
+.paper-bottom-sheet {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  bottom: -100%;
+  padding: 8px 16px;
+
+  background: #fff;
+  transition: $swift-ease-in-out;
+
+  &_background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+
+    opacity: 0;
+    background: transparentize(#000, .8);
+    transition: $swift-ease-in-out;
+  }
+
+  &_wrapper {
+    &.grid {
+      .paper-bottom-sheet {
+        padding: 16px 24px;
+      }
+    }
+
+    &.is-open {
+      > .paper-bottom-sheet {
+        bottom: 0;
+
+        &_background {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
