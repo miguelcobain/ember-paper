@@ -13,7 +13,12 @@ export default Ember.Component.extend({
 
   actions: {
     clear: function () {
+      this.get('parent').set('model', null);
       this.get("parent").set('searchText', '');
+    },
+
+    pickItem: function (item) {
+      this.set('model', item);
     }
   },
 

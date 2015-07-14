@@ -5,11 +5,12 @@ import constants from '../utils/constants';
 export default Ember.TextField.extend({
   type: 'search',
 
+  hadKeyDown: false,
+
   handleSearchText () {
     var parent = this.get("parent");
     var text = parent.get('searchText').toLowerCase();
 
-    parent.set('index', parent.getDefaultIndex());
 
     var items = parent.get('items');
     var lookupKey = parent.get('lookupKey');
@@ -24,10 +25,11 @@ export default Ember.TextField.extend({
 
   searchTextObserver: Ember.observer('parent.searchText',function() {
     var text = this.get('parent').get('searchText');
-    if (typeof text === 'undefined') return;
+    if (typeof text === 'undefined' || !this.get('hadKeyDown')) return;
 
     var wait = parseInt(this.get("parent").get('delay'), 10) || 0;
     Ember.run.debounce(this, this.handleSearchText, wait);
+
   }),
 
   keyDown (event) {
@@ -36,29 +38,43 @@ export default Ember.TextField.extend({
       case constants.KEYCODE.DOWN_ARROW:
         if (autocomplete.get('loading')) return;
         event.preventDefault();
-        autocomplete.set('index', Math.min(autocomplete.get('index') + 1, autocomplete.get('matches').length - 1));
-        autocomplete.updateScroll();
-        autocomplete.updateMessages();
+        autocomplete.set('index', Math.min(autocomplete.get('index') + 1, autocomplete.get('suggestions').length - 1));
+        this.updateScroll();
         break;
       case constants.KEYCODE.UP_ARROW:
         if (autocomplete.get('loading')) return;
         event.preventDefault();
-        autocomplete.set('index', autocomplete.get('index') < 0 ? autocomplete.get('matches').length - 1 : Math.max(0, autocomplete.get('index') - 1));
-        autocomplete.updateScroll();
-        autocomplete.updateMessages();
+        autocomplete.set('index', autocomplete.get('index') < 0 ? autocomplete.get('suggestions').length - 1 : Math.max(0, autocomplete.get('index') - 1));
+        this.updateScroll();
         break;
       case constants.KEYCODE.TAB:
       case constants.KEYCODE.ENTER:
-        if (autocomplete.get('hidden') || autocomplete.get('loading') || autocomplete.get('index') < 0 || autocomplete.get('matches').length < 1) return;
+        if (autocomplete.get('index') < 0 || autocomplete.get('suggestions').length < 1) return;
         event.preventDefault();
-        select(autocomplete.get('index'));
+        autocomplete.set('model', autocomplete.get('suggestions')[autocomplete.get('index')]);
         break;
       case constants.KEYCODE.ESCAPE:
         autocomplete.set('matches', Ember.A([]));
         autocomplete.set('hidden', true);
-        autocomplete.set('index', autocomplete.getDefaultIndex());
         break;
       default:
+    }
+    this.set('hadKeyDown', true);
+  },
+
+  updateScroll () {
+    var autocomplete = this.get("parent");
+    var suggestions = autocomplete.get('suggestions');
+    if (!suggestions[autocomplete.get('index')]) return;
+    var ul = autocomplete.get('ulContainer'),
+        li  = ul.find('li:eq('+autocomplete.get('index')+')')[0],
+      top = li.offsetTop,
+      bot = top + li.offsetHeight,
+      hgt = ul[0].clientHeight;
+    if (top < ul[0].scrollTop) {
+      ul[0].scrollTop = top;
+    } else if (bot > ul[0].scrollTop + hgt) {
+      ul[0].scrollTop = bot - hgt;
     }
   }
 

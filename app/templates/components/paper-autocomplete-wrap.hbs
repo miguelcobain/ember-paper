@@ -65,14 +65,14 @@
 
 <md-progress-linear ng-if="$mdAutocompleteCtrl.loading && !$mdAutocompleteCtrl.hidden"
                     md-mode="indeterminate"></md-progress-linear>
-<ul role="presentation" class="md-autocomplete-suggestions md-whiteframe-z1">
-  {{yield}}
 
+<ul role="presentation" class="md-default-theme md-autocomplete-suggestions md-whiteframe-z1">
+  {{yield}}
   {{#each parent.suggestions as |item index|}}
-    {{#paper-autocomplete-item item=item index=index}}
+    {{#paper-autocomplete-item item=item parent=parent index=index}}
       {{item.name}}
     {{/paper-autocomplete-item}}
   {{else}}
-      Not found...
+      <li>No matches found for "{{parent.searchText}}".</li>
   {{/each}}
 </ul>

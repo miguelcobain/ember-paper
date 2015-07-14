@@ -19,32 +19,19 @@ export default Ember.Component.extend({
   isDisabled: null,
   isRequired: null,
   lookupKey: null,
+  searchText: '',
 
 
+  valueObserver: Ember.observer('model',function () {
+    var value;
+    if (this.get('model')) {
+      value = this.get('model')[this.get('lookupKey')];
+    } else {
+      value = '';
+    }
+    this.set('searchText', value);
+  }),
 
-
-  getDefaultIndex () {
-    return this.get("autoselect") ? 0 : -1;
-  },
-
-  updateScroll () {/*
-    if (!elements.li[ctrl.index]) return;
-    var li  = elements.li[ctrl.index],
-      top = li.offsetTop,
-      bot = top + li.offsetHeight,
-      hgt = elements.ul.clientHeight;
-    if (top < elements.ul.scrollTop) {
-      elements.ul.scrollTop = top;
-    } else if (bot > elements.ul.scrollTop + hgt) {
-      elements.ul.scrollTop = bot - hgt;
-    }*/
-  },
-
-  updateMessages () {
-    /*getCurrentDisplayValue().then(function(msg) {
-      ctrl.messages = [ getCountMessage(), msg ];
-    });*/
-  },
 
   positionDropdown () {
     var hrect  = this.$().find('md-autocomplete-wrap:first')[0].getBoundingClientRect(),
@@ -87,7 +74,17 @@ export default Ember.Component.extend({
 
 
   observeSuggestions: Ember.observer('suggestions', function () {
-    this.positionDropdown();
-  })
+    if (this.get('suggestions').length) {
+      this.positionDropdown();
+    }
+  }),
+
+
+  didInsertElement: function () {
+    var _self =  this;
+    jQuery(window).resize(function () {
+      _self.positionDropdown();
+    });
+  }
 
 });

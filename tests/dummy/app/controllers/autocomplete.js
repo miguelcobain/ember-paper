@@ -1,6 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+
+
+  myModel: {name: 'United States', code: 'US'},
+
   items: Ember.A([
     {name: 'Afghanistan', code: 'AF'},
     {name: 'Åland Islands', code: 'AX'},
@@ -245,5 +249,6 @@ export default Ember.Controller.extend({
     {name: 'Yemen', code: 'YE'},
     {name: 'Zambia', code: 'ZM'},
     {name: 'Zimbabwe', code: 'ZW'}
-  ])
+  ]),
+
 });
