@@ -10,9 +10,9 @@
 {{#paper-content classNames="md-padding"}}
   <div class="doc-content">
 
-      <h3>Basic Usage</h3>
+    <h3>Basic Usage</h3>
 
-    {{#paper-autocomplete items=items lookupKey="name" identifier="code" model=myModel as |autocomplete|}}
+    {{#paper-autocomplete placeholder="Select a Country ..." items=items lookupKey="name" identifier="code" model=myModel as |autocomplete|}}
     {{/paper-autocomplete}}
     <p>Selected country is
       {{#if myModel}}

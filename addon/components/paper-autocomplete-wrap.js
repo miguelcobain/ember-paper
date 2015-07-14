@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   tagName: 'md-autocomplete-wrap',
-  classBindings: ['notFloating:md-whiteframe-z1', 'notHidden:md-menu-showing'],
+  classNameBindings: ['notFloating:md-whiteframe-z1', 'notHidden:md-menu-showing'],
   attributeBindings: ['role', 'layoutAttr:layout'],
   role: 'listbox',
   layoutAttr: 'row',

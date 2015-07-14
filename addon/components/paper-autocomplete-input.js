@@ -8,6 +8,8 @@ export default Ember.TextField.extend({
   hadKeyDown: false,
 
 
+
+
   keyDown (event) {
     var autocomplete = this.get("parent");
     switch (event.keyCode) {

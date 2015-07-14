@@ -20,6 +20,7 @@ export default Ember.Component.extend({
   isRequired: null,
   lookupKey: null,
   searchText: '',
+  placeholder: '',
 
   hadKeyDown: false,
   minLength: 1,
