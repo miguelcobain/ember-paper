@@ -7,30 +7,6 @@ export default Ember.TextField.extend({
 
   hadKeyDown: false,
 
-  handleSearchText () {
-    var parent = this.get("parent");
-    var text = parent.get('searchText').toLowerCase();
-
-
-    var items = parent.get('items');
-    var lookupKey = parent.get('lookupKey');
-    var suggestions = items.filter(function (item) {
-      var search = item[lookupKey].toLowerCase();
-      return search.indexOf(text) === 0;
-    });
-
-    parent.set('suggestions', suggestions);
-
-  },
-
-  searchTextObserver: Ember.observer('parent.searchText',function() {
-    var text = this.get('parent').get('searchText');
-    if (typeof text === 'undefined' || !this.get('hadKeyDown')) return;
-
-    var wait = parseInt(this.get("parent").get('delay'), 10) || 0;
-    Ember.run.debounce(this, this.handleSearchText, wait);
-
-  }),
 
   keyDown (event) {
     var autocomplete = this.get("parent");
@@ -52,6 +28,8 @@ export default Ember.TextField.extend({
         if (autocomplete.get('index') < 0 || autocomplete.get('suggestions').length < 1) return;
         event.preventDefault();
         autocomplete.set('model', autocomplete.get('suggestions')[autocomplete.get('index')]);
+        autocomplete.set('hidden', true);
+
         break;
       case constants.KEYCODE.ESCAPE:
         autocomplete.set('matches', Ember.A([]));
@@ -59,7 +37,7 @@ export default Ember.TextField.extend({
         break;
       default:
     }
-    this.set('hadKeyDown', true);
+    this.get('parent').set('hadKeyDown', true);
   },
 
   updateScroll () {

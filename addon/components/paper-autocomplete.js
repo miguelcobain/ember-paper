@@ -13,13 +13,16 @@ export default Ember.Component.extend({
 
   suggestions: Ember.A([]),
   loading: false,
-  hidden: true,
+  hidden: null,
   index: null,
   messages: [],
   isDisabled: null,
   isRequired: null,
   lookupKey: null,
   searchText: '',
+
+  hadKeyDown: false,
+  minLength: 1,
 
 
   valueObserver: Ember.observer('model',function () {
@@ -29,9 +32,44 @@ export default Ember.Component.extend({
     } else {
       value = '';
     }
+    this.set('hadKeyDown', false);
     this.set('searchText', value);
+    this.set('hidden', true);
   }),
 
+  hideSuggestionObserver: Ember.observer('hidden', function () {
+    if (!this.get('ulContainer')) return;
+    if (this.get('hidden') === true) {
+      this.get('ulContainer').hide();
+    } else {
+      this.get('ulContainer').show();
+    }
+  }),
+
+  observeSuggestions: Ember.observer('suggestions', function () {
+    if (this.get('suggestions').length) {
+      this.positionDropdown();
+    }
+  }),
+
+
+  searchTextObserver: Ember.observer('searchText',function() {
+    var text = this.get('searchText');
+    if (typeof text === 'undefined' || !this.get('hadKeyDown')) return;
+
+    var wait = parseInt(this.get('delay'), 10) || 0;
+    Ember.run.debounce(this, this.handleSearchText, wait);
+
+  }),
+
+  shouldHide () {
+    if (!this.isMinLengthMet() || !this.get('suggestions').length) return true;
+    return false;
+  },
+
+  isMinLengthMet () {
+    return this.get('searchText') && this.get('searchText').length >= this.get('minLength');
+  },
 
   positionDropdown () {
     var hrect  = this.$().find('md-autocomplete-wrap:first')[0].getBoundingClientRect(),
@@ -73,12 +111,26 @@ export default Ember.Component.extend({
   },
 
 
-  observeSuggestions: Ember.observer('suggestions', function () {
-    if (this.get('suggestions').length) {
-      this.positionDropdown();
-    }
-  }),
 
+  handleSearchText () {
+    var text = this.get('searchText').toLowerCase();
+
+    // cancel results if search text is not long enough
+    if (!this.isMinLengthMet()) {
+      return;
+    }
+
+
+    var items = this.get('items');
+    var lookupKey = this.get('lookupKey');
+    var suggestions = items.filter(function (item) {
+      var search = item[lookupKey].toLowerCase();
+      return search.indexOf(text) === 0;
+    });
+
+    this.set('suggestions', suggestions);
+    this.set('hidden', this.shouldHide());
+  },
 
   didInsertElement: function () {
     var _self =  this;
