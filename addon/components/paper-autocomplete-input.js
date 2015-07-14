@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import BaseFocusable from './base-focusable';
 import constants from '../utils/constants';
 
 export default Ember.TextField.extend({
@@ -14,20 +13,26 @@ export default Ember.TextField.extend({
     var autocomplete = this.get("parent");
     switch (event.keyCode) {
       case constants.KEYCODE.DOWN_ARROW:
-        if (autocomplete.get('loading')) return;
+        if (autocomplete.get('loading')) {
+          return;
+        }
         event.preventDefault();
         autocomplete.set('index', Math.min(autocomplete.get('index') + 1, autocomplete.get('suggestions').length - 1));
         this.updateScroll();
         break;
       case constants.KEYCODE.UP_ARROW:
-        if (autocomplete.get('loading')) return;
+        if (autocomplete.get('loading')) {
+          return;
+        }
         event.preventDefault();
         autocomplete.set('index', autocomplete.get('index') < 0 ? autocomplete.get('suggestions').length - 1 : Math.max(0, autocomplete.get('index') - 1));
         this.updateScroll();
         break;
       case constants.KEYCODE.TAB:
       case constants.KEYCODE.ENTER:
-        if (autocomplete.get('index') < 0 || autocomplete.get('suggestions').length < 1) return;
+        if (autocomplete.get('index') < 0 || autocomplete.get('suggestions').length < 1) {
+          return;
+        }
         event.preventDefault();
         autocomplete.set('model', autocomplete.get('suggestions')[autocomplete.get('index')]);
         autocomplete.set('hidden', true);
@@ -38,6 +43,7 @@ export default Ember.TextField.extend({
         autocomplete.set('hidden', true);
         break;
       default:
+        break;
     }
     this.get('parent').set('hadKeyDown', true);
   },
@@ -45,7 +51,9 @@ export default Ember.TextField.extend({
   updateScroll () {
     var autocomplete = this.get("parent");
     var suggestions = autocomplete.get('suggestions');
-    if (!suggestions[autocomplete.get('index')]) return;
+    if (!suggestions[autocomplete.get('index')]) {
+      return;
+    }
     var ul = autocomplete.get('ulContainer'),
         li  = ul.find('li:eq('+autocomplete.get('index')+')')[0],
       top = li.offsetTop,
