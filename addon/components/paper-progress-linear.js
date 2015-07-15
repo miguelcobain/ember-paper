@@ -13,6 +13,8 @@ export default Ember.Component.extend({
 
   isInserted: false,
 
+  browserCompatibility: Ember.inject.service('browser-compatibility'),
+
   init() {
     this._super(...arguments);
     this.setupTransforms();
@@ -25,7 +27,6 @@ export default Ember.Component.extend({
     this.$('.md-container').addClass('md-ready');
   },
 
-  constants: Ember.inject.service('constants'),
 
   attributeBindings: ['md-mode', 'md-buffer-value'],
 
@@ -38,7 +39,7 @@ export default Ember.Component.extend({
   },
 
   bar1Style: Ember.computed('clampedBufferValue', function() {
-    return new Ember.Handlebars.SafeString('transform: ' + this.transforms[this.get('clampedBufferValue')]);
+    return new Ember.Handlebars.SafeString(this.get('browserCompatibility.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedBufferValue')]);
   }),
 
   bar2Style: Ember.computed('clampedValue', function() {
@@ -47,7 +48,7 @@ export default Ember.Component.extend({
       return new Ember.Handlebars.SafeString('');
     }
 
-    return new Ember.Handlebars.SafeString('transform: ' + this.transforms[this.get('clampedValue')]);
+    return new Ember.Handlebars.SafeString(this.get('browserCompatibility.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedValue')]);
   }),
 
   clampedValue: Ember.computed('value', function() {
