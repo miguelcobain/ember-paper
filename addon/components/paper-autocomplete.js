@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+/* global jQuery */
+
 var ITEM_HEIGHT = 41,
   MAX_HEIGHT = 5.5 * ITEM_HEIGHT,
   MENU_PADDING = 8;
@@ -19,11 +21,13 @@ export default Ember.Component.extend({
   isDisabled: null,
   isRequired: null,
   lookupKey: null,
+  noBlur: false,
   searchText: '',
   placeholder: '',
 
   hadKeyDown: false,
   minLength: 1,
+
 
 
   valueObserver: Ember.observer('model',function () {
@@ -39,11 +43,13 @@ export default Ember.Component.extend({
   }),
 
   hideSuggestionObserver: Ember.observer('hidden', function () {
-    if (!this.get('ulContainer')) return;
+    if (!this.get('ulContainer')) {
+      return;
+    }
     if (this.get('hidden') === true) {
-      this.get('ulContainer').hide();
+      this.get('ulContainer').$().hide();
     } else {
-      this.get('ulContainer').show();
+      this.get('ulContainer').$().show();
     }
   }),
 
@@ -56,15 +62,36 @@ export default Ember.Component.extend({
 
   searchTextObserver: Ember.observer('searchText',function() {
     var text = this.get('searchText');
-    if (typeof text === 'undefined' || !this.get('hadKeyDown')) return;
+    if (typeof text === 'undefined' || !this.get('hadKeyDown')) {
+      return;
+    }
 
     var wait = parseInt(this.get('delay'), 10) || 0;
     Ember.run.debounce(this, this.handleSearchText, wait);
-
   }),
 
+  indexObserver: Ember.observer('index', function () {
+    var suggestions = this.get('suggestions');
+    if (!suggestions[this.get('index')]) {
+      return;
+    }
+    var ul = this.get('ulContainer').$(),
+      li  = ul.find('li:eq('+this.get('index')+')')[0],
+      top = li.offsetTop,
+      bot = top + li.offsetHeight,
+      hgt = ul[0].clientHeight;
+    if (top < ul[0].scrollTop) {
+      ul[0].scrollTop = top;
+    } else if (bot > ul[0].scrollTop + hgt) {
+      ul[0].scrollTop = bot - hgt;
+    }
+  }),
+
+
   shouldHide () {
-    if (!this.isMinLengthMet() || !this.get('suggestions').length) return true;
+    if (!this.isMinLengthMet()) {
+      return true;
+    }
     return false;
   },
 
@@ -85,7 +112,7 @@ export default Ember.Component.extend({
         minWidth: width + 'px',
         maxWidth: Math.max(hrect.right - root.left, root.right - hrect.left) - MENU_PADDING + 'px'
       },
-      ul = this.get('ulContainer');
+      ul = this.get('ulContainer').$();
     if (top > bot && root.height - hrect.bottom - MENU_PADDING < MAX_HEIGHT) {
       styles.top = 'auto';
       styles.bottom = bot + 'px';
@@ -131,6 +158,7 @@ export default Ember.Component.extend({
 
     this.set('suggestions', suggestions);
     this.set('hidden', this.shouldHide());
+    this.set('index', 0); // Reset index of list position.
   },
 
   didInsertElement: function () {

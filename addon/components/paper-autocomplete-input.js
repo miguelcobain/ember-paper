@@ -7,7 +7,11 @@ export default Ember.TextField.extend({
   hadKeyDown: false,
 
 
-
+  focusOut (event) {
+    if (this.get('parent').get('noBlur') === false) {
+      this.get('parent').set('hidden', true);
+    }
+  },
 
   keyDown (event) {
     var autocomplete = this.get("parent");
@@ -16,29 +20,28 @@ export default Ember.TextField.extend({
         if (autocomplete.get('loading')) {
           return;
         }
-        event.preventDefault();
+        event.stopPropagation();
         autocomplete.set('index', Math.min(autocomplete.get('index') + 1, autocomplete.get('suggestions').length - 1));
-        this.updateScroll();
         break;
       case constants.KEYCODE.UP_ARROW:
         if (autocomplete.get('loading')) {
           return;
         }
-        event.preventDefault();
+        event.stopPropagation();
         autocomplete.set('index', autocomplete.get('index') < 0 ? autocomplete.get('suggestions').length - 1 : Math.max(0, autocomplete.get('index') - 1));
-        this.updateScroll();
         break;
       case constants.KEYCODE.TAB:
       case constants.KEYCODE.ENTER:
         if (autocomplete.get('index') < 0 || autocomplete.get('suggestions').length < 1) {
           return;
         }
-        event.preventDefault();
+        event.stopPropagation();
         autocomplete.set('model', autocomplete.get('suggestions')[autocomplete.get('index')]);
         autocomplete.set('hidden', true);
 
         break;
       case constants.KEYCODE.ESCAPE:
+        event.stopPropagation();
         autocomplete.set('matches', Ember.A([]));
         autocomplete.set('hidden', true);
         break;
@@ -48,22 +51,9 @@ export default Ember.TextField.extend({
     this.get('parent').set('hadKeyDown', true);
   },
 
-  updateScroll () {
-    var autocomplete = this.get("parent");
-    var suggestions = autocomplete.get('suggestions');
-    if (!suggestions[autocomplete.get('index')]) {
-      return;
-    }
-    var ul = autocomplete.get('ulContainer'),
-        li  = ul.find('li:eq('+autocomplete.get('index')+')')[0],
-      top = li.offsetTop,
-      bot = top + li.offsetHeight,
-      hgt = ul[0].clientHeight;
-    if (top < ul[0].scrollTop) {
-      ul[0].scrollTop = top;
-    } else if (bot > ul[0].scrollTop + hgt) {
-      ul[0].scrollTop = bot - hgt;
-    }
+
+  didInsertElement () {
+    this.get('parent').set('inputContainer', this);
   }
 
 });

@@ -20,15 +20,6 @@ export default Ember.Component.extend({
     pickItem: function (item) {
       this.set('model', item);
     }
-  },
-
-  didInsertElement () {
-    var ul = this.$().find('ul');
-    ul.appendTo('body');
-    this.get('parent').set('ulContainer', ul);
-  },
-  didDestroyElement () {
-    this.get('parent').get('ulContainer').remove();
   }
 
 });
