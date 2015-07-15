@@ -7,10 +7,15 @@ export default Ember.TextField.extend({
   hadKeyDown: false,
 
 
-  focusOut (event) {
+  focusOut () {
+    this.get('parent').set('hasFocus', false);
     if (this.get('parent').get('noBlur') === false) {
       this.get('parent').set('hidden', true);
     }
+  },
+
+  focusIn () {
+    this.get('parent').set('hasFocus', true);
   },
 
   keyDown (event) {

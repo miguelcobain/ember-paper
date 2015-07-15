@@ -6,13 +6,13 @@ export default Ember.Component.extend({
   attributeNameBindings: ['role'],
   role: 'presentation',
 
-  mouseEnter (event) {
+  mouseEnter () {
     this.get('parent').set('noBlur', true);
   },
-  mouseLeave (event) {
+  mouseLeave () {
     this.get('parent').set('noBlur', false);
   },
-  mouseUp (event) {
+  mouseUp () {
     this.get('parent').get('inputContainer').$().focus();
   },
 

@@ -9,9 +9,8 @@ var ITEM_HEIGHT = 41,
 
 export default Ember.Component.extend({
   tagName: 'md-autocomplete',
-  itemTemplate: {isItemTemplate: true},
-  noItemsTemplate: {isNotFoundTemplate: true},
   classNames: ['md-default-theme'],
+
 
   suggestions: Ember.A([]),
   loading: false,
@@ -22,11 +21,15 @@ export default Ember.Component.extend({
   isRequired: null,
   lookupKey: null,
   noBlur: false,
+  hasFocus: false,
   searchText: '',
   placeholder: '',
 
   hadKeyDown: false,
   minLength: 1,
+
+  itemCache: {},
+
 
 
 
@@ -141,25 +144,51 @@ export default Ember.Component.extend({
 
 
   handleSearchText () {
-    var text = this.get('searchText').toLowerCase();
+    var suggestions,
+      _self = this,
+      source = this.get('source'),
+      lookupKey = this.get('lookupKey'),
+      text = this.get('searchText').toLowerCase(),
+      cached = this.itemsFromCache(text);
 
     // cancel results if search text is not long enough
     if (!this.isMinLengthMet()) {
       return;
     }
 
-
-    var items = this.get('items');
-    var lookupKey = this.get('lookupKey');
-    var suggestions = items.filter(function (item) {
-      var search = item[lookupKey].toLowerCase();
-      return search.indexOf(text) === 0;
-    });
-
+    if (cached) {
+      suggestions = cached;
+    } else if (typeof source !== 'function') {
+      suggestions = source.filter(function (item) {
+        var search = item[lookupKey].toLowerCase();
+        return search.indexOf(text) === 0;
+      });
+    } else {
+      var promise = source.call(this, text);
+      promise.then(function (items) {
+        _self.get('itemCache')[text] = items;
+        if (_self.get('lastPromise') === promise) {
+          suggestions = items;
+          _self.set('suggestions', suggestions);
+          _self.set('hidden', _self.shouldHide());
+          _self.set('index', 0); // Reset index of list position.
+        }
+      });
+      this.set('lastPromise', promise);
+      return;
+    }
     this.set('suggestions', suggestions);
     this.set('hidden', this.shouldHide());
     this.set('index', 0); // Reset index of list position.
   },
+
+  itemsFromCache (text) {
+    if (this.get('itemCache')[text]) {
+      return this.get('itemCache')[text];
+    }
+    return null;
+  },
+
 
   didInsertElement: function () {
     var _self =  this;

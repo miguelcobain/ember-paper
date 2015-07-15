@@ -12,7 +12,7 @@
 
     <h3>Basic Usage</h3>
 
-    {{#paper-autocomplete placeholder="Select a Country ..." items=items lookupKey="name" identifier="code" model=myModel as |autocomplete|}}
+    {{#paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=myModel as |autocomplete|}}
     {{/paper-autocomplete}}
     <p>Selected country is
       {{#if myModel}}
@@ -22,5 +22,26 @@
         Nothing selected...
       {{/if}}
     </p>
+
+
+    <h3>Promise of data (Ember data)</h3>
+
+    <p>You may pass a callback to the source attribute, this callback takes the searchText as an argument and must
+    return a promise. This means that it works with e.g. jQuery's "$.getJSON" or Ember Data.</p>
+
+    {{#paper-autocomplete placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" identifier="id" model=otherModel as |autocomplete|}}
+    {{/paper-autocomplete}}
+    <p>You have selected:
+      {{#if otherModel}}
+        {{otherModel.name}}
+          ({{otherModel.id}})
+      {{else}}
+          No Item Selected.
+      {{/if}}
+    </p>
+
+
+
+
   </div>
 {{/paper-content}}
