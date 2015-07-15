@@ -64,8 +64,10 @@
 
 {{/if}}
 
-<md-progress-linear ng-if="$mdAutocompleteCtrl.loading && !$mdAutocompleteCtrl.hidden"
-                    md-mode="indeterminate"></md-progress-linear>
+{{#if parent.loading}}
+  <!-- uncomment when linear is merged into master.. -->
+  \{{paper-progress-linear md-mode="indeterminate"}}
+{{/if}}
 
 {{#paper-autocomplete-list parent=parent}}
   {{#each parent.suggestions as |item index|}}

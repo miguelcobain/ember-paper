@@ -28,7 +28,9 @@ export default Ember.Component.extend({
   hadKeyDown: false,
   minLength: 1,
 
+  noCache: false,
   itemCache: {},
+
 
 
 
@@ -164,6 +166,7 @@ export default Ember.Component.extend({
         return search.indexOf(text) === 0;
       });
     } else {
+      this.set('loading', true);
       var promise = source.call(this, text);
       promise.then(function (items) {
         _self.get('itemCache')[text] = items;
@@ -172,6 +175,7 @@ export default Ember.Component.extend({
           _self.set('suggestions', suggestions);
           _self.set('hidden', _self.shouldHide());
           _self.set('index', 0); // Reset index of list position.
+          _self.set('loading', false);
         }
       });
       this.set('lastPromise', promise);
@@ -183,6 +187,9 @@ export default Ember.Component.extend({
   },
 
   itemsFromCache (text) {
+    if (this.get('noCache') === true) {
+      return;
+    }
     if (this.get('itemCache')[text]) {
       return this.get('itemCache')[text];
     }
