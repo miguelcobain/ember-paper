@@ -14,7 +14,7 @@
 
     <blockquote>Use <code>\{{paper-autocomplete}}</code> to search for matches from local or remote data sources.</blockquote>
 
-    {{paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=myModel}}
+    {{paper-autocomplete disabled=firstDisabled placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=myModel}}
     <p>Selected country is
       {{#if myModel}}
         {{myModel.name}}
@@ -23,6 +23,8 @@
         Nothing selected...
       {{/if}}
     </p>
+    {{#paper-checkbox checked=firstDisabled}}Disable input{{/paper-checkbox}}
+
 
     <h3>Template</h3>
 {{#code-block language='handlebars'}}

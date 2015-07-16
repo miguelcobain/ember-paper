@@ -19,8 +19,8 @@ export default Ember.Component.extend(HasBlockMixin, {
   hidden: null,
   index: null,
   messages: [],
-  isDisabled: null,
-  isRequired: null,
+  disabled: null,
+  required: null,
   lookupKey: null,
   noBlur: false,
   hasFocus: false,
@@ -33,10 +33,20 @@ export default Ember.Component.extend(HasBlockMixin, {
   itemCache: {},
 
 
-  attributeBindings: ['floating:md-floating-label', 'isDisabled:disabled'],
+  attributeBindings: ['floating:md-floating-label', 'showDisabled:disabled'],
 
   notFloating: Ember.computed.not('floating'),
   notHidden: Ember.computed.not('hidden'),
+  notDisabled:  Ember.computed.not('disabled'),
+
+  /**
+   * Needed because of false = disabled="false".
+   */
+  showDisabled: Ember.computed('disabled', function () {
+    if (this.get('disabled')) {
+      return true;
+    }
+  }),
 
 
   wrapperClasses: Ember.computed('notFloating', 'notHidden', function () {
@@ -218,7 +228,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   actions: {
     clear: function () {
       this.set('model', null);
-      this.get("parent").set('searchText', '');
+      this.set('searchText', '');
     },
 
     pickItem: function (item) {

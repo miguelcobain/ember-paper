@@ -4,8 +4,8 @@
     parent=this
     placeholder=placeholder
     value=searchText
-    disabled=isDisabled
-    required=isRequired
+    disabled=disabled
+    required=required
     }}
   {{else}}
     {{input type="search"
@@ -16,8 +16,8 @@
     focus-out="inputFocusOut"
     key-down="inputKeyDown"
     autocomplete="off"
-    disabled=isDisabled
-    required=isRequired
+    disabled=disabled
+    required=required
     aria-haspopup=true
     aria-autocomplete="list"
     aria-activedescendant=""
@@ -26,7 +26,9 @@
 
 
     {{#if searchText}}
-      {{#paper-button classNames="md-icon-button" action="clear"}}{{paper-icon icon="close"}}{{/paper-button}}
+      {{#if notDisabled}}
+        {{#paper-button classNames="md-icon-button" action="clear"}}{{paper-icon icon="close"}}{{/paper-button}}
+      {{/if}}
     {{/if}}
 
   {{/if}}
