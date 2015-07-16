@@ -13,7 +13,7 @@ export default Ember.Component.extend({
     this.get('parent').set('noBlur', false);
   },
   mouseUp () {
-    this.get('parent').get('inputContainer').$().focus();
+    this.get('parent').$().find('input').focus();
   },
 
   didInsertElement () {

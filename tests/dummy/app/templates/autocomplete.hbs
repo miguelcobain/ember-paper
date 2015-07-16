@@ -10,10 +10,11 @@
 {{#paper-content classNames="md-padding"}}
   <div class="doc-content">
 
-    <h3>Basic Usage</h3>
+    <h1>Basic Usage</h1>
 
-    {{#paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=myModel as |autocomplete|}}
-    {{/paper-autocomplete}}
+    <blockquote>Use <code>\{{paper-autocomplete}}</code> to search for matches from local or remote data sources.</blockquote>
+
+    {{paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=myModel}}
     <p>Selected country is
       {{#if myModel}}
         {{myModel.name}}
@@ -23,14 +24,18 @@
       {{/if}}
     </p>
 
+    <h3>Template</h3>
+{{#code-block language='handlebars'}}
+\{{paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=myModel}}{{/code-block}}
 
-    <h3>Promise of data (Ember data)</h3>
 
-    <p>You may pass a callback to the source attribute, this callback takes the searchText as an argument and must
-    return a promise. This means that it works with e.g. jQuery's "$.getJSON" or Ember Data.</p>
 
-    {{#paper-autocomplete placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" identifier="id" model=otherModel as |autocomplete|}}
-    {{/paper-autocomplete}}
+    <h1>Promise of data (Ember data)</h1>
+
+    <blockquote>You may pass a callback to the source attribute, this callback takes the searchText as an argument and must
+    return a promise. This means that it works with e.g. jQuery's "$.getJSON" or Ember Data.</blockquote>
+
+    {{paper-autocomplete placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" identifier="id" model=otherModel}}
     <p>You have selected:
       {{#if otherModel}}
         {{otherModel.name}}
@@ -40,7 +45,71 @@
       {{/if}}
     </p>
 
+<h3>Template</h3>
+{{#code-block language='handlebars'}}
+\{{paper-autocomplete placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" identifier="id" model=otherModel}}{{/code-block}}
 
+
+    <h1>Custom template</h1>
+    <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results.</blockquote>
+
+    {{#paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=fourthModel as |item|}}
+      <span class="item-title">
+        {{paper-icon icon="location-on"}}
+        <span> {{item.name}} </span>
+      </span>
+      <span class="item-metadata">
+        <span class="item-metastat">
+          <strong>5</strong> watchers
+        </span>
+        <span class="item-metastat">
+          <strong>2</strong> forks
+        </span>
+      </span>
+    {{/paper-autocomplete}}
+    <p>Selected country is
+      {{#if fourthModel}}
+        {{fourthModel.name}}
+          ({{fourthModel.code}})
+      {{else}}
+          Nothing selected...
+      {{/if}}
+    </p>
+
+<h3>Template</h3>
+{{#code-block language='handlebars'}}
+\{{#paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=fourthModel as |item|}}
+    &lt;span class="item-title"&gt;
+      \{{paper-icon icon="location-on"}}
+    &lt;span&gt; \{{item.name}} &lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class="item-metadata"&gt;
+    &lt;span class="item-metastat"&gt;
+    &lt;strong>5&lt;/strong> watchers
+    &lt;/span>
+    &lt;span class="item-metastat"&gt;
+    &lt;strong&gt;2&lt;/strong&gt; forks
+    &lt;/span&gt;
+    &lt;/span&gt;
+\{{/paper-autocomplete}}{{/code-block}}
+
+
+    <h1>Floating Label</h1>
+    <blockquote>The following example demonstrates floating labels being used as a normal form element.</blockquote>
+    {{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=thirdModel}}
+    <p>Selected country is
+      {{#if thirdModel}}
+        {{thirdModel.name}}
+          ({{thirdModel.code}})
+      {{else}}
+          Nothing selected...
+      {{/if}}
+    </p>
+
+
+<h3>Template</h3>
+{{#code-block language='handlebars'}}
+\{{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=thirdModel}}{{/code-block}}
 
 
   </div>

@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import HasBlockMixin from '../mixins/hasblock-mixin';
+import constants from '../utils/constants';
 
 /* global jQuery */
 
@@ -7,9 +9,9 @@ var ITEM_HEIGHT = 41,
   MENU_PADDING = 8;
 
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(HasBlockMixin, {
   tagName: 'md-autocomplete',
-  classNames: ['md-default-theme'],
+  classNameBindings: ['notFloating:md-default-theme'],
 
 
   suggestions: Ember.A([]),
@@ -22,7 +24,6 @@ export default Ember.Component.extend({
   lookupKey: null,
   noBlur: false,
   hasFocus: false,
-  searchText: '',
   placeholder: '',
 
   hadKeyDown: false,
@@ -31,6 +32,23 @@ export default Ember.Component.extend({
   noCache: false,
   itemCache: {},
 
+
+  attributeBindings: ['floating:md-floating-label', 'isDisabled:disabled'],
+
+  notFloating: Ember.computed.not('floating'),
+  notHidden: Ember.computed.not('hidden'),
+
+
+  wrapperClasses: Ember.computed('notFloating', 'notHidden', function () {
+    var classes = '';
+    if (this.get('notFloating')) {
+      classes += ' md-whiteframe-z1';
+    }
+    if (this.get('notHidden')) {
+      classes += ' md-menu-showing';
+    }
+    return classes;
+  }),
 
 
 
@@ -197,11 +215,73 @@ export default Ember.Component.extend({
   },
 
 
+  actions: {
+    clear: function () {
+      this.set('model', null);
+      this.get("parent").set('searchText', '');
+    },
+
+    pickItem: function (item) {
+      this.set('model', item);
+    },
+
+    inputFocusOut () {
+      this.set('hasFocus', false);
+      if (this.get('noBlur') === false) {
+        this.set('hidden', true);
+      }
+    },
+
+    inputFocusIn () {
+      this.set('hasFocus', true);
+    },
+
+    inputKeyDown (value, event) {
+      switch (event.keyCode) {
+        case constants.KEYCODE.DOWN_ARROW:
+          if (this.get('loading')) {
+            return;
+          }
+          event.stopPropagation();
+          this.set('index', Math.min(this.get('index') + 1, this.get('suggestions').length - 1));
+          break;
+        case constants.KEYCODE.UP_ARROW:
+          if (this.get('loading')) {
+            return;
+          }
+          event.stopPropagation();
+          this.set('index', this.get('index') < 0 ? this.get('suggestions').length - 1 : Math.max(0, this.get('index') - 1));
+          break;
+        case constants.KEYCODE.TAB:
+        case constants.KEYCODE.ENTER:
+          if (this.get('index') < 0 || this.get('suggestions').length < 1) {
+            return;
+          }
+          event.stopPropagation();
+          this.set('model', this.get('suggestions')[this.get('index')]);
+          this.set('hidden', true);
+
+          break;
+        case constants.KEYCODE.ESCAPE:
+          event.stopPropagation();
+          this.set('matches', Ember.A([]));
+          this.set('hidden', true);
+          break;
+        default:
+          break;
+      }
+      this.set('hadKeyDown', true);
+    }
+  },
+
+
   didInsertElement: function () {
     var _self =  this;
     jQuery(window).resize(function () {
       _self.positionDropdown();
     });
   }
+
+
 
 });

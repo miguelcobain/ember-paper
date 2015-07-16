@@ -1,4 +1,56 @@
-{{paper-autocomplete-wrap parent=this}}
+<md-autocomplete-wrap role="listbox" layout="row" class="{{wrapperClasses}}">
+  {{#if floating}}
+    {{paper-autocomplete-input
+    parent=this
+    placeholder=placeholder
+    value=searchText
+    disabled=isDisabled
+    required=isRequired
+    }}
+  {{else}}
+    {{input type="search"
+    flex=true
+    placeholder=placeholder
+    value=searchText
+    focus-in="inputFocusIn"
+    focus-out="inputFocusOut"
+    key-down="inputKeyDown"
+    autocomplete="off"
+    disabled=isDisabled
+    required=isRequired
+    aria-haspopup=true
+    aria-autocomplete="list"
+    aria-activedescendant=""
+    aria-expanded=notHidden
+    }}
+
+
+    {{#if searchText}}
+      {{#paper-button classNames="md-icon-button" action="clear"}}{{paper-icon icon="close"}}{{/paper-button}}
+    {{/if}}
+
+  {{/if}}
+
+  {{#if loading}}
+      <!-- uncomment when linear is merged into master.. -->
+    \{{paper-progress-linear md-mode="indeterminate"}}
+  {{/if}}
+
+
+  {{#paper-autocomplete-list parent=this}}
+    {{#each suggestions as |item index|}}
+      {{#paper-autocomplete-item item=item parent=this index=index}}
+        {{#if hasBlock}}
+          {{yield item}}
+        {{else}}
+          {{item.name}}
+        {{/if}}
+      {{/paper-autocomplete-item}}
+    {{else}}
+        <li>No matches found for "{{searchText}}".</li>
+    {{/each}}
+  {{/paper-autocomplete-list}}
+</md-autocomplete-wrap>
 
 <aria-status class="md-visually-hidden" role="status" aria-live="assertive">
   {{#each messages as |message index|}}
