@@ -1,0 +1,20 @@
+{{#paper-backdrop classNames="md-dialog-backdrop"}}
+  <div class="md-dialog-container">
+    <md-dialog aria-label="{{title}}" class="md-default-theme md-content-overflow transition-in" role="dialog" tabindex="-1" aria-describedby="dialog_28" style="">
+      <form class="ng-pristine ng-valid">
+        {{#paper-toolbar}}
+          <div class="md-toolbar-tools">
+            <h2>{{title}}</h2>
+            <span flex=""></span>
+            <button class="md-icon-button md-button md-default-theme" {{action "close"}} tabindex="0">
+              {{paper-icon icon="close" size="lg"}}
+            </button>
+          </div>
+        {{/paper-toolbar}}
+
+        {{yield}}
+
+      </form>
+    </md-dialog>
+  </div>
+{{/paper-backdrop}}

@@ -15,6 +15,13 @@ md-nav-container {
   }
 }
 
+//fixing scroll inside md-dialog-backdrop
+md-backdrop {
+  &.md-dialog-backdrop {
+    pointer-events: auto;
+  }
+}
+
 
 // angular material styles
 md-backdrop {
