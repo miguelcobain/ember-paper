@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import constants from '../utils/constants';
 import PaperInput from './paper-input';
 
 export default PaperInput.extend({
