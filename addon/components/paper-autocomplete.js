@@ -13,6 +13,21 @@ function isString (item) {
   return typeof item === 'string' || item instanceof String;
 }
 
+
+/**
+ * @name paper-autocomplete
+ *
+ * @description
+ *     Provides material design autocomplete.
+ *
+ *
+ * ## Dependencies
+ * - paper-autocomplete-input
+ * - paper-autocomplete-item
+ * - paper-autocomplete-list
+ * - paper-input
+ * - paper-button
+ */
 export default Ember.Component.extend(HasBlockMixin, {
   tagName: 'md-autocomplete',
   classNameBindings: ['notFloating:md-default-theme'],

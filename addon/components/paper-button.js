@@ -6,8 +6,10 @@ import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, {
   attributeBindings: ['target', 'action'],
   tagName: 'button',
-  classNames: ['md-button','md-default-theme'],
-  classNameBindings: ['raised:md-raised'],
+  mdButtonClass: true,
+  classNames: ['md-default-theme'],
+  classNameBindings: ['mdButtonClass:md-button','raised:md-raised'],
+
 
   /* RippleMixin overrides */
   isIconButton: Ember.computed(function() {
