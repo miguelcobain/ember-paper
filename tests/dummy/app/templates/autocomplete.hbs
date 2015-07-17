@@ -39,9 +39,11 @@
 {{#paper-card-content}}
     <h2>Promise of data (Ember data)</h2>
     <blockquote>You may pass a callback to the source attribute, this callback takes the searchText as an argument and must
-    return a promise. This means that it works with e.g. jQuery's "$.getJSON" or Ember Data.</blockquote>
+    return a promise. This means that it works with e.g. jQuery's "$.getJSON" or Ember Data. When dealing with AJAX the <code>delay</code> attribute
+    is recommended to use to set a delay for the search to start.
+    </blockquote>
 
-    {{paper-autocomplete placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel}}
+    {{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel}}
     <p>You have selected:
       {{#if otherModel}}
         {{otherModel.name}}
@@ -53,7 +55,7 @@
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{paper-autocomplete placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel}}{{/code-block}}
+\{{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel}}{{/code-block}}
 {{/paper-card-content}}
 {{/paper-card}}
 
@@ -62,9 +64,9 @@
 {{#paper-card}}
 {{#paper-card-content}}
     <h2>Custom template</h2>
-    <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results.</blockquote>
+    <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results. In this example we also use <code>minLength=0</code> which allow to see all results if input is empty.</blockquote>
 
-    {{#paper-autocomplete placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index|}}
+    {{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index|}}
       <span class="item-title">
         {{paper-icon icon="star"}}
         <span> {{item}} (index {{index}} )</span>
@@ -80,7 +82,7 @@
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{#paper-autocomplete placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item|}}
+\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item|}}
     &lt;span class="item-title"&gt;
       \{{paper-icon icon="star"}}
     &lt;span&gt; \{{item}} &lt;/span&gt;
@@ -142,6 +144,12 @@
     <tr>
         <td>minLength</td>
         <td>Sets how many characters the user must type before the autocomplete gives suggestions. Default is <code>1</code>.</td>
+    </tr>
+    <tr>
+        <td>delay</td>
+        <td>The delay attribute lets you configure how many milliseconds to wait before we trigger a search, this is
+            useful to avoid mass sending HTTP requests to your backend if you are using Function based source with
+            AJAX calls. Somewhere around <em>300 ms</em> is good.</td>
     </tr>
     <tr>
         <td>noCache</td>

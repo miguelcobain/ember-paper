@@ -49,7 +49,11 @@
         {{/if}}
       {{/paper-autocomplete-item}}
     {{else}}
-        <li>No matches found for "{{searchText}}".</li>
+        {{#if notLoading}}
+          {{#unless debouncingState}}
+              <li>No matches found for "{{searchText}}".</li>
+          {{/unless}}
+        {{/if}}
     {{/each}}
   {{/paper-autocomplete-list}}
 </md-autocomplete-wrap>

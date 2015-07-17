@@ -44,12 +44,18 @@ export default Ember.Component.extend(HasBlockMixin, {
   noBlur: false,
   hasFocus: false,
   placeholder: '',
+  searchText: '',
+  delay: 0,
 
-  hadKeyDown: false,
   minLength: 1,
 
+
   noCache: false,
-  itemCache: {},
+
+  init:function(){
+    this._super();
+    this.set('itemCache', {});
+  },
 
 
   attributeBindings: ['floating:md-floating-label', 'showDisabled:disabled'],
@@ -57,6 +63,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   notFloating: Ember.computed.not('floating'),
   notHidden: Ember.computed.not('hidden'),
   notDisabled:  Ember.computed.not('disabled'),
+  notLoading: Ember.computed.not('loading'),
 
   /**
    * Needed because of false = disabled="false".
@@ -82,7 +89,7 @@ export default Ember.Component.extend(HasBlockMixin, {
 
 
 
-  valueObserver: Ember.observer('model',function () {
+  modelObserver: Ember.observer('model',function () {
     var value;
     if (this.get('model')) {
       if (isString(this.get('model'))) {
@@ -90,12 +97,10 @@ export default Ember.Component.extend(HasBlockMixin, {
       }else {
         value = this.get('model')[this.get('lookupKey')];
       }
-    } else {
-      value = '';
+      this.set('searchTextGuard', true);
+      this.set('searchText', value);
+      this.set('hidden', true);
     }
-    this.set('hadKeyDown', false);
-    this.set('searchText', value);
-    this.set('hidden', true);
   }),
 
   hideSuggestionObserver: Ember.observer('hidden', function () {
@@ -105,28 +110,25 @@ export default Ember.Component.extend(HasBlockMixin, {
     if (this.get('hidden') === true) {
       this.get('ulContainer').$().hide();
     } else {
-      this.get('ulContainer').$().show();
-    }
-  }),
-
-  observeSuggestions: Ember.observer('suggestions', function () {
-    if (this.get('suggestions').length) {
+      var element = this.get('ulContainer').$();
+      element.show();
       this.positionDropdown();
     }
   }),
 
 
   searchTextObserver: Ember.observer('searchText',function() {
-    var text = this.get('searchText');
-    if (typeof text === 'undefined' || !this.get('hadKeyDown')) {
+    if (this.get('searchTextGuard') === true) {
       return;
     }
-
+    this.set('model', null);
     var wait = parseInt(this.get('delay'), 10) || 0;
+    this.set('debouncingState', true);
     Ember.run.debounce(this, this.handleSearchText, wait);
   }),
 
-  indexObserver: Ember.observer('index', function () {
+
+  updateScroll () {
     var suggestions = this.get('suggestions');
     if (!suggestions[this.get('index')]) {
       return;
@@ -141,7 +143,7 @@ export default Ember.Component.extend(HasBlockMixin, {
     } else if (bot > ul[0].scrollTop + hgt) {
       ul[0].scrollTop = bot - hgt;
     }
-  }),
+  },
 
 
   shouldHide () {
@@ -152,7 +154,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   },
 
   isMinLengthMet () {
-    return this.get('searchText') && this.get('searchText').length >= this.get('minLength');
+    return this.get('searchText').length >= this.get('minLength');
   },
 
   positionDropdown () {
@@ -204,29 +206,33 @@ export default Ember.Component.extend(HasBlockMixin, {
       text = this.get('searchText').toLowerCase(),
       cached = this.itemsFromCache(text);
 
-    // cancel results if search text is not long enough
-    if (!this.isMinLengthMet()) {
+    this.set('debouncingState', false);
+    if (!this.isMinLengthMet) {
       return;
     }
 
     if (cached) {
       suggestions = cached;
     } else if (typeof source !== 'function') {
-      suggestions = source.filter(function (item) {
-        var search;
-        if (isString(item)) {
-          search = item;
-        } else {
-          if (lookupKey === null) {
-            console.error("You have not defined 'lookupKey' on paper-autocomplete, when source contained " +
-              "items that are not of type String. To fix this error provide a " +
-              "lookupKey='key to lookup from source item'.");
+      if (text) {
+        suggestions = source.filter(function (item) {
+          var search;
+          if (isString(item)) {
+            search = item;
+          } else {
+            if (lookupKey === null) {
+              console.error("You have not defined 'lookupKey' on paper-autocomplete, when source contained " +
+                "items that are not of type String. To fix this error provide a " +
+                "lookupKey='key to lookup from source item'.");
+            }
+            search = item[lookupKey];
           }
-          search = item[lookupKey];
-        }
-        search = search.toLowerCase();
-        return search.indexOf(text) === 0;
-      });
+          search = search.toLowerCase();
+          return search.indexOf(text) === 0;
+        });
+      } else {
+        suggestions = source;
+      }
     } else {
       this.set('loading', true);
       var promise = source.call(this, text);
@@ -274,6 +280,10 @@ export default Ember.Component.extend(HasBlockMixin, {
 
     inputFocusIn () {
       this.set('hasFocus', true);
+      this.set('hidden', this.shouldHide());
+      if (!this.get('hidden')) {
+        this.handleSearchText();
+      }
     },
 
     inputKeyDown (value, event) {
@@ -284,6 +294,7 @@ export default Ember.Component.extend(HasBlockMixin, {
           }
           event.stopPropagation();
           this.set('index', Math.min(this.get('index') + 1, this.get('suggestions').length - 1));
+          this.updateScroll();
           break;
         case constants.KEYCODE.UP_ARROW:
           if (this.get('loading')) {
@@ -291,6 +302,7 @@ export default Ember.Component.extend(HasBlockMixin, {
           }
           event.stopPropagation();
           this.set('index', this.get('index') < 0 ? this.get('suggestions').length - 1 : Math.max(0, this.get('index') - 1));
+          this.updateScroll();
           break;
         case constants.KEYCODE.TAB:
         case constants.KEYCODE.ENTER:
@@ -310,7 +322,7 @@ export default Ember.Component.extend(HasBlockMixin, {
         default:
           break;
       }
-      this.set('hadKeyDown', true);
+      this.set('searchTextGuard', false);
     }
   },
 
