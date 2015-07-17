@@ -51,7 +51,8 @@
     {{else}}
         {{#if notLoading}}
           {{#unless debouncingState}}
-              <li>No matches found for "{{searchText}}".</li>
+
+              <li>{{yield searchText index true}}</li>
           {{/unless}}
         {{/if}}
     {{/each}}

@@ -66,11 +66,15 @@
     <h2>Custom template</h2>
     <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results. In this example we also use <code>minLength=0</code> which allow to see all results if input is empty.</blockquote>
 
-    {{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index|}}
-      <span class="item-title">
+    {{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index notFound|}}
+      {{#unless notFound}}
+          <span class="item-title">
         {{paper-icon icon="star"}}
-        <span> {{item}} (index {{index}} )</span>
-      </span>
+              <span> {{item}} (index {{index}} )</span>
+          </span>
+      {{else}}
+          Whoops! Could not find "{{item}}".
+      {{/unless}}
     {{/paper-autocomplete}}
     <p>Selected thing was:
       {{#if fourthModel}}
@@ -82,11 +86,15 @@
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item|}}
+\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index notFound|}}
+  \{{#unless notFound}}
     &lt;span class="item-title"&gt;
       \{{paper-icon icon="star"}}
     &lt;span&gt; \{{item}} &lt;/span&gt;
     &lt;/span&gt;
+  \{{else}}
+    Whoops! Could not find "\{{item}}".
+  \{{/unless}}
 \{{/paper-autocomplete}}{{/code-block}}
 {{/paper-card-content}}
 {{/paper-card}}
