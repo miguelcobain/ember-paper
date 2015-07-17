@@ -9,6 +9,10 @@ var ITEM_HEIGHT = 41,
   MENU_PADDING = 8;
 
 
+function isString (item) {
+  return typeof item === 'string' || item instanceof String;
+}
+
 export default Ember.Component.extend(HasBlockMixin, {
   tagName: 'md-autocomplete',
   classNameBindings: ['notFloating:md-default-theme'],
@@ -66,7 +70,11 @@ export default Ember.Component.extend(HasBlockMixin, {
   valueObserver: Ember.observer('model',function () {
     var value;
     if (this.get('model')) {
-      value = this.get('model')[this.get('lookupKey')];
+      if (isString(this.get('model'))) {
+        value = this.get('model');
+      }else {
+        value = this.get('model')[this.get('lookupKey')];
+      }
     } else {
       value = '';
     }
@@ -190,7 +198,16 @@ export default Ember.Component.extend(HasBlockMixin, {
       suggestions = cached;
     } else if (typeof source !== 'function') {
       suggestions = source.filter(function (item) {
-        var search = item[lookupKey].toLowerCase();
+        var search;
+        if (isString(item)) {
+          search = item;
+        } else {
+          if (lookupKey === null) {
+            console.error("You have not defined 'lookupKey' on paper-autocomplete, when source contained items that are not of type String. To fix this error provide a lookupKey='key to lookup from source item'.")
+          }
+          search = item[lookupKey];
+        }
+        search = search.toLowerCase();
         return search.indexOf(text) === 0;
       });
     } else {
@@ -229,10 +246,6 @@ export default Ember.Component.extend(HasBlockMixin, {
     clear: function () {
       this.set('model', null);
       this.set('searchText', '');
-    },
-
-    pickItem: function (item) {
-      this.set('model', item);
     },
 
     inputFocusOut () {

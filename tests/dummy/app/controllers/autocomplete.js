@@ -39,8 +39,11 @@ export default Ember.Controller.extend({
   },
 
 
+  arrayOfItems: ['Ember', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'],
+
   /**
-   * Array of static items.
+   * Array of static Objects.
+   * When having objects, use lookupKey="name" on the paper-autocomplete component so it knows to use "name" to search in.
    */
   items: Ember.A([
     {name: 'Afghanistan', code: 'AF'},

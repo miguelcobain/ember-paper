@@ -43,7 +43,7 @@
     {{#each suggestions as |item index|}}
       {{#paper-autocomplete-item item=item parent=this index=index}}
         {{#if hasBlock}}
-          {{yield item}}
+          {{yield item index}}
         {{else}}
           {{item.name}}
         {{/if}}

@@ -10,34 +10,38 @@
 {{#paper-content classNames="md-padding"}}
   <div class="doc-content">
 
-    <h1>Basic Usage</h1>
-
+{{#paper-card}}
+{{#paper-card-content}}
+    <h2>Basic Usage</h2>
     <blockquote>Use <code>\{{paper-autocomplete}}</code> to search for matches from local or remote data sources.</blockquote>
 
-    {{paper-autocomplete disabled=firstDisabled placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=myModel}}
+  {{paper-autocomplete disabled=firstDisabled placeholder="Select a Country ..." source=items lookupKey="name" model=myModel}}
     <p>Selected country is
       {{#if myModel}}
         {{myModel.name}}
           ({{myModel.code}})
       {{else}}
-        Nothing selected...
+          Nothing selected...
       {{/if}}
     </p>
-    {{#paper-checkbox checked=firstDisabled}}Disable input{{/paper-checkbox}}
+  {{#paper-checkbox checked=firstDisabled}}Disable input{{/paper-checkbox}}
 
 
-    <h3>Template</h3>
+          <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=myModel}}{{/code-block}}
+\{{paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" model=myModel}}{{/code-block}}
+
+{{/paper-card-content}}
+{{/paper-card}}
 
 
-
-    <h1>Promise of data (Ember data)</h1>
-
+{{#paper-card}}
+{{#paper-card-content}}
+    <h2>Promise of data (Ember data)</h2>
     <blockquote>You may pass a callback to the source attribute, this callback takes the searchText as an argument and must
     return a promise. This means that it works with e.g. jQuery's "$.getJSON" or Ember Data.</blockquote>
 
-    {{paper-autocomplete placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" identifier="id" model=otherModel}}
+    {{paper-autocomplete placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel}}
     <p>You have selected:
       {{#if otherModel}}
         {{otherModel.name}}
@@ -49,30 +53,26 @@
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{paper-autocomplete placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" identifier="id" model=otherModel}}{{/code-block}}
+\{{paper-autocomplete placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel}}{{/code-block}}
+{{/paper-card-content}}
+{{/paper-card}}
 
 
-    <h1>Custom template</h1>
+
+{{#paper-card}}
+{{#paper-card-content}}
+    <h2>Custom template</h2>
     <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results.</blockquote>
 
-    {{#paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=fourthModel as |item|}}
+    {{#paper-autocomplete placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index|}}
       <span class="item-title">
-        {{paper-icon icon="location-on"}}
-        <span> {{item.name}} </span>
-      </span>
-      <span class="item-metadata">
-        <span class="item-metastat">
-          <strong>5</strong> watchers
-        </span>
-        <span class="item-metastat">
-          <strong>2</strong> forks
-        </span>
+        {{paper-icon icon="star"}}
+        <span> {{item}} (index {{index}} )</span>
       </span>
     {{/paper-autocomplete}}
-    <p>Selected country is
+    <p>Selected thing was:
       {{#if fourthModel}}
-        {{fourthModel.name}}
-          ({{fourthModel.code}})
+        {{fourthModel}}
       {{else}}
           Nothing selected...
       {{/if}}
@@ -80,25 +80,22 @@
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{#paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=fourthModel as |item|}}
+\{{#paper-autocomplete placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item|}}
     &lt;span class="item-title"&gt;
-      \{{paper-icon icon="location-on"}}
-    &lt;span&gt; \{{item.name}} &lt;/span&gt;
-    &lt;/span&gt;
-    &lt;span class="item-metadata"&gt;
-    &lt;span class="item-metastat"&gt;
-    &lt;strong>5&lt;/strong> watchers
-    &lt;/span>
-    &lt;span class="item-metastat"&gt;
-    &lt;strong&gt;2&lt;/strong&gt; forks
-    &lt;/span&gt;
+      \{{paper-icon icon="star"}}
+    &lt;span&gt; \{{item}} &lt;/span&gt;
     &lt;/span&gt;
 \{{/paper-autocomplete}}{{/code-block}}
+{{/paper-card-content}}
+{{/paper-card}}
 
 
-    <h1>Floating Label</h1>
+
+{{#paper-card}}
+{{#paper-card-content}}
+    <h2>Floating Label</h2>
     <blockquote>The following example demonstrates floating labels being used as a normal form element.</blockquote>
-    {{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=thirdModel}}
+    {{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" model=thirdModel}}
     <p>Selected country is
       {{#if thirdModel}}
         {{thirdModel.name}}
@@ -111,7 +108,63 @@
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" identifier="code" model=thirdModel}}{{/code-block}}
+\{{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" model=thirdModel}}{{/code-block}}
+
+{{/paper-card-content}}
+{{/paper-card}}
+
+
+<h2>Attributes for paper-autocomplete</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Attribute name</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>source</td>
+        <td>The <code>source</code> attribute is used to look up possible suggestions for the autocomplete.
+          The source attribute accepts:
+        <ul>
+            <li><strong>Array of strings:</strong> Simple array of strings. Example: <code>['One', 'Two']</code></li>
+            <li><strong>Function:</strong> A function that returns a promise. This is useful if you want to fetch suggestions from the server-side with e.g. Ember-data or jQuery's $.ajax method. The search string is passed as the first parameter to this function.</li>
+            <li><strong>Array of objects:</strong> If you pass array of objects, paper-autocomplete needs to know what key in each object to search in. Use in combination with <code>lookupKey</code>. Example if you have provided <code>[{id: 1, name="Car"}]</code> as source, you will also need to configure the lookupKey to <code>lookupKey="name"</code>.</li>
+        </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>model</td>
+        <td>When a user selects item from the suggestions, model will be set and updated. Provide a model so you can do something about the value when user clicks the item.</td>
+    </tr>
+    <tr>
+        <td>minLength</td>
+        <td>Sets how many characters the user must type before the autocomplete gives suggestions. Default is <code>1</code>.</td>
+    </tr>
+    <tr>
+        <td>noCache</td>
+        <td>Only effective if you use promise as source. This disables the cache of promise loaded suggestions. By default they are cached when loaded the first time.</td>
+    </tr>
+    <tr>
+        <td>floating</td>
+        <td>Makes the autocomplete field a normal input field with floating labels.</td>
+    </tr>
+    <tr>
+        <td>disabled</td>
+        <td>Disables the autocomplete.</td>
+    </tr>
+    <tr>
+        <td>required</td>
+        <td>Makes the autocomplete a required field.</td>
+    </tr>
+    <tr>
+        <td>placeholder</td>
+        <td>Sets a placeholder for the autocomplete input field.</td>
+    </tr>
+    </tbody>
+</table>
 
 
   </div>
