@@ -51,8 +51,11 @@
     {{else}}
         {{#if notLoading}}
           {{#unless debouncingState}}
-
-              <li>{{yield searchText index true}}</li>
+            {{#if hasBlock}}
+                <li>{{yield searchText index true}}</li>
+            {{else}}
+                <li>No matches found for "{{searchText}}".</li>
+            {{/if}}
           {{/unless}}
         {{/if}}
     {{/each}}
