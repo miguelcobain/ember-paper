@@ -203,7 +203,9 @@ export default Ember.Component.extend(HasBlockMixin, {
           search = item;
         } else {
           if (lookupKey === null) {
-            console.error("You have not defined 'lookupKey' on paper-autocomplete, when source contained items that are not of type String. To fix this error provide a lookupKey='key to lookup from source item'.")
+            console.error("You have not defined 'lookupKey' on paper-autocomplete, when source contained " +
+              "items that are not of type String. To fix this error provide a " +
+              "lookupKey='key to lookup from source item'.");
           }
           search = item[lookupKey];
         }
