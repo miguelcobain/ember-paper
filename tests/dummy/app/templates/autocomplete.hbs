@@ -50,7 +50,7 @@
 
 {{#paper-card}}
 {{#paper-card-content}}
-    <h2>Promise of data (Ember data)</h2>
+    <h2>Promise of data / AJAX</h2>
     <blockquote>You may pass a callback to the source attribute, this callback takes the searchText as an argument and must
     return a promise. This means that it works with e.g. jQuery's "$.getJSON" or Ember Data. When dealing with AJAX the <code>delay</code> attribute
     is recommended to use to set a delay for the search to start.
@@ -69,6 +69,30 @@
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
 \{{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel}}{{/code-block}}
+
+
+
+<h3>Javascript (Ember-data)</h3>
+<p>
+    In the above template we use the variable <code>dataFromPromise</code>, in your controller you would want to
+    define a function that returns a promise. Here is a sample configuration that would work if you have a
+    country model in the store with a name attribute:
+</p>
+{{#code-block language='javascript'}}
+  ...
+  // searchText is received from the autocomplete component, this is what the user typed in the input field.
+  dataFromPromise: function (searchText) {
+    // First param is the name of the model
+    // Second param is sent to the server, so server needs to support the "search" param
+    // Third param is local lookup of cached results.
+    return this.store.filter('country', { search: searchText + '%' }, function(countryObject) {
+      return countryObject.get('name').toLowerCase().indexOf(searchText) === 0;
+    });
+  },
+  ...{{/code-block}}
+
+
+
 {{/paper-card-content}}
 {{/paper-card}}
 
