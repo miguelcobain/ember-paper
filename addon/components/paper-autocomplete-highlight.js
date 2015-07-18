@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   tagName: 'span',
   flags: '',
 
-  highlight: Ember.computed('searchText',function () {
+  highlight: Ember.computed('searchText', 'label', 'flags', function () {
     var unsafeText = Ember.Handlebars.Utils.escapeExpression(this.get('label')),
       text       = unsafeText,
       flags = this.get('flags'),
