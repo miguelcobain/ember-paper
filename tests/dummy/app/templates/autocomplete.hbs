@@ -33,6 +33,8 @@
 \{{paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" model=myModel}}{{/code-block}}
 
   <h3>Allow non existing items</h3>
+    <blockquote>Use attribute <code>allowNonExisting=true</code> for the autocomplete to allow setting model to non existing items in the autocomplete. This is useful for search boxes.</blockquote>
+
   {{paper-autocomplete minLength=0 allowNonExisting=true placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=sixthModel}}
   <p>Selected thing was:
     {{#if sixthModel}}

@@ -29,6 +29,8 @@ function isString (item) {
  * - paper-button
  */
 export default Ember.Component.extend(HasBlockMixin, {
+  util: Ember.inject.service('util'),
+
   tagName: 'md-autocomplete',
   classNameBindings: ['notFloating:md-default-theme'],
 
@@ -100,9 +102,11 @@ export default Ember.Component.extend(HasBlockMixin, {
     }
     if (this.get('hidden') === true) {
       this.get('ulContainer').$().hide();
+      this.get('util').enableScrolling();
     } else {
       var element = this.get('ulContainer').$();
       element.show();
+      this.get('util').disableScrollAround(element);
       this.positionDropdown();
     }
   }),
@@ -353,11 +357,16 @@ export default Ember.Component.extend(HasBlockMixin, {
     }
   },
 
-  didInsertElement: function () {
+
+  didInsertElement  () {
     var _self =  this;
-    jQuery(window).resize(function () {
+    this.set('resizeWindowEvent', function () {
       _self.positionDropdown();
     });
+    jQuery(window).resize(this.get('resizeWindowEvent'));
+  },
+  willDestroyElement () {
+    jQuery(window).off('resize',this.get('resizeWindowEvent'));
   }
 
 
