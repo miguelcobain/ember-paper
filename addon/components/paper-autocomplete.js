@@ -63,7 +63,6 @@ export default Ember.Component.extend(HasBlockMixin, {
     }
   },
 
-
   attributeBindings: ['floating:md-floating-label', 'showDisabled:disabled'],
 
   notFloating: Ember.computed.not('floating'),
@@ -80,7 +79,6 @@ export default Ember.Component.extend(HasBlockMixin, {
     }
   }),
 
-
   wrapperClasses: Ember.computed('notFloating', 'notHidden', function () {
     var classes = '';
     if (this.get('notFloating')) {
@@ -91,10 +89,6 @@ export default Ember.Component.extend(HasBlockMixin, {
     }
     return classes;
   }),
-
-
-
-
 
   hideSuggestionObserver: Ember.observer('hidden', function () {
     if (!this.get('ulContainer')) {
@@ -110,8 +104,6 @@ export default Ember.Component.extend(HasBlockMixin, {
       this.positionDropdown();
     }
   }),
-
-
 
   debounceSearch () {
     if (this.get('searchText') === this.get('previousSearchText')) {
@@ -209,7 +201,11 @@ export default Ember.Component.extend(HasBlockMixin, {
       cached = this.itemsFromCache(text);
 
     this.set('debouncingState', false);
-    if (!this.isMinLengthMet) {
+    if (!this.isMinLengthMet()) {
+      // Reset state.
+      this.set('hidden', true);
+      this.set('index', 0);
+      this.set('suggestions', Ember.A([]));
       return;
     }
 
@@ -268,10 +264,10 @@ export default Ember.Component.extend(HasBlockMixin, {
 
   _getModelSearchText (model) {
     var value;
-    if (isString(model)) {
-      value = model;
-    }else {
+    if (this.get('lookupKey')) {
       value = model[this.get('lookupKey')];
+    } else {
+      value = model;
     }
     return value;
   },

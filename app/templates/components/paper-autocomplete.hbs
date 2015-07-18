@@ -44,9 +44,9 @@
     {{#each suggestions as |item index|}}
       {{#paper-autocomplete-item item=item parent=this index=index as |label|}}
         {{#if hasBlock}}
-          {{yield item index}}
+          {{yield item index false searchText}}
         {{else}}
-          {{label}}
+          {{paper-autocomplete-highlight searchText=searchText label=label}}
         {{/if}}
       {{/paper-autocomplete-item}}
     {{else}}

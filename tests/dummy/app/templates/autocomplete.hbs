@@ -79,11 +79,11 @@
     <h2>Custom template</h2>
     <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results. In this example we also use <code>minLength=0</code> which allow to see all results if input is empty.</blockquote>
 
-    {{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index notFound|}}
+    {{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index notFound searchText|}}
       {{#unless notFound}}
           <span class="item-title">
-        {{paper-icon icon="star"}}
-              <span> {{item}} (index {{index}} )</span>
+          {{paper-icon icon="star"}}
+          <span>{{paper-autocomplete-highlight searchText=searchText label=item}} (index {{index}} )</span>
           </span>
       {{else}}
           Whoops! Could not find "{{item}}".
@@ -101,18 +101,47 @@
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index notFound|}}
+\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index notFound searchText|}}
   \{{#unless notFound}}
     &lt;span class="item-title"&gt;
       \{{paper-icon icon="star"}}
-    &lt;span&gt; \{{item}} &lt;/span&gt;
+    &lt;span&gt; \{{paper-autocomplete-highlight searchText=searchText label=item}} &lt;/span&gt;
     &lt;/span&gt;
   \{{else}}
     Whoops! Could not find "\{{item}}".
   \{{/unless}}
 \{{/paper-autocomplete}}{{/code-block}}
+
+<p>The  custom template receives <strong>4 block parameters</strong> (item, index, notFound and searchText).
+    Normally you would use if else for the notFound and inside of those blocks define template for a single  item in
+    the list or a template when not found.
+</p>
+<p>You can also decide whenever to use the highlight feature. If you do not want the highlight feature for your
+    custom template, you can replace
+    <code>\{{paper-autocomplete-highlight searchText=searchText label=item}}</code> with just \{{item}}.
+</p>
+
+<ul>
+    <li><strong>item</strong> This is the item directly from the source array. If it is an object you would forexample
+    need to reference it with <code>\{{item.name}}</code>. If <code>notFound</code> is true, this will always refer to
+        the input box value.
+    </li>
+    <li><strong>index</strong> This is the index of the suggestions that are currently in the list. This is always
+    <em>0</em> when <code>notFound</code> is true.
+    </li>
+    <li><strong>notFound</strong> This will be true if no items is found, use a simple \{{#if}} \{{else}} condition
+     to select what template to load.
+    </li>
+    <li><strong>searchText</strong> This is the original searchText. To be used with \{{paper-autocomplete-highlight}}
+    </li>
+</ul>
+
+
+
+
 {{/paper-card-content}}
 {{/paper-card}}
+
 
 
 
