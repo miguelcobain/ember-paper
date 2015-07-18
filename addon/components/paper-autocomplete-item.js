@@ -7,11 +7,15 @@ export default Ember.Component.extend({
   tabindex: 0,
   role: 'option',
 
+  label: Ember.computed('item',function () {
+    return this.get('parent')._getModelSearchText(this.get('item'));
+  }),
+
   isSelected: Ember.computed('parent.index', function () {
     return this.get('parent').get('index') === this.get('index');
   }),
 
   click () {
-    this.get('parent').set('model', this.get('item'));
+    this.get('parent').send('pickModel', this.get('item'));
   }
 });

@@ -12,8 +12,8 @@
 
 {{#paper-card}}
 {{#paper-card-content}}
-    <h2>Basic Usage</h2>
-    <blockquote>Use <code>\{{paper-autocomplete}}</code> to search for matches from local or remote data sources.</blockquote>
+  <h2>Basic Usage</h2>
+  <blockquote>Use <code>\{{paper-autocomplete}}</code> to search for matches from local or remote data sources.</blockquote>
 
   {{paper-autocomplete disabled=firstDisabled placeholder="Select a Country ..." source=items lookupKey="name" model=myModel}}
     <p>Selected country is
@@ -27,9 +27,20 @@
   {{#paper-checkbox checked=firstDisabled}}Disable input{{/paper-checkbox}}
 
 
-          <h3>Template</h3>
+
+<h3>Template</h3>
 {{#code-block language='handlebars'}}
 \{{paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" model=myModel}}{{/code-block}}
+
+  <h3>Allow non existing items</h3>
+  {{paper-autocomplete minLength=0 allowNonExisting=true placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=sixthModel}}
+  <p>Selected thing was:
+    {{#if sixthModel}}
+      {{sixthModel}}
+    {{else}}
+      Nothing ...
+    {{/if}}
+  </p>
 
 {{/paper-card-content}}
 {{/paper-card}}
@@ -83,6 +94,8 @@
           Nothing selected...
       {{/if}}
     </p>
+
+
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
@@ -178,6 +191,10 @@
     <tr>
         <td>placeholder</td>
         <td>Sets a placeholder for the autocomplete input field.</td>
+    </tr>
+    <tr>
+        <td>allowNonExisting</td>
+        <td>allowNonExisting is useful for search boxes. It allows to use items that are not in the autocomplete selection. If you type e.g. "Chees" the model will also be set to "Chees".</td>
     </tr>
     </tbody>
 </table>

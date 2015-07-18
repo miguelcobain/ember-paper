@@ -48,6 +48,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   delay: 0,
 
   minLength: 1,
+  allowNonExisting: false,
 
 
   noCache: false,
@@ -55,6 +56,9 @@ export default Ember.Component.extend(HasBlockMixin, {
   init:function(){
     this._super();
     this.set('itemCache', {});
+    if (this.get('model')) {
+      this.set('searchText', this._getModelSearchText(this.get('model')));
+    }
   },
 
 
@@ -89,19 +93,6 @@ export default Ember.Component.extend(HasBlockMixin, {
 
 
 
-  modelObserver: Ember.observer('model',function () {
-    var value;
-    if (this.get('model')) {
-      if (isString(this.get('model'))) {
-        value = this.get('model');
-      }else {
-        value = this.get('model')[this.get('lookupKey')];
-      }
-      this.set('searchTextGuard', true);
-      this.set('searchText', value);
-      this.set('hidden', true);
-    }
-  }),
 
   hideSuggestionObserver: Ember.observer('hidden', function () {
     if (!this.get('ulContainer')) {
@@ -117,15 +108,22 @@ export default Ember.Component.extend(HasBlockMixin, {
   }),
 
 
-  searchTextObserver: Ember.observer('searchText',function() {
-    if (this.get('searchTextGuard') === true) {
+
+  debounceSearch () {
+    if (this.get('searchText') === this.get('previousSearchText')) {
       return;
     }
-    this.set('model', null);
+    if (!this.get('allowNonExisting')) {
+      this.set('model', null);
+    } else {
+      this.set('model', this.get('searchText'));
+    }
+
     var wait = parseInt(this.get('delay'), 10) || 0;
     this.set('debouncingState', true);
     Ember.run.debounce(this, this.handleSearchText, wait);
-  }),
+    this.set('previousSearchText', this.get('searchText'));
+  },
 
 
   updateScroll () {
@@ -264,11 +262,28 @@ export default Ember.Component.extend(HasBlockMixin, {
     return null;
   },
 
+  _getModelSearchText (model) {
+    var value;
+    if (isString(model)) {
+      value = model;
+    }else {
+      value = model[this.get('lookupKey')];
+    }
+    return value;
+  },
 
   actions: {
     clear: function () {
       this.set('model', null);
       this.set('searchText', '');
+      this.set('hidden', true);
+    },
+
+    pickModel: function (model) {
+      this.set('model', model);
+      var value = this._getModelSearchText(model);
+      this.set('searchText', value);
+      this.set('hidden', true);
     },
 
     inputFocusOut () {
@@ -310,7 +325,7 @@ export default Ember.Component.extend(HasBlockMixin, {
             return;
           }
           event.stopPropagation();
-          this.set('model', this.get('suggestions')[this.get('index')]);
+          this.send('pickModel', this.get('suggestions')[this.get('index')]);
           this.set('hidden', true);
 
           break;
@@ -322,10 +337,21 @@ export default Ember.Component.extend(HasBlockMixin, {
         default:
           break;
       }
-      this.set('searchTextGuard', false);
+    },
+    inputKeyUp (value, event) {
+      switch (event.keyCode) {
+        case constants.KEYCODE.DOWN_ARROW:
+        case constants.KEYCODE.UP_ARROW:
+        case constants.KEYCODE.TAB:
+        case constants.KEYCODE.ENTER:
+        case constants.KEYCODE.ESCAPE:
+          break;
+        default:
+          this.debounceSearch();
+          break;
+      }
     }
   },
-
 
   didInsertElement: function () {
     var _self =  this;

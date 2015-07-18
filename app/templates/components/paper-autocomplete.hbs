@@ -15,6 +15,7 @@
     focus-in="inputFocusIn"
     focus-out="inputFocusOut"
     key-down="inputKeyDown"
+    key-up="inputKeyUp"
     autocomplete="off"
     disabled=disabled
     required=required
@@ -41,21 +42,23 @@
 
   {{#paper-autocomplete-list parent=this}}
     {{#each suggestions as |item index|}}
-      {{#paper-autocomplete-item item=item parent=this index=index}}
+      {{#paper-autocomplete-item item=item parent=this index=index as |label|}}
         {{#if hasBlock}}
           {{yield item index}}
         {{else}}
-          {{item.name}}
+          {{label}}
         {{/if}}
       {{/paper-autocomplete-item}}
     {{else}}
         {{#if notLoading}}
+          {{#unless allowNonExisting}}
           {{#unless debouncingState}}
             {{#if hasBlock}}
-                <li>{{yield searchText index true}}</li>
+                <li>{{yield searchText 0 true}}</li>
             {{else}}
                 <li>No matches found for "{{searchText}}".</li>
             {{/if}}
+          {{/unless}}
           {{/unless}}
         {{/if}}
     {{/each}}
