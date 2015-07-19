@@ -20,15 +20,6 @@ export default Ember.Component.extend(ColorMixin, {
     this.setupTransforms();
   },
 
-  didInsertElement() {
-    this._super(...arguments);
-
-    // We must defer ready to avoid deprecation notice.
-    Ember.run.next(this, function() {
-      this.set('ready', true);
-    });
-  },
-
   mode: 'indeterminate',
 
   transforms: new Array(101),
