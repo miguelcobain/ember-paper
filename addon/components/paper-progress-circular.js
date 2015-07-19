@@ -4,15 +4,14 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
 var BASE_DIAMETER = 48;
 
 export default Ember.Component.extend(ColorMixin, {
-  constants: Ember.inject.service(),
-
-  classNames: ['md-default-theme'],
-
   tagName: 'md-progress-circular',
 
+  classNames: ['md-default-theme'],
   attributeBindings: ['value', 'md-mode'],
 
   mdDiameter: BASE_DIAMETER,
+
+  constants: Ember.inject.service(),
 
   scale: Ember.computed('mdDiameter', function() {
     return this.get('mdDiameter') / BASE_DIAMETER;
@@ -29,5 +28,5 @@ export default Ember.Component.extend(ColorMixin, {
   circleStyle: Ember.computed('scale', function() {
     return Ember.String.htmlSafe(this.get('constants.CSS.TRANSFORM') + ': ' + 'scale(' + this.get('scale').toString() + ')');
   })
-
+  
 });
