@@ -105,7 +105,7 @@ export default Ember.Component.extend(HasBlockMixin, {
     }
   }),
 
-  debounceSearch () {
+  observeSearchText: Ember.observer('searchText', function () {
     if (this.get('searchText') === this.get('previousSearchText')) {
       return;
     }
@@ -119,7 +119,7 @@ export default Ember.Component.extend(HasBlockMixin, {
     this.set('debouncingState', true);
     Ember.run.debounce(this, this.handleSearchText, wait);
     this.set('previousSearchText', this.get('searchText'));
-  },
+  }),
 
 
   updateScroll () {
@@ -193,22 +193,22 @@ export default Ember.Component.extend(HasBlockMixin, {
 
 
   handleSearchText () {
+    this.set('index', this.get('defaultIndex'));
+    this.set('debouncingState', false);
+    if (!this.isMinLengthMet()) {
+      this.send('clear');
+    } else {
+      this.handleQuery();
+    }
+  },
+
+  handleQuery () {
     var suggestions,
       _self = this,
       source = this.get('source'),
       lookupKey = this.get('lookupKey'),
       text = this.get('searchText').toLowerCase(),
       cached = this.itemsFromCache(text);
-
-    this.set('debouncingState', false);
-    if (!this.isMinLengthMet()) {
-      // Reset state.
-      this.set('hidden', true);
-      this.set('index', 0);
-      this.set('suggestions', Ember.A([]));
-      return;
-    }
-
     if (cached) {
       suggestions = cached;
     } else if (typeof source !== 'function') {
@@ -231,8 +231,12 @@ export default Ember.Component.extend(HasBlockMixin, {
       } else {
         suggestions = source;
       }
+      this.set('index', _self.get('defaultIndex'));
+      this.set('suggestions', suggestions);
+      this.set('hidden', this.shouldHide());
     } else {
       this.set('loading', true);
+
       var promise = source.call(this, text);
       promise.then(function (items) {
         _self.get('itemCache')[text] = items;
@@ -240,16 +244,12 @@ export default Ember.Component.extend(HasBlockMixin, {
           suggestions = items;
           _self.set('suggestions', suggestions);
           _self.set('hidden', _self.shouldHide());
-          _self.set('index', 0); // Reset index of list position.
+          _self.set('index', _self.get('defaultIndex')); // Reset index of list position.
           _self.set('loading', false);
         }
       });
       this.set('lastPromise', promise);
-      return;
     }
-    this.set('suggestions', suggestions);
-    this.set('hidden', this.shouldHide());
-    this.set('index', 0); // Reset index of list position.
   },
 
   itemsFromCache (text) {
@@ -274,14 +274,18 @@ export default Ember.Component.extend(HasBlockMixin, {
 
   actions: {
     clear: function () {
-      this.set('model', null);
       this.set('searchText', '');
+      this.set('index', -1);
+      this.set('loading', false);
+      this.set('model', null);
       this.set('hidden', true);
     },
 
     pickModel: function (model) {
       this.set('model', model);
       var value = this._getModelSearchText(model);
+      // First set previousSearchText then searchText ( do not trigger observer only update value! ).
+      this.set('previousSearchText', value);
       this.set('searchText', value);
       this.set('hidden', true);
     },
@@ -308,6 +312,7 @@ export default Ember.Component.extend(HasBlockMixin, {
             return;
           }
           event.stopPropagation();
+          event.preventDefault();
           this.set('index', Math.min(this.get('index') + 1, this.get('suggestions').length - 1));
           this.updateScroll();
           break;
@@ -316,42 +321,41 @@ export default Ember.Component.extend(HasBlockMixin, {
             return;
           }
           event.stopPropagation();
+          event.preventDefault();
           this.set('index', this.get('index') < 0 ? this.get('suggestions').length - 1 : Math.max(0, this.get('index') - 1));
           this.updateScroll();
           break;
         case constants.KEYCODE.TAB:
         case constants.KEYCODE.ENTER:
-          if (this.get('index') < 0 || this.get('suggestions').length < 1) {
+          if (this.get('hidden') || this.get('loading') || this.get('index') < 0 || this.get('suggestions').length < 1) {
             return;
           }
           event.stopPropagation();
+          event.preventDefault();
           this.send('pickModel', this.get('suggestions')[this.get('index')]);
-          this.set('hidden', true);
-
           break;
         case constants.KEYCODE.ESCAPE:
           event.stopPropagation();
-          this.set('matches', Ember.A([]));
+          event.preventDefault();
+          this.set('suggestions', Ember.A([]));
           this.set('hidden', true);
+          this.set('index', this.get('defaultIndex'));
           break;
         default:
           break;
       }
     },
     inputKeyUp (value, event) {
-      switch (event.keyCode) {
-        case constants.KEYCODE.DOWN_ARROW:
-        case constants.KEYCODE.UP_ARROW:
-        case constants.KEYCODE.TAB:
-        case constants.KEYCODE.ENTER:
-        case constants.KEYCODE.ESCAPE:
-          break;
-        default:
-          this.debounceSearch();
-          break;
-      }
     }
   },
+
+  /**
+   * Returns the default index based on whether or not autoselect is enabled.
+   * @returns {number}
+   */
+  defaultIndex: Ember.computed('autoselect', function () {
+      return this.get('autoselect') ? 0 : -1;
+  }),
 
 
   didInsertElement  () {

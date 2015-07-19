@@ -11,6 +11,9 @@ export default Ember.Component.extend({
   },
   mouseLeave () {
     this.get('parent').set('noBlur', false);
+    if (this.get('hasFocus') === false) {
+      this.get('parent').set('hidden', true);
+    }
   },
   mouseUp () {
     this.get('parent').$().find('input').focus();

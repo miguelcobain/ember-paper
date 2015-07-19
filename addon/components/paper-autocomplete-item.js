@@ -7,6 +7,7 @@ export default Ember.Component.extend({
   tabindex: 0,
   role: 'option',
 
+
   label: Ember.computed('item',function () {
     return this.get('parent')._getModelSearchText(this.get('item'));
   }),

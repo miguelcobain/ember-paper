@@ -197,13 +197,15 @@
 <table>
     <thead>
     <tr>
-        <th>Attribute name</th>
+        <th>Attribute</th>
+        <th>Type</th>
         <th>Description</th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <td>source</td>
+        <td>mixed</td>
         <td>The <code>source</code> attribute is used to look up possible suggestions for the autocomplete.
           The source attribute accepts:
         <ul>
@@ -215,40 +217,54 @@
     </tr>
     <tr>
         <td>model</td>
+        <td>mixed</td>
         <td>When a user selects item from the suggestions, model will be set and updated. Provide a model so you can do something about the value when user clicks the item.</td>
     </tr>
     <tr>
+        <td>placeholder</td>
+        <td>string</td>
+        <td>Sets a placeholder for the autocomplete input field.</td>
+    </tr>
+    <tr>
         <td>minLength</td>
+        <td>integer</td>
         <td>Sets how many characters the user must type before the autocomplete gives suggestions. Default is <code>1</code>.</td>
     </tr>
     <tr>
         <td>delay</td>
+        <td>integer</td>
         <td>The delay attribute lets you configure how many milliseconds to wait before we trigger a search, this is
             useful to avoid mass sending HTTP requests to your backend if you are using Function based source with
             AJAX calls. Somewhere around <em>300 ms</em> is good.</td>
     </tr>
     <tr>
         <td>noCache</td>
+        <td>boolean</td>
         <td>Only effective if you use promise as source. This disables the cache of promise loaded suggestions. By default they are cached when loaded the first time.</td>
     </tr>
     <tr>
         <td>floating</td>
+        <td>boolean</td>
         <td>Makes the autocomplete field a normal input field with floating labels.</td>
     </tr>
     <tr>
+        <td>autoselect</td>
+        <td>boolean</td>
+        <td>When suggestions is being displayed, by default when autoselect is true it will select the first element as selected. Default is false.</td>
+    </tr>
+    <tr>
         <td>disabled</td>
+        <td>boolean</td>
         <td>Disables the autocomplete.</td>
     </tr>
     <tr>
         <td>required</td>
+        <td>boolean</td>
         <td>Makes the autocomplete a required field.</td>
     </tr>
     <tr>
-        <td>placeholder</td>
-        <td>Sets a placeholder for the autocomplete input field.</td>
-    </tr>
-    <tr>
         <td>allowNonExisting</td>
+        <td>boolean</td>
         <td>allowNonExisting is useful for search boxes. It allows to use items that are not in the autocomplete selection. If you type e.g. "Chees" the model will also be set to "Chees".</td>
     </tr>
     </tbody>
