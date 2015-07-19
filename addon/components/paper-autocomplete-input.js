@@ -23,9 +23,6 @@ export default PaperInput.extend({
     },
     inputKeyDown (value, event) {
       this.get('parent').send('inputKeyDown', value, event);
-    },
-    inputKeyUp (value, event) {
-      this.get('parent').send('inputKeyUp', value, event);
     }
   }
 });

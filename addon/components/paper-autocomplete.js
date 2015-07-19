@@ -344,8 +344,6 @@ export default Ember.Component.extend(HasBlockMixin, {
         default:
           break;
       }
-    },
-    inputKeyUp (value, event) {
     }
   },
 
