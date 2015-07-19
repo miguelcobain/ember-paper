@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 function makeTransform(value) {
   var scale = value / 100;
@@ -6,14 +7,13 @@ function makeTransform(value) {
   return 'translateX(' + translateX.toString() + '%) scale(' + scale.toString() + ', 1)';
 }
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ColorMixin, {
   tagName: 'md-progress-linear',
 
+  attributeBindings: ['mode:md-mode', 'buffer-value:md-buffer-value'],
   classNames: ['md-default-theme'],
 
-  isInserted: false,
-
-  browserCompatibility: Ember.inject.service('browser-compatibility'),
+  constants: Ember.inject.service(),
 
   init() {
     this._super(...arguments);
@@ -23,12 +23,10 @@ export default Ember.Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    this.set('isInserted', true);
-    this.$('.md-container').addClass('md-ready');
+    this.set('ready', true);
   },
 
-
-  attributeBindings: ['md-mode', 'md-buffer-value'],
+  mode: 'indeterminate',
 
   transforms: new Array(101),
 
@@ -39,16 +37,16 @@ export default Ember.Component.extend({
   },
 
   bar1Style: Ember.computed('clampedBufferValue', function() {
-    return new Ember.Handlebars.SafeString(this.get('browserCompatibility.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedBufferValue')]);
+    return new Ember.Handlebars.SafeString(this.get('constants.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedBufferValue')]);
   }),
 
   bar2Style: Ember.computed('clampedValue', function() {
 
-    if (this.get('md-mode') === 'query') {
+    if (this.get('mode') === 'query') {
       return new Ember.Handlebars.SafeString('');
     }
 
-    return new Ember.Handlebars.SafeString(this.get('browserCompatibility.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedValue')]);
+    return new Ember.Handlebars.SafeString(this.get('constants.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedValue')]);
   }),
 
   clampedValue: Ember.computed('value', function() {
@@ -65,8 +63,8 @@ export default Ember.Component.extend({
     return Math.ceil(value || 0);
   }),
 
-  clampedBufferValue: Ember.computed('md-buffer-value', function() {
-    var value = this.get('md-buffer-value');
+  clampedBufferValue: Ember.computed('buffer-value', function() {
+    var value = this.get('buffer-value');
     if (value > 100) {
       return 100;
     }

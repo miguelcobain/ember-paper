@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
+import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-export default BaseFocusable.extend({
+export default BaseFocusable.extend(ColorMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
   classNameBindings: ['hasValue:md-input-has-value', 'focus:md-input-focused', 'isInvalid:md-input-invalid'],

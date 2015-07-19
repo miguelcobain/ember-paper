@@ -1,17 +1,17 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+
   mode: 'query',
   determinateValue: 30,
   determinateValue2: 30,
 
-
-  init: function () {
+  init() {
     this.setupTimer();
     this.setupTimer2();
   },
 
-  setupTimer: function() {
+  setupTimer() {
     Ember.run.later(this, function() {
       this.incrementProperty('determinateValue', 1);
       this.incrementProperty('determinateValue2', 1.5);
@@ -25,10 +25,11 @@ export default Ember.Controller.extend({
     }, 100);
   },
 
-  setupTimer2: function() {
+  setupTimer2() {
     Ember.run.later(this, function() {
       this.set('mode', this.get('mode') === 'query' ? 'determinate' : 'query');
       Ember.run.later(this, this.setupTimer2);
     }, 7200);
   }
+  
 });

@@ -12,24 +12,24 @@
     <h3>Basic Usage</h3>
 
     <h4>Indeterminate mode</h4>
-    {{paper-progress-linear md-mode="indeterminate"}}
+    {{paper-progress-linear}}
 
     <h4>Buffer mode</h4>
-    {{paper-progress-linear classNames="md-warn" md-mode="buffer" value=determinateValue md-buffer-value=determinateValue2}}
+    {{paper-progress-linear warn=true mode="buffer" value=determinateValue buffer-value=determinateValue2}}
 
     <h4>Query mode</h4>
-    {{paper-progress-linear classNames="md-accent" md-mode=mode value=determinateValue}}
+    {{paper-progress-linear accent=true mode=mode value=determinateValue}}
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
 &lt;h4&gt;Indeterminate mode&lt;/h4&gt;
-\{{paper-progress-linear md-mode="indeterminate"}}
+\{{paper-progress-linear}}
 
 &lt;h4&gt;Buffer mode&lt;/h4&gt;
-\{{paper-progress-linear classNames="md-warn" md-mode="buffer" value=determinateValue md-buffer-value=determinateValue2}}
+\{{paper-progress-linear warn=true mode="buffer" value=determinateValue buffer-value=determinateValue2}}
 
 &lt;h4&gt;Query mode&lt;/h4&gt;
-\{{paper-progress-linear classNames="md-accent" md-mode=mode value=determinateValue}}
+\{{paper-progress-linear accent=true mode=mode value=determinateValue}}
 {{/code-block}}
   </div>
 {{/paper-content}}

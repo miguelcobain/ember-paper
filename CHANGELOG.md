@@ -1,5 +1,11 @@
 # Ember Paper Changelog
 
+### 0.2.5 (Jul 18, 2015)
+
+- [#114](https://github.com/miguelcobain/ember-paper/pull/134) Added linear progress indicator.
+- Created a color mixin. Specify `primary=true`, `accent=true` or `warn=true` to apply the respective color classes.
+- Paper button now applies `md-icon-button` if `icon-button=true`.
+
 ### 0.2.4 (Jul 10, 2015)
 
 - [#113](https://github.com/miguelcobain/ember-paper/pull/113) Added support for Ember 1.13.x `hasBlock`.

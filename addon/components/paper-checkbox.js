@@ -1,12 +1,15 @@
+import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
-import constants from '../utils/constants';
+import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-export default BaseFocusable.extend(RippleMixin, ProxiableMixin, {
+export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
   classNameBindings: ['checked:md-checked'],
+
+  constants: Ember.inject.service(),
 
   checked: false,
   toggle: true,
@@ -27,7 +30,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, {
   },
 
   keyPress(ev) {
-    if (ev.which === constants.KEYCODE.SPACE) {
+    if (ev.which === this.get('constants.KEYCODE.SPACE')) {
       this.click();
     }
   },

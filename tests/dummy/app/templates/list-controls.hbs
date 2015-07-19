@@ -53,7 +53,7 @@
           {{#paper-item}}
             {{#paper-checkbox}}{{/paper-checkbox}}
             <p>{{item.message}}</p>
-            {{#paper-button classNames="md-icon-button" param=item action="secondaryMessageClick"}}
+            {{#paper-button icon-button=true param=item action="secondaryMessageClick"}}
               {{paper-icon icon="message"}}
             {{/paper-button}}
           {{/paper-item}}
@@ -86,7 +86,7 @@
                 <h4>{{item.who}}</h4>
                 <p>{{item.notes}}</p>
               </div>
-              {{#paper-button classNames="md-icon-button" param=item action="secondaryPersonClick"}}
+              {{#paper-button icon-button=true param=item action="secondaryPersonClick"}}
                 {{paper-icon icon="phone"}}
               {{/paper-button}}
           {{/paper-item}}
@@ -141,7 +141,7 @@
       \{{#paper-item}}
         \{{#paper-checkbox}}\{{/paper-checkbox}}
         &lt;p&gt;\{{item.message}}&lt;/p&gt;
-        \{{#paper-button classNames="md-icon-button" param=item action="secondaryMessageClick"}}
+        \{{#paper-button icon-button=true param=item action="secondaryMessageClick"}}
           \{{paper-icon icon="message"}}
         \{{/paper-button}}
       \{{/paper-item}}
@@ -174,7 +174,7 @@
             &lt;h4&gt;\{{item.who}}&lt;/h4&gt;
             &lt;p&gt;\{{item.notes}}&lt;/p&gt;
           &lt;/div&gt;
-          \{{#paper-button classNames="md-icon-button" param=item action="secondaryPersonClick"}}
+          \{{#paper-button icon-button=true param=item action="secondaryPersonClick"}}
             \{{paper-icon icon="phone"}}
           \{{/paper-button}}
       \{{/paper-item}}

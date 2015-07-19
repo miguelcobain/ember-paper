@@ -1,16 +1,16 @@
 import Ember from 'ember';
 
-const isString = value => {
+var isString = function(value) {
   return typeof value === 'string';
 };
 
-var lowercase = (string) => {
+var lowercase = function(string) {
   return isString(string) ? string.toLowerCase() : string;
 };
 
-function toInt(str) {
+var toInt = function(str) {
   return parseInt(str, 10);
-}
+};
 
 
 export default Ember.Service.extend({
@@ -55,7 +55,6 @@ export default Ember.Service.extend({
         transitions = isString(bodyStyle.webkitTransition);
         animations = isString(bodyStyle.webkitAnimation);
       }
-
 
     }
 
