@@ -7,14 +7,14 @@ export default Ember.Component.extend(ColorMixin, {
   tagName: 'md-progress-circular',
 
   classNames: ['md-default-theme'],
-  attributeBindings: ['value', 'md-mode'],
+  attributeBindings: ['value', 'mode:md-mode'],
 
-  mdDiameter: BASE_DIAMETER,
+  diameter: BASE_DIAMETER,
 
   constants: Ember.inject.service(),
 
-  scale: Ember.computed('mdDiameter', function() {
-    return this.get('mdDiameter') / BASE_DIAMETER;
+  scale: Ember.computed('diameter', function() {
+    return this.get('diameter') / BASE_DIAMETER;
   }),
 
   clampedValue: Ember.computed('value', function() {
@@ -28,5 +28,5 @@ export default Ember.Component.extend(ColorMixin, {
   circleStyle: Ember.computed('scale', function() {
     return Ember.String.htmlSafe(this.get('constants.CSS.TRANSFORM') + ': ' + 'scale(' + this.get('scale').toString() + ')');
   })
-  
+
 });

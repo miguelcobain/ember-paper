@@ -41,7 +41,7 @@ test('it sets transform scale 2 when diameter is 96', function(assert) {
 
   var component = this.subject({
     value: 50,
-    mdDiameter: 96
+    diameter: 96
   });
 
   this.render();
