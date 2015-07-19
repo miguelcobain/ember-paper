@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+var BASE_DIAMETER = 48;
+
 export default Ember.Component.extend({
   browserCompatibility: Ember.inject.service('browser-compatibility'),
 
@@ -12,7 +14,7 @@ export default Ember.Component.extend({
   mdDiameter: 48,
 
   scale: Ember.computed('mdDiameter', function() {
-    return this.get('mdDiameter') / 48;
+    return this.get('mdDiameter') / BASE_DIAMETER;
   }),
 
   clampedValue: Ember.computed('value', function() {
