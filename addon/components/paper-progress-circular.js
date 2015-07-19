@@ -9,6 +9,11 @@ export default Ember.Component.extend(ColorMixin, {
   classNames: ['md-default-theme'],
   attributeBindings: ['value', 'mode:md-mode'],
 
+  mode: Ember.computed('value', function() {
+    var value = this.get('value');
+    return Ember.isPresent(value) ? 'determinate' : 'indeterminate';
+  }),
+
   diameter: BASE_DIAMETER,
 
   constants: Ember.inject.service(),
@@ -18,11 +23,8 @@ export default Ember.Component.extend(ColorMixin, {
   }),
 
   clampedValue: Ember.computed('value', function() {
-
     var value = this.get('value');
-
     return Math.max(0, Math.min(value || 0, 100));
-
   }),
 
   circleStyle: Ember.computed('scale', function() {
