@@ -211,6 +211,9 @@ export default Ember.Component.extend(HasBlockMixin, {
       cached = this.itemsFromCache(text);
     if (cached) {
       suggestions = cached;
+      this.set('index', _self.get('defaultIndex'));
+      this.set('suggestions', suggestions);
+      this.set('hidden', this.shouldHide());
     } else if (typeof source !== 'function') {
       if (text) {
         suggestions = source.filter(function (item) {
