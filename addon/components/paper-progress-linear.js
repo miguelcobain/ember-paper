@@ -20,12 +20,6 @@ export default Ember.Component.extend(ColorMixin, {
     this.setupTransforms();
   },
 
-  didInsertElement() {
-    this._super(...arguments);
-
-    this.set('ready', true);
-  },
-
   mode: 'indeterminate',
 
   transforms: new Array(101),
