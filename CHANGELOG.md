@@ -1,6 +1,6 @@
 # Ember Paper Changelog
 
-### 0.2.5 (Jul 18, 2015)
+### 0.2.5 (Jul 20, 2015)
 
 - [#135](https://github.com/miguelcobain/ember-paper/pull/135) Fix deprecation bug in linear progress indicator.
 - [#136](https://github.com/miguelcobain/ember-paper/pull/136) Added circular progress indicator.
