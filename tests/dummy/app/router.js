@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('button');
   this.route('card');
   this.route('checkbox');
+  this.route('progress-linear');
   this.route('radio');
   this.route('switch');
   this.route('typography');

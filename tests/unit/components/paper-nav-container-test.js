@@ -6,6 +6,7 @@ import {
 
 moduleForComponent('paper-nav-container', 'PaperNavContainerComponent', {
   // specify the other units that are required for this test
+  unit: true,
   needs: ['component:paper-backdrop']
 });
 

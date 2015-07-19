@@ -1,11 +1,11 @@
 import Ember from 'ember';
-import EventsMixin from '../mixins/events-mixin';
+import EventsMixin from 'ember-paper/mixins/events-mixin';
 import BaseFocusable from './base-focusable';
 
-import FlexMixin from '../mixins/flex-mixin';
-import constants from '../utils/constants';
+import ColorMixin from 'ember-paper/mixins/color-mixin';
+import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
-export default BaseFocusable.extend(EventsMixin, FlexMixin, {
+export default BaseFocusable.extend(EventsMixin, FlexMixin, ColorMixin, {
 
   tagName: 'md-slider',
 
@@ -13,6 +13,8 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, {
 
   classNames: ['md-default-theme'],
   classNameBindings: ['isMinimum:md-min', 'active', 'dragging'],
+
+  constants: Ember.inject.service(),
 
   min: 0,
   max: 100,
@@ -125,9 +127,9 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, {
 
     var changeAmount, newValue;
 
-    if (event.keyCode === constants.KEYCODE.LEFT_ARROW) {
+    if (event.keyCode === this.get('constants.KEYCODE.LEFT_ARROW')) {
       changeAmount = parseInt(this.get('step')) * -1;
-    } else if (event.keyCode === constants.KEYCODE.RIGHT_ARROW) {
+    } else if (event.keyCode === this.get('constants.KEYCODE.RIGHT_ARROW')) {
       changeAmount = parseInt(this.get('step'));
     }
 
