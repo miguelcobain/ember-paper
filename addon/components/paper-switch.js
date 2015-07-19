@@ -2,9 +2,10 @@ import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
+import ColorMixin from 'ember-paper/mixins/color-mixin';
 /* globals Hammer */
 
-export default BaseFocusable.extend(RippleMixin, ProxiableMixin, {
+export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],

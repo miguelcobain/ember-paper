@@ -7,6 +7,7 @@ import {
 moduleForComponent('paper-radio', 'PaperRadioComponent', {
   // specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar']
+  unit: true
 });
 
 test('it renders', function(assert) {
@@ -46,7 +47,7 @@ test('it updates when clicked, and triggers the `changed` action', function(asse
       }
     })
   });
-  this.append();
+  this.render();
 
   assert.equal(changedActionCallCount, 0);
   assert.equal(component.$().hasClass('md-checked'), false);

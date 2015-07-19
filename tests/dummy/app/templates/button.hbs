@@ -10,24 +10,24 @@
 <div class="doc-content">
   <p>
     {{#paper-button action="flatButton"}}Button with action{{/paper-button}}
-    {{#paper-button noink=true classNames="md-primary"}}Primary (noink){{/paper-button}}
+    {{#paper-button noink=true primary=true}}Primary (noink){{/paper-button}}
     {{#paper-button disabled=true}}disabled{{/paper-button}}
-    {{#paper-button classNames="md-warn"}}warn{{/paper-button}}
+    {{#paper-button warn=true}}warn{{/paper-button}}
   </p>
   <p>
     {{#paper-button raised=true action="raisedButton"}}Button with action{{/paper-button}}
-    {{#paper-button raised=true classNames="md-primary"}}Primary{{/paper-button}}
+    {{#paper-button raised=true primary=true}}Primary{{/paper-button}}
     {{#paper-button raised=true disabled=true}}disabled{{/paper-button}}
-    {{#paper-button raised=true classNames="md-warn"}}warn{{/paper-button}}
+    {{#paper-button raised=true warn=true}}warn{{/paper-button}}
   </p>
   {{#custom-button}}
   <p>
     {{#paper-button raised=true action="targetButton" target=component}}Button with target{{/paper-button}}
-    {{#paper-button raised=true classNames="md-primary" action="targetButton" target=component}}Button with bubble{{/paper-button}}
-    {{#paper-button raised=true classNames="md-primary" action="targetButton" target=component bubbles=false}}Button no bubble{{/paper-button}}
+    {{#paper-button raised=true primary=true action="targetButton" target=component}}Button with bubble{{/paper-button}}
+    {{#paper-button raised=true primary=true action="targetButton" target=component bubbles=false}}Button no bubble{{/paper-button}}
   </p>
   <p>
-    {{#paper-button classNames="md-icon-button"}}{{paper-icon icon="more-vert"}}{{/paper-button}}
+    {{#paper-button icon-button=true}}{{paper-icon icon="more-vert"}}{{/paper-button}}
   </p>
   {{/custom-button}}
   <p>
@@ -37,20 +37,23 @@
   {{#code-block language='handlebars'}}
   &lt;p&gt;
     \{{#paper-button action="flatButton"}}Button with action\{{/paper-button}}
-    \{{#paper-button noink=true classNames="md-primary"}}Primary (noink)\{{/paper-button}}
+    \{{#paper-button noink=true primary=true}}Primary (noink)\{{/paper-button}}
     \{{#paper-button disabled=true}}disabled\{{/paper-button}}
-    \{{#paper-button classNames="md-warn"}}warn\{{/paper-button}}
+    \{{#paper-button warn=true}}warn\{{/paper-button}}
   &lt;/p&gt;
   &lt;p&gt;
     \{{#paper-button raised=true action="raisedButton"}}Button with action\{{/paper-button}}
-    \{{#paper-button raised=true classNames="md-primary"}}Primary\{{/paper-button}}
+    \{{#paper-button raised=true primary=true}}Primary\{{/paper-button}}
     \{{#paper-button raised=true disabled=true}}disabled\{{/paper-button}}
-    \{{#paper-button raised=true classNames="md-warn"}}warn\{{/paper-button}}
+    \{{#paper-button raised=true warn=true}}warn\{{/paper-button}}
   &lt;/p&gt;
   &lt;p&gt;
     \{{#paper-button raised=true action="targetButton" target=component}}Button with target\{{/paper-button}}
-    \{{#paper-button raised=true classNames="md-primary" action="targetButton" target=component}}Button with bubble\{{/paper-button}}
-    \{{#paper-button raised=true classNames="md-primary" action="targetButton" target=component bubbles=false}}Button no bubble\{{/paper-button}}
+    \{{#paper-button raised=true primary=true action="targetButton" target=component}}Button with bubble\{{/paper-button}}
+    \{{#paper-button raised=true primary=true action="targetButton" target=component bubbles=false}}Button no bubble\{{/paper-button}}
+  &lt;/p&gt;
+  &lt;p&gt;
+    \{{#paper-button icon-button=true}}\{{paper-icon icon="more-vert"}}\{{/paper-button}}
   &lt;/p&gt;
   &lt;p&gt;
     \{{paper-button raised=true label="Blockless version"}}

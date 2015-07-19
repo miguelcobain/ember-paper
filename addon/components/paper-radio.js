@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
+import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-export default BaseFocusable.extend(RippleMixin, {
+export default BaseFocusable.extend(RippleMixin, ColorMixin, {
   tagName: 'md-radio-button',
   classNames: ['paper-radio', 'md-default-theme'],
   classNameBindings: ['checked:md-checked'],

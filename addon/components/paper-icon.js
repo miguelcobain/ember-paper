@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ColorMixin, {
   tagName: 'md-icon',
   classNames: ['paper-icon', 'md-font', 'material-icons', 'md-default-theme'],
   classNameBindings: ['iconClass', 'sizeClass', 'spinClass'],
