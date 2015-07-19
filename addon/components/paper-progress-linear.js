@@ -23,7 +23,10 @@ export default Ember.Component.extend(ColorMixin, {
   didInsertElement() {
     this._super(...arguments);
 
-    this.set('ready', true);
+    // We must defer ready to avoid deprecation notice.
+    Ember.run.next(this, function() {
+      this.set('ready', true);
+    });
   },
 
   mode: 'indeterminate',
