@@ -2,6 +2,12 @@
 
 ### 0.2.5 (Jul 18, 2015)
 
+- [#135](https://github.com/miguelcobain/ember-paper/pull/135) Fix deprecation bug in linear progress indicator.
+- [#136](https://github.com/miguelcobain/ember-paper/pull/136) Added circular progress indicator.
+
+
+### 0.2.5 (Jul 18, 2015)
+
 - [#114](https://github.com/miguelcobain/ember-paper/pull/134) Added linear progress indicator.
 - Created a color mixin. Specify `primary=true`, `accent=true` or `warn=true` to apply the respective color classes.
 - Paper button now applies `md-icon-button` if `icon-button=true`.
