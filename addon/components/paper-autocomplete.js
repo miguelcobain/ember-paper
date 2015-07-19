@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import HasBlockMixin from '../mixins/hasblock-mixin';
-import constants from '../utils/constants';
 
 /* global jQuery */
 
@@ -29,7 +28,8 @@ function isString (item) {
  * - paper-button
  */
 export default Ember.Component.extend(HasBlockMixin, {
-  util: Ember.inject.service('util'),
+  util: Ember.inject.service(),
+  constants: Ember.inject.service(),
 
   tagName: 'md-autocomplete',
   classNameBindings: ['notFloating:md-default-theme'],
@@ -310,7 +310,7 @@ export default Ember.Component.extend(HasBlockMixin, {
 
     inputKeyDown (value, event) {
       switch (event.keyCode) {
-        case constants.KEYCODE.DOWN_ARROW:
+        case this.get('constants').KEYCODE.DOWN_ARROW:
           if (this.get('loading')) {
             return;
           }
@@ -319,7 +319,7 @@ export default Ember.Component.extend(HasBlockMixin, {
           this.set('index', Math.min(this.get('index') + 1, this.get('suggestions').length - 1));
           this.updateScroll();
           break;
-        case constants.KEYCODE.UP_ARROW:
+        case this.get('constants').KEYCODE.UP_ARROW:
           if (this.get('loading')) {
             return;
           }
@@ -328,8 +328,8 @@ export default Ember.Component.extend(HasBlockMixin, {
           this.set('index', this.get('index') < 0 ? this.get('suggestions').length - 1 : Math.max(0, this.get('index') - 1));
           this.updateScroll();
           break;
-        case constants.KEYCODE.TAB:
-        case constants.KEYCODE.ENTER:
+        case this.get('constants').KEYCODE.TAB:
+        case this.get('constants').KEYCODE.ENTER:
           if (this.get('hidden') || this.get('loading') || this.get('index') < 0 || this.get('suggestions').length < 1) {
             return;
           }
@@ -337,7 +337,7 @@ export default Ember.Component.extend(HasBlockMixin, {
           event.preventDefault();
           this.send('pickModel', this.get('suggestions')[this.get('index')]);
           break;
-        case constants.KEYCODE.ESCAPE:
+        case this.get('constants').KEYCODE.ESCAPE:
           event.stopPropagation();
           event.preventDefault();
           this.set('suggestions', Ember.A([]));
