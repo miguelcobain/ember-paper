@@ -9,14 +9,14 @@ export default Ember.Component.extend({
 
 
   label: Ember.computed('item',function () {
-    return this.get('parent')._getModelSearchText(this.get('item'));
+    return this.get('target').lookupLabelOfItem(this.get('item'));
   }),
 
-  isSelected: Ember.computed('parent.index', function () {
-    return this.get('parent').get('index') === this.get('index');
+  isSelected: Ember.computed('selectedIndex', function () {
+    return this.get('selectedIndex') === this.get('index');
   }),
 
   click () {
-    this.get('parent').send('pickModel', this.get('item'));
+    this.get('target').send('pickModel', this.get('item'));
   }
 });

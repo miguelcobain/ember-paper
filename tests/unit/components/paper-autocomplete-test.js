@@ -10,7 +10,6 @@ moduleForComponent('paper-autocomplete', 'Unit | Component | paper autocomplete'
     'component:paper-autocomplete-list',
     'component:paper-autocomplete-item',
     'component:paper-autocomplete-highlight',
-    'component:paper-autocomplete-input',
     'component:paper-progress-linear',
     'component:paper-button',
     'component:paper-icon'

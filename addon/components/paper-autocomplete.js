@@ -38,7 +38,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   suggestions: Ember.A([]),
   loading: false,
   hidden: null,
-  index: null,
+  selectedIndex: null,
   messages: [],
   disabled: null,
   required: null,
@@ -59,7 +59,7 @@ export default Ember.Component.extend(HasBlockMixin, {
     this._super();
     this.set('itemCache', {});
     if (this.get('model')) {
-      this.set('searchText', this._getModelSearchText(this.get('model')));
+      this.set('searchText', this.lookupLabelOfItem(this.get('model')));
     }
   },
 
@@ -130,11 +130,11 @@ export default Ember.Component.extend(HasBlockMixin, {
 
   updateScroll () {
     var suggestions = this.get('suggestions');
-    if (!suggestions[this.get('index')]) {
+    if (!suggestions[this.get('selectedIndex')]) {
       return;
     }
     var ul = this.get('ulContainer').$(),
-      li  = ul.find('li:eq('+this.get('index')+')')[0],
+      li  = ul.find('li:eq('+this.get('selectedIndex')+')')[0],
       top = li.offsetTop,
       bot = top + li.offsetHeight,
       hgt = ul[0].clientHeight;
@@ -199,7 +199,7 @@ export default Ember.Component.extend(HasBlockMixin, {
 
 
   handleSearchText () {
-    this.set('index', this.get('defaultIndex'));
+    this.set('selectedIndex', this.get('defaultIndex'));
     this.set('debouncingState', false);
     if (!this.isMinLengthMet()) {
       this.send('clear');
@@ -217,7 +217,7 @@ export default Ember.Component.extend(HasBlockMixin, {
       cached = this.itemsFromCache(text);
     if (cached) {
       suggestions = cached;
-      this.set('index', _self.get('defaultIndex'));
+      this.set('selectedIndex', _self.get('defaultIndex'));
       this.set('suggestions', suggestions);
       this.set('hidden', this.shouldHide());
     } else if (typeof source !== 'function') {
@@ -240,7 +240,7 @@ export default Ember.Component.extend(HasBlockMixin, {
       } else {
         suggestions = source;
       }
-      this.set('index', _self.get('defaultIndex'));
+      this.set('selectedIndex', _self.get('defaultIndex'));
       this.set('suggestions', suggestions);
       this.set('hidden', this.shouldHide());
     } else {
@@ -253,7 +253,7 @@ export default Ember.Component.extend(HasBlockMixin, {
           suggestions = items;
           _self.set('suggestions', suggestions);
           _self.set('hidden', _self.shouldHide());
-          _self.set('index', _self.get('defaultIndex')); // Reset index of list position.
+          _self.set('selectedIndex', _self.get('defaultIndex')); // Reset index of list position.
           _self.set('loading', false);
         }
       });
@@ -271,7 +271,9 @@ export default Ember.Component.extend(HasBlockMixin, {
     return null;
   },
 
-  _getModelSearchText (model) {
+
+
+  lookupLabelOfItem (model) {
     var value;
     if (this.get('lookupKey')) {
       value = model[this.get('lookupKey')];
@@ -284,7 +286,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   actions: {
     clear: function () {
       this.set('searchText', '');
-      this.set('index', -1);
+      this.set('selectedIndex', -1);
       this.set('loading', false);
       this.set('model', null);
       this.set('hidden', true);
@@ -292,7 +294,7 @@ export default Ember.Component.extend(HasBlockMixin, {
 
     pickModel: function (model) {
       this.set('model', model);
-      var value = this._getModelSearchText(model);
+      var value = this.lookupLabelOfItem(model);
       // First set previousSearchText then searchText ( do not trigger observer only update value! ).
       this.set('previousSearchText', value);
       this.set('searchText', value);
@@ -322,7 +324,7 @@ export default Ember.Component.extend(HasBlockMixin, {
           }
           event.stopPropagation();
           event.preventDefault();
-          this.set('index', Math.min(this.get('index') + 1, this.get('suggestions').length - 1));
+          this.set('selectedIndex', Math.min(this.get('selectedIndex') + 1, this.get('suggestions').length - 1));
           this.updateScroll();
           break;
         case this.get('constants').KEYCODE.UP_ARROW:
@@ -331,24 +333,24 @@ export default Ember.Component.extend(HasBlockMixin, {
           }
           event.stopPropagation();
           event.preventDefault();
-          this.set('index', this.get('index') < 0 ? this.get('suggestions').length - 1 : Math.max(0, this.get('index') - 1));
+          this.set('selectedIndex', this.get('selectedIndex') < 0 ? this.get('suggestions').length - 1 : Math.max(0, this.get('selectedIndex') - 1));
           this.updateScroll();
           break;
         case this.get('constants').KEYCODE.TAB:
         case this.get('constants').KEYCODE.ENTER:
-          if (this.get('hidden') || this.get('loading') || this.get('index') < 0 || this.get('suggestions').length < 1) {
+          if (this.get('hidden') || this.get('loading') || this.get('selectedIndex') < 0 || this.get('suggestions').length < 1) {
             return;
           }
           event.stopPropagation();
           event.preventDefault();
-          this.send('pickModel', this.get('suggestions')[this.get('index')]);
+          this.send('pickModel', this.get('suggestions')[this.get('selectedIndex')]);
           break;
         case this.get('constants').KEYCODE.ESCAPE:
           event.stopPropagation();
           event.preventDefault();
           this.set('suggestions', Ember.A([]));
           this.set('hidden', true);
-          this.set('index', this.get('defaultIndex'));
+          this.set('selectedIndex', this.get('defaultIndex'));
           break;
         default:
           break;

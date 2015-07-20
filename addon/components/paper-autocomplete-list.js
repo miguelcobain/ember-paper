@@ -7,21 +7,21 @@ export default Ember.Component.extend({
   role: 'presentation',
 
   mouseEnter () {
-    this.get('parent').set('noBlur', true);
+    this.get('target').set('noBlur', true);
   },
   mouseLeave () {
-    this.get('parent').set('noBlur', false);
+    this.get('target').set('noBlur', false);
     if (this.get('hasFocus') === false) {
-      this.get('parent').set('hidden', true);
+      this.get('target').set('hidden', true);
     }
   },
   mouseUp () {
-    this.get('parent').$().find('input').focus();
+    this.get('target').$().find('input').focus();
   },
 
   didInsertElement () {
     var ul = this.$();
     ul.appendTo('body');
-    this.get('parent').set('ulContainer', this);
+    this.get('target').set('ulContainer', this);
   }
 });

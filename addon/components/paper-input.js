@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
-export default BaseFocusable.extend(ColorMixin, {
+export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
   classNameBindings: ['hasValue:md-input-has-value', 'focus:md-input-focused', 'isInvalid:md-input-invalid'],
@@ -63,11 +64,17 @@ export default BaseFocusable.extend(ColorMixin, {
   },
 
   actions: {
-    focusIn() {
+    focusIn(value) {
       this.set('focus',true);
+      // We resend action so other components can take use of the actions also ( if they want ).
+      this.sendAction('focus-in', value);
     },
-    focusOut() {
+    focusOut(value) {
       this.set('focus',false);
+      this.sendAction('focus-out', value);
+    },
+    keyDown(value, event) {
+      this.sendAction('key-down', value, event);
     }
   }
 });

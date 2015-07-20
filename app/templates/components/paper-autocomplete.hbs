@@ -1,11 +1,15 @@
 <md-autocomplete-wrap role="listbox" layout="row" class="{{wrapperClasses}}">
   {{#if floating}}
-    {{paper-autocomplete-input
-    parent=this
-    placeholder=placeholder
+    {{paper-input
+    type="search"
+    label=placeholder
+    focus-in="inputFocusIn"
+    focus-out="inputFocusOut"
+    key-down="inputKeyDown"
     value=searchText
     disabled=disabled
     required=required
+    flex=true
     }}
   {{else}}
     {{input type="search"
@@ -27,7 +31,7 @@
 
     {{#if searchText}}
       {{#if notDisabled}}
-        {{#paper-button classNames="md-icon-button" mdButtonClass=false action="clear"}}{{paper-icon icon="close"}}{{/paper-button}}
+        {{#paper-button classNames="md-icon-button" themed=false action="clear"}}{{paper-icon icon="close"}}{{/paper-button}}
       {{/if}}
     {{/if}}
 
@@ -38,9 +42,9 @@
   {{/if}}
 
 
-  {{#paper-autocomplete-list parent=this}}
+  {{#paper-autocomplete-list target=this}}
     {{#each suggestions as |item index|}}
-      {{#paper-autocomplete-item item=item parent=this index=index as |label|}}
+      {{#paper-autocomplete-item item=item target=this selectedIndex=selectedIndex index=index as |label|}}
         {{#if hasBlock}}
           {{yield sections.itemTemplate item index searchText}}
         {{else}}
@@ -50,13 +54,13 @@
     {{else}}
         {{#if notLoading}}
           {{#unless allowNonExisting}}
-          {{#unless debouncingState}}
-            {{#if hasBlock}}
-                <li>{{yield sections.notFoundTemplate null 0 searchText}}</li>
-            {{else}}
-                <li>No matches found for "{{searchText}}".</li>
-            {{/if}}
-          {{/unless}}
+            {{#unless debouncingState}}
+              {{#if hasBlock}}
+                  <li>{{yield sections.notFoundTemplate null 0 searchText}}</li>
+              {{else}}
+                  <li>No matches found for "{{searchText}}".</li>
+              {{/if}}
+            {{/unless}}
           {{/unless}}
         {{/if}}
     {{/each}}
