@@ -20,13 +20,20 @@ export default Ember.Component.extend(ColorMixin, {
     this.setupTransforms();
   },
 
-  didInsertElement() {
-    this._super(...arguments);
+  mode: Ember.computed('value', function() {
+    var value = this.get('value');
+    var bufferValue = this.get('buffer-value');
 
-    this.set('ready', true);
-  },
-
-  mode: 'indeterminate',
+    if (Ember.isPresent(value)) {
+      if (Ember.isPresent(bufferValue)) {
+        return 'buffer';
+      } else {
+        return 'determinate';
+      }
+    } else {
+      return 'indeterminate';
+    }
+  }),
 
   transforms: new Array(101),
 

@@ -35,17 +35,20 @@ test('should set checked css class', function(assert) {
 
 test('it updates when clicked, and triggers the `changed` action', function(assert) {
   var changedActionCallCount = 0;
+
+  var Controller = Ember.Controller.extend({
+    actions: {
+      changed: function() {
+        changedActionCallCount++;
+      }
+    }
+  });
+
   var component = this.subject({
     value: 'component-value',
     selected: 'initial-selected-value',
     changed: 'changed',
-    targetObject: Ember.Controller.createWithMixins({
-      actions: {
-        changed: function() {
-          changedActionCallCount++;
-        }
-      }
-    })
+    targetObject: Controller.create()
   });
   this.render();
 

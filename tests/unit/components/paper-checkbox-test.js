@@ -36,8 +36,6 @@ test('should set checked css class', function(assert) {
 });
 
 test('element should be focusable if not disabled', function(assert) {
-  var component = this.subject();
-
   assert.equal(this.$().attr('tabindex'), '0');
 });
 
