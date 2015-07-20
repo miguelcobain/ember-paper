@@ -21,11 +21,11 @@ function isString (item) {
  *
  *
  * ## Dependencies
- * - paper-autocomplete-input
  * - paper-autocomplete-item
  * - paper-autocomplete-list
  * - paper-input
  * - paper-button
+ * - input
  */
 export default Ember.Component.extend(HasBlockMixin, {
   util: Ember.inject.service(),
@@ -33,48 +33,53 @@ export default Ember.Component.extend(HasBlockMixin, {
 
   tagName: 'md-autocomplete',
   classNameBindings: ['notFloating:md-default-theme'],
+  attributeBindings: ['floating:md-floating-label', 'showDisabled:disabled'],
 
 
+  // Internal
   suggestions: Ember.A([]),
   loading: false,
   hidden: null,
   selectedIndex: null,
   messages: [],
+  noBlur: false,
+  hasFocus: false,
+  searchText: '',
+
+  // Public
   disabled: null,
   required: null,
   lookupKey: null,
-  noBlur: false,
-  hasFocus: false,
   placeholder: '',
-  searchText: '',
   delay: 0,
-
   minLength: 1,
   allowNonExisting: false,
-
-
   noCache: false,
+  notFoundMessage: 'No matches found for "%@".',
 
   init:function(){
-    this._super();
+    this._super(...arguments);
     this.set('itemCache', {});
     if (this.get('model')) {
       this.set('searchText', this.lookupLabelOfItem(this.get('model')));
     }
   },
 
-  attributeBindings: ['floating:md-floating-label', 'showDisabled:disabled'],
 
   notFloating: Ember.computed.not('floating'),
   notHidden: Ember.computed.not('hidden'),
-  notDisabled:  Ember.computed.not('disabled'),
-  notLoading: Ember.computed.not('loading'),
+
 
 
   sections: {
     itemTemplate: {isItemTemplate: true},
     notFoundTemplate: {isNotFoundTemplate: true}
   },
+
+
+  notFoundMsg: Ember.computed('searchText', 'notFoundMessage', function () {
+    return Ember.String.fmt(this.get('notFoundMessage'), [this.get('searchText')]);
+  }),
 
   /**
    * Needed because of false = disabled="false".
@@ -83,6 +88,14 @@ export default Ember.Component.extend(HasBlockMixin, {
     if (this.get('disabled')) {
       return true;
     }
+  }),
+
+  showLoadingBar: Ember.computed('loading', 'allowNonExisting', 'debouncingState', function () {
+    return !this.get('loading') && !this.get('allowNonExisting') && !this.get('debouncingState');
+  }),
+
+  enableClearButton: Ember.computed('searchText', 'disabled', function () {
+    return this.get('searchText') && !this.get('disabled');
   }),
 
   wrapperClasses: Ember.computed('notFloating', 'notHidden', function () {
@@ -101,12 +114,9 @@ export default Ember.Component.extend(HasBlockMixin, {
       return;
     }
     if (this.get('hidden') === true) {
-      this.get('ulContainer').$().hide();
       this.get('util').enableScrolling();
     } else {
-      var element = this.get('ulContainer').$();
-      element.show();
-      this.get('util').disableScrollAround(element);
+      this.get('util').disableScrollAround(this.get('ulContainer').$());
       this.positionDropdown();
     }
   }),

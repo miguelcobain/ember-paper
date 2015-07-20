@@ -29,10 +29,8 @@
     }}
 
 
-    {{#if searchText}}
-      {{#if notDisabled}}
-        {{#paper-button classNames="md-icon-button" themed=false action="clear"}}{{paper-icon icon="close"}}{{/paper-button}}
-      {{/if}}
+    {{#if enableClearButton}}
+      {{#paper-button icon-button=true themed=false action="clear"}}{{paper-icon icon="close"}}{{/paper-button}}
     {{/if}}
 
   {{/if}}
@@ -42,7 +40,7 @@
   {{/if}}
 
 
-  {{#paper-autocomplete-list target=this}}
+  {{#paper-autocomplete-list isVisible=notHidden target=this}}
     {{#each suggestions as |item index|}}
       {{#paper-autocomplete-item item=item target=this selectedIndex=selectedIndex index=index as |label|}}
         {{#if hasBlock}}
@@ -52,16 +50,12 @@
         {{/if}}
       {{/paper-autocomplete-item}}
     {{else}}
-        {{#if notLoading}}
-          {{#unless allowNonExisting}}
-            {{#unless debouncingState}}
-              {{#if hasBlock}}
-                  <li>{{yield sections.notFoundTemplate null 0 searchText}}</li>
-              {{else}}
-                  <li>No matches found for "{{searchText}}".</li>
-              {{/if}}
-            {{/unless}}
-          {{/unless}}
+        {{#if showLoadingBar}}
+          {{#if hasBlock}}
+              <li>{{yield sections.notFoundTemplate null 0 searchText}}</li>
+          {{else}}
+              <li>{{notFoundMsg}}</li>
+          {{/if}}
         {{/if}}
     {{/each}}
   {{/paper-autocomplete-list}}

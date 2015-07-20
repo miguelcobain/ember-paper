@@ -15,7 +15,12 @@
   <h2>Basic Usage</h2>
   <blockquote>Use <code>\{{paper-autocomplete}}</code> to search for matches from local or remote data sources.</blockquote>
 
-  {{paper-autocomplete disabled=firstDisabled placeholder="Select a Country ..." source=items lookupKey="name" model=myModel}}
+  {{paper-autocomplete
+  disabled=firstDisabled
+  placeholder="Select a Country ..."
+  notFoundMessage='Oops country: "%@" doesn\'t exist here.'
+  source=items lookupKey="name"
+  model=myModel}}
     <p>Selected country is
       {{#if myModel}}
         {{myModel.name}}
@@ -30,7 +35,12 @@
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{paper-autocomplete placeholder="Select a Country ..." source=items lookupKey="name" model=myModel}}{{/code-block}}
+\{{paper-autocomplete
+    disabled=firstDisabled
+    placeholder="Select a Country ..."
+    notFoundMessage='Oops country: "%@" doesn\'t exist here.'
+    source=items lookupKey="name"
+    model=myModel}}{{/code-block}}
 
   <h3>Allow non existing items</h3>
     <blockquote>Use attribute <code>allowNonExisting=true</code> for the autocomplete to allow setting model to non existing items in the autocomplete. This is useful for search boxes.</blockquote>
@@ -259,6 +269,11 @@
         <td>allowNonExisting</td>
         <td>boolean</td>
         <td>allowNonExisting is useful for search boxes. It allows to use items that are not in the autocomplete selection. If you type e.g. "Chees" the model will also be set to "Chees".</td>
+    </tr>
+    <tr>
+        <td>notFoundMessage</td>
+        <td>string</td>
+        <td>The message to display if no items was found. Default is: <code>No matches found for "%@".</code>. The <code>%@</code> part will be replaced by the users input.</td>
     </tr>
     </tbody>
 </table>
