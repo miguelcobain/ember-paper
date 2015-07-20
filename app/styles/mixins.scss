@@ -91,3 +91,11 @@
     #{$prop}: $rtl-value;
   }
 }
+
+/* mixin definition ; sets LTR and RTL within the same style call */
+@mixin rtl($prop, $value, $rtl-value) {
+  #{$prop}: $value;
+  html[dir=rtl] & {
+    #{$prop}: $rtl-value;
+  }
+}

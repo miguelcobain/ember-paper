@@ -7,10 +7,22 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
-  classNameBindings: ['checked:md-checked'],
+  classNameBindings: ['checked:md-checked', 'focus:md-focused'],
 
   constants: Ember.inject.service(),
 
+  //Alow element to be focusable by supplying a tabindex 0
+  attributeBindings: ['tabindex', 'role', 'ariaLabel:aria-label'],
+
+
+  //Alow element to be focusable by supplying a tabindex 0
+  tabindex: Ember.computed('disabled', function() {
+    return this.get('disabled') ? '-1' : '0';
+  }),
+  role: 'checkbox',
+
+
+  focus: false,
   checked: false,
   toggle: true,
 
@@ -37,5 +49,8 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   processProxy() {
     this.toggleProperty('checked');
-  }
+  },
+  ariaLabel: Ember.computed('label', function () {
+    return this.get("label") || null;
+  })
 });

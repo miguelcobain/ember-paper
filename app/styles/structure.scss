@@ -10,7 +10,7 @@ body {
   padding: 0;
 }
 
-:focus {
+[tabindex='-1']:focus {
   outline: none;
 }
 .inset {
@@ -19,7 +19,7 @@ body {
 
 button.md-no-style {
   font-weight: normal;
-  background-color: inherit !important;
+  background-color: inherit;
   text-align: left;
   border: none;
   padding: 0;
@@ -122,13 +122,13 @@ input {
     $positionDuration: 0.9s * 2;
     $sizeDuration: 0.65s * 2;
     transition: left $positionDuration $swift-ease-out-timing-function,
-                top $positionDuration $swift-ease-out-timing-function,
-                margin $sizeDuration $swift-ease-out-timing-function,
-                border $sizeDuration $swift-ease-out-timing-function,
-                width $sizeDuration $swift-ease-out-timing-function,
-                height $sizeDuration $swift-ease-out-timing-function,
-                opacity $sizeDuration $swift-ease-out-timing-function,
-                transform $sizeDuration $swift-ease-out-timing-function;
+    top $positionDuration $swift-ease-out-timing-function,
+    margin $sizeDuration $swift-ease-out-timing-function,
+    border $sizeDuration $swift-ease-out-timing-function,
+    width $sizeDuration $swift-ease-out-timing-function,
+    height $sizeDuration $swift-ease-out-timing-function,
+    opacity $sizeDuration $swift-ease-out-timing-function,
+    transform $sizeDuration $swift-ease-out-timing-function;
   }
   &.md-ripple-scaled {
     transform: scale(1);
