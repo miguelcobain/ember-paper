@@ -70,6 +70,12 @@ export default Ember.Component.extend(HasBlockMixin, {
   notDisabled:  Ember.computed.not('disabled'),
   notLoading: Ember.computed.not('loading'),
 
+
+  sections: {
+    itemTemplate: {isItemTemplate: true},
+    notFoundTemplate: {isNotFoundTemplate: true}
+  },
+
   /**
    * Needed because of false = disabled="false".
    */

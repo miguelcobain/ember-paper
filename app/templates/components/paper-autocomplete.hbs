@@ -34,7 +34,7 @@
   {{/if}}
 
   {{#if loading}}
-    {{paper-progress-linear md-mode="indeterminate"}}
+    {{paper-progress-linear}}
   {{/if}}
 
 
@@ -42,7 +42,7 @@
     {{#each suggestions as |item index|}}
       {{#paper-autocomplete-item item=item parent=this index=index as |label|}}
         {{#if hasBlock}}
-          {{yield item index false searchText}}
+          {{yield sections.itemTemplate item index searchText}}
         {{else}}
           {{paper-autocomplete-highlight searchText=searchText label=label}}
         {{/if}}
@@ -52,7 +52,7 @@
           {{#unless allowNonExisting}}
           {{#unless debouncingState}}
             {{#if hasBlock}}
-                <li>{{yield searchText 0 true}}</li>
+                <li>{{yield sections.notFoundTemplate null 0 searchText}}</li>
             {{else}}
                 <li>No matches found for "{{searchText}}".</li>
             {{/if}}
