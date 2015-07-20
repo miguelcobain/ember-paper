@@ -1,17 +1,9 @@
 import Ember from 'ember';
 import HasBlockMixin from '../mixins/hasblock-mixin';
 
-/* global jQuery */
-
-var ITEM_HEIGHT = 41,
-  MAX_HEIGHT = 5.5 * ITEM_HEIGHT,
-  MENU_PADDING = 8;
-
-
 function isString (item) {
   return typeof item === 'string' || item instanceof String;
 }
-
 
 /**
  * @name paper-autocomplete
@@ -109,17 +101,6 @@ export default Ember.Component.extend(HasBlockMixin, {
     return classes;
   }),
 
-  hideSuggestionObserver: Ember.observer('hidden', function () {
-    if (!this.get('ulContainer')) {
-      return;
-    }
-    if (this.get('hidden') === true) {
-      this.get('util').enableScrolling();
-    } else {
-      this.get('util').disableScrollAround(this.get('ulContainer').$());
-      this.positionDropdown();
-    }
-  }),
 
   observeSearchText: Ember.observer('searchText', function () {
     if (this.get('searchText') === this.get('previousSearchText')) {
@@ -138,23 +119,6 @@ export default Ember.Component.extend(HasBlockMixin, {
   }),
 
 
-  updateScroll () {
-    var suggestions = this.get('suggestions');
-    if (!suggestions[this.get('selectedIndex')]) {
-      return;
-    }
-    var ul = this.get('ulContainer').$(),
-      li  = ul.find('li:eq('+this.get('selectedIndex')+')')[0],
-      top = li.offsetTop,
-      bot = top + li.offsetHeight,
-      hgt = ul[0].clientHeight;
-    if (top < ul[0].scrollTop) {
-      ul[0].scrollTop = top;
-    } else if (bot > ul[0].scrollTop + hgt) {
-      ul[0].scrollTop = bot - hgt;
-    }
-  },
-
 
   shouldHide () {
     if (!this.isMinLengthMet()) {
@@ -165,45 +129,6 @@ export default Ember.Component.extend(HasBlockMixin, {
 
   isMinLengthMet () {
     return this.get('searchText').length >= this.get('minLength');
-  },
-
-  positionDropdown () {
-    var hrect  = this.$().find('md-autocomplete-wrap:first')[0].getBoundingClientRect(),
-      vrect  = hrect,
-      root   = document.body.getBoundingClientRect(),
-      top    = vrect.bottom - root.top,
-      bot    = root.bottom - vrect.top,
-      left   = hrect.left - root.left,
-      width  = hrect.width,
-      styles = {
-        left:     left + 'px',
-        minWidth: width + 'px',
-        maxWidth: Math.max(hrect.right - root.left, root.right - hrect.left) - MENU_PADDING + 'px'
-      },
-      ul = this.get('ulContainer').$();
-    if (top > bot && root.height - hrect.bottom - MENU_PADDING < MAX_HEIGHT) {
-      styles.top = 'auto';
-      styles.bottom = bot + 'px';
-      styles.maxHeight = Math.min(MAX_HEIGHT, hrect.top - root.top - MENU_PADDING) + 'px';
-    } else {
-      styles.top = top + 'px';
-      styles.bottom = 'auto';
-      styles.maxHeight = Math.min(MAX_HEIGHT, root.bottom - hrect.bottom - MENU_PADDING) + 'px';
-    }
-    ul.css(styles);
-    correctHorizontalAlignment();
-
-    /**
-     * Makes sure that the menu doesn't go off of the screen on either side.
-     */
-    function correctHorizontalAlignment () {
-      var dropdown = ul[0].getBoundingClientRect(),
-        styles   = {};
-      if (dropdown.right > root.right - MENU_PADDING) {
-        styles.left = (hrect.right - dropdown.width) + 'px';
-      }
-      ul.css(styles);
-    }
   },
 
 
@@ -335,7 +260,6 @@ export default Ember.Component.extend(HasBlockMixin, {
           event.stopPropagation();
           event.preventDefault();
           this.set('selectedIndex', Math.min(this.get('selectedIndex') + 1, this.get('suggestions').length - 1));
-          this.updateScroll();
           break;
         case this.get('constants').KEYCODE.UP_ARROW:
           if (this.get('loading')) {
@@ -344,7 +268,6 @@ export default Ember.Component.extend(HasBlockMixin, {
           event.stopPropagation();
           event.preventDefault();
           this.set('selectedIndex', this.get('selectedIndex') < 0 ? this.get('suggestions').length - 1 : Math.max(0, this.get('selectedIndex') - 1));
-          this.updateScroll();
           break;
         case this.get('constants').KEYCODE.TAB:
         case this.get('constants').KEYCODE.ENTER:
@@ -365,6 +288,18 @@ export default Ember.Component.extend(HasBlockMixin, {
         default:
           break;
       }
+    },
+    listMouseEnter () {
+      this.set('noBlur', true);
+    },
+    listMouseLeave () {
+      this.set('noBlur', false);
+      if (this.get('hasFocus') === false) {
+        this.set('hidden', true);
+      }
+    },
+    listMouseUp () {
+      this.$().find('input').focus();
     }
   },
 
@@ -374,20 +309,7 @@ export default Ember.Component.extend(HasBlockMixin, {
    */
   defaultIndex: Ember.computed('autoselect', function () {
       return this.get('autoselect') ? 0 : -1;
-  }),
-
-
-  didInsertElement  () {
-    var _self =  this;
-    this.set('resizeWindowEvent', function () {
-      _self.positionDropdown();
-    });
-    jQuery(window).resize(this.get('resizeWindowEvent'));
-  },
-  willDestroyElement () {
-    jQuery(window).off('resize',this.get('resizeWindowEvent'));
-  }
-
+  })
 
 
 });

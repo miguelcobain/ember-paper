@@ -9,7 +9,7 @@ export default Ember.Component.extend({
 
 
   label: Ember.computed('item',function () {
-    return this.get('target').lookupLabelOfItem(this.get('item'));
+    return this.get('lookupLabel').call(this.get('target'), this.get('item'));
   }),
 
   isSelected: Ember.computed('selectedIndex', function () {
@@ -17,6 +17,6 @@ export default Ember.Component.extend({
   }),
 
   click () {
-    this.get('target').send('pickModel', this.get('item'));
+    this.sendAction('pick', this.get('item'));
   }
 });
