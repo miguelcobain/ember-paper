@@ -21,6 +21,7 @@ test('it renders', function(assert) {
 
 
 test('should highlight correct text', function(assert) {
+  assert.expect(2);
 
   var component = this.subject({
     searchText: 'ed S',
