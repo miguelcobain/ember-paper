@@ -65,13 +65,14 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
   actions: {
     focusIn(value) {
-      this.set('focus',true);
       // We resend action so other components can take use of the actions also ( if they want ).
+      // Actions must be sent before focusing.
       this.sendAction('focus-in', value);
+      this.set('focus',true);
     },
     focusOut(value) {
-      this.set('focus',false);
       this.sendAction('focus-out', value);
+      this.set('focus',false);
     },
     keyDown(value, event) {
       this.sendAction('key-down', value, event);
