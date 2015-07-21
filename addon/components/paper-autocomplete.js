@@ -31,7 +31,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   // Internal
   suggestions: Ember.A([]),
   loading: false,
-  hidden: null,
+  hidden: true,
   selectedIndex: null,
   messages: [],
   noBlur: false,
