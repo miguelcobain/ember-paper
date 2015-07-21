@@ -9,12 +9,24 @@ export default Ember.Component.extend({
 
 
   label: Ember.computed('item',function () {
-    return this.get('lookupLabel').call(this.get('target'), this.get('item'));
+    return this.lookupLabelOfItem(this.get('item'));
   }),
 
   isSelected: Ember.computed('selectedIndex', function () {
     return this.get('selectedIndex') === this.get('index');
   }),
+
+  lookupLabelOfItem (model) {
+    var value;
+    if (this.get('lookupKey')) {
+      value = model[this.get('lookupKey')];
+    } else {
+      value = model;
+    }
+    return value;
+  },
+
+
 
   click () {
     this.sendAction('pick', this.get('item'));

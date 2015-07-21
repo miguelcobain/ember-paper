@@ -311,5 +311,4 @@ export default Ember.Component.extend(HasBlockMixin, {
       return this.get('autoselect') ? 0 : -1;
   })
 
-
 });

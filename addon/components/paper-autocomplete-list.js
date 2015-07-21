@@ -1,7 +1,5 @@
 import Ember from 'ember';
 
-/* global jQuery */
-
 var ITEM_HEIGHT = 41,
   MAX_HEIGHT = 5.5 * ITEM_HEIGHT,
   MENU_PADDING = 8;
@@ -30,22 +28,6 @@ export default Ember.Component.extend({
   },
 
 
-  didInsertElement () {
-    var _self =  this;
-    this.set('resizeWindowEvent', function () {
-      _self.positionDropdown();
-    });
-    jQuery(window).resize(this.get('resizeWindowEvent'));
-
-    var ul = this.$().detach();
-    jQuery('body').append(ul);
-  },
-
-  willDestroyElement () {
-    jQuery(window).off('resize',this.get('resizeWindowEvent'));
-  },
-
-
   hideSuggestionObserver: Ember.observer('hidden', function () {
     if (this.get('hidden') === true) {
       this.get('util').enableScrolling();
@@ -57,7 +39,7 @@ export default Ember.Component.extend({
 
 
   positionDropdown () {
-    var hrect  = this.get('target').$().find('md-autocomplete-wrap:first')[0].getBoundingClientRect(),
+    var hrect  = this.get('target').$().find(this.get('wrapToSelector'))[0].getBoundingClientRect(),
       vrect  = hrect,
       root   = document.body.getBoundingClientRect(),
       top    = vrect.bottom - root.top,
@@ -97,7 +79,7 @@ export default Ember.Component.extend({
 
 
   observeIndex: Ember.observer('selectedIndex', function () {
-    var suggestions = this.get('target').get('suggestions');
+    var suggestions = this.get('suggestions');
     if (!suggestions[this.get('selectedIndex')]) {
       return;
     }
@@ -113,6 +95,22 @@ export default Ember.Component.extend({
       ul[0].scrollTop = bot - hgt;
     }
   }),
+
+  resizeWindowEvent ()  {
+    this.positionDropdown();
+  },
+
+
+  didInsertElement () {
+    var ul = this.$().detach();
+    Ember.$('body').append(ul);
+
+    this.set('___resizeFunction', this.get('resizeWindowEvent').bind(this));
+    Ember.$(window).on('resize', this.get('___resizeFunction'));
+  },
+  willDestroyElement () {
+    Ember.$(window).off('resize',this.get('___resizeFunction'));
+  }
 
 
 

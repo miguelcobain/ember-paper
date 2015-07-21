@@ -40,9 +40,9 @@
   {{/if}}
 
 
-  {{#paper-autocomplete-list selectedIndex=selectedIndex mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter" hidden=hidden target=this}}
+  {{#paper-autocomplete-list selectedIndex=selectedIndex wrapToSelector='md-autocomplete-wrap:first' mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter" suggestions=suggestions  hidden=hidden target=this}}
     {{#each suggestions as |item index|}}
-      {{#paper-autocomplete-item item=item selectedIndex=selectedIndex target=this lookupLabel=lookupLabelOfItem index=index pick="pickModel" as |label|}}
+      {{#paper-autocomplete-item lookupKey=lookupKey item=item selectedIndex=selectedIndex index=index pick="pickModel" as |label|}}
         {{#if hasBlock}}
           {{yield sections.itemTemplate item index searchText}}
         {{else}}
