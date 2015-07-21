@@ -104,10 +104,13 @@ export default Ember.Component.extend({
 
 
   didInsertElement () {
+    var _self = this;
     var ul = this.$().detach();
     Ember.$('body').append(ul);
 
-    this.set('___resizeFunction', this.get('resizeWindowEvent').bind(this));
+    this.set('___resizeFunction', function () {
+      _self.positionDropdown();
+    });
     Ember.$(window).on('resize', this.get('___resizeFunction'));
   },
   willDestroyElement () {
