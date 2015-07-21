@@ -1,6 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 
-moduleForComponent('paper-autocomplete-item', 'Unit | Component | paper autocomplete highlight', {
+moduleForComponent('paper-autocomplete-item', 'Unit | Component | paper autocomplete item', {
   // Specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar'],
   unit: true
@@ -54,4 +54,28 @@ test('it sets isSelected when index is equal to selectedIndex', function(assert)
 
   assert.equal(component.get('isSelected'), true);
 
+});
+
+
+test('trigger external action when item is clicked', function(assert) {
+  assert.expect(1);
+
+  var item = {name: "test"};
+
+  var component = this.subject({
+    item: item,
+    lookupKey: 'name'
+  });
+  this.$();
+
+  var targetObject = {
+    externalAction: function(item2) {
+      // we have the assertion here which will be
+      // called when the action is triggered
+      assert.equal(item, item2, 'external Action was called and item received was correct.');
+    }
+  };
+  component.set('pick', 'externalAction');
+  component.set('targetObject', targetObject);
+  this.$().click();
 });

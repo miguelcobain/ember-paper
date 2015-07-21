@@ -1,4 +1,4 @@
-<md-autocomplete-wrap role="listbox" layout="row" class="{{wrapperClasses}}">
+<md-autocomplete-wrap id="{{autocompleteWrapperId}}" role="listbox" layout="row" class="{{wrapperClasses}}">
   {{#if floating}}
     {{paper-input
     type="search"
@@ -40,7 +40,7 @@
   {{/if}}
 
 
-  {{#paper-autocomplete-list selectedIndex=selectedIndex wrapToSelector='md-autocomplete-wrap:first' mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter" suggestions=suggestions  hidden=hidden target=this}}
+  {{#paper-autocomplete-list  suggestions=suggestions hidden=hidden selectedIndex=selectedIndex wrapToElementId=autocompleteWrapperId mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter"}}
     {{#each suggestions as |item index|}}
       {{#paper-autocomplete-item lookupKey=lookupKey item=item selectedIndex=selectedIndex index=index pick="pickModel" as |label|}}
         {{#if hasBlock}}

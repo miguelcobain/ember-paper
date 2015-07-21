@@ -11,6 +11,7 @@ export default Ember.Component.extend({
   classNames: ['md-default-theme', 'md-autocomplete-suggestions', 'md-whiteframe-z1'],
   attributeNameBindings: ['role'],
   role: 'presentation',
+  stickToElement: null,
 
   hidden: true,
 
@@ -39,7 +40,7 @@ export default Ember.Component.extend({
 
 
   positionDropdown () {
-    var hrect  = this.get('target').$().find(this.get('wrapToSelector'))[0].getBoundingClientRect(),
+    var hrect  = Ember.$('#' + this.get('wrapToElementId'))[0].getBoundingClientRect(),
       vrect  = hrect,
       root   = document.body.getBoundingClientRect(),
       top    = vrect.bottom - root.top,
@@ -52,6 +53,7 @@ export default Ember.Component.extend({
         maxWidth: Math.max(hrect.right - root.left, root.right - hrect.left) - MENU_PADDING + 'px'
       },
       ul = this.$();
+
     if (top > bot && root.height - hrect.bottom - MENU_PADDING < MAX_HEIGHT) {
       styles.top = 'auto';
       styles.bottom = bot + 'px';
@@ -110,6 +112,7 @@ export default Ember.Component.extend({
   },
   willDestroyElement () {
     Ember.$(window).off('resize',this.get('___resizeFunction'));
+    this.get('util').enableScrolling();
   }
 
 

@@ -218,6 +218,10 @@ export default Ember.Component.extend(HasBlockMixin, {
     return value;
   },
 
+  autocompleteWrapperId: Ember.computed('elementId', function () {
+    return 'autocomplete-wrapper-' + this.get('elementId');
+  }),
+
   actions: {
     clear: function () {
       this.set('searchText', '');
