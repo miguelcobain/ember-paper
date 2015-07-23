@@ -8,8 +8,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   attributeBindings: ['target', 'action'],
   tagName: 'button',
   themed: true,
-  classNames: ['themed:md-button','themed:md-default-theme'],
-  classNameBindings: ['raised:md-raised', 'icon-button:md-icon-button'],
+  classNameBindings: ['raised:md-raised', 'icon-button:md-icon-button', 'themed:md-default-theme', 'themed:md-button'],
 
   /* RippleMixin overrides */
   isIconButton: Ember.computed(function() {
