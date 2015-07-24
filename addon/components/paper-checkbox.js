@@ -7,7 +7,7 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
-  classNameBindings: ['checked:md-checked'],
+  classNameBindings: ['checked:md-checked', 'focus:md-focused'],
 
   constants: Ember.inject.service(),
 
@@ -15,6 +15,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   toggle: true,
 
   /* RippleMixin overrides */
+  focus: false,
   center: true,
   dimBackground: false,
   fitRipple: true,
