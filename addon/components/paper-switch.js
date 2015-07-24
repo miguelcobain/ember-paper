@@ -8,9 +8,10 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
-  classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],
+  classNameBindings: ['checked:md-checked', 'dragging:md-dragging', 'focus:md-focused'],
   toggle: true,
 
+  focus: false,
   center: true,
   dimBackground: false,
   fitRipple: true,
