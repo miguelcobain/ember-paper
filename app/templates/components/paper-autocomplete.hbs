@@ -1,0 +1,70 @@
+<md-autocomplete-wrap id="{{autocompleteWrapperId}}" role="listbox" layout="row" class="{{wrapperClasses}}">
+  {{#if floating}}
+    {{paper-input
+    type="search"
+    label=placeholder
+    focus-in="inputFocusIn"
+    focus-out="inputFocusOut"
+    key-down="inputKeyDown"
+    value=searchText
+    disabled=disabled
+    required=required
+    flex=true
+    }}
+  {{else}}
+    {{input type="search"
+    flex=true
+    placeholder=placeholder
+    value=searchText
+    focus-in="inputFocusIn"
+    focus-out="inputFocusOut"
+    key-down="inputKeyDown"
+    autocomplete="off"
+    disabled=disabled
+    required=required
+    aria-haspopup=true
+    aria-autocomplete="list"
+    aria-activedescendant=""
+    aria-expanded=notHidden
+    }}
+
+
+    {{#if enableClearButton}}
+      {{#paper-button icon-button=true themed=false action="clear"}}{{paper-icon icon="close"}}{{/paper-button}}
+    {{/if}}
+
+  {{/if}}
+
+  {{#if loading}}
+    {{paper-progress-linear}}
+  {{/if}}
+
+
+  {{#paper-autocomplete-list suggestions=suggestions hidden=hidden selectedIndex=selectedIndex wrapToElementId=autocompleteWrapperId mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter"}}
+    {{#each suggestions as |item index|}}
+      {{#paper-autocomplete-item lookupKey=lookupKey item=item selectedIndex=selectedIndex index=index pick="pickModel" as |label|}}
+        {{#if hasBlock}}
+          {{yield item index}}
+        {{else}}
+          {{paper-autocomplete-highlight searchText=searchText label=label}}
+        {{/if}}
+      {{/paper-autocomplete-item}}
+    {{else}}
+        {{#if showLoadingBar}}
+          {{#if hasBlock}}
+              <li>{{yield to="inverse"}}</li>
+          {{else}}
+              <li>{{notFoundMsg}}</li>
+          {{/if}}
+        {{/if}}
+    {{/each}}
+  {{/paper-autocomplete-list}}
+</md-autocomplete-wrap>
+
+<aria-status class="md-visually-hidden" role="status" aria-live="assertive">
+  {{#each messages as |message index|}}
+    {{#if message}}
+        <p>{{message}}</p>
+    {{/if}}
+  {{/each}}
+</aria-status>
