@@ -113,16 +113,15 @@
     <h2>Custom template</h2>
     <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results. In this example we also use <code>minLength=0</code> which allow to see all results if input is empty.</blockquote>
 
-    {{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |section item index searchText|}}
-      {{#if section.isItemTemplate}}
-          <span class="item-title">
-          {{paper-icon icon="star"}}
-          <span>{{paper-autocomplete-highlight searchText=searchText label=item}} (index {{index}} )</span>
-          </span>
-      {{else if section.isNotFoundTemplate}}
-          Whoops! Could not find "{{searchText}}".
-      {{/if}}
+    {{#paper-autocomplete searchText=mySearchText minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index|}}
+      <span class="item-title">
+      {{paper-icon icon="star"}}
+      <span>{{paper-autocomplete-highlight searchText=mySearchText label=item}} (index {{index}} )</span>
+      </span>
+    {{else}}
+      Whoops! Could not find "{{mySearchText}}".
     {{/paper-autocomplete}}
+
     <p>Selected thing was:
       {{#if fourthModel}}
         {{fourthModel}}
@@ -135,18 +134,16 @@
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |section item index searchText|}}}
-  \{{#if section.isItemTemplate}}
-    &lt;span class="item-title"&gt;
-      \{{paper-icon icon="star"}}
-    &lt;span&gt; \{{paper-autocomplete-highlight searchText=searchText label=item}} &lt;/span&gt;
-    &lt;/span&gt;
-  \{{else if section.isNotFoundTemplate}}
-    Whoops! Could not find "\{{searchText}}".
-  \{{/if}}
+\{{#paper-autocomplete searchText=mySearchText minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index|}}
+  &lt;span class="item-title"&gt;
+  \{{paper-icon icon="star"}}
+    &lt;span>\{{paper-autocomplete-highlight searchText=mySearchText label=item}} (index \{{index}} )&lt;/span&gt;
+  &lt;/span&gt;
+\{{else}}
+  Whoops! Could not find "\{{mySearchText}}".
 \{{/paper-autocomplete}}{{/code-block}}
 
-<p>The  custom template receives <strong>4 block parameters</strong> (section, item, index  and searchText).
+<p>The  custom template receives <strong>2 block parameters</strong> (item, index).
 </p>
 
 <ul>

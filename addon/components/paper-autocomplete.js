@@ -36,7 +36,6 @@ export default Ember.Component.extend(HasBlockMixin, {
   messages: [],
   noBlur: false,
   hasFocus: false,
-  searchText: '',
 
   // Public
   disabled: null,
@@ -54,6 +53,8 @@ export default Ember.Component.extend(HasBlockMixin, {
     this.set('itemCache', {});
     if (this.get('model')) {
       this.set('searchText', this.lookupLabelOfItem(this.get('model')));
+    } else if (typeof this.get('searchText') === 'undefined') {
+      this.set('searchText', '');
     }
   },
 
@@ -61,12 +62,6 @@ export default Ember.Component.extend(HasBlockMixin, {
   notFloating: Ember.computed.not('floating'),
   notHidden: Ember.computed.not('hidden'),
 
-
-
-  sections: {
-    itemTemplate: {isItemTemplate: true},
-    notFoundTemplate: {isNotFoundTemplate: true}
-  },
 
 
   notFoundMsg: Ember.computed('searchText', 'notFoundMessage', function () {

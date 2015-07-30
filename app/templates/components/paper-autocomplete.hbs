@@ -40,11 +40,11 @@
   {{/if}}
 
 
-  {{#paper-autocomplete-list  suggestions=suggestions hidden=hidden selectedIndex=selectedIndex wrapToElementId=autocompleteWrapperId mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter"}}
+  {{#paper-autocomplete-list suggestions=suggestions hidden=hidden selectedIndex=selectedIndex wrapToElementId=autocompleteWrapperId mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter"}}
     {{#each suggestions as |item index|}}
       {{#paper-autocomplete-item lookupKey=lookupKey item=item selectedIndex=selectedIndex index=index pick="pickModel" as |label|}}
         {{#if hasBlock}}
-          {{yield sections.itemTemplate item index searchText}}
+          {{yield item index}}
         {{else}}
           {{paper-autocomplete-highlight searchText=searchText label=label}}
         {{/if}}
@@ -52,7 +52,7 @@
     {{else}}
         {{#if showLoadingBar}}
           {{#if hasBlock}}
-              <li>{{yield sections.notFoundTemplate null 0 searchText}}</li>
+              <li>{{yield to="inverse"}}</li>
           {{else}}
               <li>{{notFoundMsg}}</li>
           {{/if}}
