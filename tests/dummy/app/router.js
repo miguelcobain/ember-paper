@@ -21,6 +21,7 @@ Router.map(function() {
   this.route('sidenav');
   this.route('input');
   this.route('toolbar');
+  this.route('toast');
   this.route('icons');
   this.route('slider');
 });

@@ -1,0 +1,46 @@
+{{#paper-toolbar}}
+    <h2 class="md-toolbar-tools">
+      {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
+        {{paper-icon icon="menu"}}
+      {{/paper-sidenav-toggle}}
+        <span>Toasts</span>
+    </h2>
+{{/paper-toolbar}}
+{{#paper-content classNames="md-padding"}}
+    <div class="doc-content" style="min-height: 448px; position: relative; overflow: hidden;">
+        <div layout-fill layout="column">
+            <div layout="row" layout-sm="column" layout-align="space-around" style="margin-top: 60px;">
+              {{#paper-button action="openToastLeftBottom"}}
+                  Open in left bottom
+              {{/paper-button}}
+              {{#paper-button action="openToast"}}
+                  Open toast
+              {{/paper-button}}
+              {{#paper-button action="openToastDelayed"}}
+                  Delayed hide
+              {{/paper-button}}
+            </div>
+
+
+          {{#if myToastOpen}}
+            {{#paper-toast top=true right=true as |toast|}}
+                <span flex="">Custom toast!</span>
+              {{#paper-button action="closeToast"}}Close{{/paper-button}}
+            {{/paper-toast}}
+          {{/if}}
+
+
+          {{#if isDelayedToastOpen}}
+            {{paper-toast hide-delay=4000 on-close="closeToastDelayed" on-button="closeToastDelayed" top=true right=true button="Close this" message="I'm removed within 4 seconds!!"}}
+          {{/if}}
+
+
+
+          {{#if leftBottom}}
+            {{paper-toast on-button="closeToastLeftBottom" left=true bottom=true button="Close this" message=leftBottomMessage}}
+          {{/if}}
+
+
+        </div>
+    </div>
+{{/paper-content}}
