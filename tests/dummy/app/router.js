@@ -29,6 +29,7 @@ Router.map(function() {
   this.route('switch');
   this.route('typography');
   this.route('toolbar');
+  this.route('toast');
 });
 
 export default Router;
