@@ -6,8 +6,15 @@ import AnimateMixin from 'ember-paper/mixins/animate-mixin';
 export default Ember.Component.extend(AnimateMixin, {
   tagName: 'md-toast',
   classNames: ['md-default-theme'],
-  classNameBindings: ['right:md-right', 'left:md-left', 'bottom:md-bottom', 'top:md-top'],
+  classNameBindings: ['_right:md-right', '_left:md-left', '_bottom:md-bottom', '_top:md-top'],
   animated: true,
+
+  _right: Ember.computed(function () { return this.get('right'); }),
+  _left: Ember.computed(function () { return this.get('left'); }),
+  _bottom: Ember.computed(function () { return this.get('bottom'); }),
+  _top: Ember.computed(function () { return this.get('top'); }),
+
+
 
 
   didInsertElement () {
