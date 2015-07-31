@@ -76,8 +76,75 @@
       {{#paper-checkbox checked=top}}Top{{/paper-checkbox}}
 
 
-
       {{#paper-button action="openFabBottom" primary=true classNames="md-fab md-fab-bottom-right"}}FAB{{/paper-button}}
 
+
+
     </div>
+
+    <div class="doc-content">
+<h3>Template</h3>
+
+<p>The toast must be inside some div that have enough height to display it. For example the toast can be placed
+    in `application.hbs`.
+</p>
+<p>The guide below tells you have to create a global toast that can be used by the sub-routes.
+Toasts would normally be opened by javascript (e.g. after some item got saved to the database). But can also be triggered
+open by buttons.
+</p>
+
+<p>In this example, we will put our toast in the main application so that the toast will get rendered in the <code>bottom right</code>
+corner of the screen. We can use simple action bubbling to open the toast.
+</p>
+      
+<h5>app/templates/application.hbs</h5>
+
+{{#code-block language='handlebars'}}...
+\{{#if isOpenMessage}}
+  \{{paper-toast
+    on-close="closeToast"
+    on-button="closeToast"
+    button="Close this"
+    right=true
+    bottom=true
+    message=rightLeftToastMessage}}
+\{{/if}}
+
+...{{/code-block}}
+
+
+<h3>Javascript</h3>
+
+<h5>app/routes/application.js</h5>
+
+{{#code-block language='javascript'}}import Ember from 'ember';
+
+export default Ember.Route.extend({
+  actions: {
+    openToast: function (msg) {
+      this.set('rightLeftToastMessage', msg);
+      this.set('isOpenMessage', true);
+    },
+    closeToast: function () {
+      this.set('isOpenMessage', false);
+    }
+  }
+});{{/code-block}}
+
+
+<p>Sub routes can now bubble the event upwards to the main controller and send messages.</p>
+
+<h5>app/routes/application/news.js</h5>
+{{#code-block language='javascript'}}import Ember from 'ember';
+export default Ember.Route.extend({
+  actions: {
+    saveNews () {
+      // do something and show toast:
+      this.send('openToast', 'Hello World!');
+    }
+  }
+});{{/code-block}}
+
+    </div>
+
 {{/paper-content}}
