@@ -8,6 +8,7 @@ export default Ember.Component.extend(AnimateMixin, {
   classNames: ['md-default-theme'],
   classNameBindings: ['_right:md-right', '_left:md-left', '_bottom:md-bottom', '_top:md-top'],
   animated: true,
+  'align-fab': true,
 
   _right: Ember.computed(function () { return this.get('right'); }),
   _left: Ember.computed(function () { return this.get('left'); }),
@@ -48,6 +49,9 @@ export default Ember.Component.extend(AnimateMixin, {
   },
 
   runParentClass (destroy) {
+    if (!this.get('align-fab')) {
+      return;
+    }
     var el,
         className = 'md-toast-open-' + (this.get('top') ? 'top' : 'bottom');
     if (this.get('parent-selector')) {

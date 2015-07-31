@@ -1,3 +1,15 @@
+{{#if isOpenGlobalToast}}
+  {{paper-toast
+    hide-delay=3000
+    align-fab=false
+    on-close="closeGlobalToast"
+    on-button="closeGlobalToast"
+    button="Close"
+    message=globalToastMessage
+    bottom=true right=true
+  }}
+{{/if}}
+
 {{#paper-sidenav-container class="site-nav-container"}}
   {{#paper-sidenav class="md-whiteframe-z2 site-sidenav" lockedOpen="gt-sm"
     open=isSidenavOpen onToggle=(action (mut isSidenavOpen))}}
