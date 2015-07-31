@@ -83,25 +83,34 @@
     </div>
 
     <div class="doc-content">
+
+      <h3>Global toast</h3>
+
+      {{#paper-button raised=true primary=true  action="saveSomething"}}
+          Global toast
+      {{/paper-button}}
+
+      <p>The toast must be inside some div that have enough height to display it. For example the toast can be placed
+          in `application.hbs`.
+      </p>
+      <p>The guide below tells you have to create a global toast that can be used by the sub-routes.
+          Toasts would normally be opened by javascript (e.g. after some item got saved to the database). But can also be triggered
+          open by buttons.
+      </p>
+
+      <p>In this example, we will put our toast in the main application so that the toast will get rendered in the <code>bottom right</code>
+          corner of the screen. We can use simple action bubbling to open the toast.
+      </p>
+
 <h3>Template</h3>
 
-<p>The toast must be inside some div that have enough height to display it. For example the toast can be placed
-    in `application.hbs`.
-</p>
-<p>The guide below tells you have to create a global toast that can be used by the sub-routes.
-Toasts would normally be opened by javascript (e.g. after some item got saved to the database). But can also be triggered
-open by buttons.
-</p>
 
-<p>In this example, we will put our toast in the main application so that the toast will get rendered in the <code>bottom right</code>
-corner of the screen. We can use simple action bubbling to open the toast.
-</p>
-      
 <h5>app/templates/application.hbs</h5>
 
 {{#code-block language='handlebars'}}...
 \{{#if isOpenMessage}}
   \{{paper-toast
+    align-fab=false
     on-close="closeToast"
     on-button="closeToast"
     button="Close this"
@@ -122,11 +131,11 @@ corner of the screen. We can use simple action bubbling to open the toast.
 export default Ember.Route.extend({
   actions: {
     openToast: function (msg) {
-      this.set('rightLeftToastMessage', msg);
-      this.set('isOpenMessage', true);
+      this.controller.set('rightLeftToastMessage', msg);
+      this.controller.set('isOpenMessage', true);
     },
     closeToast: function () {
-      this.set('isOpenMessage', false);
+      this.controller.set('isOpenMessage', false);
     }
   }
 });{{/code-block}}
