@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import AnimateMixin from 'ember-paper/mixins/animate-mixin';
 
+/*global Hammer*/
+
 export default Ember.Component.extend(AnimateMixin, {
   tagName: 'md-toast',
   classNames: ['md-default-theme'],
