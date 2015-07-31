@@ -8,39 +8,76 @@
 {{/paper-toolbar}}
 {{#paper-content classNames="md-padding"}}
     <div class="doc-content" style="min-height: 448px; position: relative; overflow: hidden;">
-        <div layout-fill layout="column">
-            <div layout="row" layout-sm="column" layout-align="space-around" style="margin-top: 60px;">
-              {{#paper-button action="openToastLeftBottom"}}
-                  Open in left bottom
-              {{/paper-button}}
-              {{#paper-button action="openToast"}}
-                  Open toast
-              {{/paper-button}}
-              {{#paper-button action="openToastDelayed"}}
-                  Delayed hide
-              {{/paper-button}}
-            </div>
+        <h3>Basic Usage</h3>
+        <p>Toast can be dismissed with a swipe, a timer, or a button.</p>
+      {{#paper-button classNames="md-fab md-fab-top-right"}}FAB{{/paper-button}}
+
+      <!-- some toasts -->
+
+      {{#if isOpenCustom}}
+        {{#paper-toast
+        on-close="closeCustom"
+        left=left right=right top=top bottom=bottom as |toast|}}
+            <span flex="">Custom template</span>
+          {{#paper-button warn=true action="closeCustom"}}Close{{/paper-button}}
+        {{/paper-toast}}
+      {{/if}}
+
+      {{#if isOpenDelayed}}
+        {{paper-toast hide-delay=4000
+        on-close="closeDelayed"
+        on-button="closeDelayed"
+        button="Close this"
+        message="I'm removed within 4 seconds!!"
+        left=left right=right top=top bottom=bottom}}
+      {{/if}}
+
+      {{#if isOpenBasic}}
+        {{paper-toast
+        on-close="closeBasic"
+        on-button="closeBasic"
+        button="Close this"
+        left=left right=right top=top bottom=bottom
+        message=basicMessage}}
+      {{/if}}
 
 
-          {{#if myToastOpen}}
-            {{#paper-toast top=true right=true as |toast|}}
-                <span flex="">Custom toast!</span>
-              {{#paper-button action="closeToast"}}Close{{/paper-button}}
-            {{/paper-toast}}
-          {{/if}}
+      {{#if isFabBottom}}
+        {{paper-toast
+        on-close="closeFabBottom"
+        on-button="alertSomething"
+        button="Close this"
+        bottom=true right=true
+        message="Some message here."}}
+      {{/if}}
+
+      <!-- toasts end -->
 
 
-          {{#if isDelayedToastOpen}}
-            {{paper-toast hide-delay=4000 on-close="closeToastDelayed" on-button="closeToastDelayed" top=true right=true button="Close this" message="I'm removed within 4 seconds!!"}}
-          {{/if}}
+      <div layout-fill layout="column">
+          <div layout="row" layout-sm="column" layout-align="space-around" style=" padding: 0 50px 0 50px;">
+            {{#paper-button action="openBasic"}}
+                Basic
+            {{/paper-button}}
+            {{#paper-button action="openCustom"}}
+                Custom template
+            {{/paper-button}}
+            {{#paper-button action="openDelayed"}}
+                Delayed
+            {{/paper-button}}
+          </div>
+
+      </div>
+
+      <h3>Position</h3>
+      {{#paper-checkbox checked=bottom}}Bottom{{/paper-checkbox}}
+      {{#paper-checkbox checked=left}}Left{{/paper-checkbox}}
+      {{#paper-checkbox checked=right}}Right{{/paper-checkbox}}
+      {{#paper-checkbox checked=top}}Top{{/paper-checkbox}}
 
 
 
-          {{#if leftBottom}}
-            {{paper-toast on-button="closeToastLeftBottom" left=true bottom=true button="Close this" message=leftBottomMessage}}
-          {{/if}}
+      {{#paper-button action="openFabBottom" primary=true classNames="md-fab md-fab-bottom-right"}}FAB{{/paper-button}}
 
-
-        </div>
     </div>
 {{/paper-content}}

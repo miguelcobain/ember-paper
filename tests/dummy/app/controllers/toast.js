@@ -2,25 +2,40 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
+  left: false,
+  right: true,
+  top: true,
+  bottom: false,
+
+
   actions: {
-    openToast: function () {
-      this.set('myToastOpen', true);
+    openCustom: function () {
+      this.set('isOpenCustom', true);
     },
-    closeToast: function () {
-      this.set('myToastOpen', false);
+    closeCustom: function () {
+      this.set('isOpenCustom', false);
     },
-    openToastDelayed: function () {
-      this.set('isDelayedToastOpen', true);
+    openDelayed: function () {
+      this.set('isOpenDelayed', true);
     },
-    closeToastDelayed: function () {
-      this.set('isDelayedToastOpen', false);
+    closeDelayed: function () {
+      this.set('isOpenDelayed', false);
     },
-    openToastLeftBottom: function () {
-      this.set('leftBottomMessage', 'Hello World!');
-      this.set('leftBottom', true);
+    openBasic: function () {
+      this.set('basicMessage', 'Hello World!');
+      this.set('isOpenBasic', true);
     },
-    closeToastLeftBottom: function () {
-      this.set('leftBottom', false);
+    closeBasic: function () {
+      this.set('isOpenBasic', false);
+    },
+    openFabBottom: function () {
+      this.set('isFabBottom', true);
+    },
+    closeFabBottom: function () {
+      this.set('isFabBottom', false);
+    },
+    alertSomething: function () {
+      alert("Clicked action");
     }
   }
 });
