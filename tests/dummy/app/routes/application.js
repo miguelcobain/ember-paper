@@ -19,6 +19,13 @@ export default Ember.Route.extend({
     },
     alertValue(value) {
       alert('You clicked Radio button: ' + value);
-    }
+    },
+    openGlobalToast: function (msg) {
+      this.controller.set('globalToastMessage', msg);
+      this.controller.set('isOpenGlobalToast', true);
+    },
+    closeGlobalToast: function () {
+      this.controller.set('isOpenGlobalToast', false);
+    },
   }
 });
