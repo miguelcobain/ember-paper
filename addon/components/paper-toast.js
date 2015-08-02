@@ -10,6 +10,8 @@ export default Ember.Component.extend(AnimateMixin, {
   animated: true,
   'align-fab': true,
 
+  // right,left,bottom and top should only be given once. Therefor we use a computed for each so that they can
+  // never change once initially provided.
   _right: Ember.computed(function () { return this.get('right'); }),
   _left: Ember.computed(function () { return this.get('left'); }),
   _bottom: Ember.computed(function () { return this.get('bottom'); }),
