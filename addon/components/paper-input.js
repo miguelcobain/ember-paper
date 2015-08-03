@@ -7,6 +7,7 @@ export default BaseFocusable.extend(ColorMixin, {
   classNames: ['md-default-theme'],
   classNameBindings: ['hasValue:md-input-has-value', 'focus:md-input-focused', 'isInvalid:md-input-invalid'],
   type: 'text',
+  autofocus: false,
   tabindex: -1,
   hasValue: Ember.computed.notEmpty('value'),
   inputElementId: Ember.computed('elementId', function() {
