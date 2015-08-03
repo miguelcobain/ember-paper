@@ -1,36 +1,35 @@
-<md-autocomplete-wrap id="{{autocompleteWrapperId}}" role="listbox" layout="row" class="{{wrapperClasses}}">
+<md-autocomplete-wrap id="{{autocompleteWrapperId}}" role="listbox" layout="row" class="{{if notFloating "md-whiteframe-z1"}} {{if notHidden "md-menu-showing"}}">
   {{#if floating}}
     {{paper-input
-    type="search"
-    label=placeholder
-    focus-in="inputFocusIn"
-    focus-out="inputFocusOut"
-    key-down="inputKeyDown"
-    value=searchText
-    disabled=disabled
-    required=required
-    flex=true
-    }}
+      type="search"
+      label=placeholder
+      focus-in="inputFocusIn"
+      focus-out="inputFocusOut"
+      key-down="inputKeyDown"
+      value=searchText
+      disabled=disabled
+      required=required
+      flex=true}}
   {{else}}
     {{input type="search"
-    flex=true
-    placeholder=placeholder
-    value=searchText
-    focus-in="inputFocusIn"
-    focus-out="inputFocusOut"
-    key-down="inputKeyDown"
-    autocomplete="off"
-    disabled=disabled
-    required=required
-    aria-haspopup=true
-    aria-autocomplete="list"
-    aria-activedescendant=""
-    aria-expanded=notHidden
-    }}
-
+      flex=true
+      placeholder=placeholder
+      value=searchText
+      focus-in="inputFocusIn"
+      focus-out="inputFocusOut"
+      key-down="inputKeyDown"
+      autocomplete="off"
+      disabled=disabled
+      required=required
+      aria-haspopup=true
+      aria-autocomplete="list"
+      aria-activedescendant=""
+      aria-expanded=notHidden}}
 
     {{#if enableClearButton}}
-      {{#paper-button icon-button=true themed=false action="clear"}}{{paper-icon icon="close"}}{{/paper-button}}
+      {{#paper-button icon-button=true themed=false classNames="ng-enter ng-enter-active" action="clear"}}
+        {{paper-icon icon="close"}}
+      {{/paper-button}}
     {{/if}}
 
   {{/if}}
@@ -40,7 +39,7 @@
   {{/if}}
 
 
-  {{#paper-autocomplete-list  suggestions=suggestions hidden=hidden selectedIndex=selectedIndex wrapToElementId=autocompleteWrapperId mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter"}}
+  {{#paper-autocomplete-list hidden=hidden selectedIndex=selectedIndex wrapToElementId=autocompleteWrapperId mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter"}}
     {{#each suggestions as |item index|}}
       {{#paper-autocomplete-item lookupKey=lookupKey item=item selectedIndex=selectedIndex index=index pick="pickModel" as |label|}}
         {{#if hasBlock}}

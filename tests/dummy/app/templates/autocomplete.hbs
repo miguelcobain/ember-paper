@@ -16,19 +16,19 @@
   <blockquote>Use <code>\{{paper-autocomplete}}</code> to search for matches from local or remote data sources.</blockquote>
 
   {{paper-autocomplete
-  disabled=firstDisabled
-  placeholder="Select a Country ..."
-  notFoundMessage='Oops country: "%@" doesn\'t exist here.'
-  source=items lookupKey="name"
-  model=myModel}}
-    <p>Selected country is
-      {{#if myModel}}
-        {{myModel.name}}
-          ({{myModel.code}})
-      {{else}}
-          Nothing selected...
-      {{/if}}
-    </p>
+    disabled=firstDisabled
+    placeholder="Select a Country ..."
+    notFoundMessage="Oops country: \"%@\" doesn't exist here."
+    source=items lookupKey="name"
+    model=myModel}}
+  <p>Selected country is
+    {{#if myModel}}
+      {{myModel.name}}
+        ({{myModel.code}})
+    {{else}}
+        Nothing selected...
+    {{/if}}
+  </p>
   {{#paper-checkbox checked=firstDisabled}}Disable input{{/paper-checkbox}}
 
 
@@ -38,7 +38,7 @@
 \{{paper-autocomplete
     disabled=firstDisabled
     placeholder="Select a Country ..."
-    notFoundMessage='Oops country: "%@" doesn\'t exist here.'
+    notFoundMessage="Oops country: \"%@\" doesn't exist here."
     source=items lookupKey="name"
     model=myModel}}{{/code-block}}
 
@@ -60,21 +60,21 @@
 
 {{#paper-card}}
 {{#paper-card-content}}
-    <h2>Promise of data / AJAX</h2>
-    <blockquote>You may pass a callback to the source attribute, this callback takes the searchText as an argument and must
-    return a promise. This means that it works with e.g. jQuery's "$.getJSON" or Ember Data. When dealing with AJAX the <code>delay</code> attribute
-    is recommended to use to set a delay for the search to start.
-    </blockquote>
+  <h2>Promise of data / AJAX</h2>
+  <blockquote>You may pass a callback to the source attribute, this callback takes the searchText as an argument and must
+  return a promise. This means that it works with e.g. jQuery's "$.getJSON" or Ember Data. When dealing with AJAX the <code>delay</code> attribute
+  is recommended to use to set a delay for the search to start.
+  </blockquote>
 
-    {{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel}}
-    <p>You have selected:
-      {{#if otherModel}}
-        {{otherModel.name}}
-          ({{otherModel.id}})
-      {{else}}
-          No Item Selected.
-      {{/if}}
-    </p>
+  {{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel updateFilter="updateFilter"}}
+  <p>You have selected:
+    {{#if otherModel}}
+      {{otherModel.name}}
+        ({{otherModel.id}})
+    {{else}}
+        No Item Selected.
+    {{/if}}
+  </p>
 
 <h3>Template</h3>
 {{#code-block language='handlebars'}}

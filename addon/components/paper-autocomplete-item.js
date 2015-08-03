@@ -7,16 +7,15 @@ export default Ember.Component.extend({
   tabindex: 0,
   role: 'option',
 
-
-  label: Ember.computed('item',function () {
+  label: Ember.computed('item', function() {
     return this.lookupLabelOfItem(this.get('item'));
   }),
 
-  isSelected: Ember.computed('selectedIndex', function () {
+  isSelected: Ember.computed('selectedIndex', function() {
     return this.get('selectedIndex') === this.get('index');
   }),
 
-  lookupLabelOfItem (model) {
+  lookupLabelOfItem(model) {
     var value;
     if (this.get('lookupKey')) {
       value = model[this.get('lookupKey')];
@@ -26,9 +25,7 @@ export default Ember.Component.extend({
     return value;
   },
 
-
-
-  click () {
+  click() {
     this.sendAction('pick', this.get('item'));
   }
 });

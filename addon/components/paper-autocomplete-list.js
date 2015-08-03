@@ -14,22 +14,21 @@ export default Ember.Component.extend({
   stickToElement: null,
 
   hidden: true,
-
-
   isVisible: Ember.computed.not('hidden'),
 
-  mouseEnter () {
+  mouseEnter() {
     this.sendAction('mouse-enter');
   },
-  mouseLeave () {
+
+  mouseLeave() {
     this.sendAction('mouse-leave');
   },
-  mouseUp () {
+
+  mouseUp() {
     this.sendAction('mouse-up');
   },
 
-
-  hideSuggestionObserver: Ember.observer('hidden', function () {
+  hideSuggestionObserver: Ember.observer('hidden', function() {
     if (this.get('hidden') === true) {
       this.get('util').enableScrolling();
     } else {
@@ -38,8 +37,7 @@ export default Ember.Component.extend({
     }
   }),
 
-
-  positionDropdown () {
+  positionDropdown() {
     var hrect  = Ember.$('#' + this.get('wrapToElementId'))[0].getBoundingClientRect(),
       vrect  = hrect,
       root   = document.body.getBoundingClientRect(),
@@ -80,7 +78,7 @@ export default Ember.Component.extend({
   },
 
 
-  observeIndex: Ember.observer('selectedIndex', function () {
+  /*observeIndex: Ember.observer('selectedIndex', function () {
     var suggestions = this.get('suggestions');
     if (!suggestions[this.get('selectedIndex')]) {
       return;
@@ -96,7 +94,7 @@ export default Ember.Component.extend({
     } else if (bot > ul[0].scrollTop + hgt) {
       ul[0].scrollTop = bot - hgt;
     }
-  }),
+  }),*/
 
   resizeWindowEvent ()  {
     this.positionDropdown();

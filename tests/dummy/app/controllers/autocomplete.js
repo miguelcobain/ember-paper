@@ -5,6 +5,8 @@ export default Ember.Controller.extend({
 
   myModel: {name: 'United States', code: 'US'},
 
+  searchText: '',
+
   /**
    * This is a sample of data loaded dynamically.
    * Here we use a fake promise, but this can come directly from the ember-data filter API or e.g. jQuery $.getJSON
@@ -12,8 +14,10 @@ export default Ember.Controller.extend({
    * @param searchText Search text from the autocomplete API. Lower cased version.
    * @returns {Promise}
    */
-  dataFromPromise: function (searchText) {
-    var _self = this;
+  dataFromPromise: Ember.computed(function() {
+    var searchText = this.get('searchText');
+
+    console.log('Fetching records for ' + searchText);
 
     var SOME_DATA_FROM_API = Ember.A([
       {name: 'Computer', id: 1},
@@ -24,20 +28,25 @@ export default Ember.Controller.extend({
     ]);
 
     // Can also come from e.g. this.store('countries').filter({text: searchText}).then( ... );
-    return new Ember.RSVP.Promise(function(resolve) {
+    return new Ember.RSVP.Promise(resolve => {
       // Just wait for 800ms to 2 seconds for a fake progress, so it feels like a query.
       var waitMS = Math.floor(Math.random() * 1000) + 800;
 
-      Ember.run.later(_self, function() {
+      Ember.run.later(this, function() {
         var result = SOME_DATA_FROM_API.filter(function (item) {
-          return item.name.toLowerCase().indexOf(searchText) === 0;
+          return item.name.toLowerCase().indexOf(searchText.toLowerCase()) === 0;
         });
-        resolve(result);
+        resolve(Ember.A(result));
       }, waitMS);
 
     });
-  },
+  }),
 
+  actions: {
+    updateFilter(str) {
+      this.set('searchText', str);
+    }
+  },
 
   arrayOfItems: ['Ember', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'],
 
