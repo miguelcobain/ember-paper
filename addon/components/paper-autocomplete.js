@@ -156,10 +156,11 @@ export default Ember.Component.extend(HasBlockMixin, {
     var lookupKey = this.get('lookupKey');
     var searchText = (this.get('debouncedSearchText') || '').toLowerCase();
     var cachedItems = this.cacheGet(searchText);
+    var suggestions;
 
     if (cachedItems) {
       //We have cached results
-      return cachedItems;
+      suggestions = cachedItems;
     } else {
       //no cache
 
@@ -168,8 +169,14 @@ export default Ember.Component.extend(HasBlockMixin, {
         //cache when we have a PromiseArray
         this.cacheSet(searchText, data);
       }
-      return Ember.A(data);
+      suggestions = Ember.A(data);
     }
+    // If we have no item suggestions, and allowNonExisting is enabled
+    // We need to close the paper-autocomplete-list so all mouse events get activated again.
+    if (suggestions.length === 0 && this.get('allowNonExisting')){
+      this.set('hidden', true);
+    }
+    return suggestions;
   }).readOnly(),
 
 
