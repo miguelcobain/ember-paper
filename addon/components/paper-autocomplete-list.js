@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
+//TODO Move to constants?
 var ITEM_HEIGHT = 41,
   MAX_HEIGHT = 5.5 * ITEM_HEIGHT,
   MENU_PADDING = 8;
@@ -37,6 +38,7 @@ export default Ember.Component.extend({
     }
   }),
 
+  //TODO reafactor into a computed property that binds directly to dropdown's `style`
   positionDropdown() {
     var hrect  = Ember.$('#' + this.get('wrapToElementId'))[0].getBoundingClientRect(),
       vrect  = hrect,
@@ -46,7 +48,7 @@ export default Ember.Component.extend({
       left   = hrect.left - root.left,
       width  = hrect.width,
       styles = {
-        left:     left + 'px',
+        left: left + 'px',
         minWidth: width + 'px',
         maxWidth: Math.max(hrect.right - root.left, root.right - hrect.left) - MENU_PADDING + 'px'
       },
@@ -69,7 +71,7 @@ export default Ember.Component.extend({
      */
     function correctHorizontalAlignment () {
       var dropdown = ul[0].getBoundingClientRect(),
-        styles   = {};
+        styles = {};
       if (dropdown.right > root.right - MENU_PADDING) {
         styles.left = (hrect.right - dropdown.width) + 'px';
       }
@@ -77,10 +79,9 @@ export default Ember.Component.extend({
     }
   },
 
-
-  /*observeIndex: Ember.observer('selectedIndex', function () {
+  observeIndex: Ember.observer('selectedIndex', function() {
     var suggestions = this.get('suggestions');
-    if (!suggestions[this.get('selectedIndex')]) {
+    if (!suggestions || !suggestions.objectAt(this.get('selectedIndex'))) {
       return;
     }
 
@@ -94,29 +95,24 @@ export default Ember.Component.extend({
     } else if (bot > ul[0].scrollTop + hgt) {
       ul[0].scrollTop = bot - hgt;
     }
-  }),*/
+  }),
 
-  resizeWindowEvent ()  {
+  resizeWindowEvent() {
     this.positionDropdown();
   },
 
+  didInsertElement() {
+    this._super(...arguments);
 
-  didInsertElement () {
-    var _self = this;
+    //TODO refactor using ember-wormhole?
     var ul = this.$().detach();
     Ember.$('body').append(ul);
-
-    this.set('___resizeFunction', function () {
-      _self.positionDropdown();
-    });
-    Ember.$(window).on('resize', this.get('___resizeFunction'));
+    Ember.$(window).on('resize', Ember.run.bind(this, this.resizeWindowEvent));
   },
-  willDestroyElement () {
-    Ember.$(window).off('resize',this.get('___resizeFunction'));
+
+  willDestroyElement() {
+    Ember.$(window).off('resize');
     this.get('util').enableScrolling();
   }
-
-
-
 
 });

@@ -16,13 +16,7 @@ export default Ember.Component.extend({
   }),
 
   lookupLabelOfItem(model) {
-    var value;
-    if (this.get('lookupKey')) {
-      value = model[this.get('lookupKey')];
-    } else {
-      value = model;
-    }
-    return value;
+    return this.get('lookupKey') ? Ember.get(model, this.get('lookupKey')) : model;
   },
 
   click() {

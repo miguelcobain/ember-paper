@@ -60,13 +60,15 @@
 
 {{#paper-card}}
 {{#paper-card-content}}
-  <h2>Promise of data / AJAX</h2>
-  <blockquote>You may pass a callback to the source attribute, this callback takes the searchText as an argument and must
-  return a promise. This means that it works with e.g. jQuery's "$.getJSON" or Ember Data. When dealing with AJAX the <code>delay</code> attribute
-  is recommended to use to set a delay for the search to start.
+  <h2>Promise support</h2>
+  <blockquote>You may pass a promise to the <code>source</code> attribute. This means you can use Ember Data async relationships directly, for example.
+    You can even use a computed property that returns a promise.
+    When dealing with Promises that possibly hit the server, the <code>delay</code> attribute is recommended to set a delay for the search to start.
+    This way we avoid unecessary requests while the user types.
+    Promise values are cached unless <code>noCache</code> is <code>true</code>.
   </blockquote>
 
-  {{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel updateFilter="updateFilter"}}
+  {{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel cache-miss="updateFilter"}}
   <p>You have selected:
     {{#if otherModel}}
       {{otherModel.name}}
@@ -77,28 +79,29 @@
   </p>
 
 <h3>Template</h3>
-{{#code-block language='handlebars'}}
-\{{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel}}{{/code-block}}
-
-
+{{#code-block language="handlebars"}}
+\{{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel cache-miss="updateFilter"}}{{/code-block}}
 
 <h3>Javascript (Ember-data)</h3>
 <p>
-    In the above template we use the variable <code>dataFromPromise</code>, in your controller you would want to
-    define a function that returns a promise. Here is a sample configuration that would work if you have a
-    country model in the store with a name attribute:
+    In the above template we use the variable <code>dataFromPromise</code> which is a computed property that returns a promise.
+    We are also using the <code>cache-miss</code> action to update our computed property.
+    Here is a sample configuration:
 </p>
-{{#code-block language='javascript'}}
+{{#code-block language="javascript"}}
   ...
   // searchText is received from the autocomplete component, this is what the user typed in the input field.
-  dataFromPromise: function (searchText) {
-    // First param is the name of the model
-    // Second param is sent to the server, so server needs to support the "search" param
-    // Third param is local lookup of cached results.
-    return this.store.filter('country', { search: searchText + '%' }, function(countryObject) {
-      return countryObject.get('name').toLowerCase().indexOf(searchText) === 0;
+  dataFromPromise: Ember.computed('filterText', function() {
+    let filterText = this.get('filterText');
+    return this.store.query('country', {
+      name: filterText
     });
-  },
+  }),
+  actions: {
+    updateFilter(str) {
+      this.set('filterText', str);
+    }
+  }
   ...{{/code-block}}
 
 
@@ -106,23 +109,20 @@
 {{/paper-card-content}}
 {{/paper-card}}
 
-
-
 {{#paper-card}}
 {{#paper-card-content}}
-    <h2>Custom template</h2>
+    <h2>Block Custom template</h2>
     <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results. In this example we also use <code>minLength=0</code> which allow to see all results if input is empty.</blockquote>
 
-    {{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |section item index searchText|}}
-      {{#if section.isItemTemplate}}
-          <span class="item-title">
-          {{paper-icon icon="star"}}
-          <span>{{paper-autocomplete-highlight searchText=searchText label=item}} (index {{index}} )</span>
-          </span>
-      {{else if section.isNotFoundTemplate}}
-          Whoops! Could not find "{{searchText}}".
-      {{/if}}
+    {{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |searchText item index|}}
+      <span class="item-title">
+      {{paper-icon icon="star"}}
+      <span>{{paper-autocomplete-highlight searchText=searchText label=item}} (index {{index}} )</span>
+      </span>
+    {{else}}
+      Whoops! Could not find "{{searchText}}".
     {{/paper-autocomplete}}
+
     <p>Selected thing was:
       {{#if fourthModel}}
         {{fourthModel}}
@@ -131,40 +131,56 @@
       {{/if}}
     </p>
 
-
-
 <h3>Template</h3>
-{{#code-block language='handlebars'}}
-\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |section item index searchText|}}}
-  \{{#if section.isItemTemplate}}
-    &lt;span class="item-title"&gt;
-      \{{paper-icon icon="star"}}
-    &lt;span&gt; \{{paper-autocomplete-highlight searchText=searchText label=item}} &lt;/span&gt;
-    &lt;/span&gt;
-  \{{else if section.isNotFoundTemplate}}
-    Whoops! Could not find "\{{searchText}}".
-  \{{/if}}
+{{#code-block language="handlebars"}}
+\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index searchText|}}}
+  &lt;span class="item-title"&gt;
+    \{{paper-icon icon="star"}}
+  &lt;span&gt; \{{paper-autocomplete-highlight searchText=searchText label=item}} &lt;/span&gt;
+  &lt;/span&gt;
+\{{else}}
+  Whoops! Could not find "\{{searchText}}".
 \{{/paper-autocomplete}}{{/code-block}}
 
-<p>The  custom template receives <strong>4 block parameters</strong> (section, item, index  and searchText).
+<p>The custom template receives <strong>3 block parameters</strong> (searchText, item and index).
 </p>
 
 <ul>
-    <li><strong>section</strong> Use to select what template you are overriding. Supported are:
-    <code>section.isItemTemplate</code> and <code>section.isNotFoundTemplate</code>.
-    </li>
-    <li><strong>item</strong> This is the item directly from the source array. If it is an object you would forexample
-    need to reference it with <code>\{{item.name}}</code>. If <code>isNotFoundTemplate</code> is true, item is always <code>null</code>.
-    </li>
-    <li><strong>index</strong> This is the index of the suggestions that are currently in the list. This is always
-    <em>0</em> when <code>isNotFoundTemplate</code> is true.
-    </li>
-    <li><strong>searchText</strong> This is the original searchText from the user.
-    </li>
+  <li><strong>searchText</strong> This is the original searchText from the user.</li>
+  <li><strong>item</strong> This is the item directly from the source array. If it is an object you would forexample
+  need to reference it with <code>\{{item.name}}</code>. Not defined in the inverse template.</li>
+  <li><strong>index</strong> This is the index of the suggestions that are currently in the list. Not defined in the inverse template.</li>
 </ul>
 
+<h2>Blockless Custom template</h2>
+<p>Alternatively you can use the blockless/named componend approach which produces the same result:</p>
 
+{{paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModelB
+    itemComponent="example-item" notFoundComponent="not-found"}}
 
+<p>Selected thing was:
+  {{#if fourthModelB}}
+    {{fourthModelB}}
+  {{else}}
+    Nothing selected...
+  {{/if}}
+</p>
+
+<h3>Template</h3>
+{{#code-block language="handlebars"}}
+\{{paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModelB
+    itemComponent="example-item" notFoundComponent="not-found"}}{{/code-block}}
+
+{{#code-block language="handlebars"}}
+\{{!-- app/templates/components/not-found.hbs --}}
+Whoops! Could not find "\{{searchText}}".{{/code-block}}
+
+{{#code-block language="handlebars"}}
+\{{!-- app/templates/components/example-item.hbs --}}
+&lt;span class="item-title"&gt;
+  \{{paper-icon icon="star"}}
+  &lt;span&gt;\{{paper-autocomplete-highlight searchText=searchText label=item}} (index \{{index}} )&lt;/span&gt;
+&lt;/span&gt;{{/code-block}}
 
 {{/paper-card-content}}
 {{/paper-card}}
@@ -174,21 +190,18 @@
 
 {{#paper-card}}
 {{#paper-card-content}}
-    <h2>Floating Label</h2>
-    <blockquote>The following example demonstrates floating labels being used as a normal form element.</blockquote>
-    {{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" model=thirdModel}}
-    <p>Selected country is
-      {{#if thirdModel}}
-        {{thirdModel.name}}
-          ({{thirdModel.code}})
-      {{else}}
-          Nothing selected...
-      {{/if}}
-    </p>
-
-
+  <h2>Floating Label</h2>
+  <blockquote>The following example demonstrates floating labels being used as a normal form element.</blockquote>
+  {{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" model=thirdModel}}
+  <p>Selected country is
+    {{#if thirdModel}}
+      {{thirdModel.name}} ({{thirdModel.code}})
+    {{else}}
+      Nothing selected...
+    {{/if}}
+  </p>
 <h3>Template</h3>
-{{#code-block language='handlebars'}}
+{{#code-block language="handlebars"}}
 \{{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" model=thirdModel}}{{/code-block}}
 
 {{/paper-card-content}}
@@ -198,86 +211,115 @@
 <h2>Attributes for paper-autocomplete</h2>
 
 <table>
-    <thead>
+  <thead>
     <tr>
-        <th>Attribute</th>
-        <th>Type</th>
-        <th>Description</th>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Description</th>
     </tr>
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
     <tr>
-        <td>source</td>
-        <td>mixed</td>
-        <td>The <code>source</code> attribute is used to look up possible suggestions for the autocomplete.
-          The source attribute accepts:
-        <ul>
-            <li><strong>Array of strings:</strong> Simple array of strings. Example: <code>['One', 'Two']</code></li>
-            <li><strong>Function:</strong> A function that returns a promise. This is useful if you want to fetch suggestions from the server-side with e.g. Ember-data or jQuery's $.ajax method. The search string is passed as the first parameter to this function.</li>
-            <li><strong>Array of objects:</strong> If you pass array of objects, paper-autocomplete needs to know what key in each object to search in. Use in combination with <code>lookupKey</code>. Example if you have provided <code>[{id: 1, name="Car"}]</code> as source, you will also need to configure the lookupKey to <code>lookupKey="name"</code>.</li>
-        </ul>
-        </td>
-    </tr>
-    <tr>
-        <td>model</td>
-        <td>mixed</td>
-        <td>When a user selects item from the suggestions, model will be set and updated. Provide a model so you can do something about the value when user clicks the item.</td>
+      <td>source</td>
+      <td>mixed</td>
+      <td>The <code>source</code> attribute is used to look up possible suggestions for the autocomplete.
+        The source attribute accepts:
+      <ul>
+          <li><strong>Array of strings:</strong> Simple array of strings. Example: <code>['One', 'Two']</code></li>
+          <li><strong>Promise:</strong> This is useful if you want to fetch suggestions from the server with e.g. Ember-data or jQuery's $.ajax method. The action <code>cacheMiss</code> may be useful to update the promise. See promise example above.</li>
+          <li><strong>Array of objects:</strong> If you pass array of objects, paper-autocomplete needs to know what key in each object to search in. Use in combination with <code>lookupKey</code>. Example if you have provided <code>[{id: 1, name="Car"}]</code> as source, you will also need to configure the lookupKey to <code>lookupKey="name"</code>.</li>
+      </ul>
+      </td>
     </tr>
     <tr>
-        <td>placeholder</td>
-        <td>string</td>
-        <td>Sets a placeholder for the autocomplete input field.</td>
+      <td>model</td>
+      <td>mixed</td>
+      <td>When a user selects item from the suggestions, model will be set and updated. Provide a model so you can do something about the value when user clicks the item.</td>
     </tr>
     <tr>
-        <td>minLength</td>
-        <td>integer</td>
-        <td>Sets how many characters the user must type before the autocomplete gives suggestions. Default is <code>1</code>.</td>
+      <td>placeholder</td>
+      <td>string</td>
+      <td>Sets a placeholder for the autocomplete input field.</td>
     </tr>
     <tr>
-        <td>delay</td>
-        <td>integer</td>
-        <td>The delay attribute lets you configure how many milliseconds to wait before we trigger a search, this is
-            useful to avoid mass sending HTTP requests to your backend if you are using Function based source with
-            AJAX calls. Somewhere around <em>300 ms</em> is good.</td>
+      <td>minLength</td>
+      <td>integer</td>
+      <td>Sets how many characters the user must type before the autocomplete gives suggestions. Default is <code>1</code>.</td>
     </tr>
     <tr>
-        <td>noCache</td>
-        <td>boolean</td>
-        <td>Only effective if you use promise as source. This disables the cache of promise loaded suggestions. By default they are cached when loaded the first time.</td>
+      <td>delay</td>
+      <td>integer</td>
+      <td>The delay attribute lets you configure how many milliseconds to wait before we trigger a search, this is
+          useful to avoid mass sending HTTP requests to your backend if you are using Function based source with
+          AJAX calls. Somewhere around <em>300 ms</em> is good.</td>
     </tr>
     <tr>
-        <td>floating</td>
-        <td>boolean</td>
-        <td>Makes the autocomplete field a normal input field with floating labels.</td>
+      <td>noCache</td>
+      <td>boolean</td>
+      <td>Only effective if you use promise as source. This disables the cache of promise loaded suggestions. By default they are cached when loaded the first time.</td>
     </tr>
     <tr>
-        <td>autoselect</td>
-        <td>boolean</td>
-        <td>When suggestions is being displayed, by default when autoselect is true it will select the first element as selected. Default is false.</td>
+      <td>floating</td>
+      <td>boolean</td>
+      <td>Makes the autocomplete field a normal input field with floating labels.</td>
     </tr>
     <tr>
-        <td>disabled</td>
-        <td>boolean</td>
-        <td>Disables the autocomplete.</td>
+      <td>autoselect</td>
+      <td>boolean</td>
+      <td>When suggestions is being displayed, by default when autoselect is true it will select the first element as selected. Default is false.</td>
     </tr>
     <tr>
-        <td>required</td>
-        <td>boolean</td>
-        <td>Makes the autocomplete a required field.</td>
+      <td>disabled</td>
+      <td>boolean</td>
+      <td>Disables the autocomplete.</td>
     </tr>
     <tr>
-        <td>allowNonExisting</td>
-        <td>boolean</td>
-        <td>allowNonExisting is useful for search boxes. It allows to use items that are not in the autocomplete selection. If you type e.g. "Chees" the model will also be set to "Chees".</td>
+      <td>required</td>
+      <td>boolean</td>
+      <td>Makes the autocomplete a required field.</td>
     </tr>
     <tr>
-        <td>notFoundMessage</td>
-        <td>string</td>
-        <td>The message to display if no items was found. Default is: <code>No matches found for "%@".</code>. The <code>%@</code> part will be replaced by the users input.</td>
+      <td>allowNonExisting</td>
+      <td>boolean</td>
+      <td>allowNonExisting is useful for search boxes. It allows to use items that are not in the autocomplete selection. If you type e.g. "Chees" the model will also be set to "Chees".</td>
     </tr>
-    </tbody>
+    <tr>
+      <td>notFoundMessage</td>
+      <td>string</td>
+      <td>The message to display if no items was found. Default is: <code>No matches found for "%@".</code>. The <code>%@</code> part will be replaced by the users input.</td>
+    </tr>
+  </tbody>
 </table>
 
 
-  </div>
+</div>
+
+<h2>Actions for paper-autocomplete</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>update-filter</td>
+      <td>Triggered as soon as the filter changes. Has <code>searchText</code> as a parameter.</td>
+    </tr>
+    <tr>
+      <td>debounced-update-filter</td>
+      <td>Triggered <code>delay</code>ms after the filter changes. Has <code>searchText</code> as a parameter.</td>
+    </tr>
+    <tr>
+      <td>cache-miss</td>
+      <td>Triggered <code>delay</code>ms after the filter changes <strong>and</strong> there arent't any cached results for this text. Has <code>searchText</code> as a parameter.</td>
+    </tr>
+    <tr>
+      <td>cache-hit</td>
+      <td>Triggered <code>delay</code>ms after the filter changes <strong>and</strong> there are cached results for this text. Has <code>searchText</code> as a parameter.</td>
+    </tr>
+  </tbody>
+</table>
 {{/paper-content}}

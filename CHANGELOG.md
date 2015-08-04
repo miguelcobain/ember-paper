@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 0.2.7 (Aug 04, 2015)
+- [#132](https://github.com/miguelcobain/ember-paper/pull/132) Added autocomplete component.
+
 ### 0.2.6 (Jul 20, 2015)
 
 - [#135](https://github.com/miguelcobain/ember-paper/pull/135) Fix deprecation bug in linear progress indicator.

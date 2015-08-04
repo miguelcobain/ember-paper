@@ -1,8 +1,14 @@
 import Ember from 'ember';
 
+var SOME_DATA_FROM_API = Ember.A([
+  {name: 'Computer', id: 1},
+  {name: 'Ham', id: 2},
+  {name: 'Unfair', id: 3},
+  {name: 'Ram', id: 4},
+  {name: 'Test', id: 5},
+]);
+
 export default Ember.Controller.extend({
-
-
   myModel: {name: 'United States', code: 'US'},
 
   searchText: '',
@@ -14,20 +20,10 @@ export default Ember.Controller.extend({
    * @param searchText Search text from the autocomplete API. Lower cased version.
    * @returns {Promise}
    */
-  dataFromPromise: Ember.computed(function() {
+  dataFromPromise: Ember.computed('searchText', function() {
     var searchText = this.get('searchText');
 
-    console.log('Fetching records for ' + searchText);
-
-    var SOME_DATA_FROM_API = Ember.A([
-      {name: 'Computer', id: 1},
-      {name: 'Ham', id: 2},
-      {name: 'Unfair', id: 3},
-      {name: 'Ram', id: 4},
-      {name: 'Test', id: 5},
-    ]);
-
-    // Can also come from e.g. this.store('countries').filter({text: searchText}).then( ... );
+    // Can also come from e.g. this.store.query('country', {text: searchText}).then( ... );
     return new Ember.RSVP.Promise(resolve => {
       // Just wait for 800ms to 2 seconds for a fake progress, so it feels like a query.
       var waitMS = Math.floor(Math.random() * 1000) + 800;
