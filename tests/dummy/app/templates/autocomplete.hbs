@@ -21,9 +21,9 @@
     notFoundMessage="Oops country: \"%@\" doesn't exist here."
     source=items lookupKey="name"
     model=myModel}}
-  <p>Selected country is
+  <p>
     {{#if myModel}}
-      {{myModel.name}}
+      Selected country is {{myModel.name}}
         ({{myModel.code}})
     {{else}}
         Nothing selected...
@@ -46,11 +46,11 @@
     <blockquote>Use attribute <code>allowNonExisting=true</code> for the autocomplete to allow setting model to non existing items in the autocomplete. This is useful for search boxes.</blockquote>
 
   {{paper-autocomplete minLength=0 allowNonExisting=true placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=sixthModel}}
-  <p>Selected thing was:
+  <p>
     {{#if sixthModel}}
-      {{sixthModel}}
+      Selected thing was: {{sixthModel}}
     {{else}}
-      Nothing ...
+      Nothing is selected...
     {{/if}}
   </p>
 
@@ -69,10 +69,9 @@
   </blockquote>
 
   {{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel cache-miss="updateFilter"}}
-  <p>You have selected:
+  <p>
     {{#if otherModel}}
-      {{otherModel.name}}
-        ({{otherModel.id}})
+      You have selected: {{otherModel.name}} ({{otherModel.id}})
     {{else}}
         No Item Selected.
     {{/if}}
@@ -123,9 +122,9 @@
       Whoops! Could not find "{{searchText}}".
     {{/paper-autocomplete}}
 
-    <p>Selected thing was:
+    <p>
       {{#if fourthModel}}
-        {{fourthModel}}
+        Selected thing was: {{fourthModel}}
       {{else}}
           Nothing selected...
       {{/if}}
@@ -158,9 +157,9 @@
 {{paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModelB
     itemComponent="example-item" notFoundComponent="not-found"}}
 
-<p>Selected thing was:
+<p>
   {{#if fourthModelB}}
-    {{fourthModelB}}
+    Selected thing was: {{fourthModelB}}
   {{else}}
     Nothing selected...
   {{/if}}
@@ -193,9 +192,9 @@ Whoops! Could not find "\{{searchText}}".{{/code-block}}
   <h2>Floating Label</h2>
   <blockquote>The following example demonstrates floating labels being used as a normal form element.</blockquote>
   {{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" model=thirdModel}}
-  <p>Selected country is
+  <p>
     {{#if thirdModel}}
-      {{thirdModel.name}} ({{thirdModel.code}})
+      Selected country is {{thirdModel.name}} ({{thirdModel.code}})
     {{else}}
       Nothing selected...
     {{/if}}

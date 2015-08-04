@@ -53,12 +53,14 @@ export default Ember.Component.extend(HasBlockMixin, {
   noCache: false,
   notFoundMessage: 'No matches found for \'%@\'.',
 
-  // do not use init(): we need observer to fire.
-  setSearchText: Ember.on('init', function () {
+  init() {
+    this._super(...arguments);
+
     if (this.get('model')) {
       this.set('searchText', this.lookupLabelOfItem(this.get('model')));
+      this.searchTextDidChange();
     }
-  }),
+  },
 
   notFloating: Ember.computed.not('floating'),
   notHidden: Ember.computed.not('hidden'),
@@ -97,7 +99,7 @@ export default Ember.Component.extend(HasBlockMixin, {
    * Source filtering logic
    */
 
-  debounceSearchText: Ember.observer('searchText', function() {
+  searchTextDidChange: Ember.observer('searchText', function() {
     var searchText = this.get('searchText');
     if (searchText !== this.get('previousSearchText')) {
       if (!this.get('allowNonExisting')) {
@@ -272,7 +274,7 @@ export default Ember.Component.extend(HasBlockMixin, {
           if (this.get('hidden') || this.get('loading') || this.get('selectedIndex') < 0 || this.get('suggestions').length < 1) {
             return;
           }
-          this.send('pickModel', this.get('suggestions').get(this.get('selectedIndex')));
+          this.send('pickModel', this.get('suggestions').objectAt(this.get('selectedIndex')));
           break;
         case this.get('constants').KEYCODE.ESCAPE:
           this.set('searchText', '');
