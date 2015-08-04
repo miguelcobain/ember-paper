@@ -14,9 +14,6 @@ export default Ember.Component.extend({
   role: 'presentation',
   stickToElement: null,
 
-  hidden: true,
-  isVisible: Ember.computed.not('hidden'),
-
   mouseEnter() {
     this.sendAction('mouse-enter');
   },
@@ -28,15 +25,6 @@ export default Ember.Component.extend({
   mouseUp() {
     this.sendAction('mouse-up');
   },
-
-  hideSuggestionObserver: Ember.observer('hidden', function() {
-    if (this.get('hidden') === true) {
-      this.get('util').enableScrolling();
-    } else {
-      this.get('util').disableScrollAround(this.$());
-      this.positionDropdown();
-    }
-  }),
 
   //TODO reafactor into a computed property that binds directly to dropdown's `style`
   positionDropdown() {
@@ -108,6 +96,8 @@ export default Ember.Component.extend({
     var ul = this.$().detach();
     Ember.$('body').append(ul);
     Ember.$(window).on('resize', Ember.run.bind(this, this.resizeWindowEvent));
+    this.get('util').disableScrollAround(this.$());
+    this.positionDropdown();
   },
 
   willDestroyElement() {

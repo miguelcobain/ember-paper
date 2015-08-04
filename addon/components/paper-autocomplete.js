@@ -31,7 +31,7 @@ export default Ember.Component.extend(HasBlockMixin, {
 
   // Internal
   hidden: true,
-  selectedIndex: null,
+  selectedIndex: 0,
   messages: [],
   noBlur: false,
   hasFocus: false,
@@ -58,6 +58,7 @@ export default Ember.Component.extend(HasBlockMixin, {
     this._super(...arguments);
     if (this.get('model')) {
       this.set('searchText', this.lookupLabelOfItem(this.get('model')));
+      this.set('debouncedSearchText', this.lookupLabelOfItem(this.get('model')));
     }
   },
 
@@ -125,6 +126,9 @@ export default Ember.Component.extend(HasBlockMixin, {
         this.sendAction('cache-hit', searchText);
       }
       this.set('debouncedSearchText', searchText);
+      this.set('hidden', false);
+    } else {
+      this.set('hidden', true);
     }
     this.set('debouncingState', false);
   },
@@ -167,6 +171,7 @@ export default Ember.Component.extend(HasBlockMixin, {
       return Ember.A(data);
     }
   }).readOnly(),
+
 
   filterArray(array, searchText, lookupKey) {
     return array.filter(function(item) {
@@ -258,7 +263,7 @@ export default Ember.Component.extend(HasBlockMixin, {
           if (this.get('hidden') || this.get('loading') || this.get('selectedIndex') < 0 || this.get('suggestions').length < 1) {
             return;
           }
-          this.send('pickModel', Ember.get(this.get('suggestions'), this.get('selectedIndex')));
+          this.send('pickModel', this.get('suggestions').get(this.get('selectedIndex')));
           break;
         case this.get('constants').KEYCODE.ESCAPE:
           this.set('searchText', '');
