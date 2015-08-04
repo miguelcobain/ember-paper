@@ -10,8 +10,12 @@ moduleForComponent('paper-autocomplete-list', 'Unit | Component | paper autocomp
 test('it renders', function(assert) {
   assert.expect(2);
 
+  Ember.$('#qunit-fixture').append('<div id="elId"></div>');
+
   // Creates the component instance
-  var component = this.subject();
+  var component = this.subject({
+    wrapToElementId: 'elId'
+  });
   assert.equal(component._state, 'preRender');
 
   // Renders the component to the page
@@ -19,20 +23,6 @@ test('it renders', function(assert) {
   assert.equal(component._state, 'inDOM');
 });
 
-test('it renders correctly into body element.', function(assert) {
-  assert.expect(2);
-
-  // Creates the component instance
-  this.subject();
-
-  this.$();
-
-  assert.equal(this.$().parent().prop('tagName'), 'BODY', 'It has BODY as parent DOM element');
-
-  assert.equal(this.$().is(':visible'), false, 'Its hidden by default');
-
-
-});
 
 
 
