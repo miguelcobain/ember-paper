@@ -25,6 +25,8 @@ export default Ember.Component.extend(ColorMixin, {
     switch(this.get('size')) {
       case 'lg':
         return ' md-lg';
+      case 'sm':
+        return ' md-sm';
       case 2:
         return ' md-2x';
       case 3:

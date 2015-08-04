@@ -11,17 +11,6 @@ md-icon {
   width: 3 * $baseline-grid;
   line-height: 3 * $baseline-grid;
 }
-
-// Icon sizes
-.md-lg {
-  font-size: 1.5em;
-  line-height: .5em;
-  vertical-align: -35%;
-}
-.md-2x { font-size: 2em; }
-.md-3x { font-size: 3em; }
-.md-4x { font-size: 4em; }
-.md-5x { font-size: 5em; }
 */
 
 // Icon spinners
@@ -2505,3 +2494,29 @@ md-icon.md-#{$theme-name}-theme {
   	content: "\e900"
   }
 }
+
+// Icon sizes
+.md-lg {
+    font-size: 1.5em;
+}
+
+.md-sm {
+    font-size: 1em;
+}
+
+.md-2x {
+    font-size: 2em;
+}
+
+.md-3x {
+    font-size: 3em;
+}
+
+.md-4x {
+    font-size: 4em;
+}
+
+.md-5x {
+    font-size: 5em;
+}
+
