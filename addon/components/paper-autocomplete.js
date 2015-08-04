@@ -36,7 +36,6 @@ export default Ember.Component.extend(HasBlockMixin, {
   noBlur: false,
   hasFocus: false,
   searchText: '',
-
   // wrap in a computed property so that cache
   // isn't shared among autocomplete instances
   itemCache: Ember.computed(function() {
@@ -54,13 +53,12 @@ export default Ember.Component.extend(HasBlockMixin, {
   noCache: false,
   notFoundMessage: 'No matches found for \'%@\'.',
 
-  init() {
-    this._super(...arguments);
+  // do not use init(): we need observer to fire.
+  setSearchText: Ember.on('init', function () {
     if (this.get('model')) {
       this.set('searchText', this.lookupLabelOfItem(this.get('model')));
-      this.set('debouncedSearchText', this.lookupLabelOfItem(this.get('model')));
     }
-  },
+  }),
 
   notFloating: Ember.computed.not('floating'),
   notHidden: Ember.computed.not('hidden'),
@@ -126,7 +124,11 @@ export default Ember.Component.extend(HasBlockMixin, {
         this.sendAction('cache-hit', searchText);
       }
       this.set('debouncedSearchText', searchText);
-      this.set('hidden', false);
+
+      // If the autocomplete is being triggered by a human / not on initial render.
+      if (this.get('hasFocus') || this.get('noBlur')) {
+        this.set('hidden', false);
+      }
     } else {
       this.set('hidden', true);
     }
