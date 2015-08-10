@@ -7,37 +7,37 @@
     </h2>
 {{/paper-toolbar}}
 
-{{#paper-content classNames="md-padding"}}
+{{#paper-content class="md-padding"}}
   <div class="doc-content">
     <h3>Basic Usage</h3>
-    {{#paper-content classNames="md-whiteframe-z1 list-demo list-controls-demo"}}
+    {{#paper-content class="md-whiteframe-z1 list-demo list-controls-demo"}}
       {{#paper-list}}
-        {{#paper-subheader classNames="md-no-sticky"}}Single Action Checkboxes{{/paper-subheader}}
+        {{#paper-subheader class="md-no-sticky"}}Single Action Checkboxes{{/paper-subheader}}
 
         {{#paper-item}}
           <p>Checkbox 1</p>
-          {{paper-checkbox classNames="md-secondary" checked=checkboxEnabled1}}
+          {{paper-checkbox class="md-secondary" checked=checkboxEnabled1}}
         {{/paper-item}}
 
         {{#paper-item}}
           <p>Checkbox 2</p>
-          {{paper-checkbox classNames="md-secondary" checked=checkboxEnabled2}}
+          {{paper-checkbox class="md-secondary" checked=checkboxEnabled2}}
         {{/paper-item}}
 
         {{paper-divider}}
 
-        {{#paper-subheader classNames="md-no-sticky"}}Clickable Items with Secondary Controls{{/paper-subheader}}
+        {{#paper-subheader class="md-no-sticky"}}Clickable Items with Secondary Controls{{/paper-subheader}}
 
         {{#paper-item action="transitionToWifiMenu"}}
           {{paper-icon icon="network-wifi"}}
           <p>Wi-Fi</p>
-          {{paper-switch classNames="md-secondary" checked=wifiEnabled}}
+          {{paper-switch class="md-secondary" checked=wifiEnabled}}
         {{/paper-item}}
 
         {{#paper-item action="transitionToBluetoothMenu"}}
           {{paper-icon icon="bluetooth"}}
           <p>Bluetooth</p>
-          {{paper-switch classNames="md-secondary" checked=bluetoothEnabled}}
+          {{paper-switch class="md-secondary" checked=bluetoothEnabled}}
         {{/paper-item}}
 
         {{#paper-item action="transitionToDataUsage"}}
@@ -47,7 +47,7 @@
 
         {{paper-divider}}
 
-        {{#paper-subheader classNames="md-no-sticky"}}Checkbox with Secondary Action{{/paper-subheader}}
+        {{#paper-subheader class="md-no-sticky"}}Checkbox with Secondary Action{{/paper-subheader}}
 
         {{#each messageData as |item|}}
           {{#paper-item}}
@@ -61,7 +61,7 @@
 
         {{#paper-divider}}{{/paper-divider}}
 
-        {{#paper-subheader classNames="md-no-sticky"}}Clickable Avatars{{/paper-subheader}}
+        {{#paper-subheader class="md-no-sticky"}}Clickable Avatars{{/paper-subheader}}
 
         {{#each listData as |item|}}
           {{#paper-item class="md-3-line" param=item action="goToPerson"}}
@@ -76,7 +76,7 @@
 
         {{paper-divider}}
 
-        {{#paper-subheader classNames="md-no-sticky"}}Avatar with Secondary Action Icon{{/paper-subheader}}
+        {{#paper-subheader class="md-no-sticky"}}Avatar with Secondary Action Icon{{/paper-subheader}}
 
         {{#each listData as |item|}}
           {{#paper-item class="md-3-line" param=item action="goToPerson"}}
@@ -100,32 +100,32 @@
 {{#code-block language='handlebars'}}
 
   \{{#paper-list}}
-    \{{#paper-subheader classNames="md-no-sticky"}}Single Action Checkboxes\{{/paper-subheader}}
+    \{{#paper-subheader class="md-no-sticky"}}Single Action Checkboxes\{{/paper-subheader}}
 
     \{{#paper-item}}
       &lt;p&gt;Checkbox 1&lt;/p&gt;
-      \{{paper-checkbox classNames="md-secondary" checked=checkboxEnabled1}}
+      \{{paper-checkbox class="md-secondary" checked=checkboxEnabled1}}
     \{{/paper-item}}
 
     \{{#paper-item}}
       &lt;p&gt;Checkbox 2&lt;/p&gt;
-      \{{paper-checkbox classNames="md-secondary" checked=checkboxEnabled2}}
+      \{{paper-checkbox class="md-secondary" checked=checkboxEnabled2}}
     \{{/paper-item}}
 
     \{{paper-divider}}
 
-    \{{#paper-subheader classNames="md-no-sticky"}}Clickable Items with Secondary Controls\{{/paper-subheader}}
+    \{{#paper-subheader class="md-no-sticky"}}Clickable Items with Secondary Controls\{{/paper-subheader}}
 
     \{{#paper-item action="transitionToWifiMenu"}}
       \{{paper-icon icon="network-wifi"}}
       &lt;p&gt;Wi-Fi&lt;/p&gt;
-      \{{paper-switch classNames="md-secondary" checked=wifiEnabled}}
+      \{{paper-switch class="md-secondary" checked=wifiEnabled}}
     \{{/paper-item}}
 
     \{{#paper-item action="transitionToBluetoothMenu"}}
       \{{paper-icon icon="bluetooth"}}
       &lt;p&gt;Bluetooth&lt;/p&gt;
-      \{{paper-switch classNames="md-secondary" checked=bluetoothEnabled}}
+      \{{paper-switch class="md-secondary" checked=bluetoothEnabled}}
     \{{/paper-item}}
 
     \{{#paper-item action="transitionToDataUsage"}}
@@ -135,7 +135,7 @@
 
     \{{paper-divider}}
 
-    \{{#paper-subheader classNames="md-no-sticky"}}Checkbox with Secondary Action\{{/paper-subheader}}
+    \{{#paper-subheader class="md-no-sticky"}}Checkbox with Secondary Action\{{/paper-subheader}}
 
     \{{#each messageData as |item|}}
       \{{#paper-item}}
@@ -149,7 +149,7 @@
 
     \{{#paper-divider}}\{{/paper-divider}}
 
-    \{{#paper-subheader classNames="md-no-sticky"}}Clickable Avatars\{{/paper-subheader}}
+    \{{#paper-subheader class="md-no-sticky"}}Clickable Avatars\{{/paper-subheader}}
 
     \{{#each listData as |item|}}
       \{{#paper-item class="md-3-line" param=item action="goToPerson"}}
@@ -164,7 +164,7 @@
 
     \{{paper-divider}}
 
-    \{{#paper-subheader classNames="md-no-sticky"}}Avatar with Secondary Action Icon\{{/paper-subheader}}
+    \{{#paper-subheader class="md-no-sticky"}}Avatar with Secondary Action Icon\{{/paper-subheader}}
 
     \{{#each listData as |item|}}
       \{{#paper-item class="md-3-line" param=item action="goToPerson"}}

@@ -155,7 +155,7 @@ export default Ember.Component.extend(HasBlockMixin, {
     }
   }).readOnly(),
 
-  suggestions: Ember.computed('debouncedSearchText', 'sourcePromiseArray.@each', function() {
+  suggestions: Ember.computed('debouncedSearchText', 'sourcePromiseArray.[]', function() {
     var source = this.get('sourcePromiseArray');
     var lookupKey = this.get('lookupKey');
     var searchText = (this.get('debouncedSearchText') || '').toLowerCase();
