@@ -27,7 +27,7 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
     return secondaryItem && (secondaryItem.action || (this.get('action') && this.isProxiedComponent(secondaryItem)));
   }),
 
-  secondaryItem: Ember.computed('proxiedComponents.@each', function() {
+  secondaryItem: Ember.computed('proxiedComponents.[]', function() {
     var proxiedComponents = this.get('proxiedComponents');
     return proxiedComponents.find(function(component) {
       return component.classNames.indexOf('md-secondary') !== -1;
