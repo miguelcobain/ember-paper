@@ -2,21 +2,28 @@ import Ember from 'ember';
 import PaperNavContainer from './paper-nav-container';
 
 export default Ember.Component.extend({
-  tagName: 'md-sidenav-toggle',
-  classNames: ['paper-sidenav-toggle'],
-  toggle: true,
+  tagName: 'div',
 
-  navContainer: Ember.computed(function () {
+
+  navContainer: Ember.computed(function() {
     return this.nearestOfType(PaperNavContainer);
   }),
 
-  click() {
-    var navContainer = this.get("navContainer");
-    if (this.get('toggle')) {
-      navContainer.toggleSidenav();
-    } else {
-      navContainer.expandSidenav();
+  actions: {
+    toggleMenu: function() {
+      this.get("navContainer").get('sideBar').send('toggleMenu');
     }
-    return false;
+  },
+
+
+  didInsertElement() {
+    this._super(...arguments);
+    if (this.get('navContainer')) {
+      var lockedOpen = this.get("navContainer").get('sideBar').get('locked-open');
+      if (lockedOpen) {
+        this.$().attr('hide-' + lockedOpen, true);
+      }
+    }
   }
+
 });

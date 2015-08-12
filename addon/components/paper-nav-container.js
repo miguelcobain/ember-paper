@@ -1,24 +1,9 @@
 import Ember from 'ember';
-import FlexMixin from '../mixins/flex-mixin';
 
-export default Ember.Component.extend(FlexMixin, {
+export default Ember.Component.extend({
+  tagName: 'section',
+  attributeBindings: ['layoutAttr:layout', 'flex'],
+  layoutAttr: 'row',
+  sideBar: null
 
-  tagName: 'md-nav-container',
-  classNames: ['paper-nav-container'],
-  classNameBindings: ['open:sidenav-expanded'],
-
-  open: false,
-
-  // Custom events
-  toggleSidenav() {
-    this.toggleProperty('open');
-  },
-
-  expandSidenav() {
-    this.set('open', true);
-  },
-
-  collapseSidenav() {
-    this.set('open', false);
-  }
 });

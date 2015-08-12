@@ -6,7 +6,8 @@ import {
 moduleForComponent('paper-sidenav', {
   // specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar']
-  unit: true
+  unit: true,
+  needs: ['service:constants', 'service:sniffer']
 });
 
 test('it renders', function(assert) {

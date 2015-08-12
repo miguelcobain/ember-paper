@@ -41,5 +41,22 @@ export default Ember.Service.extend({
     RIGHT_ARROW:    39,
     DOWN_ARROW:     40,
     TAB:            9
-  })
+  }),
+
+  MEDIA: {
+    'sm': '(max-width: 599px)',
+    'gt-sm': '(min-width: 600px)',
+    'md': '(min-width: 600px) and (max-width: 959px)',
+    'gt-md': '(min-width: 960px)',
+    'lg': '(min-width: 960px) and (max-width: 1199px)',
+    'gt-lg': '(min-width: 1200px)'
+  },
+  MEDIA_PRIORITY: [
+    'gt-lg',
+    'lg',
+    'gt-md',
+    'md',
+    'gt-sm',
+    'sm'
+  ]
 });

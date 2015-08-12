@@ -6,12 +6,15 @@ import Ember from 'ember';
  * - flex-layout=column|row
  */
 export default Ember.Mixin.create({
-  attributeBindings: ['flexAttr:flex', 'flex-layout:layout'],
-  /*
-   * Not binding boolean values in Ember 1.8.1?
-   * https://github.com/emberjs/ember.js/issues/9595
-   */
-  flexAttr: Ember.computed('flex', function() {
-    return this.get('flex') ? 'flex' : null;
-  })
+  attributeBindings: [
+    'flex',
+    'flex-layout:layout',
+    // Allow responsive layout definition ( see layout.scss: layout-for-name ):
+    'layout-sm',
+    'layout-gt-sm',
+    'layout-md',
+    'layout-gt-md',
+    'layout-lg',
+    'layout-gt-lg'
+  ]
 });

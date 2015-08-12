@@ -1,12 +1,11 @@
 {{#paper-toolbar}}
-    <h2 class="md-toolbar-tools">
-      {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
-        {{paper-icon icon="menu"}}
+    <div class="md-toolbar-tools">
+      {{#paper-sidenav-toggle as |toggle|}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
       {{/paper-sidenav-toggle}}
-        <span>Progress Linear</span>
-    </h2>
+        <span class="md-breadcrumb-page">Progress Linear</span>
+    </div>
 {{/paper-toolbar}}
-
 {{#paper-content class="md-padding"}}
   <div class="doc-content">
     <h3>Basic Usage</h3>

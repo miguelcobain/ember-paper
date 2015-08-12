@@ -1,25 +1,24 @@
 {{#paper-toolbar}}
-  <h2 class="md-toolbar-tools">
-    {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
-      {{paper-icon icon="menu"}}
-    {{/paper-sidenav-toggle}}
-    <span>Radio buttons</span>
-  </h2>
+    <div class="md-toolbar-tools">
+      {{#paper-sidenav-toggle as |toggle|}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
+      {{/paper-sidenav-toggle}}
+        <span class="md-breadcrumb-page">Radio Buttons</span>
+    </div>
 {{/paper-toolbar}}
-
 {{#paper-content class="md-padding"}}
 <div class="doc-content">
-  <ul class="paper-list-inline">
-    <li>{{#paper-radio}}A radio button{{/paper-radio}}</li>
-    <li>{{#paper-radio toggle=true}}Toggable radio button{{/paper-radio}}</li>
-    <li>{{#paper-radio disabled=true}}Disabled radio button{{/paper-radio}}</li>
-  </ul>
+  <div layout layout-sm="column">
+    <div flex>{{#paper-radio}}A radio button{{/paper-radio}}</div>
+    <div flex>{{#paper-radio toggle=true}}Toggable radio button{{/paper-radio}}</div>
+    <div flex>{{#paper-radio disabled=true}}Disabled radio button{{/paper-radio}}</div>
+  </div>
   <h3>Radio Button Group</h3>
-  <ul class="paper-list-inline">
-    <li>{{#paper-radio value="1" selected=selectedValue}}Radio button 1{{/paper-radio}}</li>
-    <li>{{#paper-radio value="2" selected=selectedValue}}Radio button 2{{/paper-radio}}</li>
-    <li>{{#paper-radio value="3" selected=selectedValue changed="alertValue"}}Radio button 3{{/paper-radio}}</li>
-  </ul>
+  <div layout layout-sm="column">
+    <div flex>{{#paper-radio value="1" selected=selectedValue}}Radio button 1{{/paper-radio}}</div>
+    <div flex>{{#paper-radio value="2" selected=selectedValue}}Radio button 2{{/paper-radio}}</div>
+    <div flex>{{#paper-radio value="3" selected=selectedValue changed="alertValue"}}Radio button 3{{/paper-radio}}</div>
+  </div>
   <p>Selected value: {{selectedValue}}</p>
 
   <p>{{paper-radio toggle=true label="Blockless version"}}</p>
