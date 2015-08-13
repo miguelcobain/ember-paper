@@ -18,7 +18,7 @@
   {{paper-autocomplete
     disabled=firstDisabled
     placeholder="Select a Country ..."
-    notFoundMessage="Oops country: \"%@\" doesn't exist here."
+    notFoundMessage="Oops country: \"$searchText\" doesn't exist here."
     source=items lookupKey="name"
     model=myModel}}
   <p>
@@ -38,7 +38,7 @@
 \{{paper-autocomplete
     disabled=firstDisabled
     placeholder="Select a Country ..."
-    notFoundMessage="Oops country: \"%@\" doesn't exist here."
+    notFoundMessage="Oops country: \"$searchText\" doesn't exist here."
     source=items lookupKey="name"
     model=myModel}}{{/code-block}}
 
@@ -285,7 +285,7 @@ Whoops! Could not find "\{{searchText}}".{{/code-block}}
     <tr>
       <td>notFoundMessage</td>
       <td>string</td>
-      <td>The message to display if no items was found. Default is: <code>No matches found for "%@".</code>. The <code>%@</code> part will be replaced by the users input.</td>
+      <td>The message to display if no items was found. Default is: <code>"No matches found for "$searchText"."</code>. The <code>$searchText</code> part will be replaced by the users input.</td>
     </tr>
   </tbody>
 </table>
