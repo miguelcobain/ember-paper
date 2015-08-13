@@ -51,7 +51,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   minLength: 1,
   allowNonExisting: false,
   noCache: false,
-  notFoundMessage: 'No matches found for \'%@\'.',
+  notFoundMessage: "No matches found for \"$searchText\".",
 
   init() {
     this._super(...arguments);
@@ -75,7 +75,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   },
 
   notFoundMsg: Ember.computed('searchText', 'notFoundMessage', function() {
-    return Ember.String.fmt(this.get('notFoundMessage'), [this.get('searchText')]);
+    return this.get('notFoundMessage').replace('$searchText', this.get('searchText'));
   }),
 
   /**

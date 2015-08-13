@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 0.2.8 (Aug 13, 2015)
+- Upgrade to ember 2.0.0 and fix deprecation with Ember.String.fmt
+
 ### 0.2.7 (Aug 11, 2015)
 - [#132](https://github.com/miguelcobain/ember-paper/pull/132) Added autocomplete component.
 - [#144](https://github.com/miguelcobain/ember-paper/pull/144) Fixed paper-icon sizes and added new size md-sm (size="sm").
