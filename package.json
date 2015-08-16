@@ -38,17 +38,17 @@
     "ember-cli-sass": "4.0.0-beta.5",
     "ember-cli-sri": "^1.0.3",
     "ember-cli-uglify": "^1.2.0",
-    "ember-css-transitions": "0.0.8",
     "ember-disable-prototype-extensions": "^1.0.0",
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.3",
     "ember-prism": "0.0.5",
-    "ember-try": "0.0.6",
-    "ember-wormhole": "0.3.4"
+    "ember-try": "0.0.6"
   },
   "dependencies": {
     "broccoli-autoprefixer": "^3.0.0",
-    "ember-cli-babel": "^5.1.3"
+    "ember-cli-babel": "^5.1.3",
+    "ember-css-transitions": "^0.0.8",
+    "ember-wormhole": "^0.3.4"
   },
   "keywords": [
     "ember-addon",
