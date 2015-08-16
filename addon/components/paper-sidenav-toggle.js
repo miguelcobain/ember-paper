@@ -4,7 +4,6 @@ import PaperNavContainer from './paper-nav-container';
 export default Ember.Component.extend({
   tagName: 'div',
 
-
   navContainer: Ember.computed(function() {
     return this.nearestOfType(PaperNavContainer);
   }),
@@ -14,7 +13,6 @@ export default Ember.Component.extend({
       this.get("navContainer").get('sideBar').send('toggleMenu');
     }
   },
-
 
   didInsertElement() {
     this._super(...arguments);

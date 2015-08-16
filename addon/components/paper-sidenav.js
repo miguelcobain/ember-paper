@@ -39,14 +39,14 @@ export default Ember.Component.extend({
   }),
 
 
-  didInsertElement () {
+  didInsertElement() {
     Ember.$(window).on('resize', this.get('__resizeWindow'));
   },
-  willDestroyElement () {
+  willDestroyElement() {
     Ember.$(window).off('resize', this.get('__resizeWindow'));
   },
 
-  matchMedia: function () {
+  matchMedia() {
     var mediaQuery = this.get('constants').MEDIA[this.get('locked-open')];
     this.set('isLockedOpen', window.matchMedia(mediaQuery).matches);
     if (this.get('isLockedOpen')) {
@@ -55,14 +55,14 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    toggleMenu: function() {
+    toggleMenu() {
       if (!this.get('isLockedOpen')) {
         this.toggleProperty('closed');
       }
     }
   },
 
-  click () {
+  click() {
     if (this.get('isLockedOpen')) {
       return;
     }
