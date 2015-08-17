@@ -14,7 +14,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   inputElementId: Ember.computed('elementId', function() {
     return 'input-' + this.get('elementId');
   }),
-  isInvalid: Ember.computed('value', function() {
+  isInvalid: Ember.computed('isInvalid', 'value', function() {
     return this.validate();
   }),
   renderCharCount: Ember.computed('value', function() {
@@ -23,6 +23,11 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   }),
 
   validate() {
+
+    if (!this.get('isTouched')) {
+      return;
+    }
+
     var returnValue = false;
     var currentValue = this.get('value');
     var constraints = [
@@ -74,6 +79,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     focusOut(value) {
       this.sendAction('focus-out', value);
       this.set('focus',false);
+      this.set('isTouched', true);
     },
     keyDown(value, event) {
       this.sendAction('key-down', value, event);
