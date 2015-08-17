@@ -25,7 +25,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   validate() {
 
     if (!this.get('isTouched')) {
-      return;
+      return false;
     }
 
     var returnValue = false;
