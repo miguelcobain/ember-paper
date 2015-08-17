@@ -14,7 +14,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   inputElementId: Ember.computed('elementId', function() {
     return 'input-' + this.get('elementId');
   }),
-  isInvalid: Ember.computed('isInvalid', 'value', function() {
+  isInvalid: Ember.computed('isTouched', 'value', function() {
     return this.validate();
   }),
   renderCharCount: Ember.computed('value', function() {
