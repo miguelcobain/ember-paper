@@ -1,14 +1,23 @@
-<label for={{inputElementId}}>{{label}}</label>
-
-{{#if textarea}}
-  {{textarea class="md-input" id=inputElementId value=value focus-in="focusIn" key-down="keyDown" focus-out="focusOut" disabled=disabled required=required autofocus=autofocus}}
-{{else}}
-  {{input class="md-input" id=inputElementId type=type value=value focus-in="focusIn" key-down="keyDown" focus-out="focusOut" disabled=disabled required=required autofocus=autofocus}}
+{{#if label}}
+    <label for={{inputElementId}}>{{label}}</label>
 {{/if}}
 
-<div ng-messages>
+{{#if icon}}
+  {{paper-icon icon=icon class=icon-class}}
+{{/if}}
+
+{{#if textarea}}
+  {{textarea class="md-input" id=inputElementId placeholder=placeholder value=value focus-in="focusIn" key-down="keyDown" focus-out="focusOut" disabled=disabled required=required autofocus=autofocus}}
+{{else}}
+  {{input class="md-input" id=inputElementId placeholder=placeholder type=type value=value focus-in="focusIn" key-down="keyDown" focus-out="focusOut" disabled=disabled required=required autofocus=autofocus}}
+{{/if}}
+
+{{#unless hideAllMessages}}
+    <div ng-messages>
     <div id="error-{{inputElementId}}" ng-message="{{ng-message}}" class="{{if isInvalid 'ng-enter ng-enter-active' 'ng-leave ng-leave-active'}}">{{errortext}}</div>
-</div>
+    </div>
+{{/unless}}
+
 {{#if maxlength}}
-<div class="md-char-counter">{{renderCharCount}}</div>
+    <div class="md-char-counter">{{renderCharCount}}</div>
 {{/if}}

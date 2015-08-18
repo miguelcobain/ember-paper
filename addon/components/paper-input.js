@@ -6,10 +6,11 @@ import FlexMixin from 'ember-paper/mixins/flex-mixin';
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
-  classNameBindings: ['hasValue:md-input-has-value', 'focus:md-input-focused', 'isInvalid:md-input-invalid'],
+  classNameBindings: ['hasValue:md-input-has-value', 'focus:md-input-focused', 'isInvalid:md-input-invalid', 'iconFloat:md-icon-float'],
   type: 'text',
   autofocus: false,
   tabindex: -1,
+  hideAllMessages: false,
   hasValue: Ember.computed.notEmpty('value'),
   inputElementId: Ember.computed('elementId', function() {
     return 'input-' + this.get('elementId');
@@ -21,6 +22,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     var currentLength = this.get('value') ? this.get('value').length : 0;
     return currentLength + '/' + this.get('maxlength');
   }),
+  iconFloat: Ember.computed.and('icon', 'label'),
 
   validate() {
     var returnValue = false;
