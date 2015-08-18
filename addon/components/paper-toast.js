@@ -1,14 +1,16 @@
 import Ember from 'ember';
-import AnimateMixin from 'ember-paper/mixins/animate-mixin';
+import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
 /*global Hammer*/
 
-export default Ember.Component.extend(AnimateMixin, {
+export default Ember.Component.extend(TransitionMixin, {
   tagName: 'md-toast',
   classNames: ['md-default-theme'],
   classNameBindings: ['_right:md-right', '_left:md-left', '_bottom:md-bottom', '_top:md-top'],
-  animated: true,
+
   'align-fab': true,
+
+  transitionClass: 'ng',
 
   // right,left,bottom and top should only be given once. Therefor we use a computed for each so that they can
   // never change once initially provided.
