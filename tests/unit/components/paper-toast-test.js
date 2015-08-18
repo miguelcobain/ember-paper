@@ -2,7 +2,8 @@ import { moduleForComponent, test } from 'ember-qunit';
 
 
 moduleForComponent('paper-toast', 'Unit | Component | paper toast', {
-  unit: true
+  unit: true,
+  needs: ['service:transition-events']
 });
 
 test('it renders', function(assert) {
