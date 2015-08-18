@@ -1,5 +1,10 @@
 # Ember Paper Changelog
 
+### 0.2.7 (Aug 11, 2015)
+- [#132](https://github.com/miguelcobain/ember-paper/pull/132) Added autocomplete component.
+- [#144](https://github.com/miguelcobain/ember-paper/pull/144) Fixed paper-icon sizes and added new size md-sm (size="sm").
+- [#146](https://github.com/miguelcobain/ember-paper/pull/146) Upgrade to ember 1.13.7 and ember-cli 1.13.8.
+
 ### 0.2.6 (Jul 20, 2015)
 
 - [#135](https://github.com/miguelcobain/ember-paper/pull/135) Fix deprecation bug in linear progress indicator.

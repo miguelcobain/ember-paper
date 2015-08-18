@@ -10,9 +10,9 @@
 {{/if}}
 
 
-{{#paper-nav-container open=drawerOpen classNames="ember-app"}}
+{{#paper-nav-container open=drawerOpen class="ember-app"}}
 
-  {{#paper-sidenav classNames="md-sidenav-left md-whiteframe-z2" flex-layout="column" flex=true}}
+  {{#paper-sidenav class="md-sidenav-left md-whiteframe-z2" flex-layout="column" flex=true}}
 
     {{#paper-toolbar}}
       <div class="md-toolbar-tools">
@@ -26,6 +26,7 @@
 
       {{#paper-list}}
         {{#paper-item action="transitionTo" param="index"}}Introduction{{/paper-item}}
+        {{#paper-item action="transitionTo" param="autocomplete"}}Autocomplete{{/paper-item}}
         {{#paper-item action="transitionTo" param="sidenav"}}Sidenav{{/paper-item}}
         {{#paper-item action="transitionTo" param="typography"}}Typography{{/paper-item}}
         {{#paper-item action="transitionTo" param="list"}}List{{/paper-item}}

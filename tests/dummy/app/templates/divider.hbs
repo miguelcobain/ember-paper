@@ -7,10 +7,10 @@
   </h2>
 {{/paper-toolbar}}
 
-{{#paper-content classNames="md-padding"}}
+{{#paper-content class="md-padding"}}
 <div class="doc-content">
   <h4>Full width dividers</h4>
-  {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
+  {{#paper-content class="md-whiteframe-z1 list-demo"}}
     {{#paper-list}}
       {{#each listData as |item|}}
         {{#paper-item class="md-3-line"}}
@@ -29,7 +29,7 @@
   {{/paper-content}}
 
   <h4>Inset dividers</h4>
-  {{#paper-content classNames="md-whiteframe-z1 list-demo"}}
+  {{#paper-content class="md-whiteframe-z1 list-demo"}}
     {{#paper-list}}
       {{#each listData as |item|}}
         {{#paper-item class="md-3-line"}}
@@ -49,7 +49,7 @@
 
   <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{#paper-content classNames="md-whiteframe-z1 list-demo"}}
+\{{#paper-content class="md-whiteframe-z1 list-demo"}}
   \{{#paper-list}}
     \{{#each listData as |item|}}
       \{{#paper-item}}

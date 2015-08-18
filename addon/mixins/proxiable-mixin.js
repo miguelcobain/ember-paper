@@ -2,7 +2,7 @@ import Ember from 'ember';
 import ProxyMixin from './proxy-mixin';
 
 export default Ember.Mixin.create({
-  didInsertElement: function() {
+  didInsertElement() {
     this._super(...arguments);
 
     var proxy = this.nearestOfType(ProxyMixin);

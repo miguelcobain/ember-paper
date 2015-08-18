@@ -1,9 +1,9 @@
 <label for={{inputElementId}}>{{label}}</label>
 
 {{#if textarea}}
-  {{textarea class="md-input" id=inputElementId value=value focus-in="focusIn" focus-out="focusOut" disabled=disabled required=required}}
+  {{textarea class="md-input" id=inputElementId value=value focus-in="focusIn" key-down="keyDown" focus-out="focusOut" disabled=disabled required=required autofocus=autofocus}}
 {{else}}
-  {{input class="md-input" id=inputElementId type=type value=value focus-in="focusIn" focus-out="focusOut" disabled=disabled required=required}}
+  {{input class="md-input" id=inputElementId type=type value=value focus-in="focusIn" key-down="keyDown" focus-out="focusOut" disabled=disabled required=required autofocus=autofocus}}
 {{/if}}
 
 <div ng-messages>

@@ -7,19 +7,22 @@
   </h2>
 {{/paper-toolbar}}
 
-{{#paper-content classNames="md-padding icon-demo"}}
+{{#paper-content class="md-padding icon-demo"}}
 
   <h3>Template</h3>
   <h4>Basic Icons</h4>
   {{#code-block language='handlebars'}}
-\{{paper-icon icon="check"}}{{/code-block}}
-  <h4>Larger Icons</h4>
+    \{{paper-icon icon="check"}}
+  {{/code-block}}
+  <h4>Changing Sizes</h4>
     {{#code-block language='handlebars'}}
-\{{paper-icon icon="check" size="lg"}}
-\{{paper-icon icon="check" size=2}}
-\{{paper-icon icon="check" size=3}}
-\{{paper-icon icon="check" size=4}}
-\{{paper-icon icon="check" size=5}}{{/code-block}}
+      \{{paper-icon icon="check" size="sm"}}
+      \{{paper-icon icon="check" size="lg"}}
+      \{{paper-icon icon="check" size=2}}
+      \{{paper-icon icon="check" size=3}}
+      \{{paper-icon icon="check" size=4}}
+      \{{paper-icon icon="check" size=5}}
+    {{/code-block}}
   <h4>Spinners</h4>
     {{#code-block language='handlebars'}}
 \{{paper-icon icon="rotate-right" spin=true}}
