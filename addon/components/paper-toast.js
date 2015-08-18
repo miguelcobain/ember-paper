@@ -11,6 +11,9 @@ export default Ember.Component.extend(TransitionMixin, {
   'align-fab': true,
 
   transitionClass: 'ng',
+  addDestroyedElementClone (parent, index, clone) {
+   parent.append(clone);
+  },
 
   // right,left,bottom and top should only be given once. Therefor we use a computed for each so that they can
   // never change once initially provided.
