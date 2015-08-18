@@ -14,9 +14,8 @@ export default Ember.Component.extend({
   role: 'presentation',
   stickToElement: null,
 
-  init () {
+  init() {
     this._super(...arguments);
-
     this._resizeWindowEvent = Ember.run.bind(this, this.resizeWindowEvent);
   },
 
@@ -91,7 +90,7 @@ export default Ember.Component.extend({
     }
   }),
 
-  resizeWindowEvent () {
+  resizeWindowEvent() {
     this.positionDropdown();
   },
 

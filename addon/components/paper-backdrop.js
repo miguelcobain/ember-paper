@@ -11,7 +11,7 @@ export default Ember.Component.extend(TransitionMixin, {
   // TransitionMixin:
   transitionClass: 'ng',
   shouldTransition: Ember.computed.bool('opaque'),
-  addDestroyedElementClone (parent, index, clone) {
+  addDestroyedElementClone(parent, index, clone) {
     parent.append(clone);
   },
 
