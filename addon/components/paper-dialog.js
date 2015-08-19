@@ -10,8 +10,12 @@ export default Ember.Component.extend({
 
   backdrop: false,
 
-  willDestroyElement() {
+  parent: Ember.computed(function () {
+    return Ember.$('body');
+  }),
 
+  willDestroyElement() {
+    Ember.$('body').removeClass('md-dialog-is-showing');
   },
 
   computedStyles: Ember.computed('computedStyleState',function() {
@@ -21,7 +25,7 @@ export default Ember.Component.extend({
       var backdrop = this.get('backdrop') ? window.getComputedStyle(this.$().find('md-backdrop')[0]) : null;
       var height = backdrop ? Math.ceil(Math.abs(parseInt(backdrop.height, 10))) : 0;
       var styles = {
-        top: (isFixed ? this.$().parent().scrollTop() / 2 : 0) + 'px',
+        top: (isFixed ? this.get('parent').scrollTop() / 2 : 0) + 'px',
         height: height ? height + 'px' : '100%'
       };
       style = `top: ${styles.top}; height: ${styles.height}`;
@@ -32,8 +36,11 @@ export default Ember.Component.extend({
   }),
 
   didInsertElement() {
+    Ember.$('body').addClass('md-dialog-is-showing');
+
+
     var el = this.$().detach();
-    Ember.$('body').append(el);
+    this.get('parent').append(el);
 
     Ember.run.scheduleOnce('afterRender', this, function() {
       this.set('computedStyleState', 'ready');

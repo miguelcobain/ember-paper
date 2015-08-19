@@ -13,6 +13,7 @@ export default Ember.Mixin.create({
     return Ember.$('body');
   }),
 
+
   translate3dFrom: Ember.computed('origin', function () {
     return this.toTransformCss(this.calculateZoomToOrigin(this.$(), this.get('origin')));
   }),
@@ -35,6 +36,7 @@ export default Ember.Mixin.create({
   _translate3dOnInsert: Ember.on('didInsertElement', function () {
     var self = this;
 
+
     Ember.run.scheduleOnce('afterRender', this, function() {
       // Set translate3d style to start at the `from` origin
       this.set('transformStyleApply', 'from');
@@ -47,18 +49,23 @@ export default Ember.Mixin.create({
     });
   }),
 
+  onTranslateDestroy(/*origin*/) {
 
+  },
 
   /**
    * Specific reversal of the request translate animation above...
    */
   _translate3dOnDestroy: Ember.on('willDestroyElement', function () {
+    var _self = this;
     var clone = this.$().clone();
     Ember.$('body').append(clone);
-    var from = this.calculateZoomToOrigin(clone, this.get('origin'));
+    var origin = this.get('origin');
+    var from = this.calculateZoomToOrigin(clone, origin);
     clone.removeClass('md-transition-in').addClass('md-transition-out').attr('style', this.toTransformCss(from));
     this.waitTransitionEnd(clone).then(function () {
       clone.remove();
+      _self.onTranslateDestroy(origin);
     });
   }),
 

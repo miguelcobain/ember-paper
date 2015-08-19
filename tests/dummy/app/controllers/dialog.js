@@ -24,5 +24,9 @@ export default Ember.Controller.extend({
     closeBasicDialog() {
       this.set('basicDialogIsOpen', false);
     }
-  }
+  },
+
+  dialogParent: Ember.computed(function () {
+    return Ember.$('#popupContainer');
+  })
 });

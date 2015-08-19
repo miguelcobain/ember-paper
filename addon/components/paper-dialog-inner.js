@@ -11,11 +11,11 @@ export default Ember.Component.extend(Translate3dMixin, {
     return this.nearestOfType(PaperDialog);
   }),
 
-  origin: Ember.computed('dialogComponent',function () {
+  origin: Ember.computed(function () {
     return this.get('dialogComponent').get('origin');
   }),
 
-  didInsertElement() {
-
+  onTranslateDestroy(origin) {
+    origin.focus();
   }
 });
