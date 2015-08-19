@@ -8,8 +8,8 @@
 {{/paper-toolbar}}
 
 {{#paper-content class="md-padding"}}
+{{#paper-dialog-container}}
 <div class="doc-content">
-  <div id="popupContainer" style="position: relative; min-height: 500px;">
     <h2>Basic Usage</h2>
     <p>Open a dialog over the app's content. Press escape or click outside to close the dialog and send focus back to the triggering button.</p>
     <div class="dialog-demo-content" layout="row" layout-wrap>
@@ -18,11 +18,13 @@
       {{#paper-button raised=true primary=true action="openDialog"}}Custom dialog{{/paper-button}}
     </div>
 
-    {{#if yourAnswer}}
-      <b layout="row" layout-align="center center" class="md-padding ng-binding">
-        You decided: {{yourAnswer}}
-      </b>
-    {{/if}}
+      <strong layout="row" layout-align="center center" class="md-padding ng-binding">
+        {{#if yourAnswer}}
+            You decided: {{yourAnswer}}
+        {{else}}
+          <br />
+        {{/if}}
+      </strong>
 
     {{#if alertDialogIsOpen}}
       {{paper-dialog
@@ -30,7 +32,6 @@
       content="You can specify some description text in here."
       ok="Got it!"
       on-ok="closeAlertDialog"
-      parent=dialogParent
       origin=basicDialogOrigin}}
     {{/if}}
 
@@ -43,12 +44,11 @@
       cancel="Sounds like a scam"
       on-ok="confirmClearDept"
       on-cancel="cancelClearDept"
-      parent=dialogParent
       origin=confirmDialogOrigin}}
     {{/if}}
 
     {{#if dialogIsOpen}}
-      {{#paper-dialog parent=dialogParent origin=dialogOrigin as |dialog|}}
+      {{#paper-dialog parent=false origin=dialogOrigin as |dialog|}}
         <form>
           {{#paper-toolbar}}
             <div class="md-toolbar-tools">
@@ -85,8 +85,8 @@
       {{/paper-dialog}}
     {{/if}}
 
-  </div>
   <h3>Template</h3>
 {{#code-block language="handlebars"}}{{/code-block}}
 </div>
+{{/paper-dialog-container}}
 {{/paper-content}}

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import PaperDialogContainer from './paper-dialog-container';
 
 /*global window*/
 
@@ -9,8 +10,15 @@ export default Ember.Component.extend({
   attributeBindings: ['computedStyles:style'],
 
   backdrop: false,
+  parent: true,
 
-  parent: Ember.computed(function () {
+  dialogRelativeContainer: Ember.computed('parent',function () {
+    if (this.get('parent')) {
+      var parentContainer = this.nearestOfType(PaperDialogContainer);
+      if (parentContainer) {
+        return parentContainer.$();
+      }
+    }
     return Ember.$('body');
   }),
 
@@ -25,7 +33,7 @@ export default Ember.Component.extend({
       var backdrop = this.get('backdrop') ? window.getComputedStyle(this.$().find('md-backdrop')[0]) : null;
       var height = backdrop ? Math.ceil(Math.abs(parseInt(backdrop.height, 10))) : 0;
       var styles = {
-        top: (isFixed ? this.get('parent').scrollTop() / 2 : 0) + 'px',
+        top: (isFixed ? this.get('dialogRelativeContainer').scrollTop() / 2 : 0) + 'px',
         height: height ? height + 'px' : '100%'
       };
       style = `top: ${styles.top}; height: ${styles.height}`;
@@ -40,7 +48,7 @@ export default Ember.Component.extend({
 
 
     var el = this.$().detach();
-    this.get('parent').append(el);
+    this.get('dialogRelativeContainer').append(el);
 
     Ember.run.scheduleOnce('afterRender', this, function() {
       this.set('computedStyleState', 'ready');

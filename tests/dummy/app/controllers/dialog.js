@@ -5,7 +5,6 @@ export default Ember.Controller.extend({
 
     /*Custom dialog*/
     openDialog(param, event) {
-      this.set('dialogParent', Ember.$('#popupContainer'));
       this.set('dialogOrigin',  Ember.$(event.currentTarget));
       this.set('dialogIsOpen', true);
     },
@@ -19,7 +18,6 @@ export default Ember.Controller.extend({
 
     /*Alert dialog*/
     openAlertDialog(param, event) {
-      this.set('dialogParent', Ember.$('#popupContainer'));
       this.set('basicDialogOrigin',  Ember.$(event.currentTarget));
       this.set('alertDialogIsOpen', true);
     },
@@ -30,7 +28,6 @@ export default Ember.Controller.extend({
 
     /*Confirm dialog*/
     openConfirmDialog(param, event) {
-      this.set('dialogParent', Ember.$('#popupContainer'));
       this.set('confirmDialogOrigin',  Ember.$(event.currentTarget));
       this.set('confirmDialogIsOpen', true);
     },

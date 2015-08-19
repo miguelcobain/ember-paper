@@ -1,7 +1,5 @@
 import Ember from 'ember';
 
-/*global Promise*/
-
 export default Ember.Mixin.create({
   constants: Ember.inject.service(),
 
@@ -9,19 +7,19 @@ export default Ember.Mixin.create({
   classNameBindings: ['transformIn:md-transition-in'],
 
 
-  translateFromOrigin: Ember.computed(function () {
+  translateFromOrigin: Ember.computed(function() {
     return Ember.$('body');
   }),
 
-  translateToParent: Ember.computed(function () {
+  translateToParent: Ember.computed(function() {
     return Ember.$('body');
   }),
 
-  translate3dFrom: Ember.computed('translateFromOrigin', function () {
+  translate3dFrom: Ember.computed('translateFromOrigin', function() {
     return this.toTransformCss(this.calculateZoomToOrigin(this.$(), this.get('translateFromOrigin')));
   }),
 
-  translate3dTo: Ember.computed(function () {
+  translate3dTo: Ember.computed(function() {
     return this.toTransformCss("");
   }),
 
@@ -36,7 +34,7 @@ export default Ember.Mixin.create({
   }),
 
 
-  _translate3dOnInsert: Ember.on('didInsertElement', function () {
+  _translate3dOnInsert: Ember.on('didInsertElement', function() {
     var self = this;
 
 
@@ -59,7 +57,7 @@ export default Ember.Mixin.create({
   /**
    * Specific reversal of the request translate animation above...
    */
-  _translate3dOnDestroy: Ember.on('willDestroyElement', function () {
+  _translate3dOnDestroy: Ember.on('willDestroyElement', function() {
     var _self = this;
     var clone = this.$().clone();
     this.get('translateToParent').append(clone);
@@ -77,8 +75,7 @@ export default Ember.Mixin.create({
    * Announce completion or failure via promise handlers
    */
   waitTransitionEnd(element, opts) {
-    var TIMEOUT = 3000,
-      _self = this; // fallback is 3 secs
+    var _self = this; // fallback is 3 secs
 
     return new Promise(function(resolve/*, reject*/){
       opts = opts || { };
@@ -174,7 +171,7 @@ export default Ember.Mixin.create({
    */
   clientRect(element) {
     var bounds = Ember.$(element)[0].getBoundingClientRect();
-    var isPositiveSizeClientRect = function (rect) {
+    var isPositiveSizeClientRect = function(rect) {
       return rect && (rect.width > 0) && (rect.height > 0);
     };
 

@@ -14,8 +14,8 @@ export default Ember.Component.extend(Translate3dMixin, {
   translateFromOrigin: Ember.computed('dialogComponent.origin',function () {
     return this.get('dialogComponent').get('origin');
   }),
-  translateToParent: Ember.computed('dialogComponent.parent',function () {
-    return this.get('dialogComponent').get('parent');
+  translateToParent: Ember.computed('dialogComponent.dialogRelativeContainer',function () {
+    return this.get('dialogComponent').get('dialogRelativeContainer');
   }),
 
   onTranslateDestroy(origin) {
