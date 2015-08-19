@@ -10,7 +10,7 @@ export default Ember.Service.extend({
 
   vendorProperty(name) {
     var prefix = this.get('sniffer.vendorPrefix').toLowerCase();
-    return this.get('webkit') ? `-webkit-${name.charAt(0)}${name.substring(1)}` : name;
+    return this.get('webkit') ? `webkit${name.charAt(0).toUpperCase()}${name.substring(1)}` : name;
   },
 
   CSS: Ember.computed('webkit', function() {
