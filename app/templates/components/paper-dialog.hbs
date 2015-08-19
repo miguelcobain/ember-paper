@@ -1,0 +1,22 @@
+{{#paper-dialog-inner}}
+  {{#if alert}}
+    {{#paper-dialog-content}}
+      <h2 class="md-title">{{alert}}</h2>
+      <p>{{content}}</p>
+    {{/paper-dialog-content}}
+    <div class="md-actions">
+      {{#paper-button action="onOk"}}{{ok}}{{/paper-button}}
+    </div>
+  {{/if}}
+  {{#if confirm}}
+    {{#paper-dialog-content}}
+      <h2 class="md-title">{{confirm}}</h2>
+      <p>{{content}}</p>
+    {{/paper-dialog-content}}
+    <div class="md-actions">
+      {{#paper-button action="onCancel" noink=true primary=true}}{{cancel}}{{/paper-button}}
+      {{#paper-button action="onOk" noink=true primary=true}}{{ok}}{{/paper-button}}
+    </div>
+  {{/if}}
+  {{yield}}
+{{/paper-dialog-inner}}

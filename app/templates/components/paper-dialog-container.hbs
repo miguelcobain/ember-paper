@@ -1,0 +1,12 @@
+{{#if dialogIsShowing}}
+  {{#if dialogIsShowing.backdrop}}
+    {{#if dialogIsShowing.parent}}
+      {{paper-backdrop class="md-dialog-backdrop" opaque=true tap="onCancel"}}
+    {{else}}
+      {{#ember-wormhole to="paper-wormhole"}}
+        {{paper-backdrop class="md-dialog-backdrop" opaque=true tap="onCancel"}}
+      {{/ember-wormhole}}
+    {{/if}}
+  {{/if}}
+{{/if}}
+{{yield}}
