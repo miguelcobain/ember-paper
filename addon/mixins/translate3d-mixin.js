@@ -9,13 +9,16 @@ export default Ember.Mixin.create({
   classNameBindings: ['transformIn:md-transition-in'],
 
 
-  origin: Ember.computed(function () {
+  translateFromOrigin: Ember.computed(function () {
     return Ember.$('body');
   }),
 
+  translateToParent: Ember.computed(function () {
+    return Ember.$('body');
+  }),
 
-  translate3dFrom: Ember.computed('origin', function () {
-    return this.toTransformCss(this.calculateZoomToOrigin(this.$(), this.get('origin')));
+  translate3dFrom: Ember.computed('translateFromOrigin', function () {
+    return this.toTransformCss(this.calculateZoomToOrigin(this.$(), this.get('translateFromOrigin')));
   }),
 
   translate3dTo: Ember.computed(function () {
@@ -59,8 +62,8 @@ export default Ember.Mixin.create({
   _translate3dOnDestroy: Ember.on('willDestroyElement', function () {
     var _self = this;
     var clone = this.$().clone();
-    Ember.$('body').append(clone);
-    var origin = this.get('origin');
+    this.get('translateToParent').append(clone);
+    var origin = this.get('translateFromOrigin');
     var from = this.calculateZoomToOrigin(clone, origin);
     clone.removeClass('md-transition-in').addClass('md-transition-out').attr('style', this.toTransformCss(from));
     this.waitTransitionEnd(clone).then(function () {
