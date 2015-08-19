@@ -45,6 +45,15 @@ export default Ember.Component.extend({
     Ember.run.scheduleOnce('afterRender', this, function() {
       this.set('computedStyleState', 'ready');
     });
+  },
+
+  actions: {
+    onOk () {
+      this.sendAction('on-ok');
+    },
+    onCancel () {
+      this.sendAction('on-cancel');
+    }
   }
 
 });
