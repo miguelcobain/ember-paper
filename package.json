@@ -42,7 +42,8 @@
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.3",
     "ember-prism": "0.0.5",
-    "ember-try": "0.0.6"
+    "ember-try": "0.0.6",
+    "ember-wormhole": "0.3.4"
   },
   "dependencies": {
     "broccoli-autoprefixer": "^3.0.0",
