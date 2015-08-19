@@ -35,6 +35,14 @@
     }}
   </p>
 
+  <h3>Icons</h3>
+  <p>
+      {{paper-input label="Name" value=name icon="person" icon-class="name"}}
+      {{paper-input placeholder="Phone Number" type="text" value=user.phone icon="phone"}}
+      {{paper-input label="Email (required)" type="email" value=user.email icon="email" icon-class="email" required=true hideAllMessages=true}}
+      {{paper-input placeholder="Address" type="text" value=user.address icon="place"}}
+  </p>
+
   <h3>Template</h3>
 {{#code-block language="handlebars"}}
 \{{paper-input label="Name" value=name}}
@@ -54,6 +62,16 @@
    maxlength="2"
    maxlength-errortext="Max length exceeded."
 }}
+
+&lt;h3&gt;Icons&lt;/h3&gt;
+&lt;p&gt;
+  \{{paper-input label="Name" value=name icon="person" icon-class="name"}}
+  \{{paper-input placeholder="Phone Number" type="text" value=user.phone icon="phone" md-no-float=''}}
+  \{{paper-input label="Email (required)" type="email" value=user.email icon="email" icon-class="email" required=true hideAllMessages=true}}
+  \{{paper-input placeholder="Address" type="text" value=user.address icon="place"}}
+&lt;/p&gt;
+
+
 {{/code-block}}
 </div>
 {{/paper-content}}

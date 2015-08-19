@@ -124,7 +124,7 @@ ul li:first-child {
 
 body {
 
-  &> div.ember-view {
+  & > div.ember-view {
     width: 100%;
     height: 100%;
   }
@@ -164,13 +164,13 @@ p {
 }
 
 .menu-sidenav-toggle {
-  font-size: 24px!important;
+  font-size: 24px !important;
   margin-right: 16px;
   padding: 0;
 }
 
 .logo {
-  font-size:24px;
+  font-size: 24px;
 }
 
 /*.sidenav ul {
@@ -232,11 +232,25 @@ p {
 
 .icon-demo md-icon {
   font-size: 24px;
-  margin:16px;
+  margin: 16px;
 }
 
 .icon-demo .icon-tile {
-  float:left;
-  min-width:200px;
-  text-align:center;
+  float: left;
+  min-width: 200px;
+  text-align: center;
+}
+
+md-input-container:not(.md-input-invalid) > md-icon.email {
+  color: green;
+}
+
+md-input-container:not(.md-input-invalid) > md-icon.name {
+  color: dodgerblue;
+}
+
+md-input-container.md-input-invalid > md-icon.email,
+md-input-container.md-input-invalid > md-icon.name,
+{
+  color: red;
 }
