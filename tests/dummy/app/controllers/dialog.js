@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
 
     /*Custom dialog*/
     openDialog(param, event) {
+      this.set('dialogParent', Ember.$('#popupContainer'));
       this.set('dialogOrigin',  Ember.$(event.currentTarget));
       this.set('dialogIsOpen', true);
     },
@@ -18,15 +19,12 @@ export default Ember.Controller.extend({
 
     /*Basic dialog*/
     openBasicDialog(param, event) {
+      this.set('dialogParent', Ember.$('#popupContainer'));
       this.set('basicDialogOrigin',  Ember.$(event.currentTarget));
       this.set('basicDialogIsOpen', true);
     },
     closeBasicDialog() {
       this.set('basicDialogIsOpen', false);
     }
-  },
-
-  dialogParent: Ember.computed(function () {
-    return Ember.$('#popupContainer');
-  })
+  }
 });
