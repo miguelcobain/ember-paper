@@ -9,7 +9,7 @@ module.exports = {
 
   afterInstall: function() {
     var _this = this;
-    return this.addBowerPackagesToProject([{name: 'hammerjs', target:'latest'}, {name:'material-design-icons', target: 'latest'}]).then(function() {
+    return this.addBowerPackagesToProject([{name: 'hammerjs', target:'latest'}]).then(function() {
       return _this.addPackagesToProject([{name: 'ember-cli-sass', target: 'latest'}]);
     });
   }
