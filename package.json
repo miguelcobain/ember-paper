@@ -46,7 +46,8 @@
   },
   "dependencies": {
     "broccoli-autoprefixer": "^3.0.0",
-    "ember-cli-babel": "^5.1.3"
+    "ember-cli-babel": "^5.1.3",
+    "ember-css-transitions": "0.1.0"
   },
   "keywords": [
     "ember-addon",

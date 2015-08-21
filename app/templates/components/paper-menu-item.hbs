@@ -1,0 +1,7 @@
+{{#if action}}
+  {{#paper-button no-span=true action="action" disabled=disabled}}
+    {{yield}}
+  {{/paper-button}}
+{{else}}
+  {{yield}}
+{{/if}}

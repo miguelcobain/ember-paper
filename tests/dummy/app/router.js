@@ -24,6 +24,8 @@ Router.map(function() {
   this.route('toolbar');
   this.route('icons');
   this.route('slider');
+  this.route('paper-select');
+  this.route('menu');
 });
 
 export default Router;

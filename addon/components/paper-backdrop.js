@@ -1,34 +1,31 @@
 import Ember from 'ember';
-import PaperNavContainer from './paper-nav-container';
 /* globals Hammer */
 
 export default Ember.Component.extend({
   tagName: 'md-backdrop',
-  classNames: ['paper-backdrop', 'md-opaque', 'md-default-theme'],
+  classNames: ['md-default-theme'],
 
-  navContainer: Ember.computed(function() {
-    return this.nearestOfType(PaperNavContainer);
-  }),
+  classNameBindings: ['opaque:md-opaque', 'isLockedOpen:md-locked-open'],
+
 
   // Hammer event handler for tapping backdrop
   tapHammer: null,
 
   subscribeToTouchEvents: Ember.on('didInsertElement', function() {
+    var el = this.$().detach();
+    Ember.$('body').prepend(el);
+
     var hammer = new Hammer(this.get('element'));
-    hammer.on('tap', Ember.run.bind(this, this._collapseSidenav));
+    hammer.on('tap', Ember.run.bind(this, this.onTap));
     this.set('tapHammer', hammer);
   }),
 
-  _collapseSidenav() {
-    this.get('navContainer').collapseSidenav();
-    return false;
-  },
+  onTap (e) {
+    e.preventDefault();
 
-  willDestroyElement() {
-    this._super(...arguments);
-    if (Ember.isPresent(this.get('tapHammer'))) {
-      this.get('tapHammer').destroy();
-    }
+    this.sendAction('tap');
   }
+
+
 
 });
