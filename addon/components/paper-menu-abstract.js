@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  animate: Ember.inject.service(),
   constants: Ember.inject.service(),
 
   'is-open': false,

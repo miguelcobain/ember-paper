@@ -9,7 +9,7 @@ import PaperMenuAbstract from './paper-menu-abstract';
  * @abstract
  */
 export default Ember.Component.extend({
-  animate: Ember.inject.service(),
+  transitionEvents: Ember.inject.service(),
   constants: Ember.inject.service(),
 
   classNames: ['md-default-theme'],
@@ -46,11 +46,6 @@ export default Ember.Component.extend({
       });
     });
 
-    this.get('animate')
-      .waitTransitionEnd(this.$(), {timeout: 370})
-      .then(function (/*response*/) {
-
-      });
 
     // Register resize handler.
     Ember.$(window).on('resize',this.get('_resizeHandler'));
@@ -65,7 +60,7 @@ export default Ember.Component.extend({
   hideWrapper() {
     var _self = this;
     return new Ember.RSVP.Promise(function (resolve/*, reject*/) {
-      _self.get('animate').waitTransitionEnd(_self.$(), { timeout: 370 }).then(resolve);
+      _self.get('transitionEvents').addEndEventListener(_self.get('element'), resolve);
       _self.$().removeClass('md-active').addClass('md-leave');
     });
   },

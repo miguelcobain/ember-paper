@@ -66,11 +66,11 @@ export default Ember.Controller.extend({
     { category: 'veg', name: 'Green Olives' }
   ]),
 
-  meatToppings: Ember.computed('toppings.@each', function () {
+  meatToppings: Ember.computed('toppings.[]', function () {
     return this.get('toppings').filter(function (item) { return item.category === 'meat'; });
   }),
 
-  vegToppings: Ember.computed('toppings.@each', function () {
+  vegToppings: Ember.computed('toppings.[]', function () {
     return this.get('toppings').filter(function (item) { return item.category === 'veg'; });
   })
 
