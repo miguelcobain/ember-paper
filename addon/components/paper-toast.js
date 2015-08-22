@@ -1,17 +1,28 @@
 import Ember from 'ember';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
+import PaperToastBounds from './paper-toast-bounds';
 
 /*global Hammer*/
 
 export default Ember.Component.extend(TransitionMixin, {
   tagName: 'md-toast',
-  classNames: ['md-default-theme'],
-  classNameBindings: ['_right:md-right', '_left:md-left', '_bottom:md-bottom', '_top:md-top'],
+  // ng-enter is in classNames on init to avoid delay of initial translate3d state.
+  classNames: ['md-default-theme', 'ng-enter'],
+  classNameBindings: [
+    '_right:md-right',
+    '_left:md-left',
+    '_bottom:md-bottom',
+    '_top:md-top',
+    'capsule:md-capsule'
+  ],
 
-  'align-fab': true,
+  toastBounds: Ember.computed(function() {
+    return this.nearestOfType(PaperToastBounds);
+  }),
+
 
   transitionClass: 'ng',
-  addDestroyedElementClone (parent, index, clone) {
+  addDestroyedElementClone(parent, index, clone) {
    parent.append(clone);
   },
 
@@ -25,51 +36,40 @@ export default Ember.Component.extend(TransitionMixin, {
 
 
 
-  didInsertElement () {
+  didInsertElement() {
     if (this.get('hide-delay')) {
       Ember.run.later(function () {
         this.sendAction('on-close');
       }.bind(this), this.get('hide-delay'));
     }
-    // Add to parent to toast is open in it.
-    this.runParentClass();
 
     var swipeHammer = new Hammer(this.get('element'));
     this.swipeHammer = swipeHammer;
-    swipeHammer.on('swipeleft', Ember.run.bind(this, this._swipe));
-    swipeHammer.on('swiperight', Ember.run.bind(this, this._swipe));
+    swipeHammer.on('swipeleft', this.onSwipe.bind(this));
+    swipeHammer.on('swiperight', this.onSwipe.bind(this));
+
+    // Add to parent to toast is open in it.
+    if (this.get('toastBounds')) {
+      Ember.run.scheduleOnce('afterRender', this, function () {
+        this.get('toastBounds').send('toggleToast', (this.get('top') ? 'top' : 'bottom'));
+      });
+    }
   },
 
-  _swipe (ev) {
+  onSwipe(ev) {
     //Add swipeleft/swiperight class to element so it can animate correctly
-    this.$().addClass('md-' + ev.type);
+    this.$().addClass(`md-${ev.type}`);
     this.sendAction('on-close');
   },
 
   willDestroyElement() {
-    this._super(...arguments);
     if (this.swipeHammer) {
       this.swipeHammer.destroy();
     }
-    // Remove toast open.
-    this.runParentClass(true);
-  },
-
-  runParentClass (destroy) {
-    if (!this.get('align-fab')) {
-      return;
-    }
-    var el,
-        className = 'md-toast-open-' + (this.get('top') ? 'top' : 'bottom');
-    if (this.get('parent-selector')) {
-      el = this.$().closest(this.get('parent-selector'));
-    } else {
-      el = this.$().parent();
-    }
-    if (destroy) {
-      el.removeClass(className);
-    } else {
-      el.addClass(className);
+    if (this.get('toastBounds')) {
+      Ember.run.scheduleOnce('afterRender', this, function () {
+        this.get('toastBounds').send('toggleToast', (this.get('top') ? 'top' : 'bottom'));
+      });
     }
   },
 
