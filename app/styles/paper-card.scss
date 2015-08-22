@@ -12,14 +12,28 @@ md-card {
 
   > img,
   > :not(md-card-content) img {
-    order: 0;
     width: 100%;
   }
 
   md-card-content {
-    order: 1;
     padding: $card-padding;
   }
+
+  .md-actions {
+    margin: 0;
+
+    .md-button {
+      margin-bottom: $baseline-grid;
+      margin-top: $baseline-grid;
+      margin-right: $baseline-grid * .5;
+      margin-left: $baseline-grid * .5;
+    }
+  }
+
+  md-card-footer {
+    padding: $card-padding;
+  }
+
 }
 
 // THEME

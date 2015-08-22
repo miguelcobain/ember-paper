@@ -37,6 +37,7 @@ test('it sets isInvalid as true when required is true and text has no value', fu
 
   component.set('required', true);
   component.set('value', '');
+  component.set('isTouched', true);
 
   assert.equal(component.get('isInvalid'), true, 'isInvalid is false');
 });
@@ -47,8 +48,19 @@ test('it does not set isInvalid when required is true and text has value', funct
 
   component.set('required', true);
   component.set('value', 'Ember Paper');
+  component.set('isTouched', true);
 
   assert.equal(component.get('isInvalid'), false, 'isInvalid is true with a value');
+});
+
+test('it does not set isInvalid when required is true, text has no value and isTouched is false', function(assert) {
+  assert.expect(1);
+  var component = this.subject();
+  component.set('required', true);
+  component.set('value', '');
+  component.set('isTouched', false);
+
+  assert.equal(component.get('isInvalid'), false, 'isInvalid is true');
 });
 
 test('it adds md-input-invalid css class when isInvalid', function(assert) {
@@ -58,6 +70,7 @@ test('it adds md-input-invalid css class when isInvalid', function(assert) {
 
   component.set('required', true);
   component.set('value', '');
+  component.set('isTouched', true);
 
   this.render();
 
@@ -77,6 +90,7 @@ test('it sets error text when isInvalid', function(assert) {
   component.set('required', true);
   component.set('value', '');
   component.set('errorText', expectedError);
+  component.set('isTouched', true);
 
   this.render();
 
@@ -99,6 +113,7 @@ test('validates min with default error', function(assert) {
 
   component.set('min', 3);
   component.set('value', 2);
+  component.set('isTouched', true);
 
   this.render();
 
@@ -121,6 +136,7 @@ test('validates min with custom error', function(assert) {
   component.set('min', 3);
   component.set('min-errortext', expectedError);
   component.set('value', 2);
+  component.set('isTouched', true);
 
   this.render();
 
@@ -141,6 +157,7 @@ test('validates min with no error', function(assert) {
 
   component.set('min', 3);
   component.set('value', 3);
+  component.set('isTouched', true);
 
   this.render();
 
@@ -162,6 +179,7 @@ test('validates max with default error', function(assert) {
 
   component.set('max', 3);
   component.set('value', 4);
+  component.set('isTouched', true);
 
   this.render();
 
@@ -184,6 +202,7 @@ test('validates max with custom error', function(assert) {
   component.set('max', 3);
   component.set('max-errortext', expectedError);
   component.set('value', 4);
+  component.set('isTouched', true);
 
   this.render();
 
@@ -204,6 +223,7 @@ test('validates max with no error', function(assert) {
 
   component.set('max', 3);
   component.set('value', 3);
+  component.set('isTouched', true);
 
   this.render();
 
@@ -226,6 +246,7 @@ test('validates maxlength with default error', function(assert) {
 
   component.set('maxlength', 10);
   component.set('value', 'This is a test');
+  component.set('isTouched', true);
 
   this.render();
 
@@ -251,6 +272,7 @@ test('validates maxlength with custom error', function(assert) {
   component.set('maxlength', 10);
   component.set('maxlength-errortext', expectedError);
   component.set('value', 'This is a test');
+  component.set('isTouched', true);
 
   this.render();
 
@@ -275,6 +297,7 @@ test('validates maxlength with no error', function(assert) {
 
   component.set('maxlength', 10);
   component.set('value', 'Testing...');
+  component.set('isTouched', true);
 
   this.render();
 
