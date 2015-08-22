@@ -34,26 +34,3 @@ test('it sets positional classes', function(assert) {
   assert.equal(component.$().hasClass('md-top'), true, 'Has md-top class assigned');
   assert.equal(component.$().hasClass('md-bottom'), true, 'Has md-bottom class assigned');
 });
-
-test('it sets md-toast-open-top on parent element if top is true', function(assert) {
-  assert.expect(1);
-
-  var component =  this.subject({
-    top: true
-  });
-  this.render();
-
-  assert.equal(component.$().parent().hasClass('md-toast-open-top'), true, 'Has md-toast-open-top class assigned to parent element');
-});
-
-test('it disregards md-toast-open-* on parent if align-fab is false', function(assert) {
-  assert.expect(1);
-
-  var component =  this.subject({
-    top: true,
-    'align-fab': false
-  });
-  this.render();
-
-  assert.equal(component.$().parent().hasClass('md-toast-open-top'), false, 'It disregards md-toast-open-top if align-fab = true');
-});

@@ -7,7 +7,8 @@
     </h2>
 {{/paper-toolbar}}
 {{#paper-content class="md-padding"}}
-    <div class="doc-content" style="min-height: 448px; position: relative; overflow: hidden;">
+    <div class="doc-content">
+    {{#paper-toast-bounds}}
         <h3>Basic Usage</h3>
         <p>Toast can be dismissed with a swipe, a timer, or a button.</p>
       {{#paper-button class="md-fab md-fab-top-right"}}FAB{{/paper-button}}
@@ -66,7 +67,6 @@
                 Delayed
             {{/paper-button}}
           </div>
-
       </div>
 
       <h3>Position</h3>
@@ -77,6 +77,28 @@
 
 
       {{#paper-button action="openFabBottom" primary=true class="md-fab md-fab-bottom-right"}}FAB{{/paper-button}}
+
+
+
+
+    {{/paper-toast-bounds}}
+
+<h3>Template</h3>
+
+<p>Wrap <code>\{{paper-toast}}</code> in <code>\{{paper-toast-bounds}}</code> in order give bounds to the toast so the toast is correctly placed within the bounds.</p>
+
+{{#code-block language='handlebars'}}...
+\{{#paper-toast-bounds}}
+  \{{#paper-button class="md-fab md-fab-top-right"}}FAB\{{/paper-button}}
+  \{{#if isOpenBasic}}
+    \{{paper-toast on-close="closeBasic"
+      on-button="closeBasic"
+      button="Close this"
+      right=true top=true
+      message=basicMessage}}
+  \{{/if}}
+\{{/paper-toast-bounds}}
+...{{/code-block}}
 
 
 
@@ -104,13 +126,12 @@
 
 <h3>Template</h3>
 
-
 <h5>app/templates/application.hbs</h5>
 
 {{#code-block language='handlebars'}}...
+\{{#paper-toast-bounds}}
 \{{#if isOpenMessage}}
   \{{paper-toast
-    align-fab=false
     on-close="closeToast"
     on-button="closeToast"
     button="Close this"
@@ -118,7 +139,7 @@
     bottom=true
     message=rightLeftToastMessage}}
 \{{/if}}
-
+\{{/paper-toast-bounds}}
 ...{{/code-block}}
 
 
@@ -154,6 +175,5 @@ export default Ember.Route.extend({
   }
 });{{/code-block}}
 
-    </div>
-
+</div>
 {{/paper-content}}
