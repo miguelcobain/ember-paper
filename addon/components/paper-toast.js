@@ -45,8 +45,8 @@ export default Ember.Component.extend(TransitionMixin, {
 
     var swipeHammer = new Hammer(this.get('element'));
     this.swipeHammer = swipeHammer;
-    swipeHammer.on('swipeleft', this.onSwipe.bind(this));
-    swipeHammer.on('swiperight', this.onSwipe.bind(this));
+    swipeHammer.on('swipeleft', Ember.run.bind(this, this.onSwipe));
+    swipeHammer.on('swiperight', Ember.run.bind(this, this.onSwipe));
 
     // Add to parent to toast is open in it.
     if (this.get('toastBounds')) {
