@@ -22,7 +22,13 @@
 
   <h3>Input Errors</h3>
   <p>
-    {{paper-input label="Address" value=address required=true required-errortext="Address is required."}}
+    {{#paper-input label="Address" value=address required=true required-errortext="Address is required." helper="Hello" as |paper|}}
+      <div ng-messages>
+          <div ng-message class="helper-text {{if paper.isInvalid 'ng-leave ng-leave-active' 'ng-enter ng-enter-active'}}">
+              Please input your address.
+          </div>
+      </div>
+    {{/paper-input}}
     {{paper-input type="number" label="Maximum Value" value=maxNumber max="5" max-errortext="Enter 5 or less."}}
     {{paper-input type="number" label="Minimum Value" value=minNumber min="1" min-errortext="Enter at least 1."}}
     {{paper-input label="Maximum Character Length" value=maxLength required=true maxlength="10" maxlength-errortext="Maximum length exceeded."}}
@@ -51,7 +57,13 @@
 \{{paper-input label="Submission date" type="date" value=date}}
 \{{paper-input textarea=true label="Biography" value=biography}}
 
-\{{paper-input label="Address" value=address required=true required-errortext="Address is required."}}
+\{{#paper-input label="Address" value=address required=true required-errortext="Address is required." helper="Hello" as |paper|}}
+  &lt;div ng-messages&gt;
+    &lt;div ng-message class="helper-text \{{if paper.isInvalid 'ng-leave ng-leave-active' 'ng-enter ng-enter-active'}}"&gt;
+    Please input your address.
+    &lt;/div&gt;
+  &lt;/div&gt;
+\{{/paper-input}}{{paper-input label="Address" value=address required=true required-errortext="Address is required."}}
 \{{paper-input label="Maximum Value" value=maxNumber max="5" max-errortext="Enter 5 or less."}}
 \{{paper-input label="Minimum Value" value=minNumber min="1" min-errortext="Enter at least 1."}}
 \{{paper-input label="Maximum Character Length" value=maxLength required=true maxlength="10" maxlength-errortext="Maximum length exceeded."}}
