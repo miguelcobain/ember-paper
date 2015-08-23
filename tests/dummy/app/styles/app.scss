@@ -241,6 +241,18 @@ p {
   text-align: center;
 }
 
+md-input-container {
+  ng-messages,
+  [ng-message], [data-ng-message], [x-ng-message] {
+
+    &.helper-text {
+      color: color($foreground, '3');
+    }
+
+  }
+
+}
+
 md-input-container:not(.md-input-invalid) > md-icon.email {
   color: green;
 }
