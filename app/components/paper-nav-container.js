@@ -1,3 +1,1 @@
-import PaperNavContainer from 'ember-paper/components/paper-nav-container';
-
-export default PaperNavContainer;
+export { default } from 'ember-paper/components/paper-nav-container';

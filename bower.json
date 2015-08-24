@@ -12,6 +12,7 @@
     "jquery": "^1.11.3",
     "loader.js": "ember-cli/loader.js#3.2.1",
     "qunit": "~1.18.0",
-    "prism": "*"
+    "prism": "*",
+    "matchMedia": "0.2.0"
   }
 }

@@ -1,12 +1,11 @@
 {{#paper-toolbar}}
-  <h2 class="md-toolbar-tools">
-    {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
-      {{paper-icon icon="menu"}}
-    {{/paper-sidenav-toggle}}
-    <span>Switches</span>
-  </h2>
+    <div class="md-toolbar-tools">
+      {{#paper-sidenav-toggle as |toggle|}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
+      {{/paper-sidenav-toggle}}
+        <span class="md-breadcrumb-page">Switches</span>
+    </div>
 {{/paper-toolbar}}
-
 {{#paper-content class="md-padding"}}
 <div class="doc-content">
   <p>
