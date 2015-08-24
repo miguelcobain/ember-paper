@@ -1,8 +1,9 @@
-{{#paper-nav-container open=drawerOpen class="ember-app"}}
+<!-- paper-wormhole is needed for fixed positioned components and should be the first element in application.hbs. -->
+<div id="paper-wormhole"></div>
 
-  {{#paper-sidenav class="md-sidenav-left md-whiteframe-z2" flex-layout="column" flex=true}}
-
-    {{#paper-toolbar}}
+{{#paper-nav-container class="site-nav-container"}}
+  {{#paper-sidenav class="md-sidenav-left md-whiteframe-z2 site-sidenav" locked-open="gt-sm"}}
+    {{#paper-toolbar class="site-content-toolbar"}}
       <div class="md-toolbar-tools">
         <div class="logo">
           <img src="ember-logo-white.png" height="30"/>&nbsp;&nbsp;<strong>Paper</strong>
@@ -36,11 +37,7 @@
     {{/paper-content}}
   {{/paper-sidenav}}
 
-  {{#paper-content flex-layout="column" flex=true}}
+  <div layout="column" tabindex="-1" role="main" flex>
     {{outlet}}
-  {{/paper-content}}
-
+  </div>
 {{/paper-nav-container}}
-
-<!-- Place this tag right after the last button or just before your close body tag. -->
-<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>

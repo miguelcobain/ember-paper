@@ -14,6 +14,11 @@ export default Ember.Component.extend({
   role: 'presentation',
   stickToElement: null,
 
+  init() {
+    this._super(...arguments);
+    this._resizeWindowEvent = Ember.run.bind(this, this.resizeWindowEvent);
+  },
+
   mouseEnter() {
     this.sendAction('mouse-enter');
   },
@@ -95,13 +100,13 @@ export default Ember.Component.extend({
     //TODO refactor using ember-wormhole?
     var ul = this.$().detach();
     Ember.$('body').append(ul);
-    Ember.$(window).on('resize', Ember.run.bind(this, this.resizeWindowEvent));
+    Ember.$(window).on('resize', this._resizeWindowEvent);
     this.get('util').disableScrollAround(this.$());
     this.positionDropdown();
   },
 
   willDestroyElement() {
-    Ember.$(window).off('resize');
+    Ember.$(window).off('resize', this._resizeWindowEvent);
     this.get('util').enableScrolling();
   }
 
