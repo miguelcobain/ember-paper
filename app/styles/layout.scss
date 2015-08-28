@@ -3,14 +3,19 @@
 
 // hide means hide everywhere
 /* Sizes:
-  0    <= size <= 600  Phone
-  600  <= size <= 960  Tablet
-  960  <= size <= 1200 Tablet-Landscape
+  0    <= size < 600  Phone
+  600  <= size < 960  Tablet
+  960  <= size < 1200 Tablet-Landscape
   1200 <= size         PC
 */
 
 [layout] {
   box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -22,14 +27,45 @@
   flex-direction: row;
 }
 
+[layout-padding] > [flex-sm],
+[layout-padding] > [flex-lt-md]
+{
+  padding: $layout-gutter-width / 4;
+}
 [layout-padding],
-[layout-padding] > [flex] {
+[layout-padding] > [flex],
+[layout-padding] > [flex-gt-sm],
+[layout-padding] > [flex-md],
+[layout-padding] > [flex-lt-lg]
+{
   padding: $layout-gutter-width / 2;
 }
+[layout-padding] > [flex-gt-md],
+[layout-padding] > [flex-lg]
+{
+  padding: $layout-gutter-width / 1;
+}
+
+
+[layout-margin] > [flex-sm],
+[layout-margin] > [flex-lt-md]
+{
+  margin: $layout-gutter-width / 4;
+}
 [layout-margin],
-[layout-margin] > [flex] {
+[layout-margin] > [flex],
+[layout-margin] > [flex-gt-sm],
+[layout-margin] > [flex-md],
+[layout-margin] > [flex-lt-lg] {
   margin: $layout-gutter-width / 2;
 }
+[layout-margin] > [flex-gt-md],
+[layout-margin] > [flex-lg]
+{
+  margin: $layout-gutter-width / 1;
+}
+
+
 
 [layout-wrap] {
   flex-wrap: wrap;
@@ -69,6 +105,11 @@
 @mixin layout-for-name($name) {
   [layout-#{$name}] {
     box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
     display: flex;
   }
   [layout-#{$name}=column] {
@@ -79,6 +120,24 @@
   }
 }
 
+@mixin offset-for-name($name: null) {
+  $offsetName: 'offset';
+  @if $name != null {
+    $offsetName: 'offset-#{$name}';
+  }
+  @for $i from 1 through 19 {
+    [#{$offsetName}="#{$i * 5}"] {
+      margin-left: #{$i * 5 + '%'};
+    }
+  }
+  [#{$offsetName}="33"], [#{$offsetName}="34"] {
+    margin-left: 33.33%;
+  }
+  [#{$offsetName}="66"], [#{$offsetName}="67"] {
+    margin-left: 66.66%;
+  }
+}
+
 @mixin flex-properties-for-name($name: null) {
   $flexName: 'flex';
   @if $name != null {
@@ -86,6 +145,7 @@
   }
 
   [#{$flexName}] {
+    box-sizing: border-box;
     flex: 1;
   }
 
@@ -103,23 +163,26 @@
     }
   }
 
+  [#{$flexName}="33"], [#{$flexName}="34"] {
+    flex: 0 0 33.33%;
+  }
+  [#{$flexName}="66"], [#{$flexName}="67"] {
+    flex: 0 0 66.66%;
+  }
+
   [layout="row"] {
     > [#{$flexName}="33"], > [#{$flexName}="34"] {
-      flex: 0 0 33.33%;
       max-width: 33.33%;
     }
     > [#{$flexName}="66"], > [#{$flexName}="67"] {
-      flex: 0 0 66.66%;
       max-width: 66.66%;
     }
   }
   [layout="column"] {
     > [#{$flexName}="33"], > [#{$flexName}="34"] {
-      flex: 0 0 33.33%;
       max-height: 33.33%;
     }
     > [#{$flexName}="66"], > [#{$flexName}="67"] {
-      flex: 0 0 66.66%;
       max-height: 66.66%;
     }
   }
@@ -210,6 +273,7 @@
 @include flex-properties-for-name();
 @include layout-align-for-name();
 @include flex-order-for-name();
+@include offset-for-name();
 
 /**
  * `hide-gt-sm show-gt-lg` should hide from 600px to 1200px
@@ -218,7 +282,7 @@
  */
 
 // SMALL SCREEN
-@media (max-width: $layout-breakpoint-sm) {
+@media (max-width: $layout-breakpoint-sm - 1) {
   [hide-sm], [hide] {
     &:not([show-sm]):not([show]) {
       display: none;
@@ -228,6 +292,7 @@
   @include flex-order-for-name(sm);
   @include layout-align-for-name(sm);
   @include layout-for-name(sm);
+  @include offset-for-name(sm);
   @include flex-properties-for-name(sm);
 }
 
@@ -236,11 +301,12 @@
   @include flex-order-for-name(gt-sm);
   @include layout-align-for-name(gt-sm);
   @include layout-for-name(gt-sm);
+  @include offset-for-name(gt-sm);
   @include flex-properties-for-name(gt-sm);
 }
 
 // MEDIUM SCREEN
-@media (min-width: $layout-breakpoint-sm) and (max-width: $layout-breakpoint-md) {
+@media (min-width: $layout-breakpoint-sm) and (max-width: $layout-breakpoint-md - 1) {
   [hide], [hide-gt-sm] {
     &:not([show-gt-sm]):not([show-md]):not([show]) {
       display: none;
@@ -253,6 +319,7 @@
   @include flex-order-for-name(md);
   @include layout-align-for-name(md);
   @include layout-for-name(md);
+  @include offset-for-name(md);
   @include flex-properties-for-name(md);
 }
 
@@ -261,11 +328,12 @@
   @include flex-order-for-name(gt-md);
   @include layout-align-for-name(gt-md);
   @include layout-for-name(gt-md);
+  @include offset-for-name(gt-md);
   @include flex-properties-for-name(gt-md);
 }
 
 // LARGE SCREEN
-@media (min-width: $layout-breakpoint-md) and (max-width: $layout-breakpoint-lg) {
+@media (min-width: $layout-breakpoint-md) and (max-width: $layout-breakpoint-lg - 1) {
   [hide], [hide-gt-sm], [hide-gt-md] {
     &:not([show-gt-sm]):not([show-gt-md]):not([show-lg]):not([show]) {
       display: none;
@@ -278,6 +346,7 @@
   @include flex-order-for-name(lg);
   @include layout-align-for-name(lg);
   @include layout-for-name(lg);
+  @include offset-for-name(lg);
   @include flex-properties-for-name(lg);
 }
 
@@ -292,5 +361,6 @@
   @include flex-order-for-name(gt-lg);
   @include layout-align-for-name(gt-lg);
   @include layout-for-name(gt-lg);
+  @include offset-for-name(gt-lg);
   @include flex-properties-for-name(gt-lg);
 }
