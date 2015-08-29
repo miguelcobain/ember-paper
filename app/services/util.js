@@ -6,21 +6,21 @@ var Util = Ember.Service.extend({
 
   // Disables scroll around the passed element.
   disableScrollAround: function (element) {
-    var $mdUtil = this,
+    var util = this,
       $document = jQuery(window.document);
 
-    $mdUtil.disableScrollAround._count = $mdUtil.disableScrollAround._count || 0;
-    ++$mdUtil.disableScrollAround._count;
-    if ($mdUtil.disableScrollAround._enableScrolling) return $mdUtil.disableScrollAround._enableScrolling;
+    util.disableScrollAround._count = util.disableScrollAround._count || 0;
+    ++util.disableScrollAround._count;
+    if (util.disableScrollAround._enableScrolling) return util.disableScrollAround._enableScrolling;
     var body = $document[0].body,
       restoreBody = disableBodyScroll(),
       restoreElement = disableElementScroll();
 
-    return $mdUtil.disableScrollAround._enableScrolling = function () {
-      if (!--$mdUtil.disableScrollAround._count) {
+    return util.disableScrollAround._enableScrolling = function () {
+      if (!--util.disableScrollAround._count) {
         restoreBody();
         restoreElement();
-        delete $mdUtil.disableScrollAround._enableScrolling;
+        delete util.disableScrollAround._enableScrolling;
       }
     };
 
@@ -42,7 +42,7 @@ var Util = Ember.Service.extend({
         scrollMask.off('touchmove');
         scrollMask[0].parentNode.removeChild(scrollMask[0]);
         $document.off('keydown', disableKeyNav);
-        delete $mdUtil.disableScrollAround._enableScrolling;
+        delete util.disableScrollAround._enableScrolling;
       };
 
       // Prevent keypresses from elements inside the body

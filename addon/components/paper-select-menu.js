@@ -14,12 +14,12 @@ export default Ember.Component.extend({
   constants: Ember.inject.service(),
 
 
-  menuAbstract: Ember.computed(function () {
+  menuAbstract: Ember.computed(function() {
     var container = this.nearestOfType(PaperMenuAbstract);
     return container;
   }),
 
-  keyDown (ev) {
+  keyDown(ev) {
     var KeyCodes = this.get('constants').KEYCODE;
     switch(ev.keyCode) {
       case KeyCodes.get('TAB'):
@@ -44,7 +44,7 @@ export default Ember.Component.extend({
   },
 
 
-  optNodeForKeyboardSearch (e) {
+  optNodeForKeyboardSearch(e) {
     if (clearSearchTimeout) {
       clearTimeout(clearSearchTimeout);
     }

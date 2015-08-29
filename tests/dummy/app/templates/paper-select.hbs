@@ -8,7 +8,7 @@
 {{/paper-toolbar}}
 
 
-{{#paper-content classNames="md-padding"}}
+{{#paper-content class="md-padding"}}
 <div class="doc-content">
 <h2>Basic Usage</h2>
 
@@ -44,33 +44,29 @@
 
 <h1 class="md-title">Pick your pizza below</h1>
 <div layout="row">
-    <md-input-container>
-      {{#paper-select placeholder="Size" model=pizzaSize}}
-        {{#each sizes as |size|}}
-          {{#paper-option value=size}}
-            {{size}}
+    {{#paper-select placeholder="Size" model=pizzaSize}}
+      {{#each sizes as |size|}}
+        {{#paper-option value=size}}
+          {{size}}
+        {{/paper-option}}
+      {{/each}}
+    {{/paper-select}}
+    {{#paper-select placeholder="Topping" model=topping}}
+      {{#paper-optgroup label="Meats"}}
+        {{#each meatToppings as |topping|}}
+          {{#paper-option value=topping.name}}
+            {{topping.name}}
           {{/paper-option}}
         {{/each}}
-      {{/paper-select}}
-    </md-input-container>
-    <md-input-container>
-      {{#paper-select placeholder="Topping" model=topping}}
-        {{#paper-optgroup label="Meats"}}
-          {{#each meatToppings as |topping|}}
-            {{#paper-option value=topping.name}}
-              {{topping.name}}
-            {{/paper-option}}
-          {{/each}}
-        {{/paper-optgroup}}
-        {{#paper-optgroup label="Veg"}}
-          {{#each vegToppings as |topping|}}
-            {{#paper-option value=topping.name}}
-              {{topping.name}}
-            {{/paper-option}}
-          {{/each}}
-        {{/paper-optgroup}}
-      {{/paper-select}}
-    </md-input-container>
+      {{/paper-optgroup}}
+      {{#paper-optgroup label="Veg"}}
+        {{#each vegToppings as |topping|}}
+          {{#paper-option value=topping.name}}
+            {{topping.name}}
+          {{/paper-option}}
+        {{/each}}
+      {{/paper-optgroup}}
+    {{/paper-select}}
 </div>
 
 
@@ -99,7 +95,7 @@
 
 <div layout="column" layout-align="center center">
   <p>Select can call an arbitrary function on show. If this function returns a promise, it will display a loading indicator while it is being resolved:</p>
-  <div layout="column" layout-align="center center" style="height: 100px;">
+  <div layout="column" layout-align="center center" style="height: 130px;">
     {{#paper-select on-open=onUserLoad item-label-callback=userLabelCallback placeholder="Assign to a user" model=selectedUser as |items|}}
       {{#each items as |user|}}
         {{#paper-option value=user}}
