@@ -77,13 +77,38 @@
       {{/paper-dialog}}
   {{/if}}
 
+  <h2>Alert and confirm dialogs</h2>
+
+  <h3>Controller</h3>
+  {{#code-block language='javascript'}}
+    actions: {
+      showAlert() {
+        this.set('isAlert',true);
+      },
+      closeAlert(){
+        this.set('isAlert',false);
+      },
+      showConfirm() {
+        this.set('isConfirm',true);
+      },
+      closeConfirm(){
+        this.set('isConfirm',false);
+      },
+      showCustom() {
+        this.set('isCustom',true);
+      },
+      closeCustom(){
+        this.set('isCustom',false);
+      }
+    }
+  {{/code-block}}
+
   <h3>Template</h3>
   {{#code-block language='handlebars'}}
-  &lt;p&gt;
-  &lt;div id="dialog-demo-container" style="position:relative;&gt;&lt;div&gt;
-  &lt;p&gt;
-    \{{paper-dialog
-        type="alert"
+    &lt;div id="dialog-demo-container" style="position:relative;"&gt;&lt;div&gt;
+
+    \{{#if isAlert}}
+      \{{paper-dialog
         title="This is an alert title"
         content="It's without backdrop."
         cancel="Got it!"
@@ -91,9 +116,10 @@
         parent='#dialog-demo-container'
         hasBackdrop=false
         }}
-  &lt;/p&gt;
-  &lt;p&gt;
-    \{{paper-dialog
+    \{{/if}}
+
+    \{{#if isConfirm}}
+      \{{paper-dialog
         title="This is a confirm dialog."
         content="You can specify some description text in here."
         confirm="Ok, got it!"
@@ -102,41 +128,40 @@
         onCancel="closeConfirm"
         parent='#dialog-demo-container'
         }}
-  &lt;/p&gt;
-  &lt;p&gt;
+    \{{/if}}
+  {{/code-block}}
+
+  <h2>Custom dialogs</h2>
+
+  <h3>Template</h3>
+
+  {{#code-block language='handlebars'}}
+  \{{#if isConfirm}}
     \{{#paper-dialog clickOutsideToClose=false parent='body' onCancel="closeCustom" as |onCancel|}}
-        \{{#paper-toolbar}}
-            &lt;div class="md-toolbar-tools"&gt;
-                &lt;h2 flex&gt;Some awesome title&lt;/h2&gt;
-                \{{#paper-button action=onCancel icon-button=true}}
-                    \{{paper-icon icon="close"}}
-                \{{/paper-button}}
-            &lt;/div&gt;
-        \{{/paper-toolbar}}
-        &lt;md-dialog-content style="min-width:500px;max-width:850px;"&gt;
-
-            &lt;h2&gt;I'm a custom dialog and don't get closed if someone clicks outside!&lt;/h2&gt;
-            &lt;p&gt;
-                I'm not like the others. My parent is the body element.
-            &lt;/p&gt;
-
-            &lt;img src="washedout.png" alt="Washed Out" style="min-width:100%;height:auto;"&gt;
-
-            \{{paper-input textarea=true label="I'm a textarea"}}
-            \{{paper-input label="And I'm not" value="just input"}}
-
-        &lt;/md-dialog-content&gt;
-        &lt;div class="md-actions"&gt;
-                \{{#paper-button action="handleDialog" primary=true}}
-                    Confirm
-                \{{/paper-button}}
-
-                \{{#paper-button action=onCancel primary=true}}
-                    Close that thing!
-                \{{/paper-button}}
+      \{{#paper-toolbar}}
+        &lt;div class="md-toolbar-tools"&gt;
+          &lt;h2 flex&gt;Some awesome title&lt;/h2&gt;
+          \{{#paper-button action=onCancel icon-button=true}}
+            \{{paper-icon icon="close"}}
+          \{{/paper-button}}
         &lt;/div&gt;
+      \{{/paper-toolbar}}
+      &lt;md-dialog-content style="min-width:500px;max-width:850px;"&gt;
+        &lt;h2&gt;I'm a custom dialog and don't get closed if someone clicks outside!&lt;/h2&gt;
+        &lt;p&gt;I'm not like the others. My parent is the body element.&lt;/p&gt;
+
+        &lt;img src="washedout.png" alt="Washed Out" style="min-width:100%;height:auto;"&gt;
+
+        \{{paper-input textarea=true label="I'm a textarea"}}
+        \{{paper-input label="And I'm not" value="just input"}}
+      &lt;/md-dialog-content&gt;
+
+      &lt;div class="md-actions"&gt;
+        \{{#paper-button action="handleDialog" primary=true}}Confirm\{{/paper-button}}
+        \{{#paper-button action=onCancel primary=true}}Close that thing!\{{/paper-button}}
+      &lt;/div&gt;
     \{{/paper-dialog}}
-  &lt;/p&gt;
+  \{{/if}}
   {{/code-block}}
 </div>
 {{/paper-content}}

@@ -20,6 +20,9 @@ export default Ember.Component.extend(TransitionMixin, {
   hasActions: Ember.computed('property', function() {
     return Ember.isPresent(this.get('onConfirm')) || Ember.isPresent(this.get('onCancel'));
   }),
+  parentElement: Ember.computed('parent', function() {
+      return Ember.isPresent(Ember.$(this.get('parent'))) ? Ember.$(this.get('parent')) : this.$().parent();
+  }),
 
   didInsertElement() {
     this._super(...arguments);
@@ -33,7 +36,6 @@ export default Ember.Component.extend(TransitionMixin, {
       this.get('parentElement').on('click touchend', Ember.run.bind(this, 'close') );
     }
   },
-
   setupElement(){
     Ember.$('body').addClass('md-dialog-is-showing');
     this.$().addClass('md-transition-in');
@@ -49,7 +51,6 @@ export default Ember.Component.extend(TransitionMixin, {
 
     this.$().wrap('<div class="md-dialog-container ng-scope"></div>');
   },
-
   checkContentOverflow(){
     var content = this.$('md-dialog-content')[0];
 
@@ -57,23 +58,20 @@ export default Ember.Component.extend(TransitionMixin, {
       this.set('overflow',true);
     }
   },
-
-  willDestroyElement() {
-    Ember.$('body').removeClass('md-dialog-is-showing');
-
-    this.get('parentElement').off('click touchend');
-    this.$().parent().remove();
-    this.get('parentElement').children('md-backdrop').remove();
-  },
   close(event){
     if(this.$().find(event.target).length === 0){
       this.get('parentElement').off('click touchend');
       this.send('onCancel');
     }
   },
-  parentElement: Ember.computed('parent', function() {
-      return Ember.isPresent(Ember.$(this.get('parent'))) ? Ember.$(this.get('parent')) : this.$().parent();
-  }),
+  willDestroyElement() {
+    Ember.$('body').removeClass('md-dialog-is-showing');
+
+    this.get('parentElement').off('click touchend');
+    this.get('parentElement').children('md-backdrop').remove();
+
+    this.$().parent().remove();
+  },
 
   actions: {
     onConfirm() {
