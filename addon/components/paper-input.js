@@ -42,16 +42,16 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       minRows = parseInt(textareaNode.getAttribute('rows'));
     }
 
-    textarea.on('keydown input', Ember.run.bind(this, () => {
+    textarea.on('keydown input', () => {
       this.growTextarea(textarea, textareaNode, container, minRows, lineHeight);
-    }));
+    });
 
     if (isNaN(minRows)) {
       textarea.attr('rows','1');
 
-      textarea.on('scroll', Ember.run.bind(this, () => {
+      textarea.on('scroll', () => {
         this.onScroll(textareaNode);
-      }));
+      });
     }
 
     Ember.$(window).on('resize', this.growTextarea(textarea, textareaNode, container, minRows, lineHeight));
