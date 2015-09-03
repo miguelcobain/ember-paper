@@ -8,20 +8,24 @@
 {{/paper-toolbar}}
 {{#paper-content class="md-padding demo-buttons"}}
 <div class="doc-content">
-  <p>
-    {{#paper-button action="showAlert"}}Alert{{/paper-button}}
-    {{#paper-button action="showConfirm" primary=true}}Confirm{{/paper-button}}
-    {{#paper-button action="showCustom"}}Custom Dialog{{/paper-button}}
-  </p>
+
+  <div id="dialog-demo-container" style="height:300px;width:100%;background-color:#f5f2f0;position:relative;justify-content:space-around;display:flex;" flex>
+    <div layout="row" layout-sm="column" layout-align="space-around" style="align-items:flex-end;">
+      {{#paper-button action="showAlert" raised=true primary=true}}Alert{{/paper-button}}
+      {{#paper-button action="showConfirm" raised=true primary=true}}Confirm{{/paper-button}}
+      {{#paper-button action="showCustom" raised=true primary=true}}Custom Dialog{{/paper-button}}
+    </div>
+  </div>
 
   {{#if isAlert}}
       {{paper-dialog
           type="alert"
           title="This is an alert title"
-          content="You can specify some description text in here."
+          content="It's without backdrop."
           cancel="Got it!"
           onCancel="closeAlert"
-          parent='body'
+          parent='#dialog-demo-container'
+          hasBackdrop=false
           }}
   {{/if}}
 
@@ -33,12 +37,12 @@
           onConfirm="handleDialog"
           cancel="Bye!"
           onCancel="closeConfirm"
-          parent='body'
+          parent='#dialog-demo-container'
           }}
   {{/if}}
 
   {{#if isCustom}}
-      {{#paper-dialog clickOutsideToClose=false onCancel="closeCustom" as |onCancel|}}
+      {{#paper-dialog clickOutsideToClose=false parent='body' onCancel="closeCustom" as |onCancel|}}
           {{#paper-toolbar}}
               <div class="md-toolbar-tools">
                   <h2 flex>Some awesome title</h2>
@@ -50,8 +54,11 @@
           <md-dialog-content style="min-width:500px;max-width:850px;">
               <h2>I'm a custom dialog and don't get closed if someone clicks outside!</h2>
               <p>
-                  As the body isn't my parent, the sidenav remains visible!!
+                  I'm not like the others. My parent is the body element.
               </p>
+
+                <img src="washedout.png" alt="Washed Out" style="min-width:100%;height:auto;">
+
               {{paper-input textarea=true label="I'm a textarea"}}
               {{paper-input label="And I'm not" value="just input"}}
               <p>
@@ -73,27 +80,63 @@
   <h3>Template</h3>
   {{#code-block language='handlebars'}}
   &lt;p&gt;
-    \{{#paper-button action="flatButton"}}Button with action\{{/paper-button}}
-    \{{#paper-button noink=true primary=true}}Primary (noink)\{{/paper-button}}
-    \{{#paper-button disabled=true}}disabled\{{/paper-button}}
-    \{{#paper-button warn=true}}warn\{{/paper-button}}
+  &lt;div id="dialog-demo-container" style="position:relative;&gt;&lt;div&gt;
+  &lt;p&gt;
+    \{{paper-dialog
+        type="alert"
+        title="This is an alert title"
+        content="It's without backdrop."
+        cancel="Got it!"
+        onCancel="closeAlert"
+        parent='#dialog-demo-container'
+        hasBackdrop=false
+        }}
   &lt;/p&gt;
   &lt;p&gt;
-    \{{#paper-button raised=true action="raisedButton"}}Button with action\{{/paper-button}}
-    \{{#paper-button raised=true primary=true}}Primary\{{/paper-button}}
-    \{{#paper-button raised=true disabled=true}}disabled\{{/paper-button}}
-    \{{#paper-button raised=true warn=true}}warn\{{/paper-button}}
+    \{{paper-dialog
+        title="This is a confirm dialog."
+        content="You can specify some description text in here."
+        confirm="Ok, got it!"
+        onConfirm="handleDialog"
+        cancel="Bye!"
+        onCancel="closeConfirm"
+        parent='#dialog-demo-container'
+        }}
   &lt;/p&gt;
   &lt;p&gt;
-    \{{#paper-button raised=true action="targetButton" target=component}}Button with target\{{/paper-button}}
-    \{{#paper-button raised=true primary=true action="targetButton" target=component}}Button with bubble\{{/paper-button}}
-    \{{#paper-button raised=true primary=true action="targetButton" target=component bubbles=false}}Button no bubble\{{/paper-button}}
+    \{{#paper-dialog clickOutsideToClose=false parent='body' onCancel="closeCustom" as |onCancel|}}
+        \{{#paper-toolbar}}
+            &lt;div class="md-toolbar-tools"&gt;
+                &lt;h2 flex&gt;Some awesome title&lt;/h2&gt;
+                \{{#paper-button action=onCancel icon-button=true}}
+                    \{{paper-icon icon="close"}}
+                \{{/paper-button}}
+            &lt;/div&gt;
+        \{{/paper-toolbar}}
+        &lt;md-dialog-content style="min-width:500px;max-width:850px;"&gt;
+
+            &lt;h2&gt;I'm a custom dialog and don't get closed if someone clicks outside!&lt;/h2&gt;
+            &lt;p&gt;
+                I'm not like the others. My parent is the body element.
+            &lt;/p&gt;
+
+            &lt;img src="washedout.png" alt="Washed Out" style="min-width:100%;height:auto;"&gt;
+
+            \{{paper-input textarea=true label="I'm a textarea"}}
+            \{{paper-input label="And I'm not" value="just input"}}
+
+        &lt;/md-dialog-content&gt;
+        &lt;div class="md-actions"&gt;
+                \{{#paper-button action="handleDialog" primary=true}}
+                    Confirm
+                \{{/paper-button}}
+
+                \{{#paper-button action=onCancel primary=true}}
+                    Close that thing!
+                \{{/paper-button}}
+        &lt;/div&gt;
+    \{{/paper-dialog}}
   &lt;/p&gt;
-  &lt;p&gt;
-    \{{#paper-button icon-button=true}}\{{paper-icon icon="more-vert"}}\{{/paper-button}}
-  &lt;/p&gt;
-  &lt;p&gt;
-    \{{paper-button raised=true label="Blockless version"}}
-  &lt;/p&gt;{{/code-block}}
+  {{/code-block}}
 </div>
 {{/paper-content}}

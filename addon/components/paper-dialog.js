@@ -23,7 +23,6 @@ export default Ember.Component.extend(TransitionMixin, {
 
   didInsertElement() {
     this._super(...arguments);
-
     this.setupElement();
 
     Ember.run.schedule('afterRender', () => {
@@ -31,7 +30,7 @@ export default Ember.Component.extend(TransitionMixin, {
     });
 
     if (this.get('clickOutsideToClose')) {
-      this.$().parent().on('click touchend', Ember.run.bind(this, 'close') );
+      this.get('parentElement').on('click touchend', Ember.run.bind(this, 'close') );
     }
   },
 
@@ -62,17 +61,18 @@ export default Ember.Component.extend(TransitionMixin, {
   willDestroyElement() {
     Ember.$('body').removeClass('md-dialog-is-showing');
 
+    this.get('parentElement').off('click touchend');
     this.$().parent().remove();
     this.get('parentElement').children('md-backdrop').remove();
   },
   close(event){
     if(this.$().find(event.target).length === 0){
-      this.$().parent().off('click touchend');
+      this.get('parentElement').off('click touchend');
       this.send('onCancel');
     }
   },
   parentElement: Ember.computed('parent', function() {
-      return this.get('parent') ? Ember.$(this.get('parent')) : this.$().parent();
+      return Ember.isPresent(Ember.$(this.get('parent'))) ? Ember.$(this.get('parent')) : this.$().parent();
   }),
 
   actions: {
