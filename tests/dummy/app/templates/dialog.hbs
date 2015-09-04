@@ -61,21 +61,14 @@
 
   {{#if isCustom}}
       {{#paper-dialog clickOutsideToClose=false parent='body' onCancel="closeCustom" as |onCancel|}}
-          {{#paper-toolbar}}
-              <div class="md-toolbar-tools">
-                  <h2  class="md-title" flex>Some awesome title</h2>
-                  {{#paper-button action=onCancel icon-button=true}}
-                      {{paper-icon icon="close"}}
-                  {{/paper-button}}
-              </div>
-          {{/paper-toolbar}}
-          <md-dialog-content style="min-width:500px;max-width:850px;">
+
+          <md-dialog-content>
               <h2>I'm a custom dialog and don't get closed if someone clicks outside!</h2>
               <p>
                   I'm not like the others. My parent is the body element.
               </p>
 
-                <img src="washedout.png" alt="Washed Out" style="min-width:100%;height:auto;">
+                <img src="washedout.png" alt="Washed Out" style="width:100%;max-width:100%;height:auto;">
 
               {{paper-input textarea=true label="I'm a textarea"}}
               {{paper-input label="And I'm not" value="just input"}}

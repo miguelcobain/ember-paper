@@ -4,7 +4,7 @@ import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 export default Ember.Component.extend(TransitionMixin, {
   tagName: 'md-dialog',
   classNames: ['md-default-theme'],
-  classNameBindings: ['overflow:md-content-overflow'],
+  classNameBindings: ['overflow:md-content-overflow','transitionIn:md-transition-in','transitionOut:md-transition-out'],
 
   parent: null,
   title: '',
@@ -40,7 +40,8 @@ export default Ember.Component.extend(TransitionMixin, {
   },
   setupElement(){
     Ember.$('body').addClass('md-dialog-is-showing');
-    this.$().addClass('md-transition-in');
+
+    this.set('transitionIn',true);
 
     this.$().attr('role',this.get('role'));
     this.$().attr('tabIndex',-1);
@@ -84,8 +85,8 @@ export default Ember.Component.extend(TransitionMixin, {
       }
     },
     onCancel(){
-      this.$().removeClass('md-transition-in');
-      this.$().addClass('md-transition-out');
+      this.set('transitionIn',false);
+      this.set('transitionOut',true);
 
       this.sendAction('onCancel');
     },

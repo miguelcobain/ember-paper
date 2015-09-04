@@ -7,16 +7,16 @@
     </md-dialog-content>
     {{#if hasActions}}
         <div class="md-actions">
-            {{#if onConfirm}}
-                {{#paper-button action="onConfirm" primary=true}}
-                    {{confirm}}
-                {{/paper-button}}
-            {{/if}}
-            {{#if onCancel}}
-                {{#paper-button action="onCancel" primary=true}}
-                    {{cancel}}
-                {{/paper-button}}
-            {{/if}}
+          {{#if onCancel}}
+              {{#paper-button action="onCancel" primary=true}}
+                  {{cancel}}
+              {{/paper-button}}
+          {{/if}}
+          {{#if onConfirm}}
+              {{#paper-button action="onConfirm" primary=true}}
+                  {{confirm}}
+              {{/paper-button}}
+          {{/if}}
         </div>
     {{/if}}
 {{/if}}
