@@ -32,8 +32,10 @@ export default Ember.Component.extend(TransitionMixin, {
       this.checkContentOverflow();
     });
 
+    this._closeBinding = Ember.run.bind(this, 'close');
+
     if (this.get('clickOutsideToClose')) {
-      this.get('parentElement').on('click touchend', Ember.run.bind(this, 'close') );
+      this.get('parentElement').on('click touchend', this._closeBinding );
     }
   },
   setupElement(){
@@ -52,22 +54,22 @@ export default Ember.Component.extend(TransitionMixin, {
     this.$().wrap('<div class="md-dialog-container ng-scope"></div>');
   },
   checkContentOverflow(){
-    var content = this.$('md-dialog-content')[0];
+    var content = this.$('md-dialog-content');
 
-    if (content.scrollHeight > content.clientHeight){
+    if (content.prop('scrollHeight') > content.prop('clientHeight')){
       this.set('overflow',true);
     }
   },
   close(event){
     if(this.$().find(event.target).length === 0){
-      this.get('parentElement').off('click touchend');
+      this.get('parentElement').off('click touchend', this._closeBinding);
       this.send('onCancel');
     }
   },
   willDestroyElement() {
     Ember.$('body').removeClass('md-dialog-is-showing');
 
-    this.get('parentElement').off('click touchend');
+    this.get('parentElement').off('click touchend', this._closeBinding);
     this.get('parentElement').children('md-backdrop').remove();
 
     this.$().parent().remove();
