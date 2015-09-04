@@ -1,0 +1,22 @@
+{{#if hasBlock}}
+    {{yield (action "onCancel")}}
+{{else}}
+    <md-dialog-content role="document" tabIndex="-1">
+        <h2 class="md-title">{{title}}</h2>
+        <p>{{content}}</p>
+    </md-dialog-content>
+    {{#if hasActions}}
+        <div class="md-actions">
+          {{#if onCancel}}
+              {{#paper-button action="onCancel" primary=true}}
+                  {{cancel}}
+              {{/paper-button}}
+          {{/if}}
+          {{#if onConfirm}}
+              {{#paper-button action="onConfirm" primary=true}}
+                  {{confirm}}
+              {{/paper-button}}
+          {{/if}}
+        </div>
+    {{/if}}
+{{/if}}
