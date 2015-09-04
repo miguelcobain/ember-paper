@@ -14,12 +14,12 @@
       {{#paper-button action="showAlert" raised=true primary=true}}Alert{{/paper-button}}
       {{#paper-button action="showConfirm" raised=true primary=true}}Confirm{{/paper-button}}
       {{#paper-button action="showCustom" raised=true primary=true}}Custom Dialog{{/paper-button}}
+      {{#paper-button action="showSimple" raised=true primary=true}}Simple Dialog{{/paper-button}}
     </div>
   </div>
 
   {{#if isAlert}}
       {{paper-dialog
-          type="alert"
           title="This is an alert title"
           content="It's without backdrop."
           cancel="Got it!"
@@ -41,11 +41,29 @@
           }}
   {{/if}}
 
+  {{#if isSimple}}
+
+    {{#paper-dialog onCancel="closeSimple" parent='#dialog-demo-container'}}
+      <md-dialog-content style="min-width:200px;max-width:400px;">
+          <h2 class="md-title">I'm just a simple dialog.</h2>
+          {{#paper-item}}
+            {{paper-icon icon="person"}}
+            <p>User 1</p>
+          {{/paper-item}}
+          {{#paper-item}}
+            {{paper-icon icon="person"}}
+            <p>User 2</p>
+          {{/paper-item}}
+      </md-dialog-content>
+    {{/paper-dialog}}
+
+  {{/if}}
+
   {{#if isCustom}}
       {{#paper-dialog clickOutsideToClose=false parent='body' onCancel="closeCustom" as |onCancel|}}
           {{#paper-toolbar}}
               <div class="md-toolbar-tools">
-                  <h2 flex>Some awesome title</h2>
+                  <h2  class="md-title" flex>Some awesome title</h2>
                   {{#paper-button action=onCancel icon-button=true}}
                       {{paper-icon icon="close"}}
                   {{/paper-button}}
@@ -99,6 +117,12 @@
       },
       closeCustom(){
         this.set('isCustom',false);
+      },
+      showSimple() {
+        this.set('isSimple',true);
+      },
+      closeSimple(){
+        this.set('isSimple',false);
       }
     }
   {{/code-block}}
@@ -163,5 +187,102 @@
     \{{/paper-dialog}}
   \{{/if}}
   {{/code-block}}
+
+  <h2>Simple dialogs</h2>
+
+  <div>
+    As described in <a href="https://www.google.com/design/spec/components/dialogs.html#dialogs-simple-dialogs">Material Design specifications,</a>
+    a simple dialog is a dialog without explicit buttons, so you have do make sure that you don't deactivate the <i>clickOutsideToClose</i> property
+    and a working <i>onCancel</i> action.
+  </div>
+
+  <h3>Template</h3>
+
+  {{#code-block language='handlebars'}}
+    \{{#if isSimple}}
+      \{{#paper-dialog onCancel="closeSimple" parent='#dialog-demo-container'}}
+        &lt;md-dialog-content style="min-width:200px;max-width:400px;"&gt;
+            &lt;h2 class="md-title"&gt;I'm just a simple dialog.&lt;/h2&gt;
+            \{{#paper-item}}
+              \{{paper-icon icon="person"}}
+              &lt;p&gt;User 1&lt;/p&gt;
+            \{{/paper-item}}
+            \{{#paper-item}}
+              \{{paper-icon icon="person"}}
+              &lt;p&gt;User 2&lt;/p&gt;
+            \{{/paper-item}}
+        &lt;/md-dialog-content&gt;
+      \{{/paper-dialog}}
+    \{{/if}}
+  {{/code-block}}
+
+  <h2>Attributes for paper-dialog</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>parent</td>
+        <td>string</td>
+        <td>The <code>parent</code> property is used to define where the dialog gets appended.
+          If no <code>parent</code> property is provided the dialog takes the first parent-element
+          from the DOM.
+        </td>
+      </tr>
+      <tr>
+        <td>title</td>
+        <td>string</td>
+        <td>Set a title for alert and confirm dialogs.</td>
+      </tr>
+      <tr>
+        <td>content</td>
+        <td>string</td>
+        <td>Set a title for alert and confirm dialogs.</td>
+      </tr>
+      <tr>
+        <td>hasBackdrop</td>
+        <td>boolean</td>
+        <td>If <code>hasBackdrop</code> is false the dialog won't have a backdrop.</td>
+      </tr>
+      <tr>
+        <td>clickOutsideToClose</td>
+        <td>boolean</td>
+        <td>If true, the dialog gets closed if the parent-element gets clicked.</td>
+      </tr>
+      <tr>
+        <td>confirm</td>
+        <td>string</td>
+        <td>Label for confirm action</td>
+      </tr>
+      <tr>
+        <td>cancel</td>
+        <td>string</td>
+        <td>Label for cancel action</td>
+      </tr>
+      <tr>
+        <td>onConfirm</td>
+        <td>action</td>
+        <td>Action to be called when confirm gets clicked.</td>
+      </tr>
+      <tr>
+        <td>onCancel</td>
+        <td>action</td>
+        <td>Action to be called when cancel gets clicked. Should normally close dialog.</td>
+      </tr>
+      <tr>
+        <td>closeOnConfirm</td>
+        <td>boolean</td>
+        <td>The dialog closes after the <code>onConfirm</code> action has finished. Works only if <code>onConfirm</code> and <code>onCancel</code> are valid actions.</td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>
+
 {{/paper-content}}

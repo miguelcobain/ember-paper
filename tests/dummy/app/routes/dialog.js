@@ -11,6 +11,9 @@ export default Ember.Route.extend({
     showCustom() {
       this.controller.set('isCustom',true);
     },
+    showSimple() {
+      this.controller.set('isSimple',true);
+    },
     closeAlert(){
       this.controller.set('isAlert',false);
     },
@@ -19,6 +22,9 @@ export default Ember.Route.extend({
     },
     closeCustom() {
       this.controller.set('isCustom',false);
+    },
+    closeSimple() {
+      this.controller.set('isSimple',false);
     },
     handleDialog(){
       window.alert('Handling action');
