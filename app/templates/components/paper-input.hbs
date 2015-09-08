@@ -7,7 +7,22 @@
 {{/if}}
 
 {{#if textarea}}
-  {{textarea class="md-input" id=inputElementId placeholder=placeholder value=value focus-in="focusIn" key-down="keyDown" focus-out="focusOut" disabled=disabled required=required autofocus=autofocus}}
+  {{textarea class="md-input" id=inputElementId placeholder=placeholder value=value focus-in="focusIn" key-down="keyDown" focus-out="focusOut" disabled=disabled required=required autofocus=autofocus
+      name=attr-name
+      rows=attr-rows
+      cols=attr-cols
+      maxlength=attr-maxlength
+      tabindex=attr-tabindex
+      selectionEnd=attr-selectionEnd
+      selectionStart=attr-selectionStart
+      selectionDirection=attr-selectionDirection
+      wrap=attr-wrap
+      readonly=attr-readonly
+      form=attr-form
+      spellcheck=attr-spellcheck
+
+      enter=event-enter
+  }}
 {{else}}
   {{input class="md-input" id=inputElementId placeholder=placeholder type=type value=value focus-in="focusIn" key-down="keyDown" focus-out="focusOut" disabled=disabled required=required autofocus=autofocus
       accept=attr-accept
