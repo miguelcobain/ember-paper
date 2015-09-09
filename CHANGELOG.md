@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+- [#171](https://github.com/miguelcobain/ember-paper/pull/171) Add support for custom validations in paper-input component.
+
+
 ### 0.2.8 (Aug 19, 2015)
 - [#154](https://github.com/miguelcobain/ember-paper/pull/154) Add support for inline paper-icon in paper-input component
 - [#152](https://github.com/miguelcobain/ember-paper/pull/152) Add support for .md-actions to {{paper-card}}

@@ -24,13 +24,15 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   }),
   iconFloat: Ember.computed.and('icon', 'label'),
 
+  customValidation: null,
+
   validate() {
 
     if (!this.get('isTouched')) {
       return false;
     }
 
-    var returnValue = false;
+    var valueIsInvalid = false;
     var currentValue = this.get('value');
     var constraints = [
       {
@@ -51,24 +53,54 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       {
         attr: 'maxlength',
         defaultError: 'Must not exceed ' + this.get('maxlength') + ' characters.',
-        isError: () => currentValue && currentValue.length > + this.get('maxlength')
+        isError: () => currentValue && currentValue.length > +this.get('maxlength')
       }
     ];
 
     constraints.some(thisConstraint => {
-      if(thisConstraint.isError()) {
+      if (thisConstraint.isError()) {
         this.setError(thisConstraint);
-        returnValue = true;
+        valueIsInvalid = true;
         return true;
       }
     });
 
-    return returnValue;
+    if (valueIsInvalid === true) {
+      return true;
+    }
+
+    if (!Ember.isEmpty(this.get('customValidation'))) {
+      var validationObjects = Ember.A();
+      var self = this;
+
+      try {
+        if (!Ember.isArray(this.get('customValidation'))) {
+          validationObjects.addObject(this.get('customValidation'));
+        } else {
+          validationObjects = this.get('customValidation');
+        }
+
+        for (var thisValidationObj of validationObjects) {
+          if (typeof thisValidationObj.isError === 'function') {
+            if (thisValidationObj.isError.apply(null, [currentValue])) {
+              self.setError(thisValidationObj);
+              valueIsInvalid = true;
+              break;
+            }
+          }
+        }
+      } catch (error) {
+        Ember.Logger.error('Exception with custom validation: ', error);
+      }
+
+    }
+
+    return valueIsInvalid;
   },
 
   setError(constraint) {
-    this.set('ng-message', constraint.attr);
-    this.set('errortext', this.get(constraint.attr + '-errortext') || constraint.defaultError);
+    this.set('ng-message', constraint.attr || 'custom');
+    this.set('errortext', this.get(constraint.attr + '-errortext') || constraint.defaultError || constraint.errorMessage);
   },
 
   actions: {
@@ -76,11 +108,11 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       // We resend action so other components can take use of the actions also ( if they want ).
       // Actions must be sent before focusing.
       this.sendAction('focus-in', value);
-      this.set('focus',true);
+      this.set('focus', true);
     },
     focusOut(value) {
       this.sendAction('focus-out', value);
-      this.set('focus',false);
+      this.set('focus', false);
       this.set('isTouched', true);
     },
     keyDown(value, event) {
