@@ -154,54 +154,5 @@
             \{{paper-input event-enter="myEnterActionFunctionName"}}{{/code-block}}
     </p>
 
-    <h3>Custom Validations</h3>
-    <p>
-      In addition to {{#code-inline}}required{{/code-inline}}, {{#code-inline}}min{{/code-inline}}, {{#code-inline}}max{{/code-inline}}, and {{#code-inline}}maxlength{{/code-inline}}, you may define your own custom validations.
-        What you need to do is to define an object with two attributes, {{#code-inline}}errorMessage{{/code-inline}} and {{#code-inline}}isError{{/code-inline}}.
-
-    <ul>
-        <li><strong>errorMessage</strong> This is the text you want to display to the user when there is an error.</li>
-        <li><strong>isError</strong> This is a function that takes one parameter, which is the input's value, and returns true when the value is invalid or false when the value is valid.</li>
-    </ul>
-    </p>
-    <p>
-        Here is an example of validating the input value matches typical email formats.
-    </p>
-    <h3>Template</h3>
-    {{#code-block language="handlebars"}}
-      \{{paper-input label="E-mail" type="email" value=email customValidation=emailValidation}}{{/code-block}}
-    <p>
-        Define your {{#code-inline}}emailValidation{{/code-inline}} object in your controller.
-{{#code-block language="handlebars"}}
-emailValidation: {
-   'errorMessage': 'Please provide email in a valid format',
-   'isError': (inputValue) => {
-     var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-     return !emailPattern.test(inputValue);
-   }
-}{{/code-block}}
-      {{paper-input label="E-mail" type="email" value=customemail customValidation=emailValidation}}
-    </p>
-    <p>
-        You may also define multiple custom constraints by using an array of validation objects.
-    </p>
-  {{#code-block language="handlebars"}}
-    \{{paper-input label="E-mail" type="email" value=email customValidation=multipleConstraints}}{{/code-block}}
-{{#code-block language="handlebars"}}
-multipleConstraints: [
-  {
-    'errorMessage': 'Value is not even',
-    'isError': (inputValue) => {
-      return (+inputValue % 2) === 1;
-    }
-  },
-  {
-    'errorMessage': 'Value does not equal 4',
-    'isError': (inputValue) => {
-      return +inputValue !== 4;
-    }
-  }
-];}{{/code-block}}
-  {{paper-input label="Value should be even and equal 4." type="email" value=customMultiple customValidation=multipleConstraints}}
 </div>
 {{/paper-content}}
