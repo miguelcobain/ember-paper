@@ -1,34 +1,33 @@
 import Ember from 'ember';
-import PaperNavContainer from './paper-nav-container';
+import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
+
 /* globals Hammer */
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(TransitionMixin, {
   tagName: 'md-backdrop',
-  classNames: ['paper-backdrop', 'md-opaque', 'md-default-theme'],
+  classNames: ['md-default-theme'],
+  classNameBindings: ['opaque:md-opaque', 'isLockedOpen:md-locked-open'],
 
-  navContainer: Ember.computed(function() {
-    return this.nearestOfType(PaperNavContainer);
-  }),
+  // TransitionMixin:
+  transitionClass: 'ng',
+  shouldTransition: Ember.computed.bool('opaque'),
+  addDestroyedElementClone(parent, index, clone) {
+    parent.append(clone);
+  },
 
   // Hammer event handler for tapping backdrop
   tapHammer: null,
 
-  subscribeToTouchEvents: Ember.on('didInsertElement', function() {
-    var hammer = new Hammer(this.get('element'));
-    hammer.on('tap', Ember.run.bind(this, this._collapseSidenav));
-    this.set('tapHammer', hammer);
-  }),
 
-  _collapseSidenav() {
-    this.get('navContainer').collapseSidenav();
-    return false;
+  didInsertElement() {
+    var hammer = new Hammer(this.get('element'));
+    hammer.on('tap', Ember.run.bind(this, this.onTap));
+    this.set('tapHammer', hammer);
   },
 
-  willDestroyElement() {
-    this._super(...arguments);
-    if (Ember.isPresent(this.get('tapHammer'))) {
-      this.get('tapHammer').destroy();
-    }
+  onTap(e) {
+    e.preventDefault();
+    this.sendAction('tap');
   }
 
 });

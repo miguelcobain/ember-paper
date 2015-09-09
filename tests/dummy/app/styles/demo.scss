@@ -1,0 +1,161 @@
+/***************
+ * Styles specific for the ember-paper demo site
+ ***************/
+
+@import 'prism-overrides';
+@import 'modules/all';
+
+html {
+  font-size: 62.5%;
+  line-height: 1.4;
+}
+body {
+  font-size: 1.6rem;
+}
+
+table {
+  margin-bottom: 8px;
+  max-width: 100%;
+  width: 100%;
+  border-spacing: 0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/***************
+ * TYPE DEFAULTS
+ ***************/
+a {
+  color: #106CC8;
+  text-decoration: none;
+  font-weight: 400;
+  border-bottom: 1px solid rgba(64, 84, 178, 0.25);
+  -webkit-transition: border-bottom 0.35s;
+  -moz-transition: border-bottom 0.35s;
+  -ms-transition: border-bottom 0.35s;
+  -o-transition: border-bottom 0.35s;
+  transition: border-bottom 0.35s;
+}
+a:hover, a:focus {
+  border-bottom: 1px solid #4054B2;
+}
+a.md-button {
+  border-bottom: none;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+h1 {
+  font-size: 3.400rem;
+  font-weight: 400;
+  line-height: 4rem;
+}
+h2 {
+  font-size: 2.400rem;
+  font-weight: 400;
+  line-height: 3.2rem;
+}
+h3 {
+  font-size: 2.000rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+}
+h4 {
+  font-size: 1.600rem;
+  font-weight: 400;
+  letter-spacing: 0.010em;
+  line-height: 2.4rem;
+}
+p {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.010em;
+  line-height: 1.6em;
+  margin: 0.8em 0 1.6em;
+}
+strong {
+  font-weight: 500;
+}
+td, th {
+  padding: 12px 16px;
+  text-align: left;
+}
+td {
+  vertical-align: top;
+}
+td.description *:first-child {
+  margin-top: 0;
+}
+td.description *:last-child {
+  margin-bottom: 0;
+}
+tr:nth-child(odd) td {
+  background-color: #E3ECF5;
+}
+tr:nth-child(even) td {
+  background-color: #D1DEEC;
+}
+th {
+  background-color: #4C9EF0;
+  color: white;
+}
+blockquote {
+  border-left: 3px solid rgba(0, 0, 0, 0.12);
+  font-style: italic;
+  margin-left: 0;
+  padding-left: 16px;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  margin-left: 16px;
+  padding: 0;
+  margin-top: 3px;
+  list-style-position: inside;
+}
+ul li:first-child {
+  margin-top: 0;
+}
+
+
+.logo {
+  font-size:24px;
+}
+
+
+.preview-block {
+  background: #f5f5f5;
+  padding: 20px;
+}
+
+/* DEMO PAGE STYLES */
+.doc-content {
+  max-width: 864px;
+  margin: 16px;
+}
+
+.list-demo .face {
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  width: 48px;
+  margin: 16px;
+}
+
+.list-controls-demo md-divider {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.icon-demo md-icon {
+  font-size: 24px;
+  margin:16px;
+}
+
+.icon-demo .icon-tile {
+  float:left;
+  min-width:200px;
+  text-align:center;
+}
