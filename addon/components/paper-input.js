@@ -72,6 +72,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     if (!Ember.isEmpty(this.get('customValidation'))) {
       var validationObjects = Ember.A();
       var self = this;
+      var validationObjectsLength;
 
       try {
         if (!Ember.isArray(this.get('customValidation'))) {
@@ -80,10 +81,11 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
           validationObjects = this.get('customValidation');
         }
 
-        for (var thisValidationObj of validationObjects) {
-          if (typeof thisValidationObj.isError === 'function') {
-            if (thisValidationObj.isError.apply(null, [currentValue])) {
-              self.setError(thisValidationObj);
+        validationObjectsLength = validationObjects.length;
+        for (var i = 0; i < validationObjectsLength; i++) {
+          if (typeof validationObjects[i].isError === 'function') {
+            if (validationObjects[i].isError.apply(null, [currentValue]) === true) {
+              self.setError(validationObjects[i]);
               valueIsInvalid = true;
               break;
             }
