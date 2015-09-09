@@ -9,12 +9,11 @@ export default Ember.Component.extend({
 
   attributeBindings: ['computedStyles:style'],
 
-  backdrop: false,
   parent: true,
 
   dialogRelativeContainer: Ember.computed('parent',function () {
+    var parentContainer = this.get('parentContainer');
     if (this.get('parent')) {
-      var parentContainer = this.nearestOfType(PaperDialogContainer);
       if (parentContainer) {
         return parentContainer.$();
       }
@@ -22,15 +21,23 @@ export default Ember.Component.extend({
     return Ember.$('body');
   }),
 
+  parentContainer: Ember.computed(function () {
+    return this.nearestOfType(PaperDialogContainer);
+  }),
+
   willDestroyElement() {
+    var parentContainer = this.get('wrapperDialog');
     Ember.$('body').removeClass('md-dialog-is-showing');
+    Ember.run.scheduleOnce('afterRender', this, function() {
+      parentContainer.set('dialogIsShowing', false);
+    });
   },
 
   computedStyles: Ember.computed('computedStyleState',function() {
     var style;
     if (this.get('computedStyleState') === 'ready') {
       var isFixed = window.getComputedStyle(document.body).position === 'fixed';
-      var backdrop = this.get('backdrop') ? window.getComputedStyle(this.$().find('md-backdrop')[0]) : null;
+      var backdrop = window.getComputedStyle(Ember.$('body').find('md-backdrop')[0]);
       var height = backdrop ? Math.ceil(Math.abs(parseInt(backdrop.height, 10))) : 0;
       var styles = {
         top: (isFixed ? this.get('dialogRelativeContainer').scrollTop() / 2 : 0) + 'px',
@@ -47,10 +54,10 @@ export default Ember.Component.extend({
     Ember.$('body').addClass('md-dialog-is-showing');
 
 
-    var el = this.$().detach();
-    this.get('dialogRelativeContainer').append(el);
-
     Ember.run.scheduleOnce('afterRender', this, function() {
+      this.set('wrapperDialog', this.nearestOfType(PaperDialogContainer));
+      var wrapper = this.nearestOfType(PaperDialogContainer);
+      wrapper.set('dialogIsShowing', this);
       this.set('computedStyleState', 'ready');
     });
   },
