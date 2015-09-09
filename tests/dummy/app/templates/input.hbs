@@ -1,21 +1,23 @@
 {{#paper-toolbar}}
-  <h2 class="md-toolbar-tools">
-    {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
-      {{paper-icon icon="menu"}}
-    {{/paper-sidenav-toggle}}
-    <span>Text fields</span>
-  </h2>
+    <div class="md-toolbar-tools">
+      {{#paper-sidenav-toggle as |toggle|}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
+      {{/paper-sidenav-toggle}}
+        <span class="md-breadcrumb-page">Text Fields</span>
+    </div>
 {{/paper-toolbar}}
-
 {{#paper-content class="md-padding"}}
 <div class="doc-content">
-  <ul class="paper-list-inline">
-    <li>{{paper-input label="Name" value=name}}</li>
-    <li>{{paper-input label="E-mail" type="email" value=email}}</li>
-    <li>{{paper-input label="Password" type="password"}}</li>
-    <li>{{paper-input label="Submission date" type="date" value=date}}</li>
-    <li>{{paper-input label="Company (disabled)" type="text" value="Google" disabled=true}}</li>
-  </ul>
+  <div layout="" layout-sm="column">
+      {{paper-input flex=30 label="Name" value=name}}
+      {{paper-input flex=30 label="E-mail" type="email" value=email}}
+      {{paper-input flex=40 label="Password" type="password"}}
+  </div>
+  <div layout="" layout-sm="column">
+      {{paper-input flex=true label="Submission date" type="date" value=date}}
+      {{paper-input flex=true label="Company (disabled)" type="text" value="Google" disabled=true}}
+  </div>
+
   {{paper-input textarea=true label="Biography" value=biography}}
   <p>Name: {{name}}</p>
   <p>Email: {{email}}</p>
@@ -33,6 +35,14 @@
         maxlength="2"
         maxlength-errortext="Max length exceeded."
     }}
+  </p>
+
+  <h3>Icons</h3>
+  <p>
+      {{paper-input label="Name" value=name icon="person" icon-class="name"}}
+      {{paper-input placeholder="Phone Number" type="text" value=user.phone icon="phone"}}
+      {{paper-input label="Email (required)" type="email" value=user.email icon="email" icon-class="email" required=true hideAllMessages=true}}
+      {{paper-input placeholder="Address" type="text" value=user.address icon="place"}}
   </p>
 
   <h3>Template</h3>
@@ -54,6 +64,16 @@
    maxlength="2"
    maxlength-errortext="Max length exceeded."
 }}
+
+&lt;h3&gt;Icons&lt;/h3&gt;
+&lt;p&gt;
+  \{{paper-input label="Name" value=name icon="person" icon-class="name"}}
+  \{{paper-input placeholder="Phone Number" type="text" value=user.phone icon="phone" md-no-float=''}}
+  \{{paper-input label="Email (required)" type="email" value=user.email icon="email" icon-class="email" required=true hideAllMessages=true}}
+  \{{paper-input placeholder="Address" type="text" value=user.address icon="place"}}
+&lt;/p&gt;
+
+
 {{/code-block}}
 </div>
 {{/paper-content}}

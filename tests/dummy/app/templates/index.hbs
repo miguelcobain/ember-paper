@@ -1,13 +1,12 @@
 {{#paper-toolbar}}
-  <h2 class="md-toolbar-tools">
-    {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
-      {{paper-icon icon="menu"}}
-    {{/paper-sidenav-toggle}}
-    <span>Introduction</span>
-  </h2>
+  <div class="md-toolbar-tools">
+      {{#paper-sidenav-toggle as |toggle|}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
+      {{/paper-sidenav-toggle}}
+      <span class="md-breadcrumb-page">Introduction</span>
+  </div>
 {{/paper-toolbar}}
-
-{{#paper-content class="md-padding"}}
+{{#paper-content flex=true scroll-y=true layout-padding=true}}
 <div class="doc-content">
   <h2 class="md-headline" style="margin-top: 0;">Welcome to Ember Paper.</h2>
   <p>This project aims to bring Google's new <a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design</a> to Ember. The goal is to encapsulate everything possible in Ember components. This project is packaged as an <a href="http://www.ember-cli.com/">Ember-cli</a> addon.</p>
