@@ -82,8 +82,12 @@ export default Ember.Component.extend({
       this.sendAction('on-cancel');
     }
   },
-  click() {
+  click(event) {
     if (this.get('clickOutsideToClose')) {
+      // Only if clicked self. not children of this wrapper..
+      if (event.target != this.get('element')) {
+        return;
+      }
       this.sendAction('on-cancel');
     }
   }
