@@ -77,7 +77,7 @@ export default Ember.Mixin.create({
   waitTransitionEnd(element, opts) {
     var _self = this; // fallback is 3 secs
 
-    return new Promise(function(resolve/*, reject*/){
+    return new Ember.RSVP.Promise(function(resolve/*, reject*/){
       opts = opts || { };
 
       element.on(_self.get('constants').get('CSS').TRANSITIONEND, finished);
