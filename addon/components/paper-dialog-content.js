@@ -17,7 +17,7 @@ export default Ember.Component.extend({
 
     // content overflow might change depending on load of images inside dialog.
     var images = this.$().find('img');
-    images.load(this.imagesLoaded.bind(this));
+    images.load(Ember.run.bind(this, this.imagesLoaded));
 
   }
 });
