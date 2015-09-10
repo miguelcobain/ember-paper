@@ -5,5 +5,11 @@ export default Ember.Component.extend({
 
   containerStyles: Ember.computed(function () {
     return new Ember.Handlebars.SafeString('position: relative;');
-  })
+  }),
+
+  actions: {
+    onCancel() {
+      this.get('dialogIsShowing').sendAction('on-cancel');
+    }
+  }
 });

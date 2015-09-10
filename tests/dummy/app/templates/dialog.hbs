@@ -27,10 +27,13 @@
 
     {{#if alertDialogIsOpen}}
       {{paper-dialog
+      clickOutsideToClose=false
+      backdrop=false
       alert="This is an alert title"
       content="You can specify some description text in here."
       ok="Got it!"
       on-ok="closeAlertDialog"
+      on-cancel="closeAlertDialog"
       origin=basicDialogOrigin}}
     {{/if}}
 
@@ -47,7 +50,7 @@
     {{/if}}
 
     {{#if dialogIsOpen}}
-      {{#paper-dialog parent=false origin=dialogOrigin as |dialog|}}
+      {{#paper-dialog on-cancel="closeDialog" parent=false origin=dialogOrigin as |dialog|}}
         <form>
           {{#paper-toolbar}}
             <div class="md-toolbar-tools">
