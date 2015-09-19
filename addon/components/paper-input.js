@@ -24,6 +24,88 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   }),
   iconFloat: Ember.computed.and('icon', 'label'),
 
+  didInsertElement(){
+    // Check if input is textarea
+    if (this.$().children('textarea').length === 1 ) {
+      this.setupTextarea();
+    }
+  },
+
+  setupTextarea(){
+    var textarea = this.$().children('textarea').first(),
+    textareaNode = textarea[0],
+    container = this.$()[0],
+    minRows = NaN,
+    lineHeight = null;
+
+    if (textareaNode.hasAttribute('rows')) {
+      minRows = parseInt(textareaNode.getAttribute('rows'));
+    }
+
+    textarea.on('keydown input', () => {
+      this.growTextarea(textarea, textareaNode, container, minRows, lineHeight);
+    });
+
+    if (isNaN(minRows)) {
+      textarea.attr('rows','1');
+
+      textarea.on('scroll', () => {
+        this.onScroll(textareaNode);
+      });
+    }
+
+    Ember.$(window).on('resize', this.growTextarea(textarea, textareaNode, container, minRows, lineHeight));
+  },
+  growTextarea(textarea, textareaNode, container, minRows, lineHeight){
+    // sets the md-input-container height to avoid jumping around
+    container.style.height = container.offsetHeight+'px';
+
+    // temporarily disables element's flex so its height 'runs free'
+    textarea.addClass('md-no-flex');
+
+    if(isNaN(minRows)) {
+      textareaNode.style.height = "auto";
+      textareaNode.scrollTop = 0;
+      var height = this.getHeight(textareaNode);
+      if (height) {
+        textareaNode.style.height = height + 'px';
+      }
+    } else {
+      textareaNode.setAttribute("rows", 1);
+
+      if(!lineHeight) {
+        textareaNode.style.minHeight = '0';
+
+        lineHeight = textarea.prop('clientHeight');
+
+        textareaNode.style.minHeight = null;
+      }
+
+      var rows = Math.max(minRows, Math.round(textareaNode.scrollHeight / lineHeight));
+      textareaNode.setAttribute("rows", rows);
+    }
+
+    // reset everything back to normal
+    textarea.removeClass('md-no-flex');
+    container.style.height = 'auto';
+
+  },
+  getHeight(node){
+    var line = node.scrollHeight - node.offsetHeight;
+    return node.offsetHeight + (line > 0 ? line : 0);
+  },
+  onScroll(node){
+    node.scrollTop = 0;
+    // for smooth new line adding
+    var line = node.scrollHeight - node.offsetHeight;
+    var height = node.offsetHeight + line;
+    node.style.height = height + 'px';
+  },
+
+  willDestroyElement(){
+    Ember.$(window).off('resize', this.growTextarea);
+  },
+
   validate() {
 
     if (!this.get('isTouched')) {
