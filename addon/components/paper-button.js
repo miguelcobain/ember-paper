@@ -28,13 +28,13 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   //bubble actions by default
   bubbles: true,
-  click() {
+  click(event) {
     var target = this.get('target');
 
     if (target) {
-      this.get('target').send(this.get('action'), this.get('param'));
+      this.get('target').send(this.get('action'), this.get('param'), event);
     } else {
-      this.sendAction('action', this.get('param'));
+      this.sendAction('action', this.get('param'), event);
     }
 
     return this.get('bubbles');
