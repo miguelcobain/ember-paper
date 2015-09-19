@@ -5,6 +5,8 @@
 - [#152](https://github.com/miguelcobain/ember-paper/pull/152) Add support for .md-actions to {{paper-card}}
 - [#151](https://github.com/miguelcobain/ember-paper/pull/151) Only show validation errors if user has interacted with the element
 - [#138](https://github.com/miguelcobain/ember-paper/pull/138) Use sidenav and backdrop angular material styles. Use [ember-css-transitions](https://github.com/peec/ember-css-transitions).
+- [#168](https://github.com/miguelcobain/ember-paper/pull/168) Added dynamic height to textarea
+- [#176](https://github.com/miguelcobain/ember-paper/pull/176) Documentation fix for autocomplete
 
 ### 0.2.7 (Aug 11, 2015)
 - [#132](https://github.com/miguelcobain/ember-paper/pull/132) Added autocomplete component.
