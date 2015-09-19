@@ -24,17 +24,16 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   }),
   iconFloat: Ember.computed.and('icon', 'label'),
 
-  didInsertElement(){
-    // Check if input is textarea
-    if (this.$().children('textarea').length === 1 ) {
+  didInsertElement() {
+    if (this.get('textarea')) {
       this.setupTextarea();
     }
   },
 
-  setupTextarea(){
+  setupTextarea() {
     var textarea = this.$().children('textarea').first(),
     textareaNode = textarea[0],
-    container = this.$()[0],
+    container = this.get('element'),
     minRows = NaN,
     lineHeight = null;
 
@@ -56,7 +55,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
     Ember.$(window).on('resize', this.growTextarea(textarea, textareaNode, container, minRows, lineHeight));
   },
-  growTextarea(textarea, textareaNode, container, minRows, lineHeight){
+
+  growTextarea(textarea, textareaNode, container, minRows, lineHeight) {
     // sets the md-input-container height to avoid jumping around
     container.style.height = container.offsetHeight+'px';
 
@@ -88,13 +88,14 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     // reset everything back to normal
     textarea.removeClass('md-no-flex');
     container.style.height = 'auto';
-
   },
-  getHeight(node){
+
+  getHeight(node) {
     var line = node.scrollHeight - node.offsetHeight;
     return node.offsetHeight + (line > 0 ? line : 0);
   },
-  onScroll(node){
+
+  onScroll(node) {
     node.scrollTop = 0;
     // for smooth new line adding
     var line = node.scrollHeight - node.offsetHeight;
@@ -102,7 +103,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     node.style.height = height + 'px';
   },
 
-  willDestroyElement(){
+  willDestroyElement() {
     Ember.$(window).off('resize', this.growTextarea);
   },
 
