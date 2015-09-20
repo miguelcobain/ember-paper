@@ -131,7 +131,7 @@
 
 <h3>Template</h3>
 {{#code-block language="handlebars"}}
-\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |item index searchText|}}}
+\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |searchText item index|}}}
   &lt;span class="item-title"&gt;
     \{{paper-icon icon="star"}}
   &lt;span&gt; \{{paper-autocomplete-highlight searchText=searchText label=item}} &lt;/span&gt;
