@@ -1,6 +1,7 @@
 # Ember Paper Changelog
 
 ### 0.2.9 (Sep 20, 2015)
+- [#140](https://github.com/miguelcobain/ember-paper/pull/140) Implement Material Menu and Select component.
 
 
 ### 0.2.8 (Aug 19, 2015)

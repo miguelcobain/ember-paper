@@ -159,3 +159,19 @@ ul li:first-child {
   min-width:200px;
   text-align:center;
 }
+
+
+/* Inline code */
+code.paper {
+  color: #106CC8;
+  margin-left: 1px;
+  margin-right: 1px;
+  -webkit-font-smoothing: auto;
+  padding: 0.125em 0.35em;
+  border-radius: 2px;
+
+}
+code.paper {
+  font-size: 1.4rem;
+  background: rgba(0, 0, 0, 0.065);
+}
