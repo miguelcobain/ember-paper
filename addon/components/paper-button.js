@@ -8,9 +8,15 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   attributeBindings: ['target', 'action'],
   tagName: 'button',
   themed: true,
-  classNameBindings: ['raised:md-raised', 'icon-button:md-icon-button', 'themed:md-default-theme', 'themed:md-button'],
+  classNameBindings: ['raised:md-raised', 'icon-button:md-icon-button', 'focus:md-focused', 'themed:md-default-theme', 'themed:md-button'],
+
+
+  noSpan: Ember.computed('no-span', function () {
+    return this.get('no-span');
+  }),
 
   /* RippleMixin overrides */
+  focus: false,
   isIconButton: Ember.computed(function() {
     return this.classNames.any(function(className) {
       return className.indexOf('md-icon-button') !== -1;

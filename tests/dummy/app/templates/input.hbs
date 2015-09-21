@@ -71,9 +71,88 @@
   \{{paper-input placeholder="Phone Number" type="text" value=user.phone icon="phone" md-no-float=''}}
   \{{paper-input label="Email (required)" type="email" value=user.email icon="email" icon-class="email" required=true hideAllMessages=true}}
   \{{paper-input placeholder="Address" type="text" value=user.address icon="place"}}
-&lt;/p&gt;
+&lt;/p&gt;{{/code-block}}
 
+    <h3>Input Attributes</h3>
+<p>
+    These additional attributes will be passed through to the input helper inside of paper-input.
+    See the Ember <a href="http://guides.emberjs.com/v2.0.0/templates/input-helpers/">Input Helpers</a> for more information.
+    This is an example of using one of the attributes.
+</p>
+<p>
+{{#code-block language="handlebars"}}
+    \{{paper-input attr-tabindex="2"}}{{/code-block}}
+</p>
+    <h4>Text Fields</h4>
+    <p>
+    <table>
+        <thead>
+        <tr>
+            <th>Ember Paper</th>
+            <th>Matching Ember Input Helper Attribute</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td>attr-accept</td><td>accept</td></tr>
+        <tr><td>attr-autocomplete</td><td>autocomplete</td></tr>
+        <tr><td>attr-autosave</td><td>autosave</td></tr>
+        <tr><td>attr-form</td><td>form</td></tr>
+        <tr><td>attr-formaction</td><td>formaction</td></tr>
+        <tr><td>attr-formenctype</td><td>formenctype</td></tr>
+        <tr><td>attr-formmethod</td><td>formmethod</td></tr>
+        <tr><td>attr-formnovalidate</td><td>formnovalidate</td></tr>
+        <tr><td>attr-formtarget</td><td>formtarget</td></tr>
+        <tr><td>attr-height</td><td>height</td></tr>
+        <tr><td>attr-inputmode</td><td>inputmode</td></tr>
+        <tr><td>attr-min</td><td>min</td></tr>
+        <tr><td>attr-maxlength</td><td>maxlength</td></tr>
+        <tr><td>attr-max</td><td>max</td></tr>
+        <tr><td>attr-multiple</td><td>multiple</td></tr>
+        <tr><td>attr-name</td><td>name</td></tr>
+        <tr><td>attr-pattern</td><td>pattern</td></tr>
+        <tr><td>attr-readonly</td><td>readonly</td></tr>
+        <tr><td>attr-selectionDirection</td><td>selectionDirection</td></tr>
+        <tr><td>attr-size</td><td>size</td></tr>
+        <tr><td>attr-spellcheck</td><td>spellcheck</td></tr>
+        <tr><td>attr-step</td><td>step</td></tr>
+        <tr><td>attr-tabindex</td><td>tabindex</td></tr>
+        <tr><td>attr-width</td><td>width</td></tr>
+        </tbody>
+    </table>
+    </p>
+    <h4>Text Areas</h4>
+    <p>
+    <table>
+        <thead>
+        <tr>
+            <th>Ember Paper</th>
+            <th>Matching Ember Input Helper Attribute</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr><td>attr-cols</td><td>cols</td></tr>
+            <tr><td>attr-form</td><td>form</td></tr>
+            <tr><td>attr-maxlength</td><td>maxlength</td></tr>
+            <tr><td>attr-name</td><td>name</td></tr>
+            <tr><td>attr-readonly</td><td>readonly</td></tr>
+            <tr><td>attr-rows</td><td>rows</td></tr>
+            <tr><td>attr-selectionDirection</td><td>selectionDirection</td></tr>
+            <tr><td>attr-selectionEnd</td><td>selectionEnd</td></tr>
+            <tr><td>attr-selectionStart</td><td>selectionStart</td></tr>
+            <tr><td>attr-spellcheck</td><td>spellcheck</td></tr>
+            <tr><td>attr-tabindex</td><td>tabindex</td></tr>
+            <tr><td>attr-wrap</td><td>wrap</td></tr>
+        </tbody>
+    </table>
+    </p>
+    <h3>Events</h3>
+    <p>
+        You may also pass through an action when the user presses the enter key while on the input field or textarea.
+    </p>
+    <p>
+        {{#code-block language="handlebars"}}
+            \{{paper-input event-enter="myEnterActionFunctionName"}}{{/code-block}}
+    </p>
 
-{{/code-block}}
 </div>
 {{/paper-content}}

@@ -1,7 +1,15 @@
-<span type={{type}} disabled={{disabled}}>
+{{#if noSpan}}
   {{#if hasBlock}}
     {{yield}}
   {{else}}
     {{label}}
   {{/if}}
-</span>
+{{else}}
+  <span type={{type}} disabled={{disabled}}>
+    {{#if hasBlock}}
+      {{yield}}
+    {{else}}
+      {{label}}
+    {{/if}}
+  </span>
+{{/if}}

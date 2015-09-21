@@ -1,0 +1,6 @@
+{{#paper-menu-content-pane width=width}}
+  {{yield this}}
+{{/paper-menu-content-pane}}
+{{#ember-wormhole to="paper-wormhole"}}
+  {{paper-backdrop  tap="toggleMenu"}}
+{{/ember-wormhole}}
