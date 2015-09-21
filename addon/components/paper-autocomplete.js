@@ -115,6 +115,15 @@ export default Ember.Component.extend(HasBlockMixin, {
       this.set('previousSearchText', searchText);
     }
   }),
+  
+  modelDidChange: Ember.observer('model', function() {
+    var model = this.get("model");
+    var value = this.lookupLabelOfItem(model);
+    // First set previousSearchText then searchText ( do not trigger observer only update value! ).
+    this.set('previousSearchText', value);
+    this.set('searchText', value);
+    this.set('hidden', true);
+  }),
 
   setDebouncedSearchText() {
     var searchText = this.get('searchText');
