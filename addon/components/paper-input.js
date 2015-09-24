@@ -134,7 +134,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       {
         attr: 'maxlength',
         defaultError: 'Must not exceed ' + this.get('maxlength') + ' characters.',
-        isError: () => currentValue && currentValue.length > + this.get('maxlength')
+        isError: () => currentValue && currentValue.length > +this.get('maxlength')
       }
     ];
 
@@ -182,8 +182,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   },
 
   setError(constraint) {
-    this.set('ng-message', constraint.attr);
-    this.set('errortext', this.get(constraint.attr + '-errortext') || constraint.defaultError);
+    this.set('ng-message', constraint.attr || 'custom');
+    this.set('errortext', this.get(constraint.attr + '-errortext') || constraint.defaultError || constraint.errorMessage);
   },
 
   actions: {
