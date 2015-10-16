@@ -4,7 +4,7 @@ moduleForComponent('paper-progress-circular', 'Unit | Component | paper progress
   // Specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar'],
   unit: true,
-  needs: ['service:constants', 'service:sniffer']
+  needs: ['service:constants', 'service:sniffer', 'service:util']
 });
 
 test('it renders', function(assert) {
@@ -21,7 +21,7 @@ test('it renders', function(assert) {
 
 
 
-test('it sets transform scale 1 by default', function(assert) {
+test('it sets transform scale 0.5 by default', function(assert) {
 
   var component = this.subject({
     value: 50
@@ -29,27 +29,27 @@ test('it sets transform scale 1 by default', function(assert) {
 
   this.render();
 
-  var spinnerWrapper = this.$().find('.md-spinner-wrapper')[0];
+  var spinnerWrapper = this.$()[0];
 
   var spinnerWrapperStyle = spinnerWrapper.style[component.get('constants.CSS.TRANSFORM')];
 
-  assert.equal(spinnerWrapperStyle, 'scale(1)', 'Transform set correctly');
+  assert.equal(spinnerWrapperStyle, 'scale(0.5)', 'Transform set correctly');
 
 });
 
-test('it sets transform scale 2 when diameter is 96', function(assert) {
+test('it sets transform scale 0.96 when diameter is 96', function(assert) {
 
   var component = this.subject({
     value: 50,
-    diameter: 96
+    'md-diameter': 96
   });
 
   this.render();
 
-  var spinnerWrapper = this.$().find('.md-spinner-wrapper')[0];
+  var spinnerWrapper = this.$()[0];
 
   var spinnerWrapperStyle = spinnerWrapper.style[component.get('constants.CSS.TRANSFORM')];
 
-  assert.equal(spinnerWrapperStyle, 'scale(2)', 'Transform set correctly');
+  assert.equal(spinnerWrapperStyle, 'scale(0.96)', 'Transform set correctly');
 
 });
