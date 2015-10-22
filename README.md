@@ -5,6 +5,14 @@
 This project aims to bring Google's new [Material Design](https://www.google.com/design/spec/material-design/introduction.html) to Ember. The goal is to encapsulate everything possible in Ember components. This project is packaged as an [Ember-cli](http://www.ember-cli.com/) addon.
 
 ## Installation
+Use Node to build the Ember environment's dependecies to support this project:
+
+```
+$ npm install
+...
+$ bower install
+```
+
 
 Install the ember-cli addon in your ember-cli project:
 
@@ -18,6 +26,12 @@ Sass is an important part of Ember-paper. Using sass you can override default va
 
 All the components and styles are ready to use in your application templates.
 Navigate through the docs to understand how to use each component.
+
+Run the local Ember app to build a working version you can access in the browser at `http://localhost:4200`
+
+```
+$ ember serve
+```
 
 ### Content Security Policy
 
