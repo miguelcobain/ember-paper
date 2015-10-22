@@ -326,7 +326,7 @@ export default Ember.Component.extend({
     },
 
     invalidateLayout() {
-      if (this.get('layoutInvalidated')) {
+      if (this.get('layoutInvalidated') || this.get('isDestroyed')) {
         return;
       }
       this.set('layoutInvalidated', true);
