@@ -102,6 +102,30 @@ var Util = Ember.Service.extend({
   enableScrolling: function () {
     var method = this.disableScrollAround._enableScrolling;
     method && method();
+  },
+
+  /**
+   * supplant() method from Crockford's `Remedial Javascript`
+   * Equivalent to use of $interpolate; without dependency on
+   * interpolation symbols and scope. Note: the '{<token>}' can
+   * be property names, property chains, or array indices.
+   */
+  supplant: function(template, values, pattern) {
+    pattern = pattern || /\{([^\{\}]*)\}/g;
+    return template.replace(pattern, function(a, b) {
+      var p = b.split('.'),
+        r = values;
+      try {
+        for (var s in p) {
+          if (p.hasOwnProperty(s) ) {
+            r = r[p[s]];
+          }
+        }
+      } catch (e) {
+        r = a;
+      }
+      return (typeof r === 'string' || typeof r === 'number') ? r : a;
+    });
   }
 });
 

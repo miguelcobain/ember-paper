@@ -2,6 +2,9 @@
 
 ### 0.2.9 (Sep 20, 2015)
 - [#140](https://github.com/miguelcobain/ember-paper/pull/140) Implement Material Menu and Select component.
+- [#171](https://github.com/miguelcobain/ember-paper/pull/171) Add support for custom validations in paper-input component.
+- [#192](https://github.com/miguelcobain/ember-paper/pull/192) Add support for paper-grid-list component.
+- [#194](https://github.com/miguelcobain/ember-paper/pull/194) Fixed [#173](https://github.com/miguelcobain/ember-paper/issues/173) - issue with paper-progress-circular.
 
 
 ### 0.2.8 (Aug 19, 2015)

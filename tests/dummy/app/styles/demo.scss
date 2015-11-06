@@ -1,7 +1,6 @@
 /***************
  * Styles specific for the ember-paper demo site
  ***************/
-
 @import 'prism-overrides';
 @import 'modules/all';
 
@@ -9,6 +8,7 @@ html {
   font-size: 62.5%;
   line-height: 1.4;
 }
+
 body {
   font-size: 1.6rem;
 }
@@ -36,37 +36,45 @@ a {
   -o-transition: border-bottom 0.35s;
   transition: border-bottom 0.35s;
 }
+
 a:hover, a:focus {
   border-bottom: 1px solid #4054B2;
 }
+
 a.md-button {
   border-bottom: none;
 }
+
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
+
 h1 {
   font-size: 3.400rem;
   font-weight: 400;
   line-height: 4rem;
 }
+
 h2 {
   font-size: 2.400rem;
   font-weight: 400;
   line-height: 3.2rem;
 }
+
 h3 {
   font-size: 2.000rem;
   font-weight: 500;
   letter-spacing: 0.005em;
 }
+
 h4 {
   font-size: 1.600rem;
   font-weight: 400;
   letter-spacing: 0.010em;
   line-height: 2.4rem;
 }
+
 p {
   font-size: 1.6rem;
   font-weight: 400;
@@ -74,57 +82,67 @@ p {
   line-height: 1.6em;
   margin: 0.8em 0 1.6em;
 }
+
 strong {
   font-weight: 500;
 }
+
 td, th {
   padding: 12px 16px;
   text-align: left;
 }
+
 td {
   vertical-align: top;
 }
+
 td.description *:first-child {
   margin-top: 0;
 }
+
 td.description *:last-child {
   margin-bottom: 0;
 }
+
 tr:nth-child(odd) td {
   background-color: #E3ECF5;
 }
+
 tr:nth-child(even) td {
   background-color: #D1DEEC;
 }
+
 th {
   background-color: #4C9EF0;
   color: white;
 }
+
 blockquote {
   border-left: 3px solid rgba(0, 0, 0, 0.12);
   font-style: italic;
   margin-left: 0;
   padding-left: 16px;
 }
+
 ul {
   margin: 0;
   padding: 0;
 }
+
 ul li {
   margin-left: 16px;
   padding: 0;
   margin-top: 3px;
   list-style-position: inside;
 }
+
 ul li:first-child {
   margin-top: 0;
 }
 
-
 .logo {
-  font-size:24px;
+  font-size: 24px;
 }
-
 
 .preview-block {
   background: #f5f5f5;
@@ -151,15 +169,14 @@ ul li:first-child {
 
 .icon-demo md-icon {
   font-size: 24px;
-  margin:16px;
+  margin: 16px;
 }
 
 .icon-demo .icon-tile {
-  float:left;
-  min-width:200px;
-  text-align:center;
+  float: left;
+  min-width: 200px;
+  text-align: center;
 }
-
 
 /* Inline code */
 code.paper {
@@ -171,7 +188,1066 @@ code.paper {
   border-radius: 2px;
 
 }
+
 code.paper {
   font-size: 1.4rem;
   background: rgba(0, 0, 0, 0.065);
+}
+
+.grid-list-demo1 {
+  md-grid-list {
+    margin: 8px;
+  }
+  .gray {
+    background: #f5f5f5;
+  }
+  .green {
+    background: #b9f6ca;
+  }
+  .yellow {
+    background: #ffff8d;
+  }
+  .blue {
+    background: #84ffff;
+  }
+  .purple {
+    background: #b388ff;
+  }
+  .red {
+    background: #ff8a80;
+  }
+
+  md-grid-tile {
+    transition: all 400ms ease-out 50ms;
+  }
+}
+
+.grid-list-demo-dynamicTiles {
+  md-icon {
+    width: 50%;
+    height: 30%;
+  }
+
+  md-icon svg {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+
+  .s64 {
+    font-size: 64px;
+  }
+
+  .s32 {
+    font-size: 48px;
+  }
+
+  md-icon.fa {
+    display: block;
+    padding-left: 0;
+  }
+
+  md-icon.s32 span {
+    padding-left: 8px;
+  }
+
+  md-grid-list {
+    margin: 8px;
+  }
+  .gray {
+    background: #f5f5f5;
+  }
+  .green {
+    background: #b9f6ca;
+  }
+  .yellow {
+    background: #ffff8d;
+  }
+  .blue {
+    background: #84ffff;
+  }
+  .darkBlue {
+    background: #80d8ff;
+  }
+  .deepBlue {
+    background: #448aff;
+  }
+  .purple {
+    background: #b388ff;
+  }
+  .lightPurple {
+    background: #8c9eff;
+  }
+  .red {
+    background: #ff8a80;
+  }
+  .pink {
+    background: #ff80ab;
+  }
+
+  md-grid-tile {
+    transition: all 300ms ease-out 50ms;
+  }
+
+  md-grid-tile md-icon {
+    padding-bottom: 32px;
+  }
+
+  md-grid-tile md-grid-tile-footer {
+    background: rgba(0, 0, 0, .68);
+    height: 36px;
+
+  }
+
+  md-grid-tile-footer figcaption {
+    width: 100%;
+  }
+
+  md-grid-tile-footer figcaption h3 {
+    margin: 0;
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+  }
+
+}
+
+.grid-list-demo-responsiveTiles {
+
+  md-grid-tile {
+    transition: all $swift-ease-in-out-duration $swift-ease-in-out-timing-function;
+  }
+
+  .bg-ffebee {
+    background: #ffebee;
+  }
+
+  .bg-ffcdd2 {
+    background: #ffcdd2;
+  }
+
+  .bg-ef9a9a {
+    background: #ef9a9a;
+  }
+
+  .bg-e57373 {
+    background: #e57373;
+  }
+
+  .bg-ef5350 {
+    background: #ef5350;
+  }
+
+  .bg-f44336 {
+    background: #f44336;
+  }
+
+  .bg-e53935 {
+    background: #e53935;
+  }
+
+  .bg-d32f2f {
+    background: #d32f2f;
+  }
+
+  .bg-c62828 {
+    background: #c62828;
+  }
+
+  .bg-b71c1c {
+    background: #b71c1c;
+  }
+
+  .bg-ff8a80 {
+    background: #ff8a80;
+  }
+
+  .bg-ff5252 {
+    background: #ff5252;
+  }
+
+  .bg-ff1744 {
+    background: #ff1744;
+  }
+
+  .bg-d50000 {
+    background: #d50000;
+  }
+
+  .bg-f8bbd0 {
+    background: #f8bbd0;
+  }
+
+  .bg-f48fb1 {
+    background: #f48fb1;
+  }
+
+  .bg-f06292 {
+    background: #f06292;
+  }
+
+  .bg-ec407a {
+    background: #ec407a;
+  }
+
+  .bg-e91e63 {
+    background: #e91e63;
+  }
+
+  .bg-d81b60 {
+    background: #d81b60;
+  }
+
+  .bg-c2185b {
+    background: #c2185b;
+  }
+
+  .bg-ad1457 {
+    background: #ad1457;
+  }
+
+  .bg-880e4f {
+    background: #880e4f;
+  }
+
+  .bg-ff80ab {
+    background: #ff80ab;
+  }
+
+  .bg-ff4081 {
+    background: #ff4081;
+  }
+
+  .bg-f50057 {
+    background: #f50057;
+  }
+
+  .bg-c51162 {
+    background: #c51162;
+  }
+
+  .bg-e1bee7 {
+    background: #e1bee7;
+  }
+
+  .bg-ce93d8 {
+    background: #ce93d8;
+  }
+
+  .bg-ba68c8 {
+    background: #ba68c8;
+  }
+
+  .bg-ab47bc {
+    background: #ab47bc;
+  }
+
+  .bg-9c27b0 {
+    background: #9c27b0;
+  }
+
+  .bg-8e24aa {
+    background: #8e24aa;
+  }
+
+  .bg-7b1fa2 {
+    background: #7b1fa2;
+  }
+
+  .bg-4a148c {
+    background: #4a148c;
+  }
+
+  .bg-ea80fc {
+    background: #ea80fc;
+  }
+
+  .bg-e040fb {
+    background: #e040fb;
+  }
+
+  .bg-d500f9 {
+    background: #d500f9;
+  }
+
+  .bg-aa00ff {
+    background: #aa00ff;
+  }
+
+  .bg-ede7f6 {
+    background: #ede7f6;
+  }
+
+  .bg-d1c4e9 {
+    background: #d1c4e9;
+  }
+
+  .bg-b39ddb {
+    background: #b39ddb;
+  }
+
+  .bg-9575cd {
+    background: #9575cd;
+  }
+
+  .bg-7e57c2 {
+    background: #7e57c2;
+  }
+
+  .bg-673ab7 {
+    background: #673ab7;
+  }
+
+  .bg-5e35b1 {
+    background: #5e35b1;
+  }
+
+  .bg-4527a0 {
+    background: #4527a0;
+  }
+
+  .bg-311b92 {
+    background: #311b92;
+  }
+
+  .bg-b388ff {
+    background: #b388ff;
+  }
+
+  .bg-7c4dff {
+    background: #7c4dff;
+  }
+
+  .bg-651fff {
+    background: #651fff;
+  }
+
+  .bg-6200ea {
+    background: #6200ea;
+  }
+
+  .bg-c5cae9 {
+    background: #c5cae9;
+  }
+
+  .bg-9fa8da {
+    background: #9fa8da;
+  }
+
+  .bg-7986cb {
+    background: #7986cb;
+  }
+
+  .bg-5c6bc0 {
+    background: #5c6bc0;
+  }
+
+  .bg-3f51b5 {
+    background: #3f51b5;
+  }
+
+  .bg-3949ab {
+    background: #3949ab;
+  }
+
+  .bg-303f9f {
+    background: #303f9f;
+  }
+
+  .bg-283593 {
+    background: #283593;
+  }
+
+  .bg-1a237e {
+    background: #1a237e;
+  }
+
+  .bg-8c9eff {
+    background: #8c9eff;
+  }
+
+  .bg-536dfe {
+    background: #536dfe;
+  }
+
+  .bg-3d5afe {
+    background: #3d5afe;
+  }
+
+  .bg-304ffe {
+    background: #304ffe;
+  }
+
+  .bg-e3f2fd {
+    background: #e3f2fd;
+  }
+
+  .bg-bbdefb {
+    background: #bbdefb;
+  }
+
+  .bg-90caf9 {
+    background: #90caf9;
+  }
+
+  .bg-64b5f6 {
+    background: #64b5f6;
+  }
+
+  .bg-42a5f5 {
+    background: #42a5f5;
+  }
+
+  .bg-2196f3 {
+    background: #2196f3;
+  }
+
+  .bg-1e88e5 {
+    background: #1e88e5;
+  }
+
+  .bg-1976d2 {
+    background: #1976d2;
+  }
+
+  .bg-1565c0 {
+    background: #1565c0;
+  }
+
+  .bg-0d47a1 {
+    background: #0d47a1;
+  }
+
+  .bg-82b1ff {
+    background: #82b1ff;
+  }
+
+  .bg-448aff {
+    background: #448aff;
+  }
+
+  .bg-2979ff {
+    background: #2979ff;
+  }
+
+  .bg-2962ff {
+    background: #2962ff;
+  }
+
+  .bg-b3e5fc {
+    background: #b3e5fc;
+  }
+
+  .bg-81d4fa {
+    background: #81d4fa;
+  }
+
+  .bg-4fc3f7 {
+    background: #4fc3f7;
+  }
+
+  .bg-29b6f6 {
+    background: #29b6f6;
+  }
+
+  .bg-03a9f4 {
+    background: #03a9f4;
+  }
+
+  .bg-039be5 {
+    background: #039be5;
+  }
+
+  .bg-0288d1 {
+    background: #0288d1;
+  }
+
+  .bg-0277bd {
+    background: #0277bd;
+  }
+
+  .bg-01579b {
+    background: #01579b;
+  }
+
+  .bg-80d8ff {
+    background: #80d8ff;
+  }
+
+  .bg-40c4ff {
+    background: #40c4ff;
+  }
+
+  .bg-00b0ff {
+    background: #00b0ff;
+  }
+
+  .bg-0091ea {
+    background: #0091ea;
+  }
+
+  .bg-e0f7fa {
+    background: #e0f7fa;
+  }
+
+  .bg-b2ebf2 {
+    background: #b2ebf2;
+  }
+
+  .bg-80deea {
+    background: #80deea;
+  }
+
+  .bg-4dd0e1 {
+    background: #4dd0e1;
+  }
+
+  .bg-26c6da {
+    background: #26c6da;
+  }
+
+  .bg-00bcd4 {
+    background: #00bcd4;
+  }
+
+  .bg-00acc1 {
+    background: #00acc1;
+  }
+
+  .bg-0097a7 {
+    background: #0097a7;
+  }
+
+  .bg-00838f {
+    background: #00838f;
+  }
+
+  .bg-006064 {
+    background: #006064;
+  }
+
+  .bg-84ffff {
+    background: #84ffff;
+  }
+
+  .bg-18ffff {
+    background: #18ffff;
+  }
+
+  .bg-00e5ff {
+    background: #00e5ff;
+  }
+
+  .bg-00b8d4 {
+    background: #00b8d4;
+  }
+
+  .bg-e0f2f1 {
+    background: #e0f2f1;
+  }
+
+  .bg-b2dfdb {
+    background: #b2dfdb;
+  }
+
+  .bg-80cbc4 {
+    background: #80cbc4;
+  }
+
+  .bg-4db6ac {
+    background: #4db6ac;
+  }
+
+  .bg-26a69a {
+    background: #26a69a;
+  }
+
+  .bg-009688 {
+    background: #009688;
+  }
+
+  .bg-00897b {
+    background: #00897b;
+  }
+
+  .bg-00796b {
+    background: #00796b;
+  }
+
+  .bg-00695c {
+    background: #00695c;
+  }
+
+  .bg-a7ffeb {
+    background: #a7ffeb;
+  }
+
+  .bg-64ffda {
+    background: #64ffda;
+  }
+
+  .bg-1de9b6 {
+    background: #1de9b6;
+  }
+
+  .bg-00bfa5 {
+    background: #00bfa5;
+  }
+
+  .bg-e8f5e9 {
+    background: #e8f5e9;
+  }
+
+  .bg-c8e6c9 {
+    background: #c8e6c9;
+  }
+
+  .bg-a5d6a7 {
+    background: #a5d6a7;
+  }
+
+  .bg-81c784 {
+    background: #81c784;
+  }
+
+  .bg-66bb6a {
+    background: #66bb6a;
+  }
+
+  .bg-4caf50 {
+    background: #4caf50;
+  }
+
+  .bg-43a047 {
+    background: #43a047;
+  }
+
+  .bg-388e3c {
+    background: #388e3c;
+  }
+
+  .bg-2e7d32 {
+    background: #2e7d32;
+  }
+
+  .bg-1b5e20 {
+    background: #1b5e20;
+  }
+
+  .bg-b9f6ca {
+    background: #b9f6ca;
+  }
+
+  .bg-69f0ae {
+    background: #69f0ae;
+  }
+
+  .bg-00e676 {
+    background: #00e676;
+  }
+
+  .bg-00c853 {
+    background: #00c853;
+  }
+
+  .bg-f1f8e9 {
+    background: #f1f8e9;
+  }
+
+  .bg-dcedc8 {
+    background: #dcedc8;
+  }
+
+  .bg-c5e1a5 {
+    background: #c5e1a5;
+  }
+
+  .bg-aed581 {
+    background: #aed581;
+  }
+
+  .bg-9ccc65 {
+    background: #9ccc65;
+  }
+
+  .bg-8bc34a {
+    background: #8bc34a;
+  }
+
+  .bg-7cb342 {
+    background: #7cb342;
+  }
+
+  .bg-689f38 {
+    background: #689f38;
+  }
+
+  .bg-558b2f {
+    background: #558b2f;
+  }
+
+  .bg-33691e {
+    background: #33691e;
+  }
+
+  .bg-ccff90 {
+    background: #ccff90;
+  }
+
+  .bg-b2ff59 {
+    background: #b2ff59;
+  }
+
+  .bg-76ff03 {
+    background: #76ff03;
+  }
+
+  .bg-64dd17 {
+    background: #64dd17;
+  }
+
+  .bg-f9fbe7 {
+    background: #f9fbe7;
+  }
+
+  .bg-f0f4c3 {
+    background: #f0f4c3;
+  }
+
+  .bg-e6ee9c {
+    background: #e6ee9c;
+  }
+
+  .bg-dce775 {
+    background: #dce775;
+  }
+
+  .bg-d4e157 {
+    background: #d4e157;
+  }
+
+  .bg-cddc39 {
+    background: #cddc39;
+  }
+
+  .bg-c0ca33 {
+    background: #c0ca33;
+  }
+
+  .bg-afb42b {
+    background: #afb42b;
+  }
+
+  .bg-9e9d24 {
+    background: #9e9d24;
+  }
+
+  .bg-827717 {
+    background: #827717;
+  }
+
+  .bg-f4ff81 {
+    background: #f4ff81;
+  }
+
+  .bg-eeff41 {
+    background: #eeff41;
+  }
+
+  .bg-c6ff00 {
+    background: #c6ff00;
+  }
+
+  .bg-aeea00 {
+    background: #aeea00;
+  }
+
+  .bg-fffde7 {
+    background: #fffde7;
+  }
+
+  .bg-fff9c4 {
+    background: #fff9c4;
+  }
+
+  .bg-fff59d {
+    background: #fff59d;
+  }
+
+  .bg-fff176 {
+    background: #fff176;
+  }
+
+  .bg-ffee58 {
+    background: #ffee58;
+  }
+
+  .bg-ffeb3b {
+    background: #ffeb3b;
+  }
+
+  .bg-fdd835 {
+    background: #fdd835;
+  }
+
+  .bg-fbc02d {
+    background: #fbc02d;
+  }
+
+  .bg-f9a825 {
+    background: #f9a825;
+  }
+
+  .bg-f57f17 {
+    background: #f57f17;
+  }
+
+  .bg-ffff8d {
+    background: #ffff8d;
+  }
+
+  .bg-ffff00 {
+    background: #ffff00;
+  }
+
+  .bg-ffea00 {
+    background: #ffea00;
+  }
+
+  .bg-ffd600 {
+    background: #ffd600;
+  }
+
+  .bg-fff8e1 {
+    background: #fff8e1;
+  }
+
+  .bg-ffecb3 {
+    background: #ffecb3;
+  }
+
+  .bg-ffe082 {
+    background: #ffe082;
+  }
+
+  .bg-ffd54f {
+    background: #ffd54f;
+  }
+
+  .bg-ffca28 {
+    background: #ffca28;
+  }
+
+  .bg-ffc107 {
+    background: #ffc107;
+  }
+
+  .bg-ffb300 {
+    background: #ffb300;
+  }
+
+  .bg-ffa000 {
+    background: #ffa000;
+  }
+
+  .bg-ff8f00 {
+    background: #ff8f00;
+  }
+
+  .bg-ff6f00 {
+    background: #ff6f00;
+  }
+
+  .bg-ffe57f {
+    background: #ffe57f;
+  }
+
+  .bg-ffd740 {
+    background: #ffd740;
+  }
+
+  .bg-ffc400 {
+    background: #ffc400;
+  }
+
+  .bg-ffab00 {
+    background: #ffab00;
+  }
+
+  .bg-fff3e0 {
+    background: #fff3e0;
+  }
+
+  .bg-ffe0b2 {
+    background: #ffe0b2;
+  }
+
+  .bg-ffcc80 {
+    background: #ffcc80;
+  }
+
+  .bg-ffb74d {
+    background: #ffb74d;
+  }
+
+  .bg-ffa726 {
+    background: #ffa726;
+  }
+
+  .bg-ff9800 {
+    background: #ff9800;
+  }
+
+  .bg-fb8c00 {
+    background: #fb8c00;
+  }
+
+  .bg-f57c00 {
+    background: #f57c00;
+  }
+
+  .bg-ef6c00 {
+    background: #ef6c00;
+  }
+
+  .bg-e65100 {
+    background: #e65100;
+  }
+
+  .bg-ffd180 {
+    background: #ffd180;
+  }
+
+  .bg-ffab40 {
+    background: #ffab40;
+  }
+
+  .bg-ff9100 {
+    background: #ff9100;
+  }
+
+  .bg-ff6d00 {
+    background: #ff6d00;
+  }
+
+  .bg-fbe9e7 {
+    background: #fbe9e7;
+  }
+
+  .bg-ffccbc {
+    background: #ffccbc;
+  }
+
+  .bg-ffab91 {
+    background: #ffab91;
+  }
+
+  .bg-ff8a65 {
+    background: #ff8a65;
+  }
+
+  .bg-ff7043 {
+    background: #ff7043;
+  }
+
+  .bg-ff5722 {
+    background: #ff5722;
+  }
+
+  .bg-f4511e {
+    background: #f4511e;
+  }
+
+  .bg-e64a19 {
+    background: #e64a19;
+  }
+
+  .bg-d84315 {
+    background: #d84315;
+  }
+
+  .bg-bf360c {
+    background: #bf360c;
+  }
+
+  .bg-ff9e80 {
+    background: #ff9e80;
+  }
+
+  .bg-ff6e40 {
+    background: #ff6e40;
+  }
+
+  .bg-ff3d00 {
+    background: #ff3d00;
+  }
+
+  .bg-dd2c00 {
+    background: #dd2c00;
+  }
+
+  .bg-d7ccc8 {
+    background: #d7ccc8;
+  }
+
+  .bg-bcaaa4 {
+    background: #bcaaa4;
+  }
+
+  .bg-795548 {
+    background: #795548;
+  }
+
+  .bg-d7ccc8 {
+    background: #d7ccc8;
+  }
+
+  .bg-bcaaa4 {
+    background: #bcaaa4;
+  }
+
+  .bg-8d6e63 {
+    background: #8d6e63;
+  }
+
+  .bg-eceff1 {
+    background: #eceff1;
+  }
+
+  .bg-cfd8dc {
+    background: #cfd8dc;
+  }
+
+  .bg-b0bec5 {
+    background: #b0bec5;
+  }
+
+  .bg-90a4ae {
+    background: #90a4ae;
+  }
+
+  .bg-78909c {
+    background: #78909c;
+  }
+
+  .bg-607d8b {
+    background: #607d8b;
+  }
+
+  .bg-546e7a {
+    background: #546e7a;
+  }
+
+  .bg-cfd8dc {
+    background: #cfd8dc;
+  }
+
+  .bg-b0bec5 {
+    background: #b0bec5;
+  }
+
+  .bg-78909c {
+    background: #78909c;
+  }
+
 }

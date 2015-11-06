@@ -26,6 +26,7 @@ Router.map(function() {
   this.route('slider');
   this.route('paper-select');
   this.route('menu');
+  this.route('grid-list');
 });
 
 export default Router;

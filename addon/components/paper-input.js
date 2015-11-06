@@ -113,7 +113,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       return false;
     }
 
-    var returnValue = false;
+    var valueIsInvalid = false;
     var currentValue = this.get('value');
     var constraints = [
       {
@@ -134,24 +134,56 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       {
         attr: 'maxlength',
         defaultError: 'Must not exceed ' + this.get('maxlength') + ' characters.',
-        isError: () => currentValue && currentValue.length > + this.get('maxlength')
+        isError: () => currentValue && currentValue.length > +this.get('maxlength')
       }
     ];
 
     constraints.some(thisConstraint => {
       if(thisConstraint.isError()) {
         this.setError(thisConstraint);
-        returnValue = true;
+        valueIsInvalid = true;
         return true;
       }
     });
 
-    return returnValue;
+    if (valueIsInvalid === true) {
+      return true;
+    }
+
+    if (!Ember.isEmpty(this.get('customValidation'))) {
+      var validationObjects = Ember.A();
+      var self = this;
+      var validationObjectsLength;
+
+      try {
+        if (!Ember.isArray(this.get('customValidation'))) {
+          validationObjects.addObject(this.get('customValidation'));
+        } else {
+          validationObjects = this.get('customValidation');
+        }
+
+        validationObjectsLength = validationObjects.length;
+        for (var i = 0; i < validationObjectsLength; i++) {
+          if (typeof validationObjects[i].isError === 'function') {
+            if (validationObjects[i].isError.apply(null, [currentValue]) === true) {
+              self.setError(validationObjects[i]);
+              valueIsInvalid = true;
+              break;
+            }
+          }
+        }
+      } catch (error) {
+        Ember.Logger.error('Exception with custom validation: ', error);
+      }
+
+    }
+
+    return valueIsInvalid;
   },
 
   setError(constraint) {
-    this.set('ng-message', constraint.attr);
-    this.set('errortext', this.get(constraint.attr + '-errortext') || constraint.defaultError);
+    this.set('ng-message', constraint.attr || 'custom');
+    this.set('errortext', this.get(constraint.attr + '-errortext') || constraint.defaultError || constraint.errorMessage);
   },
 
   actions: {
