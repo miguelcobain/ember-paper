@@ -227,7 +227,7 @@ md-select.md-#{$theme-name}-theme {
   }
   &:not([disabled]):focus {
     .md-select-value {
-      border-bottom-color: $primary;
+      border-bottom-color: color($primary);
       color: color($foreground, '1');
       &.md-select-placeholder {
         color: color($foreground, '1');
