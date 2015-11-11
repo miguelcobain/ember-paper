@@ -9,24 +9,39 @@
 
   <div class="doc-content">
     <h1>Basic usage</h1>
-    <div class="preview-block" style="min-height:300px;position:relative;">
-      <div layout="row">
-        {{#paper-fab-speed-dial icon="add" direction="down" on-hover=false verticalAlign="top" horizontalAlign="left" animation="scale"}}
+    <div style="min-height:300px;position:relative;background-color:#f5f5f5;">
+      {{#paper-fab-speed-dial direction=selectedDirection is-open=selectedOpen on-hover=selectedHover verticalAlign="bottom" horizontalAlign="right" animation="scale" primary=true}}
 
-          {{#paper-fab-action-item fab-button=true}}
-            {{paper-icon icon="menu"}}
-          {{/paper-fab-action-item}}
+        {{paper-fab-action-item fab-button=true warn=true action="hallo" icon="add"}}
 
-          {{#paper-fab-action-item fab-button=true}}
-            {{paper-icon icon="menu"}}
-          {{/paper-fab-action-item}}
+        {{paper-fab-action-item fab-button=true warn=true action="hallo" icon="add"}}
 
-          {{#paper-fab-action-item fab-button=true}}
-            {{paper-icon icon="menu"}}
-          {{/paper-fab-action-item}}
+        {{paper-fab-action-item fab-button=true action="hallo"}}
 
-        {{/paper-fab-speed-dial}}
+      {{/paper-fab-speed-dial}}
+    </div>
+
+    <div layout="row" layout-align="space-around">
+      <div layout="column">
+        <h3>Open/Hover options</h3>
+        <div>{{#paper-checkbox checked=selectedOpen}}Open{{/paper-checkbox}}</div>
+        <div>{{#paper-checkbox checked=selectedHover}}Animate on hover{{/paper-checkbox}}</div>
       </div>
+
+      <div layout="column">
+        <h3>Direction</h3>
+        <div>{{#paper-radio value="up" selected=selectedDirection}}Up{{/paper-radio}}</div>
+        <div>{{#paper-radio value="down" selected=selectedDirection}}Down{{/paper-radio}}</div>
+        <div>{{#paper-radio value="left" selected=selectedDirection}}Left{{/paper-radio}}</div>
+        <div>{{#paper-radio value="right" selected=selectedDirection}}Right{{/paper-radio}}</div>
+      </div>
+
+      <div layout="column">
+        <h3>Animation</h3>
+        <div>{{#paper-radio value="fling" selected=selectedAnimation}}Fling{{/paper-radio}}</div>
+        <div>{{#paper-radio value="scale" selected=selectedAnimation}}Scale{{/paper-radio}}</div>
+      </div>
+
     </div>
   </div>
 

@@ -52,12 +52,11 @@ export default Ember.Component.extend({
     let trigger = this.$('md-fab-trigger');
     this.set('fabTrigger', trigger);
 
-    if(this.get('onHover')) {
-
-      this.get('fabTrigger').on('mouseenter', () => {
-        this.set('is-open', true);
-      });
-    }
+    // this.get('fabTrigger').on('mouseenter', () => {
+    //   if(this.get('onHover')) {
+    //     this.set('is-open', true);
+    //   }
+    // });
   },
 
   requestAnimation() {
@@ -69,7 +68,9 @@ export default Ember.Component.extend({
   },
 
   mouseLeave() {
-    this.set('is-open', false);
+    if(this.get('onHover')) {
+      this.set('is-open', false);
+    }
   },
 
   flingAnimation() {
@@ -149,6 +150,11 @@ export default Ember.Component.extend({
     });
   },
   actions: {
+    mouseEnter() {
+      if(this.get('onHover')) {
+        this.set('is-open', true);
+      }
+    },
     toggleOpen() {
       this.toggleProperty('is-open');
     }

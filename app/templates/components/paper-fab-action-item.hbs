@@ -1,3 +1,5 @@
-{{#paper-button fab-button=true primary=primary warn=warn raised=raised disabled=disabled}}
-  {{paper-icon icon=icon}}
+{{#paper-button fab-button=true action=action target=target primary=primary warn=warn raised=raised disabled=disabled}}
+  {{#if icon}}
+    {{paper-icon icon=icon}}
+  {{/if}}
 {{/paper-button}}
