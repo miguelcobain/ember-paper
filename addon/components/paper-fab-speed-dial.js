@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   classNameBindings: [
     '_direction',
     '_animation',
-    '_isOpen',
+    '_isOpen:md-is-open',
     '_align'
   ],
 
@@ -31,7 +31,7 @@ export default Ember.Component.extend({
   }),
   _isOpen: Ember.computed('is-open', {
     get() {
-      return this.get('is-open') ? 'md-is-open' : '';
+      return this.get('is-open');
     }
   }),
   _align: Ember.computed('verticalAlign', 'horizontalAlign', {
@@ -64,7 +64,6 @@ export default Ember.Component.extend({
     if(this.get('animation') === 'fling') {
       this.flingAnimation();
     } else {
-      // scale animation
       this.scaleAnimation();
     }
   },
@@ -112,7 +111,6 @@ export default Ember.Component.extend({
                 axis = 'Y';
                 break;
               case 'left':
-                console.log('Position left');
                 newPosition = item.scrollWidth * (index + 1);
                 axis = 'X';
                 break;
@@ -136,7 +134,6 @@ export default Ember.Component.extend({
   },
 
   scaleAnimation() {
-    console.log('Start scale animation');
     var delay = 65;
     var items = this.$('.md-fab-action-item');
 
