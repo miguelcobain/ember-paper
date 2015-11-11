@@ -10,13 +10,14 @@ export default Ember.Component.extend({
     '_align'
   ],
 
-
   direction: '',
   animation: '',
   verticalAlign: '',
   horizontalAlign: '',
 
   icon: 'menu',
+
+  onHover: Ember.computed.alias('on-hover'),
 
   _direction: Ember.computed('direction', {
     get() {
@@ -39,19 +40,32 @@ export default Ember.Component.extend({
     }
   }),
 
+  animationObserver: Ember.observer('is-open', function() {
+    this.requestAnimation();
+  }),
+
   didInsertElement() {
     this._super(...arguments);
 
-    this.flingAnimation();
+    this.requestAnimation();
 
     let trigger = this.$('md-fab-trigger');
     this.set('fabTrigger', trigger);
 
-    if(this.get('on-hover')) {
+    if(this.get('onHover')) {
 
       this.get('fabTrigger').on('mouseenter', () => {
         this.set('is-open', true);
       });
+    }
+  },
+
+  requestAnimation() {
+    if(this.get('animation') === 'fling') {
+      this.flingAnimation();
+    } else {
+      // scale animation
+      this.scaleAnimation();
     }
   },
 
@@ -121,15 +135,22 @@ export default Ember.Component.extend({
     }
   },
 
-  animationObserver: Ember.observer('is-open', function() {
-    this.flingAnimation();
-  }),
+  scaleAnimation() {
+    console.log('Start scale animation');
+    var delay = 65;
+    var items = this.$('.md-fab-action-item');
 
-  /***************TMP FUNCTION *************/
-  // click(){
-  //   this.toggleProperty('is-open');
-  // },
-  /*****************************************/
+    // Always reset the items to their natural position/state
+    items.each((index, item) => {
+
+      var styles = item.style,
+        offsetDelay = index * delay;
+
+      styles.opacity = this.get('_isOpen') ? 1 : 0;
+      styles.transform = styles.webkitTransform = this.get('_isOpen') ? 'scale(1)' : 'scale(0)';
+      styles.transitionDelay = (this.get('_isOpen') ? offsetDelay : (items.length - offsetDelay)) + 'ms';
+    });
+  },
   actions: {
     toggleOpen() {
       this.toggleProperty('is-open');

@@ -7,20 +7,27 @@
 {{/paper-toolbar}}
 {{#paper-content class="md-padding"}}
 
-  {{#paper-fab-speed-dial icon="add" direction="left" on-hover=true verticalAlign="bottom" horizontalAlign="right"}}
+  <div class="doc-content">
+    <h1>Basic usage</h1>
+    <div class="preview-block" style="min-height:300px;position:relative;">
+      <div layout="row">
+        {{#paper-fab-speed-dial icon="add" direction="down" on-hover=false verticalAlign="top" horizontalAlign="left" animation="scale"}}
 
-    {{#paper-fab-action-item fab-button=true}}
-      {{paper-icon icon="menu"}}
-    {{/paper-fab-action-item}}
+          {{#paper-fab-action-item fab-button=true}}
+            {{paper-icon icon="menu"}}
+          {{/paper-fab-action-item}}
 
-    {{#paper-fab-action-item fab-button=true}}
-      {{paper-icon icon="menu"}}
-    {{/paper-fab-action-item}}
+          {{#paper-fab-action-item fab-button=true}}
+            {{paper-icon icon="menu"}}
+          {{/paper-fab-action-item}}
 
-    {{#paper-fab-action-item fab-button=true}}
-      {{paper-icon icon="menu"}}
-    {{/paper-fab-action-item}}
+          {{#paper-fab-action-item fab-button=true}}
+            {{paper-icon icon="menu"}}
+          {{/paper-fab-action-item}}
 
-  {{/paper-fab-speed-dial}}
+        {{/paper-fab-speed-dial}}
+      </div>
+    </div>
+  </div>
 
 {{/paper-content}}
