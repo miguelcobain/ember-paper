@@ -1,0 +1,20 @@
+{{#if showSource}}
+    {{#md-tabs class="demo-source-tabs" md-border-bottom=''}}
+        {{#md-tabs-wrapper}}
+            {{#each sourceFiles as |file|}}
+                {{#md-tab label=file.name}}
+                    <md-tab-label>{{file.name}}</md-tab-label>
+                {{/md-tab}}
+            {{/each}}
+        {{/md-tabs-wrapper}}
+        {{#md-tabs-content-wrapper}}
+            {{#each sourceFiles as |file|}}
+                {{#md-tab-content}}
+                    <md-content md-scroll-y class="demo-source-container">
+                        {{code-snippet name=file.content}}
+                    </md-content>
+                {{/md-tab-content}}
+            {{/each}}
+        {{/md-tabs-content-wrapper}}
+    {{/md-tabs}}
+{{/if}}

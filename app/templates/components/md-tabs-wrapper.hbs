@@ -1,0 +1,47 @@
+<md-tab-data>
+    {{yield}}
+</md-tab-data>
+
+{{#if shouldPaginate}}
+    <md-prev-button tabindex="-1"
+                    role="button"
+                    aria-label="Previous Page"
+                    aria-disabled="{{if tabsComponent.canPageBack 'false' 'true'}}"
+                    {{action 'previousPage' target=tabsComponent}}
+                    class="{{if tabsComponent.canPageBack '' 'md-disabled'}}">
+        {{md-icon md-svg-icon="md-tabs-arrow"}}
+    </md-prev-button>
+    <md-next-button tabindex="-1"
+                    role="button"
+                    aria-label="Next Page"
+                    aria-disabled="{{if tabsComponent.canPageForward 'false' 'true'}}"
+                    {{action 'nextPage' target=tabsComponent}}
+                    class="{{if tabsComponent.canPageForward '' 'md-disabled'}}">
+        {{md-icon md-svg-icon="md-tabs-arrow"}}
+    </md-next-button>
+
+{{/if}}
+<md-tabs-canvas tabindex="0"
+               class="{{if shouldPaginate 'md-paginated' ''}} {{if tabsComponent.shouldCenterTabs 'md-center-tabs' ''}}"
+               role="tablist">
+    <md-pagination-wrapper style={{tabsComponent.offsetLeftStyle}} class="{{if tabsComponent.shouldCenterTabs 'md-center-tabs' ''}}">
+        {{#each tabs as |tab index|}}
+            {{md-tab-item  tabindex="1"
+            classNames="md-tab"
+            role="tab"
+            aria-selected=tab.isActive
+            label=tab.label
+            tab=tab
+            }}
+        {{/each}}
+        <md-ink-bar></md-ink-bar>
+    </md-pagination-wrapper>
+    <!--Need to add visually hidden items for accessibility-->
+    <div class="md-visually-hidden md-dummy-wrapper">
+        {{#each tabs as |tab index|}}
+            <md-dummy-tab id="tab-content-{{tab.id}}" tabindex="-1" role="tab">
+                <span>{{tab.label}}</span>
+            </md-dummy-tab>
+        {{/each}}
+    </div>
+</md-tabs-canvas>

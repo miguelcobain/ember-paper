@@ -1,0 +1,109 @@
+@mixin md-tab-primary {
+  md-tabs-wrapper {
+    background-color: color($primary);
+  }
+  md-tab-item:not([disabled]) {
+    color: color($primary, '100');
+    &.md-active, &.md-focus {
+      color: color($primary, 'contrast');
+    }
+    &.md-focus {
+      background: rgba(color($primary, 'contrast'), 0.1);
+    }
+  }
+}
+
+@mixin md-tab-warn {
+  md-tabs-wrapper {
+    background-color: color($warn);
+  }
+
+  md-tab-item:not([disabled]) {
+    color: color($warn, '100');
+    &.md-active, &.md-focus {
+      color: color($warn, 'contrast');
+    }
+    &.md-focus {
+      background: rgba(color($warn, 'contrast'), 0.1);
+    }
+  }
+}
+
+@mixin md-tab-accent {
+  md-tabs-wrapper {
+    background-color: color($accent);
+  }
+
+  md-tab-item:not([disabled]) {
+    color: color($accent, '100');
+    &.md-active, &.md-focus {
+      color: color($accent, 'contrast');
+    }
+    &.md-focus {
+      background: rgba(color($accent, 'contrast'), 0.1);
+    }
+  }
+
+  md-ink-bar {
+    color: rgba(color($primary, '600'), 1);
+    background: rgba(color($primary, '600'), 1);
+  }
+}
+
+
+
+
+md-tabs {
+  md-tabs-wrapper {
+    background-color: transparent;
+    border-color: color($foreground, '4');
+  }
+  .md-paginator md-icon {
+    color: color($primary);
+  }
+
+  md-ink-bar {
+    color: color($accent);
+    background: color($accent);
+  }
+
+  .md-tab {
+    color: color($foreground, '2');
+    &[disabled] {
+      color: color($foreground, '3');
+    }
+    &.md-active, &.md-focus {
+      color: color($primary);
+    }
+    &.md-focus {
+      background: rgba(color($primary), 0.1);
+    }
+    .md-ripple-container {
+      color: color($accent, '100');
+    }
+  }
+
+  &.md-accent {
+    @include md-tab-accent();
+  }
+
+  &.md-primary {
+    @include md-tab-primary();
+  }
+
+  &.md-warn {
+    @include md-tab-warn();
+  }
+}
+
+md-toolbar > md-tabs {
+  @include md-tab-primary();
+}
+
+md-toolbar.md-accent > md-tabs {
+  @include md-tab-accent();
+}
+
+md-toolbar.md-warn > md-tabs {
+  @include md-tab-warn();
+}

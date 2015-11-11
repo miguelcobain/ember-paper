@@ -1,0 +1,239 @@
+<div class="doc-content" layout="column">
+    <div flex layout="column" style="z-index: 1;">
+
+        <section class="demo-container md-whiteframe-z1">
+
+            {{#md-toolbar classNames='demo-toolbar'}}
+                <div class="md-toolbar-tools">
+                    <span>Basic Usage</span>
+                    <span flex></span>
+                    {{#md-button action='showSourceDynamicHeight' layoutType="row" layout-align="center center" style='min-width: 72px;'}}
+                        {{md-icon md-svg-src='images/icons/ic_visibility_24px.svg' style='margin: 0 4px 0 0;'}}
+                        <span>Source</span>
+                    {{/md-button}}
+                </div>
+            {{/md-toolbar}}
+
+            {{code-content sourceFiles=sourceFilesDynamicHeight showSource=showSourceDynamicHeight}}
+
+            <demo-include class="demoDynamicHeight">
+                <div class="demo-content">
+
+                    <md-content class="md-padding">
+                        {{#md-tabs md-border-bottom='' dynamicHeight=true}}
+                            {{#md-tabs-wrapper}}
+                                {{#md-tab label="one"}}
+                                {{/md-tab}}
+                                {{#md-tab label="Two"}}
+
+                                {{/md-tab}}
+                                {{#md-tab label="Three"}}
+
+                                {{/md-tab}}
+                            {{/md-tabs-wrapper}}
+
+                            {{#md-tabs-content-wrapper}}
+                                {{#md-tab-content}}
+                                    <md-content class="md-padding">
+                                        <h1 class="md-display-2">Tab One</h1>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+
+                                    </md-content>
+                                {{/md-tab-content}}
+
+                                {{#md-tab-content}}
+                                    <md-content class="md-padding">
+                                        <h1 class="md-display-2">Tab Two</h1>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
+                                        <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+                                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                                    </md-content>
+
+                                {{/md-tab-content}}
+
+                                {{#md-tab-content}}
+                                    <md-content class="md-padding">
+                                        <h1 class="md-display-2">Tab Three</h1>
+                                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                                    </md-content>
+
+                                {{/md-tab-content}}
+
+                            {{/md-tabs-content-wrapper}}
+
+                        {{/md-tabs}}
+                    </md-content>
+
+                </div>
+            </demo-include>
+
+        </section>
+
+        <div class="doc-description">
+            <p>The Dynamic Tabs demo shows how internal tab views can be easily used.</p>
+        </div>
+
+        <section class="demo-container md-whiteframe-z1 {{showSourceClass}}">
+
+            {{#md-toolbar classNames='demo-toolbar'}}
+                <div class="md-toolbar-tools">
+                    <span>Basic Usage</span>
+                    <span flex></span>
+                    {{#md-button action='showSource' layoutType="row" layout-align="center center" style='min-width: 72px;'}}
+                        {{md-icon md-svg-src='images/icons/ic_visibility_24px.svg' style='margin: 0 4px 0 0;'}}
+                        <span>Source</span>
+                    {{/md-button}}
+                </div>
+            {{/md-toolbar}}
+
+            {{code-content sourceFiles=sourceFiles showSource=showSource}}
+
+            <demo-include class="demoDynamicTabs">
+                <div class="demo-content ">
+
+
+{{! BEGIN-SNIPPET tabs }}
+<div class="sample" layout="column">
+
+    {{#md-tabs selectedIndex=selectedIndex md-border-bottom=''}}
+
+        {{#md-tabs-wrapper}}
+            {{#each tabs as |tab|}}
+                {{#md-tab disabled=tab.disabled label=tab.title}}
+                    <md-tab-label>{{tab.title}}</md-tab-label>
+                {{/md-tab}}
+            {{/each}}
+        {{/md-tabs-wrapper}}
+
+        {{#md-tabs-content-wrapper}}
+            {{#each tabs as |tab|}}
+                {{#md-tab-content}}
+                    <div class="demo-tab" style="padding: 25px; text-align: center;">
+                        {{tab.title}}
+                        <br/>
+                        {{#md-button class="md-primary md-raised" disabled=cantRemoveTabs action='removeTab'}}
+                            Remove Tab{{/md-button}}
+                    </div>
+                {{/md-tab-content}}
+            {{/each}}
+        {{/md-tabs-content-wrapper}}
+    {{/md-tabs}}
+
+    <form layout="column"
+          style="padding-top:20px;padding-left:20px;" {{action 'addTab' on='submit'}}>
+        <div layout="row" layout-sm="column" layout-margin>
+            {{#md-input-container value=selectedIndex}}
+                <label for="activeIndex">Active Index</label>
+                {{md-input type="text" id="activeIndex" disabled=true}}
+            {{/md-input-container}}
+
+            {{#md-input-container value=selectedTab.title}}
+                <label for="activeTitle">Active Title</label>
+                {{md-input type="text" id="activeTitle"}}
+            {{/md-input-container}}
+        </div>
+
+        <div layout="row" layout-sm="column" layout-margin>
+            <span class="title">Add a new Tab:</span>
+            {{#md-input-container value=tTitle}}
+                <label for="label">Label</label>
+                {{md-input type="text" id="label"}}
+            {{/md-input-container}}
+            {{#md-input-container value=tContent}}
+                <label for="content">Content</label>
+                {{md-input type="text" id="content"}}
+            {{/md-input-container}}
+            {{#md-button class="add-tab md-primary" style="max-height: 40px" }}
+                Add Tab
+            {{/md-button}}
+        </div>
+    </form>
+
+
+</div>
+
+{{! END-SNIPPET }}
+                </div>
+            </demo-include>
+        </section>
+
+        <section class="demo-container md-whiteframe-z1 {{showSourceClassStaticTabs}}">
+
+            {{#md-toolbar classNames='demo-toolbar'}}
+                <div class="md-toolbar-tools">
+                    <span>Static Tabs</span>
+                    <span flex></span>
+                    {{#md-button action='showSourceStaticTabs' layoutType="row" layout-align="center center" style='min-width: 72px;'}}
+                        {{md-icon md-svg-src='images/icons/ic_visibility_24px.svg' style='margin: 0 4px 0 0;'}}
+                        <span>Source</span>
+                    {{/md-button}}
+                </div>
+            {{/md-toolbar}}
+
+            {{code-content sourceFiles=sourceFilesStaticTabs showSource=showSourceStaticTabs}}
+
+
+            <demo-include class="icondemoLoadSvgIconsFromUrl">
+
+                <div class="demo-content demoStaticTabs">
+{{! BEGIN-SNIPPET tabs-StaticTabs }}
+<div class="display-content sample">
+
+
+    {{#md-tabs selectedIndex=data.selectedIndex class="md-accent" md-align-tabs=alignTabs}}
+        {{#md-tabs-wrapper}}
+            {{#md-tab id="tab1"}}
+                <md-tab-label>Item One</md-tab-label>
+            {{/md-tab}}
+            {{#md-tab id="tab2" disabled=data.secondLocked}}
+                <md-tab-label>{{data.secondLabel}}</md-tab-label>
+            {{/md-tab}}
+            {{#md-tab id="tab3"}}
+                <md-tab-label>Item Three</md-tab-label>
+            {{/md-tab}}
+        {{/md-tabs-wrapper}}
+        {{#md-tabs-content-wrapper}}
+            {{#md-tab-content}}
+                View for Item #1 <br/>
+                data.selectedIndex = 0;
+            {{/md-tab-content}}
+            {{#md-tab-content}}
+                View for Item #2 <br/>
+                data.selectedIndex = 1;
+            {{/md-tab-content}}
+            {{#md-tab-content}}
+                View for Item #3 <br/>
+                data.selectedIndex = 2;
+            {{/md-tab-content}}
+        {{/md-tabs-content-wrapper}}
+    {{/md-tabs}}
+
+    <div class="after-tabs-area" layout="row" layout-sm="column" layout-margin layout-align="left center">
+        {{#md-checkbox checked=data.secondLocked aria-label="Disabled"}}
+            Disable item two?
+        {{/md-checkbox}}
+
+        {{#md-checkbox checked=data.bottom}}
+            Align tabs to bottom?
+        {{/md-checkbox}}
+
+
+    </div>
+
+
+
+</div>
+{{! END-SNIPPET }}
+
+
+                </div>
+            </demo-include>
+        </section>
+
+
+
+
+
+    </div>
+</div>
+
