@@ -1,1 +1,10 @@
-{{yield}}
+<div class="md-css-variables"></div>
+{{#paper-fab-trigger}}
+  {{#paper-button fab-button=true action="toggleOpen"}}
+    {{paper-icon icon=icon}}
+  {{/paper-button}}
+{{/paper-fab-trigger}}
+
+{{#paper-fab-actions}}
+  {{yield}}
+{{/paper-fab-actions}}

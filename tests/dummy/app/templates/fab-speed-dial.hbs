@@ -1,0 +1,26 @@
+{{#paper-toolbar}}
+    <div class="md-toolbar-tools">
+      {{#paper-sidenav-toggle as |toggle|}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
+      {{/paper-sidenav-toggle}}
+    </div>
+{{/paper-toolbar}}
+{{#paper-content class="md-padding"}}
+
+  {{#paper-fab-speed-dial icon="add" direction="left" on-hover=true verticalAlign="bottom" horizontalAlign="right"}}
+
+    {{#paper-fab-action-item fab-button=true}}
+      {{paper-icon icon="menu"}}
+    {{/paper-fab-action-item}}
+
+    {{#paper-fab-action-item fab-button=true}}
+      {{paper-icon icon="menu"}}
+    {{/paper-fab-action-item}}
+
+    {{#paper-fab-action-item fab-button=true}}
+      {{paper-icon icon="menu"}}
+    {{/paper-fab-action-item}}
+
+  {{/paper-fab-speed-dial}}
+
+{{/paper-content}}
