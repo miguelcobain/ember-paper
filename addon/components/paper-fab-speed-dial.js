@@ -17,7 +17,7 @@ export default Ember.Component.extend({
 
   icon: 'menu',
 
-  onHover: Ember.computed.alias('on-hover'),
+  hover: Ember.computed.alias('on-hover'),
 
   _direction: Ember.computed('direction', {
     get() {
@@ -40,8 +40,11 @@ export default Ember.Component.extend({
     }
   }),
 
-  animationObserver: Ember.observer('is-open', function() {
-    this.requestAnimation();
+  openObserver: Ember.observer('is-open', 'direction', function() {
+      this.requestAnimation();
+  }),
+  animationObserver: Ember.observer('animation', function() {
+    this.set('is-open', false);
   }),
 
   didInsertElement() {
@@ -51,12 +54,6 @@ export default Ember.Component.extend({
 
     let trigger = this.$('md-fab-trigger');
     this.set('fabTrigger', trigger);
-
-    // this.get('fabTrigger').on('mouseenter', () => {
-    //   if(this.get('onHover')) {
-    //     this.set('is-open', true);
-    //   }
-    // });
   },
 
   requestAnimation() {
@@ -68,7 +65,7 @@ export default Ember.Component.extend({
   },
 
   mouseLeave() {
-    if(this.get('onHover')) {
+    if(this.get('hover')) {
       this.set('is-open', false);
     }
   },
@@ -151,7 +148,7 @@ export default Ember.Component.extend({
   },
   actions: {
     mouseEnter() {
-      if(this.get('onHover')) {
+      if(this.get('hover')) {
         this.set('is-open', true);
       }
     },
