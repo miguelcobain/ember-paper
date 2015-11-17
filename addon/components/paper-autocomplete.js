@@ -195,7 +195,7 @@ export default Ember.Component.extend(HasBlockMixin, {
         '\' value is a string.', isString(item) || (Ember.isPresent(lookupKey) && isString(Ember.get(item, lookupKey))) );
 
       var search = isString(item) ? item.toLowerCase() : Ember.get(item, lookupKey).toLowerCase();
-      return search;
+      return search.indexOf(searchText) !== -1;
     });
   },
 
