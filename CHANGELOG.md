@@ -1,7 +1,10 @@
 # Ember Paper Changelog
 
-### 0.2.10
+### 0.2.10 (Nov 23, 2015)
 - [#219](https://github.com/miguelcobain/ember-paper/pull/219) Inject wormhole outlet through addon hook
+- [#209](https://github.com/miguelcobain/ember-paper/pull/209) Fix issue with `border-bottom-color` in paper-select
+- [#213](https://github.com/miguelcobain/ember-paper/pull/213) Fixed a few stray color references that didnt use color utility
+- Update ember-cli to 1.13.13
 
 ### 0.2.9 (Sep 20, 2015)
 - [#140](https://github.com/miguelcobain/ember-paper/pull/140) Implement Material Menu and Select component.
