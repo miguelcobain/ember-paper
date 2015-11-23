@@ -1,11 +1,17 @@
 # Ember Paper Changelog
 
+### 0.2.10 (Nov 23, 2015)
+- [#178](https://github.com/miguelcobain/ember-paper/pull/178) Listen for model changes
+- [#219](https://github.com/miguelcobain/ember-paper/pull/219) Inject wormhole outlet through addon hook
+- [#209](https://github.com/miguelcobain/ember-paper/pull/209) Fix issue with `border-bottom-color` in paper-select
+- [#213](https://github.com/miguelcobain/ember-paper/pull/213) Fixed a few stray color references that didnt use color utility
+- Update ember-cli to 1.13.13
+
 ### 0.2.9 (Sep 20, 2015)
 - [#140](https://github.com/miguelcobain/ember-paper/pull/140) Implement Material Menu and Select component.
 - [#171](https://github.com/miguelcobain/ember-paper/pull/171) Add support for custom validations in paper-input component.
 - [#192](https://github.com/miguelcobain/ember-paper/pull/192) Add support for paper-grid-list component.
 - [#194](https://github.com/miguelcobain/ember-paper/pull/194) Fixed [#173](https://github.com/miguelcobain/ember-paper/issues/173) - issue with paper-progress-circular.
-
 
 ### 0.2.8 (Aug 19, 2015)
 - [#154](https://github.com/miguelcobain/ember-paper/pull/154) Add support for inline paper-icon in paper-input component

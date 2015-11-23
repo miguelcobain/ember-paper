@@ -227,17 +227,17 @@ md-select.md-#{$theme-name}-theme {
   }
   &:not([disabled]):focus {
     .md-select-value {
-      border-bottom-color: $primary;
+      border-bottom-color: color($primary);
       color: color($foreground, '1');
       &.md-select-placeholder {
         color: color($foreground, '1');
       }
     }
     &.md-accent .md-select-value {
-      border-bottom-color: $accent;
+      border-bottom-color: color($accent);
     }
     &.md-warn .md-select-value {
-      border-bottom-color: $warn;
+      border-bottom-color: color($warn);
     }
   }
   &[disabled] {
