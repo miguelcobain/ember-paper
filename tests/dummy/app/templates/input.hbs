@@ -37,6 +37,24 @@
     }}
   </p>
 
+  <h3>Errors from outside paper-input (server side errors)</h3>
+  <p>
+  Server side or other client generated errors can be displayed via paper-input using the
+  {{#code-inline}}errors{{/code-inline}} attribute. The {{#code-inline}}errors{{/code-inline}} attribute
+  expects an array of JavaScript objects which each respond to a {{#code-inline}}message{{/code-inline}}
+  attribute.  Below is an example of how one might wire up the DS.Errors object directly off of your
+  model to display server side errors.
+  </p>
+  <p>
+  The {{#code-inline}}errors{{/code-inline}} attribute can be used in conjunction with
+  paper-input native errors.  In the case where both types of errors
+  occur simultaneously, only the {{#code-inline}}errors{{/code-inline}} attribute messages
+  will be displayed.
+  </p>
+{{#code-block language="handlebars"}}
+\{{paper-input label="Name" value=model.name errors=model.name.errors}}{{/code-block}}
+
+
   <h3>Icons</h3>
   <p>
       {{paper-input label="Name" value=name icon="person" icon-class="name"}}
