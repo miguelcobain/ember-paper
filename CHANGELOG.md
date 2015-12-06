@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 0.2.11 (TBD)
+- [#238](https://github.com/miguelcobain/ember-paper/pull/238) Fix issue with disabled property on paper-select
+
 ### 0.2.10 (Nov 23, 2015)
 - [#178](https://github.com/miguelcobain/ember-paper/pull/178) Listen for model changes
 - [#219](https://github.com/miguelcobain/ember-paper/pull/219) Inject wormhole outlet through addon hook
