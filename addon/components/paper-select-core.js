@@ -25,7 +25,11 @@ export default PaperMenuAbstract.extend({
 
   classNames: ['md-default-theme'],
 
-  attributeBindings: ['tabindex', 'readonlyAttr:readonly', 'multipleAttr:multiple'],
+  attributeBindings: ['tabindex', 'readonlyAttr:readonly', 'multipleAttr:multiple', 'disabledAttr:disabled'],
+  disabledAttr: Ember.computed('disabled', function() {
+    return this.get('disabled') ? 'disabled' : null;
+  }),
+
   tabindex: Ember.computed('readonly', function() {
     return this.get('readonly') ? -1 : 0;
   }),
