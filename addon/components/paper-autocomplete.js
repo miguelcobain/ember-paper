@@ -26,7 +26,7 @@ export default Ember.Component.extend(HasBlockMixin, {
 
   tagName: 'md-autocomplete',
   classNameBindings: ['notFloating:md-default-theme'],
-  attributeBindings: ['floating:md-floating-label', 'showDisabled:disabled'],
+  attributeBindings: ['floating:md-floating-label', 'showDisabled:disabled','flex'],
 
 
   // Internal
