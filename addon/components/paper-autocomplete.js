@@ -41,6 +41,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   itemCache: Ember.computed(function() {
     return {};
   }),
+  inProgressDebounce: null,
 
   // Public
   disabled: null,
@@ -111,7 +112,8 @@ export default Ember.Component.extend(HasBlockMixin, {
       this.sendAction('update-filter', searchText);
 
       this.set('debouncingState', true);
-      Ember.run.debounce(this, this.setDebouncedSearchText, this.get('delay'));
+      var inProgressDebounce = Ember.run.debounce(this, this.setDebouncedSearchText, this.get('delay'));
+      this.set('inProgressDebounce', inProgressDebounce);
       this.set('previousSearchText', searchText);
     }
   }),
@@ -124,6 +126,11 @@ export default Ember.Component.extend(HasBlockMixin, {
     this.set('searchText', value);
     this.set('hidden', true);
   }),
+
+  willDestroy() {
+    this._super(...arguments);
+    Ember.run.cancel(this.get('inProgressDebounce'));
+  },
 
   setDebouncedSearchText() {
     var searchText = this.get('searchText');
