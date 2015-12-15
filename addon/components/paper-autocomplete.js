@@ -57,8 +57,16 @@ export default Ember.Component.extend(HasBlockMixin, {
     this._super(...arguments);
 
     if (this.get('model')) {
-      this.set('searchText', this.lookupLabelOfItem(this.get('model')));
-      this.searchTextDidChange();
+      if (this.get('model') instanceof Ember.ObjectProxy){
+        let model = this.get('model');
+        model.then((instance)=>{
+          this.set('searchText', this.lookupLabelOfItem(instance));
+          this.set('model',instance);
+        });
+      } else {
+        this.set('searchText', this.lookupLabelOfItem(this.get('model')));
+        this.searchTextDidChange();
+      } 
     }
   },
 
@@ -117,12 +125,14 @@ export default Ember.Component.extend(HasBlockMixin, {
   }),
   
   modelDidChange: Ember.observer('model', function() {
-    var model = this.get('model');
-    var value = this.lookupLabelOfItem(model);
-    // First set previousSearchText then searchText ( do not trigger observer only update value! ).
-    this.set('previousSearchText', value);
-    this.set('searchText', value);
-    this.set('hidden', true);
+    if (!Ember.isBlank(this.get('model'))) {
+      var model = this.get('model');
+      var value = this.lookupLabelOfItem(model);
+      // First set previousSearchText then searchText ( do not trigger observer only update value! ).
+      this.set('previousSearchText', value);
+      this.set('searchText', value);
+      this.set('hidden', true);
+    }
   }),
 
   setDebouncedSearchText() {
