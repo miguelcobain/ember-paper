@@ -240,11 +240,16 @@ export default Ember.Component.extend({
     },
 
     pickModel(model) {
-      this.set('model', model);
-      let value = this.lookupLabelOfItem(model);
-      // First set previousSearchText then searchText ( do not trigger observer only update value! ).
-      this.set('previousSearchText', value);
-      this.set('searchText', value);
+      if(this.attrs.pickModel){
+        this.attrs.pickModel(model);
+      } else {
+        this.set('model', model);
+        var value = this.lookupLabelOfItem(model);
+        // First set previousSearchText then searchText ( do not trigger observer only update value! ).
+        this.set('previousSearchText', value);
+        this.set('searchText', value);
+      }
+
       this.set('hidden', true);
     },
 
