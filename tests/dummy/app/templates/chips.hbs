@@ -19,6 +19,9 @@
           <em>(fruit)</em>
         {{/paper-chips}}
 
+        <h2>Contact Chips</h2>
+        {{paper-contact-chips class="md-contact-chips" readOnly=readOnly removeItem="removeContact" addItem="addContact" placeholder="Add a tag" content=contacts source=remainingContacts}}
+
         {{#paper-checkbox checked=readOnly}}Read Only{{/paper-checkbox}}
       </md-card-content>
     {{/paper-card}}
@@ -33,6 +36,9 @@
   &lt;strong&gt;\{{item}}&lt;/strong&gt;
   &lt;em&gt;(fruit)&lt;/em&gt;
 \{{/paper-chips}}
+
+&lt;h2&gt;Contact Chips&lt;/h2&gt;
+\{{paper-contact-chips class="md-contact-chips" readOnly=readOnly removeItem="removeContact" addItem="addContact" placeholder="Add a tag" content=contacts source=remainingContacts}}
 
 \{{#paper-checkbox checked=readOnly}}Read Only\{{/paper-checkbox}}
     {{/code-block}}
