@@ -8,18 +8,17 @@ $foreground-light: (
   '1': rgba(255, 255, 255, 1.0),
   '2': rgba(255, 255, 255, 0.7),
   '3': rgba(255, 255, 255, 0.3),
-  '4': rgba(255, 255, 255, 0.12)
+  '4': rgba(255, 255, 255, 0.12),
+  'shadow': '1px 1px 0px rgba(0, 0, 0, 0.4), -1px -1px 0px rgba(0, 0, 0, 0.4)'
 );
 
 $foreground-dark: (
   '1': rgba(0, 0, 0, 0.87),
   '2': rgba(0, 0, 0, 0.54),
   '3': rgba(0, 0, 0, 0.26),
-  '4': rgba(0, 0, 0, 0.12)
+  '4': rgba(0, 0, 0, 0.12),
+  'shadow': none
 );
-
-$foreground-dark-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4), -1px -1px 0px rgba(0, 0, 0, 0.4);
-$foreground-light-shadow: none;
 
 $color-red: (
   '50': #ffebee,
