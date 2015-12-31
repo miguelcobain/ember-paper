@@ -1,62 +1,68 @@
 {{#paper-toolbar}}
-    <div class="md-toolbar-tools">
-      {{#paper-sidenav-toggle as |toggle|}}
-        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
-      {{/paper-sidenav-toggle}}
-        <span class="md-breadcrumb-page">Sidenav</span>
-    </div>
+  <div class="md-toolbar-tools">
+    {{#paper-sidenav-toggle as |toggle|}}
+      {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
+    {{/paper-sidenav-toggle}}
+    <span class="md-breadcrumb-page">Sidenav</span>
+  </div>
 {{/paper-toolbar}}
+
 {{#paper-content class="md-padding"}}
-<div class="doc-content">
+  <div class="doc-content">
+    <h3>Demo</h3>
+    <p>Try to resize this webpage.</p>
 
-  <h3>Demo</h3>
-  <p>Try to resize this webpage.</p>
+    <h3>Sidenav attributes</h3>
 
-  <h3>Sidenav attributes</h3>
+    <p>
+      <strong>locked-open:</strong> You can chose when the sidenav should stay open, based on the screen size.<br />
+      Available sizes are: <code>sm, gt-sm, md, gt-md, lg, gt-lg</code>
+    </p>
 
-  <p><strong>locked-open:</strong> You chose can whenever the sidebar to stay open, based on the screen size.
-      Available sizes are:<br />
-      <code>sm, gt-sm, md, gt-md, lg, gt-lg</code></p>
+    <p>
+      <strong>closeOnClick:</strong> An override for the sidenav closing if you click on the sidebar itself. Mainly
+      for use-cases where you have forms or something similar in the sidenav.<br />
+      Defaults to <code>true</code>.
+    </p>
 
 
-  <h3>Template</h3>
+    <h3>Template</h3>
 
 {{#code-block language='handlebars'}}
 \{{#paper-nav-container}}
-\{{#paper-sidenav class="md-sidenav-left md-whiteframe-z2" locked-open="gt-sm"}}
-  \{{#paper-toolbar}}
+  \{{#paper-sidenav class="md-sidenav-left md-whiteframe-z2" locked-open="gt-sm"}}
+    \{{#paper-toolbar}}
       &lt;div class="md-toolbar-tools"&gt;
-      &lt;div class="logo"&gt;
-      &lt;img src="ember-logo-white.png" height="30"/&gt;&nbsp;&nbsp;&lt;strong&gt;Paper&lt;/strong&gt;
+        &lt;div class="logo"&gt;
+          &lt;img src="ember-logo-white.png" height="30"/&gt;
+          &lt;strong&gt;Paper&lt;/strong&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
-      &lt;/div&gt;
-  \{{/paper-toolbar}}
-\{{#paper-content}}
-  \{{#paper-list}}
-  \{{#paper-item action="transitionTo" param="index"}}Introduction\{{/paper-item}}
-  \{{#paper-item action="transitionTo" param="index"}}Another link\{{/paper-item}}
-\{{/paper-list}}
-\{{/paper-content}}
-\{{/paper-sidenav}}
+    \{{/paper-toolbar}}
 
-    &lt;div layout="column" tabindex="-1" role="main" flex&gt;
-\{{#paper-toolbar}}
-    &lt;div class="md-toolbar-tools"&gt;
-\{{#paper-sidenav-toggle as |toggle|}}
-\{{#paper-button target=toggle action="toggleMenu" icon-button=true}}\{{paper-icon icon="menu"}}\{{/paper-button}}
-\{{/paper-sidenav-toggle}}
-    &lt;span class="md-breadcrumb-page"&gt;Title&lt;/span&gt;
-    &lt;/div&gt;
-\{{/paper-toolbar}}
-\{{#paper-content class="md-padding"}}
-    &lt;p&gt;My content&lt;/p&gt;
-\{{/paper-content}}
+    \{{#paper-content}}
+      \{{#paper-list}}
+        \{{#paper-item action="transitionTo" param="index"}}Introduction\{{/paper-item}}
+        \{{#paper-item action="transitionTo" param="index"}}Another link\{{/paper-item}}
+      \{{/paper-list}}
+    \{{/paper-content}}
+  \{{/paper-sidenav}}
+
+  &lt;div layout="column" tabindex="-1" role="main" flex&gt;
+    \{{#paper-toolbar}}
+      &lt;div class="md-toolbar-tools"&gt;
+        \{{#paper-sidenav-toggle as |toggle|}}
+          \{{#paper-button target=toggle action="toggleMenu" icon-button=true}}\{{paper-icon icon="menu"}}\{{/paper-button}}
+        \{{/paper-sidenav-toggle}}
+        &lt;span class="md-breadcrumb-page"&gt;Title&lt;/span&gt;
+      &lt;/div&gt;
+    \{{/paper-toolbar}}
+
+    \{{#paper-content class="md-padding"}}
+      &lt;p&gt;My content&lt;/p&gt;
+    \{{/paper-content}}
   &lt;/div&gt;
-\{{/paper-nav-container}}{{/code-block}}
-
-
-
-</div>
+\{{/paper-nav-container}}
+{{/code-block}}
+  </div>
 {{/paper-content}}
-
-
