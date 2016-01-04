@@ -1,6 +1,7 @@
 # Ember Paper Changelog
 
 ### 0.2.11
+- [#255](https://github.com/miguelcobain/ember-paper/pull/255) Add class to backdrops
 - [#253](https://github.com/miguelcobain/ember-paper/pull/253) Add `closeOnClick` to paper-sidenav
 
 ### 0.2.10 (Nov 23, 2015)
