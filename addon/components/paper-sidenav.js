@@ -7,6 +7,7 @@ export default Ember.Component.extend({
 
   'locked-open': 'gt-sm',
   closed: true,
+  closeOnClick: true,
 
   navContainer: Ember.computed(function () {
     return this.nearestOfType(PaperNavContainer);
@@ -38,7 +39,6 @@ export default Ember.Component.extend({
     }
   }),
 
-
   didInsertElement() {
     Ember.$(window).on('resize', this.get('__resizeWindow'));
   },
@@ -63,7 +63,7 @@ export default Ember.Component.extend({
   },
 
   click() {
-    if (this.get('isLockedOpen')) {
+    if (!this.get('closeOnClick') || this.get('isLockedOpen')) {
       return;
     }
 
