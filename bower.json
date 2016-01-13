@@ -1,7 +1,7 @@
 {
   "name": "ember-paper",
   "dependencies": {
-    "ember": "1.13.11",
+    "ember": "components/ember#release",
     "ember-cli-shims": "0.0.6",
     "ember-cli-test-loader": "0.2.1",
     "ember-load-initializers": "0.1.7",
@@ -14,5 +14,8 @@
     "matchMedia": "0.2.0",
     "prism": "*",
     "qunit": "~1.20.0"
+  },
+  "resolutions": {
+    "ember": "release"
   }
 }

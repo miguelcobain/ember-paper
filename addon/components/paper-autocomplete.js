@@ -26,7 +26,7 @@ export default Ember.Component.extend(HasBlockMixin, {
 
   tagName: 'md-autocomplete',
   classNameBindings: ['notFloating:md-default-theme'],
-  attributeBindings: ['floating:md-floating-label', 'showDisabled:disabled'],
+  attributeBindings: ['floating:md-floating-label', 'showDisabled:disabled','flex'],
 
 
   // Internal
@@ -57,8 +57,25 @@ export default Ember.Component.extend(HasBlockMixin, {
     this._super(...arguments);
 
     if (this.get('model')) {
-      this.set('searchText', this.lookupLabelOfItem(this.get('model')));
-      this.searchTextDidChange();
+      // handle the case where model is a promise
+      if (this.get('model') instanceof Ember.ObjectProxy){
+        let model = this.get('model');
+        model.then((instance)=>{
+          // null promise case
+          if (!Ember.isEqual(instance,null)){
+            this.set('searchText', this.lookupLabelOfItem(instance));
+            this.set('model',instance);
+          }
+          // as this code would run async after the actual component
+          // init is made we need a way to monitor the fact of
+          // init finish in modelDidChange.
+          this.set('initFinished', true);
+        });
+      } else {
+        this.set('searchText', this.lookupLabelOfItem(this.get('model')));
+        this.searchTextDidChange();
+        this.set('initFinished', true);
+      } 
     }
   },
 
@@ -117,12 +134,30 @@ export default Ember.Component.extend(HasBlockMixin, {
   }),
   
   modelDidChange: Ember.observer('model', function() {
-    var model = this.get('model');
-    var value = this.lookupLabelOfItem(model);
-    // First set previousSearchText then searchText ( do not trigger observer only update value! ).
-    this.set('previousSearchText', value);
-    this.set('searchText', value);
-    this.set('hidden', true);
+    // we don't want this hook to run before the async init
+    // of the component finishes. null model value also
+    // breaks execution 
+    if (this.get('initFinished') && !Ember.isEqual(this.get('model'),null)){
+        let model = this.get('model');
+        // sometimes model is a promise.
+        if (model.then) {
+          model.then((data)=>{
+            // the promise content might be null as well
+            if (!Ember.isEqual(data,null)){
+              let value = this.lookupLabelOfItem(data);
+              this.set('previousSearchText', value);
+              this.set('searchText', value);
+              this.set('hidden', true);  
+            }
+          });
+        } else {
+          let value = this.lookupLabelOfItem(model);
+          // First set previousSearchText then searchText ( do not trigger observer only update value! ).
+          this.set('previousSearchText', value);
+          this.set('searchText', value);
+          this.set('hidden', true);
+        }
+      }
   }),
 
   setDebouncedSearchText() {
@@ -204,7 +239,7 @@ export default Ember.Component.extend(HasBlockMixin, {
         '\' value is a string.', isString(item) || (Ember.isPresent(lookupKey) && isString(Ember.get(item, lookupKey))) );
 
       var search = isString(item) ? item.toLowerCase() : Ember.get(item, lookupKey).toLowerCase();
-      return search.indexOf(searchText) === 0;
+      return search.indexOf(searchText) !== -1;
     });
   },
 
