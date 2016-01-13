@@ -110,7 +110,11 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
           component.processProxy();
         }
       });
-      this.sendAction('action', this.get('param'));
+      if(Ember.isEmpty(this.get('additionalParams'))) {
+        this.sendAction('action', this.get('param'));
+      } else {
+        this.sendAction('action', this.get('param'), this.get('additionalParams'));
+      }
     }
   }
 
