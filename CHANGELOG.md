@@ -1,6 +1,8 @@
 # Ember Paper Changelog
 
 ### 0.2.11
+- [#261](https://github.com/miguelcobain/ember-paper/pull/261) Fixed [#237](https://github.com/miguelcobain/ember-paper/issues/237) - didInsertElement deprecation warning for components using proxiable-mixin.
+- [#260](https://github.com/miguelcobain/ember-paper/pull/260) Set jquery version to 1.11.3
 - [#255](https://github.com/miguelcobain/ember-paper/pull/255) Add class to backdrops
 - [#253](https://github.com/miguelcobain/ember-paper/pull/253) Add `closeOnClick` to paper-sidenav
 
