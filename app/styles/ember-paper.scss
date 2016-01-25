@@ -138,6 +138,10 @@
 @import './angular-material/components/dialog/dialog-theme';
 
 @import './angular-material/components/virtualRepeat/virtual-repeater';
+
+@import './angular-material/components/chips/chips';
+@import './angular-material/components/chips/chips-theme';
+
 // Backports of features from future versions of angular-material-source to this version
 @import './backports/paper-input';
 @import './backports/ripple';
