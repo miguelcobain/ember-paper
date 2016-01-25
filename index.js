@@ -100,7 +100,10 @@ module.exports = {
       'components/sidenav/sidenav.scss',
 
       'components/backdrop/backdrop.scss',
-      'components/backdrop/backdrop-theme.scss'
+      'components/backdrop/backdrop-theme.scss',
+
+      'components/chips/chips.scss',
+      'components/chips/chips-theme.scss'
     ];
 
     var angularScssFiles = new Funnel('node_modules/angular-material-source/src', {
