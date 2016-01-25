@@ -115,7 +115,7 @@ export default Ember.Component.extend(HasBlockMixin, {
       this.set('previousSearchText', searchText);
     }
   }),
-  
+
   modelDidChange: Ember.observer('model', function() {
     var model = this.get('model');
     var value = this.lookupLabelOfItem(model);
@@ -220,7 +220,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   shouldHide: Ember.computed.not('isMinLengthMet'),
 
   isMinLengthMet: Ember.computed('searchText', 'minLength', function() {
-   return this.get('searchText').length >= this.get('minLength');
+   return this.get('searchText.length') >= this.get('minLength');
   }),
 
   /**
@@ -244,11 +244,16 @@ export default Ember.Component.extend(HasBlockMixin, {
     },
 
     pickModel(model) {
-      this.set('model', model);
-      var value = this.lookupLabelOfItem(model);
-      // First set previousSearchText then searchText ( do not trigger observer only update value! ).
-      this.set('previousSearchText', value);
-      this.set('searchText', value);
+      if(this.attrs.pickModel){
+        this.attrs.pickModel(model);
+      } else {
+        this.set('model', model);
+        var value = this.lookupLabelOfItem(model);
+        // First set previousSearchText then searchText ( do not trigger observer only update value! ).
+        this.set('previousSearchText', value);
+        this.set('searchText', value);
+      }
+
       this.set('hidden', true);
     },
 
