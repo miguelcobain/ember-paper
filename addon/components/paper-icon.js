@@ -16,26 +16,26 @@ export default Ember.Component.extend(ColorMixin, {
 
   spinClass: Ember.computed('spin', 'reverseSpin', function() {
     if (this.get('spin')) {
-      return ' md-spin';
+      return 'md-spin';
     } else if (this.get('reverseSpin')) {
-      return ' md-spin-reverse';
+      return 'md-spin-reverse';
     }
   }),
 
   sizeClass : Ember.computed('size', function() {
     switch(this.get('size')) {
       case 'lg':
-        return ' md-lg';
+        return 'md-lg';
       case 'sm':
-        return ' md-sm';
+        return 'md-sm';
       case 2:
-        return ' md-2x';
+        return 'md-2x';
       case 3:
-        return ' md-3x';
+        return 'md-3x';
       case 4:
-        return ' md-4x';
+        return 'md-4x';
       case 5:
-        return ' md-5x';
+        return 'md-5x';
     }
   }),
 
