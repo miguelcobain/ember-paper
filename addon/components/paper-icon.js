@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-export default Ember.Component.extend(ColorMixin, {
+var PaperIconComponent = Ember.Component.extend(ColorMixin, {
   tagName: 'md-icon',
   classNames: ['paper-icon', 'md-font', 'material-icons', 'md-default-theme'],
   classNameBindings: ['iconClass', 'sizeClass', 'spinClass'],
@@ -11,7 +11,8 @@ export default Ember.Component.extend(ColorMixin, {
   reverseSpin: false,
 
   iconClass: Ember.computed('icon', function() {
-    return Ember.String.dasherize(this.get('icon'));
+    var icon = this.getWithDefault('positionalIcon', this.get('icon'));
+    return Ember.String.dasherize(icon);
   }),
 
   spinClass: Ember.computed('spin', 'reverseSpin', function() {
@@ -39,3 +40,10 @@ export default Ember.Component.extend(ColorMixin, {
     }
   })
 });
+
+PaperIconComponent.reopenClass({
+  positionalParams: ['positionalIcon']
+});
+
+export default PaperIconComponent;
+
