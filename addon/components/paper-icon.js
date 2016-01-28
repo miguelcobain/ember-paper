@@ -6,6 +6,7 @@ export default Ember.Component.extend(ColorMixin, {
   classNames: ['paper-icon', 'md-font', 'material-icons', 'md-default-theme'],
   classNameBindings: ['iconClass', 'sizeClass', 'spinClass'],
 
+  icon: '',
   spin: false,
   reverseSpin: false,
 
