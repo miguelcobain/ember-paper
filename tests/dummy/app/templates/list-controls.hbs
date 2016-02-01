@@ -1,7 +1,7 @@
 {{#paper-toolbar}}
     <div class="md-toolbar-tools">
       {{#paper-sidenav-toggle as |toggle|}}
-        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
       {{/paper-sidenav-toggle}}
         <span class="md-breadcrumb-page">List Controls</span>
     </div>
@@ -28,19 +28,19 @@
         {{#paper-subheader class="md-no-sticky"}}Clickable Items with Secondary Controls{{/paper-subheader}}
 
         {{#paper-item action="transitionToWifiMenu"}}
-          {{paper-icon icon="network-wifi"}}
+          {{paper-icon "network-wifi"}}
           <p>Wi-Fi</p>
           {{paper-switch class="md-secondary" checked=wifiEnabled}}
         {{/paper-item}}
 
         {{#paper-item action="transitionToBluetoothMenu"}}
-          {{paper-icon icon="bluetooth"}}
+          {{paper-icon "bluetooth"}}
           <p>Bluetooth</p>
           {{paper-switch class="md-secondary" checked=bluetoothEnabled}}
         {{/paper-item}}
 
         {{#paper-item action="transitionToDataUsage"}}
-          {{paper-icon icon="data-usage"}}
+          {{paper-icon "data-usage"}}
           <p>Data Usage</p>
         {{/paper-item}}
 
@@ -53,7 +53,7 @@
             {{#paper-checkbox}}{{/paper-checkbox}}
             <p>{{item.message}}</p>
             {{#paper-button icon-button=true param=item action="secondaryMessageClick"}}
-              {{paper-icon icon="message"}}
+              {{paper-icon "message"}}
             {{/paper-button}}
           {{/paper-item}}
         {{/each}}
@@ -86,7 +86,7 @@
                 <p>{{item.notes}}</p>
               </div>
               {{#paper-button icon-button=true param=item action="secondaryPersonClick"}}
-                {{paper-icon icon="phone"}}
+                {{paper-icon "phone"}}
               {{/paper-button}}
           {{/paper-item}}
         {{/each}}
@@ -116,19 +116,19 @@
     \{{#paper-subheader class="md-no-sticky"}}Clickable Items with Secondary Controls\{{/paper-subheader}}
 
     \{{#paper-item action="transitionToWifiMenu"}}
-      \{{paper-icon icon="network-wifi"}}
+      \{{paper-icon "network-wifi"}}
       &lt;p&gt;Wi-Fi&lt;/p&gt;
       \{{paper-switch class="md-secondary" checked=wifiEnabled}}
     \{{/paper-item}}
 
     \{{#paper-item action="transitionToBluetoothMenu"}}
-      \{{paper-icon icon="bluetooth"}}
+      \{{paper-icon "bluetooth"}}
       &lt;p&gt;Bluetooth&lt;/p&gt;
       \{{paper-switch class="md-secondary" checked=bluetoothEnabled}}
     \{{/paper-item}}
 
     \{{#paper-item action="transitionToDataUsage"}}
-      \{{paper-icon icon="data-usage"}}
+      \{{paper-icon "data-usage"}}
       &lt;p&gt;Data Usage&lt;/p&gt;
     \{{/paper-item}}
 
@@ -141,7 +141,7 @@
         \{{#paper-checkbox}}\{{/paper-checkbox}}
         &lt;p&gt;\{{item.message}}&lt;/p&gt;
         \{{#paper-button icon-button=true param=item action="secondaryMessageClick"}}
-          \{{paper-icon icon="message"}}
+          \{{paper-icon "message"}}
         \{{/paper-button}}
       \{{/paper-item}}
     \{{/each}}
@@ -174,7 +174,7 @@
             &lt;p&gt;\{{item.notes}}&lt;/p&gt;
           &lt;/div&gt;
           \{{#paper-button icon-button=true param=item action="secondaryPersonClick"}}
-            \{{paper-icon icon="phone"}}
+            \{{paper-icon "phone"}}
           \{{/paper-button}}
       \{{/paper-item}}
     \{{/each}}
