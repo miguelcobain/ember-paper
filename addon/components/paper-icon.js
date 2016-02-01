@@ -10,7 +10,7 @@ var PaperIconComponent = Ember.Component.extend(ColorMixin, {
   spin: false,
   reverseSpin: false,
 
-  iconClass: Ember.computed('icon', function() {
+  iconClass: Ember.computed('icon', 'positionalIcon', function() {
     var icon = this.getWithDefault('positionalIcon', this.get('icon'));
     return Ember.String.dasherize(icon);
   }),
