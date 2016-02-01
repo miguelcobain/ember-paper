@@ -1,7 +1,7 @@
 {{#paper-toolbar}}
     <div class="md-toolbar-tools">
       {{#paper-sidenav-toggle as |toggle|}}
-        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
       {{/paper-sidenav-toggle}}
         <span class="md-breadcrumb-page">Icons</span>
     </div>
@@ -11,25 +11,25 @@
   <h3>Template</h3>
   <h4>Basic Icons</h4>
   {{#code-block language='handlebars'}}
-    \{{paper-icon icon="check"}}
+    \{{paper-icon "check"}}
   {{/code-block}}
   <h4>Changing Sizes</h4>
     {{#code-block language='handlebars'}}
-      \{{paper-icon icon="check" size="sm"}}
-      \{{paper-icon icon="check" size="lg"}}
-      \{{paper-icon icon="check" size=2}}
-      \{{paper-icon icon="check" size=3}}
-      \{{paper-icon icon="check" size=4}}
-      \{{paper-icon icon="check" size=5}}
+      \{{paper-icon "check" size="sm"}}
+      \{{paper-icon "check" size="lg"}}
+      \{{paper-icon "check" size=2}}
+      \{{paper-icon "check" size=3}}
+      \{{paper-icon "check" size=4}}
+      \{{paper-icon "check" size=5}}
     {{/code-block}}
   <h4>Spinners</h4>
     {{#code-block language='handlebars'}}
-\{{paper-icon icon="rotate-right" spin=true}}
-\{{paper-icon icon="rotate-left" reverseSpin=true}}{{/code-block}}
+\{{paper-icon "rotate-right" spin=true}}
+\{{paper-icon "rotate-left" reverseSpin=true}}{{/code-block}}
   <div>
     {{#each icons as |icon|}}
       <div class="icon-tile">
-        {{paper-icon icon=icon}}
+        {{paper-icon icon}}
         <p>{{icon}}</p>
       </div>
     {{/each}}

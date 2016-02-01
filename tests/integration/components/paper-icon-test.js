@@ -8,7 +8,7 @@ moduleForComponent('paper-icon', 'Integration | Component | paper icon', {
 test('it renders with tag name', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-icon}}`);
+  this.render(hbs`{{paper-icon icon="check"}}`);
 
   assert.ok(this.$('md-icon').length);
 });
@@ -17,7 +17,7 @@ test('it renders with classes', function(assert) {
   assert.expect(6);
 
   this.set('icon', 'foo');
-  this.render(hbs`{{paper-icon icon=icon}}`);
+  this.render(hbs`{{paper-icon icon}}`);
 
   const $component = this.$('md-icon');
 
@@ -35,7 +35,7 @@ test('it renders with spin class', function(assert) {
   assert.expect(2);
 
   this.set('spin', true);
-  this.render(hbs`{{paper-icon spin=spin}}`);
+  this.render(hbs`{{paper-icon "check" spin=spin}}`);
 
   var $component = this.$('md-icon');
 
@@ -49,7 +49,7 @@ test('it renders with reverse spin class', function(assert) {
   assert.expect(2);
 
   this.set('reverseSpin', true);
-  this.render(hbs`{{paper-icon reverseSpin=reverseSpin}}`);
+  this.render(hbs`{{paper-icon "check" reverseSpin=reverseSpin}}`);
 
   var $component = this.$('md-icon');
 
@@ -63,7 +63,7 @@ test('it renders with size class', function(assert) {
   assert.expect(6);
 
   this.set('size', 'lg');
-  this.render(hbs`{{paper-icon size=size}}`);
+  this.render(hbs`{{paper-icon "check" size=size}}`);
 
   var $component = this.$('md-icon');
 
@@ -83,15 +83,4 @@ test('it renders with size class', function(assert) {
 
   this.set('size', 5);
   assert.ok($component.hasClass('md-5x'));
-});
-
-test('it works with positional icon param', function(assert) {
-  assert.expect(3);
-
-  this.render(hbs`{{paper-icon "foo"}}`);
-  assert.ok(this.$('md-icon').hasClass('foo'));
-
-  this.render(hbs`{{paper-icon "bar"}}`);
-  assert.ok(this.$('md-icon').hasClass('bar'));
-  assert.notOk(this.$('md-icon').hasClass('foo'));
 });
