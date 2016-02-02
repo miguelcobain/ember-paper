@@ -1,7 +1,7 @@
 {{#paper-toolbar}}
     <div class="md-toolbar-tools">
       {{#paper-sidenav-toggle as |toggle|}}
-        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
       {{/paper-sidenav-toggle}}
         <span class="md-breadcrumb-page">Autocomplete</span>
     </div>
@@ -114,7 +114,7 @@
 
     {{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |searchText item index|}}
       <span class="item-title">
-      {{paper-icon icon="star"}}
+      {{paper-icon "star"}}
       <span>{{paper-autocomplete-highlight searchText=searchText label=item}} (index {{index}} )</span>
       </span>
     {{else}}
@@ -133,7 +133,7 @@
 {{#code-block language="handlebars"}}
 \{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |searchText item index|}}}
   &lt;span class="item-title"&gt;
-    \{{paper-icon icon="star"}}
+    \{{paper-icon "star"}}
   &lt;span&gt; \{{paper-autocomplete-highlight searchText=searchText label=item}} &lt;/span&gt;
   &lt;/span&gt;
 \{{else}}
@@ -176,7 +176,7 @@ Whoops! Could not find "\{{searchText}}".{{/code-block}}
 {{#code-block language="handlebars"}}
 \{{!-- app/templates/components/example-item.hbs --}}
 &lt;span class="item-title"&gt;
-  \{{paper-icon icon="star"}}
+  \{{paper-icon "star"}}
   &lt;span&gt;\{{paper-autocomplete-highlight searchText=searchText label=item}} (index \{{index}} )&lt;/span&gt;
 &lt;/span&gt;{{/code-block}}
 
