@@ -7,6 +7,12 @@ function makeTransform(value) {
   return 'translateX(' + translateX.toString() + '%) scale(' + scale.toString() + ', 1)';
 }
 
+const MODE_DETERMINATE = "determinate",
+  MODE_INDETERMINATE = "indeterminate",
+  MODE_BUFFER = "buffer",
+  MODE_QUERY = "query";
+
+
 export default Ember.Component.extend(ColorMixin, {
   tagName: 'md-progress-linear',
 
@@ -33,6 +39,22 @@ export default Ember.Component.extend(ColorMixin, {
     } else {
       return 'indeterminate';
     }
+  }),
+
+  queryMode: Ember.computed('mode', function() {
+    let mode = this.get('mode');
+
+    switch (mode) {
+      case MODE_QUERY:
+      case MODE_BUFFER:
+      case MODE_DETERMINATE:
+      case MODE_INDETERMINATE:
+        return `md-mode-${this.get('mode')}`;
+      default:
+        return ``;
+    }
+
+
   }),
 
   transforms: new Array(101),
