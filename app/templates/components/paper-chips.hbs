@@ -2,7 +2,7 @@
   {{#each content as |item|}}
     <md-chip class="md-chip md-default-theme">
       <div class="md-chip-content" tabindex="-1" aria-hidden="true">
-        {{#if template}}
+        {{#if hasBlock}}
           {{yield item}}
         {{else}}
           <span>{{item}}</span>
