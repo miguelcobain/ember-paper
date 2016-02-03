@@ -2,7 +2,7 @@ import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
 import BaseFocusable from './base-focusable';
-import RippleMixin from '../mixins/ripple-mixin';
+import RippleMixin from '../mixins/button-ripple-mixin';
 
 export default BaseFocusable.extend(RippleMixin, {
   tagName: 'md-option',
@@ -13,13 +13,6 @@ export default BaseFocusable.extend(RippleMixin, {
   attributeBindings: ['selected', 'isDisabled:disabled'],
 
   focus: false,
-
-  /* RippleMixin overrides */
-  center: false,
-  dimBackground: true,
-  outline: false,
-  isMenuItem: false,
-  fullRipple: true,
 
   isDisabled: Ember.computed('disabled', function () {
     return this.get('disabled') ? 'disabled' : null;

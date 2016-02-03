@@ -1,18 +1,11 @@
 import Ember from 'ember';
-import RippleMixin from '../mixins/ripple-mixin';
+import RippleMixin from '../mixins/list-ripple-mixin';
 import ProxyMixin from 'ember-paper/mixins/proxy-mixin';
 
 export default Ember.Component.extend(RippleMixin, ProxyMixin, {
   tagName: 'md-list-item',
 
-  /* RippleMixin overrides */
-  center: false,
-  dimBackground: true,
-  outline: false,
-  isMenuItem: true,
-  fullRipple: true,
   rippleContainerSelector: '.md-no-style',
-
   noink: Ember.computed.not('shouldBeClickable'),
 
   classNameBindings: ['shouldBeClickable:md-clickable', 'hasProxiedComponent:md-proxy-focus'],

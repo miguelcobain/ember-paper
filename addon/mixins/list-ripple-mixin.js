@@ -5,9 +5,10 @@ export default Ember.Mixin.create({
   rippleContainerSelector: '.md-container',
   didInsertElement() {
     this.get('ripple').attach(this.$(this.get('rippleContainerSelector')), {
-      center: true,
-      dimBackground: false,
-      fitRipple: true
+      center: false,
+      dimBackground: true,
+      outline: false,
+      rippleSize: 'full'
     });
   }
 });
