@@ -43,7 +43,7 @@ export default Ember.Mixin.create({
     }
   },
   color(value) {
-    var self = this;
+    const self = this;
 
     // If assigning a color value, apply it to background and the ripple color
     if (typeof value !== 'undefined') {
@@ -58,8 +58,8 @@ export default Ember.Mixin.create({
      * @returns {string}
      */
     function getElementColor() {
-      var items = self.get('colorElement') ? self.get('colorElement') : [];
-      var elem = items.length ? items[0] : self.rippleElement[0];
+      let items = self.get('colorElement') ? self.get('colorElement') : [];
+      let elem = items.length ? items[0] : self.rippleElement[0];
 
       return elem ? window.getComputedStyle(elem).color : 'rgb(0,0,0)';
     }
@@ -89,7 +89,7 @@ export default Ember.Mixin.create({
      * @returns {string}
      */
     function hexToRGBA(color) {
-      var hex = color[0] === '#' ? color.substr(1) : color,
+      let hex = color[0] === '#' ? color.substr(1) : color,
         dig = hex.length / 3,
         red = hex.substr(0, dig),
         green = hex.substr(dig, dig),
@@ -134,9 +134,9 @@ export default Ember.Mixin.create({
 
       // We need to calculate the relative coordinates if the target is a sublayer of the ripple element
       if (event.srcElement !== this.rippleElement[0]) {
-        var layerRect = this.rippleElement[0].getBoundingClientRect();
-        var layerX = event.clientX - layerRect.left;
-        var layerY = event.clientY - layerRect.top;
+        let layerRect = this.rippleElement[0].getBoundingClientRect();
+        let layerX = event.clientX - layerRect.left;
+        let layerY = event.clientY - layerRect.top;
 
         this.createRipple(layerX, layerY);
       } else {
@@ -151,17 +151,17 @@ export default Ember.Mixin.create({
     this.autoCleanup(this, this.deleteRipples);
   },
   deleteRipples() {
-    for (var i = 0; i < this.ripples.length; i++) {
+    for (let i = 0; i < this.ripples.length; i++) {
       this.ripples[i].remove();
     }
   },
   clearRipples() {
-    for (var i = 0; i < this.ripples.length; i++) {
+    for (let i = 0; i < this.ripples.length; i++) {
       this.fadeInComplete(this.ripples[i]);
     }
   },
   createContainer() {
-    var container = Ember.$('<div class="md-ripple-container"></div>');
+    let container = Ember.$('<div class="md-ripple-container"></div>');
     this.rippleElement.append(container);
     return container;
   },
@@ -172,7 +172,7 @@ export default Ember.Mixin.create({
     }
   },
   isRippleAllowed() {
-    var element = this.rippleElement[0];
+    let element = this.rippleElement[0];
     do {
       if (!element.tagName || element.tagName === 'BODY') {
         break;
@@ -200,14 +200,14 @@ export default Ember.Mixin.create({
       return;
     }
 
-    var ctrl = this;
-    var ripple = Ember.$('<div class="md-ripple"></div>');
-    var width = this.rippleElement.prop('clientWidth');
-    var height = this.rippleElement.prop('clientHeight');
-    var x = Math.max(Math.abs(width - left), left) * 2;
-    var y = Math.max(Math.abs(height - top), top) * 2;
-    var size = getSize(this.get('fitRipple'), x, y);
-    var color = this.calculateColor();
+    let ctrl = this;
+    let ripple = Ember.$('<div class="md-ripple"></div>');
+    let width = this.rippleElement.prop('clientWidth');
+    let height = this.rippleElement.prop('clientHeight');
+    let x = Math.max(Math.abs(width - left), left) * 2;
+    let y = Math.max(Math.abs(height - top), top) * 2;
+    let size = getSize(this.get('fitRipple'), x, y);
+    let color = this.calculateColor();
 
     ripple.css({
       left: left + 'px',
@@ -263,8 +263,8 @@ export default Ember.Mixin.create({
     }
   },
   removeRipple(ripple) {
-    var ctrl = this;
-    var index = this.ripples.indexOf(ripple);
+    let ctrl = this;
+    let index = this.ripples.indexOf(ripple);
     if (index < 0) {
       return;
     }
