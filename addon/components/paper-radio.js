@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
-import RippleMixin from '../mixins/checkbox-ripple-mixin';
+import RippleMixin from '../mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 export default BaseFocusable.extend(RippleMixin, ColorMixin, {
@@ -10,6 +10,11 @@ export default BaseFocusable.extend(RippleMixin, ColorMixin, {
   toggle: false,
   selected: null,
 
+  /* Ripple Overrides */
+  rippleContainerSelector: '.md-container',
+  center: true,
+  dimBackground: false,
+  fitRipple: true,
 
   checked: Ember.computed('value', 'selected', function() {
     return this.get('value') === this.get('selected');

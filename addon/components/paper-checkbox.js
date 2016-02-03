@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
-import RippleMixin from '../mixins/checkbox-ripple-mixin';
+import RippleMixin from '../mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
@@ -8,6 +8,12 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
   classNameBindings: ['checked:md-checked'],
+
+  /* Ripple Overrides */
+  rippleContainerSelector: '.md-container',
+  center: true,
+  dimBackground: false,
+  fitRipple: true,
 
   constants: Ember.inject.service(),
 

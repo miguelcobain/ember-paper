@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
-import RippleMixin from '../mixins/button-ripple-mixin';
+import RippleMixin from '../mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
@@ -10,6 +10,11 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   themed: true,
   classNameBindings: ['raised:md-raised', 'icon-button:md-icon-button', 'focus:md-focused', 'themed:md-default-theme', 'themed:md-button'],
 
+  /* Ripple Overrides */
+  rippleContainerSelector: null,
+  fitRipple: Ember.computed.readOnly('isIconButton'),
+  center: Ember.computed.readOnly('isIconButton'),
+  dimBackground: Ember.computed.not('isIconButton'),
 
   noSpan: Ember.computed('no-span', function () {
     return this.get('no-span');

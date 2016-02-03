@@ -2,13 +2,18 @@ import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
 import BaseFocusable from './base-focusable';
-import RippleMixin from '../mixins/button-ripple-mixin';
+import RippleMixin from '../mixins/ripple-mixin';
 
 export default BaseFocusable.extend(RippleMixin, {
   tagName: 'md-option',
 
   constants: Ember.inject.service(),
 
+  /* Ripple Overrides */
+  rippleContainerSelector: null,
+  fitRipple: Ember.computed.readOnly('isIconButton'),
+  center: Ember.computed.readOnly('isIconButton'),
+  dimBackground: Ember.computed.not('isIconButton'),
 
   attributeBindings: ['selected', 'isDisabled:disabled'],
 

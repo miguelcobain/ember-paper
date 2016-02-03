@@ -1,10 +1,11 @@
 import Ember from 'ember';
+const { inject, computed } = Ember;
 /* global window */
 
 const DURATION = 400;
 
 export default Ember.Mixin.create({
-  util: Ember.inject.service(),
+  util: inject.service(),
   rippleContainerSelector: '.md-container',
 
   center: false,
@@ -13,7 +14,7 @@ export default Ember.Mixin.create({
   colorElement: false,
   noink: false,
 
-  rippleInk: Ember.computed('noink', 'rippleInkColor', function () {
+  rippleInk: computed('noink', 'rippleInkColor', function () {
     if (this.get('noink')) {
       return false;
     }
