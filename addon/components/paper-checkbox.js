@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
-import RippleMixin from '../mixins/ripple-mixin';
+import RippleMixin from '../mixins/checkbox-ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
@@ -14,11 +14,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   checked: false,
   toggle: true,
 
-  /* RippleMixin overrides */
-  center: true,
-  dimBackground: false,
-  fitRipple: true,
-  rippleContainerSelector: '.md-container',
 
   //bubble actions by default
   bubbles: true,
