@@ -27,6 +27,7 @@ Router.map(function() {
   this.route('paper-select');
   this.route('menu');
   this.route('grid-list');
+  this.route('fab-speed-dial');
 });
 
 export default Router;

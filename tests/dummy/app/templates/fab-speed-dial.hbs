@@ -1,0 +1,130 @@
+{{#paper-toolbar}}
+    <div class="md-toolbar-tools">
+      {{#paper-sidenav-toggle as |toggle|}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
+      {{/paper-sidenav-toggle}}
+    </div>
+{{/paper-toolbar}}
+{{#paper-content class="md-padding"}}
+
+  <div class="doc-content">
+    <h1>Basic usage</h1>
+    <div style="min-height:300px;position:relative;background-color:#f5f5f5;">
+      {{#paper-fab-speed-dial direction=selectedDirection is-open=selectedOpen on-hover=selectedHover animation=selectedAnimation primary=true}}
+
+        {{paper-fab-action-item warn=true action="hallo" icon="person"}}
+
+        {{paper-fab-action-item warn=true action="hallo" icon="message"}}
+
+        {{paper-fab-action-item warn=true icon="android"}}
+
+      {{/paper-fab-speed-dial}}
+    </div>
+
+    <div layout="row" layout-align="space-around">
+      <div layout="column">
+        <h3>Open/Hover options</h3>
+        <div>{{#paper-checkbox checked=selectedOpen}}Open{{/paper-checkbox}}</div>
+        <div>{{#paper-checkbox checked=selectedHover}}Open/Close on hover{{/paper-checkbox}}</div>
+      </div>
+
+      <div layout="column">
+        <h3>Direction</h3>
+        <div>{{#paper-radio value="up" selected=selectedDirection}}Up{{/paper-radio}}</div>
+        <div>{{#paper-radio value="down" selected=selectedDirection}}Down{{/paper-radio}}</div>
+        <div>{{#paper-radio value="left" selected=selectedDirection}}Left{{/paper-radio}}</div>
+        <div>{{#paper-radio value="right" selected=selectedDirection}}Right{{/paper-radio}}</div>
+      </div>
+
+      <div layout="column">
+        <h3>Animation</h3>
+        <div>{{#paper-radio value="fling" selected=selectedAnimation}}Fling{{/paper-radio}}</div>
+        <div>{{#paper-radio value="scale" selected=selectedAnimation}}Scale{{/paper-radio}}</div>
+      </div>
+
+    </div>
+
+    <h1>Absolute positioning</h1>
+    <div style="min-height:300px;position:relative;background-color:#f5f5f5;">
+      {{#paper-fab-speed-dial direction=selectedDirection2 verticalAlign=selectedVAlignDirection horizontalAlign=selectedHAlignDirection animation="scale" primary=true icon="shopping-cart"}}
+
+        {{paper-fab-action-item icon="delete" warn=true mini=true}}
+
+        {{paper-fab-action-item icon="add" mini=true}}
+
+      {{/paper-fab-speed-dial}}
+    </div>
+    <div layout="row" layout-align="space-around">
+      <div layout="column">
+        <h3>Direction</h3>
+        <div>{{#paper-radio value="up" selected=selectedDirection2}}Up{{/paper-radio}}</div>
+        <div>{{#paper-radio value="down" selected=selectedDirection2}}Down{{/paper-radio}}</div>
+        <div>{{#paper-radio value="left" selected=selectedDirection2}}Left{{/paper-radio}}</div>
+        <div>{{#paper-radio value="right" selected=selectedDirection2}}Right{{/paper-radio}}</div>
+      </div>
+      <div layout="column">
+        <h3>Vertical Align</h3>
+        <div>{{#paper-radio value="top" selected=selectedVAlignDirection}}Top{{/paper-radio}}</div>
+        <div>{{#paper-radio value="bottom" selected=selectedVAlignDirection}}Bottom{{/paper-radio}}</div>
+      </div>
+      <div layout="column">
+        <h3>Horizontal Align</h3>
+        <div>{{#paper-radio value="left" selected=selectedHAlignDirection}}Left{{/paper-radio}}</div>
+        <div>{{#paper-radio value="right" selected=selectedHAlignDirection}}Right{{/paper-radio}}</div>
+      </div>
+    </div>
+
+  <h3>Template</h3>
+  {{#code-block language='handlebars'}}
+    \{{#paper-fab-speed-dial direction="down" animation="fling" warn=true}}
+      \{{paper-fab-action-item action="targetAction" target=component icon="person"}}
+      \{{paper-fab-action-item action="targetAction" target=component icon="message"}}
+      \{{paper-fab-action-item  action="sampleAction" icon="add"}}
+    \{{/paper-fab-speed-dial}}
+
+    &lt;p&gt;With absolute positioning&lt;/p&gt;
+    \{{#paper-fab-speed-dial verticalAlign="top" horizontalAlign="right" primary=true icon="add"}}
+      \{{paper-fab-action-item action="sampleAction" mini=true}}
+      \{{paper-fab-action-item action="sampleAction2" mini=true}}
+    \{{/paper-fab-speed-dial}}
+  {{/code-block}}
+
+  <h3>Default attributes</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Default value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>direction</td>
+        <td><code>"up"</code></td>
+      </tr>
+      <tr>
+        <td>animation</td>
+        <td><code>"fling"</code></td>
+      </tr>
+      <tr>
+        <td>verticalAlign</td>
+        <td><code>null</code></td>
+      </tr>
+      <tr>
+        <td>horizontalAlign</td>
+        <td><code>null</code></td>
+      </tr>
+      <tr>
+        <td>on-hover</td>
+        <td><code>false</code></td>
+      </tr>
+      <tr>
+        <td>icon</td>
+        <td><code>{{#link-to 'icons'}}menu{{/link-to}}</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+{{/paper-content}}

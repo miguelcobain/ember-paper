@@ -20,6 +20,7 @@
 - [#171](https://github.com/miguelcobain/ember-paper/pull/171) Add support for custom validations in paper-input component.
 - [#192](https://github.com/miguelcobain/ember-paper/pull/192) Add support for paper-grid-list component.
 - [#194](https://github.com/miguelcobain/ember-paper/pull/194) Fixed [#173](https://github.com/miguelcobain/ember-paper/issues/173) - issue with paper-progress-circular.
+- [#215](https://github.com/miguelcobain/ember-paper/pull/215) Implement Fab Speed Dial component.
 
 ### 0.2.8 (Aug 19, 2015)
 - [#154](https://github.com/miguelcobain/ember-paper/pull/154) Add support for inline paper-icon in paper-input component

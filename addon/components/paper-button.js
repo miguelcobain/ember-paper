@@ -8,7 +8,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   attributeBindings: ['target', 'action', 'type'],
   tagName: 'button',
   themed: true,
-  classNameBindings: ['raised:md-raised', 'icon-button:md-icon-button', 'focus:md-focused', 'themed:md-default-theme', 'themed:md-button'],
+  classNameBindings: ['raised:md-raised', 'icon-button:md-icon-button', 'focus:md-focused', 'themed:md-default-theme', 'themed:md-button', 'fab-button:md-fab', 'fab-mini:md-mini'],
 
 
   noSpan: Ember.computed('no-span', function () {
