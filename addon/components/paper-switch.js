@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
-import RippleMixin from 'ember-paper/mixins/ripple-mixin';
+import RippleMixin from 'ember-paper/mixins/checkbox-ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 /* globals Hammer */
@@ -11,9 +11,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],
   toggle: true,
 
-  center: true,
-  dimBackground: false,
-  fitRipple: true,
   rippleContainerSelector: '.md-thumb',
 
   checked: false,
