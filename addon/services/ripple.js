@@ -85,10 +85,18 @@ InkRippleCtrl.prototype.calculateColor = function () {
 InkRippleCtrl.prototype._parseColor = function parseColor(color, multiplier) {
   multiplier = multiplier || 1;
 
-  if (!color) return;
-  if (color.indexOf('rgba') === 0) return color.replace(/\d?\.?\d*\s*\)\s*$/, (0.1 * multiplier).toString() + ')');
-  if (color.indexOf('rgb') === 0) return rgbToRGBA(color);
-  if (color.indexOf('#') === 0) return hexToRGBA(color);
+  if (!color) {
+    return;
+  }
+  if (color.indexOf('rgba') === 0) {
+    return color.replace(/\d?\.?\d*\s*\)\s*$/, (0.1 * multiplier).toString() + ')');
+  }
+  if (color.indexOf('rgb') === 0) {
+    return rgbToRGBA(color);
+  }
+  if (color.indexOf('#') === 0) {
+    return hexToRGBA(color);
+  }
 
   /**
    * Converts hex value to RGBA string
@@ -135,10 +143,14 @@ InkRippleCtrl.prototype.bindEvents = function () {
  * @param event {MouseEvent}
  */
 InkRippleCtrl.prototype.handleMousedown = function (event) {
-  if (this.mousedown) return;
+  if (this.mousedown) {
+    return;
+  }
 
   // When jQuery is loaded, we have to get the original event
-  if (event.hasOwnProperty('originalEvent')) event = event.originalEvent;
+  if (event.hasOwnProperty('originalEvent')) {
+    event = event.originalEvent;
+  }
   this.mousedown = true;
   if (this.options.center) {
     this.createRipple(this.container.prop('clientWidth') / 2, this.container.prop('clientWidth') / 2);
@@ -212,11 +224,17 @@ InkRippleCtrl.prototype.clearTimeout = function () {
 InkRippleCtrl.prototype.isRippleAllowed = function () {
   var element = this.$element[0];
   do {
-    if (!element.tagName || element.tagName === 'BODY') break;
+    if (!element.tagName || element.tagName === 'BODY') {
+      break;
+    }
 
     if (element && Ember.$.isFunction(element.hasAttribute)) {
-      if (element.hasAttribute('disabled')) return false;
-      if (this.inkRipple() === 'false' || this.inkRipple() === '0') return false;
+      if (element.hasAttribute('disabled')) {
+        return false;
+      }
+      if (this.inkRipple() === 'false' || this.inkRipple() === '0') {
+        return false;
+      }
     }
 
   } while (element = element.parentNode);
@@ -237,7 +255,9 @@ InkRippleCtrl.prototype.inkRipple = function () {
  * @param top
  */
 InkRippleCtrl.prototype.createRipple = function (left, top) {
-  if (!this.isRippleAllowed()) return;
+  if (!this.isRippleAllowed()) {
+    return;
+  }
 
   var ctrl = this;
   var ripple = Ember.$('<div class="md-ripple"></div>');
@@ -263,10 +283,14 @@ InkRippleCtrl.prototype.createRipple = function (left, top) {
   this.clearTimeout();
   this.timeout = Ember.run.later(this, function () {
     ctrl.clearTimeout();
-    if (!ctrl.mousedown) ctrl.fadeInComplete(ripple);
+    if (!ctrl.mousedown) {
+      ctrl.fadeInComplete(ripple);
+    }
   }, {}, DURATION * 0.35);
 
-  if (this.options.dimBackground) this.container.css({backgroundColor: color});
+  if (this.options.dimBackground) {
+    this.container.css({backgroundColor: color});
+  }
   this.container.append(ripple);
   this.ripples.push(ripple);
   ripple.addClass('md-ripple-placed');
@@ -281,15 +305,11 @@ InkRippleCtrl.prototype.createRipple = function (left, top) {
   }, false);
 
   function rgbaToRGB(color) {
-    return color
-      ? color.replace('rgba', 'rgb').replace(/,[^\),]+\)/, ')')
-      : 'rgb(0,0,0)';
+    return color ? color.replace('rgba', 'rgb').replace(/,[^\),]+\)/, ')') : 'rgb(0,0,0)';
   }
 
   function getSize(fit, x, y) {
-    return fit
-      ? Math.max(x, y)
-      : Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+    return fit ? Math.max(x, y) : Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
   }
 };
 
@@ -315,10 +335,14 @@ InkRippleCtrl.prototype.fadeInComplete = function (ripple) {
 InkRippleCtrl.prototype.removeRipple = function (ripple) {
   var ctrl = this;
   var index = this.ripples.indexOf(ripple);
-  if (index < 0) return;
+  if (index < 0) {
+    return;
+  }
   this.ripples.splice(this.ripples.indexOf(ripple), 1);
   ripple.removeClass('md-ripple-active');
-  if (this.ripples.length === 0) this.container.css({backgroundColor: ''});
+  if (this.ripples.length === 0) {
+    this.container.css({backgroundColor: ''});
+  }
   // use a 2-second timeout in order to allow for the animation to finish
   // we don't actually care how long the animation takes
   Ember.run.later(this, function () {

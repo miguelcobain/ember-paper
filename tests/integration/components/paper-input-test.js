@@ -25,15 +25,6 @@ test('renders with label', function (assert) {
     assert.equal(actual, expected);
 });
 
-test('renders with icon', function (assert) {
-    assert.expect(1);
-
-    this.render(hbs`{{paper-input icon="person" icon-class="name"}}`);
-
-    var actual = this.$('md-input-container md-icon').attr('class');
-    var expected = 'name ember-view paper-icon md-font material-icons md-default-theme person';
-    assert.equal(actual, expected);
-});
 
 test('renders input', function (assert) {
     assert.expect(2);

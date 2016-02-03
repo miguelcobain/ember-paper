@@ -4,8 +4,7 @@ import {
 } from 'ember-qunit';
 
 moduleForComponent('paper-switch', 'PaperSwitchComponent', {
-  // specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar']
+  needs: ['service:ripple', 'service:util'],
   unit: true
 });
 
