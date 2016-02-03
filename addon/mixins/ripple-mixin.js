@@ -1,10 +1,10 @@
 import Ember from 'ember';
-const { inject, computed } = Ember;
+const { inject, computed, Mixin, run, $ } = Ember;
 /* global window */
 
 const DURATION = 400;
 
-export default Ember.Mixin.create({
+export default Mixin.create({
   util: inject.service(),
   rippleContainerSelector: '.md-container',
 
@@ -162,13 +162,13 @@ export default Ember.Mixin.create({
     }
   },
   createContainer() {
-    let container = Ember.$('<div class="md-ripple-container"></div>');
+    let container = $('<div class="md-ripple-container"></div>');
     this.rippleElement.append(container);
     return container;
   },
   clearTimeout() {
     if (this.timeout) {
-      Ember.run.cancel(this.timeout);
+      run.cancel(this.timeout);
       this.timeout = null;
     }
   },
@@ -179,7 +179,7 @@ export default Ember.Mixin.create({
         break;
       }
 
-      if (element && Ember.$.isFunction(element.hasAttribute)) {
+      if (element && $.isFunction(element.hasAttribute)) {
         if (element.hasAttribute('disabled')) {
           return false;
         }
@@ -199,7 +199,7 @@ export default Ember.Mixin.create({
     }
 
     let ctrl = this;
-    let ripple = Ember.$('<div class="md-ripple"></div>');
+    let ripple = $('<div class="md-ripple"></div>');
     let width = this.rippleElement.prop('clientWidth');
     let height = this.rippleElement.prop('clientHeight');
     let x = Math.max(Math.abs(width - left), left) * 2;
@@ -220,7 +220,7 @@ export default Ember.Mixin.create({
 
     // we only want one timeout to be running at a time
     this.clearTimeout();
-    this.timeout = Ember.run.later(this, function () {
+    this.timeout = run.later(this, function () {
       ctrl.clearTimeout();
       if (!ctrl.mousedown) {
         ctrl.fadeInComplete(ripple);
@@ -237,7 +237,7 @@ export default Ember.Mixin.create({
     this.get('util').nextTick(function () {
 
       ripple.addClass('md-ripple-scaled md-ripple-active');
-      Ember.run.later(this, function () {
+      run.later(this, function () {
         ctrl.clearRipples();
       }, {}, DURATION);
 
@@ -273,7 +273,7 @@ export default Ember.Mixin.create({
     }
     // use a 2-second timeout in order to allow for the animation to finish
     // we don't actually care how long the animation takes
-    Ember.run.later(this, function () {
+    run.later(this, function () {
       ctrl.fadeOutComplete(ripple);
     }, {}, DURATION);
   },
