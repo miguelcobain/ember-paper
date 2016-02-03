@@ -13,6 +13,22 @@ test('it renders with tag name', function(assert) {
   assert.ok(this.$('md-icon').length);
 });
 
+test('it renders with classes', function (assert) {
+  assert.expect(5);
+
+  this.set('icon', 'foo');
+  this.render(hbs`{{paper-icon icon}}`);
+
+  const $component = this.$('md-icon');
+
+  assert.ok($component.hasClass('paper-icon'));
+  assert.ok($component.hasClass('material-icons'));
+  assert.equal($component.text(), 'foo');
+  this.set('icon', 'bar');
+  assert.equal($component.text(), 'bar');
+  assert.notEqual($component.text(), 'foo');
+});
+
 test('it renders with spin class', function(assert) {
   assert.expect(2);
 
