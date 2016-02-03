@@ -25,6 +25,7 @@ export default Ember.Mixin.create({
   }),
 
   didInsertElement() {
+    this._super(...arguments);
     this.rippleElement = this.$(this.get('rippleContainerSelector'));
     this.mousedown = false;
     this.ripples = [];
@@ -51,7 +52,7 @@ export default Ember.Mixin.create({
     }
 
     // If color lookup, use assigned, defined, or inherited
-    return self._color || self._parseColor(self.inkRipple()) || self._parseColor(getElementColor());
+    return self._color || self._parseColor(self.get('rippleInk')) || self._parseColor(getElementColor());
 
     /**
      * Finds the color element and returns its text color for use as default ripple color
@@ -182,7 +183,7 @@ export default Ember.Mixin.create({
         if (element.hasAttribute('disabled')) {
           return false;
         }
-        if (this.inkRipple() === false) {
+        if (this.get('rippleInk') === false) {
           return false;
         }
       }
@@ -191,9 +192,6 @@ export default Ember.Mixin.create({
 
 
     return true;
-  },
-  inkRipple() {
-    return this.get('rippleInk');
   },
   createRipple(left, top) {
     if (!this.isRippleAllowed()) {
