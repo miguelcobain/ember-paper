@@ -11,10 +11,12 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],
   toggle: true,
 
+
+  /* Ripple Overrides */
+  rippleContainerSelector: '.md-thumb',
   center: true,
   dimBackground: false,
   fitRipple: true,
-  rippleContainerSelector: '.md-thumb',
 
   checked: false,
   disabled: false,

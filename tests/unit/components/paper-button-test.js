@@ -4,8 +4,7 @@ import {
 } from 'ember-qunit';
 
 moduleForComponent('paper-button', 'PaperButtonComponent', {
-  // specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar']
+  needs: ['service:util'],
   unit: true
 });
 

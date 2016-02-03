@@ -21,7 +21,7 @@ module.exports = function(environment) {
       'default-src': "'none'",
       'script-src': "'self' 'unsafe-inline' https://buttons.github.io https://api.github.com",
       'font-src': "'self' https://fonts.gstatic.com",
-      'style-src': "'self' 'unsafe-inline' https://buttons.github.io",
+      'style-src': "'self' 'unsafe-inline' https://buttons.github.io https://fonts.googleapis.com",
       'connect-src': "'self'",
       'img-src': "'self' data:",
       'media-src': "'self'",

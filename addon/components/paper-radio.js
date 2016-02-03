@@ -10,11 +10,11 @@ export default BaseFocusable.extend(RippleMixin, ColorMixin, {
   toggle: false,
   selected: null,
 
-  /* RippleMixin overrides */
+  /* Ripple Overrides */
+  rippleContainerSelector: '.md-container',
   center: true,
   dimBackground: false,
   fitRipple: true,
-  rippleContainerSelector: '.md-container',
 
   checked: Ember.computed('value', 'selected', function() {
     return this.get('value') === this.get('selected');

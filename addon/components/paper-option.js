@@ -9,17 +9,15 @@ export default BaseFocusable.extend(RippleMixin, {
 
   constants: Ember.inject.service(),
 
+  /* Ripple Overrides */
+  rippleContainerSelector: null,
+  fitRipple: Ember.computed.readOnly('isIconButton'),
+  center: Ember.computed.readOnly('isIconButton'),
+  dimBackground: Ember.computed.not('isIconButton'),
 
   attributeBindings: ['selected', 'isDisabled:disabled'],
 
   focus: false,
-
-  /* RippleMixin overrides */
-  center: false,
-  dimBackground: true,
-  outline: false,
-  isMenuItem: false,
-  fullRipple: true,
 
   isDisabled: Ember.computed('disabled', function () {
     return this.get('disabled') ? 'disabled' : null;

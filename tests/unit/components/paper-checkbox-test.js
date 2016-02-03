@@ -8,7 +8,7 @@ moduleForComponent('paper-checkbox', {
   // Specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar']
   unit: true,
-  needs: ['service:constants', 'service:sniffer']
+  needs: ['service:constants', 'service:sniffer', 'service:util']
 });
 
 test('it renders', function(assert) {

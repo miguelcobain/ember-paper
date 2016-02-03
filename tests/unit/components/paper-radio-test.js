@@ -5,8 +5,7 @@ import {
 } from 'ember-qunit';
 
 moduleForComponent('paper-radio', 'PaperRadioComponent', {
-  // specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar']
+  needs: ['service:util'],
   unit: true
 });
 

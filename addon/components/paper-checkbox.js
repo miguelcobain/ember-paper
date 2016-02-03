@@ -9,16 +9,17 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNames: ['md-checkbox', 'md-default-theme'],
   classNameBindings: ['checked:md-checked'],
 
+  /* Ripple Overrides */
+  rippleContainerSelector: '.md-container',
+  center: true,
+  dimBackground: false,
+  fitRipple: true,
+
   constants: Ember.inject.service(),
 
   checked: false,
   toggle: true,
 
-  /* RippleMixin overrides */
-  center: true,
-  dimBackground: false,
-  fitRipple: true,
-  rippleContainerSelector: '.md-container',
 
   //bubble actions by default
   bubbles: true,
