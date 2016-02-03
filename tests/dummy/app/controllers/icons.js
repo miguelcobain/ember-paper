@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
-const CODE_POINTS = `
-3d_rotation e84d
+const CODE_POINTS = `3d_rotation e84d
 ac_unit eb3b
 access_alarm e190
 access_alarms e191
