@@ -5,7 +5,7 @@ import {
 } from 'ember-qunit';
 
 moduleForComponent('paper-radio', 'PaperRadioComponent', {
-  needs: ['service:ripple', 'service:util'],
+  needs: ['service:util'],
   unit: true
 });
 

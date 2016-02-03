@@ -1,14 +1,9 @@
 import Ember from 'ember';
+import Ripple from './ripple-mixin';
 
-export default Ember.Mixin.create({
-  ripple: Ember.inject.service(),
+export default Ember.Mixin.create(Ripple, {
   rippleContainerSelector: '.md-container',
-  didInsertElement() {
-    this.get('ripple').attach(this.$(this.get('rippleContainerSelector')), {
-      center: false,
-      dimBackground: true,
-      outline: false,
-      rippleSize: 'full'
-    });
-  }
+  center: false,
+  dimBackground: true,
+  outline: false
 });

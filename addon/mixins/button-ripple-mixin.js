@@ -1,22 +1,9 @@
 import Ember from 'ember';
+import Ripple from './ripple-mixin';
 
-export default Ember.Mixin.create({
-    ripple: Ember.inject.service(),
-    optionsForElement() {
-        if (this.get('isIconButton')) {
-            return {
-                isMenuItem: this.get('isMenuItem'), /* We have a separate component: paper-menu-item.*/
-                fitRipple: true,
-                center: true
-            };
-        } else {
-            return {
-                isMenuItem: this.get('isMenuItem'),
-                dimBackground: true
-            };
-        }
-    },
-    didInsertElement() {
-        this.get('ripple').attach(this.$(), this.optionsForElement());
-    }
+export default Ember.Mixin.create(Ripple, {
+    rippleContainerSelector: null,
+    fitRipple: Ember.computed.alias('isIconButton'),
+    center: Ember.computed.alias('isIconButton'),
+    dimBackground: Ember.computed.not('isIconButton')
 });

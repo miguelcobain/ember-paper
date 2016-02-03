@@ -4,7 +4,7 @@ import {
 } from 'ember-qunit';
 
 moduleForComponent('paper-switch', 'PaperSwitchComponent', {
-  needs: ['service:ripple', 'service:util'],
+  needs: ['service:util'],
   unit: true
 });
 
