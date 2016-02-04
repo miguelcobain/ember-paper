@@ -81,27 +81,12 @@ export default Component.extend(ColorMixin, {
 
   clampedValue: computed('value', function() {
     let value = this.get('value');
-    if (value > 100) {
-      return 100;
-    }
-
-    if (value < 0) {
-      return 0;
-    }
-
-    return Math.ceil(value || 0);
+    return Math.max(0, Math.min(value || 0, 100));
   }),
 
   clampedBufferValue: computed('buffer-value', function() {
     let value = this.get('buffer-value');
-    if (value > 100) {
-      return 100;
-    }
-
-    if (value < 0) {
-      return 0;
-    }
-    return Math.ceil(value || 0);
+    return Math.max(0, Math.min(value || 0, 100));
   })
 
 });
