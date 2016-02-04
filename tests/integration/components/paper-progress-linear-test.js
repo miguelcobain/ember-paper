@@ -20,11 +20,6 @@ test('should auto-set the md-mode to "buffer" if a value and bufferValue is spec
   assert.equal(this.$('md-progress-linear').attr('md-mode'), 'buffer');
 });
 
-test('should auto-set the md-mode to "buffer" if a value and bufferValue is specified', function(assert) {
-  this.render(hbs`{{paper-progress-linear  value=50  buffer-value=100}}`);
-  assert.equal(this.$('md-progress-linear').attr('md-mode'), 'buffer');
-});
-
 test('it sets transform based on value', function(assert) {
   this.render(hbs`{{paper-progress-linear value=50}}`);
 
