@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-const {inject, computed, Component, isPresent} = Ember;
+const { inject, computed, Component, isPresent } = Ember;
 
 
 function makeTransform(value) {
@@ -9,10 +9,10 @@ function makeTransform(value) {
   return 'translateX(' + translateX.toString() + '%) scale(' + scale.toString() + ', 1)';
 }
 
-const MODE_DETERMINATE = "determinate",
-  MODE_INDETERMINATE = "indeterminate",
-  MODE_BUFFER = "buffer",
-  MODE_QUERY = "query";
+const MODE_DETERMINATE = 'determinate',
+  MODE_INDETERMINATE = 'indeterminate',
+  MODE_BUFFER = 'buffer',
+  MODE_QUERY = 'query';
 
 export default Component.extend(ColorMixin, {
   tagName: 'md-progress-linear',
