@@ -9,10 +9,10 @@ function makeTransform(value) {
   return 'translateX(' + translateX.toString() + '%) scale(' + scale.toString() + ', 1)';
 }
 
-const MODE_DETERMINATE = 'determinate',
-  MODE_INDETERMINATE = 'indeterminate',
-  MODE_BUFFER = 'buffer',
-  MODE_QUERY = 'query';
+const MODE_DETERMINATE = 'determinate';
+const MODE_INDETERMINATE = 'indeterminate';
+const MODE_BUFFER = 'buffer';
+const MODE_QUERY = 'query';
 
 export default Component.extend(ColorMixin, {
   tagName: 'md-progress-linear',
@@ -33,12 +33,12 @@ export default Component.extend(ColorMixin, {
 
     if (isPresent(value)) {
       if (isPresent(bufferValue)) {
-        return 'buffer';
+        return MODE_BUFFER;
       } else {
-        return 'determinate';
+        return MODE_DETERMINATE;
       }
     } else {
-      return 'indeterminate';
+      return MODE_INDETERMINATE;
     }
   }),
 
@@ -72,7 +72,7 @@ export default Component.extend(ColorMixin, {
 
   bar2Style: computed('clampedValue', function() {
 
-    if (this.get('mode') === 'query') {
+    if (this.get('mode') === MODE_QUERY) {
       return Ember.String.htmlSafe('');
     }
 
