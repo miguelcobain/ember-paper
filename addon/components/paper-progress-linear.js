@@ -42,7 +42,7 @@ export default Component.extend(ColorMixin, {
     }
   }),
 
-  queryMode: computed('mode', function() {
+  queryModeClass: computed('mode', function() {
     let mode = this.get('mode');
 
     switch (mode) {
