@@ -4,8 +4,8 @@ const { inject, computed, Component, isPresent } = Ember;
 
 
 function makeTransform(value) {
-  var scale = value / 100;
-  var translateX = (value - 100) / 2;
+  let scale = value / 100;
+  let translateX = (value - 100) / 2;
   return 'translateX(' + translateX.toString() + '%) scale(' + scale.toString() + ', 1)';
 }
 
@@ -28,8 +28,8 @@ export default Component.extend(ColorMixin, {
   },
 
   mode: computed('value', function() {
-    var value = this.get('value');
-    var bufferValue = this.get('buffer-value');
+    let value = this.get('value');
+    let bufferValue = this.get('buffer-value');
 
     if (isPresent(value)) {
       if (isPresent(bufferValue)) {
@@ -61,7 +61,7 @@ export default Component.extend(ColorMixin, {
   transforms: new Array(101),
 
   setupTransforms() {
-    for (var i = 0; i < 101; i++) {
+    for (let i = 0; i < 101; i++) {
       this.transforms[i] = makeTransform(i);
     }
   },
@@ -80,7 +80,7 @@ export default Component.extend(ColorMixin, {
   }),
 
   clampedValue: computed('value', function() {
-    var value = this.get('value');
+    let value = this.get('value');
     if (value > 100) {
       return 100;
     }
@@ -93,7 +93,7 @@ export default Component.extend(ColorMixin, {
   }),
 
   clampedBufferValue: computed('buffer-value', function() {
-    var value = this.get('buffer-value');
+    let value = this.get('buffer-value');
     if (value > 100) {
       return 100;
     }
