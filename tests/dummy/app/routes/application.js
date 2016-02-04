@@ -2,9 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   actions: {
-    transitionTo(route) {
-      this.transitionTo(route);
-    },
     raisedButton() {
       alert('You pressed a raised button.');
     },
