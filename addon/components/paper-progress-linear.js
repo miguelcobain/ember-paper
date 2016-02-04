@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+const {inject, computed, Component, isPresent} = Ember;
+
 
 function makeTransform(value) {
   var scale = value / 100;
@@ -12,26 +14,25 @@ const MODE_DETERMINATE = "determinate",
   MODE_BUFFER = "buffer",
   MODE_QUERY = "query";
 
-
-export default Ember.Component.extend(ColorMixin, {
+export default Component.extend(ColorMixin, {
   tagName: 'md-progress-linear',
 
   attributeBindings: ['mode:md-mode', 'buffer-value:md-buffer-value'],
   classNames: ['md-default-theme'],
 
-  constants: Ember.inject.service(),
+  constants: inject.service(),
 
   init() {
     this._super(...arguments);
     this.setupTransforms();
   },
 
-  mode: Ember.computed('value', function() {
+  mode: computed('value', function() {
     var value = this.get('value');
     var bufferValue = this.get('buffer-value');
 
-    if (Ember.isPresent(value)) {
-      if (Ember.isPresent(bufferValue)) {
+    if (isPresent(value)) {
+      if (isPresent(bufferValue)) {
         return 'buffer';
       } else {
         return 'determinate';
@@ -41,7 +42,7 @@ export default Ember.Component.extend(ColorMixin, {
     }
   }),
 
-  queryMode: Ember.computed('mode', function() {
+  queryMode: computed('mode', function() {
     let mode = this.get('mode');
 
     switch (mode) {
@@ -65,21 +66,20 @@ export default Ember.Component.extend(ColorMixin, {
     }
   },
 
-  bar1Style: Ember.computed('clampedBufferValue', function() {
-    return new Ember.Handlebars.SafeString(this.get('constants.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedBufferValue')]);
+  bar1Style: computed('clampedBufferValue', function() {
+    return Ember.String.htmlSafe(this.get('constants.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedBufferValue')]);
   }),
 
-  bar2Style: Ember.computed('clampedValue', function() {
+  bar2Style: computed('clampedValue', function() {
 
     if (this.get('mode') === 'query') {
-      return new Ember.Handlebars.SafeString('');
+      return Ember.String.htmlSafe('');
     }
 
-    return new Ember.Handlebars.SafeString(this.get('constants.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedValue')]);
+    return Ember.String.htmlSafe(this.get('constants.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedValue')]);
   }),
 
-  clampedValue: Ember.computed('value', function() {
-
+  clampedValue: computed('value', function() {
     var value = this.get('value');
     if (value > 100) {
       return 100;
@@ -92,7 +92,7 @@ export default Ember.Component.extend(ColorMixin, {
     return Math.ceil(value || 0);
   }),
 
-  clampedBufferValue: Ember.computed('buffer-value', function() {
+  clampedBufferValue: computed('buffer-value', function() {
     var value = this.get('buffer-value');
     if (value > 100) {
       return 100;
@@ -101,7 +101,6 @@ export default Ember.Component.extend(ColorMixin, {
     if (value < 0) {
       return 0;
     }
-
     return Math.ceil(value || 0);
   })
 
