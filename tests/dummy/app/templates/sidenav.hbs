@@ -42,8 +42,8 @@
 
     \{{#paper-content}}
       \{{#paper-list}}
-        \{{#paper-item action="transitionTo" param="index"}}Introduction\{{/paper-item}}
-        \{{#paper-item action="transitionTo" param="index"}}Another link\{{/paper-item}}
+        \{{#paper-item action=(transition-to "index")}}Introduction\{{/paper-item}}
+        \{{#paper-item action=(transition-to "index")}}Another link\{{/paper-item}}
       \{{/paper-list}}
     \{{/paper-content}}
   \{{/paper-sidenav}}
