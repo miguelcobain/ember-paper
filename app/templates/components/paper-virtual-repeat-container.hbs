@@ -1,0 +1,8 @@
+<div class="md-virtual-repeat-scroller">
+    <div class="md-virtual-repeat-sizer"></div>
+    <div class="md-virtual-repeat-offsetter">
+        {{yield (hash
+            item=(component 'paper-virtual-repeat' container=this)
+        )}}
+    </div>
+</div>

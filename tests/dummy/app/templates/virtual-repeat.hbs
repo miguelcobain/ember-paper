@@ -1,0 +1,28 @@
+{{#paper-toolbar}}
+    <div class="md-toolbar-tools">
+      {{#paper-sidenav-toggle as |toggle|}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
+      {{/paper-sidenav-toggle}}
+        <span class="md-breadcrumb-page">Virtual Repeat</span>
+    </div>
+{{/paper-toolbar}}
+{{#paper-content class="md-padding"}}
+<div class="doc-content">
+    <h3>Deffered Loading</h3>
+    <p>Display a list of 50,000 items that load on demand in a viewport of only 7 rows (height=40px).</p>
+
+    <p>This demo shows scroll and rendering performance gains when using md-virtual-repeat; achieved with the dynamic reuse of rows visible in the viewport area. Developers are required to explicitly use md-virtual-repeat-container as a wrapping parent container.</p>
+
+    <p>To enable load-on-demand behavior, developers must pass in a custom instance of mdVirtualRepeatModel (see the example's source for more info).</p>
+
+
+    {{#paper-virtual-repeat-container source=someLongList as |container|}}
+        {{#each container.items as |item|}}
+            {{#container.item}}
+                Hello
+            {{/container.item}}
+        {{/each}}
+    {{/paper-virtual-repeat-container}}
+
+</div>
+{{/paper-content}}

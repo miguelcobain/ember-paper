@@ -27,6 +27,7 @@ Router.map(function() {
   this.route('paper-select');
   this.route('menu');
   this.route('grid-list');
+  this.route('virtual-repeat');
 });
 
 export default Router;

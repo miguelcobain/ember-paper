@@ -75,7 +75,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   },
 
   notFoundMsg: Ember.computed('searchText', 'notFoundMessage', function() {
-    return Ember.String.fmt(this.get('notFoundMessage'), [this.get('searchText')]);
+    return this.get('notFoundMessage').replace('%search_text%', this.get('searchText'));
   }),
 
   /**

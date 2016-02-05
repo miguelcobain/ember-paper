@@ -127,12 +127,23 @@ var Util = Ember.Service.extend({
       return (typeof r === 'string' || typeof r === 'number') ? r : a;
     });
   },
+
   nextTick: (function(window, prefixes, i, p, fnc) {
     while (!fnc && i < prefixes.length) {
       fnc = window[prefixes[i++] + 'equestAnimationFrame'];
     }
     return (fnc && fnc.bind(window)) || window.setImmediate || function(fnc) {window.setTimeout(fnc, 0);};
-  })(window, 'r webkitR mozR msR oR'.split(' '), 0)
+  })(window, 'r webkitR mozR msR oR'.split(' '), 0),
+
+  scrollTop(element) {
+    element = Ember.$(element || document.body);
+
+    var body = (element[0] == document.body) ? document.body : undefined;
+    var scrollTop = body ? body.scrollTop + body.parentElement.scrollTop : 0;
+
+    // Calculate the positive scroll offset
+    return scrollTop || Math.abs(element[0].getBoundingClientRect().top);
+  }
 
 });
 
