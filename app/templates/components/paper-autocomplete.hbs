@@ -39,7 +39,7 @@
   {{/if}}
 
   {{#if notHidden}}
-      {{#paper-virtual-repeat-container class="md-autocomplete-suggestions-container md-whiteframe-z1 "}}
+      {{#paper-virtual-repeat-container class="md-autocomplete-suggestions-container md-whiteframe-z1 " offsetSize=300}}
 
           {{#paper-autocomplete-list suggestions=suggestions floating=floating selectedIndex=selectedIndex wrapperElementId=elementId wrapToElementId=autocompleteWrapperId mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter"}}
 
