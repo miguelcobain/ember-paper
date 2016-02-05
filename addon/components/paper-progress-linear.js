@@ -17,7 +17,7 @@ const MODE_QUERY = 'query';
 export default Component.extend(ColorMixin, {
   tagName: 'md-progress-linear',
 
-  attributeBindings: ['mode:md-mode', 'buffer-value:md-buffer-value'],
+  attributeBindings: ['mode:md-mode', 'bufferValue:md-buffer-value'],
   classNames: ['md-default-theme'],
 
   constants: inject.service(),
@@ -29,7 +29,7 @@ export default Component.extend(ColorMixin, {
 
   mode: computed('value', function() {
     let value = this.get('value');
-    let bufferValue = this.get('buffer-value');
+    let bufferValue = this.get('bufferValue');
 
     if (isPresent(value)) {
       if (isPresent(bufferValue)) {
@@ -50,12 +50,10 @@ export default Component.extend(ColorMixin, {
       case MODE_BUFFER:
       case MODE_DETERMINATE:
       case MODE_INDETERMINATE:
-        return `md-mode-${this.get('mode')}`;
+        return `md-mode-${mode}`;
       default:
-        return ``;
+        return '';
     }
-
-
   }),
 
   transforms: new Array(101),
@@ -67,7 +65,7 @@ export default Component.extend(ColorMixin, {
   },
 
   bar1Style: computed('clampedBufferValue', function() {
-    return Ember.String.htmlSafe(this.get('constants.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedBufferValue')]);
+    return Ember.String.htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedBufferValue')]}`);
   }),
 
   bar2Style: computed('clampedValue', function() {
@@ -76,7 +74,7 @@ export default Component.extend(ColorMixin, {
       return Ember.String.htmlSafe('');
     }
 
-    return Ember.String.htmlSafe(this.get('constants.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedValue')]);
+    return Ember.String.htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedValue')]}`);
   }),
 
   clampedValue: computed('value', function() {
@@ -84,8 +82,8 @@ export default Component.extend(ColorMixin, {
     return Math.max(0, Math.min(value || 0, 100));
   }),
 
-  clampedBufferValue: computed('buffer-value', function() {
-    let value = this.get('buffer-value');
+  clampedBufferValue: computed('bufferValue', function() {
+    let value = this.get('bufferValue');
     return Math.max(0, Math.min(value || 0, 100));
   })
 
