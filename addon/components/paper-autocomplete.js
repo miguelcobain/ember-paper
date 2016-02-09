@@ -2,6 +2,28 @@ import Ember from 'ember';
 import HasBlockMixin from '../mixins/hasblock-mixin';
 import { promiseArray } from 'ember-paper/utils/promise-proxies';
 
+const {
+  get,
+  set,
+  setProperties,
+  isEmpty,
+  isEqual,
+  observer,
+  computed,
+  ObjectProxy,
+  run,
+  isArray,
+  assert,
+  isPresent
+} = Ember;
+
+const {
+  not,
+  alias,
+  and,
+  bool
+} = computed;
+
 function isString(item) {
   return typeof item === 'string' || item instanceof String;
 }
@@ -38,7 +60,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   searchText: '',
   // wrap in a computed property so that cache
   // isn't shared among autocomplete instances
-  itemCache: Ember.computed(function() {
+  itemCache: computed(()=>{
     return {};
   }),
 
@@ -55,18 +77,33 @@ export default Ember.Component.extend(HasBlockMixin, {
 
   init() {
     this._super(...arguments);
-
-    if (this.get('model')) {
-      this.set('searchText', this.lookupLabelOfItem(this.get('model')));
-      this.searchTextDidChange();
+    let model = get(this,'model');
+    if (model) {
+      // handle the case where model is a promise
+      if (this.get('model') instanceof ObjectProxy){
+        model.then((instance)=>{
+          if (!isEmpty(instance)){
+            set(this,'searchText', this.lookupLabelOfItem(instance));
+            set(this,'model',instance);
+          }
+          // as this code would run async after the actual component
+          // init is made we need a way to monitor the fact of
+          // init finish in modelDidChange.
+          set(this,'initFinished', true);
+        });
+      } else {
+        set(this,'searchText', this.lookupLabelOfItem(this.get('model')));
+        this.searchTextDidChange();
+        set(this,'initFinished');
+      }
     }
   },
 
-  notFloating: Ember.computed.not('floating'),
-  notHidden: Ember.computed.not('hidden'),
+  notFloating: not('floating'),
+  notHidden: not('hidden'),
 
-  autocompleteWrapperId: Ember.computed('elementId', function() {
-    return 'autocomplete-wrapper-' + this.get('elementId');
+  autocompleteWrapperId: computed('elementId', function() {
+    return `autocomplete-wrapper-${get(this,'elementId')}`;
   }),
 
   sections: {
@@ -74,60 +111,73 @@ export default Ember.Component.extend(HasBlockMixin, {
     notFoundTemplate: {isNotFoundTemplate: true}
   },
 
-  notFoundMsg: Ember.computed('searchText', 'notFoundMessage', function() {
-    return Ember.String.fmt(this.get('notFoundMessage'), [this.get('searchText')]);
+  notFoundMsg: computed('searchText', 'notFoundMessage', function() {
+    return Ember.String.loc(this.get('notFoundMessage'), [this.get('searchText')]);
   }),
 
   /**
    * Needed because of false = disabled='false'.
    */
-  showDisabled: Ember.computed('disabled', function() {
-    if (this.get('disabled')) {
-      return true;
-    }
-  }),
-
-  showLoadingBar: Ember.computed('loading', 'allowNonExisting', 'debouncingState', function() {
-    return !this.get('loading') && !this.get('allowNonExisting') && !this.get('debouncingState');
-  }),
-
-  enableClearButton: Ember.computed('searchText', 'disabled', function() {
-    return this.get('searchText') && !this.get('disabled');
-  }),
+  showDisabled: alias('disabled'),
+  notLoading: not('loading'),
+  notAllowNonExisting: not('allowNonExisting'),
+  notDebouncingState: not('debouncingState'),
+  enabled: not('disabled'),
+  showLoadingBar: and('notLoading', 'notAllowNonExisting', 'notDebouncingState'),
+  enableClearButton: and('searchText','enabled'),
 
   /**
    * Source filtering logic
    */
 
-  searchTextDidChange: Ember.observer('searchText', function() {
-    var searchText = this.get('searchText');
-    if (searchText !== this.get('previousSearchText')) {
-      if (!this.get('allowNonExisting')) {
-        this.set('model', null);
+  searchTextDidChange: observer('searchText', function() {
+    let searchText = get(this,'searchText');
+    if (!isEqual(searchText, get(this,'previousSearchText'))) {
+      if (get(this,'notAllowNonExisting')) {
+        set(this,'model', null);
       } else {
-        this.set('model', searchText);
+        set(this,'model', searchText);
       }
 
       this.sendAction('update-filter', searchText);
 
-      this.set('debouncingState', true);
-      Ember.run.debounce(this, this.setDebouncedSearchText, this.get('delay'));
-      this.set('previousSearchText', searchText);
+      set(this,'debouncingState', true);
+      run.debounce(this, 'setDebouncedSearchText', get(this,'delay'));
+      set(this,'previousSearchText', searchText);
     }
   }),
   
-  modelDidChange: Ember.observer('model', function() {
-    var model = this.get('model');
-    var value = this.lookupLabelOfItem(model);
+  finishModelChange(data){
+    let value = this.lookupLabelOfItem(data);
     // First set previousSearchText then searchText ( do not trigger observer only update value! ).
-    this.set('previousSearchText', value);
-    this.set('searchText', value);
-    this.set('hidden', true);
+    set(this,'previousSearchText', value);
+    set(this,'searchText', value);
+    set(this,'hidden', true); 
+  },
+
+  modelDidChange: observer('model', function() {
+    // we don't want this hook to run before the async init
+    // of the component finishes. null/undefined model value also
+    // breaks execution 
+    if (get(this,'initFinished') && !isEmpty(get(this,'model'))){
+        let model = get(this,'model');
+        // sometimes model is a promise.
+        if (model.then) {
+          model.then((data)=>{
+            // the promise content might be null as well
+            if (!isEmpty(data)){
+              this.finishModelChange(data);
+            }
+          });
+        } else {
+          this.finishModelChange(model);
+        }
+      }
   }),
 
   setDebouncedSearchText() {
-    var searchText = this.get('searchText');
-    if (this.get('isMinLengthMet')) {
+    let searchText = get(this,'searchText');
+    if (get(this,'isMinLengthMet')) {
       this.sendAction('debounced-update-filter', searchText);
       if (!this.cacheGet(searchText)) {
         this.sendAction('cache-miss', searchText);
@@ -146,25 +196,25 @@ export default Ember.Component.extend(HasBlockMixin, {
     this.set('debouncingState', false);
   },
 
-  loading: Ember.computed.bool('sourcePromiseArray.isPending').readOnly(),
+  loading: bool('sourcePromiseArray.isPending').readOnly(),
 
   //coalesces all promises into PromiseArrays or Arrays
-  sourcePromiseArray: Ember.computed('source', function() {
-    var source = this.get('source');
+  sourcePromiseArray: computed('source', function() {
+    let source = get(this,'source');
     if (source && source.then) {
       //coalesce into promise array
       return promiseArray(source);
-    } else if (Ember.isArray(source)) {
+    } else if (isArray(source)) {
       //return array
       return Ember.A(source);
     } else {
       //Unknown source type
-      Ember.assert('The provided \'source\' for paper-autocomplete must be an Array or a Promise.', !Ember.isPresent(source));
+      assert('The provided \'source\' for paper-autocomplete must be an Array or a Promise.', !isPresent(source));
       return Ember.A();
     }
   }).readOnly(),
 
-  suggestions: Ember.computed('debouncedSearchText', 'sourcePromiseArray.[]', function() {
+  suggestions: computed('debouncedSearchText', 'sourcePromiseArray.[]', function() {
     var source = this.get('sourcePromiseArray');
     var lookupKey = this.get('lookupKey');
     var searchText = (this.get('debouncedSearchText') || '').toLowerCase();
@@ -186,110 +236,120 @@ export default Ember.Component.extend(HasBlockMixin, {
     }
     // If we have no item suggestions, and allowNonExisting is enabled
     // We need to close the paper-autocomplete-list so all mouse events get activated again.
-    if (suggestions.length === 0 && this.get('allowNonExisting')){
-      this.set('hidden', true);
+    if (isEqual(suggestions.length,0) && get(this,'allowNonExisting')){
+      set(this,'hidden', true);
     }
     return suggestions;
   }).readOnly(),
 
 
   filterArray(array, searchText, lookupKey) {
-    return array.filter(function(item) {
-      Ember.assert('You have not defined \'lookupKey\' on paper-autocomplete, when source contained ' +
-        'items that are not of type String. To fix this error provide a ' +
-        'lookupKey=\'key to lookup from source item\'.', isString(item) || Ember.isPresent(lookupKey));
+    return array.filter((item)=>{
+      assert(`You have not defined \'lookupKey\' on paper-autocomplete, when source contained
+        items that are not of type String. To fix this error provide a
+        lookupKey=\'key to lookup from source item\'.`, isString(item) || isPresent(lookupKey));
 
-      Ember.assert('You specified \'' + lookupKey + '\' as a lookupKey on paper-autocomplete, ' +
-        'but at least one of its values is not of type String. To fix this error make sure that every \'' + lookupKey +
-        '\' value is a string.', isString(item) || (Ember.isPresent(lookupKey) && isString(Ember.get(item, lookupKey))) );
+      assert(`You specified \'${lookupKey}\' as a lookupKey on paper-autocomplete,
+        but at least one of its values is not of type String. To fix this error make sure that every \'${lookupKey}
+        \' value is a string.`, isString(item) || (isPresent(lookupKey) && isString(get(item, lookupKey))) );
 
-      var search = isString(item) ? item.toLowerCase() : Ember.get(item, lookupKey).toLowerCase();
-      return search.indexOf(searchText) === 0;
+      let search = isString(item) ? item.toLowerCase() : get(item, lookupKey).toLowerCase();
+      return search.indexOf(searchText) !== -1;
     });
   },
 
   //TODO move cache to service? Components are not singletons.
   cacheGet(text) {
-    return !this.get('noCache') && this.get('itemCache')[text];
+    return !get(this,'noCache') && get(this,'itemCache')[text];
   },
 
   cacheSet(text, data) {
-    this.get('itemCache')[text] = data;
+    get(this,'itemCache')[text] = data;
   },
 
-  shouldHide: Ember.computed.not('isMinLengthMet'),
+  shouldHide: not('isMinLengthMet'),
 
-  isMinLengthMet: Ember.computed('searchText', 'minLength', function() {
-   return this.get('searchText').length >= this.get('minLength');
+  isMinLengthMet: computed('searchText.length',{
+    get(){
+      return get(this,'searchText.length') >= get(this,'minLength');
+    }
   }),
 
   /**
    * Returns the default index based on whether or not autoselect is enabled.
    * @returns {number}
    */
-  defaultIndex: Ember.computed('autoselect', function() {
-    return this.get('autoselect') ? 0 : -1;
+  defaultIndex: computed('autoselect', function() {
+    return get(this,'autoselect') ? 0 : -1;
   }),
 
   lookupLabelOfItem(model) {
-    return this.get('lookupKey') ? Ember.get(model, this.get('lookupKey')) : model;
+    return get(this,'lookupKey') ? get(model, get(this,'lookupKey')) : model;
   },
 
   actions: {
     clear() {
-      this.set('searchText', '');
-      this.set('selectedIndex', -1);
-      this.set('model', null);
-      this.set('hidden', this.get('shouldHide'));
+      setProperties(this,{
+        searchText:'',
+        selectedIndex:-1,
+        model:null,
+        hidden:get(this,'shouldHide')
+      });
     },
 
     pickModel(model) {
-      this.set('model', model);
-      var value = this.lookupLabelOfItem(model);
-      // First set previousSearchText then searchText ( do not trigger observer only update value! ).
-      this.set('previousSearchText', value);
-      this.set('searchText', value);
-      this.set('hidden', true);
+      let value = this.lookupLabelOfItem(model);
+      setProperties(this,{
+        model:model,
+        previousSearchText:value,
+        searchText:value,
+        hidden:true
+      });
     },
 
     inputFocusOut() {
-      this.set('hasFocus', false);
-      if (this.get('noBlur') === false) {
-        this.set('hidden', true);
+      set(this,'hasFocus', false);
+      if (get(this,'noBlur') === false) {
+        set(this,'hidden', true);
       }
     },
 
     inputFocusIn() {
-      this.set('hasFocus', true);
-      this.set('hidden', this.get('shouldHide'));
+      setProperties(this,{
+        hasFocus: true,
+        hidden: get(this,'shouldHide')
+      });
     },
 
     inputKeyDown(value, event) {
+      let constants = get(this,'constants');
       switch (event.keyCode) {
-        case this.get('constants').KEYCODE.DOWN_ARROW:
+        case constants.KEYCODE.DOWN_ARROW:
           if (this.get('loading')) {
             return;
           }
           this.set('selectedIndex', Math.min(this.get('selectedIndex') + 1, this.get('suggestions').length - 1));
           break;
-        case this.get('constants').KEYCODE.UP_ARROW:
-          if (this.get('loading')) {
+        case constants.KEYCODE.UP_ARROW:
+          if (get(this,'loading')) {
             return;
           }
           this.set('selectedIndex', this.get('selectedIndex') < 0 ? this.get('suggestions').length - 1 : Math.max(0, this.get('selectedIndex') - 1));
           break;
-        case this.get('constants').KEYCODE.TAB:
-        case this.get('constants').KEYCODE.ENTER:
-          if (this.get('hidden') || this.get('loading') || this.get('selectedIndex') < 0 || this.get('suggestions').length < 1) {
+        case constants.KEYCODE.TAB:
+        case constants.KEYCODE.ENTER:
+          if (get(this,'hidden') || get(this,'loading') || get(this,'selectedIndex') < 0 || get(this,'suggestions').length < 1) {
             return;
           }
-          this.send('pickModel', this.get('suggestions').objectAt(this.get('selectedIndex')));
+          this.send('pickModel', get(this,'suggestions').objectAt(get(this,'selectedIndex')));
           break;
-        case this.get('constants').KEYCODE.ESCAPE:
-          this.set('searchText', '');
-          this.set('selectedIndex', this.get('defaultIndex'));
-          this.set('model', null);
-          this.set('hidden', this.get('shouldHide'));
+        case constants.KEYCODE.ESCAPE:
+          setProperties(this,{
+            searchText:'',
+            selectedIndex:get(this,'defaultIndex'),
+            model:null,
+            hidden:get(this,'shouldHide')
+          });
           break;
         default:
           break;
@@ -297,13 +357,13 @@ export default Ember.Component.extend(HasBlockMixin, {
     },
 
     listMouseEnter() {
-      this.set('noBlur', true);
+      set(this,'noBlur', true);
     },
 
     listMouseLeave() {
-      this.set('noBlur', false);
-      if (this.get('hasFocus') === false) {
-        this.set('hidden', true);
+      set(this,'noBlur', false);
+      if (isEqual(get(this,'hasFocus'),false)) {
+        set(this,'hidden', true);
       }
     },
 
