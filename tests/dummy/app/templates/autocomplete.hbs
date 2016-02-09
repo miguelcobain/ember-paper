@@ -101,11 +101,57 @@
     }
   }
   ...{{/code-block}}
+  <p>
+    Sometimes you want to prepopulate the value
+    for the autocomplete field on load. You can set the <code>model</code> such that it points to the value that should be displayed on load. This value might also be a promise. The autocomplete would wait for the value to load and populate the input according to the <code>lookupKey</code> passed to the component in template. 
+</p>
 
 
 
 {{/paper-card-content}}
 {{/paper-card}}
+
+{{#paper-card}}
+{{#paper-card-content}}
+  <h2>Full-text search</h2>
+  <blockquote>You can use the <code>fullTextSearch=true</code> attribute if you want to enable full-text search on the component.</blockquote> 
+  <p>I.e. if the promise provided to the <code>source</code> argument can only return 3 values:</p>
+  {{#code-block language="javascript"}}
+  {
+    name:'full-text search'
+  },
+  {
+    name:'not full-text search'
+  },
+  {
+    name:'search'
+  }
+  {{/code-block}}
+  <p>
+  and you would type the `search` into the autocomplete - with full-text search enabled you would get all 3 results to choose from. Without the full-text search enabled you would get only the last one as it is the only one that starts with the text you have typed.
+  </p>
+  
+  <h2>Full-text search enabled</h2>
+
+  {{paper-autocomplete minLength=5 delay=300 placeholder="Type e.g. search" source=dataFromFullTextPromise lookupKey="name" fullTextSearch=true}}
+  
+
+  <h3>Template</h3>
+  {{#code-block language="handlebars"}}
+  \{{paper-autocomplete minLength=5 delay=300 placeholder="Type e.g. search" source=dataFromFullTextPromise lookupKey="name" fullTextSearch=true}}{{/code-block}}
+
+  <h2>Full-text search disabled</h2>
+
+  {{paper-autocomplete minLength=5 delay=300 placeholder="Type e.g. search" source=dataFromFullTextPromise lookupKey="name"}}
+  
+
+  <h3>Template</h3>
+  {{#code-block language="handlebars"}}
+  \{{paper-autocomplete minLength=5 delay=300 placeholder="Type e.g. search" source=dataFromFullTextPromise lookupKey="name"}}{{/code-block}}
+
+{{/paper-card-content}}
+{{/paper-card}}
+
 
 {{#paper-card}}
 {{#paper-card-content}}
@@ -285,6 +331,11 @@ Whoops! Could not find "\{{searchText}}".{{/code-block}}
       <td>notFoundMessage</td>
       <td>string</td>
       <td>The message to display if no items was found. Default is: <code>No matches found for "%@".</code>. The <code>%@</code> part will be replaced by the users input.</td>
+    </tr>
+    <tr>
+      <td>fullTextSearch</td>
+      <td>boolean</td>
+      <td>Makes the autocomplete to become full-text search aware so the search would not only return the values that start with the input of the autocomplete but with all values that have occurences of this text. Default is: <code>false</code>.</td>
     </tr>
   </tbody>
 </table>

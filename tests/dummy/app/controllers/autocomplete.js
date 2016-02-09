@@ -45,7 +45,17 @@ export default Ember.Controller.extend({
   },
 
   arrayOfItems: ['Ember', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'],
-
+  dataFromFullTextPromise: [
+    {
+        name:'full-text search'
+    },
+    {
+        name:'not full-text search'
+    },
+    {
+        name:'search'
+    }
+  ],
   /**
    * Array of static Objects.
    * When having objects, use lookupKey="name" on the paper-autocomplete component so it knows to use "name" to search in.

@@ -65,6 +65,7 @@ export default Ember.Component.extend(HasBlockMixin, {
   }),
 
   // Public
+  fullTextSearch: false,
   disabled: null,
   required: null,
   lookupKey: null,
@@ -254,7 +255,12 @@ export default Ember.Component.extend(HasBlockMixin, {
         \' value is a string.`, isString(item) || (isPresent(lookupKey) && isString(get(item, lookupKey))) );
 
       let search = isString(item) ? item.toLowerCase() : get(item, lookupKey).toLowerCase();
-      return search.indexOf(searchText) !== -1;
+      if (get(this,'fullTextSearch')){
+        return search.indexOf(searchText) !== -1;  
+      } else {
+        return search.indexOf(searchText) === 0;
+      }
+      
     });
   },
 
