@@ -95,7 +95,7 @@ export default Ember.Component.extend(HasBlockMixin, {
       } else {
         set(this,'searchText', this.lookupLabelOfItem(this.get('model')));
         this.searchTextDidChange();
-        set(this,'initFinished');
+        set(this,'initFinished',true);
       }
     }
   },
