@@ -81,7 +81,7 @@ export default Ember.Component.extend(HasBlockMixin, {
     let model = get(this,'model');
     if (model) {
       // handle the case where model is a promise
-      if (this.get('model') instanceof ObjectProxy){
+      if (model instanceof ObjectProxy){
         model.then((instance)=>{
           if (!isEmpty(instance)){
             set(this,'searchText', this.lookupLabelOfItem(instance));
