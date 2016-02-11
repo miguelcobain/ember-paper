@@ -96,13 +96,13 @@ export default PaperMenuAbstract.extend({
       case 'target':
         position.top = existingOffsets.top + originNodeRect.top - alignTargetRect.top;
         break;
-      // Future support for mdMenuBar
-      // case 'top':
-      //   position.top = originNodeRect.top;
-      //   break;
-      // case 'bottom':
-      //   position.top = originNodeRect.top + originNodeRect.height;
-      //   break;
+      // Support for mdMenuBar
+      case 'top':
+        position.top = originNodeRect.top;
+        break;
+      case 'bottom':
+        position.top = originNodeRect.top + originNodeRect.height;
+        break;
       default:
         throw new Error('Invalid target mode "' + positionMode.top + '" specified for md-menu on Y axis.');
     }
@@ -116,15 +116,15 @@ export default PaperMenuAbstract.extend({
         position.left = originNodeRect.right - openMenuNodeRect.width + (openMenuNodeRect.right - alignTargetRect.right);
         transformOrigin += 'right';
         break;
-      // Future support for mdMenuBar
-      // case 'left':
-      //   position.left = originNodeRect.left;
-      //   transformOrigin += 'left';
-      //   break;
-      // case 'right':
-      //   position.left = originNodeRect.right - containerNode.offsetWidth;
-      //   transformOrigin += 'right';
-      //   break;
+      // Support for mdMenuBar
+      case 'left':
+        position.left = originNodeRect.left;
+        transformOrigin += 'left';
+        break;
+      case 'right':
+        position.left = originNodeRect.right - containerNode.offsetWidth;
+        transformOrigin += 'right';
+        break;
       default:
         throw new Error('Invalid target mode "' + positionMode.left + '" specified for md-menu on X axis.');
     }
