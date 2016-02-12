@@ -8,22 +8,23 @@
 {{/paper-toolbar}}
 {{#paper-content class="md-padding"}}
 <div class="doc-content">
-  {{#paper-checkbox checked=value1}}A checkbox: {{value1}}{{/paper-checkbox}}
-  {{#paper-checkbox checked=value2}}A checkbox: {{#if value2}}yep{{else}}nope{{/if}}{{/paper-checkbox}}
-  {{#paper-checkbox disabled=true}}Checkbox (disabled){{/paper-checkbox}}
-  {{#paper-checkbox disabled=true checked=true}}Checkbox (disabled and checked){{/paper-checkbox}}
-  {{#paper-checkbox noink=true}}Checkbox (no ink){{/paper-checkbox}}
+  {{#paper-checkbox checked=value1 onchange=(action (mut value1))}}A checkbox: {{value1}}{{/paper-checkbox}}
+  {{#paper-checkbox checked=value2 onchange=(action (mut value2))}}A checkbox: {{if value2 "yep" "nope"}}{{/paper-checkbox}}
+  {{#paper-checkbox disabled=true onchange=(action "foo")}}Checkbox (disabled){{/paper-checkbox}}
+  {{#paper-checkbox disabled=true checked=true onchange=(action "foo")}}Checkbox (disabled and checked){{/paper-checkbox}}
+  {{#paper-checkbox noink=true onchange=(action "foo")}}Checkbox (no ink){{/paper-checkbox}}
 
-  {{paper-checkbox label="Blockless version"}}
+  {{paper-checkbox label="Blockless version" onchange=(action "foo")}}
 
   <h3>Template</h3>
-{{#code-block language='handlebars'}}
-\{{#paper-checkbox checked=value1}}A checkbox: \{{value1}}\{{/paper-checkbox}}
-\{{#paper-checkbox checked=value2}}A checkbox: \{{#if value2}}yep\{{else}}nope\{{/if}}\{{/paper-checkbox}}
-\{{#paper-checkbox disabled=true}}Checkbox (disabled)\{{/paper-checkbox}}
-\{{#paper-checkbox disabled=true checked=true}}Checkbox (disabled and checked)\{{/paper-checkbox}}
-\{{#paper-checkbox noink=true}}Checkbox (no ink)\{{/paper-checkbox}}
+{{~#code-block language='handlebars'}}
+\{{#paper-checkbox checked=value1 onchange=(action (mut value1))}}A checkbox: \{{value1}}\{{/paper-checkbox}}
+\{{#paper-checkbox checked=value2 onchange=(action (mut value2))}}A checkbox: \{{if value2 "yep" "nope"}}\{{/paper-checkbox}}
+\{{#paper-checkbox disabled=true onchange=(action "foo")}}Checkbox (disabled)\{{/paper-checkbox}}
+\{{#paper-checkbox disabled=true checked=true onchange=(action "foo")}}Checkbox (disabled and checked)\{{/paper-checkbox}}
+\{{#paper-checkbox noink=true onchange=(action "foo")}}Checkbox (no ink)\{{/paper-checkbox}}
 
-\{{paper-checkbox label="Blockless version"}}{{/code-block}}
+\{{paper-checkbox label="Blockless version" onchange=(action "foo")}}
+{{~/code-block}}
 </div>
 {{/paper-content}}
