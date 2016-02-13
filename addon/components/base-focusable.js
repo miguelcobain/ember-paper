@@ -1,25 +1,25 @@
 import Ember from 'ember';
 import EventsMixin from '../mixins/events-mixin';
 import HasBlockMixin from '../mixins/hasblock-mixin';
+const { Component, computed } = Ember;
 
-export default Ember.Component.extend(EventsMixin, HasBlockMixin, {
+export default Component.extend(EventsMixin, HasBlockMixin, {
+
   disabled: false,
   pressed: false,
   active: false,
-  focus: false,
+  focused: false,
   hover: false,
+
+  classNameBindings: ['focused:md-focused'],
   attributeBindings: ['tabindex', 'disabledAttr:disabled'],
 
-  /*
-   * Not binding boolean values in Ember 1.8.1?
-   * https://github.com/emberjs/ember.js/issues/9595
-   */
-  disabledAttr: Ember.computed('disabled', function() {
+  disabledAttr: computed('disabled', function() {
     return this.get('disabled') ? 'disabled' : null;
   }),
 
   //Alow element to be focusable by supplying a tabindex 0
-  tabindex: Ember.computed('disabled', function() {
+  tabindex: computed('disabled', function() {
     return this.get('disabled') ? '-1' : '0';
   }),
 
@@ -33,15 +33,18 @@ export default Ember.Component.extend(EventsMixin, HasBlockMixin, {
     if (!this.get('pressed')) {
       // Only render the "focused" state if the element gains focus due to
       // keyboard navigation.
-      this.set('focus', true);
+      this.set('focused', true);
     }
   },
+
   focusOut() {
-    this.set('focus', false);
+    this.set('focused', false);
   },
+
   mouseEnter() {
     this.set('hover', true);
   },
+
   mouseLeave(e) {
     this.set('hover', false);
     this._super(e);
@@ -55,6 +58,7 @@ export default Ember.Component.extend(EventsMixin, HasBlockMixin, {
       this.set('active', true);
     }
   },
+
   up() {
     this.set('pressed', false);
 

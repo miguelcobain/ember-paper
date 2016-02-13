@@ -3,6 +3,7 @@ import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+const { inject, assert } = Ember;
 
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-checkbox',
@@ -15,19 +16,19 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   dimBackground: false,
   fitRipple: true,
 
-  constants: Ember.inject.service(),
+  constants: inject.service(),
 
   checked: false,
-  toggle: true,
 
+  didInitAttrs() {
+    this._super(...arguments);
+    assert('{{paper-checkbox}} requires an `onchange` function', this.get('onchange') && typeof this.get('onchange') === 'function');
+  },
 
-  //bubble actions by default
-  bubbles: true,
   click() {
     if (!this.get('disabled')) {
-      this.toggleProperty('checked');
+      this.get('onchange')(!this.get('checked'));
     }
-    return this.get('bubbles');
   },
 
   keyPress(ev) {
@@ -37,6 +38,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   processProxy() {
-    this.toggleProperty('checked');
+    this.get('onchange')(!this.get('checked'));
   }
 });
