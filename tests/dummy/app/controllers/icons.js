@@ -893,10 +893,10 @@ zoom_out e900
 zoom_out_map e56b`;
 
 export default Ember.Controller.extend({
-  icons: Ember.computed(function () {
-    var codes = CODE_POINTS.split('\n');
-    var icons = [];
-    codes.forEach(function (item) {
+  icons: Ember.computed(function() {
+    let codes = CODE_POINTS.split('\n');
+    let icons = [];
+    codes.forEach(function(item) {
       icons.push(item.split(' ')[0]);
     });
     return icons;

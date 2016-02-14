@@ -10,7 +10,7 @@ var AngularScssFilter = require('./lib/angular-scss-filter');
 module.exports = {
   name: 'ember-paper',
 
-  included: function(app) {
+  included(app) {
     this._super.included(app);
 
     app.import(app.bowerDirectory + '/hammerjs/hammer.js');
@@ -18,7 +18,7 @@ module.exports = {
     app.import('vendor/propagating.js');
   },
 
-  contentFor: function(type) {
+  contentFor(type) {
     if (type === 'head') {
       return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">';
     }
@@ -28,7 +28,7 @@ module.exports = {
     }
   },
 
-  treeForStyles: function(tree) {
+  treeForStyles(tree) {
     var scssFiles = [
       //core styles
       'core/style/typography.scss',
@@ -116,7 +116,7 @@ module.exports = {
     return this._super.treeForStyles(mergeTrees([angularScssFiles, tree], { overwrite: true }));
   },
 
-  postprocessTree: function(type, tree) {
+  postprocessTree(type, tree) {
     if (type === 'all' || type === 'styles') {
       tree = autoprefixer(tree, { browsers: ['last 2 versions'] });
     }

@@ -16,11 +16,11 @@ test('should auto-set the md-mode to "determinate" if a value is specified', fun
 });
 
 function getScale(el) {
-  let transform = el.style['transform'] || el.style['-webkit-transform'];
+  let transform = el.style.transform || el.style['-webkit-transform'];
   let matches = /scale\(([0-9\.]+)\)/.exec(transform);
   let scale = parseFloat(matches[1]);
 
-  return Math.round(scale * 100)/100;
+  return Math.round(scale * 100) / 100;
 }
 
 test('it sets transform scale 0.5 by default', function(assert) {

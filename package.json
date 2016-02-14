@@ -42,6 +42,7 @@
     "ember-export-application-global": "^1.0.4",
     "ember-prism": "0.0.5",
     "ember-route-action": "0.0.5",
+    "ember-suave": "2.0.0",
     "ember-try": "~0.0.8"
   },
   "dependencies": {

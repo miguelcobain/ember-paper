@@ -12,16 +12,20 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tabindex: -1,
   hideAllMessages: false,
   hasValue: Ember.computed.notEmpty('value'),
+
   inputElementId: Ember.computed('elementId', function() {
-    return 'input-' + this.get('elementId');
+    return `input-${this.get('elementId')}`;
   }),
+
   isInvalid: Ember.computed('isTouched', 'value', function() {
     return this.validate();
   }),
+
   renderCharCount: Ember.computed('value', function() {
-    var currentLength = this.get('value') ? this.get('value').length : 0;
-    return currentLength + '/' + this.get('maxlength');
+    let currentLength = this.get('value') ? this.get('value').length : 0;
+    return `${currentLength}/${this.get('maxlength')}`;
   }),
+
   iconFloat: Ember.computed.and('icon', 'label'),
 
   didInsertElement() {
@@ -31,11 +35,11 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   },
 
   setupTextarea() {
-    var textarea = this.$().children('textarea').first(),
-    textareaNode = textarea[0],
-    container = this.get('element'),
-    minRows = NaN,
-    lineHeight = null;
+    let textarea = this.$().children('textarea').first();
+    let [textareaNode] = textarea;
+    let container = this.get('element');
+    let minRows = NaN;
+    let lineHeight = null;
 
     if (textareaNode.hasAttribute('rows')) {
       minRows = parseInt(textareaNode.getAttribute('rows'));
@@ -46,7 +50,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     });
 
     if (isNaN(minRows)) {
-      textarea.attr('rows','1');
+      textarea.attr('rows', '1');
 
       textarea.on('scroll', () => {
         this.onScroll(textareaNode);
@@ -58,22 +62,22 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
   growTextarea(textarea, textareaNode, container, minRows, lineHeight) {
     // sets the md-input-container height to avoid jumping around
-    container.style.height = container.offsetHeight+'px';
+    container.style.height = `${container.offsetHeight}px`;
 
     // temporarily disables element's flex so its height 'runs free'
     textarea.addClass('md-no-flex');
 
-    if(isNaN(minRows)) {
-      textareaNode.style.height = "auto";
+    if (isNaN(minRows)) {
+      textareaNode.style.height = 'auto';
       textareaNode.scrollTop = 0;
-      var height = this.getHeight(textareaNode);
+      let height = this.getHeight(textareaNode);
       if (height) {
-        textareaNode.style.height = height + 'px';
+        textareaNode.style.height = `${height}px`;
       }
     } else {
-      textareaNode.setAttribute("rows", 1);
+      textareaNode.setAttribute('rows', 1);
 
-      if(!lineHeight) {
+      if (!lineHeight) {
         textareaNode.style.minHeight = '0';
 
         lineHeight = textarea.prop('clientHeight');
@@ -81,8 +85,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
         textareaNode.style.minHeight = null;
       }
 
-      var rows = Math.max(minRows, Math.round(textareaNode.scrollHeight / lineHeight));
-      textareaNode.setAttribute("rows", rows);
+      let rows = Math.max(minRows, Math.round(textareaNode.scrollHeight / lineHeight));
+      textareaNode.setAttribute('rows', rows);
     }
 
     // reset everything back to normal
@@ -91,16 +95,16 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   },
 
   getHeight(node) {
-    var line = node.scrollHeight - node.offsetHeight;
+    let line = node.scrollHeight - node.offsetHeight;
     return node.offsetHeight + (line > 0 ? line : 0);
   },
 
   onScroll(node) {
     node.scrollTop = 0;
     // for smooth new line adding
-    var line = node.scrollHeight - node.offsetHeight;
-    var height = node.offsetHeight + line;
-    node.style.height = height + 'px';
+    let line = node.scrollHeight - node.offsetHeight;
+    let height = node.offsetHeight + line;
+    node.style.height = `${height}px`;
   },
 
   willDestroyElement() {
@@ -113,9 +117,9 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       return false;
     }
 
-    var valueIsInvalid = false;
-    var currentValue = this.get('value');
-    var constraints = [
+    let valueIsInvalid = false;
+    let currentValue = this.get('value');
+    let constraints = [
       {
         attr: 'required',
         defaultError: 'This is required.',
@@ -123,23 +127,23 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       },
       {
         attr: 'min',
-        defaultError: 'Must be at least ' + this.get('min') + '.',
+        defaultError: `Must be at least ${this.get('min')}.`,
         isError: () => +currentValue < +this.get('min')
       },
       {
         attr: 'max',
-        defaultError: 'Must be less than ' + this.get('max') + '.',
+        defaultError: `Must be less than ${this.get('max')}.`,
         isError: () => +currentValue > +this.get('max')
       },
       {
         attr: 'maxlength',
-        defaultError: 'Must not exceed ' + this.get('maxlength') + ' characters.',
+        defaultError: `Must not exceed ${this.get('maxlength')} characters.`,
         isError: () => currentValue && currentValue.length > +this.get('maxlength')
       }
     ];
 
-    constraints.some(thisConstraint => {
-      if(thisConstraint.isError()) {
+    constraints.some((thisConstraint) => {
+      if (thisConstraint.isError()) {
         this.setError(thisConstraint);
         valueIsInvalid = true;
         return true;
@@ -151,9 +155,9 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     }
 
     if (!Ember.isEmpty(this.get('customValidation'))) {
-      var validationObjects = Ember.A();
-      var self = this;
-      var validationObjectsLength;
+      let validationObjects = Ember.A();
+      let self = this;
+      let validationObjectsLength;
 
       try {
         if (!Ember.isArray(this.get('customValidation'))) {
@@ -163,9 +167,9 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
         }
 
         validationObjectsLength = validationObjects.length;
-        for (var i = 0; i < validationObjectsLength; i++) {
+        for (let i = 0; i < validationObjectsLength; i++) {
           if (typeof validationObjects[i].isError === 'function') {
-            if (validationObjects[i].isError.apply(null, [currentValue]) === true) {
+            if (validationObjects[i].isError([currentValue]) === true) {
               self.setError(validationObjects[i]);
               valueIsInvalid = true;
               break;
@@ -183,7 +187,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
   setError(constraint) {
     this.set('ng-message', constraint.attr || 'custom');
-    this.set('errortext', this.get(constraint.attr + '-errortext') || constraint.defaultError || constraint.errorMessage);
+    this.set('errortext', this.get(`${constraint.attr}-errortext`) || constraint.defaultError || constraint.errorMessage);
   },
 
   actions: {
@@ -191,11 +195,11 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       // We resend action so other components can take use of the actions also ( if they want ).
       // Actions must be sent before focusing.
       this.sendAction('focus-in', value);
-      this.set('focus',true);
+      this.set('focus', true);
     },
     focusOut(value) {
       this.sendAction('focus-out', value);
-      this.set('focus',false);
+      this.set('focus', false);
       this.set('isTouched', true);
     },
     keyDown(value, event) {

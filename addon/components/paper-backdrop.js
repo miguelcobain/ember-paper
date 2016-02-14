@@ -18,9 +18,8 @@ export default Ember.Component.extend(TransitionMixin, {
   // Hammer event handler for tapping backdrop
   tapHammer: null,
 
-
   didInsertElement() {
-    var hammer = new Hammer(this.get('element'));
+    let hammer = new Hammer(this.get('element'));
     hammer.on('tap', Ember.run.bind(this, this.onTap));
     this.set('tapHammer', hammer);
   },

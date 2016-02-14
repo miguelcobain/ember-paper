@@ -9,17 +9,17 @@ export default Ember.Component.extend({
   }),
 
   actions: {
-    toggleMenu: function() {
-      this.get("navContainer").get('sideBar').send('toggleMenu');
+    toggleMenu() {
+      this.get('navContainer').get('sideBar').send('toggleMenu');
     }
   },
 
   didInsertElement() {
     this._super(...arguments);
     if (this.get('navContainer')) {
-      var lockedOpen = this.get("navContainer").get('sideBar').get('locked-open');
+      let lockedOpen = this.get('navContainer').get('sideBar').get('locked-open');
       if (lockedOpen) {
-        this.$().attr('hide-' + lockedOpen, true);
+        this.$().attr(`hide-${lockedOpen}`, true);
       }
     }
   }

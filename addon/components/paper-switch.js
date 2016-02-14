@@ -34,9 +34,9 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     this.set('switchWidth', this.$('.md-bar').width());
 
     // Enable dragging the switch
-    var element = this.get('element')[0] || this.get('element');
-    var thumbElement = element.getElementsByClassName('md-thumb-container')[0];
-    var thumbElementHammer = new Hammer(thumbElement);
+    let element = this.get('element')[0] || this.get('element');
+    let thumbElement = element.getElementsByClassName('md-thumb-container')[0];
+    let thumbElementHammer = new Hammer(thumbElement);
     this.thumbElementHammer = thumbElementHammer;
     thumbElementHammer.get('pan').set({ threshold: 1 });
     thumbElementHammer.on('panstart', Ember.run.bind(this, this._dragStart));
@@ -44,7 +44,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     thumbElementHammer.on('panend', Ember.run.bind(this, this._dragEnd));
 
     // Allow the switch to be clicked to toggle the value
-    var switchHammer = new Hammer(element);
+    let switchHammer = new Hammer(element);
     this.switchHammer = switchHammer;
     switchHammer.on('tap', Ember.run.bind(this, this._dragEnd));
   }),
@@ -72,13 +72,13 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     if (this.get('disabled')) { return; }
 
     // Get the amount amount the switch has been dragged
-    var percent = event.deltaX / this.get('switchWidth');
+    let percent = event.deltaX / this.get('switchWidth');
     percent = this.get('checked') ? 1 + percent : percent;
     this.set('dragAmount', percent);
 
     // Make sure that the switch isn't moving past the edges
-    var translate = Math.max(0, Math.min(1, percent));
-    var transformProp = 'translate3d(' + (100 * translate) + '%, 0, 0)';
+    let translate = Math.max(0, Math.min(1, percent));
+    let transformProp = 'translate3d(' + (100 * translate) + '%, 0, 0)';
     this.$('.md-thumb-container').css('transform', transformProp);
     this.$('.md-thumb-container').css('-webkit-transform', transformProp);
   },

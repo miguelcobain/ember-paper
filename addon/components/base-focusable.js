@@ -18,7 +18,7 @@ export default Component.extend(EventsMixin, HasBlockMixin, {
     return this.get('disabled') ? 'disabled' : null;
   }),
 
-  //Alow element to be focusable by supplying a tabindex 0
+  // Alow element to be focusable by supplying a tabindex 0
   tabindex: computed('disabled', function() {
     return this.get('disabled') ? '-1' : '0';
   }),

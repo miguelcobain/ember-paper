@@ -10,17 +10,17 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   themed: true,
   classNameBindings: ['raised:md-raised', 'icon-button:md-icon-button', 'focus:md-focused', 'themed:md-default-theme', 'themed:md-button'],
 
-  /* Ripple Overrides */
+  // Ripple Overrides
   rippleContainerSelector: null,
   fitRipple: Ember.computed.readOnly('isIconButton'),
   center: Ember.computed.readOnly('isIconButton'),
   dimBackground: Ember.computed.not('isIconButton'),
 
-  noSpan: Ember.computed('no-span', function () {
+  noSpan: Ember.computed('no-span', function() {
     return this.get('no-span');
   }),
 
-  /* RippleMixin overrides */
+  // RippleMixin overrides
   isIconButton: Ember.computed(function() {
     return this.classNames.any(function(className) {
       return className.indexOf('md-icon-button') !== -1;
@@ -32,10 +32,10 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     });
   }),
 
-  //bubble actions by default
+  // bubble actions by default
   bubbles: true,
   click() {
-    var target = this.get('target');
+    let target = this.get('target');
 
     if (target) {
       this.get('target').send(this.get('action'), this.get('param'));

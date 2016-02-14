@@ -20,7 +20,7 @@ test('it renders', function(assert) {
   assert.expect(2);
 
   // Creates the component instance
-  var component = this.subject();
+  let component = this.subject();
   assert.equal(component._state, 'preRender');
 
   // Renders the component to the page
@@ -33,12 +33,10 @@ test('it propagates placeholder to input box', function(assert) {
   assert.expect(1);
 
   // Creates the component instance
-  var component = this.subject({
-    placeholder: "Testing"
+  let component = this.subject({
+    placeholder: 'Testing'
   });
 
   this.render();
   assert.equal(component.$().find('input').attr('placeholder'), 'Testing', 'Sets correct placeholder on input box.');
 });
-
-

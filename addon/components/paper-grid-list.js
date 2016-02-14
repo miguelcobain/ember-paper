@@ -2,19 +2,19 @@ import Ember from 'ember';
 import gridLayout from '../utils/grid-layout';
 
 const UNIT = (units) => {
-  return `${units.share}% - (${units.gutter} * ${units.gutterShare})`;
+  return `${ units.share}% - (${ units.gutter } * ${ units.gutterShare})`;
 };
 
 const POSITION = (positions) => {
-  return `calc((${positions.unit} + ${positions.gutter}) * ${positions.offset})`;
+  return `calc((${positions.unit} + ${positions.gutter }) * ${positions.offset})`;
 };
 
 const DIMENSION = (dimensions) => {
-  return `calc((${dimensions.unit}) * ${dimensions.span} + (${dimensions.span} - 1) * ${dimensions.gutter})`;
+  return `calc((${dimensions.unit}) * ${dimensions.span} + (${dimensions.span} - 1) * ${dimensions.gutter })`;
 };
 
 const MEDIA = (mediaName) => {
-  return ((mediaName.charAt(0) !== '(') ? ('(' + mediaName + ')') : mediaName);
+  return ((mediaName.charAt(0) !== '(') ? (`(${mediaName})`) : mediaName);
 };
 
 export default Ember.Component.extend({
@@ -53,7 +53,7 @@ export default Ember.Component.extend({
 
   layout() {
     try {
-      var tilesInvalidated = this.get('tilesInvalidated');
+      let tilesInvalidated = this.get('tilesInvalidated');
       this._layoutDelegate(tilesInvalidated);
     } finally {
       this.setProperties({
@@ -73,18 +73,18 @@ export default Ember.Component.extend({
 
   _watchMedia() {
 
-    const invalidateLayoutListener = this.get('_invalidateLayoutListener');
+    let invalidateLayoutListener = this.get('_invalidateLayoutListener');
 
-    for (var mediaName in this.get('constants.MEDIA')) {
-      var query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
+    for (let mediaName in this.get('constants.MEDIA')) {
+      let query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
       window.matchMedia(query).addListener(invalidateLayoutListener);
     }
   },
 
   _watchResponsiveAttributes(attrNames, watchFn) {
-    const checkObserverValues = (sender, key, mediaName) => {
-      const oldValue = sender.get(`old${key}`),
-            newValue = sender.get(key);
+    let checkObserverValues = (sender, key, mediaName) => {
+      let oldValue = sender.get(`old${key}`);
+      let newValue = sender.get(key);
 
       if (oldValue !== newValue) {
         watchFn(mediaName);
@@ -96,15 +96,15 @@ export default Ember.Component.extend({
       if (Ember.get(this, attrName)) {
         this.set(`old${attrName}`, Ember.get(this, attrName));
 
-        var customObserver = Ember.run.bind(this, checkObserverValues, this, attrName);
+        let customObserver = Ember.run.bind(this, checkObserverValues, this, attrName);
 
         this.addObserver(attrName, customObserver);
       }
 
-      for (var mediaName in this.get('constants.MEDIA')) {
-        var normalizedName = attrName + '-' + mediaName;
+      for (let mediaName in this.get('constants.MEDIA')) {
+        let normalizedName = `${attrName}-${mediaName}`;
         if (Ember.get(this, normalizedName)) {
-          var customObserverNormalized = Ember.run.bind(this, checkObserverValues, this, normalizedName, mediaName);
+          let customObserverNormalized = Ember.run.bind(this, checkObserverValues, this, normalizedName, mediaName);
           this.addObserver(normalizedName, customObserverNormalized);
         }
       }
@@ -113,24 +113,24 @@ export default Ember.Component.extend({
   },
 
   _unwatchMedia() {
-    const invalidateLayoutListener = this.get('_invalidateLayoutListener');
-    for(var mediaName in this.get('constants.MEDIA')) {
-      var query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
+    let invalidateLayoutListener = this.get('_invalidateLayoutListener');
+    for (let mediaName in this.get('constants.MEDIA')) {
+      let query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
       window.matchMedia(query).removeListener(invalidateLayoutListener);
     }
   },
 
   _getResponsiveAttribute(component, attrName) {
-    const mediaPriorities = this.get('constants.MEDIA_PRIORITY');
-    for (var i = 0; i < mediaPriorities.length; i++) {
-      var mediaName = mediaPriorities[i],
-          query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
+    let mediaPriorities = this.get('constants.MEDIA_PRIORITY');
+    for (let i = 0; i < mediaPriorities.length; i++) {
+      let mediaName = mediaPriorities[i];
+      let query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
 
       if (!window.matchMedia(query).matches) {
         continue;
       }
 
-      var normalizedName = attrName + '-' + mediaName;
+      let normalizedName = `${attrName}-${mediaName}`;
       if (Ember.get(component, normalizedName)) {
         return Ember.get(component, normalizedName);
       }
@@ -140,38 +140,37 @@ export default Ember.Component.extend({
     return Ember.get(component, attrName);
   },
 
-
-
   _getTileStyle(position, spans, colCount, rowCount, gutter, rowMode, rowHeight) {
 
     // Percent of the available horizontal space that one column takes up.
-    const hShare = (1 / colCount) * 100;
+    let hShare = (1 / colCount) * 100;
 
     // Fraction of the gutter size that each column takes up.
-    const hGutterShare = (colCount - 1) / colCount;
+    let hGutterShare = (colCount - 1) / colCount;
 
     // Base horizontal size of a column.
-    const hUnit = UNIT({share: hShare, gutterShare: hGutterShare, gutter: gutter});
+    let hUnit = UNIT({ share: hShare, gutterShare: hGutterShare, gutter });
 
     // The width and horizontal position of each tile is always calculated the same way, but the
     // height and vertical position depends on the rowMode.
-    const style = {
-      left: POSITION({unit: hUnit, offset: position.col, gutter: gutter}),
-      width: DIMENSION({unit: hUnit, span: spans.col, gutter: gutter}),
-      //resets
+    let style = {
+      left: POSITION({ unit: hUnit, offset: position.col, gutter }),
+      width: DIMENSION({ unit: hUnit, span: spans.col, gutter }),
+      // resets
       paddingTop: '',
       marginTop: '',
       top: '',
       height: ''
     };
 
-    let vShare, vUnit;
+    let vShare;
+    let vUnit;
 
     switch (rowMode) {
       case 'fixed':
         // In fixed mode, simply use the given rowHeight.
-        style.top = POSITION({unit: rowHeight, offset: position.row, gutter: gutter});
-        style.height = DIMENSION({unit: rowHeight, span: spans.row, gutter: gutter});
+        style.top = POSITION({ unit: rowHeight, offset: position.row, gutter });
+        style.height = DIMENSION({ unit: rowHeight, span: spans.row, gutter });
         break;
 
       case 'ratio':
@@ -180,27 +179,27 @@ export default Ember.Component.extend({
         vShare = hShare / rowHeight;
 
         // Base veritcal size of a row.
-        vUnit = UNIT({share: vShare, gutterShare: hGutterShare, gutter: gutter});
+        vUnit = UNIT({ share: vShare, gutterShare: hGutterShare, gutter });
 
         // padidngTop and marginTop are used to maintain the given aspect ratio, as
         // a percentage-based value for these properties is applied to the *width* of the
         // containing block. See http://www.w3.org/TR/CSS2/box.html#margin-properties
-        style.paddingTop = DIMENSION({unit: vUnit, span: spans.row, gutter: gutter});
-        style.marginTop = POSITION({unit: vUnit, offset: position.row, gutter: gutter});
+        style.paddingTop = DIMENSION({ unit: vUnit, span: spans.row, gutter });
+        style.marginTop = POSITION({ unit: vUnit, offset: position.row, gutter });
         break;
 
       case 'fit':
         // Fraction of the gutter size that each column takes up.
-        var vGutterShare = (rowCount - 1) / rowCount;
+        let vGutterShare = (rowCount - 1) / rowCount;
 
         // Percent of the available vertical space that one row takes up.
         vShare = (1 / rowCount) * 100;
 
         // Base vertical size of a row.
-        vUnit = UNIT({share: vShare, gutterShare: vGutterShare, gutter: gutter});
+        vUnit = UNIT({ share: vShare, gutterShare: vGutterShare, gutter });
 
-        style.top = POSITION({unit: vUnit, offset: position.row, gutter: gutter});
-        style.height = DIMENSION({unit: vUnit, span: spans.row, gutter: gutter});
+        style.top = POSITION({ unit: vUnit, offset: position.row, gutter });
+        style.height = DIMENSION({ unit: vUnit, span: spans.row, gutter });
         break;
     }
 
@@ -209,22 +208,22 @@ export default Ember.Component.extend({
   },
 
   _getGridStyle(colCount, rowCount, gutter, rowMode, rowHeight) {
-    const style = {};
+    let style = {};
 
     switch (rowMode) {
       case 'fixed':
-        style.height = DIMENSION({unit: rowHeight, span: rowCount, gutter: gutter});
+        style.height = DIMENSION({ unit: rowHeight, span: rowCount, gutter });
         style.paddingBottom = '';
         break;
       case 'ratio':
         // rowHeight is width / height
-        const hGutterShare = colCount === 1 ? 0 : (colCount - 1) / colCount,
-          hShare = (1 / colCount) * 100,
-          vShare = hShare * (1 / rowHeight),
-          vUnit = UNIT({share: vShare, gutterShare: hGutterShare, gutter: gutter});
+        let hGutterShare = colCount === 1 ? 0 : (colCount - 1) / colCount;
+        let hShare = (1 / colCount) * 100;
+        let vShare = hShare * (1 / rowHeight);
+        let vUnit = UNIT({ share: vShare, gutterShare: hGutterShare, gutter });
 
         style.height = '';
-        style.paddingBottom = DIMENSION({unit: vUnit, span: rowCount, gutter: gutter});
+        style.paddingBottom = DIMENSION({ unit: vUnit, span: rowCount, gutter });
         break;
       case 'fit':
         // noop, as the height is user set
@@ -244,7 +243,7 @@ export default Ember.Component.extend({
   },
 
   _getColumnCount() {
-    const colCount = parseInt(this._getResponsiveAttribute(this, 'md-cols'), 10);
+    let colCount = parseInt(this._getResponsiveAttribute(this, 'md-cols'), 10);
     if (isNaN(colCount)) {
       throw 'md-grid-list: md-cols attribute was not found, or contained a non-numeric value';
     }
@@ -256,12 +255,12 @@ export default Ember.Component.extend({
   },
 
   _getRowHeight() {
-    const rowHeight = this._getResponsiveAttribute(this, 'md-row-height');
+    let rowHeight = this._getResponsiveAttribute(this, 'md-row-height');
     switch (this._getRowMode()) {
       case 'fixed':
         return this._applyDefaultUnit(rowHeight);
       case 'ratio':
-        var whRatio = rowHeight.split(':');
+        let whRatio = rowHeight.split(':');
         return parseFloat(whRatio[0]) / parseFloat(whRatio[1]);
       case 'fit':
         return 0;
@@ -269,7 +268,7 @@ export default Ember.Component.extend({
   },
 
   _getRowMode() {
-    const rowHeight = this._getResponsiveAttribute(this, 'md-row-height');
+    let rowHeight = this._getResponsiveAttribute(this, 'md-row-height');
     if (rowHeight === 'fit') {
       return 'fit';
     } else if (rowHeight.indexOf(':') !== -1) {
@@ -279,10 +278,9 @@ export default Ember.Component.extend({
     }
   },
 
-
   _layoutDelegate(tilesInvalidated) {
-    const tiles = this.get('tiles');
-    const props = {
+    let tiles = this.get('tiles');
+    let props = {
       tileSpans: this._getTileSpans(tiles),
       colCount: this._getColumnCount(),
       rowMode: this._getRowMode(),
@@ -316,7 +314,7 @@ export default Ember.Component.extend({
   },
 
   _applyDefaultUnit(val) {
-    return /\D$/.test(val) ? val : val + 'px';
+    return /\D$/.test(val) ? val : `${val}px`;
   },
 
   actions: {

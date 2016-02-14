@@ -1,62 +1,62 @@
-var defaultAnimator = GridTileAnimator;
+let defaultAnimator = GridTileAnimator;
 
-/**
+/*
  * Publish layout function
  */
 function GridLayout(colCount, tileSpans) {
-  var self, layoutInfo, gridStyles, layoutTime, mapTime, reflowTime;
+  let self, layoutInfo, gridStyles, layoutTime, mapTime, reflowTime;
 
-  layoutInfo = calculateGridFor(colCount, tileSpans);
+  layoutInfo = calculateGridfor (colCount, tileSpans);
 
   return self = {
 
-    /**
+    /*
      * An array of objects describing each tile's position in the grid.
      */
-    layoutInfo: function() {
+    layoutInfo() {
       return layoutInfo;
     },
 
-    /**
+    /*
      * Maps grid positioning to an element and a set of styles using the
      * provided updateFn.
      */
-    map: function(updateFn) {
-      var info = self.layoutInfo();
+    map(updateFn) {
+      let info = self.layoutInfo();
       gridStyles = updateFn(info.positioning, info.rowCount);
 
       return self;
     },
 
-    /**
+    /*
      * Default animator simply sets the element.css( <styles> ). An alternate
      * animator can be provided as an argument. The function has the following
      * signature:
      *
      *    function({grid: {element: JQLite, style: Object}, tiles: Array<{element: JQLite, style: Object}>)
          */
-    reflow: function(animatorFn) {
-      var animator = animatorFn || defaultAnimator;
+    reflow(animatorFn) {
+      let animator = animatorFn || defaultAnimator;
       animator(gridStyles.grid, gridStyles.tiles);
       return self;
     },
 
-    /**
+    /*
      * Timing for the most recent layout run.
      */
-    performance: function() {
+    performance() {
       return {
         tileCount: tileSpans.length,
-        layoutTime: layoutTime,
-        mapTime: mapTime,
-        reflowTime: reflowTime,
+        layoutTime,
+        mapTime,
+        reflowTime,
         totalTime: layoutTime + mapTime + reflowTime
       };
     }
   };
 }
 
-/**
+/*
  * Default Gridlist animator simple sets the css for each element;
  * NOTE: any transitions effects must be manually set in the CSS.
  * e.g.
@@ -73,7 +73,7 @@ function GridTileAnimator(grid, tiles) {
   });
 }
 
-/**
+/*
  * Calculates the positions of tiles.
  *
  * The algorithm works as follows:
@@ -89,15 +89,15 @@ function GridTileAnimator(grid, tiles) {
  *    tile, spaceTracker's elements are each decremented by 1 to a minimum
  *    of 0. Rows are searched in this fashion until space is found.
  */
-function calculateGridFor(colCount, tileSpans) {
-  var curCol = 0,
-    curRow = 0,
-    spaceTracker = newSpaceTracker();
+function calculateGridfor (colCount, tileSpans) {
+  let curCol = 0;
+  let curRow = 0;
+  let spaceTracker = newSpaceTracker();
 
   return {
     positioning: tileSpans.map(function(spans, i) {
       return {
-        spans: spans,
+        spans,
         position: reserveSpace(spans, i)
       };
     }),
@@ -106,13 +106,13 @@ function calculateGridFor(colCount, tileSpans) {
 
   function reserveSpace(spans, i) {
     if (spans.col > colCount) {
-      throw 'md-grid-list: Tile at position ' + i + ' has a colspan ' +
-      '(' + spans.col + ') that exceeds the column count ' +
-      '(' + colCount + ')';
+      throw `md-grid-list: Tile at position ${i} has a colspan
+      (${spans.col}) that exceeds the column count
+      (${colCount})`;
     }
 
-    var start = 0,
-      end = 0;
+    let start = 0;
+    let end = 0;
 
     // TODO(shyndman): This loop isn't strictly necessary if you can
     // determine the minimum number of rows before a space opens up. To do
@@ -151,13 +151,13 @@ function calculateGridFor(colCount, tileSpans) {
   }
 
   function adjustRow(from, cols, by) {
-    for (var i = from; i < from + cols; i++) {
+    for (let i = from; i < from + cols; i++) {
       spaceTracker[i] = Math.max(spaceTracker[i] + by, 0);
     }
   }
 
   function findEnd(start) {
-    var i;
+    let i;
     for (i = start; i < spaceTracker.length; i++) {
       if (spaceTracker[i] !== 0) {
         return i;
@@ -170,8 +170,8 @@ function calculateGridFor(colCount, tileSpans) {
   }
 
   function newSpaceTracker() {
-    var tracker = [];
-    for (var i = 0; i < colCount; i++) {
+    let tracker = [];
+    for (let i = 0; i < colCount; i++) {
       tracker.push(0);
     }
     return tracker;

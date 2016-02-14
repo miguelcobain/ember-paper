@@ -14,14 +14,14 @@ export default Mixin.create({
   colorElement: false,
   noink: false,
 
-  rippleInk: computed('noink', 'rippleInkColor', function () {
+  rippleInk: computed('noink', 'rippleInkColor', function() {
     if (this.get('noink')) {
       return false;
     }
     if (this.get('rippleInkColor')) {
       return this.get('rippleInkColor');
     }
-    return "";
+    return '';
   }),
 
   didInsertElement() {
@@ -37,14 +37,16 @@ export default Mixin.create({
     this.rippleElement.addClass('md-ink-ripple');
     this.bindEvents();
   },
+
   autoCleanup(self, cleanupFn) {
     if (self.mousedown || self.lastRipple) {
       self.mousedown = false;
       self.get('util').nextTick(cleanupFn.bind(self), false);
     }
   },
+
   color(value) {
-    const self = this;
+    let self = this;
 
     // If assigning a color value, apply it to background and the ripple color
     if (typeof value !== 'undefined') {
@@ -54,7 +56,7 @@ export default Mixin.create({
     // If color lookup, use assigned, defined, or inherited
     return self._color || self._parseColor(self.get('rippleInk')) || self._parseColor(getElementColor());
 
-    /**
+    /*
      * Finds the color element and returns its text color for use as default ripple color
      * @returns {string}
      */
@@ -65,9 +67,11 @@ export default Mixin.create({
       return elem ? window.getComputedStyle(elem).color : 'rgb(0,0,0)';
     }
   },
+
   calculateColor() {
     return this.color();
   },
+
   _parseColor(color, multiplier) {
     multiplier = multiplier || 1;
 
@@ -75,7 +79,7 @@ export default Mixin.create({
       return;
     }
     if (color.indexOf('rgba') === 0) {
-      return color.replace(/\d?\.?\d*\s*\)\s*$/, (0.1 * multiplier).toString() + ')');
+      return color.replace(/\d?\.?\d*\s*\)\s*$/, `${(0.1 * multiplier).toString()})`);
     }
     if (color.indexOf('rgb') === 0) {
       return rgbToRGBA(color);
@@ -84,26 +88,26 @@ export default Mixin.create({
       return hexToRGBA(color);
     }
 
-    /**
+    /*
      * Converts hex value to RGBA string
      * @param color {string}
      * @returns {string}
      */
     function hexToRGBA(color) {
-      let hex = color[0] === '#' ? color.substr(1) : color,
-        dig = hex.length / 3,
-        red = hex.substr(0, dig),
-        green = hex.substr(dig, dig),
-        blue = hex.substr(dig * 2);
+      let hex = color[0] === '#' ? color.substr(1) : color;
+      let dig = hex.length / 3;
+      let red = hex.substr(0, dig);
+      let green = hex.substr(dig, dig);
+      let blue = hex.substr(dig * 2);
       if (dig === 1) {
         red += red;
         green += green;
         blue += blue;
       }
-      return 'rgba(' + parseInt(red, 16) + ',' + parseInt(green, 16) + ',' + parseInt(blue, 16) + ',0.1)';
+      return `rgba(${parseInt(red, 16)}, ${parseInt(green, 16)}, ${parseInt(blue, 16)}, 0.1)`;
     }
 
-    /**
+    /*
      * Converts an RGB color to RGBA
      * @param color {string}
      * @returns {string}
@@ -173,7 +177,7 @@ export default Mixin.create({
     }
   },
   isRippleAllowed() {
-    let element = this.rippleElement[0];
+    let [element] = this.rippleElement;
     do {
       if (!element.tagName || element.tagName === 'BODY') {
         break;
@@ -189,7 +193,6 @@ export default Mixin.create({
       }
 
     } while (element = element.parentNode);
-
 
     return true;
   },
@@ -208,11 +211,11 @@ export default Mixin.create({
     let color = this.calculateColor();
 
     ripple.css({
-      left: left + 'px',
-      top: top + 'px',
+      left: `${left}px`,
+      top: `${top}px`,
       background: 'black',
-      width: size + 'px',
-      height: size + 'px',
+      width: `${size}px`,
+      height: `${size}px`,
       backgroundColor: rgbaToRGB(color),
       borderColor: rgbaToRGB(color)
     });
@@ -220,7 +223,7 @@ export default Mixin.create({
 
     // we only want one timeout to be running at a time
     this.clearTimeout();
-    this.timeout = run.later(this, function () {
+    this.timeout = run.later(this, function() {
       ctrl.clearTimeout();
       if (!ctrl.mousedown) {
         ctrl.fadeInComplete(ripple);
@@ -228,16 +231,16 @@ export default Mixin.create({
     }, {}, DURATION * 0.35);
 
     if (this.get('dimBackground')) {
-      this._container.css({backgroundColor: color});
+      this._container.css({ backgroundColor: color });
     }
     this._container.append(ripple);
     this.ripples.push(ripple);
     ripple.addClass('md-ripple-placed');
 
-    this.get('util').nextTick(function () {
+    this.get('util').nextTick(function() {
 
       ripple.addClass('md-ripple-scaled md-ripple-active');
-      run.later(this, function () {
+      run.later(this, function() {
         ctrl.clearRipples();
       }, {}, DURATION);
 
@@ -269,11 +272,11 @@ export default Mixin.create({
     this.ripples.splice(this.ripples.indexOf(ripple), 1);
     ripple.removeClass('md-ripple-active');
     if (this.ripples.length === 0) {
-      this._container.css({backgroundColor: ''});
+      this._container.css({ backgroundColor: '' });
     }
     // use a 2-second timeout in order to allow for the animation to finish
     // we don't actually care how long the animation takes
-    run.later(this, function () {
+    run.later(this, function() {
       ctrl.fadeOutComplete(ripple);
     }, {}, DURATION);
   },

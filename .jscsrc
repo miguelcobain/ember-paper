@@ -1,0 +1,4 @@
+{
+  "preset": "ember-suave",
+  "requireNumericLiterals": false
+}

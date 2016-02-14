@@ -21,7 +21,7 @@ test('should trigger an action when unchecking', function(assert) {
   assert.expect(1);
 
   this.set('value', true);
-  this.handleChange = checked => {
+  this.handleChange = (checked) => {
     assert.equal(checked, false);
   };
 
@@ -34,7 +34,7 @@ test('should trigger an action when checking', function(assert) {
   assert.expect(1);
 
   this.set('value', false);
-  this.handleChange = checked => {
+  this.handleChange = (checked) => {
     assert.equal(checked, true);
   };
 
@@ -47,7 +47,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
   assert.expect(0);
 
   this.set('value', false);
-  this.handleChange = checked => {
+  this.handleChange = (checked) => {
     assert.equal(checked, true);
   };
 

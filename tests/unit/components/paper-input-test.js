@@ -13,7 +13,7 @@ test('it renders', function(assert) {
   assert.expect(2);
 
   // Creates the component instance
-  var component = this.subject();
+  let component = this.subject();
   assert.equal(component._state, 'preRender');
 
   // appends the component to the page
@@ -23,7 +23,7 @@ test('it renders', function(assert) {
 
 test('it does not set isInvalid when required is false and text has no value', function(assert) {
   assert.expect(1);
-  var component = this.subject();
+  let component = this.subject();
 
   component.set('required', false);
   component.set('value', '');
@@ -33,7 +33,7 @@ test('it does not set isInvalid when required is false and text has no value', f
 
 test('it sets isInvalid as true when required is true and text has no value', function(assert) {
   assert.expect(1);
-  var component = this.subject();
+  let component = this.subject();
 
   component.set('required', true);
   component.set('value', '');
@@ -44,7 +44,7 @@ test('it sets isInvalid as true when required is true and text has no value', fu
 
 test('it does not set isInvalid when required is true and text has value', function(assert) {
   assert.expect(1);
-  var component = this.subject();
+  let component = this.subject();
 
   component.set('required', true);
   component.set('value', 'Ember Paper');
@@ -55,7 +55,7 @@ test('it does not set isInvalid when required is true and text has value', funct
 
 test('it does not set isInvalid when required is true, text has no value and isTouched is false', function(assert) {
   assert.expect(1);
-  var component = this.subject();
+  let component = this.subject();
   component.set('required', true);
   component.set('value', '');
   component.set('isTouched', false);
@@ -65,8 +65,8 @@ test('it does not set isInvalid when required is true, text has no value and isT
 
 test('it adds md-input-invalid css class when isInvalid', function(assert) {
   assert.expect(2);
-  var inputGroup,
-      component = this.subject();
+  let inputGroup;
+  let component = this.subject();
 
   component.set('required', true);
   component.set('value', '');
@@ -82,10 +82,10 @@ test('it adds md-input-invalid css class when isInvalid', function(assert) {
 
 test('it sets error text when isInvalid', function(assert) {
   assert.expect(2);
-  var inputGroup,
-      errorDiv,
-      expectedError = 'This is required.',
-      component = this.subject();
+  let inputGroup;
+  let errorDiv;
+  let expectedError = 'This is required.';
+  let component = this.subject();
 
   component.set('required', true);
   component.set('value', '');
@@ -98,16 +98,16 @@ test('it sets error text when isInvalid', function(assert) {
 
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-' + inputGroup[0].id);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
 
-  assert.equal(errorDiv.innerHTML, expectedError, 'Error text does not equal ' + expectedError);
+  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
 });
 
 test('validates min with default error', function(assert) {
-  var inputGroup,
-      errorDiv,
-      component = this.subject(),
-      expectedError = 'Must be at least 3.';
+  let inputGroup;
+  let errorDiv;
+  let component = this.subject();
+  let expectedError = 'Must be at least 3.';
 
   assert.expect(2);
 
@@ -120,16 +120,16 @@ test('validates min with default error', function(assert) {
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-' + inputGroup[0].id);
-  assert.equal(errorDiv.innerHTML, expectedError, 'Error text does not equal ' + expectedError);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
+  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
 test('validates min with custom error', function(assert) {
-  var inputGroup,
-    errorDiv,
-    component = this.subject(),
-    expectedError = 'Too low!';
+  let inputGroup;
+  let errorDiv;
+  let component = this.subject();
+  let expectedError = 'Too low!';
 
   assert.expect(2);
 
@@ -143,15 +143,15 @@ test('validates min with custom error', function(assert) {
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-'+inputGroup[0].id);
-  assert.equal(errorDiv.innerHTML, expectedError, 'Error text does not equal ' + expectedError);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
+  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
 test('validates min with no error', function(assert) {
-  var inputGroup,
-      errorDiv,
-      component = this.subject();
+  let inputGroup;
+  let errorDiv;
+  let component = this.subject();
 
   assert.expect(2);
 
@@ -164,16 +164,16 @@ test('validates min with no error', function(assert) {
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-' + inputGroup[0].id);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
   assert.equal(errorDiv.innerText, '');
 
 });
 
 test('validates max with default error', function(assert) {
-  var inputGroup,
-      errorDiv,
-      component = this.subject(),
-      expectedError = 'Must be less than 3.';
+  let inputGroup;
+  let errorDiv;
+  let component = this.subject();
+  let expectedError = 'Must be less than 3.';
 
   assert.expect(2);
 
@@ -186,16 +186,16 @@ test('validates max with default error', function(assert) {
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-' + inputGroup[0].id);
-  assert.equal(errorDiv.innerHTML, expectedError, 'Error text does not equal ' + expectedError);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
+  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
 test('validates max with custom error', function(assert) {
-  var inputGroup,
-      errorDiv,
-      component = this.subject(),
-      expectedError = 'Too high!';
+  let inputGroup;
+  let errorDiv;
+  let component = this.subject();
+  let expectedError = 'Too high!';
 
   assert.expect(2);
 
@@ -209,15 +209,15 @@ test('validates max with custom error', function(assert) {
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-' + inputGroup[0].id);
-  assert.equal(errorDiv.innerHTML, expectedError, 'Error text does not equal ' + expectedError);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
+  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
 test('validates max with no error', function(assert) {
-  var inputGroup,
-      errorDiv,
-      component = this.subject();
+  let inputGroup;
+  let errorDiv;
+  let component = this.subject();
 
   assert.expect(2);
 
@@ -230,17 +230,17 @@ test('validates max with no error', function(assert) {
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-' + inputGroup[0].id);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
   assert.equal(errorDiv.innerText, '');
 
 });
 
 test('validates maxlength with default error', function(assert) {
-  var inputGroup,
-    errorDiv,
-    charCounterDiv,
-    component = this.subject(),
-    expectedError = 'Must not exceed 10 characters.';
+  let inputGroup;
+  let errorDiv;
+  let charCounterDiv;
+  let component = this.subject();
+  let expectedError = 'Must not exceed 10 characters.';
 
   assert.expect(3);
 
@@ -253,19 +253,19 @@ test('validates maxlength with default error', function(assert) {
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-'+inputGroup[0].id);
-  assert.equal(errorDiv.innerHTML, expectedError, 'Error text does not equal ' + expectedError);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
+  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
 
   charCounterDiv = document.getElementsByClassName('md-char-counter');
   assert.equal(charCounterDiv[0].innerHTML, '14/10');
 });
 
 test('validates maxlength with custom error', function(assert) {
-  var inputGroup,
-    errorDiv,
-    charCounterDiv,
-    component = this.subject(),
-    expectedError = 'Too much!';
+  let inputGroup;
+  let errorDiv;
+  let charCounterDiv;
+  let component = this.subject();
+  let expectedError = 'Too much!';
 
   assert.expect(3);
 
@@ -279,8 +279,8 @@ test('validates maxlength with custom error', function(assert) {
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-'+inputGroup[0].id);
-  assert.equal(errorDiv.innerHTML, expectedError, 'Error text does not equal ' + expectedError);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
+  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
 
   charCounterDiv = document.getElementsByClassName('md-char-counter');
   assert.equal(charCounterDiv[0].innerHTML, '14/10');
@@ -288,10 +288,10 @@ test('validates maxlength with custom error', function(assert) {
 });
 
 test('validates maxlength with no error', function(assert) {
-  var inputGroup,
-    errorDiv,
-    charCounterDiv,
-    component = this.subject();
+  let inputGroup;
+  let errorDiv;
+  let charCounterDiv;
+  let component = this.subject();
 
   assert.expect(3);
 
@@ -304,7 +304,7 @@ test('validates maxlength with no error', function(assert) {
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-' + inputGroup[0].id);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
   assert.equal(errorDiv.innerText, '');
 
   charCounterDiv = document.getElementsByClassName('md-char-counter');
@@ -313,17 +313,17 @@ test('validates maxlength with no error', function(assert) {
 });
 
 test('custom validations with one object and error', function(assert) {
-  var inputGroup,
-    errorDiv,
-    customValidationConstraint,
-    component = this.subject(),
-    expectedError = 'Value does not equal 4';
+  let inputGroup;
+  let errorDiv;
+  let customValidationConstraint;
+  let component = this.subject();
+  let expectedError = 'Value does not equal 4';
 
   assert.expect(2);
 
   customValidationConstraint = {
-    'errorMessage': 'Value does not equal 4',
-    'isError': function (inputValue) {
+    errorMessage: 'Value does not equal 4',
+    isError(inputValue) {
       return +inputValue !== 4;
     }
   };
@@ -337,22 +337,22 @@ test('custom validations with one object and error', function(assert) {
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-'+inputGroup[0].id);
-  assert.equal(errorDiv.innerHTML, expectedError, 'Error text does not equal ' + expectedError);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
+  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
 test('custom validations with one object and no error', function(assert) {
-  var inputGroup,
-    errorDiv,
-    customValidationConstraint,
-    component = this.subject();
+  let inputGroup;
+  let errorDiv;
+  let customValidationConstraint;
+  let component = this.subject();
 
   assert.expect(2);
 
   customValidationConstraint = {
-    'errorMessage': 'Value does not equal 4',
-    'isError': function (inputValue) {
+    errorMessage: 'Value does not equal 4',
+    isError(inputValue) {
       return +inputValue !== 4;
     }
   };
@@ -366,30 +366,30 @@ test('custom validations with one object and no error', function(assert) {
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-' + inputGroup[0].id);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
   assert.equal(errorDiv.innerText, '');
 
 });
 
 test('custom validations with multiple constraints and error caught for first constraint', function(assert) {
-  var inputGroup,
-    errorDiv,
-    customValidationArray,
-    component = this.subject(),
-    expectedError = 'Value is not even';
+  let inputGroup;
+  let errorDiv;
+  let customValidationArray;
+  let component = this.subject();
+  let expectedError = 'Value is not even';
 
   assert.expect(2);
 
   customValidationArray = [
     {
-      'errorMessage': 'Value is not even',
-      'isError': function isInputisNotEven(inputValue) {
+      errorMessage: 'Value is not even',
+      isError(inputValue) {
         return (+inputValue % 2) === 1;
       }
     },
     {
-      'errorMessage': 'Value does not equal 4',
-      'isError': function isInputFour(inputValue) {
+      errorMessage: 'Value does not equal 4',
+      isError(inputValue) {
         return +inputValue !== 4;
       }
     }
@@ -404,31 +404,30 @@ test('custom validations with multiple constraints and error caught for first co
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-'+inputGroup[0].id);
-  assert.equal(errorDiv.innerHTML, expectedError, 'Error text does not equal ' + expectedError);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
+  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
-
 test('custom validations with multiple constraints and error caught for second constraint', function(assert) {
-  var inputGroup,
-    errorDiv,
-    customValidationArray,
-    component = this.subject(),
-    expectedError = 'Value does not equal 4';
+  let inputGroup;
+  let errorDiv;
+  let customValidationArray;
+  let component = this.subject();
+  let expectedError = 'Value does not equal 4';
 
   assert.expect(2);
 
   customValidationArray = [
     {
-      'errorMessage': 'Value is not even',
-      'isError': function isInputisNotEven(inputValue) {
+      errorMessage: 'Value is not even',
+      isError(inputValue) {
         return (+inputValue % 2) === 1;
       }
     },
     {
-      'errorMessage': 'Value does not equal 4',
-      'isError': function isInputFour(inputValue) {
+      errorMessage: 'Value does not equal 4',
+      isError(inputValue) {
         return +inputValue !== 4;
       }
     }
@@ -443,29 +442,29 @@ test('custom validations with multiple constraints and error caught for second c
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-'+inputGroup[0].id);
-  assert.equal(errorDiv.innerHTML, expectedError, 'Error text does not equal ' + expectedError);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
+  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
 test('custom validations with multiple constraints and no error', function(assert) {
-  var inputGroup,
-    errorDiv,
-    customValidationArray,
-    component = this.subject();
+  let inputGroup;
+  let errorDiv;
+  let customValidationArray;
+  let component = this.subject();
 
   assert.expect(2);
 
   customValidationArray = [
     {
-      'errorMessage': 'Value is not even',
-      'isError': function isInputisNotEven(inputValue) {
+      errorMessage: 'Value is not even',
+      isError(inputValue) {
         return (+inputValue % 2) === 1;
       }
     },
     {
-      'errorMessage': 'Value does not equal 4',
-      'isError': function isInputFour(inputValue) {
+      errorMessage: 'Value does not equal 4',
+      isError(inputValue) {
         return +inputValue !== 4;
       }
     }
@@ -480,7 +479,7 @@ test('custom validations with multiple constraints and no error', function(asser
   inputGroup = document.getElementsByTagName('md-input-container');
   assert.equal(inputGroup.length === 1, true);
 
-  errorDiv = document.getElementById('error-input-' + inputGroup[0].id);
+  errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
   assert.equal(errorDiv.innerText, '');
 
 });

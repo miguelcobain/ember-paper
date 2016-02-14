@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-/**
+/*
  * This mixin add support for hasBlock for Ember < 1.13.0
  *
  * @todo Remove in Ember 2.0

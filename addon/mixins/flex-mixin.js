@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-/**
+/*
  * Adds bindings to flex attributes
  * - flex=true|false
  * - flex-layout=column|row

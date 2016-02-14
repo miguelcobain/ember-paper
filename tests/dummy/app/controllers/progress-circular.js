@@ -4,11 +4,11 @@ export default Ember.Controller.extend({
   mode: 'query',
   determinateValue: 30,
 
-  init: function () {
+  init() {
     this.setupTimer();
   },
 
-  setupTimer: function() {
+  setupTimer() {
     Ember.run.later(this, function() {
       this.incrementProperty('determinateValue', 1);
       if (this.get('determinateValue') > 100) {

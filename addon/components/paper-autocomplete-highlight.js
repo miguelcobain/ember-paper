@@ -5,11 +5,11 @@ export default Ember.Component.extend({
   flags: '',
 
   highlight: Ember.computed('searchText', 'label', 'flags', function() {
-    var unsafeText = Ember.Handlebars.Utils.escapeExpression(this.get('label'));
-    var text = unsafeText;
-    var flags = this.get('flags');
-    var regex = this.getRegExp(this.get('searchText'), flags);
-    var html  = text.replace(regex, '<span class="highlight">$&</span>');
+    let unsafeText = Ember.Handlebars.Utils.escapeExpression(this.get('label'));
+    let text = unsafeText;
+    let flags = this.get('flags');
+    let regex = this.getRegExp(this.get('searchText'), flags);
+    let html  = text.replace(regex, '<span class="highlight">$&</span>');
     return new Ember.Handlebars.SafeString(html);
   }),
 
@@ -21,7 +21,7 @@ export default Ember.Component.extend({
   },
 
   getRegExp(text, flags) {
-    var str = '';
+    let str = '';
     if (flags.indexOf('^') >= 1) {
       str += '^';
     }

@@ -21,10 +21,9 @@ export default Ember.Controller.extend({
     }
   ]),
 
-
   actions: {
-    openSomething: function () {
-      alert("Some action handler.");
+    openSomething() {
+      alert('Some action handler.');
     }
   }
 });

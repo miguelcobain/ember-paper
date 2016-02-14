@@ -20,12 +20,12 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
   hasProxiedComponent: Ember.computed.bool('proxiedComponents.length'),
 
   hasSecondaryAction: Ember.computed('secondaryItem', 'action', function() {
-    var secondaryItem = this.get('secondaryItem');
+    let secondaryItem = this.get('secondaryItem');
     return secondaryItem && (secondaryItem.action || (this.get('action') && this.isProxiedComponent(secondaryItem)));
   }),
 
   secondaryItem: Ember.computed('proxiedComponents.[]', function() {
-    var proxiedComponents = this.get('proxiedComponents');
+    let proxiedComponents = this.get('proxiedComponents');
     return proxiedComponents.find(function(component) {
       return component.classNames.indexOf('md-secondary') !== -1;
     });
@@ -38,7 +38,7 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
   didInsertElement() {
     this._super(...arguments);
 
-    var _this = this,
+    let _this = this,
       tEl = this.$(),
       proxies = this.get('proxiedComponents');
 
@@ -62,7 +62,7 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
 
     if (this.get('hasProxiedComponent')) {
       proxies.forEach(function(view) {
-        var el = view.$();
+        let el = view.$();
 
         _this.mouseActive = false;
         el.on('mousedown', function() {
@@ -85,9 +85,9 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
     if (!this.get('shouldBeClickable')) {
       let firstChild = tEl.find(">:first-child");
       firstChild.on('keypress', function(e) {
-        var tagName = Ember.$(e.target).prop("tagName");
+        let tagName = Ember.$(e.target).prop("tagName");
         if (tagName !== 'INPUT' && tagName !== 'TEXTAREA') {
-          var keyCode = e.which || e.keyCode;
+          let keyCode = e.which || e.keyCode;
           if (keyCode === 32) {
             if (firstChild) {
               firstChild.click();

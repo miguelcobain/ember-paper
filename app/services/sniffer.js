@@ -1,14 +1,14 @@
 import Ember from 'ember';
 
-var isString = function(value) {
+let isString = function(value) {
   return typeof value === 'string';
 };
 
-var lowercase = function(string) {
+let lowercase = function(string) {
   return isString(string) ? string.toLowerCase() : string;
 };
 
-var toInt = function(str) {
+let toInt = function(str) {
   return parseInt(str, 10);
 };
 
@@ -27,16 +27,16 @@ export default Ember.Service.extend({
   init() {
     this._super(...arguments);
 
-    var bodyStyle = this.get('document').body && this.get('document').body.style;
-    var vendorPrefix;
-    var vendorRegex = /^(Moz|webkit|ms)(?=[A-Z])/;
+    let bodyStyle = this.get('document').body && this.get('document').body.style;
+    let vendorPrefix;
+    let vendorRegex = /^(Moz|webkit|ms)(?=[A-Z])/;
 
-    var transitions = false;
-    var animations = false;
-    var match;
+    let transitions = false;
+    let animations = false;
+    let match;
 
     if (bodyStyle) {
-      for (var prop in bodyStyle) {
+      for (let prop in bodyStyle) {
         if (match = vendorRegex.exec(prop)) {
           vendorPrefix = match[0];
           vendorPrefix = vendorPrefix.substr(0, 1).toUpperCase() + vendorPrefix.substr(1);

@@ -46,8 +46,8 @@ export default Ember.Component.extend({
         this.addObserver(attrName, checkObserverValues);
       }
 
-      for (var mediaName in this.get('constants.MEDIA')) {
-        var normalizedName = attrName + '-' + mediaName;
+      for (let mediaName in this.get('constants.MEDIA')) {
+        let normalizedName = attrName + '-' + mediaName;
         if (Ember.get(this, normalizedName)) {
           this.set('old' + normalizedName, Ember.get(this, normalizedName));
 

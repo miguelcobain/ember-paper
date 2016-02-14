@@ -1,27 +1,19 @@
 import Ember from 'ember';
-
-var Promise = Ember.RSVP.Promise;
+const { RSVP: { Promise } } = Ember;
 
 // See http://emberjs.com/api/data/classes/DS.PromiseArray.html
-var PromiseArray = Ember.ArrayProxy.extend(Ember.PromiseProxyMixin);
+export const PromiseArray = Ember.ArrayProxy.extend(Ember.PromiseProxyMixin);
 // See http://emberjs.com/api/data/classes/DS.PromiseObject.html
-var PromiseObject = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+export const PromiseObject = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
 
-var promiseObject = function(promise, label) {
+export function promiseObject(promise, label) {
   return PromiseObject.create({
     promise: Promise.resolve(promise, label)
   });
-};
+}
 
-var promiseArray = function(promise, label) {
+export function promiseArray(promise, label) {
   return PromiseArray.create({
     promise: Promise.resolve(promise, label)
   });
-};
-
-export {
-  PromiseArray,
-  PromiseObject,
-  promiseArray,
-  promiseObject
-};
+}

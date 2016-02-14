@@ -13,7 +13,7 @@ test('it renders', function(assert) {
   assert.expect(2);
 
   // creates the component instance
-  var component = this.subject();
+  let component = this.subject();
   assert.equal(component._state, 'preRender');
 
   // appends the component to the page
@@ -22,7 +22,7 @@ test('it renders', function(assert) {
 });
 
 test('should set checked css class', function(assert) {
-  var component = this.subject();
+  let component = this.subject();
   this.render();
 
   Ember.run(function() {
@@ -33,17 +33,17 @@ test('should set checked css class', function(assert) {
 });
 
 test('it updates when clicked, and triggers the `changed` action', function(assert) {
-  var changedActionCallCount = 0;
+  let changedActionCallCount = 0;
 
-  var Controller = Ember.Controller.extend({
+  let Controller = Ember.Controller.extend({
     actions: {
-      changed: function() {
+      changed() {
         changedActionCallCount++;
       }
     }
   });
 
-  var component = this.subject({
+  let component = this.subject({
     value: 'component-value',
     selected: 'initial-selected-value',
     changed: 'changed',
@@ -66,11 +66,11 @@ test('it updates when clicked, and triggers the `changed` action', function(asse
 });
 
 test('it is possible to check and set selected property to value', function(assert) {
-  var component = this.subject();
+  let component = this.subject();
 
   assert.ok(!component.get('selected'));
 
-  var value = 'some value';
+  let value = 'some value';
 
   Ember.run(function() {
     component.set('value', value);
@@ -82,9 +82,9 @@ test('it is possible to check and set selected property to value', function(asse
 });
 
 test('it isn\'t possible to uncheck and set selected property to null', function(assert) {
-  var component = this.subject();
+  let component = this.subject();
 
-  var value = 'some value';
+  let value = 'some value';
 
   Ember.run(function() {
     component.set('value', value);
@@ -93,14 +93,14 @@ test('it isn\'t possible to uncheck and set selected property to null', function
 
   this.$().trigger('click');
 
-  //still has value
+  // still has value
   assert.equal(component.get('selected'), value);
 });
 
 test('it is possible to uncheck and set selected property to null if toggle is true', function(assert) {
-  var component = this.subject();
+  let component = this.subject();
 
-  var value = 'some value';
+  let value = 'some value';
 
   Ember.run(function() {
     component.set('value', value);
@@ -114,7 +114,7 @@ test('it is possible to uncheck and set selected property to null if toggle is t
 });
 
 test('it isn\'t possible to check a disabled radio button', function(assert) {
-  var component = this.subject();
+  let component = this.subject();
 
   Ember.run(function() {
     component.set('disabled', true);
