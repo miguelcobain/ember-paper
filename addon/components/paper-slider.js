@@ -22,19 +22,17 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, ColorMixin, {
   tabindex: 0,
 
   trackContainer: Ember.computed(function() {
-    let element = this.$()[0];
-
-    return this.$(element.querySelector('.md-track-container'));
+    return this.$('.md-track-container');
   }),
 
   activeTrackStyle: Ember.computed('percent', function() {
     let percent = this.get('percent') || 0;
-    return Ember.String.htmlSafe("width: " + (percent * 100) + "%");
+    return Ember.String.htmlSafe(`width: ${percent * 100}%`);
   }),
 
   thumbContainerStyle: Ember.computed('percent', function() {
     let percent = this.get('percent') || 0;
-    return Ember.String.htmlSafe("left: " + (percent * 100) + "%");
+    return Ember.String.htmlSafe(`left: ${percent * 100}%`);
   }),
 
   isMinimum: Ember.computed('percent', 'min', function() {
@@ -77,7 +75,7 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, ColorMixin, {
   }),
 
   setValueFromEvent(event) {
-    //let exactVal = this.percentToValue(this.positionToPercent(event.deltaX || event.clientX));
+    // let exactVal = this.percentToValue(this.positionToPercent(event.deltaX || event.clientX));
     let exactVal = this.percentToValue(this.positionToPercent(event.clientX || event.originalEvent.touches[0].clientX));
     let closestVal = this.minMaxValidator(this.stepValidator(exactVal));
 

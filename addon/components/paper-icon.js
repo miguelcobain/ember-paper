@@ -23,8 +23,8 @@ let PaperIconComponent = Ember.Component.extend(ColorMixin, {
     }
   }),
 
-  sizeClass : Ember.computed('size', function() {
-    switch(this.get('size')) {
+  sizeClass: Ember.computed('size', function() {
+    switch (this.get('size')) {
       case 'lg':
         return 'md-lg';
       case 'sm':

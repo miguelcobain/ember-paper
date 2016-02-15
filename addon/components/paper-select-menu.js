@@ -3,16 +3,13 @@ import PaperMenuAbstract from './paper-menu-abstract';
 
 let searchStr = '';
 let clearSearchTimeout, optNodes, optText;
-let CLEAR_SEARCH_AFTER = 300;
-
-
+const CLEAR_SEARCH_AFTER = 300;
 
 export default Ember.Component.extend({
   tagName: 'md-select-menu',
   classNames: ['md-default-theme'],
 
   constants: Ember.inject.service(),
-
 
   menuAbstract: Ember.computed(function() {
     let container = this.nearestOfType(PaperMenuAbstract);
@@ -21,7 +18,7 @@ export default Ember.Component.extend({
 
   keyDown(ev) {
     let KeyCodes = this.get('constants').KEYCODE;
-    switch(ev.keyCode) {
+    switch (ev.keyCode) {
       case KeyCodes.get('TAB'):
       case KeyCodes.get('ESCAPE'):
         this.get('menuAbstract').send('toggleMenu');
@@ -43,7 +40,6 @@ export default Ember.Component.extend({
     }
   },
 
-
   optNodeForKeyboardSearch(e) {
     if (clearSearchTimeout) {
       clearTimeout(clearSearchTimeout);
@@ -55,7 +51,7 @@ export default Ember.Component.extend({
       optNodes = undefined;
     }, CLEAR_SEARCH_AFTER);
     searchStr += String.fromCharCode(e.keyCode);
-    let search = new RegExp('^' + searchStr, 'i');
+    let search = new RegExp(`^${searchStr}`, 'i');
     if (!optNodes) {
       optNodes = this.$().find('md-option');
       optText = new Array(optNodes.length);
@@ -69,7 +65,6 @@ export default Ember.Component.extend({
       }
     }
   },
-
 
   focusOption(direction) {
     let optionsArray = this.$().find('md-option').toArray();

@@ -48,8 +48,8 @@ export default Ember.Service.extend({
         vendorPrefix = ('WebkitOpacity' in bodyStyle) && 'webkit';
       }
 
-      transitions = !!(('transition' in bodyStyle) || (vendorPrefix + 'Transition' in bodyStyle));
-      animations = !!(('animation' in bodyStyle) || (vendorPrefix + 'Animation' in bodyStyle));
+      transitions = !!(('transition' in bodyStyle) || (`${vendorPrefix}Transition` in bodyStyle));
+      animations = !!(('animation' in bodyStyle) || (`${vendorPrefix}Animation` in bodyStyle));
 
       if (this.get('android') && (!transitions || !animations)) {
         transitions = isString(bodyStyle.webkitTransition);

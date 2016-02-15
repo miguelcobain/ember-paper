@@ -15,7 +15,7 @@ export default Ember.Route.extend({
       this.controller.set('drawerOpen', false);
     },
     alertValue(value) {
-      alert('You clicked Radio button: ' + value);
+      alert(`You clicked Radio button: ${value}`);
     }
   }
 });

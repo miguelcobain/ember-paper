@@ -78,7 +78,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
     // Make sure that the switch isn't moving past the edges
     let translate = Math.max(0, Math.min(1, percent));
-    let transformProp = 'translate3d(' + (100 * translate) + '%, 0, 0)';
+    let transformProp = `translate3d(${100 * translate}%, 0, 0)`;
     this.$('.md-thumb-container').css('transform', transformProp);
     this.$('.md-thumb-container').css('-webkit-transform', transformProp);
   },

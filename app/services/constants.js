@@ -17,8 +17,8 @@ export default Ember.Service.extend({
     let webkit = this.get('webkit');
     return {
       /* Constants */
-      TRANSITIONEND:  'transitionend' + (webkit ? ' webkitTransitionEnd'  : ''),
-      ANIMATIONEND:   'animationend'  + (webkit ? ' webkitAnimationEnd'   : ''),
+      TRANSITIONEND:  `transitionend${webkit ? ' webkitTransitionEnd' : ''}`,
+      ANIMATIONEND:   `animationend${webkit ? ' webkitAnimationEnd' : ''}`,
 
       TRANSFORM:              this.vendorProperty('transform'),
       TRANSFORM_ORIGIN:       this.vendorProperty('transformOrigin'),

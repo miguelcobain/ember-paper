@@ -5,7 +5,7 @@ import ProxyMixin from 'ember-paper/mixins/proxy-mixin';
 export default Ember.Component.extend(RippleMixin, ProxyMixin, {
   tagName: 'md-list-item',
 
-  /* Ripple Overrides */
+  // Ripple Overrides
   rippleContainerSelector: '.md-no-style',
   center: false,
   dimBackground: true,
@@ -38,12 +38,12 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
   didInsertElement() {
     this._super(...arguments);
 
-    let _this = this,
-      tEl = this.$(),
-      proxies = this.get('proxiedComponents');
+    let _this = this;
+    let tEl = this.$();
+    let proxies = this.get('proxiedComponents');
 
-    //Secondary item has separate action.
-    //Unregister so we don't proxy it.
+    // Secondary item has separate action.
+    // Unregister so we don't proxy it.
     if (this.get('hasSecondaryAction')) {
       this.get('secondaryItem').set('bubbles', false);
       this.unregister(this.get('secondaryItem'));
@@ -67,7 +67,7 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
         _this.mouseActive = false;
         el.on('mousedown', function() {
           _this.mouseActive = true;
-          Ember.run.later(function(){
+          Ember.run.later(function() {
             _this.mouseActive = false;
           }, 100);
         }).on('focus', function() {
@@ -83,9 +83,9 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
     }
 
     if (!this.get('shouldBeClickable')) {
-      let firstChild = tEl.find(">:first-child");
+      let firstChild = tEl.find('>:first-child');
       firstChild.on('keypress', function(e) {
-        let tagName = Ember.$(e.target).prop("tagName");
+        let tagName = Ember.$(e.target).prop('tagName');
         if (tagName !== 'INPUT' && tagName !== 'TEXTAREA') {
           let keyCode = e.which || e.keyCode;
           if (keyCode === 32) {

@@ -41,15 +41,15 @@ export default Ember.Component.extend({
 
     attrNames.forEach((attrName) => {
       if (Ember.get(this, attrName)) {
-        this.set('old' + attrName, Ember.get(this, attrName));
+        this.set(`old${attrName}`, Ember.get(this, attrName));
 
         this.addObserver(attrName, checkObserverValues);
       }
 
       for (let mediaName in this.get('constants.MEDIA')) {
-        let normalizedName = attrName + '-' + mediaName;
+        let normalizedName = `${attrName}-${mediaName}`;
         if (Ember.get(this, normalizedName)) {
-          this.set('old' + normalizedName, Ember.get(this, normalizedName));
+          this.set(`old${normalizedName}`, Ember.get(this, normalizedName));
 
           this.addObserver(normalizedName, checkObserverValues);
         }

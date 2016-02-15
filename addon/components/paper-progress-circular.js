@@ -50,7 +50,9 @@ export default Component.extend(ColorMixin, {
 
   diameterRatio: computed('diameter', function() {
     let diameter = this.get('diameter');
-    if (!diameter) { return DEFAULT_SCALING; }
+    if (!diameter) {
+      return DEFAULT_SCALING;
+    }
 
     let match = /([0-9]*)%/.exec(diameter);
     let value = Math.max(0, (match && match[1] / 100) || parseFloat(diameter));
@@ -59,33 +61,39 @@ export default Component.extend(ColorMixin, {
   }),
 
   gapStyle: computed('mode', 'clampedValue', function() {
-    if (this.get('mode') !== MODE_DETERMINATE) { return Ember.String.htmlSafe(''); }
+    if (this.get('mode') !== MODE_DETERMINATE) {
+      return Ember.String.htmlSafe('');
+    }
 
     let value = this.get('clampedValue');
     let borderBottomColor = (value <= 50) ? 'border-bottom-color: transparent !important' : null;
     let transition = (value <= 50) ? null : `${this.get('constants.CSS.TRANSITION')}: borderBottomColor 0.1s linear`;
 
-    return Ember.String.htmlSafe([borderBottomColor, transition].filter(i => !!i).join(';'));
+    return Ember.String.htmlSafe([borderBottomColor, transition].filter((i) => !!i).join(';'));
   }),
 
   leftStyle: computed('mode', 'clampedValue', function() {
-    if (this.get('mode') !== MODE_DETERMINATE) { return Ember.String.htmlSafe(''); }
+    if (this.get('mode') !== MODE_DETERMINATE) {
+      return Ember.String.htmlSafe('');
+    }
 
     let value = this.get('clampedValue');
     let transition = (value <= 50) ? `${this.get('constants.CSS.TRANSITION')}: transform 0.1s linear` : '';
     let transform = `${this.get('constants.CSS.TRANSFORM')}: rotate(${value <= 50 ? 135 : (((value - 50) / 50 * 180) + 135)}deg)`;
 
-    return Ember.String.htmlSafe([transition, transform].filter(i => !!i).join(';'));
+    return Ember.String.htmlSafe([transition, transform].filter((i) => !!i).join(';'));
   }),
 
   rightStyle: computed('mode', 'clampedValue', function() {
-    if (this.get('mode') !== MODE_DETERMINATE) { return Ember.String.htmlSafe(''); }
+    if (this.get('mode') !== MODE_DETERMINATE) {
+      return Ember.String.htmlSafe('');
+    }
 
     let value = this.get('clampedValue');
     let transition = (value >= 50) ? `${this.get('constants.CSS.TRANSITION')}: transform 0.1s linear` : '';
     let transform = `${this.get('constants.CSS.TRANSFORM')}: rotate(${value >= 50 ? 45 : (value / 50 * 180 - 135)}deg)`;
 
-    return Ember.String.htmlSafe([transition, transform].filter(i => !!i).join(';'));
+    return Ember.String.htmlSafe([transition, transform].filter((i) => !!i).join(';'));
   })
 
 });

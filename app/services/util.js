@@ -1,20 +1,21 @@
 import Ember from 'ember';
 
-/* global jQuery */
-
 let Util = Ember.Service.extend({
 
   // Disables scroll around the passed element.
   disableScrollAround(element) {
     let util = this,
-      $document = jQuery(window.document);
+      $document = Ember.$(window.document);
 
     util.disableScrollAround._count = util.disableScrollAround._count || 0;
     ++util.disableScrollAround._count;
-    if (util.disableScrollAround._enableScrolling) return util.disableScrollAround._enableScrolling;
-    let body = $document[0].body,
-      restoreBody = disableBodyScroll(),
-      restoreElement = disableElementScroll();
+    if (util.disableScrollAround._enableScrolling) {
+      return util.disableScrollAround._enableScrolling;
+    }
+
+    let body = $document[0].body;
+    let restoreBody = disableBodyScroll();
+    let restoreElement = disableElementScroll();
 
     return util.disableScrollAround._enableScrolling = function() {
       if (!--util.disableScrollAround._count) {
@@ -27,10 +28,10 @@ let Util = Ember.Service.extend({
     // Creates a virtual scrolling mask to absorb touchmove, keyboard, scrollbar clicking, and wheel events
     function disableElementScroll() {
       let zIndex = 50;
-      let scrollMask = jQuery(
-        '<div class="md-scroll-mask" style="z-index: ' + zIndex + '">' +
-        '  <div class="md-scroll-mask-bar"></div>' +
-        '</div>');
+      let scrollMask = Ember.$(
+        `<div class="md-scroll-mask" style="z-index: ${zIndex}">
+          <div class="md-scroll-mask-bar"></div>
+        </div>`);
       body.appendChild(scrollMask[0]);
 
       scrollMask.on('wheel', preventDefault);
@@ -75,7 +76,7 @@ let Util = Ember.Service.extend({
         applyStyles(body, {
           position: 'fixed',
           width: '100%',
-          top: -scrollOffset + 'px'
+          top: `${-scrollOffset}px`
         });
 
         applyStyles(htmlNode, {
@@ -129,7 +130,7 @@ let Util = Ember.Service.extend({
   },
   nextTick: (function(window, prefixes, i, p, fnc) {
     while (!fnc && i < prefixes.length) {
-      fnc = window[prefixes[i++] + 'equestAnimationFrame'];
+      fnc = window[`${prefixes[i++]}equestAnimationFrame`];
     }
     return (fnc && fnc.bind(window)) || window.setImmediate || function(fnc) {window.setTimeout(fnc, 0);};
   })(window, 'r webkitR mozR msR oR'.split(' '), 0)
