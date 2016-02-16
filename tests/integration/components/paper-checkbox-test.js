@@ -21,9 +21,9 @@ test('should trigger an action when unchecking', function(assert) {
   assert.expect(1);
 
   this.set('value', true);
-  this.handleChange = (checked) => {
+  this.set('handleChange', (checked) => {
     assert.equal(checked, false);
-  };
+  });
 
   this.render(hbs`{{paper-checkbox checked=value onchange=handleChange}}`);
 
@@ -34,9 +34,9 @@ test('should trigger an action when checking', function(assert) {
   assert.expect(1);
 
   this.set('value', false);
-  this.handleChange = (checked) => {
+  this.set('handleChange', (checked) => {
     assert.equal(checked, true);
-  };
+  });
 
   this.render(hbs`{{paper-checkbox checked=value onchange=handleChange}}`);
 
@@ -47,9 +47,9 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
   assert.expect(0);
 
   this.set('value', false);
-  this.handleChange = (checked) => {
+  this.set('handleChange', (checked) => {
     assert.equal(checked, true);
-  };
+  });
 
   this.render(hbs`{{paper-checkbox disabled=true checked=value onchange=handleChange}}`);
 
