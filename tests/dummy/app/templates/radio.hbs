@@ -9,30 +9,46 @@
 {{#paper-content class="md-padding"}}
 <div class="doc-content">
   <div layout layout-sm="column">
-    <div flex>{{#paper-radio}}A radio button{{/paper-radio}}</div>
-    <div flex>{{#paper-radio toggle=true}}Toggable radio button{{/paper-radio}}</div>
-    <div flex>{{#paper-radio disabled=true}}Disabled radio button{{/paper-radio}}</div>
+    <div flex>{{#paper-radio onchange=(action "foo")}}A radio button{{/paper-radio}}</div>
+    <div flex>{{#paper-radio toggle=true value="123" groupValue=toggleValue onchange=(action (mut toggleValue))}}Toggable radio button{{/paper-radio}}</div>
+    <div flex>{{#paper-radio disabled=true onchange=(action "foo")}}Disabled radio button{{/paper-radio}}</div>
   </div>
+
   <h3>Radio Button Group</h3>
-  <div layout layout-sm="column">
-    <div flex>{{#paper-radio value="1" selected=selectedValue}}Radio button 1{{/paper-radio}}</div>
-    <div flex>{{#paper-radio value="2" selected=selectedValue}}Radio button 2{{/paper-radio}}</div>
-    <div flex>{{#paper-radio value="3" selected=selectedValue changed="alertValue"}}Radio button 3{{/paper-radio}}</div>
-  </div>
+
+  {{#paper-radio-group groupValue=groupValue onchange=(action (mut groupValue)) as |group|}}
+    {{#group.paper-radio value="1" primary=true}}
+      Radio button 1
+    {{/group.paper-radio}}
+    {{#group.paper-radio value="2" warn=true}}
+      Radio button 2
+    {{/group.paper-radio}}
+    {{#group.paper-radio value="3"}}
+      Radio button 3
+    {{/group.paper-radio}}
+  {{/paper-radio-group}}
+
   <p>Selected value: {{selectedValue}}</p>
 
-  <p>{{paper-radio toggle=true label="Blockless version"}}</p>
+  <p>{{paper-radio toggle=true label="Blockless version" onchange=(action "foo")}}</p>
 
   <h3>Template</h3>
 {{#code-block language='handlebars'}}
-\{{#paper-radio}}A radio button\{{/paper-radio}}
-\{{#paper-radio toggle=true}}Toggable radio button\{{/paper-radio}}
-\{{#paper-radio disabled=true}}Disabled radio button\{{/paper-radio}}
 
-\{{#paper-radio value="1" selected=selectedValue}}Radio button 1\{{/paper-radio}}
-\{{#paper-radio value="2" selected=selectedValue}}Radio button 2\{{/paper-radio}}
-\{{#paper-radio value="3" selected=selectedValue changed="alertValue"}}Radio button 3\{{/paper-radio}}
+\{{#paper-radio-group groupValue=groupValue onchange=(action (mut groupValue)) as |group|}}
+  \{{#group.paper-radio value="1" primary=true}}
+    Radio button 1
+  \{{/group.paper-radio}}
+  \{{#group.paper-radio value="2" warn=true}}
+    Radio button 2
+  \{{/group.paper-radio}}
+  \{{#group.paper-radio value="3"}}
+    Radio button 3
+  \{{/group.paper-radio}}
+\{{/paper-radio-group}}
 
-\{{paper-radio toggle=true label="Blockless version"}}{{/code-block}}
+\{{paper-radio toggle=true label="Blockless version" onchange=(action "foo")}}
+
+{{~/code-block}}
 </div>
 {{/paper-content}}

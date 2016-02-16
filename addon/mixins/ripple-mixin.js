@@ -177,7 +177,7 @@ export default Mixin.create({
     }
   },
   isRippleAllowed() {
-    let [element] = this.rippleElement;
+    let element = this.rippleElement.get(0);
     do {
       if (!element.tagName || element.tagName === 'BODY') {
         break;
