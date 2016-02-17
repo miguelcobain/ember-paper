@@ -44,7 +44,7 @@
     "ember-prism": "0.0.5",
     "ember-resolver": "^2.0.3",
     "ember-route-action": "0.0.5",
-    "ember-suave": "2.0.0",
+    "ember-suave": "2.0.1",
     "ember-try": "^0.1.2",
     "loader.js": "^4.0.0"
   },
