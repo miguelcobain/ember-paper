@@ -84,3 +84,33 @@ test('it renders with size class', function(assert) {
   this.set('size', 5);
   assert.ok($component.hasClass('md-5x'));
 });
+
+test('it renders with a default aria-label of the icon', function(assert) {
+  assert.expect(2);
+
+  this.set('icon', 'foo-bar');
+  this.render(hbs`{{paper-icon icon}}`);
+
+  let $component = this.$('md-icon');
+
+  assert.equal($component.attr('aria-label'), 'foo-bar');
+
+  this.set('icon', 'bar-baz');
+
+  assert.equal($component.attr('aria-label'), 'bar-baz');
+});
+
+test('it renders with a provided aria-label', function(assert) {
+  assert.expect(2);
+
+  this.set('ariaLabel', 'foo-bar');
+  this.render(hbs`{{paper-icon "check" aria-label=ariaLabel}}`);
+
+  let $component = this.$('md-icon');
+
+  assert.equal($component.attr('aria-label'), 'foo-bar');
+
+  this.set('ariaLabel', 'bar-baz');
+
+  assert.equal($component.attr('aria-label'), 'bar-baz');
+});

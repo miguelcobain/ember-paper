@@ -5,6 +5,7 @@ var PaperIconComponent = Ember.Component.extend(ColorMixin, {
   tagName: 'md-icon',
   classNames: ['paper-icon', 'md-font', 'material-icons', 'md-default-theme'],
   classNameBindings: ['iconClass', 'sizeClass', 'spinClass'],
+  attributeBindings: ['aria-label'],
 
   icon: '',
   spin: false,
@@ -14,6 +15,8 @@ var PaperIconComponent = Ember.Component.extend(ColorMixin, {
     var icon = this.getWithDefault('positionalIcon', this.get('icon'));
     return Ember.String.dasherize(icon);
   }),
+
+  'aria-label': Ember.computed.reads('iconClass'),
 
   spinClass: Ember.computed('spin', 'reverseSpin', function() {
     if (this.get('spin')) {
