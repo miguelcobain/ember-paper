@@ -8,7 +8,7 @@ moduleForComponent('paper-icon', 'Integration | Component | paper icon', {
 test('it renders with tag name', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-icon icon="check"}}`);
+  this.render(hbs`{{paper-icon "check"}}`);
 
   assert.ok(this.$('md-icon').length);
 });

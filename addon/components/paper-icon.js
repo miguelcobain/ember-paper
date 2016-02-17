@@ -6,12 +6,24 @@ var PaperIconComponent = Ember.Component.extend(ColorMixin, {
   classNames: ['paper-icon', 'md-font', 'material-icons', 'md-default-theme'],
   classNameBindings: ['iconClass', 'sizeClass', 'spinClass'],
 
-  icon: '',
   spin: false,
   reverseSpin: false,
 
   iconClass: Ember.computed('icon', 'positionalIcon', function() {
-    var icon = this.getWithDefault('positionalIcon', this.get('icon'));
+    let oldIcon = this.get('icon');
+
+    Ember.deprecate(
+        'ember-paper: The `{{paper-icon icon="someIcon"}}` format is deprecated. Please use `{{paper-icon "someIcon"}}`.',
+        oldIcon === undefined,
+        {
+          id: 'ember-paper.paper-icon.non-positional-param',
+          until: '1.0.0',
+          url: 'https://github.com/miguelcobain/ember-paper/pull/288'
+        }
+      );
+
+    let icon = this.getWithDefault('positionalIcon', oldIcon);
+
     return Ember.String.dasherize(icon);
   }),
 
