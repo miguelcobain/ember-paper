@@ -7,25 +7,26 @@
     </div>
 {{/paper-toolbar}}
 {{#paper-content class="md-padding"}}
-<div class="doc-content">
-  <p>
-    {{#paper-switch checked=booleanProp1}} {{booleanProp1}} {{/paper-switch}}
-    {{#paper-switch checked=booleanProp2}} {{booleanProp2}} {{/paper-switch}}
-    {{#paper-switch disabled=true}} Disabled switch {{/paper-switch}}
-    {{#paper-switch noink=true}} Noink switch {{/paper-switch}}
+  <div class="doc-content">
+    <p>
+      {{#paper-switch checked=booleanProp1 onchange=(action (mut booleanProp1))}} {{booleanProp1}} {{/paper-switch}}
+      {{#paper-switch checked=booleanProp2 onchange=(action (mut booleanProp2))}} {{booleanProp2}} {{/paper-switch}}
+      {{#paper-switch disabled=true onchange=(action 'foo')}} Disabled switch {{/paper-switch}}
+      {{#paper-switch noink=true onchange=(action 'foo')}} Noink switch {{/paper-switch}}
 
-    {{paper-switch label="Blockless version"}}
-  </p>
-  <h3>Template</h3>
-{{#code-block language='handlebars'}}
-\{{#paper-switch checked=booleanProp1}} \{{booleanProp1}} \{{/paper-switch}}
+      {{paper-switch label="Blockless version" onchange=(action 'foo')}}
+    </p>
+    <h3>Template</h3>
+    {{~#code-block language='handlebars'}}
+      \{{#paper-switch checked=booleanProp1 onchange=(action (mut booleanProp1))}} \{{booleanProp1}} \{{/paper-switch}}
 
-\{{#paper-switch checked=booleanProp2}} \{{booleanProp2}} \{{/paper-switch}}
+      \{{#paper-switch checked=booleanProp2 onchange=(action (mut booleanProp2))}} \{{booleanProp2}} \{{/paper-switch}}
 
-\{{#paper-switch disabled=true}} Disabled switch \{{/paper-switch}}
+      \{{#paper-switch disabled=true onchange=(action 'foo')}} Disabled switch \{{/paper-switch}}
 
-\{{#paper-switch noink=true}} Noink switch \{{/paper-switch}}
+      \{{#paper-switch noink=true onchange=(action 'foo')}} Noink switch \{{/paper-switch}}
 
-\{{paper-switch label="Blockless version"}}{{/code-block}}
-</div>
+      \{{paper-switch label="Blockless version" onchange=(action 'foo')}}
+    {{~/code-block}}
+  </div>
 {{/paper-content}}

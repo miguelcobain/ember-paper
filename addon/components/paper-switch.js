@@ -3,6 +3,7 @@ import BaseFocusable from './base-focusable';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+const { observer, assert } = Ember;
 /* globals Hammer */
 
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
@@ -10,7 +11,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],
   toggle: true,
-
 
   /* Ripple Overrides */
   rippleContainerSelector: '.md-thumb',
@@ -25,12 +25,35 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   dragAmount: null,
   switchWidth: null,
 
-  onDidInsertElement: Ember.on('didInsertElement', function() {
-    // Don't set up anything if the switch is disabled
-    if (this.get('disabled')) { return; }
+  didInsertElement() {
+    this._super(...arguments);
+    //Only setup if the switch is not disabled
+    if (!this.getAttr('disabled')) {
+      this._setupSwitch();
+    }
+  },
 
-    this._super();
+  didInitAttrs() {
+    this._super(...arguments);
+    assert('{{paper-switch}} requires an `onchange` function', this.getAttr('onchange') && typeof this.getAttr('onchange') === 'function');
+  },
 
+  willDestroyElement() {
+    this._super(...arguments);
+
+    if (this.switchHammer) {
+      this.switchHammer.destroy();
+    }
+    if (this.thumbElementHammer) {
+      this.switchHammer.destroy();
+    }
+  },
+
+  disabledDidChange: observer('disabled', function() {
+    this._setupSwitch();
+  }),
+
+  _setupSwitch() {
     this.set('switchWidth', this.$('.md-bar').width());
 
     // Enable dragging the switch
@@ -47,21 +70,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     let switchHammer = new Hammer(element);
     this.switchHammer = switchHammer;
     switchHammer.on('tap', Ember.run.bind(this, this._dragEnd));
-  }),
-
-  disabledDidChange: Ember.observer('disabled', function() {
-    this.onDidInsertElement();
-  }),
-
-  willDestroyElement() {
-    this._super(...arguments);
-
-    if (this.switchHammer) {
-      this.switchHammer.destroy();
-    }
-    if (this.thumbElementHammer) {
-      this.switchHammer.destroy();
-    }
   },
 
   _dragStart() {
@@ -69,11 +77,11 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   _drag(event) {
-    if (this.get('disabled')) { return; }
+    if (this.getAttr('disabled')) { return; }
 
     // Get the amount amount the switch has been dragged
     let percent = event.deltaX / this.get('switchWidth');
-    percent = this.get('checked') ? 1 + percent : percent;
+    percent = this.getAttr('checked') ? 1 + percent : percent;
     this.set('dragAmount', percent);
 
     // Make sure that the switch isn't moving past the edges
@@ -84,12 +92,13 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   _dragEnd() {
-    if (this.get('disabled')) { return; }
-
+    if (this.getAttr('disabled')) { return; }
+    const checked = this.getAttr('checked');
+    const dragAmount = this.get('dragAmount');
     if ((!this.get('dragging')) ||
-         (this.get('checked') && this.get('dragAmount') < 0.5) ||
-         (!this.get('checked') && this.get('dragAmount') > 0.5)) {
-      this.toggleProperty('checked');
+         (checked && dragAmount < 0.5) ||
+         (!checked && dragAmount > 0.5)) {
+      this.getAttr('onchange')(!checked);
     }
 
     // Cleanup
@@ -99,7 +108,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   processProxy() {
-    this.toggleProperty('checked');
+    this.getAttr('onchange')(!this.getAttr('checked'));
   },
 
   click() {
