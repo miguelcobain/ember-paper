@@ -32,3 +32,4 @@ install:
 
 script:
   - ember try $EMBER_TRY_SCENARIO test
+  - jscs -c .jscsrc addon
