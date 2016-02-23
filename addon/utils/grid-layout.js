@@ -6,7 +6,7 @@ let defaultAnimator = GridTileAnimator;
 function GridLayout(colCount, tileSpans) {
   let self, layoutInfo, gridStyles, layoutTime, mapTime, reflowTime;
 
-  layoutInfo = calculateGridfor (colCount, tileSpans);
+  layoutInfo = calculateGridfor(colCount, tileSpans);
 
   return self = {
 
@@ -89,7 +89,7 @@ function GridTileAnimator(grid, tiles) {
  *    tile, spaceTracker's elements are each decremented by 1 to a minimum
  *    of 0. Rows are searched in this fashion until space is found.
  */
-function calculateGridfor (colCount, tileSpans) {
+function calculateGridfor(colCount, tileSpans) {
   let curCol = 0;
   let curRow = 0;
   let spaceTracker = newSpaceTracker();

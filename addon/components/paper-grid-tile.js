@@ -21,7 +21,6 @@ export default Ember.Component.extend({
     this._super(...arguments);
 
     this.get('gridList').send('invalidateLayout');
-
   },
 
   gridList: Ember.computed(function() {
@@ -30,9 +29,9 @@ export default Ember.Component.extend({
 
   _watchResponsiveAttributes(attrNames, watchFn) {
 
-    const checkObserverValues = (sender, key) => {
-      const oldValue = this.get(`old${key}`),
-            newValue = sender.get(key);
+    let checkObserverValues = (sender, key) => {
+      let oldValue = this.get(`old${key}`);
+      let newValue = sender.get(key);
 
       if (oldValue !== newValue) {
         watchFn();
@@ -57,6 +56,5 @@ export default Ember.Component.extend({
 
     });
   }
-
 
 });

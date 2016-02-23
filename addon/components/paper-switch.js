@@ -11,7 +11,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],
   toggle: true,
 
-
   /* Ripple Overrides */
   rippleContainerSelector: '.md-thumb',
   center: true,
@@ -27,7 +26,9 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   onDidInsertElement: Ember.on('didInsertElement', function() {
     // Don't set up anything if the switch is disabled
-    if (this.get('disabled')) { return; }
+    if (this.get('disabled')) {
+      return;
+    }
 
     this._super();
 
@@ -35,7 +36,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
     // Enable dragging the switch
     let element = this.get('element')[0] || this.get('element');
-    let thumbElement = element.getElementsByClassName('md-thumb-container')[0];
+    let thumbElement = element.getElementsByClassName('md-thumb-container').get(0);
     let thumbElementHammer = new Hammer(thumbElement);
     this.thumbElementHammer = thumbElementHammer;
     thumbElementHammer.get('pan').set({ threshold: 1 });
@@ -69,7 +70,9 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   _drag(event) {
-    if (this.get('disabled')) { return; }
+    if (this.get('disabled')) {
+      return;
+    }
 
     // Get the amount amount the switch has been dragged
     let percent = event.deltaX / this.get('switchWidth');
@@ -84,7 +87,9 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   _dragEnd() {
-    if (this.get('disabled')) { return; }
+    if (this.get('disabled')) {
+      return;
+    }
 
     if ((!this.get('dragging')) ||
          (this.get('checked') && this.get('dragAmount') < 0.5) ||

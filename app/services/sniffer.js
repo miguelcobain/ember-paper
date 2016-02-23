@@ -12,13 +12,12 @@ let toInt = function(str) {
   return parseInt(str, 10);
 };
 
-
 export default Ember.Service.extend({
   vendorPrefix: '',
   transitions: false,
   animations: false,
-  document: document,
-  window: window,
+  document,
+  window,
 
   android: Ember.computed('', function() {
     return toInt((/android (\d+)/.exec(lowercase((this.get('window').navigator || {}).userAgent)) || [])[1]);
