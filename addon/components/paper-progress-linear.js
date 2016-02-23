@@ -2,7 +2,6 @@ import Ember from 'ember';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 const { inject, computed, Component, isPresent } = Ember;
 
-
 function makeTransform(value) {
   let scale = value / 100;
   let translateX = (value - 100) / 2;

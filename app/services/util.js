@@ -4,8 +4,8 @@ let Util = Ember.Service.extend({
 
   // Disables scroll around the passed element.
   disableScrollAround(element) {
-    let util = this,
-      $document = Ember.$(window.document);
+    let util = this;
+    let $document = Ember.$(window.document);
 
     util.disableScrollAround._count = util.disableScrollAround._count || 0;
     ++util.disableScrollAround._count;
@@ -13,7 +13,7 @@ let Util = Ember.Service.extend({
       return util.disableScrollAround._enableScrolling;
     }
 
-    let body = $document[0].body;
+    let { body } = $document.get(0);
     let restoreBody = disableBodyScroll();
     let restoreElement = disableElementScroll();
 
@@ -50,7 +50,7 @@ let Util = Ember.Service.extend({
       // used to stop the keypresses that could cause the page to scroll
       // (arrow keys, spacebar, tab, etc).
       function disableKeyNav(e) {
-        //-- temporarily removed this logic, will possibly re-add at a later date
+        // -- temporarily removed this logic, will possibly re-add at a later date
         return;
         if (!element[0].contains(e.target)) {
           e.preventDefault();
@@ -70,7 +70,7 @@ let Util = Ember.Service.extend({
       let restoreHtmlStyle = htmlNode.getAttribute('style') || '';
       let restoreBodyStyle = body.getAttribute('style') || '';
       let scrollOffset = body.scrollTop + body.parentElement.scrollTop;
-      let clientWidth = body.clientWidth;
+      let { clientWidth } = body;
 
       if (body.scrollHeight > body.clientHeight) {
         applyStyles(body, {
@@ -84,8 +84,9 @@ let Util = Ember.Service.extend({
         });
       }
 
-
-      if (body.clientWidth < clientWidth) applyStyles(body, {overflow: 'hidden'});
+      if (body.clientWidth < clientWidth) {
+        applyStyles(body, { overflow: 'hidden' });
+      }
 
       return function restoreScroll() {
         body.setAttribute('style', restoreBodyStyle);
@@ -105,7 +106,7 @@ let Util = Ember.Service.extend({
     method && method();
   },
 
-  /**
+  /*
    * supplant() method from Crockford's `Remedial Javascript`
    * Equivalent to use of $interpolate; without dependency on
    * interpolation symbols and scope. Note: the '{<token>}' can
@@ -114,11 +115,11 @@ let Util = Ember.Service.extend({
   supplant(template, values, pattern) {
     pattern = pattern || /\{([^\{\}]*)\}/g;
     return template.replace(pattern, function(a, b) {
-      let p = b.split('.'),
-        r = values;
+      let p = b.split('.');
+      let r = values;
       try {
         for (let s in p) {
-          if (p.hasOwnProperty(s) ) {
+          if (p.hasOwnProperty(s)) {
             r = r[p[s]];
           }
         }
@@ -132,7 +133,9 @@ let Util = Ember.Service.extend({
     while (!fnc && i < prefixes.length) {
       fnc = window[`${prefixes[i++]}equestAnimationFrame`];
     }
-    return (fnc && fnc.bind(window)) || window.setImmediate || function(fnc) {window.setTimeout(fnc, 0);};
+    return (fnc && fnc.bind(window)) || window.setImmediate || function(fnc) {
+      window.setTimeout(fnc, 0);
+    };
   })(window, 'r webkitR mozR msR oR'.split(' '), 0)
 
 });
