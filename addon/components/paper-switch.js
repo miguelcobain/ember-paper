@@ -3,7 +3,16 @@ import BaseFocusable from './base-focusable';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-const { assert, computed, isNone, run, String: { htmlSafe } } = Ember;
+const {
+  assert,
+  computed,
+  isNone,
+  run,
+  String: {
+    htmlSafe
+  }
+} = Ember;
+
 /* globals Hammer */
 
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
@@ -13,6 +22,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   toggle: true,
 
   /* Ripple Overrides */
+
   rippleContainerSelector: '.md-thumb',
   center: true,
   dimBackground: false,
@@ -27,13 +37,12 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   thumbContainerStyle: computed('dragging', 'dragAmount', {
     get() {
-      // if (!this.get('dragging')) {
-      //   return htmlSafe('');
-      // }
-      const percent = this.get('dragAmount');
-      console.log(percent);
-      const translate = Math.max(0, Math.min(1, percent));
-      const transformProp = `translate3d(${100 * translate}%, 0, 0)`;
+      if (!this.get('dragging')) {
+        return htmlSafe('');
+      }
+      let percent = this.get('dragAmount');
+      let translate = Math.max(0, Math.min(1, percent));
+      let transformProp = `translate3d(${100 * translate}%, 0, 0)`;
       return htmlSafe(`
         transform: ${transformProp};
         -webkit-transform: ${transformProp}
@@ -43,7 +52,8 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   didInsertElement() {
     this._super(...arguments);
-    //Only setup if the switch is not disabled
+
+    // Only setup if the switch is not disabled
     if (!this.get('disabled')) {
       this._setupSwitch();
     }
@@ -65,7 +75,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     }
   },
   didUpdateAttrs() {
-    if (!this.get('disabled')) {
+    if (!this.get('disabled') && isNone(this._thumbElementHammer)) {
       this._setupSwitch();
     }
   },
@@ -74,7 +84,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
     // Enable dragging the switch
     let element = this.get('element')[0] || this.get('element');
-    let thumbElement = element.getElementsByClassName('md-thumb-container')[0];
+    let [thumbElement, ...lastElement] = element.getElementsByClassName('md-thumb-container');
     let thumbElementHammer = new Hammer(thumbElement);
     this._thumbElementHammer = thumbElementHammer;
     thumbElementHammer.get('pan').set({ threshold: 1 });
@@ -93,19 +103,22 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   _drag(event) {
-    if (this.get('disabled')) { return; }
+    if (this.get('disabled')) {
+      return;
+    }
 
     // Get the amount amount the switch has been dragged
     let percent = event.deltaX / this.get('switchWidth');
     percent = this.get('checked') ? 1 + percent : percent;
-    console.log(percent);
     this.set('dragAmount', percent);
   },
 
   _dragEnd() {
-    if (this.get('disabled')) { return; }
-    const checked = this.get('checked');
-    const dragAmount = this.get('dragAmount');
+    if (this.get('disabled')) {
+      return;
+    }
+    let checked = this.get('checked');
+    let dragAmount = this.get('dragAmount');
     if ((!this.get('dragging')) ||
          (checked && dragAmount < 0.5) ||
          (!checked && dragAmount > 0.5)) {
