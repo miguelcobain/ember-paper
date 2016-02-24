@@ -14,7 +14,8 @@ const {
   run,
   isArray,
   assert,
-  isPresent
+  isPresent,
+  getProperties
 } = Ember;
 
 const {
@@ -60,8 +61,10 @@ export default Ember.Component.extend(HasBlockMixin, {
   searchText: '',
   // wrap in a computed property so that cache
   // isn't shared among autocomplete instances
-  itemCache: computed(()=>{
-    return {};
+  itemCache: computed({
+    get(){
+      return {};
+    }
   }),
 
   // Public
@@ -93,7 +96,7 @@ export default Ember.Component.extend(HasBlockMixin, {
           set(this,'initFinished', true);
         });
       } else {
-        set(this,'searchText', this.lookupLabelOfItem(this.get('model')));
+        set(this,'searchText', this.lookupLabelOfItem(get(this,'model')));
         this.searchTextDidChange();
         set(this,'initFinished',true);
       }
@@ -246,13 +249,14 @@ export default Ember.Component.extend(HasBlockMixin, {
 
   filterArray(array, searchText, lookupKey) {
     return array.filter((item)=>{
-      assert(`You have not defined \'lookupKey\' on paper-autocomplete, when source contained
-        items that are not of type String. To fix this error provide a
-        lookupKey=\'key to lookup from source item\'.`, isString(item) || isPresent(lookupKey));
+      assert(`You have not defined 'lookupKey' on paper-autocomplete, when source contained \
+        items that are not of type String. To fix this error provide a \
+        lookupKey='key to lookup from source item'.`, isString(item) || isPresent(lookupKey));
 
-      assert(`You specified \'${lookupKey}\' as a lookupKey on paper-autocomplete,
-        but at least one of its values is not of type String. To fix this error make sure that every \'${lookupKey}
-        \' value is a string.`, isString(item) || (isPresent(lookupKey) && isString(get(item, lookupKey))) );
+      assert(`You specified '${lookupKey}' as a lookupKey on paper-autocomplete, \
+        but at least one of its values is not of type String. To fix this error make sure that every \
+        '${lookupKey}' value is a string.`,
+        isString(item) || (isPresent(lookupKey) && isString(get(item, lookupKey))) );
 
       let search = isString(item) ? item.toLowerCase() : get(item, lookupKey).toLowerCase();
       if (get(this,'fullTextSearch')){
@@ -328,26 +332,35 @@ export default Ember.Component.extend(HasBlockMixin, {
     },
 
     inputKeyDown(value, event) {
-      let constants = get(this,'constants');
+      let {
+        constants,
+        selectedIndex,
+        suggestions
+      } = getProperties(this,
+        [
+        'constants',
+        'selectedIndex',
+        'suggestions'
+        ]);
       switch (event.keyCode) {
         case constants.KEYCODE.DOWN_ARROW:
-          if (this.get('loading')) {
+          if (get(this,'loading')) {
             return;
           }
-          this.set('selectedIndex', Math.min(this.get('selectedIndex') + 1, this.get('suggestions').length - 1));
+          set(this,'selectedIndex', Math.min(selectedIndex + 1, suggestions.length - 1));
           break;
         case constants.KEYCODE.UP_ARROW:
           if (get(this,'loading')) {
             return;
           }
-          this.set('selectedIndex', this.get('selectedIndex') < 0 ? this.get('suggestions').length - 1 : Math.max(0, this.get('selectedIndex') - 1));
+          set(this,'selectedIndex', selectedIndex < 0 ? suggestions.length - 1 : Math.max(0, selectedIndex - 1));
           break;
         case constants.KEYCODE.TAB:
         case constants.KEYCODE.ENTER:
-          if (get(this,'hidden') || get(this,'loading') || get(this,'selectedIndex') < 0 || get(this,'suggestions').length < 1) {
+          if (get(this,'hidden') || get(this,'loading') || selectedIndex < 0 || suggestions.length < 1) {
             return;
           }
-          this.send('pickModel', get(this,'suggestions').objectAt(get(this,'selectedIndex')));
+          this.send('pickModel', suggestions.objectAt(selectedIndex));
           break;
         case constants.KEYCODE.ESCAPE:
           setProperties(this,{
