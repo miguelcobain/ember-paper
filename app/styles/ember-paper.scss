@@ -39,6 +39,35 @@
   padding-right: 5px;
 }
 
+// Icon spinners (not part of angular-material)
+.md-spin {
+   animation: md-spin 1.5s infinite linear;
+}
+
+.md-spin-reverse {
+  animation: md-spin-reverse 1.5s infinite linear;
+}
+
+// Spin
+@keyframes md-spin {
+  0% {
+    transform: rotate(0deg);
+   }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+// Spin Reverse
+@keyframes md-spin-reverse {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-359deg);
+  }
+}
+
 // Core styles
 @import 'color-palette';
 @import 'default-theme';
