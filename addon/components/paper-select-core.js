@@ -114,11 +114,11 @@ export default PaperMenuAbstract.extend({
       contentEl: element.find('md-content')
     };
 
-    let [containerNode] = element;
+    let containerNode = element.get(0);
     let targetNode = opts.target[0].firstElementChild; // target the label
-    let [parentNode] = opts.parent;
-    let [selectNode] = opts.selectEl;
-    let [contentNode] = opts.contentEl;
+    let parentNode = opts.parent.get(0);
+    let selectNode = opts.selectEl.get(0);
+    let contentNode = opts.contentEl.get(0);
     let parentRect = parentNode.getBoundingClientRect();
     let targetRect = targetNode.getBoundingClientRect();
     let shouldOpenAroundTarget = false;
