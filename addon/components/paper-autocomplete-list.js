@@ -79,7 +79,7 @@ export default Ember.Component.extend({
     }
 
     let ul = this.$();
-    let li  = ul.find(`li:eq(${this.get('selectedIndex')})`)[0];
+    let li  = ul.find(`li:eq(${this.get('selectedIndex')})`).get(0);
     let top = li.offsetTop;
     let bot = top + li.offsetHeight;
     let hgt = ul[0].clientHeight;

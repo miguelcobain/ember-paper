@@ -44,9 +44,9 @@ export default PaperMenuAbstract.extend({
 
   positionMenu(el) {
     // containerNode = wrapper
-    let containerNode = el[0];
+    let containerNode = el.get(0);
     // md-menu-content / any other child.z
-    let openMenuNode = containerNode.firstElementChild;
+    let openMenuNode = el[0].firstElementChild;
     let openMenuNodeRect = openMenuNode.getBoundingClientRect();
     // body
     let boundryNode = document.body;

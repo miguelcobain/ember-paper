@@ -36,7 +36,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
   setupTextarea() {
     let textarea = this.$().children('textarea').first();
-    let textareaNode = textarea[0];
+    let textareaNode = textarea.get(0);
     let container = this.get('element');
     let minRows = NaN;
     let lineHeight = null;
