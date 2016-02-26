@@ -7,8 +7,10 @@ export default Ember.Component.extend({
   constants: Ember.inject.service(),
 
   classNames: ['md-default-theme'],
+  classNameBindings: ['dense:md-dense'],
   attributeBindings: ['width'],
   width: 4,
+  dense: false,
 
   menuAbstract: Ember.computed(function() {
     let container = this.nearestOfType(PaperMenuAbstract);
