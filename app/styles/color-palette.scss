@@ -1,8 +1,8 @@
 // Utility Color Classes
 
-$light-contrast-color: rgba(255, 255, 255, 0.87);
-$dark-contrast-color: rgba(0, 0, 0, 0.87);
-$strong-light-contrast-color: rgb(255, 255, 255);
+$light-contrast-color: rgba(255, 255, 255, 0.87) !default;
+$dark-contrast-color: rgba(0, 0, 0, 0.87) !default;
+$strong-light-contrast-color: rgb(255, 255, 255) !default;
 
 $foreground-light: (
   '1': rgba(255, 255, 255, 1.0),
@@ -10,7 +10,7 @@ $foreground-light: (
   '3': rgba(255, 255, 255, 0.3),
   '4': rgba(255, 255, 255, 0.12),
   'shadow': '1px 1px 0px rgba(0, 0, 0, 0.4), -1px -1px 0px rgba(0, 0, 0, 0.4)'
-);
+) !default;
 
 $foreground-dark: (
   '1': rgba(0, 0, 0, 0.87),
@@ -18,7 +18,7 @@ $foreground-dark: (
   '3': rgba(0, 0, 0, 0.26),
   '4': rgba(0, 0, 0, 0.12),
   'shadow': none
-);
+) !default;
 
 $color-red: (
   '50': #ffebee,
@@ -36,7 +36,7 @@ $color-red: (
   'A400': #ff1744,
   'A700': #d50000,
   'contrast': $light-contrast-color
-);
+) !default;
 
 // Pink
 // ----------------------------
@@ -57,7 +57,7 @@ $color-pink: (
   'A400': #f50057,
   'A700': #c51162,
   'contrast' : $light-contrast-color
-);
+) !default;
 
 // Purple
 // ----------------------------
@@ -78,7 +78,7 @@ $color-purple: (
   'A400': #d500f9,
   'A700': #aa00ff,
   'contrast': $light-contrast-color
-);
+) !default;
 
 // Deep Purple
 // ----------------------------
@@ -99,7 +99,7 @@ $color-deep-purple: (
   'A400': #651fff,
   'A700': #6200ea,
   'contrast': $light-contrast-color
-);
+) !default;
 
 // Indigo
 // ----------------------------
@@ -120,7 +120,7 @@ $color-indigo: (
   'A400': #3d5afe,
   'A700': #304ffe,
   'contrast': $light-contrast-color
-);
+) !default;
 
 // Blue
 // ----------------------------
@@ -141,7 +141,7 @@ $color-blue: (
   'A400': #2979ff,
   'A700': #2962ff,
   'contrast': $light-contrast-color
-);
+) !default;
 
 // Light Blue
 // ----------------------------
@@ -162,7 +162,7 @@ $color-light-blue: (
   'A400': #00b0ff,
   'A700': #0091ea,
   'contrast': $dark-contrast-color
-);
+) !default;
 
 // Cyan
 // ----------------------------
@@ -183,7 +183,7 @@ $color-cyan: (
   'A400': #00e5ff,
   'A700': #00b8d4,
   'contrast': $dark-contrast-color
-);
+) !default;
 
 // Teal
 // ----------------------------
@@ -204,7 +204,7 @@ $color-teal: (
   'A400': #1de9b6,
   'A700': #00bfa5,
   'contrast': $dark-contrast-color
-);
+) !default;
 
 // Green
 // ----------------------------
@@ -225,7 +225,7 @@ $color-green: (
   'A400': #00e676,
   'A700': #00c853,
   'contrast': $dark-contrast-color
-);
+) !default;
 
 // Light Green
 // ----------------------------
@@ -246,7 +246,7 @@ $color-light-green: (
   'A400': #76ff03,
   'A700': #64dd17,
   'contrast': $dark-contrast-color
-);
+) !default;
 
 // Lime
 // ----------------------------
@@ -267,7 +267,7 @@ $color-lime: (
   'A400': #c6ff00,
   'A700': #aeea00,
   'contrast': $dark-contrast-color
-);
+) !default;
 
 // Yellow
 // ----------------------------
@@ -287,7 +287,7 @@ $color-yellow: (
   'A400': #ffea00,
   'A700': #ffd600,
   'contrast': $dark-contrast-color
-);
+) !default;
 
 // Amber
 // ----------------------------
@@ -308,7 +308,7 @@ $color-amber: (
   'A400': #ffc400,
   'A700': #ffab00,
   'contrast': $dark-contrast-color
-);
+) !default;
 
 // Orange
 // ----------------------------
@@ -329,7 +329,7 @@ $color-orange: (
   'A400': #ff9100,
   'A700': #ff6d00,
   'contrast': $dark-contrast-color
-);
+) !default;
 
 // Deep Orange
 // ----------------------------
@@ -350,7 +350,7 @@ $color-deep-orange: (
   'A400': #ff3d00,
   'A700': #dd2c00,
   'contrast': $light-contrast-color
-);
+) !default;
 
 // Brown
 // ----------------------------
@@ -371,7 +371,7 @@ $color-brown: (
   'A400': #8d6e63,
   'A700': #5d4037,
   'contrast': $light-contrast-color
-);
+) !default;
 
 // Grey
 // ----------------------------
@@ -393,7 +393,7 @@ $color-grey: (
   'A400': #bdbdbd,
   'A700': #616161,
   'contrast': $dark-contrast-color
-);
+) !default;
 
 // Blue Grey
 // ----------------------------
@@ -413,15 +413,17 @@ $color-blue-grey: (
   'A400': #78909c,
   'A700': #455a64,
   'contrast': $light-contrast-color
-);
+) !default;
 
 $shades: (
   'black': #000000,
   'white': #FFFFFF
-);
+) !default;
 
 
-$colors: (
+$colors: () !default;
+
+$colors: map-merge($colors,(
   'red': $color-red,
   'pink': $color-pink,
   'purple': $color-purple,
@@ -444,7 +446,7 @@ $colors: (
   'shades': $shades,
   'foreground-light': $foreground-light,
   'foreground-dark': $foreground-dark
-);
+));
 
 $default-color: '500' !default;
 @function color($color, $type: $default-color) {
