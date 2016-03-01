@@ -1,23 +1,24 @@
 import Ember from 'ember';
 import PaperDialogInner from './paper-dialog-inner';
 
-export default Ember.Component.extend({
+const { Component, computed, run } = Ember;
+
+export default Component.extend({
   tagName: 'md-dialog-content',
   classNames: ['md-dialog-content'],
 
-  dialogInnerComponent: Ember.computed(function () {
+  dialogInnerComponent: computed(function() {
     return this.nearestOfType(PaperDialogInner);
   }),
-  imagesLoaded () {
-    var content = this.get('element');
+
+  imagesLoaded() {
+    let content = this.get('element');
     this.get('dialogInnerComponent').set('contentOverflow', content.scrollHeight > content.clientHeight);
   },
 
-  didInsertElement () {
-
+  didInsertElement() {
     // content overflow might change depending on load of images inside dialog.
-    var images = this.$().find('img');
-    images.load(Ember.run.bind(this, this.imagesLoaded));
-
+    let images = this.$().find('img');
+    images.load(run.bind(this, this.imagesLoaded));
   }
 });

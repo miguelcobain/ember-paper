@@ -1,9 +1,11 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const { Component } = Ember;
+
+export default Component.extend({
   attributeBindings: ['containerStyles:style'],
 
-  containerStyles: Ember.computed(function () {
+  containerStyles: Ember.computed(function() {
     return new Ember.Handlebars.SafeString('position: relative;');
   }),
 
