@@ -17,7 +17,7 @@ This should also automatically create an scss file under `app/styles/app.scss` w
 Sass is an important part of Ember-paper. Using sass you can override default variables and easily change the default behavior of Ember-paper.
 
 All the components and styles are ready to use in your application templates.
-Navigate through the docs to understand how to use each component.
+Navigate through the [docs](http://miguelcobain.github.io/ember-paper/) to understand how to use each component.
 
 **Note** If upgrading from a previous version of ember-paper and you are seeing compile errors around `app.scss|sass` not existing, please make sure to remove `broccoli-sass` from your `package.json`, remove your `node_modules` and reinstall.
 
