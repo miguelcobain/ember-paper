@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
     },
     closeAlertDialog() {
       this.set('alertDialogIsOpen', false);
-      this.set('yourAnswer', "you got it!");
+      this.set('yourAnswer', 'you got it!');
     },
 
     /*Confirm dialog*/
@@ -33,11 +33,11 @@ export default Ember.Controller.extend({
     },
     confirmClearDept() {
       this.set('confirmDialogIsOpen', false);
-      this.set('yourAnswer', "You have no dept :)");
+      this.set('yourAnswer', 'You have no dept :)');
     },
     cancelClearDept() {
       this.set('confirmDialogIsOpen', false);
-      this.set('yourAnswer', "Yup, clearing your dept was a scam :(");
+      this.set('yourAnswer', 'Yup, clearing your dept was a scam :(');
     }
 
   }
