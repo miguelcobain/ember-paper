@@ -3,7 +3,7 @@ import PaperDialogInner from './paper-dialog-inner';
 
 export default Ember.Component.extend({
   tagName: 'md-dialog-content',
-
+  classNames: ['md-dialog-content'],
 
   dialogInnerComponent: Ember.computed(function () {
     return this.nearestOfType(PaperDialogInner);
