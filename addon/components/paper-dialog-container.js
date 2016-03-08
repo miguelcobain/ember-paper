@@ -11,7 +11,7 @@ export default Component.extend({
 
   actions: {
     onCancel() {
-      this.get('dialogIsShowing').sendAction('on-cancel');
+      this.get('dialogIsShowing').sendAction('onCancel');
     }
   }
 });

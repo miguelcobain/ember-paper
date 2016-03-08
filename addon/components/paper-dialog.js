@@ -85,10 +85,10 @@ export default Component.extend({
 
   actions: {
     onOk() {
-      this.sendAction('on-ok');
+      this.sendAction('onOk');
     },
     onCancel() {
-      this.sendAction('on-cancel');
+      this.sendAction('onCancel');
     }
   },
   click(event) {
@@ -97,7 +97,7 @@ export default Component.extend({
       if (event.target !== this.get('element')) {
         return;
       }
-      this.sendAction('on-cancel');
+      this.sendAction('onCancel');
     }
   }
 
