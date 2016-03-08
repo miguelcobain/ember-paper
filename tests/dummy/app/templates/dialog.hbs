@@ -18,11 +18,7 @@
     </div>
 
     <strong layout="row" layout-align="center center" class="md-padding ng-binding">
-      {{#if yourAnswer}}
-          You decided: {{yourAnswer}}
-      {{else}}
-        <br />
-      {{/if}}
+      You decided: {{if yourAnswer yourAnswer "(no answer yet)"}}
     </strong>
 
     {{#if alertDialogIsOpen}}
