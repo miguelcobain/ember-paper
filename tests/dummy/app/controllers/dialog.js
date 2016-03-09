@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
 
     /*Custom dialog*/
     openDialog(param, event) {
-      this.set('dialogOrigin',  Ember.$(event.currentTarget));
+      this.set('dialogOrigin', Ember.$(event.currentTarget));
       this.set('dialogIsOpen', true);
     },
     closeDialog() {
@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
 
     /*Alert dialog*/
     openAlertDialog(param, event) {
-      this.set('basicDialogOrigin',  Ember.$(event.currentTarget));
+      this.set('basicDialogOrigin', Ember.$(event.currentTarget));
       this.set('alertDialogIsOpen', true);
     },
     closeAlertDialog() {
@@ -28,7 +28,7 @@ export default Ember.Controller.extend({
 
     /*Confirm dialog*/
     openConfirmDialog(param, event) {
-      this.set('confirmDialogOrigin',  Ember.$(event.currentTarget));
+      this.set('confirmDialogOrigin', Ember.$(event.currentTarget));
       this.set('confirmDialogIsOpen', true);
     },
     confirmClearDept() {
