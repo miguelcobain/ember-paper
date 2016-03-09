@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import PaperDialogContainer from './paper-dialog-container';
+import PaperDialogParent from './paper-dialog-parent';
 const {
   $,
   Component,
@@ -33,7 +33,7 @@ export default Component.extend({
   }),
 
   parentContainer: computed(function() {
-    return this.nearestOfType(PaperDialogContainer);
+    return this.nearestOfType(PaperDialogParent);
   }),
 
   willDestroyElement() {
@@ -73,8 +73,8 @@ export default Component.extend({
 
     // After render of this, we must add backdrop.
     scheduleOnce('afterRender', this, function() {
-      this.set('wrapperDialog', this.nearestOfType(PaperDialogContainer));
-      let wrapper = this.nearestOfType(PaperDialogContainer);
+      this.set('wrapperDialog', this.nearestOfType(PaperDialogParent));
+      let wrapper = this.nearestOfType(PaperDialogParent);
       wrapper.set('dialogIsShowing', this);
       // After parent wrapper is done, we set computedStyleState to ready in order to update the static styles.
       scheduleOnce('afterRender', this, function() {
