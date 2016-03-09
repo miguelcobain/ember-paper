@@ -1,5 +1,9 @@
 # Ember Paper Changelog
 
+#master
+
+- [#307](https://github.com/miguelcobain/ember-paper/pull/307) Add paper-card title components
+
 ### 0.2.11
 
 - [#253](https://github.com/miguelcobain/ember-paper/pull/253) Add `closeOnClick` to paper-sidenav
