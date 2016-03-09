@@ -7,6 +7,7 @@
 - [#260](https://github.com/miguelcobain/ember-paper/pull/260) Set jquery version to 1.11.3
 - [#261](https://github.com/miguelcobain/ember-paper/pull/261) Fixed [#237](https://github.com/miguelcobain/ember-paper/issues/237) - didInsertElement deprecation warning for components using proxiable-mixin.
 - [#271](https://github.com/miguelcobain/ember-paper/pull/271) Add support for positional param `{{paper-icon "check"}}`
+- [#307](https://github.com/miguelcobain/ember-paper/pull/307) Add paper-card title components
 
 ### 0.2.10 (Nov 23, 2015)
 - [#178](https://github.com/miguelcobain/ember-paper/pull/178) Listen for model changes
