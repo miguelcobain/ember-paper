@@ -1,6 +1,6 @@
 # Ember Paper Changelog
 
-#master
+### master
 
 - [#307](https://github.com/miguelcobain/ember-paper/pull/307) Add paper-card title components
 
