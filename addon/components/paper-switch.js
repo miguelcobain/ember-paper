@@ -3,7 +3,15 @@ import BaseFocusable from './base-focusable';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-/* globals Hammer */
+const {
+  assert,
+  computed,
+  run,
+  String: {
+    htmlSafe
+  }
+} = Ember;
+/* global Hammer */
 
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-switch',
@@ -19,49 +27,75 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   checked: false,
   disabled: false,
-
   dragging: false,
-  dragAmount: null,
-  switchWidth: null,
 
-  onDidInsertElement: Ember.on('didInsertElement', function() {
-    // Don't set up anything if the switch is disabled
-    if (this.get('disabled')) {
-      return;
+  thumbContainerStyle: computed('dragging', 'dragAmount', function() {
+    if (!this.get('dragging')) {
+      return htmlSafe('');
     }
 
-    this._super();
+    let percent = this.get('dragAmount');
+    let translate = Math.max(0, Math.min(1, percent));
+    let transformProp = `translate3d(${100 * translate}%, 0, 0)`;
 
-    this.set('switchWidth', this.$('.md-bar').width());
-
-    // Enable dragging the switch
-    let element = this.get('element')[0] || this.get('element');
-    let thumbElement = element.getElementsByClassName('md-thumb-container').get(0);
-    let thumbElementHammer = new Hammer(thumbElement);
-    this.thumbElementHammer = thumbElementHammer;
-    thumbElementHammer.get('pan').set({ threshold: 1 });
-    thumbElementHammer.on('panstart', Ember.run.bind(this, this._dragStart));
-    thumbElementHammer.on('panmove', Ember.run.bind(this, this._drag));
-    thumbElementHammer.on('panend', Ember.run.bind(this, this._dragEnd));
-
-    // Allow the switch to be clicked to toggle the value
-    let switchHammer = new Hammer(element);
-    this.switchHammer = switchHammer;
-    switchHammer.on('tap', Ember.run.bind(this, this._dragEnd));
+    return htmlSafe(`transform: ${transformProp};-webkit-transform: ${transformProp}`);
   }),
 
-  disabledDidChange: Ember.observer('disabled', function() {
-    this.onDidInsertElement();
-  }),
+  didInsertElement() {
+    this._super(...arguments);
+
+    // Only setup if the switch is not disabled
+    if (!this.get('disabled')) {
+      this._setupSwitch();
+    }
+  },
+
+  didInitAttrs() {
+    this._super(...arguments);
+    assert('{{paper-switch}} requires an `onchange` function', this.get('onchange') && typeof this.get('onchange') === 'function');
+  },
 
   willDestroyElement() {
     this._super(...arguments);
+    this._teardownSwitch();
+  },
 
-    if (this.switchHammer) {
-      this.switchHammer.destroy();
+  didUpdateAttrs() {
+    this._super(...arguments);
+
+    if (!this.get('disabled') && !this._switchContainerHammer) {
+      this._setupSwitch();
+    } else if (!this.get('disabled') && this._switchContainerHammer) {
+      this._switchContainerHammer.set({ enable: true });
+    } else if (this.get('disabled') && this._switchContainerHammer) {
+      this._switchContainerHammer.set({ enable: false });
     }
-    if (this.thumbElementHammer) {
-      this.switchHammer.destroy();
+  },
+
+  _setupSwitch() {
+    this.set('switchWidth', this.$('.md-bar').width());
+
+    // Enable dragging the switch
+    let switchContainer = this.$('.md-container').get(0);
+    let switchContainerHammer = new Hammer(switchContainer);
+    this._switchContainerHammer = switchContainerHammer;
+    switchContainerHammer.get('pan').set({ threshold: 1 });
+    switchContainerHammer.on('panstart', run.bind(this, this._dragStart));
+    switchContainerHammer.on('panmove', run.bind(this, this._drag));
+    switchContainerHammer.on('panend', run.bind(this, this._dragEnd));
+
+    let switchHammer = new Hammer(this.element);
+    this._switchHammer = switchHammer;
+    switchHammer.on('tap', run.bind(this, this._dragEnd));
+  },
+
+  _teardownSwitch() {
+    if (this._switchContainerHammer) {
+      this._switchContainerHammer.destroy();
+    }
+
+    if (this._switchHammer) {
+      this._switchHammer.destroy();
     }
   },
 
@@ -70,45 +104,34 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   _drag(event) {
-    if (this.get('disabled')) {
-      return;
+    if (!this.get('disabled')) {
+      // Get the amount the switch has been dragged
+      let percent = event.deltaX / this.get('switchWidth');
+      percent = this.get('checked') ? 1 + percent : percent;
+      this.set('dragAmount', percent);
     }
-
-    // Get the amount amount the switch has been dragged
-    let percent = event.deltaX / this.get('switchWidth');
-    percent = this.get('checked') ? 1 + percent : percent;
-    this.set('dragAmount', percent);
-
-    // Make sure that the switch isn't moving past the edges
-    let translate = Math.max(0, Math.min(1, percent));
-    let transformProp = `translate3d(${100 * translate}%, 0, 0)`;
-    this.$('.md-thumb-container').css('transform', transformProp);
-    this.$('.md-thumb-container').css('-webkit-transform', transformProp);
   },
 
-  _dragEnd() {
-    if (this.get('disabled')) {
-      return;
-    }
+  _dragEnd(ev) {
+    if (!this.get('disabled')) {
+      let checked = this.get('checked');
+      let dragAmount = this.get('dragAmount');
 
-    if ((!this.get('dragging')) ||
-         (this.get('checked') && this.get('dragAmount') < 0.5) ||
-         (!this.get('checked') && this.get('dragAmount') > 0.5)) {
-      this.toggleProperty('checked');
+      if ((!this.get('dragging')) ||
+           (checked && dragAmount < 0.5) ||
+           (!checked && dragAmount > 0.5)) {
+        this.get('onchange')(!checked);
+        console.log('paper-switch', !checked);
+      }
+      this.set('dragging', false);
+      this.set('dragAmount', null);
+      ev.srcEvent.stopImmediatePropagation();
+      ev.srcEvent.stopPropagation();
     }
-
-    // Cleanup
-    this.$('.md-thumb-container').removeAttr('style');
-    this.set('dragging', false);
-    this.set('dragAmount', null);
   },
 
   processProxy() {
-    this.toggleProperty('checked');
-  },
-
-  click() {
-    return false;
+    this.get('onchange')(!this.get('checked'));
   }
 
 });
