@@ -3,10 +3,10 @@
 ### master
 
 - [#307](https://github.com/miguelcobain/ember-paper/pull/307) Add paper-card title components
+- [#283](https://github.com/miguelcobain/ember-paper/pull/283) Adds support for `fullTextSearch` attribute on `{{paper-autocomplete}}`. Enables passing Promises to the `model` attribute on `{{paper-autocomplete}}`. Docs updated.
 
 ### 0.2.11
 
-- [#283](https://github.com/miguelcobain/ember-paper/pull/283) Adds support for `fullTextSearch` attribute on `{{paper-autocomplete}}`. Enables passing Promises to the `model` attribute on `{{paper-autocomplete}}`. Docs updated.
 - [#253](https://github.com/miguelcobain/ember-paper/pull/253) Add `closeOnClick` to paper-sidenav
 - [#255](https://github.com/miguelcobain/ember-paper/pull/255) Add class to backdrops
 - [#260](https://github.com/miguelcobain/ember-paper/pull/260) Set jquery version to 1.11.3
