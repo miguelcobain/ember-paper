@@ -1,22 +1,12 @@
-{{#paper-dialog-inner}}
-  {{#if alert}}
-    {{#paper-dialog-content}}
-      <h2 class="md-title">{{alert}}</h2>
-      <p>{{content}}</p>
-    {{/paper-dialog-content}}
-    <div class="md-actions">
-      {{#paper-button action="onOk" primary=true}}{{ok}}{{/paper-button}}
-    </div>
-  {{/if}}
-  {{#if confirm}}
-    {{#paper-dialog-content}}
-      <h2 class="md-title">{{confirm}}</h2>
-      <p>{{content}}</p>
-    {{/paper-dialog-content}}
-    <div class="md-actions">
-      {{#paper-button action="onCancel" primary=true}}{{cancel}}{{/paper-button}}
-      {{#paper-button action="onOk" primary=true}}{{ok}}{{/paper-button}}
-    </div>
-  {{/if}}
-  {{yield}}
-{{/paper-dialog-inner}}
+{{#ember-wormhole to="paper-wormhole"}}
+  {{paper-backdrop
+    locked-open=isLockedOpen
+    opaque=true
+    class="md-dialog-backdrop"
+  }}
+  <div class="md-dialog-container" onclick={{action "outsideClicked"}}>
+    <md-dialog class="md-default-theme md-transition-in" onclick={{action "dialogClicked"}}>
+      {{yield}}
+    </md-dialog>
+  </div>
+{{/ember-wormhole}}

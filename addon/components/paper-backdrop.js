@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
-
-/* globals Hammer */
+/* global Hammer */
 
 export default Ember.Component.extend(TransitionMixin, {
   tagName: 'md-backdrop',
@@ -15,18 +14,22 @@ export default Ember.Component.extend(TransitionMixin, {
     parent.append(clone);
   },
 
-  // Hammer event handler for tapping backdrop
-  tapHammer: null,
-
   didInsertElement() {
-    let hammer = new Hammer(this.get('element'));
-    hammer.on('tap', Ember.run.bind(this, this.onTap));
-    this.set('tapHammer', hammer);
+    let backdropHammer = new Hammer(this.element);
+    backdropHammer.on('tap', Ember.run.bind(this, this._onTap));
+    this._backdropHammer = backdropHammer;
   },
 
-  onTap(e) {
+  willDestroyElement() {
+    this._super(...arguments);
+    if (this._backdropHammer) {
+      this._backdropHammer.destroy();
+    }
+  },
+
+  _onTap(e) {
     e.preventDefault();
-    this.sendAction('tap');
+    this.get('onTap')(e);
   }
 
 });
