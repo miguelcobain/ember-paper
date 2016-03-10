@@ -6,6 +6,7 @@
     "ember-cli-test-loader": "0.2.2",
     "ember-qunit-notifications": "0.1.0",
     "matchMedia": "0.2.0",
-    "prism": "*"
+    "prism": "*",
+    "hammerjs": "^2.0.6"
   }
 }
