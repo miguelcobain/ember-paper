@@ -17,3 +17,7 @@ pre {
   font-size: 14px;
   box-sizing: border-box;
 }
+
+.code-block > code{
+  word-wrap: break-word;
+}
