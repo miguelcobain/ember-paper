@@ -17,6 +17,7 @@ export default Ember.Component.extend({
   }),
 
   keyDown(ev) {
+    ev.preventDefault();
     let KeyCodes = this.get('constants').KEYCODE;
     switch (ev.keyCode) {
       case KeyCodes.get('TAB'):
