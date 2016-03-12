@@ -137,5 +137,5 @@ test('has opt-in support for fullscreen at responsive breakpoint', function(asse
 
   let dialog = this.$().find('#paper-wormhole').find('md-dialog');
 
-  assert.ok( dialog.hasClass('md-dialog-fullscreen'), 'has class for fullscreen');
+  assert.ok(dialog.hasClass('md-dialog-fullscreen'), 'has class for fullscreen');
 });
