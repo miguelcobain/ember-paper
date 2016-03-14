@@ -50,7 +50,7 @@
 
         {{#each messageData as |item|}}
           {{#paper-item}}
-            {{#paper-checkbox item.checked onchange=(action (mut item.checked))}}{{/paper-checkbox}}
+            {{#paper-checkbox checked=item.checked onchange=(action (mut item.checked))}}{{/paper-checkbox}}
             <p>{{item.message}}</p>
             {{#paper-button icon-button=true param=item action="secondaryMessageClick"}}
               {{paper-icon "message"}}
