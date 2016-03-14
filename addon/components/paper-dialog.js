@@ -20,7 +20,7 @@ export default Component.extend({
     },
 
     dialogClicked(ev) {
-      //ev.stopPropagation();
+      // ev.stopPropagation();
     }
   }
 });

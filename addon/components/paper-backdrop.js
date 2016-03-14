@@ -3,7 +3,7 @@ import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 /* global Hammer */
 
 export default Ember.Component.extend(TransitionMixin, {
-  init: function() {
+  init() {
     this._super();
     this.get('fixed');
   },
@@ -21,8 +21,8 @@ export default Ember.Component.extend(TransitionMixin, {
     parent.append(clone);
   },
 
-  updatePosition: Ember.observer('fixed', function(){
-    const fixed = this.get( 'fixed' );
+  updatePosition: Ember.observer('fixed', function() {
+    let fixed = this.get('fixed');
     this.$().css('position', fixed ? 'fixed' : 'absolute');
   }),
 
