@@ -12,6 +12,19 @@ export default Component.extend({
     return (this.get('parent')) ? this.get('parent') : 'paper-wormhole';
   }),
 
+  didInsertElement() {
+    let component = this;
+    Ember.$(window).on('keyup', function(e) {
+      if (27 === e.keyCode) {
+        component.sendAction('onClose');
+      }
+    });
+  },
+
+  willDestroyElement() {
+    Ember.$(window).off('keyup');
+  },
+
   actions: {
     outsideClicked() {
       if (this.get('clickOutsideToClose') && this.get('onClose')) {

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -138,4 +139,28 @@ test('has opt-in support for fullscreen at responsive breakpoint', function(asse
   let dialog = this.$().find('#paper-wormhole').find('md-dialog');
 
   assert.ok(dialog.hasClass('md-dialog-fullscreen'), 'has class for fullscreen');
+});
+
+test('pressing escape closes the dialog', function(assert) {
+  assert.expect(2);
+  let done = assert.async();
+
+  this.set('showDialog', true);
+  this.set('closeDialog', function() {
+    assert.ok(!this.$().find('md-dialog').length, 'dialog closing handler');
+    done();
+  });
+
+  this.render(hbs`
+    <div id="paper-wormhole"></div>
+    {{#if showDialog}}
+      {{paper-dialog onClose=closeDialog}}
+    {{/if}}
+  `);
+
+  assert.ok(this.$().find('md-dialog'), 'dialog is showing');
+
+  let event = new Ember.$.Event('keyup');
+  event.keyCode = 27;
+  this.$(window).trigger(event);
 });

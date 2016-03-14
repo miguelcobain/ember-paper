@@ -45,7 +45,9 @@ export default Ember.Component.extend(TransitionMixin, {
 
   _onTap(e) {
     e.preventDefault();
-    this.get('onTap')(e);
+    if (this.get('onTap')) {
+      this.get('onTap')(e);
+    }
   }
 
 });
