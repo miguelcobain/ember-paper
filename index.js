@@ -17,7 +17,7 @@ module.exports = {
     app.import('vendor/propagating.js');
   },
   contentFor: function(type) {
-    if (type === 'head') {
+    if (type === 'body') {
       return "<div id='paper-wormhole'></div>";
     }
   },
