@@ -14,7 +14,7 @@ const {
 export default Mixin.create({
   constants: service(),
 
-  attributeBindings: ['translateComputedStyles:style'],
+  attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],
 
   translateFromOrigin: computed(function() {
@@ -33,7 +33,7 @@ export default Mixin.create({
     return this.toTransformCss('');
   }),
 
-  translateComputedStyles: computed('translate3dFrom', 'translate3dTo', 'transformStyleApply', function() {
+  translateStyle: computed('translate3dFrom', 'translate3dTo', 'transformStyleApply', function() {
     if (this.get('transformStyleApply') === 'from') {
       return htmlSafe(this.get('translate3dFrom'));
     } else if (this.get('transformStyleApply') === 'to') {
@@ -43,20 +43,20 @@ export default Mixin.create({
     }
   }),
 
-  _translate3dOnInsert: on('didInsertElement', function() {
-    let self = this;
+  didInsertElement() {
+    this._super(...arguments);
 
-    scheduleOnce('afterRender', this, function() {
+    scheduleOnce('afterRender', this, () => {
       // Set translate3d style to start at the `from` origin
       this.set('transformStyleApply', 'from');
       // Wait while CSS takes affect
       // Set the `to` styles and run the transition-in styles
-      window.requestAnimationFrame(function() {
-        self.set('transformStyleApply', 'to');
-        self.set('transformIn', true);
+      window.requestAnimationFrame(() => {
+        this.set('transformStyleApply', 'to');
+        this.set('transformIn', true);
       });
     });
-  }),
+  },
 
   onTranslateDestroy(/*origin*/) {
 
@@ -67,7 +67,9 @@ export default Mixin.create({
    *
    * @protected
    */
-  _translate3dOnDestroy: on('willDestroyElement', function() {
+  willDestroyElement() {
+    this._super(...arguments);
+
     let clone = this.$().clone();
     this.get('translateToParent').append(clone);
     let origin = this.get('translateFromOrigin');
@@ -77,7 +79,7 @@ export default Mixin.create({
       clone.remove();
       this.onTranslateDestroy(origin);
     });
-  }),
+  },
 
   /**
    * Listen for transitionEnd event (with optional timeout)
@@ -147,13 +149,14 @@ export default Mixin.create({
    */
   toTransformCss(transform, addTransition) {
     let styles = '';
-    this.get('constants').get('CSS').TRANSFORM.split(' ').forEach(function(key) {
+    this.get('constants').get('CSS').TRANSFORM.split(' ').forEach((key) => {
       styles += `${key}:${transform};`;
     });
 
     if (addTransition) {
       styles += 'transform: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;';
     }
+
     return styles;
   },
 
