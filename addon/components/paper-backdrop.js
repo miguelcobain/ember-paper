@@ -3,6 +3,13 @@ import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 /* global Hammer */
 
 export default Ember.Component.extend(TransitionMixin, {
+  init() {
+    this._super();
+    this.get('fixed');
+  },
+
+  fixed: true,
+
   tagName: 'md-backdrop',
   classNames: ['md-default-theme'],
   classNameBindings: ['opaque:md-opaque', 'isLockedOpen:md-locked-open'],
@@ -14,10 +21,19 @@ export default Ember.Component.extend(TransitionMixin, {
     parent.append(clone);
   },
 
+  updatePosition: Ember.observer('fixed', function() {
+    let fixed = this.get('fixed');
+    this.$().css('position', fixed ? 'fixed' : 'absolute');
+  }),
+
   didInsertElement() {
     let backdropHammer = new Hammer(this.element);
     backdropHammer.on('tap', Ember.run.bind(this, this._onTap));
     this._backdropHammer = backdropHammer;
+
+    if (this.get('fixed')) {
+      this.$().css('position', 'fixed');
+    }
   },
 
   willDestroyElement() {
@@ -29,7 +45,9 @@ export default Ember.Component.extend(TransitionMixin, {
 
   _onTap(e) {
     e.preventDefault();
-    this.get('onTap')(e);
+    if (this.get('onTap')) {
+      this.get('onTap')(e);
+    }
   }
 
 });

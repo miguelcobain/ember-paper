@@ -22,10 +22,6 @@ module.exports = {
     if (type === 'head') {
       return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">';
     }
-
-    if (type === 'body') {
-      return '<div id="paper-wormhole"></div>';
-    }
   },
 
   treeForStyles: function(tree) {
