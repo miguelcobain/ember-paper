@@ -6,14 +6,8 @@ let PaperIconComponent = Ember.Component.extend(ColorMixin, {
   classNames: ['paper-icon', 'md-font', 'material-icons', 'md-default-theme'],
   classNameBindings: ['sizeClass', 'spinClass'],
 
-  icon: '',
   spin: false,
   reverseSpin: false,
-
-  iconClass: Ember.computed('icon', 'positionalIcon', function() {
-    let icon = this.getWithDefault('positionalIcon', this.get('icon'));
-    return icon;
-  }),
 
   spinClass: Ember.computed('spin', 'reverseSpin', function() {
     if (this.get('spin')) {
@@ -42,8 +36,7 @@ let PaperIconComponent = Ember.Component.extend(ColorMixin, {
 });
 
 PaperIconComponent.reopenClass({
-  positionalParams: ['positionalIcon']
+  positionalParams: ['icon']
 });
 
 export default PaperIconComponent;
-
