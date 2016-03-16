@@ -32,6 +32,7 @@ Router.map(function() {
     this.route('slider');
     this.route('switch');
     this.route('toolbar');
+    this.route('tabs');
   });
 
   this.route('layout', function() {

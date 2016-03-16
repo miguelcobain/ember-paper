@@ -118,5 +118,8 @@
 @import './angular-material/components/dialog/dialog';
 @import './angular-material/components/dialog/dialog-theme';
 
+@import './angular-material/components/tabs/tabs';
+@import './angular-material/components/tabs/tabs-theme';
+
 // Backports of features from future versions of angular-material-source to this version
 @import './backports/paper-input';
