@@ -17,16 +17,14 @@ export default Mixin.create({
   attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],
 
-  translateFromOrigin: computed(function() {
-    return $('body');
-  }),
+  translateFromOrigin: computed.or('openFrom', 'parent'),
 
   translateToParent: computed(function() {
     return $('body');
   }),
 
   translate3dFrom: computed('translateFromOrigin', function() {
-    return this.toTransformCss(this.calculateZoomToOrigin(this.$(), this.get('translateFromOrigin')));
+    return this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('translateFromOrigin')));
   }),
 
   translate3dTo: computed(function() {
@@ -73,8 +71,10 @@ export default Mixin.create({
     let clone = this.$().clone();
     this.get('translateToParent').append(clone);
     let origin = this.get('translateFromOrigin');
-    let from = this.calculateZoomToOrigin(clone, origin);
-    clone.removeClass('md-transition-in').addClass('md-transition-out').attr('style', this.toTransformCss(from));
+    let from = this.calculateZoomToOrigin(clone.get(0), origin);
+    clone.removeClass('md-transition-in')
+      .addClass('md-transition-out')
+      .attr('style', this.toTransformCss(from));
     this.waitTransitionEnd(clone).then(() => {
       clone.remove();
       this.onTranslateDestroy(origin);
@@ -88,23 +88,22 @@ export default Mixin.create({
    * @public
    */
   waitTransitionEnd(element, opts) {
-    let _self = this;
 
     // fallback is 3 secs
-    return new Promise(function(resolve/*, reject*/) {
+    return new Promise((resolve/*, reject*/) => {
       opts = opts || { };
-
-      element.on(_self.get('constants').get('CSS').TRANSITIONEND, finished);
 
       // Upon timeout or transitionEnd, reject or resolve (respectively) this promise.
       // NOTE: Make sure this transitionEnd didn't bubble up from a child
-      function finished(ev) {
-        element.off(_self.get('constants').get('CSS').TRANSITIONEND, finished);
+      let finished = (ev) => {
+        element.off(this.get('constants').get('CSS').TRANSITIONEND, finished);
 
         if (ev) {
           resolve();
         }
-      }
+      };
+
+      element.on(this.get('constants').get('CSS').TRANSITIONEND, finished);
 
     });
   },
@@ -122,11 +121,11 @@ export default Mixin.create({
    */
   calculateZoomToOrigin(element, originator) {
     let zoomStyle;
-    let origin = originator.get(0);
+    let origin = typeof originator === 'string' ? $(originator).get(0) : originator.get(0);
 
     if (origin) {
-      let originBnds = this.copyRect(originator[0].getBoundingClientRect());
-      let dialogRect = this.copyRect(element[0].getBoundingClientRect());
+      let originBnds = this.copyRect(origin.getBoundingClientRect());
+      let dialogRect = this.copyRect(element.getBoundingClientRect());
       let dialogCenterPt = this.centerPointFor(dialogRect);
       let originCenterPt = this.centerPointFor(originBnds);
 
@@ -139,7 +138,7 @@ export default Mixin.create({
     } else {
       zoomStyle = { centerX: 0, centerY: 0, scaleX: 0.5, scaleY: 0.5 };
     }
-    return `translate3d( ${zoomStyle.centerX}px, ${zoomStyle.centerY}px, 0 ) scale( ${zoomStyle.scaleX}, ${zoomStyle.scaleY} )`;
+    return `translate3d(${zoomStyle.centerX}px, ${zoomStyle.centerY}px, 0 ) scale(${zoomStyle.scaleX}, ${zoomStyle.scaleY})`;
   },
 
   /**

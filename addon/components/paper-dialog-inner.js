@@ -7,18 +7,15 @@ const { Component, computed } = Ember;
 export default Component.extend(Translate3dMixin, {
   tagName: 'md-dialog',
   classNames: ['md-default-theme'],
-  classNameBindings: ['contentOverflow:md-content-overflow'],
+  classNameBindings: ['contentOverflow:md-content-overflow', 'fullscreen:md-dialog-fullscreen'],
 
   dialogComponent: computed(function() {
     return this.nearestOfType(PaperDialog);
   }),
 
-  translateFromOrigin: computed('dialogComponent.origin', function() {
-    return this.get('dialogComponent').get('origin');
-  }),
-  translateToParent: computed('dialogComponent.dialogRelativeContainer', function() {
-    return this.get('dialogComponent').get('dialogRelativeContainer');
-  }),
+  translateFromOrigin: computed.reads('dialogComponent.openFrom'),
+
+  translateToParent: computed.reads('dialogComponent.closeTo'),
 
   onTranslateDestroy(origin) {
     origin.focus();

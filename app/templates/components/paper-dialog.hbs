@@ -3,11 +3,10 @@
     locked-open=isLockedOpen
     opaque=true
     class="md-dialog-backdrop"
-    fixed=fixed
   }}
   <div class="md-dialog-container" onclick={{action "outsideClicked"}}>
-    <md-dialog class="md-default-theme md-transition-in {{if fullscreen 'md-dialog-fullscreen'}}" onclick={{action "dialogClicked"}}>
+    {{#paper-dialog-inner parent=parent openFrom=openFrom closeTo=closeTo}}
       {{yield}}
-    </md-dialog>
+    {{/paper-dialog-inner}}
   </div>
 {{/ember-wormhole}}

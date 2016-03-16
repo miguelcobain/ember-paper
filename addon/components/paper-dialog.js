@@ -1,28 +1,24 @@
 import Ember from 'ember';
 import PaperDialogParent from './paper-dialog-parent';
-const { Component } = Ember;
+const { Component, $ } = Ember;
 
 export default Component.extend({
   tagName: '',
 
-  parent: null,
-  fixed: Ember.computed.empty('parent'),
-
   destination: Ember.computed('parent', function() {
-    return (this.get('parent')) ? this.get('parent') : 'paper-wormhole';
+    return this.get('parent') ? this.get('parent') : 'paper-wormhole';
   }),
 
   didInsertElement() {
-    let component = this;
-    Ember.$(window).on('keyup', function(e) {
+    $(window).on('keyup', (e) => {
       if (27 === e.keyCode) {
-        component.sendAction('onClose');
+        this.get('onClose')();
       }
     });
   },
 
   willDestroyElement() {
-    Ember.$(window).off('keyup');
+    $(window).off('keyup');
   },
 
   actions: {
