@@ -2,10 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   tagName: 'md-tabs',
-  classNames: ["md-primary"],
+  classNames: ['md-primary'],
   classNameBindings: ['dynamicHeight:md-dynamic-height'],
   activeTab: Ember.computed.alias('tabs.firstObject'),
-  tabs: Ember.computed(function(){
+  tabs: Ember.computed(function() {
     return Ember.A();
   }),
   activeTabIndex: Ember.computed('activeTab', 'tabs.[]', function() {
@@ -26,9 +26,6 @@ export default Ember.Component.extend({
     },
     selectTab(id) {
       this.set('activeTab', id);
-    },
-    addTab() {
-      this.get('tabs').pushObject(this.get('tabs.length')+1);
     }
   }
 });

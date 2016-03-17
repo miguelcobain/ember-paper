@@ -1,14 +1,4 @@
-{{!--Active Tab Id: {{activeTab}}<br>
-Active Tab Index: {{activeTabIndex}}<br>
-Total # tabs: {{tabs.length}}<br>
-<ul>
-  {{#each tabs as |tab|}}
-    <li>{{tab}}</li>
-  {{/each}}
-</ul>
-
-<button {{action 'addTab'}}>add</button>
---}}<md-tabs-wrapper>
+<md-tabs-wrapper>
   <md-tabs-canvas>
     <md-pagination-wrapper>
       {{yield (hash
