@@ -22,7 +22,7 @@
       <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
         {{#code-block language="handlebars"}}\{{#if showDialogWithParent}}
   \{{#paper-dialog
-      onCancel="closeDialogWithParent"
+      onCancel=(action "closeDialogWithParent" "cancel")
       parent="paper-dialog-demo"
       origin=dialogOrigin as |dialog|}}
     &lt;form&gt;
@@ -30,7 +30,7 @@
         &lt;div class="md-toolbar-tools"&gt;
           &lt;h2&gt;Mango (Fruit)&lt;/h2&gt;
           &lt;span flex&gt;&lt;/span&gt;
-          \{{#paper-button icon-button=true action="closeDialog"}}
+          \{{#paper-button icon-button=true action=(action "closeDialogWithParent" "cancel")}}
             \{{paper-icon icon="close"}}
           \{{/paper-button}}
         &lt;/div&gt;
@@ -46,20 +46,20 @@
 
       &lt;div class="md-actions" layout="row"&gt;
         &lt;span flex&gt;&lt;/span&gt;
-        \{{#paper-button action="closeDialogWithParent"}}Cancel\{{/paper-button}}
-        \{{#paper-button action="closeDialogWithParent"}}OK\{{/paper-button}}
+        \{{#paper-button action=(action "closeDialogWithParent" "cancel")}}Cancel\{{/paper-button}}
+        \{{#paper-button action=(action "closeDialogWithParent" "ok")}}OK\{{/paper-button}}
       &lt;/div&gt;
     &lt;/form&gt;
   \{{/paper-dialog}}
 \{{/if}}
 
 \{{#if showDialog}}
-  \{{#paper-dialog onCancel="closeDialog" origin=dialogOrigin as |dialog|}}
+  \{{#paper-dialog onCancel=(action "closeDialog" "cancel") origin=dialogOrigin as |dialog|}}
     \{{#paper-toolbar}}
       &lt;div class="md-toolbar-tools"&gt;
         &lt;h2&gt;Mango (Fruit)&lt;/h2&gt;
         &lt;span flex&gt;&lt;/span&gt;
-        \{{#paper-button icon-button=true action="closeDialog"}}\{{paper-icon icon="close"}}\{{/paper-button}}
+        \{{#paper-button icon-button=true action=(action "closeDialog" "cancel")}}\{{paper-icon icon="close"}}\{{/paper-button}}
       &lt;/div&gt;
     \{{/paper-toolbar}}
 
@@ -74,8 +74,8 @@
 
     &lt;div class="md-actions" layout="row"&gt;
       &lt;span flex&gt;&lt;/span&gt;
-      \{{#paper-button action="closeDialog"}}Cancel\{{/paper-button}}
-      \{{#paper-button action="closeDialog"}}OK\{{/paper-button}}
+      \{{#paper-button action=(action "closeDialog" "cancel")}}Cancel\{{/paper-button}}
+      \{{#paper-button action=(action "closeDialog" "ok")}}OK\{{/paper-button}}
     &lt;/div&gt;
   \{{/paper-dialog}}
 \{{/if}}
@@ -91,6 +91,10 @@
             {{#paper-button raised=true primary=true action="openDialogWithParent"}}Open dialog with parent{{/paper-button}}
             {{#paper-button raised=true primary=true action="openDialog"}}Open full dialog{{/paper-button}}
           </div>
+
+          {{#if result}}
+            <p>You dismissed the dialog with a result of "{{result}}".</p>
+          {{/if}}
 
           <h2>Advanced Usage</h2>
 
@@ -141,13 +145,13 @@
 {{/paper-content}}
 
 {{#if showDialogWithParent}}
-  {{#paper-dialog onCancel="closeDialogWithParent" parent="paper-dialog-demo" origin=dialogOrigin as |dialog|}}
+  {{#paper-dialog onCancel=(action "closeDialogWithParent" "cancel") parent="paper-dialog-demo" origin=dialogOrigin as |dialog|}}
     <form>
       {{#paper-toolbar}}
         <div class="md-toolbar-tools">
           <h2>Mango (Fruit)</h2>
           <span flex></span>
-          {{#paper-button icon-button=true action="closeDialogWithParent"}}{{paper-icon icon="close"}}{{/paper-button}}
+          {{#paper-button icon-button=true action=(action "closeDialogWithParent" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
         </div>
       {{/paper-toolbar}}
 
@@ -161,20 +165,20 @@
 
       <div class="md-actions" layout="row">
         <span flex></span>
-        {{#paper-button action="closeDialogWithParent"}}Cancel{{/paper-button}}
-        {{#paper-button action="closeDialogWithParent"}}OK{{/paper-button}}
+        {{#paper-button action=(action "closeDialogWithParent" "cancel")}}Cancel{{/paper-button}}
+        {{#paper-button action=(action "closeDialogWithParent" "ok")}}OK{{/paper-button}}
       </div>
     </form>
   {{/paper-dialog}}
 {{/if}}
 
 {{#if showDialog}}
-  {{#paper-dialog onCancel="closeDialog" origin=dialogOrigin as |dialog|}}
+  {{#paper-dialog onCancel=(action "closeDialog" "cancel") origin=dialogOrigin as |dialog|}}
     {{#paper-toolbar}}
       <div class="md-toolbar-tools">
         <h2>Mango (Fruit)</h2>
         <span flex></span>
-        {{#paper-button icon-button=true action="closeDialog"}}{{paper-icon icon="close"}}{{/paper-button}}
+        {{#paper-button icon-button=true action=(action "closeDialog" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
       </div>
     {{/paper-toolbar}}
 
@@ -189,8 +193,8 @@
 
     <div class="md-actions" layout="row">
       <span flex></span>
-      {{#paper-button action="closeDialog"}}Cancel{{/paper-button}}
-      {{#paper-button action="closeDialog"}}OK{{/paper-button}}
+      {{#paper-button action=(action "closeDialog" "cancel")}}Cancel{{/paper-button}}
+      {{#paper-button action=(action "closeDialog" "ok")}}OK{{/paper-button}}
     </div>
   {{/paper-dialog}}
 {{/if}}
