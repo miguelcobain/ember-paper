@@ -2,15 +2,16 @@ import Ember from 'ember';
 import RippleMixin from '../mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+const { computed } = Ember;
 
 export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-tab-item',
   classNames: ['md-tab'],
   classNameBindings: ['isActive:md-active'],
-  tabsBinding: 'parent.tabs',
-  activeTabBinding: 'parent.activeTab',
-  activeTabIndexBinding: 'parent.activeTabIndex',
-  wormholeBinding: 'parent.wormhole',
+  tabs: computed.readOnly('parent.tabs'),
+  activeTab: computed.readOnly('parent.activeTab'),
+  activeTabIndex: computed.readOnly('parent.activeTabIndex'),
+  wormhole: computed.readOnly('parent.wormhole'),
 
   rippleContainerSelector: null,
 
