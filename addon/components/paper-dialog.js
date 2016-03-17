@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import PaperDialogParent from './paper-dialog-parent';
 const { Component, $ } = Ember;
 
 export default Component.extend({
