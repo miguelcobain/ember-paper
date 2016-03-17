@@ -1,6 +1,37 @@
-{{paper-tabs}}
+{{#paper-toolbar}}
+    <div class="md-toolbar-tools">
+      {{#paper-sidenav-toggle as |toggle|}}
+        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
+      {{/paper-sidenav-toggle}}
+        <span class="md-breadcrumb-page">Tabs</span>
+    </div>
+{{/paper-toolbar}}
 
-<h2>paper-tabs</h2>
+<div class="doc-content">
+  <h2>Contextual Components</h2>
+
+  {{#paper-content class="md-whiteframe-z1 list-demo"}}
+    {{#paper-tabs dynamicHeight=1 as |tabs|}}
+      {{#tabs.tab label="tab one" as |tab|}}
+        {{#tab.content}}
+          {{#paper-content class="md-padding"}}
+             <h1>Tab One</h1>
+             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+          {{/paper-content}}
+        {{/tab.content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab two" as |tab|}}
+        {{#tab.content}}
+          {{#paper-content class="md-padding"}}
+            <h1>Tab Two</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+          {{/paper-content}}
+        {{/tab.content}}
+      {{/tabs.tab}}
+    {{/paper-tabs}}
+  {{/paper-content}}
+
+</div>
 
 <table>
   <thead>

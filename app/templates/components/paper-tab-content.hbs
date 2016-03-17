@@ -1,0 +1,7 @@
+{{#if wormhole}}
+  {{#ember-wormhole to=wormhole}}
+    <md-tab-content class="{{if isActive 'md-active'}} {{if isLeft 'md-left'}} {{if isRight 'md-right'}}">
+      {{yield}}
+    </md-tab-content>
+  {{/ember-wormhole}}
+{{/if}}
