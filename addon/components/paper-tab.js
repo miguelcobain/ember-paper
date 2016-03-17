@@ -21,7 +21,7 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     }
   }),
 
-  isActive: Ember.computed('activeTab', function(){
+  isActive: Ember.computed('activeTab', function() {
     return (this.get('activeTab') === this.elementId) ? true : false;
   }),
 
@@ -29,11 +29,11 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     this.get('parent').send('selectTab', this.elementId);
   },
 
-  didInsertElement: function() {
+  didInsertElement() {
     this._super();
     this.get('parent').send('createTab', this.elementId);
   },
-  willDestroyElement: function() {
+  willDestroyElement() {
     this._super();
     this.get('parent').send('destroyTab', this.elementId);
   }
