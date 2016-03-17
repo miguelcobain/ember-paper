@@ -1,0 +1,26 @@
+{{!--Active Tab Id: {{activeTab}}<br>
+Active Tab Index: {{activeTabIndex}}<br>
+Total # tabs: {{tabs.length}}<br>
+<ul>
+  {{#each tabs as |tab|}}
+    <li>{{tab}}</li>
+  {{/each}}
+</ul>
+
+<button {{action 'addTab'}}>add</button>
+--}}<md-tabs-wrapper>
+  <md-tabs-canvas>
+    <md-pagination-wrapper>
+      {{yield (hash
+        tab=(component
+          'paper-tab'
+          parent=this)
+      )}}
+      {{#if tabs.length}}
+        {{paper-ink-bar}}
+      {{/if}}
+    </md-pagination-wrapper>
+  </md-tabs-canvas>
+</md-tabs-wrapper>
+
+{{paper-tabs-content-wrapper parent=this}}
