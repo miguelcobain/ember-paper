@@ -32,8 +32,9 @@ md-input-container {
     position: absolute;
     top: 5px;
     left: 2px;
-    + input {
-          margin-left: $icon-offset;
+    + input,
+    + textarea {
+      margin-left: $icon-offset;
     }
   }
 
