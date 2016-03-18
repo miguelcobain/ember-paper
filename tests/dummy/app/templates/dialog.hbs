@@ -22,9 +22,10 @@
       <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
         {{#code-block language="handlebars"}}\{{#if showDialogWithParent}}
   \{{#paper-dialog
-      onCancel=(action "closeDialogWithParent" "cancel")
+      onClose=(action "closeDialogWithParent" "cancel")
       parent="paper-dialog-demo"
-      origin=dialogOrigin as |dialog|}}
+      origin=dialogOrigin
+      clickOutsideToClose=true}}
     &lt;form&gt;
       \{{#paper-toolbar}}
         &lt;div class="md-toolbar-tools"&gt;
@@ -39,7 +40,7 @@
       \{{#paper-dialog-content}}
         &lt;div style="max-width:800px;max-height:810px;"&gt;
           &lt;p&gt;
-            This is a dialog rendered into a specific element.
+            This is a dialog rendered into a specific element. Clicking outside the dialog will close it.
           &lt;/p&gt;
         &lt;/div&gt;
       \{{/paper-dialog-content}}
@@ -54,7 +55,7 @@
 \{{/if}}
 
 \{{#if showDialog}}
-  \{{#paper-dialog onCancel=(action "closeDialog" "cancel") origin=dialogOrigin as |dialog|}}
+  \{{#paper-dialog onClose=(action "closeDialog" "cancel") origin=dialogOrigin}}
     \{{#paper-toolbar}}
       &lt;div class="md-toolbar-tools"&gt;
         &lt;h2&gt;Mango (Fruit)&lt;/h2&gt;
@@ -96,7 +97,7 @@
             <p>You dismissed the dialog with a result of "{{result}}".</p>
           {{/if}}
 
-          <h2>Advanced Usage</h2>
+          <h2>Usage</h2>
 
           <table>
             <thead>
@@ -107,6 +108,11 @@
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td><strong>onClose</strong></td>
+                <td>action closure</td>
+                <td>an action to be executed when the dialog is closed, e.g. by pressing escape</td>
+              </tr>
               <tr>
                 <td><strong>parent</strong></td>
                 <td>id</td>
@@ -145,7 +151,7 @@
 {{/paper-content}}
 
 {{#if showDialogWithParent}}
-  {{#paper-dialog onCancel=(action "closeDialogWithParent" "cancel") parent="paper-dialog-demo" origin=dialogOrigin as |dialog|}}
+  {{#paper-dialog onClose=(action "closeDialogWithParent" "cancel") parent="paper-dialog-demo" origin=dialogOrigin clickOutsideToClose=true}}
     <form>
       {{#paper-toolbar}}
         <div class="md-toolbar-tools">
@@ -158,7 +164,7 @@
       {{#paper-dialog-content}}
         <div style="max-width:800px;max-height:810px;">
           <p>
-            This is a dialog rendered into a specific element.
+            This is a dialog rendered into a specific element. Clicking outside the dialog will close it.
           </p>
         </div>
       {{/paper-dialog-content}}
@@ -173,7 +179,7 @@
 {{/if}}
 
 {{#if showDialog}}
-  {{#paper-dialog onCancel=(action "closeDialog" "cancel") origin=dialogOrigin as |dialog|}}
+  {{#paper-dialog onClose=(action "closeDialog" "cancel") origin=dialogOrigin}}
     {{#paper-toolbar}}
       <div class="md-toolbar-tools">
         <h2>Mango (Fruit)</h2>

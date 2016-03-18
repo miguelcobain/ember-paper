@@ -19,5 +19,13 @@ export default Component.extend(Translate3dMixin, {
 
   onTranslateDestroy(origin) {
     origin.focus();
+  },
+
+  click(ev) {
+    if (this.get('dialogComponent.clickOutsideToClose')) {
+      ev.stopPropagation();
+      return false;
+    }
   }
+
 });
