@@ -1,11 +1,14 @@
 {{#if label}}
   {{#paper-tab-label}}{{label}}{{/paper-tab-label}}
+  {{#paper-tab-body parent=this}}
+    {{yield}}
+  {{/paper-tab-body}}
+{{else}}
+  {{yield (hash
+    label=(component
+      'paper-tab-label')
+    body=(component
+      'paper-tab-body'
+      parent=this)
+  )}}
 {{/if}}
-{{yield (hash
-  label=(component
-    'paper-tab-label'
-    parent=this)
-  content=(component
-    'paper-tab-content'
-    parent=this)
-)}}
