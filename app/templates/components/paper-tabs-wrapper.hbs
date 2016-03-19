@@ -1,0 +1,11 @@
+<md-tabs-canvas>
+  <md-pagination-wrapper style="width: {{wrapperWidth}}px">
+    {{yield}}
+    {{#if showInkBar}}
+      {{paper-ink-bar
+        direction=parent.tabDirection
+        leftValue=inkBarLeft
+        rightValue=inkBarRight}}
+    {{/if}}
+  </md-pagination-wrapper>
+</md-tabs-canvas>
