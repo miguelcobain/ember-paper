@@ -5,7 +5,7 @@ import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 const { computed } = Ember;
 
-export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
+export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-tab-item',
   classNames: ['md-tab'],
   classNameBindings: ['activeState:md-active', 'disabled:md-disabled'],
@@ -13,6 +13,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   /* explicit defaults */
   disabled: Ember.computed.alias('self.disabled'),
   index: Ember.computed.alias('self.index'),
+  active: Ember.computed.alias('self.active'),
   selected: computed.reads('parent.selected'),
   tabs: computed.readOnly('parent.tabs'),
   wormhole: computed.readOnly('parent.wormhole'),
@@ -25,7 +26,14 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   }),
 
   activeState: Ember.computed('index', 'selected', function(){
-    return (this.get('index') === this.get('selected'));
+    var active = (this.get('index') === this.get('selected'));
+    return active;
+  }),
+
+  setActive: Ember.observer('active', function(){
+    if (this.get('active')) {
+      this.send('selectTab');
+    }
   }),
 
   willDestroyElement() {
@@ -73,6 +81,9 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
       this.set('self.height', value);
     },
     selectTab() {
+      if (this.get('onSelect')) {
+        this.get('onSelect')();
+      }
       this.get('parent').send('selectTab', this.get('self'));
     },
     identifyTabContent(object) {

@@ -28,7 +28,10 @@ export default Ember.Component.extend({
 
   selected: Ember.computed('tabs.[]', function(){
     var tabs = Ember.A(this.get('tabs').filterBy('disabled', false));
-    if ( tabs.get('length')) {
+    var active = Ember.A(tabs.filterBy('active'));
+    if (active.get(length)) {
+      return this.getIndex(active.get('firstObject'));
+    } else if ( tabs.get('length')) {
       return this.getIndex(tabs.get('firstObject'));
     }
   }),
