@@ -89,8 +89,9 @@
           <p>Open a dialog over the app's content. Press escape or click outside to close the dialog and send focus back to the triggering button.</p>
 
           <div layout="row" layout-wrap>
-            {{#paper-button raised=true primary=true action="openDialogWithParent"}}Open dialog with parent{{/paper-button}}
-            {{#paper-button raised=true primary=true action="openDialog"}}Open full dialog{{/paper-button}}
+            {{#paper-button raised=true primary=true action="openDialogWithParent"}}Dialog with parent{{/paper-button}}
+            {{#paper-button raised=true primary=true action="openDialog"}}Custom dialog{{/paper-button}}
+            {{#paper-button raised=true primary=true action="openPromptDialog"}}Prompt dialog{{/paper-button}}
           </div>
 
           {{#if result}}
@@ -201,6 +202,23 @@
       <span flex></span>
       {{#paper-button action=(action "closeDialog" "cancel")}}Cancel{{/paper-button}}
       {{#paper-button action=(action "closeDialog" "ok")}}OK{{/paper-button}}
+    </div>
+  {{/paper-dialog}}
+{{/if}}
+
+{{#if showPromptDialog}}
+  {{#paper-dialog onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin}}
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">What would you name your dog?</h2>
+      <p>Bowser is a common name.</p>
+      {{paper-input placeholder="dog name" value=dogName}}
+    {{/paper-dialog-content}}
+
+    <div class="md-actions" layout="row">
+      <span flex></span>
+      {{#paper-button action=(action "closePromptDialog" "cancel")}}I'm a cat person{{/paper-button}}
+      {{#paper-button action=(action "closePromptDialog" "ok" dogName)}}Okay!{{/paper-button}}
     </div>
   {{/paper-dialog}}
 {{/if}}

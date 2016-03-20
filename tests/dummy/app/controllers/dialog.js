@@ -23,6 +23,20 @@ export default Ember.Controller.extend({
       this.set('showDialog', false);
     },
 
+    /* Prompt dialog */
+    dogName: '',
+    openPromptDialog(param, event) {
+      this.set('dialogOrigin', Ember.$(event.currentTarget));
+      this.set('showPromptDialog', true);
+    },
+    closePromptDialog(result, dogName) {
+      if (result === 'ok') {
+        result = `${result} and dog named ${dogName}`;
+      }
+      this.set('result', result);
+      this.set('showPromptDialog', false);
+    },
+
     toggleSourceCode() {
       this.toggleProperty('showSourceCode');
     }
