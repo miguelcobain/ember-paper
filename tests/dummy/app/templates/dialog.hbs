@@ -47,8 +47,8 @@
 
       &lt;div class="md-actions" layout="row"&gt;
         &lt;span flex&gt;&lt;/span&gt;
-        \{{#paper-button action=(action "closeDialogWithParent" "cancel")}}Cancel\{{/paper-button}}
-        \{{#paper-button action=(action "closeDialogWithParent" "ok")}}OK\{{/paper-button}}
+        \{{#paper-button primary=true action=(action "closeDialogWithParent" "cancel")}}Cancel\{{/paper-button}}
+        \{{#paper-button primary=true action=(action "closeDialogWithParent" "ok")}}OK\{{/paper-button}}
       &lt;/div&gt;
     &lt;/form&gt;
   \{{/paper-dialog}}
@@ -75,8 +75,28 @@
 
     &lt;div class="md-actions" layout="row"&gt;
       &lt;span flex&gt;&lt;/span&gt;
-      \{{#paper-button action=(action "closeDialog" "cancel")}}Cancel\{{/paper-button}}
-      \{{#paper-button action=(action "closeDialog" "ok")}}OK\{{/paper-button}}
+      \{{#paper-button primary=true action=(action "closeDialog" "cancel")}}Cancel\{{/paper-button}}
+      \{{#paper-button primary=true action=(action "closeDialog" "ok")}}OK\{{/paper-button}}
+    &lt;/div&gt;
+  \{{/paper-dialog}}
+\{{/if}}
+
+\{{#if showPromptDialog}}
+  \{{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin}}
+
+    \{{#paper-dialog-content}}
+      &lt;h2 class="md-title"&gt;What would you name your dog?&lt;/h2&gt;
+      &lt;p&gt;Bowser is a common name.&lt;/p&gt;
+      \{{paper-input placeholder="dog name" value=dogName}}
+      &lt;div&gt;
+        \{{#paper-checkbox checked=fullscreen onchange=(action (mut fullscreen))}}Display fullscreen at small window size breakpoints\{{/paper-checkbox}}
+      &lt;/div&gt;
+    \{{/paper-dialog-content}}
+
+    &lt;div class="md-actions" layout="row"&gt;
+      &lt;span flex&gt;&lt;/span&gt;
+      \{{#paper-button primary=true action=(action "closePromptDialog" "cancel")}}I'm a cat person\{{/paper-button}}
+      \{{#paper-button primary=true action=(action "closePromptDialog" "ok" dogName)}}Okay!\{{/paper-button}}
     &lt;/div&gt;
   \{{/paper-dialog}}
 \{{/if}}
@@ -207,18 +227,21 @@
 {{/if}}
 
 {{#if showPromptDialog}}
-  {{#paper-dialog onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin}}
+  {{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin}}
 
     {{#paper-dialog-content}}
       <h2 class="md-title">What would you name your dog?</h2>
       <p>Bowser is a common name.</p>
       {{paper-input placeholder="dog name" value=dogName}}
+      <div>
+        {{#paper-checkbox checked=fullscreen onchange=(action (mut fullscreen))}}Display fullscreen at small window size breakpoints{{/paper-checkbox}}
+      </div>
     {{/paper-dialog-content}}
 
     <div class="md-actions" layout="row">
       <span flex></span>
-      {{#paper-button action=(action "closePromptDialog" "cancel")}}I'm a cat person{{/paper-button}}
-      {{#paper-button action=(action "closePromptDialog" "ok" dogName)}}Okay!{{/paper-button}}
+      {{#paper-button primary=true action=(action "closePromptDialog" "cancel")}}I'm a cat person{{/paper-button}}
+      {{#paper-button primary=true action=(action "closePromptDialog" "ok" dogName)}}Okay!{{/paper-button}}
     </div>
   {{/paper-dialog}}
 {{/if}}
