@@ -22,15 +22,16 @@
       <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
         {{#code-block language="handlebars"}}\{{#if showDialogWithParent}}
   \{{#paper-dialog
-      onCancel="closeDialogWithParent"
+      onClose=(action "closeDialogWithParent" "cancel")
       parent="paper-dialog-demo"
-      origin=dialogOrigin as |dialog|}}
+      origin=dialogOrigin
+      clickOutsideToClose=true}}
     &lt;form&gt;
       \{{#paper-toolbar}}
         &lt;div class="md-toolbar-tools"&gt;
           &lt;h2&gt;Mango (Fruit)&lt;/h2&gt;
           &lt;span flex&gt;&lt;/span&gt;
-          \{{#paper-button icon-button=true action="closeDialog"}}
+          \{{#paper-button icon-button=true action=(action "closeDialogWithParent" "cancel")}}
             \{{paper-icon icon="close"}}
           \{{/paper-button}}
         &lt;/div&gt;
@@ -39,27 +40,27 @@
       \{{#paper-dialog-content}}
         &lt;div style="max-width:800px;max-height:810px;"&gt;
           &lt;p&gt;
-            This is a dialog rendered into a specific element.
+            This is a dialog rendered into a specific element. Clicking outside the dialog will close it.
           &lt;/p&gt;
         &lt;/div&gt;
       \{{/paper-dialog-content}}
 
       &lt;div class="md-actions" layout="row"&gt;
         &lt;span flex&gt;&lt;/span&gt;
-        \{{#paper-button action="closeDialogWithParent"}}Cancel\{{/paper-button}}
-        \{{#paper-button action="closeDialogWithParent"}}OK\{{/paper-button}}
+        \{{#paper-button primary=true action=(action "closeDialogWithParent" "cancel")}}Cancel\{{/paper-button}}
+        \{{#paper-button primary=true action=(action "closeDialogWithParent" "ok")}}OK\{{/paper-button}}
       &lt;/div&gt;
     &lt;/form&gt;
   \{{/paper-dialog}}
 \{{/if}}
 
 \{{#if showDialog}}
-  \{{#paper-dialog onCancel="closeDialog" origin=dialogOrigin as |dialog|}}
+  \{{#paper-dialog onClose=(action "closeDialog" "cancel") origin=dialogOrigin}}
     \{{#paper-toolbar}}
       &lt;div class="md-toolbar-tools"&gt;
         &lt;h2&gt;Mango (Fruit)&lt;/h2&gt;
         &lt;span flex&gt;&lt;/span&gt;
-        \{{#paper-button icon-button=true action="closeDialog"}}\{{paper-icon icon="close"}}\{{/paper-button}}
+        \{{#paper-button icon-button=true action=(action "closeDialog" "cancel")}}\{{paper-icon icon="close"}}\{{/paper-button}}
       &lt;/div&gt;
     \{{/paper-toolbar}}
 
@@ -74,8 +75,28 @@
 
     &lt;div class="md-actions" layout="row"&gt;
       &lt;span flex&gt;&lt;/span&gt;
-      \{{#paper-button action="closeDialog"}}Cancel\{{/paper-button}}
-      \{{#paper-button action="closeDialog"}}OK\{{/paper-button}}
+      \{{#paper-button primary=true action=(action "closeDialog" "cancel")}}Cancel\{{/paper-button}}
+      \{{#paper-button primary=true action=(action "closeDialog" "ok")}}OK\{{/paper-button}}
+    &lt;/div&gt;
+  \{{/paper-dialog}}
+\{{/if}}
+
+\{{#if showPromptDialog}}
+  \{{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin}}
+
+    \{{#paper-dialog-content}}
+      &lt;h2 class="md-title"&gt;What would you name your dog?&lt;/h2&gt;
+      &lt;p&gt;Bowser is a common name.&lt;/p&gt;
+      \{{paper-input placeholder="dog name" value=dogName}}
+      &lt;div&gt;
+        \{{#paper-checkbox checked=fullscreen onchange=(action (mut fullscreen))}}Display fullscreen at small window size breakpoints\{{/paper-checkbox}}
+      &lt;/div&gt;
+    \{{/paper-dialog-content}}
+
+    &lt;div class="md-actions" layout="row"&gt;
+      &lt;span flex&gt;&lt;/span&gt;
+      \{{#paper-button primary=true action=(action "closePromptDialog" "cancel")}}I'm a cat person\{{/paper-button}}
+      \{{#paper-button primary=true action=(action "closePromptDialog" "ok" dogName)}}Okay!\{{/paper-button}}
     &lt;/div&gt;
   \{{/paper-dialog}}
 \{{/if}}
@@ -88,11 +109,16 @@
           <p>Open a dialog over the app's content. Press escape or click outside to close the dialog and send focus back to the triggering button.</p>
 
           <div layout="row" layout-wrap>
-            {{#paper-button raised=true primary=true action="openDialogWithParent"}}Open dialog with parent{{/paper-button}}
-            {{#paper-button raised=true primary=true action="openDialog"}}Open full dialog{{/paper-button}}
+            {{#paper-button raised=true primary=true action="openDialogWithParent"}}Dialog with parent{{/paper-button}}
+            {{#paper-button raised=true primary=true action="openDialog"}}Custom dialog{{/paper-button}}
+            {{#paper-button raised=true primary=true action="openPromptDialog"}}Prompt dialog{{/paper-button}}
           </div>
 
-          <h2>Advanced Usage</h2>
+          {{#if result}}
+            <p>You dismissed the dialog with a result of "{{result}}".</p>
+          {{/if}}
+
+          <h2>Usage</h2>
 
           <table>
             <thead>
@@ -103,6 +129,11 @@
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td><strong>onClose</strong></td>
+                <td>action closure</td>
+                <td>an action to be executed when the dialog is closed, e.g. by pressing escape</td>
+              </tr>
               <tr>
                 <td><strong>parent</strong></td>
                 <td>id</td>
@@ -141,40 +172,40 @@
 {{/paper-content}}
 
 {{#if showDialogWithParent}}
-  {{#paper-dialog onCancel="closeDialogWithParent" parent="paper-dialog-demo" origin=dialogOrigin as |dialog|}}
+  {{#paper-dialog onClose=(action "closeDialogWithParent" "cancel") parent="paper-dialog-demo" origin=dialogOrigin clickOutsideToClose=true}}
     <form>
       {{#paper-toolbar}}
         <div class="md-toolbar-tools">
           <h2>Mango (Fruit)</h2>
           <span flex></span>
-          {{#paper-button icon-button=true action="closeDialogWithParent"}}{{paper-icon icon="close"}}{{/paper-button}}
+          {{#paper-button icon-button=true action=(action "closeDialogWithParent" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
         </div>
       {{/paper-toolbar}}
 
       {{#paper-dialog-content}}
         <div style="max-width:800px;max-height:810px;">
           <p>
-            This is a dialog rendered into a specific element.
+            This is a dialog rendered into a specific element. Clicking outside the dialog will close it.
           </p>
         </div>
       {{/paper-dialog-content}}
 
       <div class="md-actions" layout="row">
         <span flex></span>
-        {{#paper-button action="closeDialogWithParent"}}Cancel{{/paper-button}}
-        {{#paper-button action="closeDialogWithParent"}}OK{{/paper-button}}
+        {{#paper-button action=(action "closeDialogWithParent" "cancel")}}Cancel{{/paper-button}}
+        {{#paper-button action=(action "closeDialogWithParent" "ok")}}OK{{/paper-button}}
       </div>
     </form>
   {{/paper-dialog}}
 {{/if}}
 
 {{#if showDialog}}
-  {{#paper-dialog onCancel="closeDialog" origin=dialogOrigin as |dialog|}}
+  {{#paper-dialog onClose=(action "closeDialog" "cancel") origin=dialogOrigin}}
     {{#paper-toolbar}}
       <div class="md-toolbar-tools">
         <h2>Mango (Fruit)</h2>
         <span flex></span>
-        {{#paper-button icon-button=true action="closeDialog"}}{{paper-icon icon="close"}}{{/paper-button}}
+        {{#paper-button icon-button=true action=(action "closeDialog" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
       </div>
     {{/paper-toolbar}}
 
@@ -189,8 +220,28 @@
 
     <div class="md-actions" layout="row">
       <span flex></span>
-      {{#paper-button action="closeDialog"}}Cancel{{/paper-button}}
-      {{#paper-button action="closeDialog"}}OK{{/paper-button}}
+      {{#paper-button action=(action "closeDialog" "cancel")}}Cancel{{/paper-button}}
+      {{#paper-button action=(action "closeDialog" "ok")}}OK{{/paper-button}}
+    </div>
+  {{/paper-dialog}}
+{{/if}}
+
+{{#if showPromptDialog}}
+  {{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin}}
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">What would you name your dog?</h2>
+      <p>Bowser is a common name.</p>
+      {{paper-input placeholder="dog name" value=dogName}}
+      <div>
+        {{#paper-checkbox checked=fullscreen onchange=(action (mut fullscreen))}}Display fullscreen at small window size breakpoints{{/paper-checkbox}}
+      </div>
+    {{/paper-dialog-content}}
+
+    <div class="md-actions" layout="row">
+      <span flex></span>
+      {{#paper-button primary=true action=(action "closePromptDialog" "cancel")}}I'm a cat person{{/paper-button}}
+      {{#paper-button primary=true action=(action "closePromptDialog" "ok" dogName)}}Okay!{{/paper-button}}
     </div>
   {{/paper-dialog}}
 {{/if}}

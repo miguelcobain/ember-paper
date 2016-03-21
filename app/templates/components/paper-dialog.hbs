@@ -2,11 +2,19 @@
   {{paper-backdrop
     locked-open=isLockedOpen
     opaque=true
+    fixed=(unless parent true)
     class="md-dialog-backdrop"
+    onTap=(action "outsideClicked")
   }}
-  <div class="md-dialog-container" onclick={{action "outsideClicked"}}>
-    {{#paper-dialog-inner parent=parent openFrom=openFrom closeTo=closeTo}}
+  {{#paper-dialog-container outsideClicked=(action "outsideClicked")}}
+    {{#paper-dialog-inner
+      parent=parent
+      openFrom=openFrom
+      closeTo=closeTo
+      fullscreen=fullscreen
+      clickOutsideToClose=clickOutsideToClose
+    }}
       {{yield}}
     {{/paper-dialog-inner}}
-  </div>
+  {{/paper-dialog-container}}
 {{/ember-wormhole}}
