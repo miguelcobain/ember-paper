@@ -38,8 +38,8 @@ export default Component.extend(TransitionMixin, {
 
   _onTap(e) {
     e.preventDefault();
-    if (this.get('onTap')) {
-      this.get('onTap')(e);
+    if (this.get('ontap')) {
+      this.get('ontap')(e);
     }
   }
 
