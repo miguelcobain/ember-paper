@@ -15,8 +15,7 @@ check for coding style issues with  `jscs -c .jscsrc app addon`.
 `{{some-component someAction=(action "myAction")}}`, not `{{some-component someAction="myAction"}}`.
 
 * **Encapsulation.** When communicating with a private ember-paper component, bind as many properties as are needed.
-When communicating between two public ember components, use `nearestOfType` to find the outer component,
-so that the user does not have to bind many properties that are implementation details.
+When communicating between two public ember components, use `nearestOfType` in a computed property to find the outer component (for pre 2.3 compatibility), and override it when yielding a contextual component.
 For example, `ember-paper-inner` is a private component:
 ```hbs
 {{ember-paper-inner fullscreen=fullscreen onOutsideClick=onOutsideClick}}
