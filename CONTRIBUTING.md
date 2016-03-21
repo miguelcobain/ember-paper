@@ -70,5 +70,7 @@ becomes
 ```javascript
 {{paper-tabs dynamicHeight=true borderBottom=true}}
 ```
+* **Angle bracket elements.** Any *user* markup that would requie the use of an angle bracket component, such as
+`<md-some-element>` should be implemented as an ember component, such as `{{paper-some-element}}`.
 
 * **Features.** Seek to provide feature parity using Angular Material styles, but implemented in an Ember-centric way.
