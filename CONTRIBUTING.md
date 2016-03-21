@@ -11,11 +11,20 @@ Many ember-paper contributor hang out on the [ember-paper channel on slack](http
 * Before submitting a pull request,
 check for coding style issues with  `jscs -c .jscsrc app addon`.
 
-## Actions
+* Require action closures rather than strings representing action names.
+`{{some-component someAction=(action "myAction")}}`, not `{{some-component someAction="myAction"}}`.
 
-* Action closures are preferred to strings representing action names.
+## Capitalization and naming
 
-* Properties representing an action should be camelCased, e.g. `onClose`, rather than `on-close`.
+* Use camelCase for variable names, formal arguments, parameters, and all other uses, except as below.
+
+* This includes action names, even those that correspond to JavaScript native events, such as
+`{{some-component onClick=(action "someAction")}}`, not `{{some-component onclick=(action "someAction")}}`.
+
+* Use SHOUTING_SNAKE_CASE for constants. `const NUMBER_OF_THINGIES = 10;`.
+
+* As required by Ember, component names, module names, and file name should continue to be kebab-cased, such as
+`{{paper-input}}` and the filepath `ember-paper/addon/components/paper-input.js`.
 
 ## Importing
 
