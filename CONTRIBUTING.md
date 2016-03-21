@@ -19,7 +19,7 @@ When communicating between two public ember components, use `nearestOfType` to f
 so that the user does not have to bind many properties that are implementation details.
 For example, `ember-paper-inner` is a private component:
 ```hbs
-{{ember-paper-inner parent=parent fullscreen=fullscreen onOutsideClick=onOutsideClick}}
+{{ember-paper-inner fullscreen=fullscreen onOutsideClick=onOutsideClick}}
 ```
 
 * **Capitalization and naming**
