@@ -11,14 +11,14 @@
   <h2>Contextual Components</h2>
 
   {{#paper-content class="md-whiteframe-z1 list-demo"}}
-    {{#paper-tabs borderBottom=true dynamicHeight=true as |tabs|}}
-      {{#tabs.tab label="tab one" as |tab|}}
+    {{#paper-tabs borderBottom=true dynamicHeight=trues as |tabs|}}
+      {{#tabs.tab label="tab one" onSelect=(action 'enterTab') as |tab|}}
         {{#paper-content class="md-padding"}}
            <h1>Tab One</h1>
            <p>Lorem ipsum dolor sit amet.</p>
         {{/paper-content}}
       {{/tabs.tab}}
-      {{#tabs.tab as |tab|}}
+      {{#tabs.tab onDeselect=(action 'leaveTab') as |tab|}}
         {{#tab.label}}
         HTML &bull; Label
         {{/tab.label}}

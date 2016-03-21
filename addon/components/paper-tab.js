@@ -15,6 +15,7 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   index: Ember.computed.alias('self.index'),
   active: Ember.computed.alias('self.active'),
   selected: computed.reads('parent.selected'),
+  previous: computed.reads('parent.previous'),
   tabs: computed.readOnly('parent.tabs'),
   wormhole: computed.readOnly('parent.wormhole'),
 
@@ -33,6 +34,15 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   setActive: Ember.observer('active', function(){
     if (this.get('active')) {
       this.send('selectTab');
+    }
+  }),
+
+  didDeselect: Ember.observer('previous', 'activeState', function(){
+    if ( (this.get('index') !== this.get('previous')) || this.get('activeState')) {
+      return;
+    }
+    if (this.get('onDeselect')) {
+      return this.get('onDeselect')();
     }
   }),
 
