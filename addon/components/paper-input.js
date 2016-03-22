@@ -20,7 +20,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   }),
 
   isInvalid: computed('isTouched', 'value', function() {
-    return this.validate();
+    return this.get('isTouched') && this.validate();
   }),
 
   renderCharCount: computed('value', function() {
@@ -114,10 +114,6 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   },
 
   validate() {
-
-    if (!this.get('isTouched')) {
-      return false;
-    }
 
     let valueIsInvalid = false;
     let currentValue = this.get('value');
