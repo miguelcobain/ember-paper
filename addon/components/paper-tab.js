@@ -8,7 +8,10 @@ const { computed } = Ember;
 export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-tab-item',
   classNames: ['md-tab'],
-  classNameBindings: ['activeState:md-active', 'disabled:md-disabled'],
+  classNameBindings: [
+    'isActive:md-active',
+    'disabled:md-disabled'
+  ],
 
   /* explicit defaults */
   disabled: computed.alias('self.disabled'),
@@ -29,7 +32,24 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     return index;
   }),
 
-  activeState: computed.equal('index', 'selected'),
+  isActive: computed('index', 'selected', function() {
+    if (this.get('index') === this.get('selected')) {
+      return true;
+    }
+    return false;
+  }),
+
+  isLeft: computed('selected', 'index', function() {
+    if (this.get('index') < this.get('selected')) {
+      return true;
+    }
+  }),
+
+  isRight: computed('selected', 'index', function() {
+    if (this.get('index') > this.get('selected')) {
+      return true;
+    }
+  }),
 
   setActive: Ember.observer('active', function() {
     if (this.get('active')) {
@@ -37,8 +57,8 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     }
   }),
 
-  didDeselect: Ember.observer('previous', 'activeState', function() {
-    if ((this.get('index') !== this.get('previous')) || this.get('activeState')) {
+  didDeselect: Ember.observer('previous', 'isActive', function() {
+    if ((this.get('index') !== this.get('previous')) || this.get('isActive')) {
       return;
     }
     if (this.get('onDeselect')) {
@@ -57,7 +77,11 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   didInsertElement() {
-    this.get('parent.tabs').pushObject(this.get('self'));
+    let context = this;
+    Ember.run.scheduleOnce('afterRender', function() {
+      context.get('self').set('id', context.elementId);
+      context.get('parent.tabs').pushObject(context.get('self'));
+    });
   },
 
   updateBounding: Ember.observer('tabs.[]', function() {
@@ -71,9 +95,7 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   }),
 
   self: computed(function() {
-    let { elementId } = this;
     return Ember.Object.create({
-      id: elementId,
       disabled: false,
       left: 0,
       right: 0,

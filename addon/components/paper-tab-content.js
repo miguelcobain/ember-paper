@@ -4,28 +4,20 @@ const { computed } = Ember;
 export default Ember.Component.extend({
   tagName: 'md-tab-content',
 
+  /* Inherited */
   wormhole: computed.readOnly('parent.wormhole'),
   activeState: computed.readOnly('parent.activeState'),
   selected: computed.readOnly('parent.selected'),
   index: computed.readOnly('parent.index'),
+  isActive: computed.reads('parent.isActive'),
+  isLeft: computed.reads('parent.isLeft'),
+  isRight: computed.reads('parent.isRight'),
 
   classNameBindings: [
-    'activeState:md-active',
-    'left:md-left',
-    'right:md-right'
+    'isActive:md-active',
+    'isLeft:md-left',
+    'isRight:md-right'
   ],
-
-  left: computed('selected', 'index', function() {
-    if (this.get('index') < this.get('selected')) {
-      return true;
-    }
-  }),
-
-  right: computed('selected', 'index', function() {
-    if (this.get('index') > this.get('selected')) {
-      return true;
-    }
-  }),
 
   self: computed(function() {
     return Ember.Object.create({
