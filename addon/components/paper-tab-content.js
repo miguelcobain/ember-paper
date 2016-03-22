@@ -15,19 +15,19 @@ export default Ember.Component.extend({
     'right:md-right'
   ],
 
-  left: Ember.computed('selected', 'index', function() {
+  left: computed('selected', 'index', function() {
     if (this.get('index') < this.get('selected')) {
       return true;
     }
   }),
 
-  right: Ember.computed('selected', 'index', function() {
+  right: computed('selected', 'index', function() {
     if (this.get('index') > this.get('selected')) {
       return true;
     }
   }),
 
-  self: Ember.computed(function(){
+  self: computed(function(){
     return Ember.Object.create({
       id: this.elementId
     });
