@@ -23,22 +23,22 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   rippleContainerSelector: null,
 
-  index: computed('tabs.[]', 'self', function(){
-    var index = this.get('tabs').indexOf(this.get('self'));
+  index: computed('tabs.[]', 'self', function() {
+    let index = this.get('tabs').indexOf(this.get('self'));
     this.get('self').set('index', index);
     return index;
   }),
 
   activeState: computed.equal('index', 'selected'),
 
-  setActive: Ember.observer('active', function(){
+  setActive: Ember.observer('active', function() {
     if (this.get('active')) {
       this.send('selectTab');
     }
   }),
 
-  didDeselect: Ember.observer('previous', 'activeState', function(){
-    if ( (this.get('index') !== this.get('previous')) || this.get('activeState')) {
+  didDeselect: Ember.observer('previous', 'activeState', function() {
+    if ((this.get('index') !== this.get('previous')) || this.get('activeState')) {
       return;
     }
     if (this.get('onDeselect')) {
@@ -51,29 +51,29 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     this.get('parent').send('destroyTab', this.get('self'));
   },
 
-  setTargetTabHeight: function() {
-    var height = $('#'+this.get('self.content')).height();
+  setTargetTabHeight() {
+    let height = $(`#${this.get('self.content')}`).height();
     this.set('self.height', height);
   },
 
-  didInsertElement: function() {
+  didInsertElement() {
     this.get('parent.tabs').pushObject(this.get('self'));
   },
 
-  updateBounding: Ember.observer('tabs.[]', function(){
+  updateBounding: Ember.observer('tabs.[]', function() {
     Ember.run.scheduleOnce('afterRender', this, function() {
-      var left = this.$().offset().left;
-      var width = this.$().outerWidth();
+      let { left } = this.$().offset();
+      let width = this.$().outerWidth();
       this.set('self.left', left);
       this.set('self.width', width);
       this.set('self.right', (left + width));
     });
   }),
 
-  self: computed(function(){
-    var id = this.elementId;
+  self: computed(function() {
+    let { elementId } = this;
     return Ember.Object.create({
-      id: id,
+      id: elementId,
       disabled: false,
       left: 0,
       right: 0,
