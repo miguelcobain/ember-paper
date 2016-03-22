@@ -3,9 +3,19 @@ const { computed } = Ember;
 
 export default Ember.Component.extend({
 
-  /* Default Settings */
+  tagName: 'md-tabs',
+
+  init() {
+    this._super();
+    if (!this.get('selected')) {
+      this.set('activeTab', this.get('tabs.firstObject') );
+    }
+  },
+
+  /* Settings */
   dynamicHeight: false,
   alignTabs: "top",
+  noInk: false,
   noInkBar: false,
   centerTabs: false,
   stretchTabs: "always", // todo: find the best default
@@ -55,48 +65,26 @@ export default Ember.Component.extend({
         return false;
       default:
         /* todo, check screen width for this */
-        return (!this.get('shouldPaginate')/* && screen is <= 600px)*/;
+        return (!this.get('shouldPaginate')/* && screen is <= 600px)*/);
     }
   }),
-
-  shouldCenterTabs: computed('centerTabs', 'shouldPaginate' function() {
+  shouldCenterTabs: computed('centerTabs', 'shouldPaginate', function() {
     return this.get('centerTabs') && !this.get('shouldPaginate');
   }),
-
-  shouldPaginate: computed('noPagination') {
+  shouldPaginate: computed('noPagination', 'tab.[]', function() {
     /* todo: implement loaded based on DOM rendering */
     if (this.get('noPagination') || !this.get('loaded')) {
       return false;
     }
   }),
 
-  init() {
-    this._super();
-    if (!this.get('selected')) {
-      this.set('activeTab', this.get('tabs.firstObject') );
-    }
-  },
+  /* Tabs Instance */
 
-  tagName: 'md-tabs',
-
-  getTabIndex(object) {
-    return this.get('tabs').indexOf(object);
-  },
-
-  getTabByIndex(index) {
-    return this.get('tabs')[index];
-  },
-
-  /* this property is for dev: to be deleted */
-  active: Ember.computed('selected', function(){
-    return this.getTabByIndex(this.get('selected'));
-  }),
-
-  tabs: Ember.computed(function() {
+  tabs: computed(function() {
     return Ember.A();
   }),
 
-  selected: Ember.computed('tabs.[]', function(){
+  selected: computed('tabs.[]', function(){
     var tabs = Ember.A(this.get('tabs').filterBy('disabled', false));
     var active = Ember.A(tabs.filterBy('active'));
     if (active.get(length)) {
@@ -108,15 +96,23 @@ export default Ember.Component.extend({
 
   previous: null,
 
-  selectedTab: Ember.computed('selected', 'tabs.[]', function(){
+  selectedTab: computed('selected', 'tabs.[]', function(){
     return this.getTabByIndex(this.get('selected'));
   }),
 
-  tabDirection: Ember.computed('previous', 'selected', function() {
+  tabDirection: computed('previous', 'selected', function() {
     return (this.get('previous') > this.get('selected')) ? "right" : "left";
   }),
 
+  /* Methods */
 
+  getTabIndex(object) {
+    return this.get('tabs').indexOf(object);
+  },
+
+  getTabByIndex(index) {
+    return this.get('tabs')[index];
+  },
 
   identifyTabsWrapper(object) {
     this.set('tabsWrapper', object);
