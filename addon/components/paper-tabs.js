@@ -95,14 +95,10 @@ export default Ember.Component.extend({
     }
   }),
 
-  previous: null,
+  lastSelectedIndex: null,
 
   selectedTab: computed('selected', 'tabs.[]', function() {
     return this.getTabByIndex(this.get('selected'));
-  }),
-
-  tabDirection: computed('previous', 'selected', function() {
-    return (this.get('previous') > this.get('selected')) ? 'right' : 'left';
   }),
 
   /* Methods */
@@ -130,7 +126,7 @@ export default Ember.Component.extend({
       this.get('tabs').removeObject(object);
     },
     selectTab(object) {
-      this.set('previous', this.get('selected'));
+      this.set('lastSelectedIndex', this.get('selected'));
       this.set('selected', this.getTabIndex(object));
     }
   }
