@@ -12,13 +12,13 @@
 
   {{#paper-content class="md-whiteframe-z1 list-demo"}}
     {{#paper-tabs borderBottom=true dynamicHeight=trues as |tabs|}}
-      {{#tabs.tab label="tab one" onSelect=(action 'enterTab') as |tab|}}
+      {{#tabs.tab label="tab one" as |tab|}}
         {{#paper-content class="md-padding"}}
            <h1>Tab One</h1>
            <p>Lorem ipsum dolor sit amet.</p>
         {{/paper-content}}
       {{/tabs.tab}}
-      {{#tabs.tab onDeselect=(action 'leaveTab') as |tab|}}
+      {{#tabs.tab as |tab|}}
         {{#tab.label}}
         HTML &bull; Label
         {{/tab.label}}
