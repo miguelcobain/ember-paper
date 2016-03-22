@@ -14,13 +14,16 @@ export default Ember.Component.extend({
     });
   }),
 
-  /* Inherited */
+  /* Inherited from {{paper-tabs}} */
   centerTabs: computed.reads('parent.centerTabs'),
   tabs: computed.reads('parent.tabs'),
   noInkBar: computed.reads('parent.noInkBar'),
   selected: computed.reads('parent.selected'),
   lastSelectedIndex: computed.reads('parent.lastSelectedIndex'),
   selectedTab: computed.reads('parent.selectedTab'),
+  canvasWidth: computed.reads('parent.canvasWidth'),
+  pagingWidth: computed.reads('parent.pagingWidth'),
+  shouldPaginate: computed.reads('parent.shouldPaginate'),
 
   didInsertElement() {
     let self = this.get('self');
