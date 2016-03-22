@@ -1,5 +1,5 @@
 <md-tabs-canvas>
-  <md-pagination-wrapper class="{{if centerTabs 'md-center-tabs'}}" style="width: {{wrapperWidth}}px">
+  {{#paper-pagination-wrapper parent=this}}
     {{yield}}
     {{#if showInkBar}}
       {{paper-ink-bar
@@ -7,5 +7,5 @@
         leftValue=inkBarLeft
         rightValue=inkBarRight}}
     {{/if}}
-  </md-pagination-wrapper>
+  {{/paper-pagination-wrapper}}
 </md-tabs-canvas>
