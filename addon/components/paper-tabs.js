@@ -2,7 +2,6 @@ import Ember from 'ember';
 const { computed } = Ember;
 
 export default Ember.Component.extend({
-
   tagName: 'md-tabs',
 
   init() {
@@ -47,17 +46,18 @@ export default Ember.Component.extend({
     if (this.get('dynamicHeight')) {
       let tabsHeight = this.get('tabsWrapper.height');
       let selectedTab = this.get('selectedTab');
-      if (selectedTab && selectedTab.get('content.height')) {
+      if (selectedTab && (selectedTab.get('content.height') > 0)) {
         return `height: ${tabsHeight + selectedTab.get('content.height')}px;`;
       } else {
-        return 'height: 0px';
+        return `height: ${tabsHeight}px;`;
       }
     }
     return '';
   }),
   transitionStyle: 'transition: all 0.5s cubic-bezier(0.35, 0, 0.25, 1);',
 
-  /* Class Bindings */
+  /* Logic Bindings */
+  loaded: false, // set after render
   shouldStretchTabs: computed('stretchTabs', function() {
     switch (this.get('stretchTabs')) {
       case 'always':
@@ -72,12 +72,40 @@ export default Ember.Component.extend({
   shouldCenterTabs: computed('centerTabs', 'shouldPaginate', function() {
     return this.get('centerTabs') && !this.get('shouldPaginate');
   }),
-  shouldPaginate: computed('noPagination', 'tab.[]', function() {
-    /* todo: implement loaded based on DOM rendering */
+  shouldPaginate: computed('loaded', 'noPagination', 'canvasWidth', 'pagingWidth', function() {
     if (this.get('noPagination') || !this.get('loaded')) {
       return false;
     }
+    let canvasWidth = this.get('canvasWidth');
+    let pagingWidth = this.get('pagingWidth');
+    return ((canvasWidth - pagingWidth) < 0) ? true : false;
   }),
+  pagingWidth: computed('tabs.[].id', 'shouldStretchTabs', function() {
+    let context = this;
+    let width = 0;
+    this.get('tabs').forEach(function(tab) {
+      if (tab.id) {
+        let element = document.getElementById(tab.id);
+        width += Math.max(element.offsetWidth, element.getBoundingClientRect().width);
+      }
+    });
+    return Math.ceil(width);
+  }),
+  canPageBack: computed('', function() {
+
+  }),
+  canPageForward: computed('', function() {
+
+  }),
+  canvasWidth: 0, // initial
+
+  didInsertElement: function() {
+    var context = this;
+    Ember.run.scheduleOnce('afterRender', function() {
+      context.set('canvasWidth', context.$().outerWidth());
+      context.set('loaded', true);
+    });
+  },
 
   /* Tabs Instance */
 
