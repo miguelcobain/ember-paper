@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 
   tagName: 'md-tabs-wrapper',
 
-  self: Ember.computed(function(){
+  self: computed(function(){
     return Ember.Object.create({
       id: this.elementId
     });
@@ -28,12 +28,13 @@ export default Ember.Component.extend({
 
   inkBarLeft: computed('parent.selectedTab.left', 'self.offset', function(){
     var leftOffset = this.$().offset().left;
-    debugger;
     return this.get('parent.selectedTab.left') - leftOffset;
   }),
-  inkBarRight: Ember.computed('parent.selectedTab.right', 'wrapperWidth', 'self.offset', function() {
-    debugger;
-    return (this.get('parent.selectedTab.left') + this.get('parent.selectedTab.width')) - this.get('wrapperWidth');
+  inkBarRight: computed('parent.selectedTab.right', 'wrapperWidth', 'self.offset', function() {
+    //debugger;
+    var leftOffset = this.$().offset().left;
+    return this.get('parent.selectedTab.right') - leftOffset;
+    //return (this.get('parent.selectedTab.left') + this.get('parent.selectedTab.width')) - this.get('wrapperWidth');
   }),
 
   didInsertElement() {

@@ -18,19 +18,21 @@ export default Ember.Component.extend({
     if (this.get('shouldStrechTabs')) {
       return '';
     } else {
-      return (this.get('width')) ? this.get('width') + 'px;' : '0px';
+      return (this.get('width')) ? 'width: '+this.get('width') + 'px;' : 'width: 0px';
     }
   }),
 
   shouldStrechTabs: false, // todo: implement computed property
 
-  width: computed('tabs.[].id', 'shouldStrechTabs', function(){
+  width: computed('tabs.[]', 'shouldStrechTabs', function(){
     var context = this;
     var width = 1;
     this.get('tabs').forEach(function(tab){
       if (tab.id) {
         var element = document.getElementById(tab.id);
         width += Math.max(element.offsetWidth, element.getBoundingClientRect().width);
+      } else {
+        debugger;
       }
     });
     return Math.ceil(width);

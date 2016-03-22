@@ -11,25 +11,25 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNameBindings: ['activeState:md-active', 'disabled:md-disabled'],
 
   /* explicit defaults */
-  disabled: Ember.computed.alias('self.disabled'),
-  index: Ember.computed.alias('self.index'),
-  active: Ember.computed.alias('self.active'),
+  disabled: computed.alias('self.disabled'),
+  active: computed.alias('self.active'),
   selected: computed.reads('parent.selected'),
   previous: computed.reads('parent.previous'),
   tabs: computed.readOnly('parent.tabs'),
   wormhole: computed.readOnly('parent.wormhole'),
 
+  /* Settings */
+  noInk: computed.reads('parent.noInk'),  // todo: noink to noInk support
+
   rippleContainerSelector: null,
 
-  index: Ember.computed('tabs.[]', 'self', function(){
+  index: computed('tabs.[]', 'self', function(){
     var index = this.get('tabs').indexOf(this.get('self'));
-    return this.get('self').set('index', index);
+    this.get('self').set('index', index);
+    return index;
   }),
 
-  activeState: Ember.computed('index', 'selected', function(){
-    var active = (this.get('index') === this.get('selected'));
-    return active;
-  }),
+  activeState: computed.equal('index', 'selected'),
 
   setActive: Ember.observer('active', function(){
     if (this.get('active')) {
@@ -70,7 +70,7 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     });
   }),
 
-  self: Ember.computed(function(){
+  self: computed(function(){
     var id = this.elementId;
     return Ember.Object.create({
       id: id,
