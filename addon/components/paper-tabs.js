@@ -8,17 +8,17 @@ export default Ember.Component.extend({
   init() {
     this._super();
     if (!this.get('selected')) {
-      this.set('activeTab', this.get('tabs.firstObject') );
+      this.set('activeTab', this.get('tabs.firstObject'));
     }
   },
 
   /* Settings */
   dynamicHeight: false,
-  alignTabs: "top",
+  alignTabs: 'top',
   noInk: false,
   noInkBar: false,
   centerTabs: false,
-  stretchTabs: "always", // todo: find the best default
+  stretchTabs: 'always', // todo: find the best default
 
   classNames: ['md-primary'],
   classNameBindings: [
@@ -38,23 +38,24 @@ export default Ember.Component.extend({
   borderBottomAttr: computed('borderBottom', function() {
     return this.get('borderBottom') ? 'md-border-bottom' : null;
   }),
-  styleAttr: computed('heightStyle', function(){
-    return this.get('heightStyle') + 'transition: all 0.5s cubic-bezier(0.35, 0, 0.25, 1);';
+  styleAttr: computed('heightStyle', function() {
+    return `${this.get('heightStyle')} ${this.get('transitionStyle')}`;
   }),
 
   /* Style Bindings */
-  heightStyle: computed('dynamicHeight', 'selectedTab.content.height', 'tabs.[]', 'tabsWrapper.height', function(){
+  heightStyle: computed('dynamicHeight', 'selectedTab.content.height', 'tabs.[]', 'tabsWrapper.height', function() {
     if (this.get('dynamicHeight')) {
-      var tabsHeight = this.get('tabsWrapper.height');
-      var selectedTab = this.get('selectedTab');
+      let tabsHeight = this.get('tabsWrapper.height');
+      let selectedTab = this.get('selectedTab');
       if (selectedTab && selectedTab.get('content.height')) {
-        return 'height: ' + (tabsHeight + selectedTab.get('content.height')) + 'px;';
+        return `height: ${tabsHeight + selectedTab.get('content.height')}px;`;
       } else {
         return 'height: 0px';
       }
     }
     return '';
   }),
+  transitionStyle: 'transition: all 0.5s cubic-bezier(0.35, 0, 0.25, 1);',
 
   /* Class Bindings */
   shouldStretchTabs: computed('stretchTabs', function() {
@@ -84,24 +85,24 @@ export default Ember.Component.extend({
     return Ember.A();
   }),
 
-  selected: computed('tabs.[]', function(){
-    var tabs = Ember.A(this.get('tabs').filterBy('disabled', false));
-    var active = Ember.A(tabs.filterBy('active'));
+  selected: computed('tabs.[]', function() {
+    let tabs = Ember.A(this.get('tabs').filterBy('disabled', false));
+    let active = Ember.A(tabs.filterBy('active'));
     if (active.get(length)) {
       return this.getTabIndex(active.get('firstObject'));
-    } else if ( tabs.get('length')) {
+    } else if (tabs.get('length')) {
       return this.getTabIndex(tabs.get('firstObject'));
     }
   }),
 
   previous: null,
 
-  selectedTab: computed('selected', 'tabs.[]', function(){
+  selectedTab: computed('selected', 'tabs.[]', function() {
     return this.getTabByIndex(this.get('selected'));
   }),
 
   tabDirection: computed('previous', 'selected', function() {
-    return (this.get('previous') > this.get('selected')) ? "right" : "left";
+    return (this.get('previous') > this.get('selected')) ? 'right' : 'left';
   }),
 
   /* Methods */
@@ -123,7 +124,6 @@ export default Ember.Component.extend({
       this.set('wormhole', id);
     },
     createTab(object) {
-      debugger;
       this.get('tabs').pushObject(object);
     },
     destroyTab(object) {

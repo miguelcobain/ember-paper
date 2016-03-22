@@ -7,9 +7,9 @@ export default Ember.Component.extend({
   left: computed.equal('direction', 'left'),
   right: computed.equal('direction', 'right'),
 
-  style: computed('leftValue', 'rightValue', function(){
-    var left = parseInt(this.get('leftValue'));
-    var right = parseInt(this.get('rightValue'));
-    return "left: " + left + "px; right: " + right + "px;"
+  style: computed('leftValue', 'rightValue', function() {
+    let left = parseInt(this.get('leftValue'));
+    let right = parseInt(this.get('rightValue'));
+    return `left: ${left}px; right: ${right}px;`;
   })
 });
