@@ -18,7 +18,7 @@ check for coding style issues with  `jscs -c .jscsrc app addon`.
 When communicating between two public ember components, use `nearestOfType` in a computed property to find the outer component (for pre 2.3 compatibility), and override it when yielding a contextual component.
 For example, `ember-paper-inner` is a private component:
 ```hbs
-{{ember-paper-inner fullscreen=fullscreen onOutsideClick=onOutsideClick}}
+{{paper-dialog-inner fullscreen=fullscreen onOutsideClick=onOutsideClick}}
 ```
 
 * **Capitalization and naming**
@@ -60,7 +60,7 @@ const {
 
 * **Stylesheets.** Use the Angular Material stylesheets as-is. Replicate Angular markup in `ember-paper`.
 
-* **Naming.** Use an ember-paper name for components.
+* **Naming.** Use an ember-paper name for components in the form `{{paper-*}}`.
 
 * **Attributes.** Convert angular elements attributes to ember boolean properties.
 ```javascript
@@ -70,7 +70,7 @@ becomes
 ```javascript
 {{paper-tabs dynamicHeight=true borderBottom=true}}
 ```
-* **Angle bracket elements.** Any *user* markup that would requie the use of an angle bracket component, such as
+* **Angle bracket elements.** Any *user* markup that would require the use of an angle bracket component, such as
 `<md-some-element>` should be implemented as an ember component, such as `{{paper-some-element}}`.
 
 * **Features.** Seek to provide feature parity using Angular Material styles, but implemented in an Ember-centric way.
