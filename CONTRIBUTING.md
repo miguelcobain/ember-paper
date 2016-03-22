@@ -62,7 +62,7 @@ const {
 
 * **Naming.** Use an ember-paper name for components in the form `{{paper-*}}`.
 
-* **Boolean attributes.** Convert angular elements that correspond to boolean attributes to ember boolean properties.
+* **Attributes.** Convert angular element attributes (if they apply to your implementation) by removing the `md-*` suffix and camelCasing it like every other property:
 ```javascript
 <md-tabs md-dynamic-height md-border-bottom md-some-property="20">
 ```
