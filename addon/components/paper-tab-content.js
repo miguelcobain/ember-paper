@@ -27,7 +27,7 @@ export default Ember.Component.extend({
     }
   }),
 
-  self: computed(function(){
+  self: computed(function() {
     return Ember.Object.create({
       id: this.elementId
     });
@@ -35,14 +35,14 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     this._super();
-    var self = this.get('self');
-    var element = this.$();
-    var height = element.css('position','relative').outerHeight(true);
+    let self = this.get('self');
+    let element = this.$();
+    let height = element.css('position', 'relative').outerHeight(true);
     self.set('height', height);
     element.removeAttr('style');
 
     Ember.run.scheduleOnce('afterRender', this, function() {
-      var height = this.$()[0].scrollHeight;
+      let height = this.$()[0].scrollHeight;
       this.set('self.height', height);
     });
     this.get('parent').send('identifyTabContent', this.get('self'));
