@@ -22,10 +22,6 @@ module.exports = {
     if (type === 'head') {
       return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">';
     }
-
-    if (type === 'body') {
-      return '<div id="paper-wormhole"></div>';
-    }
   },
 
   treeForStyles: function(tree) {
@@ -97,10 +93,13 @@ module.exports = {
       'components/gridList/grid-list.scss',
 
       'components/sidenav/sidenav.scss',
-      'components/sidenav/sidenav.scss',
+      'components/sidenav/sidenav-theme.scss',
 
       'components/backdrop/backdrop.scss',
-      'components/backdrop/backdrop-theme.scss'
+      'components/backdrop/backdrop-theme.scss',
+
+      'components/dialog/dialog.scss',
+      'components/dialog/dialog-theme.scss'
     ];
 
     var angularScssFiles = new Funnel('node_modules/angular-material-source/src', {
