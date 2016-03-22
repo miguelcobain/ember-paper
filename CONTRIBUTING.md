@@ -62,13 +62,13 @@ const {
 
 * **Naming.** Use an ember-paper name for components in the form `{{paper-*}}`.
 
-* **Attributes.** Convert angular elements attributes to ember boolean properties.
+* **Boolean attributes.** Convert angular elements that correspond to boolean attributes to ember boolean properties.
 ```javascript
-<md-tabs md-dynamic-height md-border-bottom>
+<md-tabs md-dynamic-height md-border-bottom md-some-property="20">
 ```
 becomes
 ```javascript
-{{paper-tabs dynamicHeight=true borderBottom=true}}
+{{paper-tabs dynamicHeight=true borderBottom=true someProperty="20"}}
 ```
 * **Angle bracket elements.** Any *user* markup that would require the use of an angle bracket component, such as
 `<md-some-element>` should be implemented as an ember component, such as `{{paper-some-element}}`.
