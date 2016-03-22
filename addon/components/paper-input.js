@@ -32,34 +32,37 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
   didInsertElement() {
     if (this.get('textarea')) {
-      this.setupTextarea();
+      let textarea = this.$().children('textarea').first();
+      let textareaNode = textarea.get(0);
+      let container = this.get('element');
+      let minRows = NaN;
+      let lineHeight = null;
+
+      if (textareaNode.hasAttribute('rows')) {
+        minRows = parseInt(textareaNode.getAttribute('rows'));
+      }
+
+      textarea.on('keydown input', () => {
+        this.growTextarea(textarea, textareaNode, container, minRows, lineHeight);
+      });
+
+      if (isNaN(minRows)) {
+        textarea.attr('rows', '1');
+
+        textarea.on('scroll', () => {
+          this.onScroll(textareaNode);
+        });
+      }
+
+      $(window).on('resize', this.growTextarea(textarea, textareaNode, container, minRows, lineHeight));
     }
   },
 
-  setupTextarea() {
-    let textarea = this.$().children('textarea').first();
-    let textareaNode = textarea.get(0);
-    let container = this.get('element');
-    let minRows = NaN;
-    let lineHeight = null;
-
-    if (textareaNode.hasAttribute('rows')) {
-      minRows = parseInt(textareaNode.getAttribute('rows'));
+  willDestroyElement() {
+    if (this.get('textarea')) {
+      $(window).off('resize', this.growTextarea);
+      this.$().children('textarea').first().off('keydown input scroll')
     }
-
-    textarea.on('keydown input', () => {
-      this.growTextarea(textarea, textareaNode, container, minRows, lineHeight);
-    });
-
-    if (isNaN(minRows)) {
-      textarea.attr('rows', '1');
-
-      textarea.on('scroll', () => {
-        this.onScroll(textareaNode);
-      });
-    }
-
-    Ember.$(window).on('resize', this.growTextarea(textarea, textareaNode, container, minRows, lineHeight));
   },
 
   growTextarea(textarea, textareaNode, container, minRows, lineHeight) {
@@ -107,10 +110,6 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     let line = node.scrollHeight - node.offsetHeight;
     let height = node.offsetHeight + line;
     node.style.height = `${height}px`;
-  },
-
-  willDestroyElement() {
-    Ember.$(window).off('resize', this.growTextarea);
   },
 
   validate() {
