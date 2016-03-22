@@ -83,6 +83,7 @@ export default Ember.Component.extend({
   dynamicHeight: false,
   alignTabs: "top",
   noInkBar: false,
+  centerTabs: false,
 
   identifyTabsWrapper(object) {
     this.set('tabsWrapper', object);
