@@ -238,10 +238,11 @@
       </div>
     {{/paper-dialog-content}}
 
-    <div class="md-actions" layout="row">
+    {{#paper-dialog-actions class="layout-row"}}
       <span flex></span>
       {{#paper-button primary=true action=(action "closePromptDialog" "cancel")}}I'm a cat person{{/paper-button}}
       {{#paper-button primary=true action=(action "closePromptDialog" "ok" dogName)}}Okay!{{/paper-button}}
-    </div>
+    {{/paper-dialog-actions}}
+
   {{/paper-dialog}}
 {{/if}}

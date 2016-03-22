@@ -1,10 +1,10 @@
 import Ember from 'ember';
-const { Component, $ } = Ember;
+const { Component, computed, $ } = Ember;
 
 export default Component.extend({
   tagName: '',
 
-  destination: Ember.computed('parent', function() {
+  destination: computed('parent', function() {
     return this.get('parent') ? this.get('parent') : 'paper-wormhole';
   }),
 

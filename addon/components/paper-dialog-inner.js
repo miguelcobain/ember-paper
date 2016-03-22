@@ -4,14 +4,10 @@ import PaperDialog from './paper-dialog';
 
 const { Component, computed } = Ember;
 
-export default Component.extend(/*Translate3dMixin, TODO */ {
+export default Component.extend(/*Translate3dMixin, */{
   tagName: 'md-dialog',
-  classNames: ['md-default-theme'     , 'md-transition-in'     /* TODO */ ],
+  classNames: ['md-default-theme', 'md-transition-in'],
   classNameBindings: ['contentOverflow:md-content-overflow', 'fullscreen:md-dialog-fullscreen'],
-
-  translateFromOrigin: computed.reads('openFrom'),
-
-  translateToParent: computed.reads('closeTo'),
 
   onTranslateDestroy(origin) {
     origin.focus();

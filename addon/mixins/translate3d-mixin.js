@@ -17,11 +17,13 @@ export default Mixin.create({
   attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],
 
-  translateFromOrigin: computed.or('openFrom', 'parent'),
+  translateFromOrigin: computed.or('openFrom', 'origin'),
 
-  translateToParent: computed(function() {
+  defaultParent: computed(function() {
     return $('body');
   }),
+
+  translateToParent: computed.or('openFrom', 'parent'),
 
   translate3dFrom: computed('translateFromOrigin', function() {
     return this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('translateFromOrigin')));
@@ -121,9 +123,9 @@ export default Mixin.create({
    */
   calculateZoomToOrigin(element, originator) {
     let zoomStyle;
-    let origin = typeof originator === 'string' ? $(originator).get(0) : originator.get(0);
 
-    if (origin) {
+    if (originator) {
+      let origin = typeof originator === 'string' ? $(originator).get(0) : originator.get(0);
       let originBnds = this.copyRect(origin.getBoundingClientRect());
       let dialogRect = this.copyRect(element.getBoundingClientRect());
       let dialogCenterPt = this.centerPointFor(dialogRect);
@@ -171,7 +173,7 @@ export default Mixin.create({
 
     destination = destination || {};
 
-    'left top right bottom width height'.split(' ').forEach(function(key) {
+    'left top right bottom width height'.split(' ').forEach((key) => {
       destination[key] = Math.round(source[key]);
     });
 
