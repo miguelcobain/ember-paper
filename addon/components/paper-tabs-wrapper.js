@@ -16,7 +16,7 @@ export default Ember.Component.extend({
 
   tabWidths: Ember.computed.mapBy('parent.tabs', 'width'),
   wrapperWidth: Ember.computed.sum('tabWidths'),
-
+  centerTabs: Ember.computed.reads('parent.centerTabs'),
 
   showInkBar: Ember.computed('parent.noInkBar', 'parent.tabs.[]', function(){
     var parent = this.get('parent');
