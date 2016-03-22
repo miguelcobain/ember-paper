@@ -4,7 +4,9 @@ export default Ember.Component.extend({
   tagName: '',
 
   wormhole: computed.readOnly('parent.wormhole'),
-  activeState: computed.readOnly('parent.activeState'),
+  isActive: computed.reads('parent.isActive'),
+  isLeft: computed.reads('parent.isLeft'),
+  isRight: computed.reads('parent.isRight'),
   selected: computed.readOnly('parent.selected'),
   index: computed.readOnly('parent.index'),
 
