@@ -13,6 +13,8 @@ export default Ember.Component.extend({
   noInkBar: computed.reads('parent.noInkBar'),
   canvasWidth: computed.reads('parent.canvasWidth'),
   pagingWidth: computed.reads('parent.pagingWidth'),
+  offsetLeft: computed.reads('parent.offsetLeft'),
+  shouldCenterTabs: computed.reads('parent.shouldCenterTabs'),
 
   showInkBar: computed('noInkBar', 'tabs.[]', function() {
     if (!this.get('noInkBar') && (this.get('tabs.length') > 0)) {
@@ -27,31 +29,34 @@ export default Ember.Component.extend({
 
   classNameBindings: ['centerTabs:md-center-tabs'],
   attributeBindings: ['styleAttr:style'],
-  styleAttr: computed('widthStyle', function() {
-    return this.get('widthStyle');
+  styleAttr: computed('widthStyle', 'offsetStyle', function() {
+    return `${this.get('widthStyle')}${this.get('offsetStyle')}`;
   }),
 
+  /* Style Bindings */
   widthStyle: computed('pagingWidth', function() {
     if (this.get('shouldStrechTabs')) {
       return '';
     } else {
-      let width = this.get('pagingWidth')
+      let width = this.get('pagingWidth');
       return (width) ? `width: ${width}px;` : 'width: 0px';
     }
   }),
-
-  inkBarLeftPosition: computed('selectedTab.left', function() {
-    let leftOffset = this.$().offset().left;
-    return this.get('selectedTab.left') - leftOffset;
+  offsetStyle: computed('offsetLeft', 'shouldCenterTabs', function() {
+    return (this.get('shouldCenterTabs')) ? '' : `-${this.get('offsetLeft')}px`;
   }),
-  inkBarRightPosition: computed('inkBarLeftPosition', 'selectedTab.width', 'pagingWidth', function() {
+
+  inkBarLeftPosition: computed('selectedTab.offsetLeft', function() {
+    let leftOffset = this.$().offset().left;
+    return this.get('selectedTab.offsetLeft') - leftOffset;
+  }),
+  inkBarRightPosition: computed('inkBarLeftPosition', 'selectedTab.offsetWidth', 'pagingWidth', function() {
     let leftOffset = this.$().offset().left;
     let position = this.get('pagingWidth');// - this.get('selectedTab.left');
     position -= this.get('inkBarLeftPosition');
-    position -= this.get('selectedTab.width');
+    position -= this.get('selectedTab.offsetWidth');
     return position;
-    // return (this.get('parent.selectedTab.left') + this.get('parent.selectedTab.width')) - this.get('wrapperWidth');
   }),
 
-  shouldStrechTabs: false, // todo: implement computed property
+  shouldStreTchTabs: false // todo: implement computed property
 });
