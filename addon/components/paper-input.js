@@ -3,6 +3,8 @@ import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
+const { $, computed, isEmpty, isArray, Logger, A } = Ember;
+
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
@@ -11,22 +13,22 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   autofocus: false,
   tabindex: -1,
   hideAllMessages: false,
-  hasValue: Ember.computed.notEmpty('value'),
+  hasValue: computed.notEmpty('value'),
 
-  inputElementId: Ember.computed('elementId', function() {
+  inputElementId: computed('elementId', function() {
     return `input-${this.get('elementId')}`;
   }),
 
-  isInvalid: Ember.computed('isTouched', 'value', function() {
+  isInvalid: computed('isTouched', 'value', function() {
     return this.validate();
   }),
 
-  renderCharCount: Ember.computed('value', function() {
+  renderCharCount: computed('value', function() {
     let currentLength = this.get('value') ? this.get('value').length : 0;
     return `${currentLength}/${this.get('maxlength')}`;
   }),
 
-  iconFloat: Ember.computed.and('icon', 'label'),
+  iconFloat: computed.and('icon', 'label'),
 
   didInsertElement() {
     if (this.get('textarea')) {
@@ -154,13 +156,13 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       return true;
     }
 
-    if (!Ember.isEmpty(this.get('customValidation'))) {
-      let validationObjects = Ember.A();
+    if (!isEmpty(this.get('customValidation'))) {
+      let validationObjects = A();
       let self = this;
       let validationObjectsLength;
 
       try {
-        if (!Ember.isArray(this.get('customValidation'))) {
+        if (!isArray(this.get('customValidation'))) {
           validationObjects.addObject(this.get('customValidation'));
         } else {
           validationObjects = this.get('customValidation');
@@ -177,7 +179,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
           }
         }
       } catch (error) {
-        Ember.Logger.error('Exception with custom validation: ', error);
+        Logger.error('Exception with custom validation: ', error);
       }
 
     }
