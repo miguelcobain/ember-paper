@@ -58,18 +58,22 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   didInsertElement: function() {
     this.get('parent.tabs').pushObject(this.get('self'));
+  },
+
+  updateBounding: Ember.observer('tabs.[]', function(){
     Ember.run.scheduleOnce('afterRender', this, function() {
-      var left = this.$()[0].offsetLeft;
+      var left = this.$().offset().left;
       var width = this.$().outerWidth();
       this.set('self.left', left);
       this.set('self.width', width);
       this.set('self.right', (left + width));
     });
-  },
+  }),
 
   self: Ember.computed(function(){
+    var id = this.elementId;
     return Ember.Object.create({
-      id: this.elementId,
+      id: id,
       disabled: false,
       left: 0,
       right: 0,
