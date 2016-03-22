@@ -6,12 +6,30 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
 const { computed } = Ember;
 
 export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
+
   tagName: 'md-tab-item',
+
   classNames: ['md-tab'],
   classNameBindings: [
     'isActive:md-active',
     'disabled:md-disabled'
   ],
+  attributeBindings: [
+    'styleAttr:style'
+  ],
+
+  /* Attributes Bindings */
+  styleAttr: computed('widthStyle', function(){
+    return `${this.get('widthStyle')}`;
+  }),
+
+  /* Style Bindings */
+  widthStyle: computed('self.width', function(){
+    if (this.get('self.width') > 0){
+      return `width: ${this.get('self.width')}px`;
+    }
+    return '';
+  }),
 
   /* explicit defaults */
   disabled: computed.alias('self.disabled'),
@@ -85,12 +103,13 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   updateBounding: Ember.observer('tabs.[]', function() {
-    Ember.run.scheduleOnce('afterRender', this, function() {
-      let { left } = this.$().offset();
-      let width = this.$().outerWidth();
-      this.set('self.left', left);
-      this.set('self.width', width);
-      this.set('self.right', (left + width));
+    var context = this;
+    Ember.run.scheduleOnce('afterRender', function() {
+      let { left } = context.$().offset();
+      let width = context.$().outerWidth();
+      context.set('self.left', left);
+      context.set('self.width', width);
+      context.set('self.right', (left + width));
     });
   }),
 
