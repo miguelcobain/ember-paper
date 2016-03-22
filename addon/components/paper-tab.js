@@ -19,14 +19,14 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   ],
 
   /* Attributes Bindings */
-  styleAttr: computed('widthStyle', function(){
+  styleAttr: computed('widthStyle', function() {
     return `${this.get('widthStyle')}`;
   }),
 
   /* Style Bindings */
-  widthStyle: computed('self.width', function(){
-    if (this.get('self.width') > 0){
-      return `width: ${this.get('self.width')}px`;
+  widthStyle: computed('self.offsetWidth', function() {
+    if (this.get('self.offsetWidth') > 0) {
+      return `width: ${this.get('self.offsetWidth')}px`;
     }
     return '';
   }),
@@ -102,13 +102,13 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     });
   },
 
-  updateBounding: Ember.observer('tabs.[]', function() {
-    var context = this;
+  updateBounds: Ember.observer('tabs.[]', function() {
+    let context = this;
     Ember.run.scheduleOnce('afterRender', function() {
       let { left } = context.$().offset();
       let width = context.$().outerWidth();
-      context.set('self.left', left);
-      context.set('self.width', width);
+      context.set('self.offsetLeft', left);
+      context.set('self.offsetWidth', width);
       context.set('self.right', (left + width));
     });
   }),

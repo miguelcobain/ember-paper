@@ -24,6 +24,10 @@ export default Ember.Component.extend({
   canvasWidth: computed.reads('parent.canvasWidth'),
   pagingWidth: computed.reads('parent.pagingWidth'),
   shouldPaginate: computed.reads('parent.shouldPaginate'),
+  canPageBack: computed.reads('parent.canPageBack'),
+  canPageForward: computed.reads('parent.canPageForward'),
+  offsetLeft: computed.reads('parent.offsetLeft'),
+  shouldCenterTabs: computed.reads('parent.shouldCenterTabs'),
 
   didInsertElement() {
     let self = this.get('self');
