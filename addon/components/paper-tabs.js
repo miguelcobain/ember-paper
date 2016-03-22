@@ -2,14 +2,26 @@ import Ember from 'ember';
 const { computed } = Ember;
 
 export default Ember.Component.extend({
-  classNames: ['md-primary'],
-  classNameBindings: ['dynamicHeight:md-dynamic-height'],
 
+  /* Default Settings */
+  dynamicHeight: false,
+  alignTabs: "top",
+  noInkBar: false,
+  centerTabs: false,
+  stretchTabs: "always", // todo: find the best default
+
+  classNames: ['md-primary'],
+  classNameBindings: [
+    'dynamicHeight:md-dynamic-height',
+    'shouldStretchTabs:md-stretch-tabs'
+  ],
   attributeBindings: [
     'alignTabsAttr:md-align-tabs',
     'borderBottomAttr:md-border-bottom',
     'styleAttr:style'
   ],
+
+  /* Attributes Bindings */
   alignTabsAttr: computed('alignTabs', function() {
     return this.get('alignTabs'); // todo safestring
   }),
@@ -20,7 +32,8 @@ export default Ember.Component.extend({
     return this.get('heightStyle') + 'transition: all 0.5s cubic-bezier(0.35, 0, 0.25, 1);';
   }),
 
-  heightStyle: Ember.computed('dynamicHeight', 'selectedTab.content.height', 'tabs.[]', 'tabsWrapper.height', function(){
+  /* Style Bindings */
+  heightStyle: computed('dynamicHeight', 'selectedTab.content.height', 'tabs.[]', 'tabsWrapper.height', function(){
     if (this.get('dynamicHeight')) {
       var tabsHeight = this.get('tabsWrapper.height');
       var selectedTab = this.get('selectedTab');
@@ -33,6 +46,30 @@ export default Ember.Component.extend({
     return '';
   }),
 
+  /* Class Bindings */
+  shouldStretchTabs: computed('stretchTabs', function() {
+    switch (this.get('stretchTabs')) {
+      case 'always':
+        return true;
+      case 'never':
+        return false;
+      default:
+        /* todo, check screen width for this */
+        return (!this.get('shouldPaginate')/* && screen is <= 600px)*/;
+    }
+  }),
+
+  shouldCenterTabs: computed('centerTabs', 'shouldPaginate' function() {
+    return this.get('centerTabs') && !this.get('shouldPaginate');
+  }),
+
+  shouldPaginate: computed('noPagination') {
+    /* todo: implement loaded based on DOM rendering */
+    if (this.get('noPagination') || !this.get('loaded')) {
+      return false;
+    }
+  }),
+
   init() {
     this._super();
     if (!this.get('selected')) {
@@ -42,7 +79,7 @@ export default Ember.Component.extend({
 
   tagName: 'md-tabs',
 
-  getIndex(object) {
+  getTabIndex(object) {
     return this.get('tabs').indexOf(object);
   },
 
@@ -63,9 +100,9 @@ export default Ember.Component.extend({
     var tabs = Ember.A(this.get('tabs').filterBy('disabled', false));
     var active = Ember.A(tabs.filterBy('active'));
     if (active.get(length)) {
-      return this.getIndex(active.get('firstObject'));
+      return this.getTabIndex(active.get('firstObject'));
     } else if ( tabs.get('length')) {
-      return this.getIndex(tabs.get('firstObject'));
+      return this.getTabIndex(tabs.get('firstObject'));
     }
   }),
 
@@ -79,11 +116,7 @@ export default Ember.Component.extend({
     return (this.get('previous') > this.get('selected')) ? "right" : "left";
   }),
 
-  /* customization options */
-  dynamicHeight: false,
-  alignTabs: "top",
-  noInkBar: false,
-  centerTabs: false,
+
 
   identifyTabsWrapper(object) {
     this.set('tabsWrapper', object);
@@ -94,6 +127,7 @@ export default Ember.Component.extend({
       this.set('wormhole', id);
     },
     createTab(object) {
+      debugger;
       this.get('tabs').pushObject(object);
     },
     destroyTab(object) {
@@ -101,7 +135,7 @@ export default Ember.Component.extend({
     },
     selectTab(object) {
       this.set('previous', this.get('selected'));
-      this.set('selected', this.getIndex(object));
+      this.set('selected', this.getTabIndex(object));
     }
   }
 });
