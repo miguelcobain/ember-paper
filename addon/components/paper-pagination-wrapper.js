@@ -54,7 +54,7 @@ export default Ember.Component.extend({
 
   width: computed('tabs.[].id', 'shouldStretchTabs', function() {
     let context = this;
-    let width = 1;
+    let width = 0;
     this.get('tabs').forEach(function(tab) {
       if (tab.id) {
         let element = document.getElementById(tab.id);
