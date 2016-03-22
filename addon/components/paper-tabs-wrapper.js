@@ -4,7 +4,6 @@ const { computed } = Ember;
 export default Ember.Component.extend({
   init() {
     this._super();
-    this.get('wrapperWidth');
   },
 
   tagName: 'md-tabs-wrapper',
@@ -15,27 +14,13 @@ export default Ember.Component.extend({
     });
   }),
 
-  tabWidths: computed.mapBy('parent.tabs', 'width'),
-  wrapperWidth: computed.sum('tabWidths'),
-
-  // inherited
+  /* Inherited */
   centerTabs: computed.reads('parent.centerTabs'),
   tabs: computed.reads('parent.tabs'),
-
-  showInkBar: computed('parent.noInkBar', 'parent.tabs.[]', function() {
-    let parent = this.get('parent');
-    return (!parent.get('noInkBar') && parent.get('tabs.length')) ? true : false;
-  }),
-
-  inkBarLeft: computed('parent.selectedTab.left', 'self.offset', function() {
-    let leftOffset = this.$().offset().left;
-    return this.get('parent.selectedTab.left') - leftOffset;
-  }),
-  inkBarRight: computed('parent.selectedTab.right', 'wrapperWidth', 'self.offset', function() {
-    let leftOffset = this.$().offset().left;
-    return this.get('parent.selectedTab.right') - leftOffset;
-    // return (this.get('parent.selectedTab.left') + this.get('parent.selectedTab.width')) - this.get('wrapperWidth');
-  }),
+  noInkBar: computed.reads('parent.noInkBar'),
+  selected: computed.reads('parent.selected'),
+  lastSelectedIndex: computed.reads('parent.lastSelectedIndex'),
+  selectedTab: computed.reads('parent.selectedTab'),
 
   didInsertElement() {
     let self = this.get('self');
