@@ -84,7 +84,15 @@
   </div>
   {{#if isInvalid}}
     <div class="md-input-messages-animation md-auto-hide" ng-messages>
-      <div id="error-{{inputElementId}}" ng-message="{{ng-message}}" class="ng-enter ng-enter-active">{{errortext}}</div>
+      {{#each errorMessages as |message index|}}
+        <div
+          id="error-{{inputElementId}}{{if index "-"index}}"
+          ng-message="{{message.key}}"
+          class="ng-enter ng-enter-active"
+        >
+          {{message.message}}
+        </div>
+      {{/each}}
     </div>
   {{/if}}
 {{/unless}}

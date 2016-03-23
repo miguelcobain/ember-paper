@@ -3,7 +3,7 @@ import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
-const { $, computed, isEmpty, isArray, Logger, A } = Ember;
+const { $, computed, isEmpty, isPresent, isArray, Logger, A } = Ember;
 
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
@@ -26,7 +26,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   }),
 
   isInvalid: computed('isTouched', 'value', function() {
-    return this.get('isTouched') && this.validate();
+    return this.get('isTouched') && isPresent(this.get('errorMessages'));
   }),
 
   renderCharCount: computed('value', function() {
@@ -118,11 +118,17 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     node.style.height = `${height}px`;
   },
 
-  validate() {
-
-    let valueIsInvalid = false;
+  /**
+   * Return the built-in constraints.
+   *
+   * May be overridden to provide additional built-in constraints. Be sure to
+   * call this._super() to retrieve the standard constraints.
+   *
+   * @public
+   */
+  constraints() {
     let currentValue = this.get('value');
-    let constraints = [
+    return [
       {
         attr: 'required',
         defaultError: 'This is required.',
@@ -131,12 +137,12 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       {
         attr: 'min',
         defaultError: `Must be at least ${this.get('min')}.`,
-        isError: () => +currentValue < +this.get('min')
+        isError: () => currentValue && +currentValue < +this.get('min')
       },
       {
         attr: 'max',
         defaultError: `Must be less than ${this.get('max')}.`,
-        isError: () => +currentValue > +this.get('max')
+        isError: () => currentValue && +currentValue > +this.get('max')
       },
       {
         attr: 'maxlength',
@@ -144,54 +150,47 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
         isError: () => currentValue && currentValue.length > +this.get('maxlength')
       }
     ];
+  },
 
-    constraints.some((thisConstraint) => {
-      if (thisConstraint.isError()) {
-        this.setError(thisConstraint);
-        valueIsInvalid = true;
-        return true;
+  /**
+   * Computed property that validate the input and return an array of error
+   * objects, each with an ng-message code and an error message.
+   *
+   * @public
+   */
+  errorMessages: computed('value', function() {
+    let messages = A();
+
+    this.constraints().forEach((constraint) => {
+      if (constraint.isError()) {
+        messages.pushObject({
+          key: constraint.attr,
+          message: this.get(`${constraint.attr}-errortext`) || constraint.defaultError
+        });
       }
     });
 
-    if (valueIsInvalid === true) {
-      return true;
-    }
-
-    if (!isEmpty(this.get('customValidation'))) {
-      let validationObjects = A();
-      let self = this;
-      let validationObjectsLength;
-
+    if (isPresent(this.get('customValidation'))) {
       try {
-        if (!isArray(this.get('customValidation'))) {
-          validationObjects.addObject(this.get('customValidation'));
-        } else {
-          validationObjects = this.get('customValidation');
+        let validationObjects = this.get('customValidation');
+        if (!isArray(validationObjects)) {
+          validationObjects = [ validationObjects ];
         }
-
-        validationObjectsLength = validationObjects.length;
-        for (let i = 0; i < validationObjectsLength; i++) {
-          if (typeof validationObjects[i].isError === 'function') {
-            if (validationObjects[i].isError([currentValue]) === true) {
-              self.setError(validationObjects[i]);
-              valueIsInvalid = true;
-              break;
-            }
+        validationObjects.forEach((constraint) => {
+          if (typeof constraint.isError === 'function' && constraint.isError([currentValue])) {
+            messages.pushObject({
+              'ng-message': 'custom',
+              'message': this.get(`${constraint.attr}-errortext`) || constraint.defaultError || constraint.errorMessage
+            });
           }
-        }
+        });
       } catch (error) {
         Logger.error('Exception with custom validation: ', error);
       }
-
     }
 
-    return valueIsInvalid;
-  },
-
-  setError(constraint) {
-    this.set('ng-message', constraint.attr || 'custom');
-    this.set('errortext', this.get(`${constraint.attr}-errortext`) || constraint.defaultError || constraint.errorMessage);
-  },
+    return messages;
+  }),
 
   actions: {
     focusIn(ev) {
