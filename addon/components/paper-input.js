@@ -8,7 +8,13 @@ const { $, computed, isEmpty, isArray, Logger, A } = Ember;
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
-  classNameBindings: ['hasValue:md-input-has-value', 'focus:md-input-focused', 'isInvalid:md-input-invalid', 'iconFloat:md-icon-float'],
+  classNameBindings: [
+    'hasValue:md-input-has-value',
+    'focus:md-input-focused',
+    'isInvalid:md-input-invalid',
+    'iconFloat:md-icon-float',
+    'icon:md-has-icon',
+  ],
   type: 'text',
   autofocus: false,
   tabindex: -1,
