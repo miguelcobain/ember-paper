@@ -7,5 +7,9 @@ export default Ember.Component.extend({
   classNameBindings: ['canPageForward:ok:md-disabled'],
 
   /* Inherited from `{{paper-tabs-wrapper}}` */
-  canPageForward: computed.reads('parent.canPageForward')
+  canPageForward: computed.reads('parent.canPageForward'),
+
+  click: function() {
+    this.get('parent').send('nextPage');
+  }
 });
