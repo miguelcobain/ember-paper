@@ -159,34 +159,30 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
    * @public
    */
   errorMessages: computed('value', function() {
+    let constraints = A();
+    let customConstraints = this.get('customValidation');
+    constraints.pushObjects(this.constraints());
+    if (isPresent(customConstraints)) {
+      if (isArray(customConstraints)) {
+        constraints.pushObjects(customConstraints);
+      } else {
+        constraints.pushObject(customConstraints);
+      }
+    }
+
+    let currentValueParameter = [ this.get('value') ];
     let messages = A();
-
-    this.constraints().forEach((constraint) => {
-      if (constraint.isError()) {
-        messages.pushObject({
-          key: constraint.attr,
-          message: this.get(`${constraint.attr}-errortext`) || constraint.defaultError
-        });
-      }
-    });
-
-    if (isPresent(this.get('customValidation'))) {
-      try {
-        let validationObjects = this.get('customValidation');
-        if (!isArray(validationObjects)) {
-          validationObjects = [ validationObjects ];
+    try {
+      constraints.forEach((constraint) => {
+        if (constraint.isError(currentValueParameter)) {
+          messages.pushObject({
+            key: constraint.attr || 'custom',
+            message: this.get(`${constraint.attr}-errortext`) || constraint.defaultError || constraint.errorMessage
+          });
         }
-        validationObjects.forEach((constraint) => {
-          if (typeof constraint.isError === 'function' && constraint.isError([currentValue])) {
-            messages.pushObject({
-              'ng-message': 'custom',
-              'message': this.get(`${constraint.attr}-errortext`) || constraint.defaultError || constraint.errorMessage
-            });
-          }
-        });
-      } catch (error) {
-        Logger.error('Exception with custom validation: ', error);
-      }
+      });
+    } catch (error) {
+      Logger.error('Exception with custom validation: ', error);
     }
 
     return messages;
