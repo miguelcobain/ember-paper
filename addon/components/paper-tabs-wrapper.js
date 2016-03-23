@@ -34,5 +34,14 @@ export default Ember.Component.extend({
     self.set('height', this.$().outerHeight());
     self.set('offset', this.$().offset().left);
     this.get('parent').identifyTabsWrapper(self);
+  },
+
+  actions: {
+    nextPage() {
+      this.get('parent').send('nextPage');
+    },
+    previousPage() {
+      this.get('parent').send('previousPage');
+    }
   }
 });

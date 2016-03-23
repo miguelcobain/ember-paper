@@ -43,7 +43,11 @@ export default Ember.Component.extend({
     }
   }),
   offsetStyle: computed('offsetLeft', 'shouldCenterTabs', function() {
-    return (this.get('shouldCenterTabs')) ? '' : `-${this.get('offsetLeft')}px`;
+    if (this.get('shouldCenterTabs')) {
+      return '';
+    } else {
+      return `transform: translate3d(-${this.get('offsetLeft')}px, 0px, 0px);`;
+    }
   }),
 
   inkBarLeftPosition: computed('selectedTab.offsetLeft', function() {
