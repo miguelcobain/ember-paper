@@ -3,7 +3,7 @@ import RippleMixin from '../mixins/ripple-mixin';
 import BaseFocusable from './base-focusable';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-const { computed } = Ember;
+const { computed, observer } = Ember;
 
 export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
@@ -31,13 +31,14 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     return '';
   }),
 
-  /* explicit defaults */
+  /* Inherited from `{{paper-tabs}}` */
   disabled: computed.alias('self.disabled'),
   active: computed.alias('self.active'),
   selected: computed.reads('parent.selected'),
   previous: computed.reads('parent.previous'),
   tabs: computed.readOnly('parent.tabs'),
   wormhole: computed.readOnly('parent.wormhole'),
+  shouldPaginate: computed.readOnly('parent.shouldPaginate'),
 
   /* Settings */
   noInk: computed.reads('parent.noInk'),  // todo: noink to noInk support
@@ -102,23 +103,21 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     });
   },
 
-  updateBounds: Ember.observer('tabs.[]', function() {
+  updateBounds: observer('tabs.[]', 'shouldPaginate', function() {
     let context = this;
     Ember.run.scheduleOnce('afterRender', function() {
       let { left } = context.$().offset();
       let width = context.$().outerWidth();
       context.set('self.offsetLeft', left);
       context.set('self.offsetWidth', width);
-      context.set('self.right', (left + width));
     });
   }),
 
   self: computed(function() {
     return Ember.Object.create({
       disabled: false,
-      left: 0,
-      right: 0,
-      width: 0
+      offsetLeft: 0,
+      offsetWidth: 0
     });
   }),
 
