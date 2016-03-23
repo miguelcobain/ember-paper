@@ -8,7 +8,8 @@ const {
   computed,
   on,
   inject: { service },
-  run: { scheduleOnce }
+  run: { schedule },
+  K
 } = Ember;
 
 export default Mixin.create({
@@ -17,27 +18,33 @@ export default Mixin.create({
   attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],
 
-  translateFromOrigin: computed.or('openFrom', 'origin'),
+  defaultParent: 'body',
 
-  defaultParent: computed(function() {
-    return $('body');
+  parentElement: computed.or('hashedParent', 'defaultParent'),
+  hashedParent: computed('parent', function() {
+    let parent = this.get('parent');
+    return parent ? `#${parent}` : null;
   }),
 
-  translateToParent: computed.or('openFrom', 'parent'),
+  fromElement: computed.or('openFrom', 'origin'),
 
-  translate3dFrom: computed('translateFromOrigin', function() {
-    return this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('translateFromOrigin')));
+  toElement: computed.or('closeTo', 'origin'),
+
+  fromStyle: computed('fromElement', function() {
+    return this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('fromElement')));
   }),
 
-  translate3dTo: computed(function() {
+  translateToParent: computed.or('closeTo', 'origin', 'parent', 'defaultParent'),
+
+  centerStyle: computed(function() {
     return this.toTransformCss('');
   }),
 
-  translateStyle: computed('translate3dFrom', 'translate3dTo', 'transformStyleApply', function() {
+  translateStyle: computed('fromStyle', 'centerStyle', 'transformStyleApply', function() {
     if (this.get('transformStyleApply') === 'from') {
-      return htmlSafe(this.get('translate3dFrom'));
-    } else if (this.get('transformStyleApply') === 'to') {
-      return htmlSafe(this.get('translate3dTo'));
+      return htmlSafe(this.get('fromStyle'));
+    } else if (this.get('transformStyleApply') === 'main') {
+      return htmlSafe(this.get('centerStyle'));
     } else {
       return htmlSafe('');
     }
@@ -46,21 +53,19 @@ export default Mixin.create({
   didInsertElement() {
     this._super(...arguments);
 
-    scheduleOnce('afterRender', this, () => {
+    schedule('afterRender', () => {
       // Set translate3d style to start at the `from` origin
       this.set('transformStyleApply', 'from');
       // Wait while CSS takes affect
-      // Set the `to` styles and run the transition-in styles
+      // Set the `main` styles and run the transition-in styles
       window.requestAnimationFrame(() => {
-        this.set('transformStyleApply', 'to');
+        this.set('transformStyleApply', 'main');
         this.set('transformIn', true);
       });
     });
   },
 
-  onTranslateDestroy(/*origin*/) {
-
-  },
+  onTranslateDestroy: K,
 
   /**
    * Specific reversal of the request translate animation above...
@@ -70,16 +75,27 @@ export default Mixin.create({
   willDestroyElement() {
     this._super(...arguments);
 
-    let clone = this.$().clone();
-    this.get('translateToParent').append(clone);
-    let origin = this.get('translateFromOrigin');
-    let from = this.calculateZoomToOrigin(clone.get(0), origin);
-    clone.removeClass('md-transition-in')
-      .addClass('md-transition-out')
-      .attr('style', this.toTransformCss(from));
-    this.waitTransitionEnd(clone).then(() => {
-      clone.remove();
-      this.onTranslateDestroy(origin);
+    let containerClone = this.$().parent().clone();
+    let dialogClone = containerClone.find('md-dialog');
+
+    let toElement = this.get('toElement');
+    let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, toElement));
+
+    schedule('afterRender', () => {
+      $(this.get('parentElement')).append(containerClone);
+
+      window.requestAnimationFrame(() => {
+
+        dialogClone.removeClass('md-transition-in');
+        dialogClone.addClass('md-transition-out');
+        dialogClone.attr('style', toStyle);
+
+        this.waitTransitionEnd(dialogClone).then(() => {
+          containerClone.remove();
+          this.onTranslateDestroy(toElement);
+        });
+      });
+
     });
   },
 
@@ -89,23 +105,18 @@ export default Mixin.create({
    *
    * @public
    */
-  waitTransitionEnd(element, opts) {
+  waitTransitionEnd(element) {
 
     // fallback is 3 secs
     return new Promise((resolve/*, reject*/) => {
-      opts = opts || { };
 
       // Upon timeout or transitionEnd, reject or resolve (respectively) this promise.
       // NOTE: Make sure this transitionEnd didn't bubble up from a child
-      let finished = (ev) => {
-        element.off(this.get('constants').get('CSS').TRANSITIONEND, finished);
-
+      element.on(this.get('constants').get('CSS').TRANSITIONEND, function(ev) {
         if (ev) {
           resolve();
         }
-      };
-
-      element.on(this.get('constants').get('CSS').TRANSITIONEND, finished);
+      });
 
     });
   },
@@ -125,8 +136,8 @@ export default Mixin.create({
     let zoomStyle;
 
     if (originator) {
-      let origin = typeof originator === 'string' ? $(originator).get(0) : originator.get(0);
-      let originBnds = this.copyRect(origin.getBoundingClientRect());
+      originator = typeof originator === 'string' ? $(originator).get(0) : originator;
+      let originBnds = this.copyRect(originator.getBoundingClientRect());
       let dialogRect = this.copyRect(element.getBoundingClientRect());
       let dialogCenterPt = this.centerPointFor(dialogRect);
       let originCenterPt = this.centerPointFor(originBnds);
@@ -140,6 +151,7 @@ export default Mixin.create({
     } else {
       zoomStyle = { centerX: 0, centerY: 0, scaleX: 0.5, scaleY: 0.5 };
     }
+
     return `translate3d(${zoomStyle.centerX}px, ${zoomStyle.centerY}px, 0 ) scale(${zoomStyle.scaleX}, ${zoomStyle.scaleY})`;
   },
 

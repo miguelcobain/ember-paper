@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
 
     /* Dialog with parent */
     openDialogWithParent(param, event) {
-      this.set('dialogOrigin', Ember.$(event.currentTarget));
+      this.set('dialogOrigin', event.currentTarget);
       this.set('showDialogWithParent', true);
     },
 
@@ -16,7 +16,7 @@ export default Ember.Controller.extend({
 
     /* Dialog */
     openDialog(param, event) {
-      this.set('dialogOrigin', Ember.$(event.currentTarget));
+      this.set('dialogOrigin', event.currentTarget);
       this.set('showDialog', true);
     },
 
@@ -28,7 +28,7 @@ export default Ember.Controller.extend({
     /* Prompt dialog */
     dogName: '',
     openPromptDialog(param, event) {
-      this.set('dialogOrigin', Ember.$(event.currentTarget));
+      this.set('dialogOrigin', event.currentTarget);
       this.set('showPromptDialog', true);
     },
 
