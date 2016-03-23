@@ -77,13 +77,14 @@
 {{/if}}
 
 {{#unless hideAllMessages}}
-  <div class="md-error-spacer">
+  <div class="md-errors-spacer">
     {{#if maxlength}}
-        <div class="md-char-counter">{{renderCharCount}}</div>
+      <div class="md-char-counter">{{renderCharCount}}</div>
     {{/if}}
   </div>
-
-  <div class="md-input-message-animation md-auto-hide" ng-messages>
-    <div id="error-{{inputElementId}}" ng-message="{{ng-message}}" class="{{if isInvalid 'ng-enter ng-enter-active' 'ng-leave ng-leave-active'}}">{{errortext}}</div>
-  </div>
+  {{#if isInvalid}}
+    <div class="md-input-messages-animation md-auto-hide" ng-messages>
+      <div id="error-{{inputElementId}}" ng-message="{{ng-message}}" class="ng-enter ng-enter-active">{{errortext}}</div>
+    </div>
+  {{/if}}
 {{/unless}}
