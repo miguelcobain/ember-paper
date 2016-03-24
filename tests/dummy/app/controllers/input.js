@@ -30,5 +30,23 @@ export default Ember.Controller.extend({
       let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
       return !emailPattern.test(inputValue);
     }
+  },
+
+  eventName: '',
+  actions: {
+
+    focusInReceived() {
+      this.set('eventName', 'focusIn');
+    },
+    focusOutReceived() {
+      this.set('eventName', 'focusOut');
+    },
+    keyDownReceived() {
+      this.set('eventName', 'keyDown');
+    },
+    enterReceived() {
+      this.set('eventName', 'enter');
+    }
+
   }
 });
