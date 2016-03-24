@@ -50,11 +50,11 @@ export default Ember.Component.extend({
     }
   }),
 
-  inkBarLeftPosition: computed('selectedTab.offsetLeft', function() {
-    let leftOffset = this.$().offset().left;
+  inkBarLeftPosition: computed('selectedTab.offsetLeft', 'offsetLeft', function() {
+    let leftOffset = this.get('offsetLeft');
     return this.get('selectedTab.offsetLeft') - leftOffset;
   }),
-  inkBarRightPosition: computed('inkBarLeftPosition', 'selectedTab.offsetWidth', 'pagingWidth', function() {
+  inkBarRightPosition: computed('inkBarLeftPosition', 'selectedTab.offsetWidth', 'pagingWidth', 'offsetLeft', function() {
     let leftOffset = this.$().offset().left;
     let position = this.get('pagingWidth');// - this.get('selectedTab.left');
     position -= this.get('inkBarLeftPosition');

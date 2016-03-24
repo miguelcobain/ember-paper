@@ -39,6 +39,7 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tabs: computed.readOnly('parent.tabs'),
   wormhole: computed.readOnly('parent.wormhole'),
   shouldPaginate: computed.readOnly('parent.shouldPaginate'),
+  offsetLeft: computed.reads('parent.offsetLeft'),
 
   /* Settings */
   noInk: computed.reads('parent.noInk'),  // todo: noink to noInk support
@@ -103,11 +104,11 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     });
   },
 
-  updateBounds: observer('tabs.[]', 'shouldPaginate', function() {
+  updateBounds: observer('tabs.[]', 'shouldPaginate', 'offsetLeft', function() {
     let context = this;
     Ember.run.scheduleOnce('afterRender', function() {
-      let { left } = context.$().offset();
-      let width = context.$().outerWidth();
+      let left = context.$()[0].offsetLeft + context.get('offsetLeft');
+      let width = context.$()[0].clientWidth;
       context.set('self.offsetLeft', left);
       context.set('self.offsetWidth', width);
     });
