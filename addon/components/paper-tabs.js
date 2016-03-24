@@ -105,7 +105,7 @@ export default Ember.Component.extend({
     if (this.get('lastTab')) {
       let lastTab = this.$(`#${this.get('lastTab.id')}`)[0];
       let pagingWidth = lastTab.offsetLeft + lastTab.clientWidth;
-      let offset = this.$().find('md-tabs-canvas')[0].clientWidth + this.get('offsetLeft');
+      let offset = this.$('md-tabs-canvas')[0].clientWidth + this.get('offsetLeft');
       return (pagingWidth > offset);
     }
   }),
@@ -171,7 +171,7 @@ export default Ember.Component.extend({
     let left = $(`#${tab.get('id')}`)[0].offsetLeft;
     let right = $(`#${tab.get('id')}`)[0].clientWidth + left;
     let offsetLeft = this.get('offsetLeft');
-    let canvasWidth = this.$().find('md-tabs-canvas')[0].clientWidth;
+    let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
     let newOffset = Math.max(offsetLeft, this.fixOffset(right - canvasWidth + 32 * 2));
     newOffset = Math.min(newOffset, this.fixOffset(left));
     this.set('offsetLeft', newOffset);
@@ -199,7 +199,7 @@ export default Ember.Component.extend({
         break;
       }
      }
-     let canvasWidth = this.$().find('md-tabs-canvas')[0].clientWidth;
+     let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
      this.set('offsetLeft', this.fixOffset(tab.offsetLeft + tab.offsetWidth - canvasWidth));
 
   },
@@ -211,7 +211,7 @@ export default Ember.Component.extend({
     let lastTab = this.get('tabs')[this.get('tabs.length') - 1];
     let lastTabElement = document.getElementById(lastTab.id);
     let totalWidth = lastTabElement.offsetLeft + lastTab.offsetWidth;
-    let canvasWidth = this.$().find('md-tabs-canvas')[0].clientWidth;
+    let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
     value = Math.max(0, value);
     value = Math.min(totalWidth - canvasWidth, value);
     return value;
