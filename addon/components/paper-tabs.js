@@ -17,7 +17,7 @@ export default Ember.Component.extend({
   noInk: false,
   noInkBar: false,
   centerTabs: false,
-  stretchTabs: 'always', // todo: find the best default
+  stretchTabs: 'auto', // todo: find the best default
 
   classNames: ['md-primary'],
   classNameBindings: [
