@@ -3,7 +3,7 @@ import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
-const { $, computed, isEmpty, isPresent, isArray, Logger, A } = Ember;
+const { $, computed, isPresent, isArray, Logger, A } = Ember;
 
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
@@ -13,7 +13,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     'focus:md-input-focused',
     'isInvalid:md-input-invalid',
     'iconFloat:md-icon-float',
-    'icon:md-has-icon',
+    'icon:md-has-icon'
   ],
   type: 'text',
   autofocus: false,
@@ -67,7 +67,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   willDestroyElement() {
     if (this.get('textarea')) {
       $(window).off('resize', this.growTextarea);
-      this.$().children('textarea').first().off('keydown input scroll')
+      this.$().children('textarea').first().off('keydown input scroll');
     }
   },
 
@@ -185,6 +185,14 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       Logger.error('Exception with custom validation: ', error);
     }
 
+    let validationErrors = this.get('validationErrors');
+    if (validationErrors && isArray(validationErrors)) {
+      validationErrors.forEach((message) => messages.pushObject({
+        key: 'custom',
+        message
+      }));
+    }
+
     return messages;
   }),
 
@@ -202,7 +210,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       }
       this.set('focus', false);
       this.set('isTouched', true);
-    },
+    }
+    //  ,
     // keyDown(value, ev) {
     //   if (this.get('onKeyDown')) {
     //     this.get('onKeyDown')(value, ev);

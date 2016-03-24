@@ -35,6 +35,7 @@
         maxlength="2"
         maxlength-errortext="Max length exceeded."
     }}
+
   </p>
 
   <h3>Icons</h3>
@@ -167,7 +168,7 @@
     <p>
         Here is an example of validating the input value matches typical email formats.
     </p>
-    <h3>Template</h3>
+    <h4>Template</h4>
   {{#code-block language="handlebars"}}
 \{{paper-input label="E-mail" type="email" value=email customValidation=emailValidation}}{{/code-block}}
     <p>
@@ -203,6 +204,90 @@ multipleConstraints: [
   }
 ];{{/code-block}}
   {{paper-input label="Value should be even and equal 4." type="email" value=customMultiple customValidation=multipleConstraints}}
+
+  <h3>Setting validation messages from external validations</h3>
+  <p>
+    While `paper-input` supplies four built-in validation rules and the ability
+    to specify programmed custom validations, some projects need more complicated
+    and elaborate validations, such as are provided by `ember-cp-validations` or
+    another validation add-on. In this case, the code to validate the user input
+    is outside of `paper-input`, and only the resulting messages need be
+    provided to the {{#code-inline}}\{{paper-input}}{{/code-inline}} helper.
+  </p>
+  {{#paper-card}}
+    {{#paper-card-content}}
+      <div layout="" layout-sm="row">
+        {{paper-input
+          flex=50
+          label="User name"
+          value=model.username
+          validationErrors=model.validations.attrs.username.messages
+        }}
+      </div>
+      <div layout="" layout-sm="row">
+        {{paper-input
+          label="Password"
+          flex=34
+          type="password"
+          value=model.password
+          validationErrors=model.validations.attrs.password.messages
+        }}
+        {{paper-input
+          label="E-mail"
+          flex=33
+          type="email"
+          value=model.email
+          validationErrors=model.validations.attrs.email.messages
+        }}
+        {{paper-input
+          label="Retype your e-mail"
+          flex=33
+          type="email"
+          value=model.emailConfirmation
+          validationErrors=model.validations.attrs.emailConfirmation.messages
+        }}
+      </div>
+    {{/paper-card-content}}
+  {{/paper-card}}
+
+  <h4>Template</h4>
+  {{#code-block language="handlebars"}}
+\{{#paper-card}}
+  \{{#paper-card-content}}
+  &lt;div layout="" layout-sm="row"&gt;
+      \{{paper-input
+        flex=50
+        label="User name"
+        value=model.username
+        validationErrors=model.validations.attrs.username.messages
+      }}
+    &lt;/div&gt;
+    &lt;div layout="" layout-sm="row"&gt;
+      \{{paper-input
+        label="Password"
+        flex=34
+        type="password"
+        value=model.password
+        validationErrors=model.validations.attrs.password.messages
+      }}
+      \{{paper-input
+        label="E-mail"
+        flex=33
+        type="email"
+        value=model.email
+        validationErrors=model.validations.attrs.email.messages
+      }}
+      \{{paper-input
+        label="Retype your e-mail"
+        flex=33
+        type="email"
+        value=model.emailConfirmation
+        validationErrors=model.validations.attrs.emailConfirmation.messages
+      }}
+    &lt;/div&gt;
+  \{{/paper-card-content}}
+\{{/paper-card}}
+  {{/code-block}}
 
 </div>
 {{/paper-content}}
