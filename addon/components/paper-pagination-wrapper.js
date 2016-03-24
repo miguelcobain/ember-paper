@@ -15,7 +15,7 @@ export default Ember.Component.extend({
   pagingWidth: computed.reads('parent.pagingWidth'),
   offsetLeft: computed.reads('parent.offsetLeft'),
   shouldCenterTabs: computed.reads('parent.shouldCenterTabs'),
-
+  shouldStretchTabs: computed.reads('parent.shouldStretchTabs'),
   showInkBar: computed('noInkBar', 'tabs.[]', function() {
     if (!this.get('noInkBar') && (this.get('tabs.length') > 0)) {
       return true;
@@ -35,7 +35,7 @@ export default Ember.Component.extend({
 
   /* Style Bindings */
   widthStyle: computed('pagingWidth', function() {
-    if (this.get('shouldStrechTabs')) {
+    if (this.get('shouldStretchTabs')) {
       return '';
     } else {
       let width = this.get('pagingWidth');
@@ -60,7 +60,5 @@ export default Ember.Component.extend({
     position -= this.get('inkBarLeftPosition');
     position -= this.get('selectedTab.offsetWidth');
     return position;
-  }),
-
-  shouldStreTchTabs: false // todo: implement computed property
+  })
 });
