@@ -28,6 +28,7 @@ export default Ember.Component.extend({
   canPageForward: computed.reads('parent.canPageForward'),
   offsetLeft: computed.reads('parent.offsetLeft'),
   shouldCenterTabs: computed.reads('parent.shouldCenterTabs'),
+  shouldStretchTabs: computed.reads('parent.shouldStretchTabs'),
 
   didInsertElement() {
     let self = this.get('self');
