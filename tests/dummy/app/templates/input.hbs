@@ -60,6 +60,11 @@
         maxlength="2"
         maxlength-errortext="Max length exceeded."
       }}
+      {{paper-input
+        label="Required asterisk only"
+        value=requiredStyle
+        required="style"
+      }}
     </p>
 
     <h3>Icons</h3>
@@ -91,6 +96,11 @@
   maxlength="2"
   maxlength-errortext="Max length exceeded."
 }}
+\{{paper-input
+  label="Required asterisk only"
+  value=requiredStyle
+  required="style"
+}}
 
   &lt;h3&gt;Icons&lt;/h3&gt;
   &lt;p&gt;
@@ -100,6 +110,15 @@
     \{{paper-input placeholder="Address" type="text" value=user.address icon="place"}}
   &lt;/p&gt;
     {{/code-block}}
+    <p>
+      <strong>About Required.</strong>
+      Note that {{#code-inline}}required{{/code-inline}}, when set to {{#code-inline}}true{{/code-inline}}
+      both causes the input element to be validated to contain a value and causes the label to be styled
+      with a required asterisk (*). If only the asterisk styling is desired, such as when using external
+      validation mesages, use {{#code-inline}}required="style"{{/code-inline}}. To set the
+      html5 required attributed on the input element itself, use the {{#code-inline}}passThru{{/code-inline}}
+      option, as described below.
+    </p>
 
     <h3>Input Attributes</h3>
     <p>

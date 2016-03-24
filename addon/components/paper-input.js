@@ -132,7 +132,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       {
         attr: 'required',
         defaultError: 'This is required.',
-        isError: () => this.get('required') && !this.get('hasValue')
+        // required can be a boolean or 'style' for just required asterisk styling.
+        isError: () => this.get('required') === true && !this.get('hasValue')
       },
       {
         attr: 'min',
