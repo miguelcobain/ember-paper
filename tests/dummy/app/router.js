@@ -28,6 +28,7 @@ Router.map(function() {
   this.route('menu');
   this.route('grid-list');
   this.route('tabs');
+  this.route('dialog');
 });
 
 export default Router;

@@ -1,32 +1,46 @@
 import Ember from 'ember';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
+const { Component, computed, run, String: { htmlSafe } } = Ember;
+/* global Hammer */
 
-/* globals Hammer */
+export default Component.extend(TransitionMixin, {
 
-export default Ember.Component.extend(TransitionMixin, {
   tagName: 'md-backdrop',
   classNames: ['md-default-theme'],
   classNameBindings: ['opaque:md-opaque', 'isLockedOpen:md-locked-open'],
+  attributeBindings: ['backdropStyle:style'],
 
   // TransitionMixin:
   transitionClass: 'ng',
-  shouldTransition: Ember.computed.bool('opaque'),
+  shouldTransition: computed.bool('opaque'),
+
+  backdropStyle: computed('fixed', 'translateStyle', function() {
+    let style = this.get('translateStyle');
+    return this.get('fixed') ? htmlSafe(`position:fixed; ${style}`) : style;
+  }),
+
   addDestroyedElementClone(parent, index, clone) {
     parent.append(clone);
   },
 
-  // Hammer event handler for tapping backdrop
-  tapHammer: null,
-
   didInsertElement() {
-    let hammer = new Hammer(this.get('element'));
-    hammer.on('tap', Ember.run.bind(this, this.onTap));
-    this.set('tapHammer', hammer);
+    let backdropHammer = new Hammer(this.element);
+    backdropHammer.on('tap', run.bind(this, this._onTap));
+    this._backdropHammer = backdropHammer;
   },
 
-  onTap(e) {
+  willDestroyElement() {
+    this._super(...arguments);
+    if (this._backdropHammer) {
+      this._backdropHammer.destroy();
+    }
+  },
+
+  _onTap(e) {
     e.preventDefault();
-    this.sendAction('tap');
+    if (this.get('onTap')) {
+      this.get('onTap')(e);
+    }
   }
 
 });
