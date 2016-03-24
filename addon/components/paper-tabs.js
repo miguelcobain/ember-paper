@@ -58,15 +58,14 @@ export default Ember.Component.extend({
 
   /* Logic Bindings */
   loaded: false, // set after render
-  shouldStretchTabs: computed('stretchTabs', function() {
+  shouldStretchTabs: computed('stretchTabs', 'canvasWidth', function() {
     switch (this.get('stretchTabs')) {
       case 'always':
         return true;
       case 'never':
         return false;
       default:
-        /* todo, check screen width for this */
-        return (!this.get('shouldPaginate')/* && screen is <= 600px)*/);
+        return (!this.get('shouldPaginate') && (this.get('canvasWidth') <= 600));
     }
   }),
   shouldCenterTabs: computed('centerTabs', 'shouldPaginate', function() {
