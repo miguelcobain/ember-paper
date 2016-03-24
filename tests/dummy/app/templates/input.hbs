@@ -108,8 +108,21 @@
       This is an example of using one of the attributes.
     </p>
     <p>
+      {{paper-input
+        value=numberTest
+        label="Number of bagels"
+        type="number"
+        passThru=(hash min="0" step="13" )
+      }}
+    </p>
+    <p>
       {{#code-block language="handlebars"}}
-\{{paper-input attr-tabindex="2"}}
+\{{paper-input
+  value=numberTest
+  label="Number of bagels"
+  type="number"
+  passThru=(hash min="0" step="13" )
+}}
       {{/code-block}}
     </p>
 
@@ -179,11 +192,33 @@
 
     <h3>Events</h3>
     <p>
-      You may also pass through an action when the user presses the enter key while on the input field or textarea.
+      You may also pass through an action closures to receive notification upon
+      {{#code-inline}}focusIn{{/code-inline}}, {{#code-inline}}focusOut{{/code-inline}},
+      {{#code-inline}}keyDown{{/code-inline}}, and {{#code-inline}}enter{{/code-inline}}.
+    </p>
+    <p>
+      {{paper-input
+        label="Event demonstration"
+        value=eventTest
+        onFocusIn=(action "focusInReceived")
+        onFocusOut=(action "focusOutReceived")
+        onKeyDown=(action "keyDownReceived")
+        onEnter=(action "enterReceived")
+      }}
+    {{#if eventName}}
+      <div>The leaf controller for this route received the sent {{#code-inline}}{{eventName}}{{/code-inline}} action.</div>
+    {{/if}}
     </p>
     <p>
       {{#code-block language="handlebars"}}
-\{{paper-input event-enter="myEnterActionFunctionName"}}
+\{{paper-input
+  label=Event demonstration
+  value=eventTest
+  onFocusIn=(action "focusInReceived")
+  onFocusOut=(action "focusOutReceived")
+  onKeyDown=(action "keyDownReceived")
+  onEnter=(action "enterReceived")
+}}
       {{/code-block}}
     </p>
 

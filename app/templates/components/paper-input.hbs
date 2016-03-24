@@ -12,27 +12,26 @@
     id=inputElementId
     placeholder=placeholder
     value=value
-    focus-in=(action "focusIn")
-    focus-out=(action "focusOut")
     disabled=disabled
     required=required
     autofocus=autofocus
-
-    name=attr-name
-    rows=attr-rows
-    cols=attr-cols
-    maxlength=attr-maxlength
-    tabindex=attr-tabindex
-    selectionEnd=attr-selectionEnd
-    selectionStart=attr-selectionStart
-    selectionDirection=attr-selectionDirection
-    wrap=attr-wrap
-    readonly=attr-readonly
-    form=attr-form
-    spellcheck=attr-spellcheck
-
-    enter=onEnter
+    focus-in=(action "focusIn")
+    focus-out=(action "focusOut")
     key-down=onKeyDown
+    enter=onEnter
+
+    name=passThru.name
+    rows=passThru.rows
+    cols=passThru.cols
+    maxlength=passThru.maxlength
+    tabindex=passThru.tabindex
+    selectionEnd=passThru.selectionEnd
+    selectionStart=passThru.selectionStart
+    selectionDirection=passThru.selectionDirection
+    wrap=passThru.wrap
+    readonly=passThru.readonly
+    form=passThru.form
+    spellcheck=passThru.spellcheck
   }}
 {{else}}
   {{input
@@ -40,39 +39,38 @@
     id=inputElementId
     placeholder=placeholder
     type=type value=value
-    focus-in=(action "focusIn")
-    focus-out=(action "focusOut")
     disabled=disabled
     required=required
     autofocus=autofocus
-
-    accept=attr-accept
-    autocomplete=attr-autocomplete
-    autosave=attr-autosave
-    form=attr-form
-    formaction=attr-formaction
-    formenctype=attr-formenctype
-    formmethod=attr-formmethod
-    formnovalidate=attr-formnovalidate
-    formtarget=attr-formtarget
-    height=attr-height
-    inputmode=attr-inputmode
-    min=attr-min
-    maxlength=attr-maxlength
-    max=attr-max
-    multiple=attr-multiple
-    name=attr-name
-    pattern=attr-pattern
-    readonly=attr-readonly
-    selectionDirection=attr-selectionDirection
-    size=attr-size
-    spellcheck=attr-spellcheck
-    step=attr-step
-    tabindex=attr-tabindex
-    width=attr-width
-
-    enter=onEnter
+    focus-in=(action "focusIn")
+    focus-out=(action "focusOut")
     key-down=onKeyDown
+    enter=onEnter
+
+    accept=passThru.accept
+    autocomplete=passThru.autocomplete
+    autosave=passThru.autosave
+    form=passThru.form
+    formaction=passThru.formaction
+    formenctype=passThru.formenctype
+    formmethod=passThru.formmethod
+    formnovalidate=passThru.formnovalidate
+    formtarget=passThru.formtarget
+    height=passThru.height
+    inputmode=passThru.inputmode
+    min=passThru.min
+    maxlength=passThru.maxlength
+    max=passThru.max
+    multiple=passThru.multiple
+    name=passThru.name
+    pattern=passThru.pattern
+    readonly=passThru.readonly
+    selectionDirection=passThru.selectionDirection
+    size=passThru.size
+    spellcheck=passThru.spellcheck
+    step=passThru.step
+    tabindex=passThru.tabindex
+    width=passThru.width
   }}
 {{/if}}
 
