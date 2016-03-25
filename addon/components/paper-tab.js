@@ -107,6 +107,7 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   updateBounds: observer('tabs.[]', 'shouldPaginate', 'offsetLeft', function() {
     let context = this;
     Ember.run.scheduleOnce('afterRender', function() {
+      debugger;
       let left = context.$()[0].offsetLeft + context.get('offsetLeft');
       let width = context.$()[0].clientWidth;
       context.set('self.offsetLeft', left);
