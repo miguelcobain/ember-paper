@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { computed, observer, $ } = Ember;
+const { computed, observer, $, run } = Ember;
 
 export default Ember.Component.extend({
   tagName: 'md-tabs',
@@ -103,14 +103,25 @@ export default Ember.Component.extend({
     'canvasWidth',
     'offsetLeft', function() {
     if (this.get('lastTab')) {
-      let lastTab = this.$(`#${this.get('lastTab.id')}`)[0];
-      let pagingWidth = lastTab.offsetLeft + lastTab.clientWidth;
-      let offset = this.$('md-tabs-canvas')[0].clientWidth + this.get('offsetLeft');
-      return (pagingWidth > offset);
+      let context = this;
+      run(function(){
+        debugger
+        let lastTab = context.$(`#${context.get('lastTab.id')}`)[0];
+        let pagingWidth = lastTab.offsetLeft + lastTab.clientWidth;
+        let offset = context.$('md-tabs-canvas')[0].clientWidth + context.get('offsetLeft');
+        return (pagingWidth > offset);
+      })
+
     }
   }),
 
-  canvasWidth: 0, // initial
+  /* sets the initial value as a computed property */
+  canvasWidth: computed(function() {
+    let context = this;
+    return Ember.run.scheduleOnce('afterRender', function() {
+      return context.$().outerWidth();
+    });
+  }),
 
   didRender() {
     let context = this;
@@ -118,7 +129,7 @@ export default Ember.Component.extend({
       context.set('loaded', true);
       context.set('canvasWidth', context.$().outerWidth());
       $(window).on('resize', Ember.run.bind(context, function(){
-        this.set('canvasWidth', this.$().outerWidth());
+        context.set('canvasWidth', this.$().outerWidth());
       }));
     });
   },
@@ -167,6 +178,7 @@ export default Ember.Component.extend({
     if (!this.getTabByIndex(index) || this.get('shouldCenterTabs')) {
       return 0;
     }
+    debugger;
     let tab = this.getTabByIndex(index);
     let left = $(`#${tab.get('id')}`)[0].offsetLeft;
     let right = $(`#${tab.get('id')}`)[0].clientWidth + left;
@@ -199,6 +211,7 @@ export default Ember.Component.extend({
         break;
       }
      }
+     debugger;
      let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
      this.set('offsetLeft', this.fixOffset(tab.offsetLeft + tab.offsetWidth - canvasWidth));
 
@@ -208,6 +221,7 @@ export default Ember.Component.extend({
     if (!this.get('tabs.length') || !this.get('shouldPaginate')) {
       return 0;
     }
+    debugger;
     let lastTab = this.get('tabs')[this.get('tabs.length') - 1];
     let lastTabElement = document.getElementById(lastTab.id);
     let totalWidth = lastTabElement.offsetLeft + lastTab.offsetWidth;
