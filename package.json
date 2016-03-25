@@ -56,7 +56,7 @@
     "ember-cli-babel": "^5.1.5",
     "ember-css-transitions": "^0.1.0",
     "ember-wormhole": "^0.3.4",
-    "angular-material-source": "angular/material#v1.0.0"
+    "angular-material-source": "angular/material#v1.0.6"
   },
   "keywords": [
     "ember-addon",
