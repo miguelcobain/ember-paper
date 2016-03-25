@@ -184,7 +184,7 @@ test('pressing escape triggers close action', function(assert) {
 });
 
 test('opening gives focus', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   this.set('openDialog', () => {
     this.set('showDialog', true);
@@ -207,11 +207,16 @@ test('opening gives focus', function(assert) {
   this.$('#theorigin').click();
 
   return wait().then(() => {
+    assert.equal(document.activeElement, this.$('#thedialogbutton').get(0));
+    this.set('showDialog', false);
+    return wait();
+  }).then(() => {
     let done = assert.async();
-    window.setTimeout(() => {
-      assert.equal(document.activeElement, this.$('#thedialogbutton').get(0));
+    // wait() doesn't seem to wait after the object is destroyed?
+    setTimeout(() => {
+      assert.equal(document.activeElement, this.$('#theorigin').get(0));
       done();
-    }, 1000);
+    }, 500);
   });
 
 });

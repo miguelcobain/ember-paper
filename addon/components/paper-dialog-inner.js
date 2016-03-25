@@ -19,8 +19,8 @@ export default Component.extend(Translate3dMixin, {
     }
   },
 
-  onTranslateToEnd() {
-    $(this.get('origin')).focus();
+  onTranslateToEnd(origin) {
+    $(origin).focus();
   },
 
   click(ev) {

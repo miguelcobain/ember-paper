@@ -82,6 +82,8 @@ export default Mixin.create({
     let toElement = this.get('toElement');
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, toElement));
 
+    let origin = this.get('origin');
+
     run.schedule('afterRender', () => {
       $(this.get('parentElement')).parent().append(containerClone);
       run.next(() => {
@@ -91,7 +93,7 @@ export default Mixin.create({
         run.next(() => {
           this.waitTransitionEnd(dialogClone).then(() => {
             containerClone.remove();
-            this.onTranslateToEnd(toElement);
+            this.onTranslateToEnd(origin);
           });
         });
       });
