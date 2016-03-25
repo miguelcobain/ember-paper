@@ -215,7 +215,7 @@ test('opening gives focus', function(assert) {
   }).then(() => {
     let done = assert.async();
     // wait() doesn't seem to wait after transitionend
-    this.$('md-dialog').one('transitionend webkitTransitionEnd', () => {
+    this.$('md-dialog').on('transitionend webkitTransitionEnd', () => {
       run.next(() => {
         assert.equal(document.activeElement, this.$('#theorigin').get(0));
         done();
