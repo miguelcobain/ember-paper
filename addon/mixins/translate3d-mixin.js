@@ -14,6 +14,7 @@ const {
 } = Ember;
 
 let rAF = run;
+
 if (!Ember.testing && self.window && self.window.requestAnimationFrame) {
   rAF = self.window.requestAnimationFrame;
 }
@@ -65,13 +66,11 @@ export default Mixin.create({
       // Wait while CSS takes affect
       // Set the `main` styles and run the transition-in styles
       rAF(() => {
-        Ember.run(() => {
-          this.waitTransitionEnd(this.element).then(() => {
-            this.onTranslateFromEnd();
-          });
-          this.set('transformStyleApply', 'main');
-          this.set('transformIn', true);
+        this.waitTransitionEnd(this.element).then(() => {
+          this.onTranslateFromEnd();
         });
+        this.set('transformStyleApply', 'main');
+        this.set('transformIn', true);
       });
     });
   },
