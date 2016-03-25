@@ -2,10 +2,9 @@
 
 module.exports = function(environment) {
   // jshint node: true
-  // jscs:disable requireEnhancedObjectLiterals, validateQuoteMarks, disallowEmptyBlocks
-  'use strict';
+  // jscs:disable requireEnhancedObjectLiterals, validateQuoteMarks, disallowEmptyBlocks, disallowVar
 
-  let ENV = {
+  var ENV = {
     modulePrefix: 'dummy',
     environment,
     baseURL: '/',
