@@ -1,6 +1,8 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+const { run } = Ember;
 
 moduleForComponent('paper-dialog', 'Integration | Component | paper dialog', {
   integration: true
@@ -212,11 +214,13 @@ test('opening gives focus', function(assert) {
     return wait();
   }).then(() => {
     let done = assert.async();
-    // wait() doesn't seem to wait after the object is destroyed?
-    setTimeout(() => {
-      assert.equal(document.activeElement, this.$('#theorigin').get(0));
-      done();
-    }, 500);
+    // wait() doesn't seem to wait after transitionend
+    this.$('md-dialog').one('transitionend webkitTransitionEnd', () => {
+      run.next(() => {
+        assert.equal(document.activeElement, this.$('#theorigin').get(0));
+        done();
+      });
+    });
   });
 
 });
