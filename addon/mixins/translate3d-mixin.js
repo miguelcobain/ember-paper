@@ -9,8 +9,14 @@ const {
   on,
   inject: { service },
   run: { schedule },
+  run,
   K
 } = Ember;
+
+let rAF = run;
+if (!Ember.testing && self.window && self.window.requestAnimationFrame) {
+  rAF = self.window.requestAnimationFrame;
+}
 
 export default Mixin.create({
   constants: service(),
