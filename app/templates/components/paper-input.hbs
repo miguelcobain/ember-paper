@@ -84,7 +84,7 @@
     <div class="md-input-messages-animation md-auto-hide" ng-messages>
       {{#each errorMessages as |message index|}}
         <div
-          id="error-{{inputElementId}}{{if index "-"index}}"
+          id="error-{{inputElementId}}{{if index "-"}}{{if index index}}"
           ng-message="{{message.key}}"
           class="ng-enter ng-enter-active"
         >

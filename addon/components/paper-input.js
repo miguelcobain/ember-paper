@@ -19,6 +19,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   autofocus: false,
   tabindex: -1,
   hideAllMessages: false,
+  isTouched: false,
+
   hasValue: computed.notEmpty('value'),
 
   inputElementId: computed('elementId', function() {
