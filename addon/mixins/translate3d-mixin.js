@@ -64,7 +64,7 @@ export default Mixin.create({
       this.set('transformStyleApply', 'from');
       // Wait while CSS takes affect
       // Set the `main` styles and run the transition-in styles
-      window.requestAnimationFrame(() => {
+      rAF(() => {
         Ember.run(() => {
           this.waitTransitionEnd(this.element).then(() => {
             this.onTranslateFromEnd();
@@ -93,7 +93,7 @@ export default Mixin.create({
     schedule('afterRender', () => {
       $(this.get('parentElement')).append(containerClone);
 
-      window.requestAnimationFrame(() => {
+      rAF(() => {
 
         dialogClone.removeClass('md-transition-in');
         dialogClone.addClass('md-transition-out');
