@@ -49,7 +49,7 @@
               {{yield searchText item index}}
             {{else}}
               {{#if itemComponent}}
-                {{component itemComponent searchText=searchText label=label index=index}}
+                {{component itemComponent searchText=searchText item=item index=index}}
               {{else}}
                 {{paper-autocomplete-highlight searchText=searchText label=label}}
               {{/if}}
