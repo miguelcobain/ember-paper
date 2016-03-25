@@ -8,7 +8,7 @@ const {
   computed,
   on,
   inject: { service },
-  run: { schedule },
+  run,
   K
 } = Ember;
 
@@ -17,14 +17,6 @@ export default Mixin.create({
 
   attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],
-
-  defaultParent: 'body',
-
-  parentElement: computed.or('hashedParent', 'defaultParent'),
-  hashedParent: computed('parent', function() {
-    let parent = this.get('parent');
-    return parent ? `#${parent}` : null;
-  }),
 
   fromElement: computed.or('openFrom', 'origin'),
 
@@ -50,22 +42,31 @@ export default Mixin.create({
     }
   }),
 
+  init() {
+    this._super(...arguments);
+    this.TRANSITIONEND = this.get('constants').get('CSS').TRANSITIONEND;
+  },
+
+  onTranslateFromEnd: K,
+  onTranslateToEnd: K,
+
   didInsertElement() {
     this._super(...arguments);
 
-    schedule('afterRender', () => {
+    run.schedule('afterRender', () => {
       // Set translate3d style to start at the `from` origin
       this.set('transformStyleApply', 'from');
       // Wait while CSS takes affect
       // Set the `main` styles and run the transition-in styles
-      window.requestAnimationFrame(() => {
+      run.next(() => {
+        this.waitTransitionEnd(this.element).then(() => {
+          this.onTranslateFromEnd();
+        });
         this.set('transformStyleApply', 'main');
         this.set('transformIn', true);
       });
     });
   },
-
-  onTranslateDestroy: K,
 
   /**
    * Specific reversal of the request translate animation above...
@@ -81,18 +82,19 @@ export default Mixin.create({
     let toElement = this.get('toElement');
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, toElement));
 
-    schedule('afterRender', () => {
-      $(this.get('parentElement')).append(containerClone);
+    let origin = this.get('origin');
 
-      window.requestAnimationFrame(() => {
-
+    run.schedule('afterRender', () => {
+      $(this.get('parentElement')).parent().append(containerClone);
+      run.next(() => {
         dialogClone.removeClass('md-transition-in');
         dialogClone.addClass('md-transition-out');
         dialogClone.attr('style', toStyle);
-
-        this.waitTransitionEnd(dialogClone).then(() => {
-          containerClone.remove();
-          this.onTranslateDestroy(toElement);
+        run.next(() => {
+          this.waitTransitionEnd(dialogClone).then(() => {
+            containerClone.remove();
+            this.onTranslateToEnd(origin);
+          });
         });
       });
 
@@ -112,7 +114,7 @@ export default Mixin.create({
 
       // Upon timeout or transitionEnd, reject or resolve (respectively) this promise.
       // NOTE: Make sure this transitionEnd didn't bubble up from a child
-      element.on(this.get('constants').get('CSS').TRANSITIONEND, function(ev) {
+      $(element).on(this.TRANSITIONEND, function(ev) {
         if (ev) {
           resolve();
         }

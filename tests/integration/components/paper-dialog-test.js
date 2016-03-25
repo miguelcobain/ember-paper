@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
+const { run } = Ember;
 
 moduleForComponent('paper-dialog', 'Integration | Component | paper dialog', {
   integration: true
@@ -12,12 +14,10 @@ test('should render proper dialog wrapping selectors', function(assert) {
     {{paper-dialog}}
   `);
 
-  let selectors = this.$()
-    .find('#paper-wormhole')
-    .find('.md-dialog-container')
-    .find('md-dialog');
+  let selectors = this.$('#paper-wormhole .md-dialog-container md-dialog');
 
   assert.ok(selectors.length, 'has proper selector nesting');
+
 });
 
 test('should render empty dialog when blockless', function(assert) {
@@ -50,7 +50,7 @@ test('should render in default wormhole if no parent is defined', function(asser
     {{paper-dialog}}
   `);
 
-  assert.ok(this.$().find('#paper-wormhole').find('md-dialog'), 'rendered in default');
+  assert.ok(this.$().find('#paper-wormhole md-dialog'), 'rendered in default');
 });
 
 test('should render in specific wormhole if parent is defined', function(assert) {
@@ -62,8 +62,8 @@ test('should render in specific wormhole if parent is defined', function(assert)
     {{/paper-dialog}}
   `);
 
-  assert.ok(!this.$().find('#paper-wormhole').find('md-dialog').length, 'did not render in default');
-  assert.ok(this.$().find('#sagittarius-a').find('md-dialog').length, 'rendered in parent');
+  assert.ok(!this.$('#paper-wormhole md-dialog').length, 'did not render in default');
+  assert.ok(this.$('#sagittarius-a md-dialog').length, 'rendered in parent');
 });
 
 test('should only prevent scrolling behind scoped modal', function(assert) {
@@ -72,9 +72,7 @@ test('should only prevent scrolling behind scoped modal', function(assert) {
     {{paper-dialog parent="sagittarius-a"}}
   `);
 
-  let backdrop = this.$().find('#sagittarius-a').find('md-backdrop');
-
-  assert.equal(backdrop.css('position'), 'absolute', 'backdrop is absolute');
+  assert.equal(this.$('md-backdrop').css('position'), 'absolute', 'backdrop is absolute');
 });
 
 test('should prevent scrolling entirely behind fixed modal', function(assert) {
@@ -85,49 +83,72 @@ test('should prevent scrolling entirely behind fixed modal', function(assert) {
     {{paper-dialog}}
   `);
 
-  let backdrop = this.$().find('#paper-wormhole').find('md-backdrop');
-
   assert.equal(
-    backdrop.css('position'), 'fixed', 'backdrop is fixed'
+    this.$('md-backdrop').css('position'), 'fixed', 'backdrop is fixed'
   );
 });
 
-test('should render transition when openFrom is defined', function(assert) {
-  /* to test */
-  assert.ok(1);
+test('applies transitions when opening and closing', function(assert) {
+  this.render(hbs`
+    <div id="paper-wormhole"></div>
+    {{#if dialogOpen}}
+      {{paper-dialog}}
+    {{/if}}
+  `);
+  this.set('dialogOpen', true);
+
+  let getDialogTransform = () => {
+    let dialogStyle = this.$('md-dialog').get(0).style;
+    return dialogStyle.webkitTransform || dialogStyle.transform;
+  };
+
+  let dialogTransform = getDialogTransform();
+  assert.ok(dialogTransform.indexOf('translate3d') !== -1);
+
+  return wait().then(() => {
+    let dialogTransform = getDialogTransform();
+    assert.ok(!dialogTransform, 'translate was removed');
+
+    this.set('dialogOpen', false);
+
+    return wait();
+  }).then(() => {
+    let dialogTransform = getDialogTransform();
+    assert.ok(dialogTransform.indexOf('translate3d') !== -1, 'translate was added');
+  });
 });
 
 test('click outside should close dialog if clickOutsideToClose', function(assert) {
   assert.expect(2);
 
-  this.set('showDialog', true);
-  this.set('closeDialog', function() {
-    assert.ok(!this.$().find('md-dialog').length, 'dialog closing handler');
+  this.set('dialogOpen', true);
+  this.set('closeDialog', () => {
+    assert.ok(true, 'dialog closing handler fired');
   });
 
   this.render(hbs`
     <div id="paper-wormhole"></div>
-    {{#if showDialog}}
+    {{#if dialogOpen}}
       {{paper-dialog clickOutsideToClose=true onClose=closeDialog}}
     {{/if}}
   `);
 
-  assert.ok(this.$().find('md-dialog').length, 'dialog is showing');
+  assert.ok(this.$('md-dialog').length, 'dialog is showing');
 
-  this.$().find('.md-dialog-container').click();
+  this.$('.md-dialog-container').click();
 });
 
-test('click outside should not close dialog if not clickOutsideToClose', function(assert) {
+test('click outside should not close dialog by default', function(assert) {
   assert.expect(2);
   this.render(hbs`
     <div id="paper-wormhole"></div>
     {{paper-dialog}}
   `);
 
-  assert.ok(this.$().find('md-dialog').length, 'dialog is showing');
+  assert.ok(this.$('md-dialog').length, 'dialog is showing');
 
-  this.$().find('.md-dialog-container').click();
-  assert.ok(this.$().find('md-dialog').length, 'dialog is still showing');
+  this.$('.md-dialog-container').click();
+  assert.ok(this.$('md-dialog').length, 'dialog is still showing');
 });
 
 test('has opt-in support for fullscreen at responsive breakpoint', function(assert) {
@@ -136,18 +157,16 @@ test('has opt-in support for fullscreen at responsive breakpoint', function(asse
     {{paper-dialog fullscreen=true}}
   `);
 
-  let dialog = this.$().find('#paper-wormhole').find('md-dialog');
-
-  assert.ok(dialog.hasClass('md-dialog-fullscreen'), 'has class for fullscreen');
+  assert.ok(this.$('md-dialog').hasClass('md-dialog-fullscreen'), 'has class for fullscreen');
 });
 
-test('pressing escape closes the dialog', function(assert) {
+test('pressing escape triggers close action', function(assert) {
   assert.expect(2);
   let done = assert.async();
 
   this.set('showDialog', true);
-  this.set('closeDialog', function() {
-    assert.ok(!this.$().find('md-dialog').length, 'dialog closing handler');
+  this.set('closeDialog', () => {
+    assert.ok(true, 'dialog closing handler fired');
     done();
   });
 
@@ -158,9 +177,50 @@ test('pressing escape closes the dialog', function(assert) {
     {{/if}}
   `);
 
-  assert.ok(this.$().find('md-dialog'), 'dialog is showing');
+  assert.ok(this.$('md-dialog'), 'dialog is showing');
 
-  let event = new Ember.$.Event('keyup');
+  let event = new $.Event('keydown');
   event.keyCode = 27;
-  this.$(window).trigger(event);
+  this.$('md-dialog').trigger(event);
+
+});
+
+test('opening gives focus', function(assert) {
+  assert.expect(3);
+
+  this.set('openDialog', () => {
+    this.set('showDialog', true);
+  });
+
+  this.render(hbs`
+    <div id="paper-wormhole"></div>
+    {{#if showDialog}}
+      {{#paper-dialog onClose=closeDialog origin="#theorigin"}}
+        <button id="thedialogbutton" autofocus>çup?</button>
+      {{/paper-dialog}}
+    {{/if}}
+    <button id="theorigin" onclick={{action openDialog}}>
+      The origin
+    </button>
+  `);
+
+  this.$('#theorigin').focus();
+  assert.equal(document.activeElement, this.$('#theorigin').get(0));
+  this.$('#theorigin').click();
+
+  return wait().then(() => {
+    assert.equal(document.activeElement, this.$('#thedialogbutton').get(0));
+    this.set('showDialog', false);
+    return wait();
+  }).then(() => {
+    let done = assert.async();
+    // wait() doesn't seem to wait after transitionend
+    this.$('md-dialog').one('transitionend webkitTransitionEnd', () => {
+      run.next(() => {
+        assert.equal(document.activeElement, this.$('#theorigin').get(0));
+        done();
+      });
+    });
+  });
+
 });

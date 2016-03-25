@@ -2,15 +2,25 @@ import Ember from 'ember';
 import Translate3dMixin from '../mixins/translate3d-mixin';
 import PaperDialog from './paper-dialog';
 
-const { Component, computed } = Ember;
+const { Component, computed, $ } = Ember;
 
 export default Component.extend(Translate3dMixin, {
   tagName: 'md-dialog',
   classNames: ['md-default-theme'],
   classNameBindings: ['contentOverflow:md-content-overflow', 'fullscreen:md-dialog-fullscreen'],
 
-  onTranslateDestroy(origin) {
-    origin.focus();
+  onTranslateFromEnd() {
+    if (this.get('focusOnOpen')) {
+      let toFocus = this.$('[autofocus]').last();
+      if (toFocus.length === 0) {
+        toFocus = this.$('md-dialog-actions button').last();
+      }
+      toFocus.focus();
+    }
+  },
+
+  onTranslateToEnd(origin) {
+    $(origin).focus();
   },
 
   click(ev) {

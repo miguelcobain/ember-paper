@@ -8,12 +8,13 @@
   }}
   {{#paper-dialog-container outsideClicked=(action "outsideClicked")}}
     {{#paper-dialog-inner
-      parent=parent
+      parentElement=parentElementSelector
       origin=origin
       openFrom=openFrom
       closeTo=closeTo
       fullscreen=fullscreen
       clickOutsideToClose=clickOutsideToClose
+      focusOnOpen=focusOnOpen
     }}
       {{yield}}
     {{/paper-dialog-inner}}
