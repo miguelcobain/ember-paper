@@ -18,14 +18,6 @@ export default Mixin.create({
   attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],
 
-  defaultParent: 'body',
-
-  parentElement: computed.or('hashedParent', 'defaultParent'),
-  hashedParent: computed('parent', function() {
-    let parent = this.get('parent');
-    return parent ? `#${parent}` : null;
-  }),
-
   fromElement: computed.or('openFrom', 'origin'),
 
   toElement: computed.or('closeTo', 'origin'),
@@ -50,6 +42,14 @@ export default Mixin.create({
     }
   }),
 
+  init() {
+    this._super(...arguments);
+    this.TRANSITIONEND = this.get('constants').get('CSS').TRANSITIONEND;
+  },
+
+  onTranslateFromEnd: K,
+  onTranslateToEnd: K,
+
   didInsertElement() {
     this._super(...arguments);
 
@@ -59,13 +59,16 @@ export default Mixin.create({
       // Wait while CSS takes affect
       // Set the `main` styles and run the transition-in styles
       window.requestAnimationFrame(() => {
-        this.set('transformStyleApply', 'main');
-        this.set('transformIn', true);
+        Ember.run(() => {
+          this.waitTransitionEnd(this.element).then(() => {
+            this.onTranslateFromEnd();
+          });
+          this.set('transformStyleApply', 'main');
+          this.set('transformIn', true);
+        });
       });
     });
   },
-
-  onTranslateDestroy: K,
 
   /**
    * Specific reversal of the request translate animation above...
@@ -92,7 +95,7 @@ export default Mixin.create({
 
         this.waitTransitionEnd(dialogClone).then(() => {
           containerClone.remove();
-          this.onTranslateDestroy(toElement);
+          this.onTranslateToEnd(toElement);
         });
       });
 
@@ -112,7 +115,7 @@ export default Mixin.create({
 
       // Upon timeout or transitionEnd, reject or resolve (respectively) this promise.
       // NOTE: Make sure this transitionEnd didn't bubble up from a child
-      element.on(this.get('constants').get('CSS').TRANSITIONEND, function(ev) {
+      $(element).on(this.TRANSITIONEND, function(ev) {
         if (ev) {
           resolve();
         }

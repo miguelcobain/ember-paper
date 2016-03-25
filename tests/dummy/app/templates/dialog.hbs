@@ -45,11 +45,11 @@
         &lt;/div&gt;
       \{{/paper-dialog-content}}
 
-      &lt;div class="md-actions" layout="row"&gt;
+      \{{#paper-dialog-actions class="layout-row"}}
         &lt;span flex&gt;&lt;/span&gt;
         \{{#paper-button primary=true action=(action "closeDialogWithParent" "cancel")}}Cancel\{{/paper-button}}
         \{{#paper-button primary=true action=(action "closeDialogWithParent" "ok")}}OK\{{/paper-button}}
-      &lt;/div&gt;
+      \{{/paper-dialog-actions}}
     &lt;/form&gt;
   \{{/paper-dialog}}
 \{{/if}}
@@ -73,11 +73,11 @@
       &lt;/div&gt;
     \{{/paper-dialog-content}}
 
-    &lt;div class="md-actions" layout="row"&gt;
+    \{{#paper-dialog-actions class="layout-row"}}
       &lt;span flex&gt;&lt;/span&gt;
       \{{#paper-button primary=true action=(action "closeDialog" "cancel")}}Cancel\{{/paper-button}}
       \{{#paper-button primary=true action=(action "closeDialog" "ok")}}OK\{{/paper-button}}
-    &lt;/div&gt;
+    \{{/paper-dialog-actions}}
   \{{/paper-dialog}}
 \{{/if}}
 
@@ -93,11 +93,11 @@
       &lt;/div&gt;
     \{{/paper-dialog-content}}
 
-    &lt;div class="md-actions" layout="row"&gt;
+    \{{#paper-dialog-actions class="layout-row"}}
       &lt;span flex&gt;&lt;/span&gt;
       \{{#paper-button primary=true action=(action "closePromptDialog" "cancel")}}I'm a cat person\{{/paper-button}}
       \{{#paper-button primary=true action=(action "closePromptDialog" "ok" dogName)}}Okay!\{{/paper-button}}
-    &lt;/div&gt;
+    \{{/paper-dialog-actions}}
   \{{/paper-dialog}}
 \{{/if}}
         {{/code-block}}
@@ -190,11 +190,11 @@
         </div>
       {{/paper-dialog-content}}
 
-      <div class="md-actions" layout="row">
+      {{#paper-dialog-actions class="layout-row"}}
         <span flex></span>
         {{#paper-button action=(action "closeDialogWithParent" "cancel")}}Cancel{{/paper-button}}
         {{#paper-button action=(action "closeDialogWithParent" "ok")}}OK{{/paper-button}}
-      </div>
+      {{/paper-dialog-actions}}
     </form>
   {{/paper-dialog}}
 {{/if}}
@@ -218,11 +218,11 @@
       </div>
     {{/paper-dialog-content}}
 
-    <div class="md-actions" layout="row">
+    {{#paper-dialog-actions class="layout-row"}}
       <span flex></span>
       {{#paper-button action=(action "closeDialog" "cancel")}}Cancel{{/paper-button}}
       {{#paper-button action=(action "closeDialog" "ok")}}OK{{/paper-button}}
-    </div>
+    {{/paper-dialog-actions}}
   {{/paper-dialog}}
 {{/if}}
 
@@ -232,7 +232,7 @@
     {{#paper-dialog-content}}
       <h2 class="md-title">What would you name your dog?</h2>
       <p>Bowser is a common name.</p>
-      {{paper-input placeholder="dog name" value=dogName}}
+      {{paper-input placeholder="dog name" autofocus=true value=dogName}}
       <div>
         {{#paper-checkbox checked=fullscreen onchange=(action (mut fullscreen))}}Display fullscreen at small window size breakpoints{{/paper-checkbox}}
       </div>
