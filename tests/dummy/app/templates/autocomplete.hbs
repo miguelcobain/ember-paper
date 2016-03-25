@@ -177,13 +177,11 @@
 
 <h3>Template</h3>
 {{#code-block language="handlebars"}}
-\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |searchText item index|}}}
+\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel notFoundMessage="Whoops! Could not find \"%@\." as |searchText item index|}}}
   &lt;span class="item-title"&gt;
     \{{paper-icon "star"}}
   &lt;span&gt; \{{paper-autocomplete-highlight searchText=searchText label=item}} &lt;/span&gt;
   &lt;/span&gt;
-\{{else}}
-  Whoops! Could not find "\{{searchText}}".
 \{{/paper-autocomplete}}{{/code-block}}
 
 <p>The custom template receives <strong>3 block parameters</strong> (searchText, item and index).
@@ -192,8 +190,8 @@
 <ul>
   <li><strong>searchText</strong> This is the original searchText from the user.</li>
   <li><strong>item</strong> This is the item directly from the source array. If it is an object you would forexample
-  need to reference it with <code>\{{item.name}}</code>. Not defined in the inverse template.</li>
-  <li><strong>index</strong> This is the index of the suggestions that are currently in the list. Not defined in the inverse template.</li>
+  need to reference it with <code>\{{item.name}}</code>.</li>
+  <li><strong>index</strong> This is the index of the suggestions that are currently in the list.</li>
 </ul>
 
 <h2>Blockless Custom template</h2>
