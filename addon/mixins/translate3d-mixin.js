@@ -8,16 +8,9 @@ const {
   computed,
   on,
   inject: { service },
-  run: { schedule },
   run,
   K
 } = Ember;
-
-let rAF = run;
-
-if (!Ember.testing && self.window && self.window.requestAnimationFrame) {
-  rAF = self.window.requestAnimationFrame;
-}
 
 export default Mixin.create({
   constants: service(),
@@ -60,12 +53,12 @@ export default Mixin.create({
   didInsertElement() {
     this._super(...arguments);
 
-    schedule('afterRender', () => {
+    run.schedule('afterRender', () => {
       // Set translate3d style to start at the `from` origin
       this.set('transformStyleApply', 'from');
       // Wait while CSS takes affect
       // Set the `main` styles and run the transition-in styles
-      rAF(() => {
+      run.next(() => {
         this.waitTransitionEnd(this.element).then(() => {
           this.onTranslateFromEnd();
         });
@@ -89,18 +82,17 @@ export default Mixin.create({
     let toElement = this.get('toElement');
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, toElement));
 
-    schedule('afterRender', () => {
-      $(this.get('parentElement')).append(containerClone);
-
-      rAF(() => {
-
+    run.schedule('afterRender', () => {
+      $(this.get('parentElement')).parent().append(containerClone);
+      run.next(() => {
         dialogClone.removeClass('md-transition-in');
         dialogClone.addClass('md-transition-out');
         dialogClone.attr('style', toStyle);
-
-        this.waitTransitionEnd(dialogClone).then(() => {
-          containerClone.remove();
-          this.onTranslateToEnd(toElement);
+        run.next(() => {
+          this.waitTransitionEnd(dialogClone).then(() => {
+            containerClone.remove();
+            this.onTranslateToEnd(toElement);
+          });
         });
       });
 
