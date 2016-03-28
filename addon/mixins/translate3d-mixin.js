@@ -58,7 +58,9 @@ export default Mixin.create({
       // Set the `main` styles and run the transition-in styles
       run.next(() => {
         this.waitTransitionEnd($(this.element)).then(() => {
-          this.onTranslateFromEnd();
+          if (!this.get('isDestroying') && !this.get('isDestroyed')) {
+            this.onTranslateFromEnd();
+          }
         });
         this.set('transformStyleApply', 'main');
         this.set('transformIn', true);
