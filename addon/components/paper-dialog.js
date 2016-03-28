@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { toJQuery } from '../mixins/translate3d-mixin';
 
 const {
   Component,
@@ -28,26 +27,27 @@ export default Component.extend({
   // id is that of the 'parent', if provided, or 'paper-wormhole' if not.
   destinationId: computed('defaultedParent', function() {
     let parent = this.get('defaultedParent');
-    let $parent = toJQuery(parent);
+    let $parent = $(parent);
     // If the parent isn't found, assume that it is an id, but that the DOM doesn't
     // exist yet. This only happens during integration tests or if entire application
     // route is a dialog.
-    if (isEmpty($parent) && parent.charAt(0) === '#') {
+    if ($parent.length === 0 && parent.charAt(0) === '#') {
       return parent.substring(1);
+    } else {
+      let id = $parent.attr('id');
+      if (!id) {
+        id = `${this.elementId}-parent`;
+        $parent.get(0).id = id;
+      }
+      return id;
     }
-    let id = $parent.attr('id');
-    if (!id) {
-      id = `${this.elementId}-parent`;
-      $parent.get(0).id = id;
-    }
-    return id;
   }),
 
   constants: service(),
 
   didInsertElement() {
     if (this.get('escapeToClose')) {
-      toJQuery(this.get('defaultedParent')).on(`keydown.${this.elementId}`, (e) => {
+      $(this.get('defaultedParent')).on(`keydown.${this.elementId}`, (e) => {
         if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.get('onClose')) {
           this.get('onClose')();
         }
@@ -57,7 +57,7 @@ export default Component.extend({
 
   willDestroyElement() {
     if (this.get('escapeToClose')) {
-      toJQuery(this.get('defaultedParent')).off(`keydown.${this.elementId}`);
+      $(this.get('defaultedParent')).off(`keydown.${this.elementId}`);
     }
   },
 

@@ -109,7 +109,6 @@ test('applies transitions when opening and closing', function(assert) {
   return wait().then(() => {
     let dialogTransform = getDialogTransform();
     assert.ok(!dialogTransform, 'open translate was removed');
-
     this.set('dialogOpen', false);
 
     return wait();
@@ -197,7 +196,9 @@ test('opening gives focus', function(assert) {
     <div id="paper-wormhole"></div>
     {{#if showDialog}}
       {{#paper-dialog onClose=closeDialog origin="#theorigin"}}
-        <button id="thedialogbutton" autofocus>çup?</button>
+        {{#paper-dialog-actions}}
+          <button id="thedialogbutton">çup?</button>
+        {{/paper-dialog-actions}}
       {{/paper-dialog}}
     {{/if}}
     <button id="theorigin" onclick={{action openDialog}}>
@@ -209,17 +210,22 @@ test('opening gives focus', function(assert) {
   assert.equal(document.activeElement, this.$('#theorigin').get(0));
   this.$('#theorigin').click();
 
-  return wait().then(() => {
-    assert.equal(document.activeElement, this.$('#thedialogbutton').get(0));
-    this.set('showDialog', false);
-    return wait();
-  }).then(() => {
-    let done = assert.async();
-    // wait() doesn't seem to wait after transitionend
-    this.$('md-dialog').one('transitionend webkitTransitionEnd', () => {
-      run.next(() => {
-        assert.equal(document.activeElement, this.$('#theorigin').get(0));
-        done();
+  let done = assert.async();
+
+  this.$('md-dialog').one('transitionend webkitTransitionEnd', (ev) => {
+    // transitionend fires for each property transitioned
+    if (ev.originalEvent.propertyName !== 'opacity') {
+      return;
+    }
+    run.next(() => {
+      assert.equal(document.activeElement, this.$('#thedialogbutton').get(0));
+      this.set('showDialog', false);
+
+      this.$('md-dialog').one('transitionend webkitTransitionEnd', () => {
+        run.next(() => {
+          assert.equal(document.activeElement, this.$('#theorigin').get(0));
+          done();
+        });
       });
     });
   });

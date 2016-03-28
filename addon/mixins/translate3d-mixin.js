@@ -12,10 +12,6 @@ const {
   typeOf
 } = Ember;
 
-export function toJQuery(element) {
-  return typeOf(element) === 'string' ? $(element) : element;
-}
-
 export default Mixin.create({
   constants: service(),
 
@@ -82,7 +78,7 @@ export default Mixin.create({
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
 
     run.schedule('afterRender', () => {
-      toJQuery(this.get('defaultedParent')).parent().append(containerClone);
+      $(this.get('defaultedParent')).parent().append(containerClone);
       run.next(() => {
         dialogClone.removeClass('md-transition-in');
         dialogClone.addClass('md-transition-out');
@@ -90,7 +86,7 @@ export default Mixin.create({
         run.next(() => {
           this.waitTransitionEnd(dialogClone).then(() => {
             containerClone.remove();
-            this.onTranslateToEnd(toJQuery(this.get('origin')));
+            this.onTranslateToEnd($(this.get('origin')));
           });
         });
       });
@@ -111,9 +107,9 @@ export default Mixin.create({
 
       // Upon timeout or transitionEnd, reject or resolve (respectively) this promise.
       // NOTE: Make sure this transitionEnd didn't bubble up from a child
-      $element.on(this.TRANSITIONEND, function(ev) {
+      $element.one(this.TRANSITIONEND, function(ev) {
         if (ev) {
-          resolve();
+          run(resolve);
         }
       });
 
@@ -135,7 +131,7 @@ export default Mixin.create({
     let zoomStyle;
 
     if (originator) {
-      originator = toJQuery(originator).get(0);
+      originator = $(originator).get(0);
       let originBnds = this.copyRect(originator.getBoundingClientRect());
       let dialogRect = this.copyRect(element.getBoundingClientRect());
       let dialogCenterPt = this.centerPointFor(dialogRect);
