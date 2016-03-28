@@ -4,11 +4,25 @@
     {{yield}}
   {{/paper-tab-body}}
 {{else}}
+  {{#if contentAsLabel}}
+    {{#paper-tab-label}}
+      {{yield (hash
+        label=(component
+          'paper-tab-label'
+          parent=this)
+        body=(component
+          'paper-tab-body'
+          parent=this)
+      )}}
+    {{/paper-tab-label}}
+  {{else}}
   {{yield (hash
     label=(component
-      'paper-tab-label')
+      'paper-tab-label'
+      parent=this)
     body=(component
       'paper-tab-body'
       parent=this)
   )}}
+  {{/if}}
 {{/if}}
