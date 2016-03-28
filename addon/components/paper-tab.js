@@ -71,13 +71,13 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     }
   }),
 
-  setActive: Ember.observer('active', function() {
+  setActive: observer('active', function() {
     if (this.get('active')) {
       this.send('selectTab');
     }
   }),
 
-  didDeselect: Ember.observer('previous', 'isActive', function() {
+  didDeselect: observer('previous', 'isActive', function() {
     if ((this.get('index') !== this.get('previous')) || this.get('isActive')) {
       return;
     }
@@ -85,6 +85,9 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
       return this.get('onDeselect')();
     }
   }),
+
+  hasBlockTags: computed.or('self.label', 'self.content'),
+  contentAsLabel: computed.not('hasBlockTags'),
 
   willDestroyElement() {
     this._super();
@@ -106,13 +109,12 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   updateBounds: observer('tabs.[]', 'shouldPaginate', 'offsetLeft', function() {
     let context = this;
-    Ember.run.scheduleOnce('afterRender', function() {
-      debugger;
+    if (context.$().length) {
       let left = context.$()[0].offsetLeft + context.get('offsetLeft');
       let width = context.$()[0].clientWidth;
       context.set('self.offsetLeft', left);
       context.set('self.offsetWidth', width);
-    });
+    }
   }),
 
   self: computed(function() {
@@ -122,6 +124,14 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
       offsetWidth: 0
     });
   }),
+
+  /* Events */
+
+  keyDown(ev) {
+    if ((ev.which === 13 || 32) && !this.get('disabled')) {
+      this.send('selectTab');
+    }
+  },
 
   click() {
     if (!this.get('disabled')) {
@@ -144,6 +154,9 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     },
     identifyTabContent(object) {
       this.get('self').set('content', object);
+    },
+    identifyTabLabel(id) {
+      this.get('self').set('label', id);
     }
   }
 });
