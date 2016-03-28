@@ -319,7 +319,7 @@ multipleConstraints: [
             flex=50
             label="User name"
             value=model.username
-            validationErrors=model.validations.attrs.username.messages
+            errors=model.validations.attrs.username.messages
           }}
         </div>
         <div layout="" layout-sm="row">
@@ -328,21 +328,21 @@ multipleConstraints: [
             flex=34
             type="password"
             value=model.password
-            validationErrors=model.validations.attrs.password.messages
+            errors=model.validations.attrs.password.messages
           }}
           {{paper-input
             label="E-mail"
             flex=33
             type="email"
             value=model.email
-            validationErrors=model.validations.attrs.email.messages
+            errors=model.validations.attrs.email.messages
           }}
           {{paper-input
             label="Retype your e-mail"
             flex=33
             type="email"
             value=model.emailConfirmation
-            validationErrors=model.validations.attrs.emailConfirmation.messages
+            errors=model.validations.attrs.emailConfirmation.messages
           }}
         </div>
       {{/paper-card-content}}
@@ -357,7 +357,7 @@ multipleConstraints: [
         flex=50
         label="User name"
         value=model.username
-        validationErrors=model.validations.attrs.username.messages
+        errors=model.validations.attrs.username.messages
       }}
     &lt;/div&gt;
     &lt;div layout="" layout-sm="row"&gt;
@@ -366,21 +366,21 @@ multipleConstraints: [
         flex=34
         type="password"
         value=model.password
-        validationErrors=model.validations.attrs.password.messages
+        errors=model.validations.attrs.password.messages
       }}
       \{{paper-input
         label="E-mail"
         flex=33
         type="email"
         value=model.email
-        validationErrors=model.validations.attrs.email.messages
+        errors=model.validations.attrs.email.messages
       }}
       \{{paper-input
         label="Retype your e-mail"
         flex=33
         type="email"
         value=model.emailConfirmation
-        validationErrors=model.validations.attrs.emailConfirmation.messages
+        errors=model.validations.attrs.emailConfirmation.messages
       }}
     &lt;/div&gt;
   \{{/paper-card-content}}

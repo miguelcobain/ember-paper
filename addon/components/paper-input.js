@@ -187,9 +187,9 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       Logger.error('Exception with custom validation: ', error);
     }
 
-    let validationErrors = this.get('validationErrors');
-    if (validationErrors && isArray(validationErrors)) {
-      validationErrors.forEach((message) => messages.pushObject({
+    let errors = this.get('errors');
+    if (errors && isArray(errors)) {
+      errors.forEach((message) => messages.pushObject({
         key: 'custom',
         message
       }));
