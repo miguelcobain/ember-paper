@@ -1,4 +1,4 @@
-{{#ember-wormhole to=destination}}
+{{#ember-wormhole to=destinationId}}
   {{paper-backdrop
     locked-open=isLockedOpen
     opaque=true
@@ -8,10 +8,10 @@
   }}
   {{#paper-dialog-container outsideClicked=(action "outsideClicked")}}
     {{#paper-dialog-inner
-      parentElement=parentElementSelector
       origin=origin
-      openFrom=openFrom
-      closeTo=closeTo
+      defaultedParent=defaultedParent
+      defaultedOpenFrom=defaultedOpenFrom
+      defaultedCloseTo=defaultedCloseTo
       fullscreen=fullscreen
       clickOutsideToClose=clickOutsideToClose
       focusOnOpen=focusOnOpen
