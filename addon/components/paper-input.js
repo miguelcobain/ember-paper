@@ -49,26 +49,26 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
         minRows = parseInt(textareaNode.getAttribute('rows'));
       }
 
-      textarea.on('keydown input', () => {
+      textarea.on(`keydown.${this.elementId} input.${this.elementId}`, () => {
         this.growTextarea(textarea, textareaNode, container, minRows, lineHeight);
       });
 
       if (isNaN(minRows)) {
         textarea.attr('rows', '1');
 
-        textarea.on('scroll', () => {
+        textarea.on(`scroll.${this.elementId}`, () => {
           this.onScroll(textareaNode);
         });
       }
 
-      $(window).on('resize', this.growTextarea(textarea, textareaNode, container, minRows, lineHeight));
+      $(window).on(`resize.${this.elementId}`, this.growTextarea(textarea, textareaNode, container, minRows, lineHeight));
     }
   },
 
   willDestroyElement() {
     if (this.get('textarea')) {
-      $(window).off('resize', this.growTextarea);
-      this.$().children('textarea').first().off('keydown input scroll');
+      $(window).off(`resize.${this.elementId}`, this.growTextarea);
+      this.$().children('textarea').first().off(`keydown.${this.elementId} input.${this.elementId} scroll.${this.elementId}`);
     }
   },
 
