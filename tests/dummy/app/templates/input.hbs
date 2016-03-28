@@ -387,5 +387,12 @@ multipleConstraints: [
 \{{/paper-card}}
     {{/code-block}}
 
+    <p>
+      The `errors` argument can either be an array of messages or an array of
+      hashes, each with a `message` property and an optional `attr` property,
+      which indentifies the type of error for possible theming or other use.
+      The latter format is compatible with errors from `ember-data`.
+    </p>
+
   </div>
 {{/paper-content}}

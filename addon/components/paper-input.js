@@ -3,7 +3,7 @@ import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
-const { $, computed, isPresent, isArray, Logger, A } = Ember;
+const { $, computed, isPresent, isArray, Logger, A, getWithDefault } = Ember;
 
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
@@ -189,10 +189,10 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
     let errors = this.get('errors');
     if (errors && isArray(errors)) {
-      errors.forEach((message) => messages.pushObject({
-        key: 'custom',
-        message
-      }));
+      messages.pushObjects(errors.map((i) => ({
+        key: getWithDefault(i, 'attr', 'custom'),
+        message: getWithDefault(i, 'message', i)
+      })));
     }
 
     return messages;
