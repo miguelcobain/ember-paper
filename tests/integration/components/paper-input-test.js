@@ -28,7 +28,7 @@ test('renders with label', function(assert) {
 test('renders with icon', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input icon="person" icon-class="name"}}`);
+  this.render(hbs`{{paper-input icon="person" iconClass="name"}}`);
 
   let actual = this.$('md-input-container md-icon').attr('class');
   let expected = 'name ember-view paper-icon md-font material-icons md-default-theme';
@@ -38,7 +38,7 @@ test('renders with icon', function(assert) {
 test('renders input', function(assert) {
   assert.expect(2);
 
-  this.render(hbs`{{paper-input icon="person" icon-class="name"}}`);
+  this.render(hbs`{{paper-input icon="person" iconClass="name"}}`);
 
   let actual = this.$('md-input-container input');
   let expected = 'md-input ember-view ember-text-field';
