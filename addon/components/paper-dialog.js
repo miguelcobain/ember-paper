@@ -5,8 +5,7 @@ const {
   Component,
   computed,
   inject: { service },
-  isEmpty,
-  guidFor
+  isEmpty
 } = Ember;
 
 export default Component.extend({
@@ -38,7 +37,7 @@ export default Component.extend({
     }
     let id = $parent.attr('id');
     if (!id) {
-      id = guidFor(this);
+      id = `${this.elementId}-parent`;
       $parent.get(0).id = id;
     }
     return id;
