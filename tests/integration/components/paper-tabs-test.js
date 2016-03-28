@@ -1,375 +1,333 @@
+import QUnit from 'qunit';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+
+/*const KEY_CODE = {
+  LEFT_ARROW: 37,
+  RIGHT_ARROW: 39,
+  ENTER: 13,
+  SPACE: 32
+};*/
 
 moduleForComponent('paper-tabs', 'Integration | Component | paper tabs', {
   integration: true
 });
 
-function assertActiveTab(assert, tab) {
-  if (!tab.length) {
-    assert.ok(tab.length, 'element was found');
-  } else {
-    assert.ok(tab.hasClass('md-active'), 'is active');
-  }
-}
-
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });"
-
-  this.render(hbs`{{paper-tabs}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:"
-  this.render(hbs`
-    {{#paper-tabs}}
-      template block text
-    {{/paper-tabs}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
-});
+QUnit.assert.activeTab = function(tab, message) {
+  this.ok(tab.hasClass('md-active'), message);
+};
 
 /* Activating Tabs */
 
-test('should select first tab by default', function (assert) {
+test('should select first tab by default', function(assert) {
+  assert.expect(1);
+
   this.render(hbs`
     {{#paper-tabs as |tabs|}}
       {{#tabs.tab label="a"}}a{{/tabs.tab}}
       {{#tabs.tab label="b"}}b{{/tabs.tab}}
     {{/paper-tabs}}
   `);
-  let context = this;
-  //Ember.run(function() {
-    assertActiveTab(assert, context.$('md-tab-item').eq(0));
-  //});
+
+  assert.activeTab(this.$('md-tab-item').eq(0));
 });
 
-/*
+test('should select & focus tab on click', function(assert) {
+  assert.expect(2);
 
-    it('should select & focus tab on click', inject(function ($document, $rootScope) {
-      this.render(hbs`
-        <md-tabs>' +
-       '<md-tab></md-tab>' +
-       '<md-tab></md-tab>' +
-       '<md-tab ng-disabled="true"></md-tab>' +
-       '</md-tabs>
-      `);
-      var tabItems = tabs.find('md-tab-item');
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab}}{{/tabs.tab}}
+      {{#tabs.tab}}{{/tabs.tab}}
+      {{#tabs.tab disabled=true}}{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+  let tabs = this.$('md-tab-item');
 
-      tabs.find('md-tab-item').eq(1).triggerHandler('click');
-      $rootScope.$apply();
-      expect(tabItems.eq(1)).toBeActiveTab();
+  tabs.eq(1).click();
+  assert.activeTab(tabs.eq(1));
 
-      tabs.find('md-tab-item').eq(0).triggerHandler('click');
-      expect(tabItems.eq(0)).toBeActiveTab();
-    }));
+  tabs.eq(0).click();
+  assert.activeTab(tabs.eq(0));
+});
 
-    it('should focus tab on arrow if tab is enabled', inject(function ($document, $mdConstant, $timeout) {
-      this.render(hbs`<md-tabs>' +
-                           '<md-tab></md-tab>' +
-                           '<md-tab ng-disabled="true"></md-tab>' +
-                           '<md-tab></md-tab>' +
-                           '</md-tabs>'`);
-      var tabItems = tabs.find('md-tab-item');
+/*test('should focus tab on arrow if tab is enabled', function(assert) {
+  assert.expect(7);
 
-      expect(tabItems.eq(0)).toBeActiveTab();
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab}}{{/tabs.tab}}
+      {{#tabs.tab disabled=true}}{{/tabs.tab}}
+      {{#tabs.tab}}{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
 
-      // Boundary case, do nothing
-      triggerKeydown(tabs.find('md-tabs-canvas').eq(0), $mdConstant.KEY_CODE.LEFT_ARROW);
-      expect(tabItems.eq(0)).toBeActiveTab();
+  let tabsCanvas = this.$('md-tabs-canvas').eq(0);
+  let tabItems = this.$('md-tab-item');
 
-      // Tab 0 should still be active, but tab 2 focused (skip tab 1 it's disabled)
-      triggerKeydown(tabs.find('md-tabs-canvas').eq(0), $mdConstant.KEY_CODE.RIGHT_ARROW);
-      expect(tabItems.eq(0)).toBeActiveTab();
+  assert.activeTab(tabItems.eq(0));
 
-      triggerKeydown(tabs.find('md-tabs-canvas').eq(0), $mdConstant.KEY_CODE.ENTER);
-      expect(tabItems.eq(2)).toBeActiveTab();
+  // Boundary case, do nothing
+  tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.LEFT_ARROW });
+  assert.activeTab(tabItems.eq(0));
 
-      // Boundary case, do nothing
-      triggerKeydown(tabs.find('md-tabs-canvas').eq(0), $mdConstant.KEY_CODE.RIGHT_ARROW);
-      expect(tabItems.eq(2)).toBeActiveTab();
+  // Tab 0 should still be active, but tab 2 focused (skip tab 1 it's disabled)
+  tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.RIGHT_ARROW });
+  assert.activeTab(tabItems.eq(0));
 
-      triggerKeydown(tabs.find('md-tabs-canvas').eq(0), $mdConstant.KEY_CODE.ENTER);
-      expect(tabItems.eq(2)).toBeActiveTab();
+  tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.ENTER });
+  assert.activeTab(tabItems.eq(2));
 
-      // Skip tab 1 again, it's disabled
-      triggerKeydown(tabs.find('md-tabs-canvas').eq(0), $mdConstant.KEY_CODE.LEFT_ARROW);
-      triggerKeydown(tabs.find('md-tabs-canvas').eq(0), $mdConstant.KEY_CODE.ENTER);
-      expect(tabItems.eq(0)).toBeActiveTab();
+  // Boundary case, do nothing
+  tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.RIGHT_ARROW });
+  assert.activeTab(tabItems.eq(2));
 
-    }));
+  tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.ENTER });
+  assert.activeTab(tabItems.eq(2));
 
-    it('should select tab on space or enter', inject(function ($mdConstant) {
-      this.render(hbs`'<md-tabs>' +
-                           '<md-tab></md-tab>' +
-                           '<md-tab></md-tab>' +
-                           '</md-tabs>'`);
-      var tabItems = tabs.find('md-tab-item');
-      tabs.find('md-tab-item').eq(0).triggerHandler('click');
-
-      triggerKeydown(tabs.find('md-tabs-canvas').eq(0), $mdConstant.KEY_CODE.RIGHT_ARROW);
-      triggerKeydown(tabs.find('md-tabs-canvas').eq(0), $mdConstant.KEY_CODE.ENTER);
-      expect(tabItems.eq(1)).toBeActiveTab();
-
-      triggerKeydown(tabs.find('md-tabs-canvas').eq(0), $mdConstant.KEY_CODE.LEFT_ARROW);
-      triggerKeydown(tabs.find('md-tabs-canvas').eq(0), $mdConstant.KEY_CODE.SPACE);
-      expect(tabItems.eq(0)).toBeActiveTab();
-    }));
-
-    it('should bind to selected', function () {
-      this.render(hbs`<md-tabs md-selected="current">' +
-                            '<md-tab></md-tab>' +
-                            '<md-tab></md-tab>' +
-                            '<md-tab></md-tab>' +
-                            '</md-tabs>'`);
-      var tabItems  = tabs.find('md-tab-item');
-      var dummyTabs = tabs.find('md-dummy-tab');
-
-      expect(tabItems.eq(0)).toBeActiveTab();
-      expect(tabs.scope().current).toBe(0);
-      expect(dummyTabs.eq(0).attr('aria-selected')).toBe('true');
-
-      tabs.scope().$apply('current = 1');
-      expect(tabItems.eq(1)).toBeActiveTab();
-
-      expect(tabItems.eq(0).attr('aria-selected')).toBe('false');
-      expect(dummyTabs.eq(0).attr('aria-selected')).toBe('false');
-      expect(dummyTabs.eq(1).attr('aria-selected')).toBe('true');
-
-      tabItems.eq(2).triggerHandler('click');
-      expect(tabs.scope().current).toBe(2);
-    });
-
-    it('disabling active tab', function () {
-      this.render(hbs`<md-tabs>' +
-                            '<md-tab ng-disabled="disabled0"></md-tab>' +
-                            '<md-tab ng-disabled="disabled1"></md-tab>' +
-                            '</md-tabs>'`);
-      var tabItems  = tabs.find('md-tab-item');
-      var dummyTabs = tabs.find('md-dummy-tab');
-
-      expect(tabItems.eq(0)).toBeActiveTab();
-      expect(dummyTabs.eq(0).attr('aria-selected')).toBe('true');
-
-      tabs.scope().$apply('disabled0 = true');
-      expect(tabItems.eq(1)).toBeActiveTab();
-
-      expect(tabItems.eq(0).attr('aria-disabled')).toBe('true');
-      expect(dummyTabs.eq(0).attr('aria-disabled')).toBe('true');
-      expect(tabItems.eq(1).attr('aria-disabled')).toBe('false');
-      expect(dummyTabs.eq(1).attr('aria-disabled')).toBe('false');
-
-      tabs.scope().$apply('disabled0 = false; disabled1 = true');
-      expect(tabItems.eq(0)).toBeActiveTab();
-
-      expect(tabItems.eq(0).attr('aria-disabled')).toBe('false');
-      expect(dummyTabs.eq(0).attr('aria-disabled')).toBe('false');
-      expect(tabItems.eq(1).attr('aria-disabled')).toBe('true');
-      expect(dummyTabs.eq(1).attr('aria-disabled')).toBe('true');
-    });
-
-  });
-
-  describe('tab label & content DOM', function () {
-
-    it('should support both label types', function () {
-      var tabs1 = setup('<md-tabs>' +
-                        '<md-tab label="super label"></md-tab>' +
-                        '</md-tabs>');
-      expect(tabs1.find('md-tab-item').text()).toBe('super label');
-
-      var tabs2 = setup('<md-tabs>' +
-                        '<md-tab><md-tab-label><b>super</b> label</md-tab-label></md-tab>' +
-                        '</md-tabs>');
-      expect(tabs2.find('md-tab-item').text()).toBe('super label');
-
-    });
-
-    it('should support content inside with each kind of label', function () {
-      var tabs1 = setup('<md-tabs>' +
-                        '<md-tab label="label that!"><b>content</b> that!</md-tab>' +
-                        '</md-tabs>');
-      expect(tabs1.find('md-tab-item').text()).toBe('label that!');
-      expect(tabs1[ 0 ].querySelector('md-tab-content').textContent.trim()).toBe('content that!');
-
-      var tabs2 = setup('<md-tabs>\
-        <md-tab>\
-          <md-tab-label>label that!</md-tab-label>\
-          <md-tab-body><b>content</b> that!</md-tab-body>\
-        </md-tab>\
-      </md-tabs>');
-      expect(tabs1.find('md-tab-item').text()).toBe('label that!');
-      expect(tabs1[ 0 ].querySelector('md-tab-content').textContent.trim()).toBe('content that!');
-    });
-
-  });
-
-  describe('aria', function () {
-
-    it('should link tab content to tabItem with auto-generated ids', function () {
-      var tabs       = setup('<md-tabs>' +
-                             '<md-tab label="label!">content!</md-tab>' +
-                             '</md-tabs>');
-      var tabItem    = tabs.find('md-dummy-tab');
-      var tabContent = angular.element(tabs[ 0 ].querySelector('md-tab-content'));
-
-      expect(tabs.find('md-tabs-canvas').attr('role')).toBe('tablist');
-
-      expect(tabItem.attr('id')).toBeTruthy();
-      expect(tabItem.attr('role')).toBe('tab');
-      expect(tabItem.attr('aria-controls')).toBe(tabContent.attr('id'));
-
-      expect(tabContent.attr('id')).toBeTruthy();
-      expect(tabContent.attr('role')).toBe('tabpanel');
-      expect(tabContent.attr('aria-labelledby')).toBe(tabItem.attr('id'));
-
-      //Unique ids check
-      expect(tabContent.attr('id')).not.toEqual(tabItem.attr('id'));
-    });
-  });
-
-  describe('<md-tab>', function () {
-    it('should use its contents as the label if there is no label attribute or label/body tags', function () {
-      var tab = setup('<md-tab>test</md-tab>');
-      expect(tab[ 0 ].tagName).toBe('MD-TAB');
-      expect(tab.find('md-tab-label').length).toBe(1);
-      expect(tab.find('md-tab-label').text()).toBe('test');
-      expect(tab.find('md-tab-body').length).toBe(0);
-    });
-    it('should use its contents as the body if there is a label attribute', function () {
-      var tab = setup('<md-tab label="test">content</md-tab>');
-      expect(tab[ 0 ].tagName).toBe('MD-TAB');
-      expect(tab.find('md-tab-label').length).toBe(1);
-      expect(tab.find('md-tab-body').length).toBe(1);
-      expect(tab.find('md-tab-label').html()).toBe('test');
-      expect(tab.find('md-tab-body').html()).toBe('content');
-    });
-    it('should convert a label attribute to a label tag', function () {
-      var tab = setup('<md-tab label="test"><md-tab-body>content</md-tab-body></md-tab>');
-      expect(tab[ 0 ].tagName).toBe('MD-TAB');
-      expect(tab.find('md-tab-label').length).toBe(1);
-      expect(tab.find('md-tab-body').length).toBe(1);
-      expect(tab.find('md-tab-label').html()).toBe('test');
-      expect(tab.find('md-tab-body').html()).toBe('content');
-    });
-    it('should not insert a body if there is no content', function () {
-      var tab = setup('<md-tab>' +
-                      '<md-tab-label>test</md-tab-label>' +
-                      '</md-tab>');
-      expect(tab[ 0 ].tagName).toBe('MD-TAB');
-      expect(tab.find('md-tab-label').length).toBe(1);
-      expect(tab.find('md-tab-label').text()).toBe('test');
-      expect(tab.find('md-tab-body').length).toBe(0);
-    });
-  });
-
-  describe('internal scope', function () {
-    it('should have the same internal scope as external', function () {
-      var template = '\
-        <md-tabs md-selected="selectedTab">\
-          <md-tab label="a">\
-            <md-button ng-click="data = false">Set data to false</md-button>\
-          </md-tab>\
-        </md-tabs>\
-      ';
-      var element  = setup(template);
-      var button   = element.find('md-button');
-
-      expect(button[ 0 ].tagName).toBe('MD-BUTTON');
-
-      button.triggerHandler('click');
-
-      expect(element.scope().data).toBe(false);
-    });
-  });
-
-  describe('no tab selected', function () {
-    it('should allow cases where no tabs are selected', inject(function () {
-      var template = '\
-        <md-tabs md-selected="selectedIndex">\
-          <md-tab label="a">tab content</md-tab>\
-          <md-tab label="b">tab content</md-tab>\
-        </md-tabs>\
-      ';
-      var element  = setup(template, { selectedIndex: -1 });
-      var scope = element.scope();
-
-      expect(scope.selectedIndex).toBe(-1);
-      expect(element.find('md-tab-item').eq(0).hasClass('md-active')).toBe(false);
-      expect(element.find('md-tab-item').eq(1).hasClass('md-active')).toBe(false);
-      expect(element.find('md-tabs-content-wrapper').hasClass('ng-hide')).toBe(true);
-
-      element.find('md-tab-item').eq(0).triggerHandler('click');
-
-      expect(element.find('md-tab-item').eq(0).hasClass('md-active')).toBe(true);
-      expect(element.find('md-tab-item').eq(1).hasClass('md-active')).toBe(false);
-      expect(scope.selectedIndex).toBe(0);
-
-      element.find('md-tab-item').eq(1).triggerHandler('click');
-
-      expect(element.find('md-tab-item').eq(0).hasClass('md-active')).toBe(false);
-      expect(element.find('md-tab-item').eq(1).hasClass('md-active')).toBe(true);
-      expect(scope.selectedIndex).toBe(1);
-
-      scope.$apply('selectedIndex = -1');
-
-      expect(scope.selectedIndex).toBe(-1);
-      expect(element.find('md-tab-item').eq(0).hasClass('md-active')).toBe(false);
-      expect(element.find('md-tab-item').eq(1).hasClass('md-active')).toBe(false);
-      expect(element.find('md-tabs-content-wrapper').hasClass('ng-hide')).toBe(true);
-    }));
-  });
-
-  describe('nested tabs', function () {
-    it('should properly nest tabs', inject(function () {
-      var template = '' +
-          '<md-tabs>' +
-          ' <md-tab label="one">' +
-          '   <md-tabs>' +
-          '     <md-tab><md-tab-label>a</md-tab-label></md-tab>' +
-          '     <md-tab><md-tab-label>b</md-tab-label></md-tab>' +
-          '     <md-tab><md-tab-label>c</md-tab-label></md-tab>' +
-          '   </md-tabs>' +
-          ' </md-tab>' +
-          ' <md-tab label="two">two</md-tab>' +
-          '</md-tabs>';
-      var element = setup(template);
-      // first item should be 'one'
-      expect(element.find('md-tab-item').eq(0).text()).toBe('one');
-      // first item in nested tabs should be 'a'
-      expect(element.find('md-tabs').find('md-tab-item').eq(0).text()).toBe('a');
-    }));
-  });
-
-  describe('md-pagination-wrapper', function () {
-    var template =  '<md-tabs md-stretch-tabs="{{stretch}}">' +
-                    '  <md-tab label="label!">content!</md-tab>' +
-                    '</md-tabs>';
-
-    it('should have inline width if md-stretch-tabs="never"',
-      inject(function ($timeout, $document) {
-      var scope = { 'stretch': 'never' };
-      var element = setup(template, scope);
-      // Appending to body is required for style checks
-      angular.element($document.body).append(element);
-      // $timeout.flush required to run nextTick inside init();
-      $timeout.flush();
-      expect(element.find('md-pagination-wrapper').attr('style').indexOf('width')).toBeGreaterThan(-1);
-      element.remove();
-    }));
-
-    it('should not have inline width if md-stretch-tabs="always"',
-      inject(function ($timeout, $document) {
-      var scope = { 'stretch': 'always' };
-      var element = setup(template, scope);
-      // Appending to body is required for style checks
-      angular.element($document.body).append(element);
-      // $timeout.flush required to run nextTick inside init();
-      $timeout.flush();
-      expect(element.find('md-pagination-wrapper').attr('style').indexOf('width')).toBe(-1);
-      element.remove();
-    }));
-  });
+  // Skip tab 1 again, it's disabled
+  tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.LEFT_ARROW });
+  tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.ENTER });
+  assert.activeTab(tabItems.eq(0));
 });*/
+
+/*test('should select tab on space or enter', function(assert) {
+  assert.expect(2);
+
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab}}{{/tabs.tab}}
+      {{#tabs.tab}}{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+
+  let tabsCanvas = this.$('md-tabs-canvas').eq(0);
+  let tabItems = this.$('md-tab-item');
+
+  tabItems.eq(0).trigger('click');
+
+  tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.RIGHT_ARROW });
+  tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.ENTER });
+  assert.activeTab(tabItems.eq(1));
+
+  tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.LEFT_ARROW });
+  tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.SPACE });
+  assert.activeTab(tabItems.eq(0));
+});*/
+
+test('should bind to selected', function(assert) {
+  assert.expect(4);
+
+  this.render(hbs`
+    {{#paper-tabs selected=current as |tabs|}}
+      {{#tabs.tab}}{{/tabs.tab}}
+      {{#tabs.tab}}{{/tabs.tab}}
+      {{#tabs.tab}}{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+
+  let tabItems = this.$('md-tab-item');
+
+  assert.activeTab(tabItems.eq(0));
+  assert.equal(this.get('current'), 0);
+
+  this.set('current', 1);
+  assert.activeTab(tabItems.eq(1));
+
+  tabItems.eq(2).trigger('click');
+  assert.equal(this.get('current'), 2);
+});
+
+/*test('disabling active tab', function(assert) {
+  assert.expect(3);
+
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab disabled=disabled0}}{{/tabs.tab}}
+      {{#tabs.tab disabled=disabled1}}{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+
+  let tabItems = this.$('md-tab-item');
+
+  assert.activeTab(tabItems.eq(0));
+
+  this.set('disabled0', true);
+  assert.activeTab(tabItems.eq(1));
+
+  this.setProperties({ 'disabled0': false, 'disabled1': true });
+  assert.activeTab(tabItems.eq(0));
+});*/
+
+test('should support inline label type', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab label="super label"}}{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+
+  assert.equal(this.$('md-tab-item').text().trim(), 'super label');
+});
+
+test('should support block label type', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab as |tab|}}
+        {{#tab.label}}<b>super</b> label{{/tab.label}}
+      {{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+  assert.equal(this.$('md-tab-item').text().trim(), 'super label');
+});
+
+test('should support content inside inline label type', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab label="label that!"}}
+        <b>content</b> that!
+      {{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+
+  let labelText = this.$('md-tab-item').text().trim();
+  let contentText = this.$('md-tab-content').text().trim();
+
+  assert.equal(labelText, 'label that!', labelText);
+  assert.equal(contentText, 'content that!');
+});
+
+test('should support content inside block label type', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab as |tab|}}
+        {{#tab.label}}label that!{{/tab.label}}
+        {{#tab.body}}<b>content</b> that!{{/tab.body}}
+      {{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+
+  let labelText = this.$('md-tab-item').text().trim();
+  let contentText = this.$('md-tab-content').text().trim();
+
+  assert.equal(labelText, 'label that!', labelText);
+  assert.equal(contentText, 'content that!');
+});
+
+test('should allow cases where no tabs are selected', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs selected=selectedIndex as |tabs|}}
+      {{#tabs.tab label="a" as |tab|}}tab content{{/tabs.tab}}
+      {{#tabs.tab label="b" as |tab|}}tab content{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+
+  let tabItems = this.$('md-tab-item');
+
+  this.set('selectedIndex', -1);
+
+  assert.notOk(tabItems.eq(0).hasClass('md-active'));
+  assert.notOk(tabItems.eq(1).hasClass('md-active'));
+  // assert: md-tabs-content-wrapper is empty
+
+  tabItems.eq(0).trigger('click');
+
+  assert.ok(tabItems.eq(0).hasClass('md-active'));
+  assert.notOk(tabItems.eq(1).hasClass('md-active'));
+  assert.equal(this.get('selectedIndex'), 0);
+
+  tabItems.eq(1).trigger('click');
+
+  assert.notOk(tabItems.eq(0).hasClass('md-active'));
+  assert.ok(tabItems.eq(1).hasClass('md-active'));
+  assert.equal(this.get('selectedIndex'), 1);
+
+  this.set('selectedIndex', -1);
+
+  assert.notOk(tabItems.eq(0).hasClass('md-active'));
+  assert.notOk(tabItems.eq(1).hasClass('md-active'));
+  // assert: md-tabs-content-wrapper is empty
+});
+
+/*test('should properly nest tabs', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab label="one"}}
+        {{#paper-tabs as |tabs|}}
+          {{#tabs.tab as |tab|}}{{#tab.label}}a{{/tab.label}}{{/tabs.tab}}
+          {{#tabs.tab as |tab|}}{{#tab.label}}b{{/tab.label}}{{/tabs.tab}}
+          {{#tabs.tab as |tab|}}{{#tab.label}}c{{/tab.label}}{{/tabs.tab}}
+        {{/paper-tabs}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="two"}}two{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+  // first item should be 'one'
+  assert.equal(this.$('md-tab-item').eq(0).text(), 'one');
+  // first item in nested tabs should be 'a'
+  assert.equal(this.$('md-tabs md-tab-item').eq(0).text(), 'a');
+});*/
+
+test('pagination wrapper should have inline width if md-stretch-tabs="never"', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs stretchTabs="never" as |tabs|}}
+      {{#tabs.tab label="label!"}}content!{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+  assert.ok(this.$('md-pagination-wrapper').prop('style').width);
+});
+
+test(`pagination wrapper should not have inline width if stretchTabs="always"`, function(assert) {
+  this.render(hbs`
+    {{#paper-tabs stretchTabs="always" as |tabs|}}
+      {{#tabs.tab label="label!"}}content!{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+  assert.notOk(this.$('md-pagination-wrapper').prop('style').width);
+});
+
+test('tab should use its contents as the label if there is no label attribute or label/body tags', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab}}test{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+  assert.equal(this.$('md-tab-item span').text().trim(), 'test');
+  assert.equal(this.$('md-tab-item md-tab-body').length, 0);
+});
+
+test('tab should use its contents as the body if there is a label attribute', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab label="test"}}content{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+  assert.ok(this.$('md-tab-item').length);
+  assert.equal(this.$('md-tab-item span').text(), 'test');
+  assert.equal(this.$('md-tab-content').text().trim(), 'content');
+});
+
+test('tab should convert a label attribute to a label tag', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab label="test"}}
+        content
+      {{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+  assert.ok(this.$('md-tab-item').length);
+  assert.equal(this.$('md-tab-item span').text(), 'test');
+  assert.equal(this.$('md-tab-content').text().trim(), 'content');
+});
+
+test('tab should not insert a body if there is no content', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab as |tab|}}
+        {{#tab.label}}test{{/tab.label}}
+      {{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+  assert.ok(this.$('md-tab-item'));
+  assert.equal(this.$('md-tab-item span').text(), 'test');
+  assert.notOk(this.$('md-tab-content').length);
+});

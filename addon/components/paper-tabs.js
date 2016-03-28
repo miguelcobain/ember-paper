@@ -4,13 +4,6 @@ const { computed, observer, $, run } = Ember;
 export default Ember.Component.extend({
   tagName: 'md-tabs',
 
-  init() {
-    this._super();
-    if (!this.get('selected')) {
-      this.set('activeTab', this.get('tabs.firstObject'));
-    }
-  },
-
   /* Settings */
   dynamicHeight: false,
   alignTabs: 'top',
@@ -102,34 +95,30 @@ export default Ember.Component.extend({
     'selectedTab.offsetWidth',
     'canvasWidth',
     'offsetLeft', function() {
-    if (this.get('lastTab')) {
+    /*if (this.get('lastTab')) {
       let context = this;
-      run(function(){
-        debugger
-        let lastTab = context.$(`#${context.get('lastTab.id')}`)[0];
-        let pagingWidth = lastTab.offsetLeft + lastTab.clientWidth;
-        let offset = context.$('md-tabs-canvas')[0].clientWidth + context.get('offsetLeft');
-        return (pagingWidth > offset);
-      })
-
-    }
+      let lastTab = context.$(`#${context.get('lastTab.id')}`)[0];
+      let pagingWidth = lastTab.offsetLeft + lastTab.clientWidth;
+      let offset = context.$('md-tabs-canvas')[0].clientWidth + context.get('offsetLeft');
+      return (pagingWidth > offset);
+    }*/
   }),
 
   /* sets the initial value as a computed property */
-  canvasWidth: computed(function() {
+  canvasWidth: 0,/*computed(function() {
     let context = this;
     return Ember.run.scheduleOnce('afterRender', function() {
       return context.$().outerWidth();
     });
-  }),
+  }),*/
 
   didRender() {
     let context = this;
     Ember.run.scheduleOnce('afterRender', function() {
       context.set('loaded', true);
       context.set('canvasWidth', context.$().outerWidth());
-      $(window).on('resize', Ember.run.bind(context, function(){
-        context.set('canvasWidth', this.$().outerWidth());
+      $(window).on('resize', Ember.run.bind(context, function() {
+        this.set('canvasWidth', this.$().outerWidth());
       }));
     });
   },
@@ -152,6 +141,17 @@ export default Ember.Component.extend({
     }
   }),
 
+  initialSelection: observer('selected', 'tabs.[]', function() {
+    if (!this.get('selected') && this.get('selected') !== 0) {
+      let tabs = Ember.A(this.get('tabs').filterBy('disabled', false));
+      let active = Ember.A(tabs.filterBy('active'));
+      if (active.get(length)) {
+        this.set('selected', this.getTabIndex(active.get('firstObject')));
+      } else if (tabs.get('length')) {
+        this.set('selected', this.getTabIndex(tabs.get('firstObject')));
+      }
+    }
+  }),
 
   lastSelectedIndex: null,
 
@@ -160,6 +160,12 @@ export default Ember.Component.extend({
   }),
 
   focusIndex: computed.reads('selected'), // initial value
+
+  disabledSelectedTab: observer('selectedTab.disabled', function() {
+    if (this.get('selectedTab.disabled')) {
+      this.set('selected', this.getNearestSafeIndex(this.get('selected')));
+    }
+  }),
 
   /*focusIndexChanged: observer('focusIndex', function() {
     this.adjustOffset(this.get('focusIndex'));
@@ -174,11 +180,10 @@ export default Ember.Component.extend({
   }),
 
   adjustOffset: observer('focusIndex', 'selected', function() {
-    let index = this.get('focusIndex') || this.get('selected');
+    /*let index = this.get('focusIndex') || this.get('selected');
     if (!this.getTabByIndex(index) || this.get('shouldCenterTabs')) {
       return 0;
     }
-    debugger;
     let tab = this.getTabByIndex(index);
     let left = $(`#${tab.get('id')}`)[0].offsetLeft;
     let right = $(`#${tab.get('id')}`)[0].clientWidth + left;
@@ -186,7 +191,7 @@ export default Ember.Component.extend({
     let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
     let newOffset = Math.max(offsetLeft, this.fixOffset(right - canvasWidth + 32 * 2));
     newOffset = Math.min(newOffset, this.fixOffset(left));
-    this.set('offsetLeft', newOffset);
+    this.set('offsetLeft', newOffset);*/
   }),
 
   nextPage() {
@@ -204,31 +209,28 @@ export default Ember.Component.extend({
   },
 
   previousPage() {
-    let i, tab;
+    /*let i, tab;
     for (i = 0; i < this.get('tabs.length'); i++) {
       tab = document.getElementById(this.get('tabs')[i].id);
       if (tab.offsetLeft + tab.offsetWidth >= this.get('offsetLeft')) {
         break;
       }
      }
-     debugger;
      let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
-     this.set('offsetLeft', this.fixOffset(tab.offsetLeft + tab.offsetWidth - canvasWidth));
-
+     this.set('offsetLeft', this.fixOffset(tab.offsetLeft + tab.offsetWidth - canvasWidth));*/
   },
 
   fixOffset(value) {
-    if (!this.get('tabs.length') || !this.get('shouldPaginate')) {
+    /*if (!this.get('tabs.length') || !this.get('shouldPaginate')) {
       return 0;
     }
-    debugger;
     let lastTab = this.get('tabs')[this.get('tabs.length') - 1];
     let lastTabElement = document.getElementById(lastTab.id);
     let totalWidth = lastTabElement.offsetLeft + lastTab.offsetWidth;
     let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
     value = Math.max(0, value);
     value = Math.min(totalWidth - canvasWidth, value);
-    return value;
+    return value;*/
   },
 
   setOffsetLeft: observer('focusIndex', 'selected', 'tabs.[]', 'shouldPaginate', function() {
@@ -250,8 +252,35 @@ export default Ember.Component.extend({
     return this.get('tabs')[index];
   },
 
+  getNearestSafeIndex(newIndex) {
+    if (newIndex === -1) {
+      return -1;
+    }
+    let maxOffset = Math.max(this.get('tabs').length - newIndex, newIndex);
+    let i;
+    let tab;
+
+    for (i = 0; i <= maxOffset; i++) {
+      tab = this.getTabByIndex(newIndex + i);
+      if (tab && (tab.get('disabled') !== true)) {
+        return this.getTabIndex(tab);
+      }
+      tab = this.getTabByIndex(newIndex - i);
+      if (tab && (tab.get('disabled') !== true)) {
+        return this.getTabIndex(tab);
+      };
+    }
+    return newIndex;
+  },
+
   identifyTabsWrapper(object) {
     this.set('tabsWrapper', object);
+  },
+
+  /* Events */
+
+  keyDown(ev) {
+    debugger;
   },
 
   actions: {

@@ -9,7 +9,7 @@ export default Ember.Component.extend({
   /* Inherited from `{{paper-tabs-wrapper}}` */
   canPageBack: computed.reads('parent.canPageBack'),
 
-  click: function() {
+  click() {
     this.get('parent').send('previousPage');
   }
 });
