@@ -6,10 +6,10 @@ const {
   String: { htmlSafe },
   RSVP: { Promise },
   computed,
-  on,
   inject: { service },
   run,
-  K
+  K,
+  typeOf
 } = Ember;
 
 export default Mixin.create({
@@ -18,15 +18,9 @@ export default Mixin.create({
   attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],
 
-  fromElement: computed.or('openFrom', 'origin'),
-
-  toElement: computed.or('closeTo', 'origin'),
-
-  fromStyle: computed('fromElement', function() {
-    return this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('fromElement')));
+  fromStyle: computed('defaultedOpenFrom', function() {
+    return this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedOpenFrom')));
   }),
-
-  translateToParent: computed.or('closeTo', 'origin', 'parent', 'defaultParent'),
 
   centerStyle: computed(function() {
     return this.toTransformCss('');
@@ -59,8 +53,10 @@ export default Mixin.create({
       // Wait while CSS takes affect
       // Set the `main` styles and run the transition-in styles
       run.next(() => {
-        this.waitTransitionEnd(this.element).then(() => {
-          this.onTranslateFromEnd();
+        this.waitTransitionEnd($(this.element)).then(() => {
+          if (!this.get('isDestroying') && !this.get('isDestroyed')) {
+            this.onTranslateFromEnd();
+          }
         });
         this.set('transformStyleApply', 'main');
         this.set('transformIn', true);
@@ -79,13 +75,10 @@ export default Mixin.create({
     let containerClone = this.$().parent().clone();
     let dialogClone = containerClone.find('md-dialog');
 
-    let toElement = this.get('toElement');
-    let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, toElement));
-
-    let origin = this.get('origin');
+    let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
 
     run.schedule('afterRender', () => {
-      $(this.get('parentElement')).parent().append(containerClone);
+      $(this.get('defaultedParent')).parent().append(containerClone);
       run.next(() => {
         dialogClone.removeClass('md-transition-in');
         dialogClone.addClass('md-transition-out');
@@ -93,7 +86,7 @@ export default Mixin.create({
         run.next(() => {
           this.waitTransitionEnd(dialogClone).then(() => {
             containerClone.remove();
-            this.onTranslateToEnd(origin);
+            this.onTranslateToEnd($(this.get('origin')));
           });
         });
       });
@@ -107,16 +100,16 @@ export default Mixin.create({
    *
    * @public
    */
-  waitTransitionEnd(element) {
+  waitTransitionEnd($element) {
 
     // fallback is 3 secs
     return new Promise((resolve/*, reject*/) => {
 
       // Upon timeout or transitionEnd, reject or resolve (respectively) this promise.
       // NOTE: Make sure this transitionEnd didn't bubble up from a child
-      $(element).on(this.TRANSITIONEND, function(ev) {
+      $element.one(this.TRANSITIONEND, function(ev) {
         if (ev) {
-          resolve();
+          run(resolve);
         }
       });
 
@@ -138,7 +131,7 @@ export default Mixin.create({
     let zoomStyle;
 
     if (originator) {
-      originator = typeof originator === 'string' ? $(originator).get(0) : originator;
+      originator = $(originator).get(0);
       let originBnds = this.copyRect(originator.getBoundingClientRect());
       let dialogRect = this.copyRect(element.getBoundingClientRect());
       let dialogCenterPt = this.centerPointFor(dialogRect);

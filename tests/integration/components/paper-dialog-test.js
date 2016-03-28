@@ -57,7 +57,7 @@ test('should render in specific wormhole if parent is defined', function(assert)
   this.render(hbs`
     <div id="paper-wormhole"></div>
     <div id="sagittarius-a"></div>
-    {{#paper-dialog parent="sagittarius-a"}}
+    {{#paper-dialog parent="#sagittarius-a"}}
       So this is singularity, eh?
     {{/paper-dialog}}
   `);
@@ -69,7 +69,7 @@ test('should render in specific wormhole if parent is defined', function(assert)
 test('should only prevent scrolling behind scoped modal', function(assert) {
   this.render(hbs`
     <div id="sagittarius-a"></div>
-    {{paper-dialog parent="sagittarius-a"}}
+    {{paper-dialog parent="#sagittarius-a"}}
   `);
 
   assert.equal(this.$('md-backdrop').css('position'), 'absolute', 'backdrop is absolute');
@@ -98,23 +98,23 @@ test('applies transitions when opening and closing', function(assert) {
   this.set('dialogOpen', true);
 
   let getDialogTransform = () => {
-    let dialogStyle = this.$('md-dialog').get(0).style;
-    return dialogStyle.webkitTransform || dialogStyle.transform;
+    let dialog = this.$('md-dialog').get(0);
+    assert.ok(dialog, 'dialog found');
+    return dialog && (dialog.style.webkitTransform || dialog.style.transform);
   };
 
   let dialogTransform = getDialogTransform();
-  assert.ok(dialogTransform.indexOf('translate3d') !== -1);
+  assert.ok(dialogTransform.indexOf('translate3d') !== -1, 'open translate was added');
 
   return wait().then(() => {
     let dialogTransform = getDialogTransform();
-    assert.ok(!dialogTransform, 'translate was removed');
-
+    assert.ok(!dialogTransform, 'open translate was removed');
     this.set('dialogOpen', false);
 
     return wait();
   }).then(() => {
     let dialogTransform = getDialogTransform();
-    assert.ok(dialogTransform.indexOf('translate3d') !== -1, 'translate was added');
+    assert.ok(dialogTransform.indexOf('translate3d') !== -1, 'close translate was added');
   });
 });
 
@@ -196,7 +196,9 @@ test('opening gives focus', function(assert) {
     <div id="paper-wormhole"></div>
     {{#if showDialog}}
       {{#paper-dialog onClose=closeDialog origin="#theorigin"}}
-        <button id="thedialogbutton" autofocus>çup?</button>
+        {{#paper-dialog-actions}}
+          <button id="thedialogbutton">çup?</button>
+        {{/paper-dialog-actions}}
       {{/paper-dialog}}
     {{/if}}
     <button id="theorigin" onclick={{action openDialog}}>
@@ -208,17 +210,22 @@ test('opening gives focus', function(assert) {
   assert.equal(document.activeElement, this.$('#theorigin').get(0));
   this.$('#theorigin').click();
 
-  return wait().then(() => {
-    assert.equal(document.activeElement, this.$('#thedialogbutton').get(0));
-    this.set('showDialog', false);
-    return wait();
-  }).then(() => {
-    let done = assert.async();
-    // wait() doesn't seem to wait after transitionend
-    this.$('md-dialog').one('transitionend webkitTransitionEnd', () => {
-      run.next(() => {
-        assert.equal(document.activeElement, this.$('#theorigin').get(0));
-        done();
+  let done = assert.async();
+
+  this.$('md-dialog').one('transitionend webkitTransitionEnd', (ev) => {
+    // transitionend fires for each property transitioned
+    if (ev.originalEvent.propertyName !== 'opacity') {
+      return;
+    }
+    run.next(() => {
+      assert.equal(document.activeElement, this.$('#thedialogbutton').get(0));
+      this.set('showDialog', false);
+
+      this.$('md-dialog').one('transitionend webkitTransitionEnd', () => {
+        run.next(() => {
+          assert.equal(document.activeElement, this.$('#theorigin').get(0));
+          done();
+        });
       });
     });
   });
