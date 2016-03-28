@@ -98,7 +98,8 @@ export default Ember.Component.extend({
     'offsetLeft', function() {
     if (this.get('lastTab')) {
       let context = this;
-      let lastTab = context.$(`#${context.get('lastTab.id')}`)[0];
+      let lastTabObject = context.$(`#${context.get('lastTab.id')}`);
+      let [lastTab] = lastTabObject;
       let pagingWidth = lastTab.offsetLeft + lastTab.clientWidth;
       let offset = context.$('md-tabs-canvas')[0].clientWidth + context.get('offsetLeft');
       return (pagingWidth > offset);
@@ -211,9 +212,9 @@ export default Ember.Component.extend({
       if (tab.offsetLeft + tab.offsetWidth >= this.get('offsetLeft')) {
         break;
       }
-     }
-     let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
-     this.set('offsetLeft', this.fixOffset(tab.offsetLeft + tab.offsetWidth - canvasWidth));
+    }
+    let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
+    this.set('offsetLeft', this.fixOffset(tab.offsetLeft + tab.offsetWidth - canvasWidth));
   },
 
   fixOffset(value) {
