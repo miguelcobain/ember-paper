@@ -23,7 +23,7 @@
         {{#code-block language="handlebars"}}\{{#if showDialogWithParent}}
   \{{#paper-dialog
       onClose=(action "closeDialogWithParent" "cancel")
-      parent="paper-dialog-demo"
+      parent="#paper-dialog-demo"
       origin=dialogOrigin
       clickOutsideToClose=true}}
     &lt;form&gt;
@@ -136,7 +136,7 @@
               </tr>
               <tr>
                 <td><strong>parent</strong></td>
-                <td>id</td>
+                <td>jQuery object or selector</td>
                 <td>existing element where the modal and backdrop will be rendered</td>
               </tr>
               <tr>
@@ -146,7 +146,7 @@
               </tr>
               <tr>
                 <td><strong>origin</strong></td>
-                <td>selector</td>
+                <td>jQuery object or selector</td>
                 <td>
                   if present, the dialog will use it as openFrom and closeTo. Also,
                   focus will be returned to this element once the dialog closes.
@@ -154,12 +154,12 @@
               </tr>
               <tr>
                 <td><strong>openFrom</strong></td>
-                <td>selector</td>
+                <td>jQuery object or selector</td>
                 <td>source for opening the dialog with a transition</td>
               </tr>
               <tr>
                 <td><strong>closeTo</strong></td>
-                <td>selector</td>
+                <td>jQuery object or selector</td>
                 <td>target for closing the dialog with a transition</td>
               </tr>
               <tr>
@@ -196,7 +196,7 @@
 {{/paper-content}}
 
 {{#if showDialogWithParent}}
-  {{#paper-dialog onClose=(action "closeDialogWithParent" "cancel") parent="paper-dialog-demo" origin=dialogOrigin clickOutsideToClose=true}}
+  {{#paper-dialog onClose=(action "closeDialogWithParent" "cancel") parent="#paper-dialog-demo" origin=dialogOrigin clickOutsideToClose=true}}
     <form>
       {{#paper-toolbar}}
         <div class="md-toolbar-tools">

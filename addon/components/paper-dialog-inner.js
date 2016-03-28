@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import Translate3dMixin from '../mixins/translate3d-mixin';
-import PaperDialog from './paper-dialog';
 
-const { Component, computed, $ } = Ember;
+const { Component } = Ember;
 
 export default Component.extend(Translate3dMixin, {
   tagName: 'md-dialog',
@@ -19,8 +18,10 @@ export default Component.extend(Translate3dMixin, {
     }
   },
 
-  onTranslateToEnd(origin) {
-    $(origin).focus();
+  onTranslateToEnd($origin) {
+    if ($origin) {
+      $origin.focus();
+    }
   },
 
   click(ev) {
