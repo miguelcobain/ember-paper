@@ -95,22 +95,17 @@ export default Ember.Component.extend({
     'selectedTab.offsetWidth',
     'canvasWidth',
     'offsetLeft', function() {
-    /*if (this.get('lastTab')) {
+    if (this.get('lastTab')) {
       let context = this;
       let lastTab = context.$(`#${context.get('lastTab.id')}`)[0];
       let pagingWidth = lastTab.offsetLeft + lastTab.clientWidth;
       let offset = context.$('md-tabs-canvas')[0].clientWidth + context.get('offsetLeft');
       return (pagingWidth > offset);
-    }*/
+    }
   }),
 
   /* sets the initial value as a computed property */
-  canvasWidth: 0,/*computed(function() {
-    let context = this;
-    return Ember.run.scheduleOnce('afterRender', function() {
-      return context.$().outerWidth();
-    });
-  }),*/
+  canvasWidth: 0,
 
   didRender() {
     let context = this;
@@ -180,7 +175,7 @@ export default Ember.Component.extend({
   }),
 
   adjustOffset: observer('focusIndex', 'selected', function() {
-    /*let index = this.get('focusIndex') || this.get('selected');
+    let index = this.get('focusIndex') || this.get('selected');
     if (!this.getTabByIndex(index) || this.get('shouldCenterTabs')) {
       return 0;
     }
@@ -191,7 +186,7 @@ export default Ember.Component.extend({
     let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
     let newOffset = Math.max(offsetLeft, this.fixOffset(right - canvasWidth + 32 * 2));
     newOffset = Math.min(newOffset, this.fixOffset(left));
-    this.set('offsetLeft', newOffset);*/
+    this.set('offsetLeft', newOffset);
   }),
 
   nextPage() {
@@ -209,7 +204,7 @@ export default Ember.Component.extend({
   },
 
   previousPage() {
-    /*let i, tab;
+    let i, tab;
     for (i = 0; i < this.get('tabs.length'); i++) {
       tab = document.getElementById(this.get('tabs')[i].id);
       if (tab.offsetLeft + tab.offsetWidth >= this.get('offsetLeft')) {
@@ -217,11 +212,11 @@ export default Ember.Component.extend({
       }
      }
      let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
-     this.set('offsetLeft', this.fixOffset(tab.offsetLeft + tab.offsetWidth - canvasWidth));*/
+     this.set('offsetLeft', this.fixOffset(tab.offsetLeft + tab.offsetWidth - canvasWidth));
   },
 
   fixOffset(value) {
-    /*if (!this.get('tabs.length') || !this.get('shouldPaginate')) {
+    if (!this.get('tabs.length') || !this.get('shouldPaginate')) {
       return 0;
     }
     let lastTab = this.get('tabs')[this.get('tabs.length') - 1];
@@ -230,7 +225,7 @@ export default Ember.Component.extend({
     let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
     value = Math.max(0, value);
     value = Math.min(totalWidth - canvasWidth, value);
-    return value;*/
+    return value;
   },
 
   setOffsetLeft: observer('focusIndex', 'selected', 'tabs.[]', 'shouldPaginate', function() {
