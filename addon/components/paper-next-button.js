@@ -9,7 +9,7 @@ export default Ember.Component.extend({
   /* Inherited from `{{paper-tabs-wrapper}}` */
   canPageForward: computed.reads('parent.canPageForward'),
 
-  click: function() {
+  click() {
     this.get('parent').send('nextPage');
   }
 });
