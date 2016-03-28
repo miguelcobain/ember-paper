@@ -11,6 +11,7 @@ export default Ember.Component.extend({
   noInkBar: false,
   centerTabs: false,
   stretchTabs: 'auto', // todo: find the best default
+  autoSelect: false,
 
   classNames: ['md-primary'],
   classNameBindings: [
@@ -294,6 +295,9 @@ export default Ember.Component.extend({
     },
     createTab(object) {
       this.get('tabs').pushObject(object);
+      if (this.get('autoSelect')) {
+        this.set('selected', getTabIndex(object));
+      }
     },
     destroyTab(object) {
       this.get('tabs').removeObject(object);
