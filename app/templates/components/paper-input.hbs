@@ -82,13 +82,13 @@
   </div>
   {{#if isInvalid}}
     <div class="md-input-messages-animation md-auto-hide" ng-messages>
-      {{#each errorMessages as |message index|}}
+      {{#each errorMessages as |error index|}}
         <div
           id="error-{{inputElementId}}{{if index "-"}}{{if index index}}"
-          ng-message="{{message.key}}"
+          ng-message="{{error.key}}"
           class="ng-enter ng-enter-active"
         >
-          {{message.message}}
+          {{error.message}}
         </div>
       {{/each}}
     </div>
