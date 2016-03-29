@@ -11,8 +11,9 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   classNameBindings: [
     'hasValue:md-input-has-value',
     'isInvalid:md-input-invalid',
+    'eitherIcon:md-has-icon',
     'iconFloat:md-icon-float',
-    'icon:md-has-icon'
+    'iconRight:md-icon-right'
   ],
   type: 'text',
   autofocus: false,
@@ -35,7 +36,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     return `${currentLength}/${this.get('maxlength')}`;
   }),
 
-  iconFloat: computed.and('icon', 'label'),
+  eitherIcon: computed.or('icon', 'iconRight'),
+  iconFloat: computed.and('eitherIcon', 'label'),
 
   didInsertElement() {
     if (this.get('textarea')) {

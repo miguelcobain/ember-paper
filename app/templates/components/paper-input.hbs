@@ -1,5 +1,5 @@
 {{#if label}}
-    <label for={{inputElementId}} class="{{if required "md-required"}}">{{label}}</label>
+    <label for={{inputElementId}} class="{{if required "md-required"}} {{if noFloat "md-no-float"}}">{{label}}</label>
 {{/if}}
 
 {{#if icon}}
@@ -94,3 +94,7 @@
     </div>
   {{/if}}
 {{/unless}}
+
+{{#if iconRight}}
+  {{paper-icon iconRight}}
+{{/if}}
