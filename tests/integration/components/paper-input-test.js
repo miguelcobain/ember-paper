@@ -28,17 +28,51 @@ test('renders with label', function(assert) {
 test('renders with icon', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input icon="person" icon-class="name"}}`);
+  this.render(hbs`{{paper-input icon="person"}}`);
 
   let actual = this.$('md-input-container md-icon').attr('class');
-  let expected = 'name ember-view paper-icon md-font material-icons md-default-theme';
+  let expected = 'ember-view paper-icon md-font material-icons md-default-theme';
+  assert.equal(actual, expected);
+});
+
+test('renders with icon with float', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`{{paper-input label="name" icon="person"}}`);
+
+  let actual = this.$('md-input-container').attr('class');
+  let expected = 'ember-view md-default-theme md-has-icon md-icon-float';
+  assert.equal(actual, expected);
+});
+
+test('renders with right icon', function(assert) {
+  assert.expect(2);
+
+  this.render(hbs`{{paper-input label="name" iconRight="person"}}`);
+
+  let actual = this.$('md-input-container md-icon').attr('class');
+  let expected = 'ember-view paper-icon md-font material-icons md-default-theme';
+  assert.equal(actual, expected);
+
+  actual = this.$('md-input-container').attr('class');
+  expected = 'ember-view md-default-theme md-has-icon md-icon-float md-icon-right';
+  assert.equal(actual, expected);
+});
+
+test('renders with icon without float', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`{{paper-input icon="person" label="name" noFloat="true"}}`);
+
+  let actual = this.$('md-input-container md-icon').attr('class');
+  let expected = 'ember-view paper-icon md-font material-icons md-default-theme';
   assert.equal(actual, expected);
 });
 
 test('renders input', function(assert) {
   assert.expect(2);
 
-  this.render(hbs`{{paper-input icon="person" icon-class="name"}}`);
+  this.render(hbs`{{paper-input icon="person"}}`);
 
   let actual = this.$('md-input-container input');
   let expected = 'md-input ember-view ember-text-field';
@@ -89,7 +123,7 @@ test('renders input as disabled', function(assert) {
 test('renders input as required', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input required=true}}`);
+  this.render(hbs`{{paper-input passThru=(hash required="required")}}`);
 
   let actual = this.$('md-input-container input').attr('required');
   let expected = 'required';
@@ -109,7 +143,7 @@ test('renders input as autofocus', function(assert) {
 test('renders input with accept types of files', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-accept="audio/*|video/*|image/*"}}`);
+  this.render(hbs`{{paper-input passThru=(hash accept="audio/*|video/*|image/*")}}`);
 
   let actual = this.$('md-input-container input').attr('accept');
   let expected = 'audio/*|video/*|image/*';
@@ -119,10 +153,10 @@ test('renders input with accept types of files', function(assert) {
 test('renders input with attribute autocomplete', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-autocomplete=true}}`);
+  this.render(hbs`{{paper-input passThru=(hash autocomplete="autocomplete")}}`);
 
   let actual = this.$('md-input-container input').attr('autocomplete');
-  let expected = 'true';
+  let expected = 'autocomplete';
 
   assert.equal(actual, expected);
 });
@@ -130,7 +164,7 @@ test('renders input with attribute autocomplete', function(assert) {
 test('renders input with attribute form', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-form="myform"}}`);
+  this.render(hbs`{{paper-input passThru=(hash form="myform")}}`);
 
   let actual = this.$('md-input-container input').attr('form');
   let expected = 'myform';
@@ -141,7 +175,7 @@ test('renders input with attribute form', function(assert) {
 test('renders input with attribute formnovalidate', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-formnovalidate="formnovalidate"}}`);
+  this.render(hbs`{{paper-input passThru=(hash formnovalidate="formnovalidate")}}`);
 
   let actual = this.$('md-input-container input').attr('formnovalidate');
   let expected = 'formnovalidate';
@@ -152,7 +186,7 @@ test('renders input with attribute formnovalidate', function(assert) {
 test('renders input with attribute formtarget', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-formtarget="_blank"}}`);
+  this.render(hbs`{{paper-input passThru=(hash formtarget="_blank")}}`);
 
   let actual = this.$('md-input-container input').attr('formtarget');
   let expected = '_blank';
@@ -163,7 +197,7 @@ test('renders input with attribute formtarget', function(assert) {
 test('renders input with attribute formenctype', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-formenctype="multipart/form-data"}}`);
+  this.render(hbs`{{paper-input passThru=(hash formenctype="multipart/form-data")}}`);
 
   let actual = this.$('md-input-container input').attr('formenctype');
   let expected = 'multipart/form-data';
@@ -174,7 +208,7 @@ test('renders input with attribute formenctype', function(assert) {
 test('renders input with multiple form attributes', function(assert) {
   assert.expect(5);
 
-  this.render(hbs`{{paper-input type="submit" attr-form="myform" attr-formnovalidate="formnovalidate" attr-formtarget="_blank" attr-formenctype="multipart/form-data"}}`);
+  this.render(hbs`{{paper-input type="submit" passThru=(hash form="myform" formnovalidate="formnovalidate" formtarget="_blank" formenctype="multipart/form-data")}}`);
 
   let $input = this.$('md-input-container input');
 
@@ -203,7 +237,7 @@ test('renders input with multiple form attributes', function(assert) {
 test('renders input with input mode attribute', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-inputmode="numeric"}}`);
+  this.render(hbs`{{paper-input passThru=(hash inputmode="numeric")}}`);
 
   let $input = this.$('md-input-container input');
 
@@ -216,17 +250,19 @@ test('renders input with multiple attributes', function(assert) {
   assert.expect(12);
 
   this.render(hbs`{{paper-input type="submit"
-      attr-min="2"
-      attr-maxlength="20"
-      attr-max="42"
-      attr-multiple="true"
-      attr-name="elementname"
-      attr-pattern="(999)999-9999"
-      attr-readonly="true"
-      attr-size="30"
-      attr-spellcheck="true"
-      attr-step="2"
-      attr-tabindex="1138"
+      passThru=(hash
+        min="2"
+        maxlength="20"
+        max="42"
+        multiple="true"
+        name="elementname"
+        pattern="(999)999-9999"
+        readonly="true"
+        size="30"
+        spellcheck="true"
+        step="2"
+        tabindex="1138"
+      )
       }}`);
 
   let $input = this.$('md-input-container input');

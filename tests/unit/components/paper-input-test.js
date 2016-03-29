@@ -89,7 +89,7 @@ test('it sets error text when isInvalid', function(assert) {
 
   component.set('required', true);
   component.set('value', '');
-  component.set('errorText', expectedError);
+  component.set('required-errorText', expectedError);
   component.set('isTouched', true);
 
   this.render();
@@ -100,7 +100,7 @@ test('it sets error text when isInvalid', function(assert) {
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
 
-  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
+  assert.equal(errorDiv.innerHTML.trim(), expectedError, `Error text does not equal ${expectedError}`);
 });
 
 test('validates min with default error', function(assert) {
@@ -121,7 +121,7 @@ test('validates min with default error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
+  assert.equal(errorDiv.innerHTML.trim(), expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
@@ -144,7 +144,7 @@ test('validates min with custom error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
+  assert.equal(errorDiv.innerHTML.trim(), expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
@@ -165,7 +165,7 @@ test('validates min with no error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerText, '');
+  assert.equal(!errorDiv || errorDiv.innerText.trim() === '', true);
 
 });
 
@@ -187,7 +187,7 @@ test('validates max with default error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
+  assert.equal(errorDiv.innerHTML.trim(), expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
@@ -210,7 +210,7 @@ test('validates max with custom error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
+  assert.equal(errorDiv.innerHTML.trim(), expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
@@ -231,7 +231,7 @@ test('validates max with no error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerText, '');
+  assert.equal(!errorDiv || errorDiv.innerText.trim() === '', true);
 
 });
 
@@ -254,7 +254,7 @@ test('validates maxlength with default error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
+  assert.equal(errorDiv.innerHTML.trim(), expectedError, `Error text does not equal ${expectedError}`);
 
   charCounterDiv = document.getElementsByClassName('md-char-counter');
   assert.equal(charCounterDiv[0].innerHTML, '14/10');
@@ -280,7 +280,7 @@ test('validates maxlength with custom error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
+  assert.equal(errorDiv.innerHTML.trim(), expectedError, `Error text does not equal ${expectedError}`);
 
   charCounterDiv = document.getElementsByClassName('md-char-counter');
   assert.equal(charCounterDiv[0].innerHTML, '14/10');
@@ -305,7 +305,7 @@ test('validates maxlength with no error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerText, '');
+  assert.equal(!errorDiv || errorDiv.innerText.trim() === '', true);
 
   charCounterDiv = document.getElementsByClassName('md-char-counter');
   assert.equal(charCounterDiv[0].innerHTML, '10/10');
@@ -338,7 +338,7 @@ test('custom validations with one object and error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
+  assert.equal(errorDiv.innerHTML.trim(), expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
@@ -367,7 +367,7 @@ test('custom validations with one object and no error', function(assert) {
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerText, '');
+  assert.equal(!errorDiv || errorDiv.innerText.trim() === '', true);
 
 });
 
@@ -405,7 +405,7 @@ test('custom validations with multiple constraints and error caught for first co
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
+  assert.equal(errorDiv.innerHTML.trim(), expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
@@ -443,7 +443,7 @@ test('custom validations with multiple constraints and error caught for second c
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerHTML, expectedError, `Error text does not equal ${expectedError}`);
+  assert.equal(errorDiv.innerHTML.trim(), expectedError, `Error text does not equal ${expectedError}`);
 
 });
 
@@ -480,7 +480,6 @@ test('custom validations with multiple constraints and no error', function(asser
   assert.equal(inputGroup.length === 1, true);
 
   errorDiv = document.getElementById(`error-input-${inputGroup[0].id}`);
-  assert.equal(errorDiv.innerText, '');
+  assert.equal(!errorDiv || errorDiv.innerText.trim() === '', true);
 
 });
-
