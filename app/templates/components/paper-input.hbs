@@ -1,5 +1,5 @@
 {{#if label}}
-    <label for={{inputElementId}} class="{{if required "md-required"}} {{if noFloat "md-no-float"}}">{{label}}</label>
+  <label for={{inputElementId}} class="{{if required "md-required"}}">{{label}}</label>
 {{/if}}
 
 {{#if icon}}
@@ -14,10 +14,11 @@
     value=value
     disabled=disabled
     autofocus=autofocus
-    focus-in=(action "focusIn")
+    focus-in=onFocusIn
     focus-out=(action "focusOut")
     key-down=onKeyDown
     enter=onEnter
+    bubbles=true
 
     name=passThru.name
     rows=passThru.rows
@@ -41,10 +42,11 @@
     type=type value=value
     disabled=disabled
     autofocus=autofocus
-    focus-in=(action "focusIn")
+    focus-in=onFocusIn
     focus-out=(action "focusOut")
     key-down=onKeyDown
     enter=onEnter
+    bubbles=true
 
     accept=passThru.accept
     autocomplete=passThru.autocomplete

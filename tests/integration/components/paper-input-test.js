@@ -59,16 +59,6 @@ test('renders with right icon', function(assert) {
   assert.equal(actual, expected);
 });
 
-test('renders with icon without float', function(assert) {
-  assert.expect(1);
-
-  this.render(hbs`{{paper-input icon="person" label="name" noFloat="true"}}`);
-
-  let actual = this.$('md-input-container md-icon').attr('class');
-  let expected = 'ember-view paper-icon md-font material-icons md-default-theme';
-  assert.equal(actual, expected);
-});
-
 test('renders input', function(assert) {
   assert.expect(2);
 

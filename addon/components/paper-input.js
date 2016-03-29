@@ -13,7 +13,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     'isInvalid:md-input-invalid',
     'eitherIcon:md-has-icon',
     'iconFloat:md-icon-float',
-    'iconRight:md-icon-right'
+    'iconRight:md-icon-right',
+    'focused:md-input-focused'
   ],
   type: 'text',
   autofocus: false,
@@ -201,25 +202,12 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   }),
 
   actions: {
-    focusIn(ev) {
-      // Actions must be sent before focusing.
-      if (this.get('onFocusIn')) {
-        this.get('onFocusIn')(ev);
-      }
-      this.set('focus', true);
-    },
     focusOut(ev) {
       if (this.get('onFocusOut')) {
         this.get('onFocusOut')(ev);
       }
-      this.set('focus', false);
       this.set('isTouched', true);
+      return true;
     }
-    //  ,
-    // keyDown(value, ev) {
-    //   if (this.get('onKeyDown')) {
-    //     this.get('onKeyDown')(value, ev);
-    //   }
-    // }
   }
 });
