@@ -58,11 +58,13 @@
 
         {{else}}
           {{#if showLoadingBar}}
-          {{!-- Render named component then default --}}
+          {{!-- Render named component, then inverse block then default --}}
             {{#if notFoundComponent}}
-                <li>{{component notFoundComponent searchText=searchText}}</li>
+              <li>{{component notFoundComponent searchText=searchText}}</li>
+            {{else if (has-block "inverse")}}
+              <li>{{yield to="inverse"}}</li>
             {{else}}
-                <li>{{notFoundMsg}}</li>
+              <li>{{notFoundMsg}}</li>
             {{/if}}
           {{/if}}
         {{/each}}
