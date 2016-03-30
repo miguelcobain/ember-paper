@@ -45,3 +45,21 @@ test('does nothing onClick if attribute is not present', function(assert) {
   `);
   this.$('.md-button').click();
 });
+
+test('uses md-raised class when raised=true', function(assert) {
+  this.render(hbs`
+    {{#paper-button raised=true}}
+      A label
+    {{/paper-button}}
+  `);
+  assert.ok(this.$('.md-button').hasClass('md-raised'));
+});
+
+test('uses md-icon-button class when iconButton=true', function(assert) {
+  this.render(hbs`
+    {{#paper-button iconButton=true}}
+      A label
+    {{/paper-button}}
+  `);
+  assert.ok(this.$('.md-button').hasClass('md-icon-button'));
+});

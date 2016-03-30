@@ -11,13 +11,13 @@ const {
 } = Ember;
 
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
-  attributeBindings: ['target', 'action', 'type'],
+  attributeBindings: ['type'],
   tagName: 'button',
+  classNames: ['paper-button', 'md-default-theme'],
   themed: true,
   classNameBindings: [
     'raised:md-raised',
-    'icon-button:md-icon-button',
-    'focus:md-focused',
+    'iconButton:md-icon-button',
     'themed:md-default-theme',
     'themed:md-button'
   ],
@@ -29,23 +29,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   dimBackground: computed.not('isIconButton'),
 
   noSpan: computed.readOnly('no-span'),
-
-  // RippleMixin overrides
-  isIconButton: computed({
-    get() {
-      return this.classNames.any(function(className) {
-        return className.indexOf('md-icon-button') !== -1;
-      });
-    }
-  }),
-
-  isMenuItem: computed({
-    get() {
-      return this.classNames.any(function(className) {
-        return className.indexOf('md-menu-item') !== -1;
-      });
-    }
-  }),
 
   click(event) {
     let onClick = this.get('onClick');
