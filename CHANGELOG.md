@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### master
+- [#323](https://github.com/miguelcobain/ember-paper/pull/323) Pass item through as expected rather than label to itemComponent for `{{paper-autocomplete}}`.
+
 ### 0.2.12
 
 - [#307](https://github.com/miguelcobain/ember-paper/pull/307) Add paper-card title components
