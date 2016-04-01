@@ -77,7 +77,7 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    toggle: function() {
+    toggle() {
       this.onToggle();
     }
   }

@@ -5,17 +5,7 @@ export default Ember.Component.extend({
 
   paperSidenav: inject.service('paper-sidenav'),
 
-  /*didInsertElement() {
-    this._super(...arguments);
-    if (this.get('navContainer')) {
-      let lockedOpen = this.get('navContainer').get('sideBar').get('locked-open');
-      if (lockedOpen) {
-        this.$().attr(`hide-${lockedOpen}`, true);
-      }
-    }
-  },*/
-
-  click: function() {
+  click() {
     this.send('toggleMenu');
   },
 
