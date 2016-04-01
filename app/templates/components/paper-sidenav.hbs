@@ -1,6 +1,9 @@
 {{yield}}
+
 {{#unless closed}}
   {{#ember-wormhole to="paper-wormhole"}}
-    {{paper-backdrop locked-open=isLockedOpen opaque=true class="md-sidenav-backdrop" onTap=(action "toggleMenu")}}
+    {{#paper-sidenav-toggle target=elementId}}
+      {{paper-backdrop locked-open=isLockedOpen opaque=true class="md-sidenav-backdrop"}}
+    {{/paper-sidenav-toggle}}
   {{/ember-wormhole}}
 {{/unless}}

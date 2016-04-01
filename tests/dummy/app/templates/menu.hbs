@@ -1,7 +1,7 @@
 {{#paper-toolbar}}
   <div class="md-toolbar-tools">
-    {{#paper-sidenav-toggle as |toggle|}}
-      {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
+    {{#paper-sidenav-toggle target="sidenav"}}
+      {{#paper-button icon-button=true class="hide-gt-xs"}}{{paper-icon "menu"}}{{/paper-button}}
     {{/paper-sidenav-toggle}}
     <span class="md-breadcrumb-page">Menu</span>
   </div>

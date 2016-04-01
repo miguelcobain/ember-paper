@@ -1,10 +1,10 @@
 {{#paper-toolbar}}
-    <div class="md-toolbar-tools">
-      {{#paper-sidenav-toggle as |toggle|}}
-        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
-      {{/paper-sidenav-toggle}}
-        <span class="md-breadcrumb-page">Progress Circular</span>
-    </div>
+  <div class="md-toolbar-tools">
+    {{#paper-sidenav-toggle target="sidenav"}}
+      {{#paper-button icon-button=true class="hide-gt-xs"}}{{paper-icon "menu"}}{{/paper-button}}
+    {{/paper-sidenav-toggle}}
+      <span class="md-breadcrumb-page">Progress Circular</span>
+  </div>
 {{/paper-toolbar}}
 {{#paper-content class="md-padding"}}
     <div class="doc-content">

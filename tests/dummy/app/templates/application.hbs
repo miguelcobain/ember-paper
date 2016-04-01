@@ -1,45 +1,43 @@
-{{#paper-nav-container class="site-nav-container"}}
-  {{#paper-sidenav class="md-sidenav-left md-whiteframe-z2 site-sidenav" locked-open="gt-sm"}}
-    {{#paper-toolbar class="site-content-toolbar"}}
-      <div class="md-toolbar-tools">
-        <div class="logo">
-          <img src="ember-logo-white.png" height="30"/>&nbsp;&nbsp;<strong>Paper</strong>
-        </div>
+{{#paper-sidenav id="sidenav" class="md-sidenav-left md-whiteframe-z2 site-sidenav" lockedOpen="gt-sm"}}
+  {{#paper-toolbar class="site-content-toolbar"}}
+    <div class="md-toolbar-tools">
+      <div class="logo">
+        <img src="ember-logo-white.png" height="30"/>&nbsp;&nbsp;<strong>Paper</strong>
       </div>
-    {{/paper-toolbar}}
+    </div>
+  {{/paper-toolbar}}
 
-    {{#paper-content}}
+  {{#paper-content}}
 
-      {{#paper-list}}
-        {{#paper-item action=(transition-to "index")}}Introduction{{/paper-item}}
+    {{#paper-list}}
+      {{#paper-item action=(transition-to "index")}}Introduction{{/paper-item}}
 
-        {{#paper-item action=(transition-to "autocomplete")}}Autocomplete{{/paper-item}}
-        {{#paper-item action=(transition-to "button")}}Button{{/paper-item}}
-        {{#paper-item action=(transition-to "card")}}Card{{/paper-item}}
-        {{#paper-item action=(transition-to "checkbox")}}Checkbox{{/paper-item}}
-        {{#paper-item action=(transition-to "dialog")}}Dialog{{/paper-item}}
-        {{#paper-item action=(transition-to "divider")}}Divider{{/paper-item}}
-        {{#paper-item action=(transition-to "grid-list")}}Grid List{{/paper-item}}
-        {{#paper-item action=(transition-to "icons")}}Icons{{/paper-item}}
-        {{#paper-item action=(transition-to "input")}}Input{{/paper-item}}
-        {{#paper-item action=(transition-to "list")}}List{{/paper-item}}
-        {{#paper-item action=(transition-to "list-controls")}}List Controls{{/paper-item}}
-        {{#paper-item action=(transition-to "menu")}}Menu{{/paper-item}}
-        {{#paper-item action=(transition-to "progress-circular")}}Progress Circular{{/paper-item}}
-        {{#paper-item action=(transition-to "progress-linear")}}Progress Linear{{/paper-item}}
-        {{#paper-item action=(transition-to "radio")}}Radio{{/paper-item}}
-        {{#paper-item action=(transition-to "paper-select")}}Select{{/paper-item}}
-        {{#paper-item action=(transition-to "sidenav")}}Sidenav{{/paper-item}}
-        {{#paper-item action=(transition-to "slider")}}Slider{{/paper-item}}
-        {{#paper-item action=(transition-to "switch")}}Switch{{/paper-item}}
-        {{#paper-item action=(transition-to "toolbar")}}Toolbar{{/paper-item}}
-        {{#paper-item action=(transition-to "typography")}}Typography{{/paper-item}}
-      {{/paper-list}}
+      {{#paper-item action=(transition-to "autocomplete")}}Autocomplete{{/paper-item}}
+      {{#paper-item action=(transition-to "button")}}Button{{/paper-item}}
+      {{#paper-item action=(transition-to "card")}}Card{{/paper-item}}
+      {{#paper-item action=(transition-to "checkbox")}}Checkbox{{/paper-item}}
+      {{#paper-item action=(transition-to "dialog")}}Dialog{{/paper-item}}
+      {{#paper-item action=(transition-to "divider")}}Divider{{/paper-item}}
+      {{#paper-item action=(transition-to "grid-list")}}Grid List{{/paper-item}}
+      {{#paper-item action=(transition-to "icons")}}Icons{{/paper-item}}
+      {{#paper-item action=(transition-to "input")}}Input{{/paper-item}}
+      {{#paper-item action=(transition-to "list")}}List{{/paper-item}}
+      {{#paper-item action=(transition-to "list-controls")}}List Controls{{/paper-item}}
+      {{#paper-item action=(transition-to "menu")}}Menu{{/paper-item}}
+      {{#paper-item action=(transition-to "progress-circular")}}Progress Circular{{/paper-item}}
+      {{#paper-item action=(transition-to "progress-linear")}}Progress Linear{{/paper-item}}
+      {{#paper-item action=(transition-to "radio")}}Radio{{/paper-item}}
+      {{#paper-item action=(transition-to "paper-select")}}Select{{/paper-item}}
+      {{#paper-item action=(transition-to "sidenav")}}Sidenav{{/paper-item}}
+      {{#paper-item action=(transition-to "slider")}}Slider{{/paper-item}}
+      {{#paper-item action=(transition-to "switch")}}Switch{{/paper-item}}
+      {{#paper-item action=(transition-to "toolbar")}}Toolbar{{/paper-item}}
+      {{#paper-item action=(transition-to "typography")}}Typography{{/paper-item}}
+    {{/paper-list}}
 
-    {{/paper-content}}
-  {{/paper-sidenav}}
+  {{/paper-content}}
+{{/paper-sidenav}}
 
-  <div layout="column" tabindex="-1" role="main" flex>
-    {{outlet}}
-  </div>
-{{/paper-nav-container}}
+<div layout="column" tabindex="-1" role="main" flex>
+  {{outlet}}
+</div>

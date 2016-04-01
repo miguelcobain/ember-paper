@@ -1,63 +1,67 @@
 import Ember from 'ember';
-import PaperNavContainer from './paper-nav-container';
+const { $, inject, run } = Ember;
 
 export default Ember.Component.extend({
-  constants: Ember.inject.service(),
   tagName: 'md-sidenav',
 
-  'locked-open': 'gt-sm',
+  constants: inject.service(),
+  paperSidenav: inject.service('paper-sidenav'),
+
+  setupToggleListener() {
+    this.get('paperSidenav').on('toggle', this, 'onToggle');
+  },
+
+  onToggle(id) {
+    if (id === this.elementId && !this.get('isLockedOpen')) {
+      this.toggleProperty('closed');
+    }
+  },
+
+  /* Defaults */
+  lockedOpen: 'gt-sm',
   closed: true,
   closeOnClick: true,
 
-  navContainer: Ember.computed(function() {
-    return this.nearestOfType(PaperNavContainer);
-  }),
-
+  /* Bindings */
   attributeBindings: ['tabindex'],
-  classNameBindings: ['isLockedOpen:md-locked-open', 'closed:md-closed'],
+  classNameBindings: [
+    'isLockedOpen:md-locked-open',
+    'closed:md-closed'],
   tabindex: -1,
 
-  _init: Ember.on('init', function() {
+  init() {
+    this._super(...arguments);
     let _self = this;
-
-    if (this.get('navContainer')) {
-      this.get('navContainer').set('sideBar', this);
-    }
 
     this.matchMedia();
     this.set('__resizeWindow', function() {
       _self.matchMedia();
     });
-  }),
+
+    this.setupToggleListener();
+  },
 
   _observeClosedState: Ember.observer('closed', function() {
     if (this.get('closed')) {
-      Ember.$('body').css('overflow', 'inherit');
+      $('body').css('overflow', 'inherit');
     } else {
-      Ember.$('body').css('overflow', 'hidden');
+      $('body').css('overflow', 'hidden');
     }
   }),
 
   didInsertElement() {
-    Ember.$(window).on('resize', this.get('__resizeWindow'));
+    $(window).on('resize', this.get('__resizeWindow'));
   },
+
   willDestroyElement() {
-    Ember.$(window).off('resize', this.get('__resizeWindow'));
+    $(window).off('resize', this.get('__resizeWindow'));
   },
 
   matchMedia() {
-    let mediaQuery = this.get('constants').MEDIA[this.get('locked-open')];
+    let mediaQuery = this.get('constants').MEDIA[this.get('lockedOpen')];
     this.set('isLockedOpen', window.matchMedia(mediaQuery).matches);
     if (this.get('isLockedOpen')) {
       this.set('closed', true);
-    }
-  },
-
-  actions: {
-    toggleMenu() {
-      if (!this.get('isLockedOpen')) {
-        this.toggleProperty('closed');
-      }
     }
   },
 
@@ -67,9 +71,15 @@ export default Ember.Component.extend({
     }
 
     let _self = this;
-    Ember.run.next(function() {
+    run.next(function() {
       _self.set('closed', true);
     });
+  },
+
+  actions: {
+    toggle: function() {
+      this.onToggle();
+    }
   }
 
 });
