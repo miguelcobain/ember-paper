@@ -33,6 +33,9 @@ export default Ember.Component.extend({
 
   //TODO reafactor into a computed property that binds directly to dropdown's `style`
   positionDropdown() {
+    if (typeof FastBoot !== 'undefined') {
+      return;
+    }
     var hrect  = Ember.$('#' + this.get('wrapToElementId'))[0].getBoundingClientRect(),
       vrect  = hrect,
       root   = document.body.getBoundingClientRect(),

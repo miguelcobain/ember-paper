@@ -12,9 +12,11 @@ module.exports = {
   included: function(app) {
     this._super.included(app);
 
-    app.import(app.bowerDirectory + '/hammerjs/hammer.js');
-    app.import(app.bowerDirectory + '/matchMedia/matchMedia.js');
-    app.import('vendor/propagating.js');
+    if (!process.env.EMBER_CLI_FASTBOOT) {
+      app.import(app.bowerDirectory + '/hammerjs/hammer.js');
+      app.import(app.bowerDirectory + '/matchMedia/matchMedia.js');
+      app.import('vendor/propagating.js');
+    }
   },
   contentFor: function(type) {
     if (type === 'body') {
