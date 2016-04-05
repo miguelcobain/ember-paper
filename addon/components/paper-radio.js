@@ -19,6 +19,9 @@ export default BaseFocusable.extend(RippleMixin, ColorMixin, {
   dimBackground: false,
   fitRipple: true,
 
+  /* BaseFocusable Overrides */
+  focusOnlyOnKey: true,
+
   // Lifecycle hooks
   didInitAttrs() {
     this._super(...arguments);

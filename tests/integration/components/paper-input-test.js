@@ -28,17 +28,41 @@ test('renders with label', function(assert) {
 test('renders with icon', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input icon="person" iconClass="name"}}`);
+  this.render(hbs`{{paper-input icon="person"}}`);
 
   let actual = this.$('md-input-container md-icon').attr('class');
-  let expected = 'name ember-view paper-icon md-font material-icons md-default-theme';
+  let expected = 'ember-view paper-icon md-font material-icons md-default-theme';
+  assert.equal(actual, expected);
+});
+
+test('renders with icon with float', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`{{paper-input label="name" icon="person"}}`);
+
+  let actual = this.$('md-input-container').attr('class');
+  let expected = 'ember-view md-default-theme md-has-icon md-icon-float';
+  assert.equal(actual, expected);
+});
+
+test('renders with right icon', function(assert) {
+  assert.expect(2);
+
+  this.render(hbs`{{paper-input label="name" iconRight="person"}}`);
+
+  let actual = this.$('md-input-container md-icon').attr('class');
+  let expected = 'ember-view paper-icon md-font material-icons md-default-theme';
+  assert.equal(actual, expected);
+
+  actual = this.$('md-input-container').attr('class');
+  expected = 'ember-view md-default-theme md-has-icon md-icon-float md-icon-right';
   assert.equal(actual, expected);
 });
 
 test('renders input', function(assert) {
   assert.expect(2);
 
-  this.render(hbs`{{paper-input icon="person" iconClass="name"}}`);
+  this.render(hbs`{{paper-input icon="person"}}`);
 
   let actual = this.$('md-input-container input');
   let expected = 'md-input ember-view ember-text-field';

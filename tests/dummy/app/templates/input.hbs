@@ -69,10 +69,11 @@
 
     <h3>Icons</h3>
     <p>
-      {{paper-input label="Name" value=name icon="person" iconClass="name"}}
+      {{paper-input label="Name" value=name icon="person"}}
       {{paper-input placeholder="Phone Number" type="text" value=user.phone icon="phone"}}
-      {{paper-input label="Email (required)" type="email" value=user.email icon="email" iconClass="email" required=true hideAllMessages=true}}
+      {{paper-input label="Email (no messages)" type="email" value=user.email icon="email" required=true hideAllMessages=true}}
       {{paper-input placeholder="Address" type="text" value=user.address icon="place"}}
+      {{paper-input label="Name on right" type="text" value=name2 iconRight="person"}}
     </p>
 
     <h3>Template</h3>
@@ -104,9 +105,9 @@
 
   &lt;h3&gt;Icons&lt;/h3&gt;
   &lt;p&gt;
-    \{{paper-input label="Name" value=name icon="person" iconClass="name"}}
-    \{{paper-input placeholder="Phone Number" type="text" value=user.phone icon="phone" md-no-float=''}}
-    \{{paper-input label="Email (required)" type="email" value=user.email icon="email" iconClass="email" required=true hideAllMessages=true}}
+    \{{paper-input label="Name" value=name icon="person"}}
+    \{{paper-input placeholder="Phone Number" type="text" value=user.phone icon="phone"}}
+    \{{paper-input label="Email (required)" type="email" value=user.email icon="email" required=true hideAllMessages=true}}
     \{{paper-input placeholder="Address" type="text" value=user.address icon="place"}}
   &lt;/p&gt;
     {{/code-block}}

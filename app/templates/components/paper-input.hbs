@@ -1,9 +1,9 @@
 {{#if label}}
-    <label for={{inputElementId}} class="{{if required "md-required"}}">{{label}}</label>
+  <label for={{inputElementId}} class="{{if required "md-required"}}">{{label}}</label>
 {{/if}}
 
 {{#if icon}}
-  {{paper-icon icon class=iconClass}}
+  {{paper-icon icon}}
 {{/if}}
 
 {{#if textarea}}
@@ -14,10 +14,11 @@
     value=value
     disabled=disabled
     autofocus=autofocus
-    focus-in=(action "focusIn")
+    focus-in=onFocusIn
     focus-out=(action "focusOut")
     key-down=onKeyDown
     enter=onEnter
+    bubbles=true
 
     name=passThru.name
     rows=passThru.rows
@@ -41,10 +42,11 @@
     type=type value=value
     disabled=disabled
     autofocus=autofocus
-    focus-in=(action "focusIn")
+    focus-in=onFocusIn
     focus-out=(action "focusOut")
     key-down=onKeyDown
     enter=onEnter
+    bubbles=true
 
     accept=passThru.accept
     autocomplete=passThru.autocomplete
@@ -94,3 +96,7 @@
     </div>
   {{/if}}
 {{/unless}}
+
+{{#if iconRight}}
+  {{paper-icon iconRight}}
+{{/if}}

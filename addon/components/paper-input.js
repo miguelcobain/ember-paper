@@ -11,8 +11,10 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   classNameBindings: [
     'hasValue:md-input-has-value',
     'isInvalid:md-input-invalid',
+    'eitherIcon:md-has-icon',
     'iconFloat:md-icon-float',
-    'icon:md-has-icon'
+    'iconRight:md-icon-right',
+    'focused:md-input-focused'
   ],
   type: 'text',
   autofocus: false,
@@ -35,7 +37,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     return `${currentLength}/${this.get('maxlength')}`;
   }),
 
-  iconFloat: computed.and('icon', 'label'),
+  eitherIcon: computed.or('icon', 'iconRight'),
+  iconFloat: computed.and('eitherIcon', 'label'),
 
   didInsertElement() {
     if (this.get('textarea')) {
@@ -199,25 +202,12 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   }),
 
   actions: {
-    focusIn(ev) {
-      // Actions must be sent before focusing.
-      if (this.get('onFocusIn')) {
-        this.get('onFocusIn')(ev);
-      }
-      this.set('focus', true);
-    },
     focusOut(ev) {
       if (this.get('onFocusOut')) {
         this.get('onFocusOut')(ev);
       }
-      this.set('focus', false);
       this.set('isTouched', true);
+      return true;
     }
-    //  ,
-    // keyDown(value, ev) {
-    //   if (this.get('onKeyDown')) {
-    //     this.get('onKeyDown')(value, ev);
-    //   }
-    // }
   }
 });
