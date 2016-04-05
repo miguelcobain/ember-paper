@@ -9,16 +9,17 @@
 {{#paper-content class="md-padding"}}
   <div class="doc-content">
     <div layout="" layout-sm="column">
-      {{paper-input flex=30 label="Name" value=name}}
-      {{paper-input flex=30 label="E-mail" type="email" value=email}}
-      {{paper-input flex=40 label="Password" type="password"}}
+      {{paper-input flex=30 label="Name" value=name onChange=(action (mut name))}}
+      {{paper-input flex=30 label="E-mail" type="email" value=email onChange=(action (mut email))}}
+      {{paper-input flex=40 label="Password" type="password" value=password onChange=(action (mut password))}}
     </div>
     <div layout="" layout-sm="column">
-      {{paper-input flex=true label="Submission date" type="date" value=date}}
-      {{paper-input flex=true label="Company (disabled)" type="text" value="Google" disabled=true}}
+      {{paper-input flex=true label="Submission date" type="date" value=date onChange=(action (mut date))}}
+      {{paper-input flex=true label="Company (disabled)" type="text" value="Google" disabled=true onChange=(action (mut foo))}}
     </div>
 
-    {{paper-input textarea=true label="Biography" value=biography}}
+    {{paper-input textarea=true block=true label="Biography" maxlength=150 passThru=(hash rows=5)
+      value=biography onChange=(action (mut biography))}}
     <p>Name: {{name}}</p>
     <p>Email: {{email}}</p>
 
@@ -27,6 +28,7 @@
       {{paper-input
         label="Address"
         value=address
+        onChange=(action (mut address))
         required=true
         required-errortext="Address is required."
       }}
@@ -34,6 +36,7 @@
         type="number"
         label="Maximum Value"
         value=maxNumber
+        onChange=(action (mut maxNumber))
         max="5"
         max-errortext="Enter 5 or less."
       }}
@@ -41,12 +44,14 @@
         type="number"
         label="Minimum Value"
         value=minNumber
+        onChange=(action (mut minNumber))
         min="1"
         min-errortext="Enter at least 1."
       }}
       {{paper-input
         label="Maximum Character Length"
         value=maxLength
+        onChange=(action (mut maxLength))
         required=true
         maxlength="10"
         maxlength-errortext="Maximum length exceeded."
@@ -54,6 +59,7 @@
       {{paper-input
         label="All Constraints"
         value=allConstraints
+        onChange=(action (mut allConstraints))
         required=true
         min="2"
         max="10"
@@ -63,17 +69,18 @@
       {{paper-input
         label="Required asterisk only"
         value=requiredStyle
+        onChange=(action (mut requiredStyle))
         required="style"
       }}
     </p>
 
     <h3>Icons</h3>
     <p>
-      {{paper-input label="Name" value=name icon="person"}}
-      {{paper-input placeholder="Phone Number" type="text" value=user.phone icon="phone"}}
-      {{paper-input label="Email (no messages)" type="email" value=user.email icon="email" required=true hideAllMessages=true}}
-      {{paper-input placeholder="Address" type="text" value=user.address icon="place"}}
-      {{paper-input label="Name on right" type="text" value=name2 iconRight="person"}}
+      {{paper-input label="Name" value=name onChange=(action (mut name)) icon="person"}}
+      {{paper-input placeholder="Phone Number" type="text" value=user.phone onChange=(action (mut user.phone)) icon="phone"}}
+      {{paper-input label="Email (no messages)" type="email" value=user.email onChange=(action (mut user.email)) icon="email" required=true hideAllMessages=true}}
+      {{paper-input placeholder="Address" type="text" value=user.address onChange=(action (mut user.address)) icon="place"}}
+      {{paper-input label="Name on right" type="text" value=name2 onChange=(action (mut name2)) iconRight="person"}}
     </p>
 
     <h3>Template</h3>
@@ -130,6 +137,7 @@
     <p>
       {{paper-input
         value=numberTest
+        onChange=(action (mut numberTest))
         label="Number of bagels"
         type="number"
         passThru=(hash min="0" step="13" )
@@ -200,10 +208,10 @@
       {{paper-input
         label="Event demonstration"
         value=eventTest
-        onFocusIn=(action "focusInReceived")
-        onFocusOut=(action "focusOutReceived")
+        onChange=(action (mut eventTest))
+        onFocus=(action "focusReceived")
+        onBlur=(action "blurReceived")
         onKeyDown=(action "keyDownReceived")
-        onEnter=(action "enterReceived")
       }}
     {{#if eventName}}
       <div>The leaf controller for this route received the sent <strong>{{eventName}}</strong> action.</div>
@@ -258,7 +266,7 @@
       Here is an example of validating the input value matches typical email formats.
     </p>
     <p>
-      {{paper-input label="E-mail" type="email" value=customemail customValidation=emailValidation}}
+      {{paper-input label="E-mail" type="email" value=customemail onChange=(action (mut customemail)) customValidation=emailValidation}}
     </p>
 
     <h4>Template</h4>
@@ -281,10 +289,10 @@ emailValidation: {
       You may also define multiple custom constraints by using an array of validation objects.
     </p>
     <p>
-      {{paper-input class="md-block" label="Value should be even and equal 4." type="email" value=customMultiple customValidation=multipleConstraints}}
+      {{paper-input class="md-block" label="Value should be even and equal 4." type="email" value=customMultiple onChange=(action (mut customMultiple)) customValidation=multipleConstraints}}
     </p>
     {{#code-block language="handlebars"}}
-\{{paper-input class="md-block" label="E-mail" type="email" value=email customValidation=multipleConstraints}}
+\{{paper-input class="md-block" label="E-mail" type="email" value=email onChange=(action (mut email)) customValidation=multipleConstraints}}
     {{/code-block}}
     {{#code-block language="handlebars"}}
 multipleConstraints: [
@@ -320,6 +328,7 @@ multipleConstraints: [
             flex=50
             label="User name"
             value=model.username
+            onChange=(action (mut model.username))
             errors=model.validations.attrs.username.messages
           }}
         </div>
@@ -329,6 +338,7 @@ multipleConstraints: [
             flex=34
             type="password"
             value=model.password
+            onChange=(action (mut model.password))
             errors=model.validations.attrs.password.messages
           }}
           {{paper-input
@@ -336,6 +346,7 @@ multipleConstraints: [
             flex=33
             type="email"
             value=model.email
+            onChange=(action (mut model.email))
             errors=model.validations.attrs.email.messages
           }}
           {{paper-input
@@ -343,6 +354,7 @@ multipleConstraints: [
             flex=33
             type="email"
             value=model.emailConfirmation
+            onChange=(action (mut model.emailConfirmation))
             errors=model.validations.attrs.emailConfirmation.messages
           }}
         </div>

@@ -7,73 +7,72 @@
 {{/if}}
 
 {{#if textarea}}
-  {{textarea
+  <textarea
     class="md-input"
-    id=inputElementId
-    placeholder=placeholder
-    value=value
-    disabled=disabled
-    autofocus=autofocus
-    focus-in=onFocusIn
-    focus-out=(action "focusOut")
-    key-down=onKeyDown
-    enter=onEnter
-    bubbles=true
+    id={{inputElementId}}
+    placeholder={{placeholder}}
+    value={{value}}
+    disabled={{disabled}}
+    autofocus={{autofocus}}
+    onfocus={{onFocus}}
+    onblur={{action "handleBlur"}}
+    onkeydown={{onKeyDown}}
+    oninput={{action "handleInput"}}
 
-    name=passThru.name
-    rows=passThru.rows
-    cols=passThru.cols
-    maxlength=passThru.maxlength
-    tabindex=passThru.tabindex
-    required=passThru.required
-    selectionEnd=passThru.selectionEnd
-    selectionStart=passThru.selectionStart
-    selectionDirection=passThru.selectionDirection
-    wrap=passThru.wrap
-    readonly=passThru.readonly
-    form=passThru.form
-    spellcheck=passThru.spellcheck
-  }}
+    name={{passThru.name}}
+    rows={{passThru.rows}}
+    cols={{passThru.cols}}
+    maxlength={{passThru.maxlength}}
+    tabindex={{passThru.tabindex}}
+    required={{passThru.required}}
+    selectionEnd={{passThru.selectionEnd}}
+    selectionStart={{passThru.selectionStart}}
+    selectionDirection={{passThru.selectionDirection}}
+    wrap={{passThru.wrap}}
+    readonly={{passThru.readonly}}
+    form={{passThru.form}}
+    spellcheck={{passThru.spellcheck}}
+  ></textarea>
 {{else}}
-  {{input
+  <input
     class="md-input"
-    id=inputElementId
-    placeholder=placeholder
-    type=type value=value
-    disabled=disabled
-    autofocus=autofocus
-    focus-in=onFocusIn
-    focus-out=(action "focusOut")
-    key-down=onKeyDown
-    enter=onEnter
-    bubbles=true
+    id={{inputElementId}}
+    placeholder={{placeholder}}
+    type={{type}}
+    value={{value}}
+    disabled={{disabled}}
+    autofocus={{autofocus}}
+    onfocus={{onFocus}}
+    onblur={{action "handleBlur"}}
+    onkeydown={{onKeyDown}}
+    oninput={{action "handleInput"}}
 
-    accept=passThru.accept
-    autocomplete=passThru.autocomplete
-    autosave=passThru.autosave
-    form=passThru.form
-    formaction=passThru.formaction
-    formenctype=passThru.formenctype
-    formmethod=passThru.formmethod
-    formnovalidate=passThru.formnovalidate
-    formtarget=passThru.formtarget
-    height=passThru.height
-    inputmode=passThru.inputmode
-    min=passThru.min
-    maxlength=passThru.maxlength
-    max=passThru.max
-    multiple=passThru.multiple
-    name=passThru.name
-    pattern=passThru.pattern
-    readonly=passThru.readonly
-    required=passThru.required
-    selectionDirection=passThru.selectionDirection
-    size=passThru.size
-    spellcheck=passThru.spellcheck
-    step=passThru.step
-    tabindex=passThru.tabindex
-    width=passThru.width
-  }}
+    accept={{passThru.accept}}
+    autocomplete={{passThru.autocomplete}}
+    autosave={{passThru.autosave}}
+    form={{passThru.form}}
+    formaction={{passThru.formaction}}
+    formenctype={{passThru.formenctype}}
+    formmethod={{passThru.formmethod}}
+    formnovalidate={{passThru.formnovalidate}}
+    formtarget={{passThru.formtarget}}
+    height={{passThru.height}}
+    inputmode={{passThru.inputmode}}
+    min={{passThru.min}}
+    maxlength={{passThru.maxlength}}
+    max={{passThru.max}}
+    multiple={{passThru.multiple}}
+    name={{passThru.name}}
+    pattern={{passThru.pattern}}
+    readonly={{passThru.readonly}}
+    required={{passThru.required}}
+    selectionDirection={{passThru.selectionDirection}}
+    size={{passThru.size}}
+    spellcheck={{passThru.spellcheck}}
+    step={{passThru.step}}
+    tabindex={{passThru.tabindex}}
+    width={{passThru.width}}
+  >
 {{/if}}
 
 {{#unless hideAllMessages}}

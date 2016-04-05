@@ -3,7 +3,7 @@ import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
-const { $, computed, isPresent, isArray, Logger, A, getWithDefault } = Ember;
+const { $, computed, isPresent, isArray, Logger, A, getWithDefault, run, assert } = Ember;
 
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
@@ -12,9 +12,9 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     'hasValue:md-input-has-value',
     'isInvalid:md-input-invalid',
     'eitherIcon:md-has-icon',
-    'iconFloat:md-icon-float',
     'iconRight:md-icon-right',
-    'focused:md-input-focused'
+    'focused:md-input-focused',
+    'block:md-block'
   ],
   type: 'text',
   autofocus: false,
@@ -38,89 +38,6 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   }),
 
   eitherIcon: computed.or('icon', 'iconRight'),
-  iconFloat: computed.and('eitherIcon', 'label'),
-
-  didInsertElement() {
-    if (this.get('textarea')) {
-      let textarea = this.$().children('textarea').first();
-      let textareaNode = textarea.get(0);
-      let container = this.get('element');
-      let minRows = NaN;
-      let lineHeight = null;
-
-      if (textareaNode.hasAttribute('rows')) {
-        minRows = parseInt(textareaNode.getAttribute('rows'));
-      }
-
-      textarea.on(`keydown.${this.elementId} input.${this.elementId}`, () => {
-        this.growTextarea(textarea, textareaNode, container, minRows, lineHeight);
-      });
-
-      if (isNaN(minRows)) {
-        textarea.attr('rows', '1');
-
-        textarea.on(`scroll.${this.elementId}`, () => {
-          this.onScroll(textareaNode);
-        });
-      }
-
-      $(window).on(`resize.${this.elementId}`, this.growTextarea(textarea, textareaNode, container, minRows, lineHeight));
-    }
-  },
-
-  willDestroyElement() {
-    if (this.get('textarea')) {
-      $(window).off(`resize.${this.elementId}`, this.growTextarea);
-      this.$().children('textarea').first().off(`keydown.${this.elementId} input.${this.elementId} scroll.${this.elementId}`);
-    }
-  },
-
-  growTextarea(textarea, textareaNode, container, minRows, lineHeight) {
-    // sets the md-input-container height to avoid jumping around
-    container.style.height = `${container.offsetHeight}px`;
-
-    // temporarily disables element's flex so its height 'runs free'
-    textarea.addClass('md-no-flex');
-
-    if (isNaN(minRows)) {
-      textareaNode.style.height = 'auto';
-      textareaNode.scrollTop = 0;
-      let height = this.getHeight(textareaNode);
-      if (height) {
-        textareaNode.style.height = `${height}px`;
-      }
-    } else {
-      textareaNode.setAttribute('rows', 1);
-
-      if (!lineHeight) {
-        textareaNode.style.minHeight = '0';
-
-        lineHeight = textarea.prop('clientHeight');
-
-        textareaNode.style.minHeight = null;
-      }
-
-      let rows = Math.max(minRows, Math.round(textareaNode.scrollHeight / lineHeight));
-      textareaNode.setAttribute('rows', rows);
-    }
-
-    // reset everything back to normal
-    textarea.removeClass('md-no-flex');
-    container.style.height = 'auto';
-  },
-
-  getHeight(node) {
-    let line = node.scrollHeight - node.offsetHeight;
-    return node.offsetHeight + (line > 0 ? line : 0);
-  },
-
-  onScroll(node) {
-    node.scrollTop = 0;
-    // for smooth new line adding
-    let line = node.scrollHeight - node.offsetHeight;
-    let height = node.offsetHeight + line;
-    node.style.height = `${height}px`;
-  },
 
   /**
    * Return the built-in constraints.
@@ -201,13 +118,78 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     return messages;
   }),
 
-  actions: {
-    focusOut(ev) {
-      if (this.get('onFocusOut')) {
-        this.get('onFocusOut')(ev);
+  // Lifecycle hooks
+  didReceiveAttrs() {
+    this._super(...arguments);
+    assert('{{paper-input}} requires an `onChange` function', this.get('onChange') && typeof this.get('onChange') === 'function');
+  },
+
+  didInsertElement() {
+    this._super(...arguments);
+    if (this.get('textarea')) {
+      $(window).on(`resize.${this.elementId}`, run.bind(this, this.growTextarea));
+    }
+  },
+
+  didRender() {
+    if (this.get('textarea')) {
+      this.growTextarea();
+    }
+  },
+
+  willDestroyElement() {
+    if (this.get('textarea')) {
+      $(window).off(`resize.${this.elementId}`);
+    }
+  },
+
+  growTextarea() {
+    let inputElement = this.$('input, textarea');
+    inputElement.addClass('md-no-flex').attr('rows', 1);
+
+    let minRows = this.get('passThru.rows');
+
+    if (minRows) {
+      if (!this.lineHeight) {
+        inputElement.get(0).style.minHeight = 0;
+        this.lineHeight = inputElement.get(0).clientHeight;
+        inputElement.get(0).style.minHeight = null;
       }
+
+      let newRows = Math.round(Math.round(this.getHeight(inputElement) / this.lineHeight));
+      let rowsToSet = Math.min(newRows, minRows);
+
+      inputElement
+        .css('height', `${this.lineHeight * rowsToSet}px`)
+        .attr('rows', rowsToSet)
+        .toggleClass('md-textarea-scrollable', newRows >= minRows);
+    } else {
+      inputElement.css('height', 'auto');
+      inputElement.get(0).scrollTop = 0;
+      let height = this.getHeight(inputElement);
+      if (height) {
+        inputElement.css('height', `${height}px`);
+      }
+    }
+
+    inputElement.removeClass('md-no-flex');
+  },
+
+  getHeight(inputElement) {
+    let { offsetHeight } = inputElement.get(0);
+    let line = inputElement.get(0).scrollHeight - offsetHeight;
+    return offsetHeight + (line > 0 ? line : 0);
+  },
+
+  actions: {
+    handleInput(e) {
+      this.sendAction('onChange', e.target.value);
+      this.growTextarea();
+    },
+
+    handleBlur(e) {
+      this.sendAction('onBlur', e);
       this.set('isTouched', true);
-      return true;
     }
   }
 });

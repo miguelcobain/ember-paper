@@ -1,6 +1,7 @@
 import Ember from 'ember';
+const { Controller } = Ember;
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   multipleConstraints: [
     {
@@ -34,16 +35,18 @@ export default Ember.Controller.extend({
 
   eventName: '',
   actions: {
+    focusReceived() {
+      this.set('eventName', 'focus');
+    },
 
-    focusInReceived() {
-      this.set('eventName', 'focusIn');
+    blurReceived() {
+      this.set('eventName', 'blur');
     },
-    focusOutReceived() {
-      this.set('eventName', 'focusOut');
-    },
+
     keyDownReceived() {
       this.set('eventName', 'keyDown');
     },
+
     enterReceived() {
       this.set('eventName', 'enter');
     }
