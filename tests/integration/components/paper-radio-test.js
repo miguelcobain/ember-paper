@@ -10,10 +10,10 @@ test('should set and remove checked css class', function(assert) {
 
   this.set('groupValue', '1');
   this.render(hbs`
-    {{#paper-radio value="1" groupValue=groupValue onchange=(action (mut groupValue))}}
+    {{#paper-radio value="1" groupValue=groupValue onChange=(action (mut groupValue))}}
       Radio button 1
     {{/paper-radio}}
-    {{#paper-radio value="2" groupValue=groupValue onchange=(action (mut groupValue))}}
+    {{#paper-radio value="2" groupValue=groupValue onChange=(action (mut groupValue))}}
       Radio button 2
     {{/paper-radio}}
   `);
@@ -31,10 +31,10 @@ test('should trigger an action when checking', function(assert) {
   });
 
   this.render(hbs`
-    {{#paper-radio value="1" groupValue=groupValue onchange=handleChange}}
+    {{#paper-radio value="1" groupValue=groupValue onChange=handleChange}}
       Radio button 1
     {{/paper-radio}}
-    {{#paper-radio value="2" groupValue=groupValue onchange=handleChange}}
+    {{#paper-radio value="2" groupValue=groupValue onChange=handleChange}}
       Radio button 2
     {{/paper-radio}}
   `);
@@ -51,7 +51,7 @@ test('should trigger an action when unchecking (toggle is true)', function(asser
   });
 
   this.render(hbs`
-    {{#paper-radio toggle=true value="1" groupValue=groupValue onchange=handleChange}}
+    {{#paper-radio toggle=true value="1" groupValue=groupValue onChange=handleChange}}
       Radio button 1
     {{/paper-radio}}
   `);
@@ -67,7 +67,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
   });
 
   this.render(hbs`
-    {{#paper-radio disabled=true value="1" groupValue=groupValue onchange=handleChange}}
+    {{#paper-radio disabled=true value="1" groupValue=groupValue onChange=handleChange}}
       Radio button 1
     {{/paper-radio}}
   `);
@@ -78,7 +78,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
 test('blockless version should set label inside', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-radio value="1" onchange=(action (mut value)) label="çup?"}}`);
+  this.render(hbs`{{paper-radio value="1" onChange=(action (mut value)) label="çup?"}}`);
 
   assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
@@ -87,7 +87,7 @@ test('block version should set label inside', function(assert) {
   assert.expect(1);
 
   this.render(hbs`
-    {{#paper-radio value="1" onchange=(action (mut value))}}
+    {{#paper-radio value="1" onChange=(action (mut value))}}
       çup?
     {{/paper-radio}}
   `);
@@ -95,10 +95,10 @@ test('block version should set label inside', function(assert) {
   assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
 
-test('the `onchange` function is mandatory for paper-radio', function(assert) {
+test('the `onChange` function is mandatory for paper-radio', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
     this.render(hbs`{{paper-radio value="1"}}`);
-  }, /requires an `onchange` function/);
+  }, /requires an `onChange` function/);
 });

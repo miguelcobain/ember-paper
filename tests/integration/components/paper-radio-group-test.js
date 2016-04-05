@@ -28,7 +28,7 @@ test('should set and remove checked css class', function(assert) {
 
   this.set('groupValue', '1');
   this.render(hbs`
-    {{#paper-radio-group groupValue=groupValue onchange=(action (mut groupValue)) as |group|}}
+    {{#paper-radio-group groupValue=groupValue onChange=(action (mut groupValue)) as |group|}}
       {{#group.paper-radio value="1"}}
         Radio button 1
       {{/group.paper-radio}}
@@ -54,7 +54,7 @@ test('should trigger an action when checking', function(assert) {
   });
 
   this.render(hbs`
-    {{#paper-radio-group groupValue=groupValue onchange=handleChange as |group|}}
+    {{#paper-radio-group groupValue=groupValue onChange=handleChange as |group|}}
       {{#group.paper-radio value="1"}}
         Radio button 1
       {{/group.paper-radio}}
@@ -79,7 +79,7 @@ test('should trigger an action when unchecking (toggle is true)', function(asser
   });
 
   this.render(hbs`
-    {{#paper-radio-group groupValue=groupValue toggle=true onchange=handleChange as |group|}}
+    {{#paper-radio-group groupValue=groupValue toggle=true onChange=handleChange as |group|}}
       {{#group.paper-radio value="1"}}
         Radio button 1
       {{/group.paper-radio}}
@@ -103,7 +103,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
   });
 
   this.render(hbs`
-    {{#paper-radio-group groupValue=groupValue disabled=true onchange=(action (mut groupValue)) as |group|}}
+    {{#paper-radio-group groupValue=groupValue disabled=true onChange=(action (mut groupValue)) as |group|}}
       {{#group.paper-radio value="1"}}
         Radio button 1
       {{/group.paper-radio}}
@@ -123,7 +123,7 @@ test('should be possible to select next with down/right arrow in a paper-radio-g
   assert.expect(2);
 
   this.render(hbs`
-    {{#paper-radio-group groupValue=groupValue onchange=(action (mut groupValue)) as |group|}}
+    {{#paper-radio-group groupValue=groupValue onChange=(action (mut groupValue)) as |group|}}
       {{#group.paper-radio value="1"}}
         Radio button 1
       {{/group.paper-radio}}
@@ -149,7 +149,7 @@ test('should be possible to select next with up/left arrow in a paper-radio-grou
   assert.expect(2);
 
   this.render(hbs`
-    {{#paper-radio-group groupValue=groupValue onchange=(action (mut groupValue)) as |group|}}
+    {{#paper-radio-group groupValue=groupValue onChange=(action (mut groupValue)) as |group|}}
       {{#group.paper-radio value="1"}}
         Radio button 1
       {{/group.paper-radio}}
@@ -171,7 +171,7 @@ test('should be possible to select next with up/left arrow in a paper-radio-grou
   assert.equal(this.get('groupValue'), '3');
 });
 
-test('the `onchange` function is mandatory for paper-radio-group', function(assert) {
+test('the `onChange` function is mandatory for paper-radio-group', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
@@ -182,5 +182,5 @@ test('the `onchange` function is mandatory for paper-radio-group', function(asse
         {{/group.paper-radio}}
       {{/paper-radio-group}}
     `);
-  }, /requires an `onchange` function/);
+  }, /requires an `onChange` function/);
 });

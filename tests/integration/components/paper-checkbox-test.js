@@ -10,7 +10,7 @@ test('should set and remove checked css class', function(assert) {
   assert.expect(2);
 
   this.set('value', true);
-  this.render(hbs`{{paper-checkbox checked=value label="Blue" onchange=(action (mut value))}}`);
+  this.render(hbs`{{paper-checkbox checked=value label="Blue" onChange=(action (mut value))}}`);
   assert.ok(this.$('md-checkbox').hasClass('md-checked'));
 
   this.set('value', false);
@@ -25,7 +25,7 @@ test('should trigger an action when unchecking', function(assert) {
     assert.equal(checked, false);
   });
 
-  this.render(hbs`{{paper-checkbox checked=value onchange=handleChange}}`);
+  this.render(hbs`{{paper-checkbox checked=value onChange=handleChange}}`);
 
   this.$('md-checkbox').click();
 });
@@ -38,7 +38,7 @@ test('should trigger an action when checking', function(assert) {
     assert.equal(checked, true);
   });
 
-  this.render(hbs`{{paper-checkbox checked=value onchange=handleChange}}`);
+  this.render(hbs`{{paper-checkbox checked=value onChange=handleChange}}`);
 
   this.$('md-checkbox').click();
 });
@@ -51,7 +51,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
     assert.equal(checked, true);
   });
 
-  this.render(hbs`{{paper-checkbox disabled=true checked=value onchange=handleChange}}`);
+  this.render(hbs`{{paper-checkbox disabled=true checked=value onChange=handleChange}}`);
 
   this.$('md-checkbox').click();
 });
@@ -60,7 +60,7 @@ test('should be possible to check with spacebar', function(assert) {
   assert.expect(2);
 
   this.set('value', false);
-  this.render(hbs`{{paper-checkbox checked=value onchange=(action (mut value))}}`);
+  this.render(hbs`{{paper-checkbox checked=value onChange=(action (mut value))}}`);
   assert.equal(this.get('value'), false);
 
   let e = Ember.$.Event('keypress');
@@ -74,7 +74,7 @@ test('should be possible to uncheck with spacebar', function(assert) {
   assert.expect(2);
 
   this.set('value', true);
-  this.render(hbs`{{paper-checkbox checked=value onchange=(action (mut value))}}`);
+  this.render(hbs`{{paper-checkbox checked=value onChange=(action (mut value))}}`);
   assert.equal(this.get('value'), true);
 
   let e = Ember.$.Event('keypress');
@@ -87,7 +87,7 @@ test('should be possible to uncheck with spacebar', function(assert) {
 test('blockless version should set label inside', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-checkbox checked=value onchange=(action (mut value)) label="çup?"}}`);
+  this.render(hbs`{{paper-checkbox checked=value onChange=(action (mut value)) label="çup?"}}`);
 
   assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
@@ -96,7 +96,7 @@ test('block version should set label inside', function(assert) {
   assert.expect(1);
 
   this.render(hbs`
-    {{#paper-checkbox checked=value onchange=(action (mut value))}}
+    {{#paper-checkbox checked=value onChange=(action (mut value))}}
       çup?
     {{/paper-checkbox}}
   `);
@@ -104,10 +104,10 @@ test('block version should set label inside', function(assert) {
   assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
 
-test('the `onchange` function is mandatory', function(assert) {
+test('the `onChange` function is mandatory', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
     this.render(hbs`{{paper-checkbox checked=true}}`);
-  }, /requires an `onchange` function/);
+  }, /requires an `onChange` function/);
 });

@@ -15,12 +15,12 @@
 
         {{#paper-item}}
           <p>Checkbox 1</p>
-          {{paper-checkbox class="md-secondary" checked=checkboxEnabled1 onchange=(action (mut checkboxEnabled1))}}
+          {{paper-checkbox class="md-secondary" checked=checkboxEnabled1 onChange=(action (mut checkboxEnabled1))}}
         {{/paper-item}}
 
         {{#paper-item}}
           <p>Checkbox 2</p>
-          {{paper-checkbox class="md-secondary" checked=checkboxEnabled2 onchange=(action (mut checkboxEnabled2))}}
+          {{paper-checkbox class="md-secondary" checked=checkboxEnabled2 onChange=(action (mut checkboxEnabled2))}}
         {{/paper-item}}
 
         {{paper-divider}}
@@ -30,13 +30,13 @@
         {{#paper-item action="transitionToWifiMenu"}}
           {{paper-icon "network_wifi"}}
           <p>Wi-Fi</p>
-          {{paper-switch class="md-secondary" checked=wifiEnabled onchange=(action (mut wifiEnabled))}}
+          {{paper-switch class="md-secondary" checked=wifiEnabled onChange=(action (mut wifiEnabled))}}
         {{/paper-item}}
 
         {{#paper-item action="transitionToBluetoothMenu"}}
           {{paper-icon "bluetooth"}}
           <p>Bluetooth</p>
-          {{paper-switch class="md-secondary" checked=bluetoothEnabled onchange=(action (mut bluetoothEnabled))}}
+          {{paper-switch class="md-secondary" checked=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
         {{/paper-item}}
 
         {{#paper-item action="transitionToDataUsage"}}
@@ -50,7 +50,7 @@
 
         {{#each messageData as |item|}}
           {{#paper-item}}
-            {{#paper-checkbox checked=item.checked onchange=(action (mut item.checked))}}{{/paper-checkbox}}
+            {{#paper-checkbox checked=item.checked onChange=(action (mut item.checked))}}{{/paper-checkbox}}
             <p>{{item.message}}</p>
             {{#paper-button icon-button=true param=item action="secondaryMessageClick"}}
               {{paper-icon "message"}}

@@ -52,7 +52,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   didInitAttrs() {
     this._super(...arguments);
-    assert('{{paper-switch}} requires an `onchange` function', this.get('onchange') && typeof this.get('onchange') === 'function');
+    assert('{{paper-switch}} requires an `onChange` function', this.get('onChange') && typeof this.get('onChange') === 'function');
   },
 
   willDestroyElement() {
@@ -120,7 +120,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
       if ((!this.get('dragging')) ||
            (checked && dragAmount < 0.5) ||
            (!checked && dragAmount > 0.5)) {
-        this.get('onchange')(!checked);
+        this.sendAction('onChange', !checked);
         console.log('paper-switch', !checked);
       }
       this.set('dragging', false);
@@ -131,7 +131,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   processProxy() {
-    this.get('onchange')(!this.get('checked'));
+    this.sendAction('onChange', !this.get('checked'));
   }
 
 });

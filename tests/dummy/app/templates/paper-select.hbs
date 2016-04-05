@@ -27,7 +27,7 @@
 </div>
 
 <p>
-  {{paper-checkbox label="Disable select" checked=disableSelect onchange=(action (mut disableSelect))}}
+  {{paper-checkbox label="Disable select" checked=disableSelect onChange=(action (mut disableSelect))}}
 </p>
 <h3>Template</h3>
 {{#code-block language='handlebars'}}\{{#paper-select disabled=disableSelect placeholder="State" model=userState}}

@@ -22,12 +22,12 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   didInitAttrs() {
     this._super(...arguments);
-    assert('{{paper-checkbox}} requires an `onchange` function', this.get('onchange') && typeof this.get('onchange') === 'function');
+    assert('{{paper-checkbox}} requires an `onChange` function', this.get('onChange') && typeof this.get('onChange') === 'function');
   },
 
   click() {
     if (!this.get('disabled')) {
-      this.get('onchange')(!this.get('checked'));
+      this.sendAction('onChange', !this.get('checked'));
     }
   },
 
@@ -38,6 +38,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   processProxy() {
-    this.get('onchange')(!this.get('checked'));
+    this.sendAction('onChange', !this.get('checked'));
   }
 });

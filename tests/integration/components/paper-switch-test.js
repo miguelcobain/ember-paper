@@ -10,7 +10,7 @@ test('should set selected class correctly', function(assert) {
   this.set('switchValue', true);
 
   this.render(hbs`
-    {{#paper-switch checked=switchValue onchange=foo}}
+    {{#paper-switch checked=switchValue onChange=foo}}
       Radio button 1
     {{/paper-switch}}
   `);
@@ -25,7 +25,7 @@ test('should render block content as label', function(assert) {
   this.set('switchValue', true);
 
   this.render(hbs`
-    {{#paper-switch checked=switchValue onchange=foo}}
+    {{#paper-switch checked=switchValue onChange=foo}}
       A block label
     {{/paper-switch}}
   `);
@@ -37,15 +37,15 @@ test('blockless mode should render label', function(assert) {
   this.set('switchValue', true);
 
   this.render(hbs`
-    {{paper-switch checked=switchValue onchange=foo label="An inline label"}}
+    {{paper-switch checked=switchValue onChange=foo label="An inline label"}}
   `);
   assert.equal(this.$('md-switch .md-label').text().trim(), 'An inline label');
 });
 
-test('the `onchange` function is mandatory for paper-switch', function(assert) {
+test('the `onChange` function is mandatory for paper-switch', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
     this.render(hbs`{{paper-switch value=true}}`);
-  }, /requires an `onchange` function/);
+  }, /requires an `onChange` function/);
 });
