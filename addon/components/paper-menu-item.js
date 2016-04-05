@@ -1,10 +1,14 @@
 import Ember from 'ember';
+import PaperMenuAbstract from './paper-menu-abstract';
 
-export default Ember.Component.extend({
+const { Component } = Ember;
+
+export default Component.extend({
   tagName: 'md-menu-item',
 
   actions: {
     action() {
+      this.nearestOfType(PaperMenuAbstract).send('toggleMenu');
       this.sendAction('action', this.get('param'));
     }
   }
