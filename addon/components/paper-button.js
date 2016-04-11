@@ -27,7 +27,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   dimBackground: computed.not('iconButton'),
 
   click(event) {
-    let onClick = this.get('onClick');
     this.sendAction('onClick', event);
   }
 });
