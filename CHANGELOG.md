@@ -9,9 +9,11 @@
 - [#286](https://github.com/miguelcobain/ember-paper/pull/286) paper-radio now sends the action `onchange` instead of `changed` and it is mandatory (see ddau)
 - [#303](https://github.com/miguelcobain/ember-paper/pull/303) paper-menu template may now specify `dense=true` to display menu items compactly
 - [#313](https://github.com/miguelcobain/ember-paper/pull/313) paper-backdrop `tap` action renamed `onTap` and required action closure.
-- [#319](https://github.com/miguelcobain/ember-paper/pull/319) paper-input now uses a passThru hash rather than individual attr-xxx attributes to pass attribute binds through to the underlying input.
-The required attribute can now be used to mean native validation, required label styling with an
-asterisk, and/or native html5 required validation.
+- [#326](https://github.com/miguelcobain/ember-paper/pull/319)
+  - paper-input now uses a passThru hash rather than individual attr-xxx attributes to pass attribute binds through to the underlying input.
+  - The required attribute can now be used to mean native validation, required label styling with an asterisk, and/or native html5 required validation.
+  - paper-input now uses `customValidations` instead of `customValidation`. customValidations has a new format.
+  - the error messages can now be overriden by specifiying `errorMessages=(hash required="new message")`
 
 ### 0.2.11
 

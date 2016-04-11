@@ -273,6 +273,114 @@ test('renders input with multiple attributes', function(assert) {
 
 });
 
+test('char counter works', function(assert) {
+  assert.expect(3);
+
+  this.value = 'aaabbb';
+
+  this.render(hbs`
+    {{paper-input value=value onChange=(action (mut value)) maxlength=8}}
+  `);
+
+  assert.equal(this.$('.md-char-counter').length, 1, 'renders the char counter');
+  assert.equal(this.$('.md-char-counter').text().trim(), '6/8');
+
+  this.set('value', 'aa');
+
+  assert.equal(this.$('.md-char-counter').text().trim(), '2/8');
+});
+
+test('built-in validations work', function(assert) {
+  assert.expect(2);
+
+  this.value = 'aaabbbccc';
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      maxlength=8}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 1, 'renders one error');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
+});
+
+test('custom validations work', function(assert) {
+  assert.expect(3);
+
+  this.value = 'aaabbbccc';
+  this.customValidations = [{
+    param: 'notinclude',
+    message: 'You can\'t include the substring %@.',
+    hasError: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) !== -1
+  }];
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      maxlength=8 customValidations=customValidations notinclude="cc"}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
+});
+
+test('can override the any validation message', function(assert) {
+  assert.expect(3);
+
+  this.value = 'aaabbbccc';
+  this.customValidations = [{
+    param: 'notinclude',
+    message: 'You can\'t include the substring %@.',
+    hasError: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) !== -1
+  }];
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      maxlength=8 customValidations=customValidations notinclude="cc"
+      errorMessages=(hash
+        maxlength="Too small, baby!"
+        notinclude="Can't have %@, baby!"
+      )}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Too small, baby!');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'Can\'t have cc, baby!');
+});
+
+test('renders error messages from an external `errors` array', function(assert) {
+  assert.expect(3);
+
+  this.errors = [{
+    message: 'foo should be a number.',
+    attribute: 'foo'
+  }, {
+    message: 'foo should be smaller than 12.',
+    attribute: 'foo'
+  }];
+
+  this.render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'foo should be a number.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'foo should be smaller than 12.');
+});
+
+test('renders error messages from an external `errors` string array', function(assert) {
+  assert.expect(3);
+
+  this.errors = [
+    'foo should be a number.',
+    'foo should be smaller than 12.'
+  ];
+
+  this.render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'foo should be a number.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'foo should be smaller than 12.');
+});
+
 test('the `onChange` function is mandatory for paper-input', function(assert) {
   assert.expect(1);
 

@@ -3,7 +3,7 @@ import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
-const { $, computed, isPresent, isArray, Logger, A, getWithDefault, run, assert } = Ember;
+const { $, computed, isPresent, isArray, isEmpty, Logger, A, getWithDefault, run, assert, get } = Ember;
 
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
@@ -28,8 +28,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     return `input-${this.get('elementId')}`;
   }),
 
-  isInvalid: computed('isTouched', 'value', function() {
-    return this.get('isTouched') && isPresent(this.get('errorMessages'));
+  isInvalid: computed('isTouched', 'validationErrorMessages.length', function() {
+    return this.get('isTouched') && this.get('validationErrorMessages.length');
   }),
 
   renderCharCount: computed('value', function() {
@@ -40,39 +40,46 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   eitherIcon: computed.or('icon', 'iconRight'),
 
   /**
-   * Return the built-in constraints.
+   * Return the built-in validations.
    *
-   * May be overridden to provide additional built-in constraints. Be sure to
-   * call this._super() to retrieve the standard constraints.
+   * May be overridden to provide additional built-in validations. Be sure to
+   * call this._super() to retrieve the standard validations.
    *
    * @public
    */
-  constraints() {
-    let currentValue = this.get('value');
+  validations() {
     return [
       {
-        attr: 'required',
-        defaultError: 'This is required.',
+        param: 'required',
+        message: 'This is required.',
         // required can be a boolean or 'style' for just required asterisk styling.
-        isError: () => this.get('required') === true && !this.get('hasValue')
+        hasError: (value, required) => required === true && isEmpty(value)
       },
       {
-        attr: 'min',
-        defaultError: `Must be at least ${this.get('min')}.`,
-        isError: () => currentValue && +currentValue < +this.get('min')
+        param: 'min',
+        message: 'Must be at least %@.',
+        hasError: (value, min) => +value && +value < +min
       },
       {
-        attr: 'max',
-        defaultError: `Must be less than ${this.get('max')}.`,
-        isError: () => currentValue && +currentValue > +this.get('max')
+        param: 'max',
+        message: 'Must be less than %@.',
+        hasError: (value, max) => +value && +value > +max
       },
       {
-        attr: 'maxlength',
-        defaultError: `Must not exceed ${this.get('maxlength')} characters.`,
-        isError: () => currentValue && currentValue.length > +this.get('maxlength')
+        param: 'minlength',
+        message: 'Must have at least %@ characters.',
+        hasError: (value, minlength) => typeof value === 'string' && value.length < +minlength
+      },
+      {
+        param: 'maxlength',
+        message: 'Must not exceed %@ characters.',
+        hasError: (value, maxlength) => typeof value === 'string' && value.length > +maxlength
       }
     ];
   },
+
+  customValidations: [],
+  errors: [],
 
   /**
    * Computed property that validate the input and return an array of error
@@ -80,40 +87,41 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
    *
    * @public
    */
-  errorMessages: computed('value', function() {
-    let constraints = A();
-    let customConstraints = this.get('customValidation');
-    constraints.pushObjects(this.constraints());
-    if (isPresent(customConstraints)) {
-      if (isArray(customConstraints)) {
-        constraints.pushObjects(customConstraints);
-      } else {
-        constraints.pushObject(customConstraints);
-      }
-    }
-
-    let currentValueParameter = [ this.get('value') ];
+  validationErrorMessages: computed('value', 'errors.[]', 'customValidations.[]', function() {
+    let validations = A();
     let messages = A();
-    try {
-      constraints.forEach((constraint) => {
-        if (constraint.isError(currentValueParameter)) {
+
+    // built-in validations
+    validations.pushObjects(this.validations());
+
+    // custom validations
+    let customValidations = this.get('customValidations');
+    assert('`customValidations` must be an array', isArray(customValidations));
+    validations.pushObjects(customValidations);
+
+    // execute validations
+    let currentValue = this.get('value');
+    validations.forEach((validation) => {
+      assert('validation must include an `hasError(value)` function', validation && validation.hasError && typeof validation.hasError === 'function');
+      try {
+        let valParam = get(validation, 'param');
+        if (validation.hasError(currentValue, this.get(valParam))) {
+          let message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
           messages.pushObject({
-            key: constraint.attr || 'custom',
-            message: this.get(`${constraint.attr}-errortext`) || constraint.defaultError || constraint.errorMessage
+            message: Ember.String.loc(message, this.get(valParam), currentValue)
           });
         }
-      });
-    } catch (error) {
-      Logger.error('Exception with custom validation: ', error);
-    }
+      } catch (error) {
+        Logger.error('Exception with custom validation: ', validation, error);
+      }
+    });
 
+    // error messages array
     let errors = this.get('errors');
-    if (errors && isArray(errors)) {
-      messages.pushObjects(errors.map((i) => ({
-        key: getWithDefault(i, 'attr', 'custom'),
-        message: getWithDefault(i, 'message', i)
-      })));
-    }
+    assert('`errors` must be an array', isArray(errors));
+    messages.pushObjects(errors.map((e) => {
+      return get(e, 'message') ? e : { message: e };
+    }));
 
     return messages;
   }),
