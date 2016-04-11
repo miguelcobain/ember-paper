@@ -3,7 +3,13 @@ import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
-const { $, computed, isPresent, isArray, isEmpty, Logger, A, getWithDefault, run, assert, get } = Ember;
+import requiredValidator from 'ember-paper/validators/required';
+import minValidator from 'ember-paper/validators/min';
+import maxValidator from 'ember-paper/validators/max';
+import minlengthValidator from 'ember-paper/validators/minlength';
+import maxlengthValidator from 'ember-paper/validators/maxlength';
+
+const { $, computed, isPresent, isArray, isEmpty, isBlank, isNone, Logger, A, getWithDefault, run, assert, get } = Ember;
 
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
@@ -49,32 +55,11 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
    */
   validations() {
     return [
-      {
-        param: 'required',
-        message: 'This is required.',
-        // required can be a boolean or 'style' for just required asterisk styling.
-        hasError: (value, required) => required === true && isEmpty(value)
-      },
-      {
-        param: 'min',
-        message: 'Must be at least %@.',
-        hasError: (value, min) => +value && +value < +min
-      },
-      {
-        param: 'max',
-        message: 'Must be less than %@.',
-        hasError: (value, max) => +value && +value > +max
-      },
-      {
-        param: 'minlength',
-        message: 'Must have at least %@ characters.',
-        hasError: (value, minlength) => typeof value === 'string' && value.length < +minlength
-      },
-      {
-        param: 'maxlength',
-        message: 'Must not exceed %@ characters.',
-        hasError: (value, maxlength) => typeof value === 'string' && value.length > +maxlength
-      }
+      requiredValidator,
+      minValidator,
+      maxValidator,
+      minlengthValidator,
+      maxlengthValidator
     ];
   },
 
@@ -102,10 +87,10 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     // execute validations
     let currentValue = this.get('value');
     validations.forEach((validation) => {
-      assert('validation must include an `hasError(value)` function', validation && validation.hasError && typeof validation.hasError === 'function');
+      assert('validation must include an `validate(value)` function', validation && validation.validate && typeof validation.validate === 'function');
       try {
         let valParam = get(validation, 'param');
-        if (validation.hasError(currentValue, this.get(valParam))) {
+        if (!isNone(this.get(valParam)) && !validation.validate(currentValue, this.get(valParam))) {
           let message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
           messages.pushObject({
             message: Ember.String.loc(message, this.get(valParam), currentValue)

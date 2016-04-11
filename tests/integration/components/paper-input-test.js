@@ -311,7 +311,7 @@ test('custom validations work', function(assert) {
   this.customValidations = [{
     param: 'notinclude',
     message: 'You can\'t include the substring %@.',
-    hasError: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) !== -1
+    validate: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) === -1
   }];
 
   this.render(hbs`
@@ -331,7 +331,7 @@ test('can override the any validation message', function(assert) {
   this.customValidations = [{
     param: 'notinclude',
     message: 'You can\'t include the substring %@.',
-    hasError: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) !== -1
+    validate: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) === -1
   }];
 
   this.render(hbs`
