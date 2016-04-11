@@ -17,7 +17,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNames: ['paper-button', 'md-default-theme', 'md-button'],
   classNameBindings: [
     'raised:md-raised',
-    'iconButton:md-icon-button',
+    'iconButton:md-icon-button'
   ],
 
   // Ripple Overrides
@@ -28,8 +28,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   click(event) {
     let onClick = this.get('onClick');
-    if (isPresent(onClick)) {
-      this.get('onClick')(event);
-    }
+    this.sendAction('onClick', event);
   }
 });
