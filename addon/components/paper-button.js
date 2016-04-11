@@ -12,23 +12,19 @@ const {
 
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   attributeBindings: ['type'],
+  type: 'button',
   tagName: 'button',
-  classNames: ['paper-button', 'md-default-theme'],
-  themed: true,
+  classNames: ['paper-button', 'md-default-theme', 'md-button'],
   classNameBindings: [
     'raised:md-raised',
     'iconButton:md-icon-button',
-    'themed:md-default-theme',
-    'themed:md-button'
   ],
 
   // Ripple Overrides
   rippleContainerSelector: null,
-  fitRipple: computed.readOnly('isIconButton'),
-  center: computed.readOnly('isIconButton'),
-  dimBackground: computed.not('isIconButton'),
-
-  noSpan: computed.readOnly('no-span'),
+  fitRipple: computed.readOnly('iconButton'),
+  center: computed.readOnly('iconButton'),
+  dimBackground: computed.not('iconButton'),
 
   click(event) {
     let onClick = this.get('onClick');

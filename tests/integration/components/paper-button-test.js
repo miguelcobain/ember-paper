@@ -5,20 +5,27 @@ moduleForComponent('paper-button', 'Integration | Component | paper button', {
   integration: true
 });
 
-test('renders block label within span by default', function(assert) {
+test('renders block label', function(assert) {
   this.render(hbs`
     {{#paper-button}}
       Block label
     {{/paper-button}}
   `);
-  assert.equal(this.$('span').text().trim(), 'Block label');
+  assert.equal(this.$('button').text().trim(), 'Block label');
 });
 
-test('renders inline label within span by default', function(assert) {
+test('renders inline label', function(assert) {
   this.render(hbs`
     {{paper-button label='Inline label'}}
   `);
-  assert.equal(this.$('span').text().trim(), 'Inline label');
+  assert.equal(this.$('button').text().trim(), 'Inline label');
+});
+
+test('renders type button by default', function(assert) {
+  this.render(hbs`
+    {{paper-button label='Inline label'}}
+  `);
+  assert.equal(this.$('button').attr('type'), 'button');
 });
 
 test('triggers onClick function when attribute is present', function(assert) {

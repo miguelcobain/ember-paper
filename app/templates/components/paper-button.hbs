@@ -1,15 +1,5 @@
-{{#if noSpan}}
-  {{#if hasBlock}}
-    {{yield}}
-  {{else}}
-    {{label}}
-  {{/if}}
+{{#if hasBlock}}
+  {{yield}}
 {{else}}
-  <span type={{type}} disabled={{disabled}}>
-    {{#if hasBlock}}
-      {{yield}}
-    {{else}}
-      {{label}}
-    {{/if}}
-  </span>
+  {{label}}
 {{/if}}
