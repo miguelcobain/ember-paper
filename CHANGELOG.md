@@ -15,6 +15,7 @@
   - paper-input now uses `customValidations` instead of `customValidation`. customValidations has a new format.
   - the error messages can now be overriden by specifiying `errorMessages=(hash required="new message")`
   - first validation message now has suffix `-0` in its id
+  - paper-checkbox now uses *actions up, data down*. `onChange` action is mandatory.
 
 ### 0.2.11
 
