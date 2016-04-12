@@ -28,14 +28,18 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   hideAllMessages: false,
   isTouched: false,
 
-  hasValue: computed.notEmpty('value'),
+  hasValue: computed('value', 'isNativeInvalid', function() {
+    let value = this.get('value');
+    let isNativeInvalid = this.get('isNativeInvalid');
+    return !isEmpty(value) || isNativeInvalid;
+  }),
 
   inputElementId: computed('elementId', function() {
     return `input-${this.get('elementId')}`;
   }),
 
-  isInvalid: computed('isTouched', 'validationErrorMessages.length', function() {
-    return this.get('isTouched') && this.get('validationErrorMessages.length');
+  isInvalid: computed('isTouched', 'validationErrorMessages.length', 'isNativeInvalid', function() {
+    return this.get('isTouched') && (this.get('validationErrorMessages.length') || this.get('isNativeInvalid'));
   }),
 
   renderCharCount: computed('value', function() {
@@ -179,6 +183,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     handleInput(e) {
       this.sendAction('onChange', e.target.value);
       this.growTextarea();
+      let inputElement = this.$('input').get(0);
+      this.set('isNativeInvalid', inputElement && inputElement.validity && inputElement.validity.badInput);
     },
 
     handleBlur(e) {
