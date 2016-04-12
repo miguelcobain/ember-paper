@@ -24,7 +24,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   ],
   type: 'text',
   autofocus: false,
-  tabindex: -1,
+  tabindex: null,
   hideAllMessages: false,
   isTouched: false,
 
@@ -126,9 +126,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   },
 
   didRender() {
-    if (this.get('textarea')) {
-      this.growTextarea();
-    }
+    this.growTextarea();
   },
 
   willDestroyElement() {
@@ -138,35 +136,37 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   },
 
   growTextarea() {
-    let inputElement = this.$('input, textarea');
-    inputElement.addClass('md-no-flex').attr('rows', 1);
+    if (this.get('textarea')) {
+      let inputElement = this.$('input, textarea');
+      inputElement.addClass('md-no-flex').attr('rows', 1);
 
-    let minRows = this.get('passThru.rows');
+      let minRows = this.get('passThru.rows');
 
-    if (minRows) {
-      if (!this.lineHeight) {
-        inputElement.get(0).style.minHeight = 0;
-        this.lineHeight = inputElement.get(0).clientHeight;
-        inputElement.get(0).style.minHeight = null;
+      if (minRows) {
+        if (!this.lineHeight) {
+          inputElement.get(0).style.minHeight = 0;
+          this.lineHeight = inputElement.get(0).clientHeight;
+          inputElement.get(0).style.minHeight = null;
+        }
+
+        let newRows = Math.round(Math.round(this.getHeight(inputElement) / this.lineHeight));
+        let rowsToSet = Math.min(newRows, minRows);
+
+        inputElement
+          .css('height', `${this.lineHeight * rowsToSet}px`)
+          .attr('rows', rowsToSet)
+          .toggleClass('md-textarea-scrollable', newRows >= minRows);
+      } else {
+        inputElement.css('height', 'auto');
+        inputElement.get(0).scrollTop = 0;
+        let height = this.getHeight(inputElement);
+        if (height) {
+          inputElement.css('height', `${height}px`);
+        }
       }
 
-      let newRows = Math.round(Math.round(this.getHeight(inputElement) / this.lineHeight));
-      let rowsToSet = Math.min(newRows, minRows);
-
-      inputElement
-        .css('height', `${this.lineHeight * rowsToSet}px`)
-        .attr('rows', rowsToSet)
-        .toggleClass('md-textarea-scrollable', newRows >= minRows);
-    } else {
-      inputElement.css('height', 'auto');
-      inputElement.get(0).scrollTop = 0;
-      let height = this.getHeight(inputElement);
-      if (height) {
-        inputElement.css('height', `${height}px`);
-      }
+      inputElement.removeClass('md-no-flex');
     }
-
-    inputElement.removeClass('md-no-flex');
   },
 
   getHeight(inputElement) {
