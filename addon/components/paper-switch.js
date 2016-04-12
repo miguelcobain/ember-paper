@@ -9,7 +9,8 @@ const {
   run,
   String: {
     htmlSafe
-  }
+  },
+  inject
 } = Ember;
 /* global Hammer */
 
@@ -28,6 +29,8 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   checked: false,
   disabled: false,
   dragging: false,
+
+  constants: inject.service(),
 
   thumbContainerStyle: computed('dragging', 'dragAmount', function() {
     if (!this.get('dragging')) {
@@ -124,8 +127,17 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
       }
       this.set('dragging', false);
       this.set('dragAmount', null);
-      ev.srcEvent.stopImmediatePropagation();
-      ev.srcEvent.stopPropagation();
+      if (ev && ev.srcEvent) {
+        ev.srcEvent.stopImmediatePropagation();
+        ev.srcEvent.stopPropagation();
+      }
+    }
+  },
+
+  keyPress(ev) {
+    if (ev.which === this.get('constants.KEYCODE.SPACE')) {
+      ev.preventDefault();
+      this._dragEnd();
     }
   },
 

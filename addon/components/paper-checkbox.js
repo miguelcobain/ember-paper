@@ -36,6 +36,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   keyPress(ev) {
     if (ev.which === this.get('constants.KEYCODE.SPACE')) {
+      ev.preventDefault();
       this.click();
     }
   },
