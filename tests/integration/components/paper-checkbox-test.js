@@ -56,32 +56,35 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
   this.$('md-checkbox').click();
 });
 
-test('should be possible to check with spacebar', function(assert) {
-  assert.expect(2);
+// space and enter key codes
+[32, 13].forEach((keyCode) => {
+  test(`should be possible to check with key code ${keyCode}`, function(assert) {
+    assert.expect(2);
 
-  this.set('value', false);
-  this.render(hbs`{{paper-checkbox checked=value onChange=(action (mut value))}}`);
-  assert.equal(this.get('value'), false);
+    this.set('value', false);
+    this.render(hbs`{{paper-checkbox checked=value onChange=(action (mut value))}}`);
+    assert.equal(this.get('value'), false);
 
-  let e = Ember.$.Event('keypress');
-  e.which = 32; // # Some key code value
-  this.$('md-checkbox').trigger(e);
+    let e = Ember.$.Event('keypress');
+    e.which = keyCode; // # Some key code value
+    this.$('md-checkbox').trigger(e);
 
-  assert.equal(this.get('value'), true);
-});
+    assert.equal(this.get('value'), true);
+  });
 
-test('should be possible to uncheck with spacebar', function(assert) {
-  assert.expect(2);
+  test(`should be possible to uncheck with key code ${keyCode}`, function(assert) {
+    assert.expect(2);
 
-  this.set('value', true);
-  this.render(hbs`{{paper-checkbox checked=value onChange=(action (mut value))}}`);
-  assert.equal(this.get('value'), true);
+    this.set('value', true);
+    this.render(hbs`{{paper-checkbox checked=value onChange=(action (mut value))}}`);
+    assert.equal(this.get('value'), true);
 
-  let e = Ember.$.Event('keypress');
-  e.which = 32; // # Some key code value
-  this.$('md-checkbox').trigger(e);
+    let e = Ember.$.Event('keypress');
+    e.which = keyCode; // # Some key code value
+    this.$('md-checkbox').trigger(e);
 
-  assert.equal(this.get('value'), false);
+    assert.equal(this.get('value'), false);
+  });
 });
 
 test('blockless version should set label inside', function(assert) {

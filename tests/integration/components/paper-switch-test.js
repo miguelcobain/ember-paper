@@ -43,32 +43,35 @@ test('blockless mode should render label', function(assert) {
   assert.equal(this.$('md-switch .md-label').text().trim(), 'An inline label');
 });
 
-test('should be possible to switch on with spacebar', function(assert) {
-  assert.expect(2);
+// space and enter key codes
+[32, 13].forEach((keyCode) => {
+  test(`should be possible to switch on with key code ${keyCode}`, function(assert) {
+    assert.expect(2);
 
-  this.set('switchValue', false);
-  this.render(hbs`{{paper-switch checked=switchValue onChange=(action (mut switchValue))}}`);
-  assert.equal(this.get('switchValue'), false);
+    this.set('switchValue', false);
+    this.render(hbs`{{paper-switch checked=switchValue onChange=(action (mut switchValue))}}`);
+    assert.equal(this.get('switchValue'), false);
 
-  let e = Ember.$.Event('keypress');
-  e.which = 32; // # Some key code value
-  this.$('md-switch').trigger(e);
+    let e = Ember.$.Event('keypress');
+    e.which = keyCode; // # Some key code value
+    this.$('md-switch').trigger(e);
 
-  assert.equal(this.get('switchValue'), true);
-});
+    assert.equal(this.get('switchValue'), true);
+  });
 
-test('should be possible to switch off with spacebar', function(assert) {
-  assert.expect(2);
+  test(`should be possible to switch off with key code ${keyCode}`, function(assert) {
+    assert.expect(2);
 
-  this.set('switchValue', true);
-  this.render(hbs`{{paper-switch checked=switchValue onChange=(action (mut switchValue))}}`);
-  assert.equal(this.get('switchValue'), true);
+    this.set('switchValue', true);
+    this.render(hbs`{{paper-switch checked=switchValue onChange=(action (mut switchValue))}}`);
+    assert.equal(this.get('switchValue'), true);
 
-  let e = Ember.$.Event('keypress');
-  e.which = 32; // # Some key code value
-  this.$('md-switch').trigger(e);
+    let e = Ember.$.Event('keypress');
+    e.which = keyCode; // # Some key code value
+    this.$('md-switch').trigger(e);
 
-  assert.equal(this.get('switchValue'), false);
+    assert.equal(this.get('switchValue'), false);
+  });
 });
 
 test('the `onChange` function is mandatory for paper-switch', function(assert) {
