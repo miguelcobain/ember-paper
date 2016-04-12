@@ -1,8 +1,8 @@
 import Ember from 'ember';
-const { isNone } = Ember;
+const { isEmpty, isNone } = Ember;
 
 export function minlength(value, minlength) {
-  return isNone(value) || value === false || `${value}`.length >= parseInt(minlength);
+  return isEmpty(minlength) || isNone(value) || `${value}`.length >= parseInt(minlength, 10);
 }
 
 export default {

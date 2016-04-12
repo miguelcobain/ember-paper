@@ -90,14 +90,15 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       assert('validation must include an `validate(value)` function', validation && validation.validate && typeof validation.validate === 'function');
       try {
         let valParam = get(validation, 'param');
-        if (!isNone(this.get(valParam)) && !validation.validate(currentValue, this.get(valParam))) {
+        let paramValue = valParam ? this.get(valParam) : undefined;
+        if (!validation.validate(currentValue, paramValue)) {
           let message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
           messages.pushObject({
-            message: Ember.String.loc(message, this.get(valParam), currentValue)
+            message: Ember.String.loc(message, paramValue, currentValue)
           });
         }
       } catch (error) {
-        Logger.error('Exception with custom validation: ', validation, error);
+        Logger.error('Exception with validation: ', validation, error);
       }
     });
 

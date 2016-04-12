@@ -20,5 +20,4 @@ test('strings', function(assert) {
 test('falsy values', function(assert) {
   assert.ok(maxlength(null, 1), 'null');
   assert.ok(maxlength(undefined, 1), 'undefined');
-  assert.ok(maxlength(false, 1), 'false');
 });

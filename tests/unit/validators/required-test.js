@@ -20,7 +20,7 @@ test('falsy values', function(assert) {
   assert.ok(required(0, true), 'zero');
   assert.notOk(required(null, true), 'null');
   assert.notOk(required(undefined, true), 'undefined');
-  assert.notOk(required(false, true), 'false');
+  assert.ok(required(false, true), 'false');
 
   assert.ok(required(0, false), 'zero (not required)');
   assert.ok(required(null, false), 'null (not required)');

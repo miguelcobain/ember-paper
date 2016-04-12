@@ -2,7 +2,7 @@ import Ember from 'ember';
 const { isEmpty } = Ember;
 
 export function required(value, required) {
-  return (required === true && !isEmpty(value) && value !== false) || required !== true;
+  return (required === true && !isEmpty(value)) || required !== true;
 }
 
 export default {

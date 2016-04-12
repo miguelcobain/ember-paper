@@ -20,5 +20,4 @@ test('strings', function(assert) {
 test('falsy values', function(assert) {
   assert.ok(minlength(null, 1), 'null');
   assert.ok(minlength(undefined, 1), 'undefined');
-  assert.ok(minlength(false, 1), 'false');
 });

@@ -324,7 +324,26 @@ test('custom validations work', function(assert) {
   assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
 });
 
-test('can override the any validation message', function(assert) {
+test('custom validations without param work', function(assert) {
+  assert.expect(3);
+
+  this.value = 'aaabbbccc';
+  this.customValidations = [{
+    message: 'You can\'t include the substring cc.',
+    validate: (value) => typeof value === 'string' && value.indexOf('cc') === -1
+  }];
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      maxlength=8 customValidations=customValidations}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
+});
+
+test('can override any validation message', function(assert) {
   assert.expect(3);
 
   this.value = 'aaabbbccc';
