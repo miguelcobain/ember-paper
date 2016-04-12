@@ -1,7 +1,7 @@
 {{#paper-toolbar}}
   <div class="md-toolbar-tools">
     {{#paper-sidenav-toggle as |toggle|}}
-      {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon icon="menu"}}{{/paper-button}}
+      {{#paper-button target=toggle action="toggleMenu" iconButton=true}}{{paper-icon icon="menu"}}{{/paper-button}}
     {{/paper-sidenav-toggle}}
     <span class="md-breadcrumb-page">Dialog</span>
   </div>
@@ -15,7 +15,7 @@
         <div class="md-toolbar-tools">
           <h2>Basic Usage</h2>
           <span flex></span>
-          {{#paper-button target=toggle action="toggleSourceCode" icon-button=true}}{{paper-icon icon="code"}}{{/paper-button}}
+          {{#paper-button target=toggle action="toggleSourceCode" iconButton=true}}{{paper-icon icon="code"}}{{/paper-button}}
         </div>
       {{/paper-toolbar}}
 
@@ -31,7 +31,7 @@
         &lt;div class="md-toolbar-tools"&gt;
           &lt;h2&gt;Mango (Fruit)&lt;/h2&gt;
           &lt;span flex&gt;&lt;/span&gt;
-          \{{#paper-button icon-button=true action=(action "closeDialogWithParent" "cancel")}}
+          \{{#paper-button iconButton=true action=(action "closeDialogWithParent" "cancel")}}
             \{{paper-icon icon="close"}}
           \{{/paper-button}}
         &lt;/div&gt;
@@ -60,7 +60,7 @@
       &lt;div class="md-toolbar-tools"&gt;
         &lt;h2&gt;Mango (Fruit)&lt;/h2&gt;
         &lt;span flex&gt;&lt;/span&gt;
-        \{{#paper-button icon-button=true action=(action "closeDialog" "cancel")}}\{{paper-icon icon="close"}}\{{/paper-button}}
+        \{{#paper-button iconButton=true action=(action "closeDialog" "cancel")}}\{{paper-icon icon="close"}}\{{/paper-button}}
       &lt;/div&gt;
     \{{/paper-toolbar}}
 
@@ -202,7 +202,7 @@
         <div class="md-toolbar-tools">
           <h2>Mango (Fruit)</h2>
           <span flex></span>
-          {{#paper-button icon-button=true action=(action "closeDialogWithParent" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
+          {{#paper-button iconButton=true action=(action "closeDialogWithParent" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
         </div>
       {{/paper-toolbar}}
 
@@ -229,7 +229,7 @@
       <div class="md-toolbar-tools">
         <h2>Mango (Fruit)</h2>
         <span flex></span>
-        {{#paper-button icon-button=true action=(action "closeDialog" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
+        {{#paper-button iconButton=true action=(action "closeDialog" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
       </div>
     {{/paper-toolbar}}
 

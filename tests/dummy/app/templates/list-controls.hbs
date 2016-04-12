@@ -1,7 +1,7 @@
 {{#paper-toolbar}}
     <div class="md-toolbar-tools">
       {{#paper-sidenav-toggle as |toggle|}}
-        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
+        {{#paper-button target=toggle action="toggleMenu" iconButton=true}}{{paper-icon "menu"}}{{/paper-button}}
       {{/paper-sidenav-toggle}}
         <span class="md-breadcrumb-page">List Controls</span>
     </div>
@@ -52,7 +52,7 @@
           {{#paper-item}}
             {{#paper-checkbox checked=item.checked onChange=(action (mut item.checked))}}{{/paper-checkbox}}
             <p>{{item.message}}</p>
-            {{#paper-button icon-button=true param=item action="secondaryMessageClick"}}
+            {{#paper-button iconButton=true param=item action="secondaryMessageClick"}}
               {{paper-icon "message"}}
             {{/paper-button}}
           {{/paper-item}}
@@ -85,7 +85,7 @@
                 <h4>{{item.who}}</h4>
                 <p>{{item.notes}}</p>
               </div>
-              {{#paper-button icon-button=true param=item action="secondaryPersonClick"}}
+              {{#paper-button iconButton=true param=item action="secondaryPersonClick"}}
                 {{paper-icon "phone"}}
               {{/paper-button}}
           {{/paper-item}}
@@ -140,7 +140,7 @@
       \{{#paper-item}}
         \{{#paper-checkbox}}\{{/paper-checkbox}}
         &lt;p&gt;\{{item.message}}&lt;/p&gt;
-        \{{#paper-button icon-button=true param=item action="secondaryMessageClick"}}
+        \{{#paper-button iconButton=true param=item action="secondaryMessageClick"}}
           \{{paper-icon "message"}}
         \{{/paper-button}}
       \{{/paper-item}}
@@ -173,7 +173,7 @@
             &lt;h4&gt;\{{item.who}}&lt;/h4&gt;
             &lt;p&gt;\{{item.notes}}&lt;/p&gt;
           &lt;/div&gt;
-          \{{#paper-button icon-button=true param=item action="secondaryPersonClick"}}
+          \{{#paper-button iconButton=true param=item action="secondaryPersonClick"}}
             \{{paper-icon "phone"}}
           \{{/paper-button}}
       \{{/paper-item}}

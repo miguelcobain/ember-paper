@@ -1,7 +1,7 @@
 {{#paper-toolbar}}
     <div class="md-toolbar-tools">
       {{#paper-sidenav-toggle as |toggle|}}
-        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
+        {{#paper-button target=toggle action="toggleMenu" iconButton=true}}{{paper-icon "menu"}}{{/paper-button}}
       {{/paper-sidenav-toggle}}
         <span class="md-breadcrumb-page">Buttons</span>
     </div>
@@ -27,7 +27,7 @@
     {{#paper-button raised=true primary=true action="targetButton" target=component bubbles=false}}Button no bubble{{/paper-button}}
   </p>
   <p>
-    {{#paper-button icon-button=true}}{{paper-icon "accessibility"}}{{/paper-button}}
+    {{#paper-button iconButton=true}}{{paper-icon "accessibility"}}{{/paper-button}}
   </p>
   {{/custom-button}}
   <p>
@@ -53,7 +53,7 @@
     \{{#paper-button raised=true primary=true action="targetButton" target=component bubbles=false}}Button no bubble\{{/paper-button}}
   &lt;/p&gt;
   &lt;p&gt;
-    \{{#paper-button icon-button=true}}\{{paper-icon "more-vert"}}\{{/paper-button}}
+    \{{#paper-button iconButton=true}}\{{paper-icon "more-vert"}}\{{/paper-button}}
   &lt;/p&gt;
   &lt;p&gt;
     \{{paper-button raised=true label="Blockless version"}}
