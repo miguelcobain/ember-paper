@@ -27,7 +27,7 @@
       aria-expanded=notHidden}}
 
     {{#if enableClearButton}}
-      {{#paper-button iconButton=true themed=false action="clear"}}
+      {{#paper-button iconButton=true themed=false onClick=(action "clear")}}
         {{paper-icon "close"}}
       {{/paper-button}}
     {{/if}}

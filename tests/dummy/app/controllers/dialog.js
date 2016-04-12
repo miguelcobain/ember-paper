@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
   actions: {
 
     /* Dialog with parent */
-    openDialogWithParent(param, event) {
+    openDialogWithParent(event) {
       this.set('dialogOrigin', $(event.currentTarget));
       this.set('showDialogWithParent', true);
     },
@@ -16,7 +16,7 @@ export default Ember.Controller.extend({
     },
 
     /* Dialog */
-    openDialog(param, event) {
+    openDialog(event) {
       this.set('dialogOrigin', $(event.currentTarget));
       this.set('showDialog', true);
     },
