@@ -30,7 +30,9 @@
         value=address
         onChange=(action (mut address))
         required=true
-        required-errortext="Address is required."
+        errorMessages=(hash
+          reuired="Address is required."
+        )
       }}
       {{paper-input
         type="number"
@@ -38,7 +40,9 @@
         value=maxNumber
         onChange=(action (mut maxNumber))
         max="5"
-        max-errortext="Enter 5 or less."
+        errorMessages=(hash
+          max="Enter 5 or less."
+        )
       }}
       {{paper-input
         type="number"
@@ -46,15 +50,19 @@
         value=minNumber
         onChange=(action (mut minNumber))
         min="1"
-        min-errortext="Enter at least 1."
+        errorMessages=(hash
+          min="Enter at least 1."
+        )
       }}
       {{paper-input
         label="Maximum Character Length"
         value=maxLength
         onChange=(action (mut maxLength))
         required=true
-        maxlength="10"
-        maxlength-errortext="Maximum length exceeded."
+        maxlength=10
+        errorMessages=(hash
+          maxlength="Maximum length exceeded."
+        )
       }}
       {{paper-input
         label="All Constraints"
@@ -64,7 +72,9 @@
         min="2"
         max="10"
         maxlength="2"
-        maxlength-errortext="Max length exceeded."
+        errorMessages=(hash
+          maxlength="Max length exceeded."
+        )
       }}
       {{paper-input
         label="Required asterisk only"
@@ -198,11 +208,11 @@
       {{#code-inline}}wrap{{/code-inline}}.
     </p>
 
-    <h3>Events</h3>
+    <h3>Actions</h3>
     <p>
       You may also pass through an action closures to receive notification upon
-      {{#code-inline}}focusIn{{/code-inline}}, {{#code-inline}}focusOut{{/code-inline}},
-      {{#code-inline}}keyDown{{/code-inline}}, and {{#code-inline}}enter{{/code-inline}}.
+      {{#code-inline}}onFocus{{/code-inline}}, {{#code-inline}}onBlur{{/code-inline}},
+      {{#code-inline}}onKeyDown{{/code-inline}} and {{#code-inline}}onChange{{/code-inline}}.
     </p>
     <p>
       {{paper-input
@@ -220,12 +230,12 @@
     <p>
       {{#code-block language="handlebars"}}
 \{{paper-input
-  label=Event demonstration
+  label="Event demonstration"
   value=eventTest
-  onFocusIn=(action "focusInReceived")
-  onFocusOut=(action "focusOutReceived")
+  onChange=(action (mut eventTest))
+  onFocus=(action "focusReceived")
+  onBlur=(action "blurReceived")
   onKeyDown=(action "keyDownReceived")
-  onEnter=(action "enterReceived")
 }}
       {{/code-block}}
     </p>
@@ -266,12 +276,12 @@
       Here is an example of validating the input value matches typical email formats.
     </p>
     <p>
-      {{paper-input label="E-mail" type="email" value=customemail onChange=(action (mut customemail)) customValidation=emailValidation}}
+      {{paper-input label="E-mail" type="email" value=customemail onChange=(action (mut customemail)) customValidations=emailValidation}}
     </p>
 
     <h4>Template</h4>
     {{#code-block language="handlebars"}}
-\{{paper-input label="E-mail" type="email" value=email customValidation=emailValidation}}
+\{{paper-input label="E-mail" type="email" value=email customValidations=emailValidation}}
     {{/code-block}}
     <p>
       Define your {{#code-inline}}emailValidation{{/code-inline}} object in your controller.
@@ -289,10 +299,10 @@ emailValidation: {
       You may also define multiple custom constraints by using an array of validation objects.
     </p>
     <p>
-      {{paper-input class="md-block" label="Value should be even and equal 4." type="email" value=customMultiple onChange=(action (mut customMultiple)) customValidation=multipleConstraints}}
+      {{paper-input class="md-block" label="Value should be even and equal 4." type="email" value=customMultiple onChange=(action (mut customMultiple)) customValidations=multipleConstraints}}
     </p>
     {{#code-block language="handlebars"}}
-\{{paper-input class="md-block" label="E-mail" type="email" value=email onChange=(action (mut email)) customValidation=multipleConstraints}}
+\{{paper-input class="md-block" label="E-mail" type="email" value=email onChange=(action (mut email)) customValidations=multipleConstraints}}
     {{/code-block}}
     {{#code-block language="handlebars"}}
 multipleConstraints: [
