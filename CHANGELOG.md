@@ -16,6 +16,9 @@
   - the error messages can now be overriden by specifiying `errorMessages=(hash required="new message")`
   - first validation message now has suffix `-0` in its id
   - paper-checkbox now uses *actions up, data down*. `onChange` action is mandatory.
+- [#324](https://github.com/miguelcobain/ember-paper/pull/324)
+  - paper-button now uses `iconButton` instead of `icon-button`
+  - paper-button now uses the action `onClick` instead of `action`
 
 ### 0.2.11
 
