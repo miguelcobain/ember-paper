@@ -119,7 +119,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   // Lifecycle hooks
   didReceiveAttrs() {
     this._super(...arguments);
-    assert('{{paper-input}} requires an `onChange` function', this.get('onChange') && typeof this.get('onChange') === 'function');
+    assert('{{paper-input}} requires an `onChange` function', !!this.get('onChange'));
   },
 
   didInsertElement() {

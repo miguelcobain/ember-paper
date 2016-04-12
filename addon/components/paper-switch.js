@@ -52,7 +52,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   didInitAttrs() {
     this._super(...arguments);
-    assert('{{paper-switch}} requires an `onChange` function', this.get('onChange') && typeof this.get('onChange') === 'function');
+    assert('{{paper-switch}} requires an `onChange` function', !!this.get('onChange'));
   },
 
   willDestroyElement() {
