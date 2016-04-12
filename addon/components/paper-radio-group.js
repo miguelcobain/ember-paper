@@ -6,6 +6,9 @@ export default BaseFocusable.extend({
   tagName: 'md-radio-group',
   tabindex: 0,
 
+  /* BaseFocusable Overrides */
+  focusOnlyOnKey: true,
+
   constants: inject.service(),
 
   // Lifecycle hooks

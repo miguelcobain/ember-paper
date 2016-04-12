@@ -16,6 +16,9 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   dimBackground: false,
   fitRipple: true,
 
+  /* BaseFocusable Overrides */
+  focusOnlyOnKey: true,
+
   constants: inject.service(),
 
   checked: false,

@@ -2,54 +2,43 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('paper-input', 'Integration | Component | paper input', {
-  integration: true
+  integration: true,
+  beforeEach() {
+    this.dummyOnChange = () => {};
+  }
 });
 
-test('renders default theme on wrapper', function(assert) {
+test('renders with correct label', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input}}`);
+  this.render(hbs`{{paper-input label="Name" onChange=dummyOnChange}}`);
 
-  let actual = this.$('md-input-container').attr('class');
-  let expected = 'ember-view md-default-theme';
-  assert.equal(actual, expected);
+  assert.equal(this.$('md-input-container label').text(), 'Name');
 });
 
-test('renders with label', function(assert) {
-  assert.expect(1);
-
-  this.render(hbs`{{paper-input label="Name"}}`);
-
-  let actual = this.$('md-input-container label').text();
-  let expected = 'Name';
-  assert.equal(actual, expected);
-});
-
-test('renders with icon', function(assert) {
-  assert.expect(1);
-
-  this.render(hbs`{{paper-input icon="person" icon-class="name"}}`);
-
-  let actual = this.$('md-input-container md-icon').attr('class');
-  let expected = 'name ember-view paper-icon md-font material-icons md-default-theme';
-  assert.equal(actual, expected);
-});
-
-test('renders input', function(assert) {
+test('renders with left icon', function(assert) {
   assert.expect(2);
 
-  this.render(hbs`{{paper-input icon="person" icon-class="name"}}`);
+  this.render(hbs`{{paper-input icon="person" onChange=dummyOnChange}}`);
 
-  let actual = this.$('md-input-container input');
-  let expected = 'md-input ember-view ember-text-field';
-  assert.equal(actual.attr('class'), expected);
-  assert.equal(actual.attr('type'), 'text');
+  assert.ok(this.$('md-input-container md-icon').length);
+  assert.ok(this.$('md-input-container').hasClass('md-has-icon'));
+});
+
+test('renders with right icon', function(assert) {
+  assert.expect(3);
+
+  this.render(hbs`{{paper-input label="name" iconRight="person" onChange=dummyOnChange}}`);
+
+  assert.ok(this.$('md-input-container md-icon').length);
+  assert.ok(this.$('md-input-container').hasClass('md-has-icon'));
+  assert.ok(this.$('md-input-container').hasClass('md-icon-right'));
 });
 
 test('renders input with id', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input inputElementId="testId"}}`);
+  this.render(hbs`{{paper-input inputElementId="testId" onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').attr('id');
   let expected = 'testId';
@@ -59,7 +48,7 @@ test('renders input with id', function(assert) {
 test('renders input with placeholder', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input placeholder="Enter value here"}}`);
+  this.render(hbs`{{paper-input placeholder="Enter value here" onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').attr('placeholder');
   let expected = 'Enter value here';
@@ -69,7 +58,7 @@ test('renders input with placeholder', function(assert) {
 test('renders input with value', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input value="current value"}}`);
+  this.render(hbs`{{paper-input value="current value" onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').val();
   let expected = 'current value';
@@ -79,7 +68,7 @@ test('renders input with value', function(assert) {
 test('renders input as disabled', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input disabled=true}}`);
+  this.render(hbs`{{paper-input disabled=true onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').attr('disabled');
   let expected = 'disabled';
@@ -89,7 +78,7 @@ test('renders input as disabled', function(assert) {
 test('renders input as required', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input required=true}}`);
+  this.render(hbs`{{paper-input passThru=(hash required="required") onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').attr('required');
   let expected = 'required';
@@ -99,7 +88,7 @@ test('renders input as required', function(assert) {
 test('renders input as autofocus', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input autofocus=true}}`);
+  this.render(hbs`{{paper-input autofocus=true onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').attr('autofocus');
   let expected = 'autofocus';
@@ -109,7 +98,7 @@ test('renders input as autofocus', function(assert) {
 test('renders input with accept types of files', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-accept="audio/*|video/*|image/*"}}`);
+  this.render(hbs`{{paper-input passThru=(hash accept="audio/*|video/*|image/*") onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').attr('accept');
   let expected = 'audio/*|video/*|image/*';
@@ -119,10 +108,10 @@ test('renders input with accept types of files', function(assert) {
 test('renders input with attribute autocomplete', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-autocomplete=true}}`);
+  this.render(hbs`{{paper-input passThru=(hash autocomplete="autocomplete") onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').attr('autocomplete');
-  let expected = 'true';
+  let expected = 'autocomplete';
 
   assert.equal(actual, expected);
 });
@@ -130,7 +119,7 @@ test('renders input with attribute autocomplete', function(assert) {
 test('renders input with attribute form', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-form="myform"}}`);
+  this.render(hbs`{{paper-input passThru=(hash form="myform") onChange=dummyOnChange onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').attr('form');
   let expected = 'myform';
@@ -141,7 +130,7 @@ test('renders input with attribute form', function(assert) {
 test('renders input with attribute formnovalidate', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-formnovalidate="formnovalidate"}}`);
+  this.render(hbs`{{paper-input passThru=(hash formnovalidate="formnovalidate") onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').attr('formnovalidate');
   let expected = 'formnovalidate';
@@ -152,7 +141,7 @@ test('renders input with attribute formnovalidate', function(assert) {
 test('renders input with attribute formtarget', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-formtarget="_blank"}}`);
+  this.render(hbs`{{paper-input passThru=(hash formtarget="_blank") onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').attr('formtarget');
   let expected = '_blank';
@@ -163,7 +152,7 @@ test('renders input with attribute formtarget', function(assert) {
 test('renders input with attribute formenctype', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-formenctype="multipart/form-data"}}`);
+  this.render(hbs`{{paper-input passThru=(hash formenctype="multipart/form-data") onChange=dummyOnChange}}`);
 
   let actual = this.$('md-input-container input').attr('formenctype');
   let expected = 'multipart/form-data';
@@ -171,10 +160,10 @@ test('renders input with attribute formenctype', function(assert) {
   assert.equal(actual, expected);
 });
 
-test('renders input with multiple form attributes', function(assert) {
+test('renders input with multiple passThru attributes', function(assert) {
   assert.expect(5);
 
-  this.render(hbs`{{paper-input type="submit" attr-form="myform" attr-formnovalidate="formnovalidate" attr-formtarget="_blank" attr-formenctype="multipart/form-data"}}`);
+  this.render(hbs`{{paper-input type="submit" passThru=(hash form="myform" formnovalidate="formnovalidate" formtarget="_blank" formenctype="multipart/form-data") onChange=dummyOnChange}}`);
 
   let $input = this.$('md-input-container input');
 
@@ -203,7 +192,7 @@ test('renders input with multiple form attributes', function(assert) {
 test('renders input with input mode attribute', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-input attr-inputmode="numeric"}}`);
+  this.render(hbs`{{paper-input passThru=(hash inputmode="numeric") onChange=dummyOnChange}}`);
 
   let $input = this.$('md-input-container input');
 
@@ -216,18 +205,21 @@ test('renders input with multiple attributes', function(assert) {
   assert.expect(12);
 
   this.render(hbs`{{paper-input type="submit"
-      attr-min="2"
-      attr-maxlength="20"
-      attr-max="42"
-      attr-multiple="true"
-      attr-name="elementname"
-      attr-pattern="(999)999-9999"
-      attr-readonly="true"
-      attr-size="30"
-      attr-spellcheck="true"
-      attr-step="2"
-      attr-tabindex="1138"
-      }}`);
+      passThru=(hash
+        min="2"
+        maxlength="20"
+        max="42"
+        multiple="true"
+        name="elementname"
+        pattern="(999)999-9999"
+        readonly="true"
+        size="30"
+        spellcheck="true"
+        step="2"
+        tabindex="1138"
+      )
+      onChange=dummyOnChange
+    }}`);
 
   let $input = this.$('md-input-container input');
 
@@ -279,4 +271,141 @@ test('renders input with multiple attributes', function(assert) {
   expected = '1138';
   assert.equal(actual, expected);
 
+});
+
+test('char counter works', function(assert) {
+  assert.expect(3);
+
+  this.value = 'aaabbb';
+
+  this.render(hbs`
+    {{paper-input value=value onChange=(action (mut value)) maxlength=8}}
+  `);
+
+  assert.equal(this.$('.md-char-counter').length, 1, 'renders the char counter');
+  assert.equal(this.$('.md-char-counter').text().trim(), '6/8');
+
+  this.set('value', 'aa');
+
+  assert.equal(this.$('.md-char-counter').text().trim(), '2/8');
+});
+
+test('built-in validations work', function(assert) {
+  assert.expect(2);
+
+  this.value = 'aaabbbccc';
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      maxlength=8}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 1, 'renders one error');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
+});
+
+test('custom validations work', function(assert) {
+  assert.expect(3);
+
+  this.value = 'aaabbbccc';
+  this.customValidations = [{
+    param: 'notinclude',
+    message: 'You can\'t include the substring %@.',
+    validate: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) === -1
+  }];
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      maxlength=8 customValidations=customValidations notinclude="cc"}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
+});
+
+test('custom validations without param work', function(assert) {
+  assert.expect(3);
+
+  this.value = 'aaabbbccc';
+  this.customValidations = [{
+    message: 'You can\'t include the substring cc.',
+    validate: (value) => typeof value === 'string' && value.indexOf('cc') === -1
+  }];
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      maxlength=8 customValidations=customValidations}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
+});
+
+test('can override any validation message', function(assert) {
+  assert.expect(3);
+
+  this.value = 'aaabbbccc';
+  this.customValidations = [{
+    param: 'notinclude',
+    message: 'You can\'t include the substring %@.',
+    validate: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) === -1
+  }];
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      maxlength=8 customValidations=customValidations notinclude="cc"
+      errorMessages=(hash
+        maxlength="Too small, baby!"
+        notinclude="Can't have %@, baby!"
+      )}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Too small, baby!');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'Can\'t have cc, baby!');
+});
+
+test('renders error messages from an external `errors` array', function(assert) {
+  assert.expect(3);
+
+  this.errors = [{
+    message: 'foo should be a number.',
+    attribute: 'foo'
+  }, {
+    message: 'foo should be smaller than 12.',
+    attribute: 'foo'
+  }];
+
+  this.render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'foo should be a number.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'foo should be smaller than 12.');
+});
+
+test('renders error messages from an external `errors` string array', function(assert) {
+  assert.expect(3);
+
+  this.errors = [
+    'foo should be a number.',
+    'foo should be smaller than 12.'
+  ];
+
+  this.render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'foo should be a number.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'foo should be smaller than 12.');
+});
+
+test('the `onChange` function is mandatory for paper-input', function(assert) {
+  assert.expect(1);
+
+  assert.throws(() => {
+    this.render(hbs`
+      {{paper-input value="asd"}}
+    `);
+  }, /requires an `onChange` function/);
 });

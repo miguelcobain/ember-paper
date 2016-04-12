@@ -25,14 +25,17 @@ export default Component.extend(EventsMixin, HasBlockMixin, {
 
   toggle: false,
 
+  // Only render the "focused" state if the element gains focus due to
+  // keyboard navigation.
+  focusOnlyOnKey: false,
+
   /*
    * Listen to `focusIn` and `focusOut` events instead of `focus` and `blur`.
    * This way we don't need to explicitly bubble the events.
+   * They bubble by default.
    */
   focusIn() {
-    if (!this.get('pressed')) {
-      // Only render the "focused" state if the element gains focus due to
-      // keyboard navigation.
+    if (!this.get('disabled') && !this.get('focusOnlyOnKey') || !this.get('pressed')) {
       this.set('focused', true);
     }
   },
