@@ -121,7 +121,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
            (checked && dragAmount < 0.5) ||
            (!checked && dragAmount > 0.5)) {
         this.sendAction('onChange', !checked);
-        console.log('paper-switch', !checked);
       }
       this.set('dragging', false);
       this.set('dragAmount', null);
