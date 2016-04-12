@@ -22,9 +22,9 @@
   </p>
   {{#custom-button}}
   <p>
-    {{#paper-button raised=true onClick=(action "targetButton" target=component)}}Button with target{{/paper-button}}
-    {{#paper-button raised=true primary=true onClick=(action "targetButton" target=component)}}Button with bubble{{/paper-button}}
-    {{#paper-button raised=true primary=true onClick=(action "targetButton" target=component) bubbles=false}}Button no bubble{{/paper-button}}
+    {{#paper-button raised=true onClick=(action "targetButton")}}Button with target{{/paper-button}}
+    {{#paper-button raised=true primary=true onClick=(action "targetButton")}}Button with bubble{{/paper-button}}
+    {{#paper-button raised=true primary=true onClick=(action "targetButton") bubbles=false}}Button no bubble{{/paper-button}}
   </p>
   <p>
     {{#paper-button iconButton=true}}{{paper-icon "accessibility"}}{{/paper-button}}
@@ -48,9 +48,9 @@
     \{{#paper-button raised=true warn=true}}warn\{{/paper-button}}
   &lt;/p&gt;
   &lt;p&gt;
-    \{{#paper-button raised=true onClick=(action "targetButton" target=component)}}Button with target\{{/paper-button}}
-    \{{#paper-button raised=true primary=true onClick=(action "targetButton" target=component)}}Button with bubble\{{/paper-button}}
-    \{{#paper-button raised=true primary=true onClick=(action "targetButton" target=component) bubbles=false}}Button no bubble\{{/paper-button}}
+    \{{#paper-button raised=true onClick=(action "targetButton")}}Button with target\{{/paper-button}}
+    \{{#paper-button raised=true primary=true onClick=(action "targetButton")}}Button with bubble\{{/paper-button}}
+    \{{#paper-button raised=true primary=true onClick=(action "targetButton") bubbles=false}}Button no bubble\{{/paper-button}}
   &lt;/p&gt;
   &lt;p&gt;
     \{{#paper-button iconButton=true}}\{{paper-icon "more-vert"}}\{{/paper-button}}
