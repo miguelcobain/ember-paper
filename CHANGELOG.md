@@ -14,6 +14,7 @@
   - The required attribute can now be used to mean native validation, required label styling with an asterisk, and/or native html5 required validation.
   - paper-input now uses `customValidations` instead of `customValidation`. customValidations has a new format.
   - the error messages can now be overriden by specifiying `errorMessages=(hash required="new message")`
+  - first validation message now has suffix `-0` in its id
 
 ### 0.2.11
 
