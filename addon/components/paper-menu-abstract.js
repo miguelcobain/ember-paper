@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
-const { Component, computed: { alias }, inject: { service }, assert } = Ember;
+const { Component, inject, assert } = Ember;
 
 export default Component.extend({
-  constants: service(),
+  constants: inject.service(),
 
   /* `isOpen` true when toggleMenu action is called, but only turns false when animation to hide the wrapper is done. */
   isOpen: false,
