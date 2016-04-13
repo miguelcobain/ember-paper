@@ -9,8 +9,8 @@
 {{#paper-content class="md-padding"}}
   <div class="doc-content">
     <p>
-      {{#paper-switch checked=booleanProp1 onChange=(action (mut booleanProp1))}} {{booleanProp1}} {{/paper-switch}}
-      {{#paper-switch checked=booleanProp2 onChange=(action (mut booleanProp2))}} {{booleanProp2}} {{/paper-switch}}
+      {{#paper-switch value=booleanProp1 onChange=(action (mut booleanProp1))}} {{booleanProp1}} {{/paper-switch}}
+      {{#paper-switch value=booleanProp2 onChange=(action (mut booleanProp2))}} {{booleanProp2}} {{/paper-switch}}
       {{#paper-switch disabled=true onChange=(action "foo")}} Disabled switch {{/paper-switch}}
       {{#paper-switch noink=true onChange=(action "foo")}} Noink switch {{/paper-switch}}
 
@@ -18,9 +18,9 @@
     </p>
     <h3>Template</h3>
     {{~#code-block language='handlebars'}}
-      \{{#paper-switch checked=booleanProp1 onChange=(action (mut booleanProp1))}} \{{booleanProp1}} \{{/paper-switch}}
+      \{{#paper-switch value=booleanProp1 onChange=(action (mut booleanProp1))}} \{{booleanProp1}} \{{/paper-switch}}
 
-      \{{#paper-switch checked=booleanProp2 onChange=(action (mut booleanProp2))}} \{{booleanProp2}} \{{/paper-switch}}
+      \{{#paper-switch value=booleanProp2 onChange=(action (mut booleanProp2))}} \{{booleanProp2}} \{{/paper-switch}}
 
       \{{#paper-switch disabled=true onChange=(action 'foo')}} Disabled switch \{{/paper-switch}}
 

@@ -11,7 +11,7 @@ test('should set selected class correctly', function(assert) {
   this.set('switchValue', true);
 
   this.render(hbs`
-    {{#paper-switch checked=switchValue onChange=foo}}
+    {{#paper-switch value=switchValue onChange=foo}}
       Radio button 1
     {{/paper-switch}}
   `);
@@ -26,7 +26,7 @@ test('should render block content as label', function(assert) {
   this.set('switchValue', true);
 
   this.render(hbs`
-    {{#paper-switch checked=switchValue onChange=foo}}
+    {{#paper-switch value=switchValue onChange=foo}}
       A block label
     {{/paper-switch}}
   `);
@@ -38,7 +38,7 @@ test('blockless mode should render label', function(assert) {
   this.set('switchValue', true);
 
   this.render(hbs`
-    {{paper-switch checked=switchValue onChange=foo label="An inline label"}}
+    {{paper-switch value=switchValue onChange=foo label="An inline label"}}
   `);
   assert.equal(this.$('md-switch .md-label').text().trim(), 'An inline label');
 });
@@ -49,7 +49,7 @@ test('blockless mode should render label', function(assert) {
     assert.expect(2);
 
     this.set('switchValue', false);
-    this.render(hbs`{{paper-switch checked=switchValue onChange=(action (mut switchValue))}}`);
+    this.render(hbs`{{paper-switch value=switchValue onChange=(action (mut switchValue))}}`);
     assert.equal(this.get('switchValue'), false);
 
     let e = Ember.$.Event('keypress');
@@ -63,7 +63,7 @@ test('blockless mode should render label', function(assert) {
     assert.expect(2);
 
     this.set('switchValue', true);
-    this.render(hbs`{{paper-switch checked=switchValue onChange=(action (mut switchValue))}}`);
+    this.render(hbs`{{paper-switch value=switchValue onChange=(action (mut switchValue))}}`);
     assert.equal(this.get('switchValue'), true);
 
     let e = Ember.$.Event('keypress');

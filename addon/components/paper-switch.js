@@ -17,7 +17,7 @@ const {
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
-  classNameBindings: ['checked:md-checked', 'dragging:md-dragging'],
+  classNameBindings: ['value:md-checked', 'dragging:md-dragging'],
   toggle: true,
 
   /* Ripple Overrides */
@@ -26,7 +26,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   dimBackground: false,
   fitRipple: true,
 
-  checked: false,
+  value: false,
   disabled: false,
   dragging: false,
 
@@ -110,20 +110,20 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     if (!this.get('disabled')) {
       // Get the amount the switch has been dragged
       let percent = event.deltaX / this.get('switchWidth');
-      percent = this.get('checked') ? 1 + percent : percent;
+      percent = this.get('value') ? 1 + percent : percent;
       this.set('dragAmount', percent);
     }
   },
 
   _dragEnd(ev) {
     if (!this.get('disabled')) {
-      let checked = this.get('checked');
+      let value = this.get('value');
       let dragAmount = this.get('dragAmount');
 
       if ((!this.get('dragging')) ||
-           (checked && dragAmount < 0.5) ||
-           (!checked && dragAmount > 0.5)) {
-        this.sendAction('onChange', !checked);
+           (value && dragAmount < 0.5) ||
+           (!value && dragAmount > 0.5)) {
+        this.sendAction('onChange', !value);
       }
       this.set('dragging', false);
       this.set('dragAmount', null);
@@ -143,7 +143,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   processProxy() {
-    this.sendAction('onChange', !this.get('checked'));
+    this.sendAction('onChange', !this.get('value'));
   }
 
 });

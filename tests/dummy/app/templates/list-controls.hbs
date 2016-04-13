@@ -15,12 +15,12 @@
 
         {{#paper-item}}
           <p>Checkbox 1</p>
-          {{paper-checkbox class="md-secondary" checked=checkboxEnabled1 onChange=(action (mut checkboxEnabled1))}}
+          {{paper-checkbox class="md-secondary" value=checkboxEnabled1 onChange=(action (mut checkboxEnabled1))}}
         {{/paper-item}}
 
         {{#paper-item}}
           <p>Checkbox 2</p>
-          {{paper-checkbox class="md-secondary" checked=checkboxEnabled2 onChange=(action (mut checkboxEnabled2))}}
+          {{paper-checkbox class="md-secondary" value=checkboxEnabled2 onChange=(action (mut checkboxEnabled2))}}
         {{/paper-item}}
 
         {{paper-divider}}
@@ -30,13 +30,13 @@
         {{#paper-item onClick="transitionToWifiMenu"}}
           {{paper-icon "network_wifi"}}
           <p>Wi-Fi</p>
-          {{paper-switch class="md-secondary" checked=wifiEnabled onChange=(action (mut wifiEnabled))}}
+          {{paper-switch class="md-secondary" value=wifiEnabled onChange=(action (mut wifiEnabled))}}
         {{/paper-item}}
 
         {{#paper-item onClick="transitionToBluetoothMenu"}}
           {{paper-icon "bluetooth"}}
           <p>Bluetooth</p>
-          {{paper-switch class="md-secondary" checked=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
+          {{paper-switch class="md-secondary" value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
         {{/paper-item}}
 
         {{#paper-item onClick="transitionToDataUsage"}}
@@ -50,7 +50,7 @@
 
         {{#each messageData as |item|}}
           {{#paper-item}}
-            {{#paper-checkbox checked=item.checked onChange=(action (mut item.checked))}}{{/paper-checkbox}}
+            {{#paper-checkbox value=item.checked onChange=(action (mut item.checked))}}{{/paper-checkbox}}
             <p>{{item.message}}</p>
             {{#paper-button iconButton=true onClick=(action "secondaryMessageClick" item)}}
               {{paper-icon "message"}}
@@ -103,12 +103,12 @@
 
     \{{#paper-item}}
       &lt;p&gt;Checkbox 1&lt;/p&gt;
-      \{{paper-checkbox class="md-secondary" checked=checkboxEnabled1}}
+      \{{paper-checkbox class="md-secondary" value=checkboxEnabled1}}
     \{{/paper-item}}
 
     \{{#paper-item}}
       &lt;p&gt;Checkbox 2&lt;/p&gt;
-      \{{paper-checkbox class="md-secondary" checked=checkboxEnabled2}}
+      \{{paper-checkbox class="md-secondary" value=checkboxEnabled2}}
     \{{/paper-item}}
 
     \{{paper-divider}}
@@ -118,13 +118,13 @@
     \{{#paper-item onClick="transitionToWifiMenu"}}
       \{{paper-icon "network_wifi"}}
       &lt;p&gt;Wi-Fi&lt;/p&gt;
-      \{{paper-switch class="md-secondary" checked=wifiEnabled}}
+      \{{paper-switch class="md-secondary" value=wifiEnabled}}
     \{{/paper-item}}
 
     \{{#paper-item onClick="transitionToBluetoothMenu"}}
       \{{paper-icon "bluetooth"}}
       &lt;p&gt;Bluetooth&lt;/p&gt;
-      \{{paper-switch class="md-secondary" checked=bluetoothEnabled}}
+      \{{paper-switch class="md-secondary" value=bluetoothEnabled}}
     \{{/paper-item}}
 
     \{{#paper-item onClick="transitionToDataUsage"}}

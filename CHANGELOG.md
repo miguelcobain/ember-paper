@@ -23,6 +23,8 @@
   - paper-menu-item now uses action `onClick` instead of `action`.
   - paper-item now uses action `onClick` instead of `action`.
   - paper-menu now uses `value` instead of `model`.
+  - paper-checkbox now uses `value` instead of `checked`.
+  - paper-switch now uses `value` instead of `checked`.
 
 ### 0.2.11
 
