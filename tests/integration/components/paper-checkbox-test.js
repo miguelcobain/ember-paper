@@ -10,7 +10,7 @@ test('should set and remove checked css class', function(assert) {
   assert.expect(2);
 
   this.set('value', true);
-  this.render(hbs`{{paper-checkbox checked=value label="Blue" onChange=(action (mut value))}}`);
+  this.render(hbs`{{paper-checkbox value=value label="Blue" onChange=(action (mut value))}}`);
   assert.ok(this.$('md-checkbox').hasClass('md-checked'));
 
   this.set('value', false);
@@ -21,11 +21,11 @@ test('should trigger an action when unchecking', function(assert) {
   assert.expect(1);
 
   this.set('value', true);
-  this.set('handleChange', (checked) => {
-    assert.equal(checked, false);
+  this.set('handleChange', (value) => {
+    assert.equal(value, false);
   });
 
-  this.render(hbs`{{paper-checkbox checked=value onChange=handleChange}}`);
+  this.render(hbs`{{paper-checkbox value=value onChange=handleChange}}`);
 
   this.$('md-checkbox').click();
 });
@@ -34,11 +34,11 @@ test('should trigger an action when checking', function(assert) {
   assert.expect(1);
 
   this.set('value', false);
-  this.set('handleChange', (checked) => {
-    assert.equal(checked, true);
+  this.set('handleChange', (value) => {
+    assert.equal(value, true);
   });
 
-  this.render(hbs`{{paper-checkbox checked=value onChange=handleChange}}`);
+  this.render(hbs`{{paper-checkbox value=value onChange=handleChange}}`);
 
   this.$('md-checkbox').click();
 });
@@ -47,11 +47,11 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
   assert.expect(0);
 
   this.set('value', false);
-  this.set('handleChange', (checked) => {
-    assert.equal(checked, true);
+  this.set('handleChange', (value) => {
+    assert.equal(value, true);
   });
 
-  this.render(hbs`{{paper-checkbox disabled=true checked=value onChange=handleChange}}`);
+  this.render(hbs`{{paper-checkbox disabled=true value=value onChange=handleChange}}`);
 
   this.$('md-checkbox').click();
 });
@@ -62,7 +62,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
     assert.expect(2);
 
     this.set('value', false);
-    this.render(hbs`{{paper-checkbox checked=value onChange=(action (mut value))}}`);
+    this.render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
     assert.equal(this.get('value'), false);
 
     let e = Ember.$.Event('keypress');
@@ -76,7 +76,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
     assert.expect(2);
 
     this.set('value', true);
-    this.render(hbs`{{paper-checkbox checked=value onChange=(action (mut value))}}`);
+    this.render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
     assert.equal(this.get('value'), true);
 
     let e = Ember.$.Event('keypress');
@@ -90,7 +90,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
 test('blockless version should set label inside', function(assert) {
   assert.expect(1);
 
-  this.render(hbs`{{paper-checkbox checked=value onChange=(action (mut value)) label="çup?"}}`);
+  this.render(hbs`{{paper-checkbox value=value onChange=(action (mut value)) label="çup?"}}`);
 
   assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
@@ -99,7 +99,7 @@ test('block version should set label inside', function(assert) {
   assert.expect(1);
 
   this.render(hbs`
-    {{#paper-checkbox checked=value onChange=(action (mut value))}}
+    {{#paper-checkbox value=value onChange=(action (mut value))}}
       çup?
     {{/paper-checkbox}}
   `);
@@ -107,10 +107,10 @@ test('block version should set label inside', function(assert) {
   assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
 
-test('the `onChange` function is mandatory', function(assert) {
+test('the `onChange` action is mandatory', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
-    this.render(hbs`{{paper-checkbox checked=true}}`);
-  }, /requires an `onChange` function/);
+    this.render(hbs`{{paper-checkbox value=true}}`);
+  }, /requires an `onChange` action/);
 });

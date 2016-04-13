@@ -40,14 +40,14 @@ export default PaperMenuAbstract.extend({
     return !!this.get('disabled');
   }),
 
-  label: Ember.computed('model', 'itemLabelCallback', function() {
-    if (!this.get('model')) {
+  label: Ember.computed('value', 'itemLabelCallback', function() {
+    if (!this.get('value')) {
       return null;
     }
     if (this.get('itemLabelCallback')) {
-      return this.get('itemLabelCallback').call(this, this.get('model'));
+      return this.get('itemLabelCallback').call(this, this.get('value'));
     }
-    return this.get('model');
+    return this.get('value');
   }),
 
   click() {
@@ -55,11 +55,11 @@ export default PaperMenuAbstract.extend({
   },
 
   actions: {
-    selectOption(model) {
-      this.set('model', model);
+    selectOption(value) {
+      this.set('value', value);
     },
     deselectOption() {
-      this.set('model', null);
+      this.set('value', null);
     }
   },
 

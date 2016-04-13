@@ -9,7 +9,7 @@ import maxValidator from 'ember-paper/validators/max';
 import minlengthValidator from 'ember-paper/validators/minlength';
 import maxlengthValidator from 'ember-paper/validators/maxlength';
 
-const { $, computed, isPresent, isArray, isEmpty, isBlank, isNone, Logger, A, getWithDefault, run, assert, get } = Ember;
+const { $, computed, isArray, isEmpty, Logger, A, run, assert, get } = Ember;
 
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
@@ -119,7 +119,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   // Lifecycle hooks
   didReceiveAttrs() {
     this._super(...arguments);
-    assert('{{paper-input}} requires an `onChange` function', !!this.get('onChange'));
+    assert('{{paper-input}} and {{paper-select}} require an `onChange` action.', !!this.get('onChange'));
   },
 
   didInsertElement() {

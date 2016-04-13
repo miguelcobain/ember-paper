@@ -6,11 +6,9 @@ const { Component } = Ember;
 export default Component.extend({
   tagName: 'md-menu-item',
 
-  actions: {
-    action() {
-      this.nearestOfType(PaperMenuAbstract).send('toggleMenu');
-      this.sendAction('action', this.get('param'));
-    }
+  click(event) {
+    this.nearestOfType(PaperMenuAbstract).send('toggleMenu');
+    this.sendAction('onClick', event);
   }
 
 });

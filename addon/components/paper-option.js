@@ -62,7 +62,7 @@ export default BaseFocusable.extend(RippleMixin, {
     this.get('menuAbstract').send('toggleMenu');
   },
 
-  selected: Ember.computed('menuAbstract.model', function() {
-    return this.get('menuAbstract').get('model') === this.get('value') ? 'selected' : null;
+  selected: Ember.computed('menuAbstract.value', function() {
+    return this.get('menuAbstract').get('value') === this.get('value') ? 'selected' : null;
   })
 });

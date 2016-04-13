@@ -400,12 +400,12 @@ test('renders error messages from an external `errors` string array', function(a
   assert.equal(this.$('.paper-input-error').last().text().trim(), 'foo should be smaller than 12.');
 });
 
-test('the `onChange` function is mandatory for paper-input', function(assert) {
+test('the `onChange` action is mandatory for paper-input', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
     this.render(hbs`
       {{paper-input value="asd"}}
     `);
-  }, /requires an `onChange` function/);
+  }, /`onChange` action/);
 });

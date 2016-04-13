@@ -171,7 +171,7 @@ test('should be possible to select next with up/left arrow in a paper-radio-grou
   assert.equal(this.get('groupValue'), '3');
 });
 
-test('the `onChange` function is mandatory for paper-radio-group', function(assert) {
+test('the `onChange` action is mandatory for paper-radio-group', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
@@ -182,5 +182,5 @@ test('the `onChange` function is mandatory for paper-radio-group', function(asse
         {{/group.paper-radio}}
       {{/paper-radio-group}}
     `);
-  }, /requires an `onChange` function/);
+  }, /requires an `onChange` action/);
 });

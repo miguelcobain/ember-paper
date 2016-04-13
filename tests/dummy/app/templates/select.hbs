@@ -15,9 +15,14 @@
 
 <h1 class="md-title">Enter an address</h1>
 <div layout="row">
-    {{paper-input label="Street Name" value=street}}
-    {{paper-input label="City" value=city}}
-    {{#paper-select disabled=disableSelect placeholder="State" model=userState}}
+    {{paper-input label="Street Name" value=street onChange=(action (mut street))}}
+    {{paper-input label="City" value=city onChange=(action (mut city))}}
+    {{#paper-select
+      disabled=disableSelect
+      placeholder="State"
+      value=userState
+      onChange=(action (mut userState))
+    }}
       {{#each states as |state|}}
         {{#paper-option value=state.abbrev}}
           {{state.abbrev}}
@@ -27,10 +32,10 @@
 </div>
 
 <p>
-  {{paper-checkbox label="Disable select" checked=disableSelect onChange=(action (mut disableSelect))}}
+  {{paper-checkbox label="Disable select" value=disableSelect onChange=(action (mut disableSelect))}}
 </p>
 <h3>Template</h3>
-{{#code-block language='handlebars'}}\{{#paper-select disabled=disableSelect placeholder="State" model=userState}}
+{{#code-block language='handlebars'}}\{{#paper-select disabled=disableSelect placeholder="State" value=userState onChange=(action (mut userState))}}
   \{{#each states as |state|}}
     \{{#paper-option value=state.abbrev}}
       \{{state.abbrev}}
@@ -44,14 +49,14 @@
 
 <h1 class="md-title">Pick your pizza below</h1>
 <div layout="row">
-    {{#paper-select placeholder="Size" model=pizzaSize}}
+    {{#paper-select placeholder="Size" value=pizzaSize onChange=(action (mut pizzaSize))}}
       {{#each sizes as |size|}}
         {{#paper-option value=size}}
           {{size}}
         {{/paper-option}}
       {{/each}}
     {{/paper-select}}
-    {{#paper-select placeholder="Topping" model=topping}}
+    {{#paper-select placeholder="Topping" value=topping onChange=(action (mut topping))}}
       {{#paper-optgroup label="Meats"}}
         {{#each meatToppings as |topping|}}
           {{#paper-option value=topping.name}}
@@ -71,7 +76,7 @@
 
 
 <h3>Template</h3>
-{{#code-block language='handlebars'}}\{{#paper-select placeholder="Topping" model=topping}}
+{{#code-block language='handlebars'}}\{{#paper-select placeholder="Topping" value=topping onChange=(action (mut topping))}}
   \{{#paper-optgroup label="Meats"}}
     \{{#each meatToppings as |topping|}}
       \{{#paper-option value=topping.name}}
@@ -96,7 +101,14 @@
 <div layout="column" layout-align="center center">
   <p>Select can call an arbitrary function on show. If this function returns a promise, it will display a loading indicator while it is being resolved:</p>
   <div layout="column" layout-align="center center" style="height: 130px;">
-    {{#paper-select on-open=onUserLoad item-label-callback=userLabelCallback placeholder="Assign to a user" model=selectedUser as |items|}}
+    {{#paper-select
+      getItems=onUserLoad
+      itemLabelCallback=userLabelCallback
+      placeholder="Assign to a user"
+      value=selectedUser
+      onChange=(action (mut selectedUser))
+      as |items|
+    }}
       {{#each items as |user|}}
         {{#paper-option value=user}}
           {{user.name}}
@@ -113,10 +125,11 @@
 
 <h3>Template</h3>
 <p>
-    We provide two callbacks to the paper-select component <code class="paper">on-open</code> and <code class="paper">item-label-callback</code>.
-    The item-label-callback will resolve the label of the object's given from the <code class="paper">on-open</code> callback.
+    We provide two callbacks to the paper-select component <code class="paper">getItems</code> and <code class="paper">itemLabelCallback</code>.
+    <code class="paper">getItems</code> returns a promise which resolves to the list of items.
+    <code class="paper">itemLabelCallback</code> returns the label for the given item.
 </p>
-{{#code-block language='handlebars'}}\{{#paper-select on-open=onUserLoad item-label-callback=userLabelCallback placeholder="Assign to a user" model=selectedUser as |items|}}
+{{#code-block language='handlebars'}}\{{#paper-select getItems=onUserLoad itemLabelCallback=userLabelCallback placeholder="Assign to a user" value=selectedUser onChange=(action (mut selectedUser)) as |items|}}
   \{{#each items as |user|}}
     \{{#paper-option value=user}}
       \{{user.name}}

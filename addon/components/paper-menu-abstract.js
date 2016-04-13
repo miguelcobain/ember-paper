@@ -1,17 +1,15 @@
 import Ember from 'ember';
 
-const { Component, computed: { alias }, inject: { service }, assert } = Ember;
+const { Component, inject, assert } = Ember;
 
 export default Component.extend({
-  constants: service(),
+  constants: inject.service(),
 
-  'is-open': false,
+  /* `isOpen` true when toggleMenu action is called, but only turns false when animation to hide the wrapper is done. */
+  isOpen: false,
 
-  /* this is true when toggleMenu action is called, but only turns false when animation to hide the wrapper is done. */
-  isOpen: alias('is-open'),
-
-  /* Supports a on-open that can return a promise, menu is not opened before this promise is resolved by the origin. */
-  onOpen: alias('on-open'),
+  /* Supports `getItems` that can return a promise, menu is not opened before this promise is resolved by the origin. */
+  getItems: null,
 
   /* async: is true if promise was not resolved. */
   isLoading: false,
@@ -20,8 +18,6 @@ export default Component.extend({
   cache: true,
 
   preventMenuOpen: false,
-
-  itemLabelCallback: alias('item-label-callback'),
 
   setOpen(newState) {
     this.set('isOpen', newState);
@@ -42,11 +38,11 @@ export default Component.extend({
         if (this.get('preventMenuOpen')) {
           return;
         }
-        if (this.get('onOpen') && (!this.get('items') || !this.get('cache'))) {
+        if (this.get('getItems') && (!this.get('items') || !this.get('cache'))) {
           this.set('activeWrapper', null);
           this.set('isLoading', true);
           this.setOpen(true);
-          let promise = this.get('onOpen').call(this);
+          let promise = this.get('getItems').call(this);
           promise.then((data) => {
             this.set('items', data);
             this.set('isLoading', false);

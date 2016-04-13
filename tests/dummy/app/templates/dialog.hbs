@@ -91,7 +91,7 @@
       &lt;p&gt;Bowser is a common name.&lt;/p&gt;
       \{{paper-input placeholder="dog name" value=dogName onChange=(action (mut dogName))}}
       &lt;div&gt;
-        \{{#paper-checkbox checked=fullscreen onChange=(action (mut fullscreen))}}Display fullscreen at small window size breakpoints\{{/paper-checkbox}}
+        \{{#paper-checkbox value=fullscreen onChange=(action (mut fullscreen))}}Display fullscreen at small window size breakpoints\{{/paper-checkbox}}
       &lt;/div&gt;
     \{{/paper-dialog-content}}
 
@@ -266,7 +266,7 @@
       <p>Bowser is a common name.</p>
       {{paper-input placeholder="dog name" autofocus=true value=dogName onChange=(action (mut dogName))}}
       <div>
-        {{#paper-checkbox checked=fullscreen onChange=(action (mut fullscreen))}}Display fullscreen at small window size breakpoints{{/paper-checkbox}}
+        {{#paper-checkbox value=fullscreen onChange=(action (mut fullscreen))}}Display fullscreen at small window size breakpoints{{/paper-checkbox}}
       </div>
     {{/paper-dialog-content}}
 

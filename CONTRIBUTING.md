@@ -11,8 +11,8 @@ Many ember-paper contributors hang out on the [ember-paper channel on slack](htt
 * **jscs.** Before submitting a pull request,
 check for coding style issues with  `jscs -c .jscsrc app addon`.
 
-* **Actions.** Require action closures rather than strings representing action names.
-`{{some-component someAction=(action "myAction")}}`, not `{{some-component someAction="myAction"}}`.
+* **Actions.** Accept action closures rather than strings representing action names.
+`{{some-component someAction=(action "myAction")}}`, not `{{some-component someAction="myAction" param="the stuff" target=someTarget}}`. Invoke the action with `this.sendAction('onWhatever');`. There is no need to test for the presence of `onWhatever` as `sendAction` handles that situation.
 
 * **Encapsulation.** When communicating with a private ember-paper component, bind as many properties as are needed.
 When communicating between two public ember components, use `nearestOfType` in a computed property to find the outer component (for pre 2.3 compatibility), and override it when yielding a contextual component.

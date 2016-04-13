@@ -23,7 +23,7 @@ Router.map(function() {
   this.route('progress-circular');
   this.route('progress-linear');
   this.route('radio');
-  this.route('paper-select');
+  this.route('select');
   this.route('sidenav');
   this.route('slider');
   this.route('switch');
