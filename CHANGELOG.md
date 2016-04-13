@@ -22,6 +22,7 @@
 - [#xxx](https://github.com/miguelcobain/ember-paper/pull/xxx)
   - paper-menu-item now uses action `onClick` instead of `action`.
   - paper-item now uses action `onClick` instead of `action`.
+  - paper-menu now uses `value` instead of `model`.
 
 ### 0.2.11
 

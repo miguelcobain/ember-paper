@@ -20,7 +20,7 @@
     {{#paper-select
       disabled=disableSelect
       placeholder="State"
-      model=userState
+      value=userState
       onChange=(action (mut userState))
     }}
       {{#each states as |state|}}
@@ -35,7 +35,7 @@
   {{paper-checkbox label="Disable select" checked=disableSelect onChange=(action (mut disableSelect))}}
 </p>
 <h3>Template</h3>
-{{#code-block language='handlebars'}}\{{#paper-select disabled=disableSelect placeholder="State" model=userState onChange=(action (mut userState))}}
+{{#code-block language='handlebars'}}\{{#paper-select disabled=disableSelect placeholder="State" value=userState onChange=(action (mut userState))}}
   \{{#each states as |state|}}
     \{{#paper-option value=state.abbrev}}
       \{{state.abbrev}}
@@ -49,14 +49,14 @@
 
 <h1 class="md-title">Pick your pizza below</h1>
 <div layout="row">
-    {{#paper-select placeholder="Size" model=pizzaSize onChange=(action (mut pizzaSize))}}
+    {{#paper-select placeholder="Size" value=pizzaSize onChange=(action (mut pizzaSize))}}
       {{#each sizes as |size|}}
         {{#paper-option value=size}}
           {{size}}
         {{/paper-option}}
       {{/each}}
     {{/paper-select}}
-    {{#paper-select placeholder="Topping" model=topping onChange=(action (mut topping))}}
+    {{#paper-select placeholder="Topping" value=topping onChange=(action (mut topping))}}
       {{#paper-optgroup label="Meats"}}
         {{#each meatToppings as |topping|}}
           {{#paper-option value=topping.name}}
@@ -76,7 +76,7 @@
 
 
 <h3>Template</h3>
-{{#code-block language='handlebars'}}\{{#paper-select placeholder="Topping" model=topping onChange=(action (mut topping))}}
+{{#code-block language='handlebars'}}\{{#paper-select placeholder="Topping" value=topping onChange=(action (mut topping))}}
   \{{#paper-optgroup label="Meats"}}
     \{{#each meatToppings as |topping|}}
       \{{#paper-option value=topping.name}}
@@ -105,7 +105,7 @@
       on-open=onUserLoad
       item-label-callback=userLabelCallback
       placeholder="Assign to a user"
-      model=selectedUser
+      value=selectedUser
       onChange=(action (mut selectedUser))
       as |items|
     }}
@@ -128,7 +128,7 @@
     We provide two callbacks to the paper-select component <code class="paper">on-open</code> and <code class="paper">item-label-callback</code>.
     The item-label-callback will resolve the label of the object's given from the <code class="paper">on-open</code> callback.
 </p>
-{{#code-block language='handlebars'}}\{{#paper-select on-open=onUserLoad item-label-callback=userLabelCallback placeholder="Assign to a user" model=selectedUser onChange=(action (mut selectedUser)) as |items|}}
+{{#code-block language='handlebars'}}\{{#paper-select on-open=onUserLoad item-label-callback=userLabelCallback placeholder="Assign to a user" value=selectedUser onChange=(action (mut selectedUser)) as |items|}}
   \{{#each items as |user|}}
     \{{#paper-option value=user}}
       \{{user.name}}
