@@ -10,5 +10,5 @@ test('the `onChange` action is mandatory', function(assert) {
 
   assert.throws(() => {
     this.render(hbs`{{paper-select}}`);
-  }, /requires an `onChange` action/);
+  }, /`onChange` action/);
 });
