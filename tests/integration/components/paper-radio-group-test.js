@@ -182,5 +182,5 @@ test('the `onChange` function is mandatory for paper-radio-group', function(asse
         {{/group.paper-radio}}
       {{/paper-radio-group}}
     `);
-  }, /requires an `onChange` function/);
+  }, /requires an `onChange` action/);
 });

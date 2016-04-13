@@ -23,13 +23,13 @@
         {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
       {{else}}
         {{#each items as |item|}}
-          {{#paper-menu-item action="openSomething"}}
+          {{#paper-menu-item onClick="openSomething"}}
             {{paper-icon item.icon class="md-menu-align-target"}}
             <span>{{item.title}}</span>
           {{/paper-menu-item}}
         {{/each}}
 
-        {{#paper-menu-item action="openSomething" disabled=true}}
+        {{#paper-menu-item onClick="openSomething" disabled=true}}
           {{paper-icon "adb" class="md-menu-align-target"}}
             <span>This is disabled.</span>
         {{/paper-menu-item}}
@@ -37,7 +37,7 @@
         {{paper-divider}}
 
         {{#each items as |item|}}
-          {{#paper-menu-item action="openSomething"}}
+          {{#paper-menu-item onClick="openSomething"}}
             {{paper-icon item.icon class="md-menu-align-target"}} {{item.title}}
           {{/paper-menu-item}}
         {{/each}}
@@ -52,7 +52,7 @@
   \{{/paper-button}}
 \{{else}}
   \{{#each items as |item|}}
-    \{{#paper-menu-item action="openSomething"}}
+    \{{#paper-menu-item onClick="openSomething"}}
       \{{paper-icon item.icon class="md-menu-align-target"}}
       &lt;span&gt;\{{item.title}}&lt;/span&gt;
     \{{/paper-menu-item}}
@@ -81,7 +81,7 @@
               {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
             {{else}}
               {{#each items as |item|}}
-                {{#paper-menu-item action="openSomething"}}
+                {{#paper-menu-item onClick="openSomething"}}
                   {{paper-icon item.icon class="md-menu-align-target"}}
                   <span>{{item.title}}</span>
                 {{/paper-menu-item}}
@@ -94,7 +94,7 @@
               {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
             {{else}}
               {{#each items as |item|}}
-                {{#paper-menu-item action="openSomething"}}
+                {{#paper-menu-item onClick="openSomething"}}
                   {{paper-icon item.icon class="md-menu-align-target"}}
                   <span>{{item.title}}</span>
                 {{/paper-menu-item}}
@@ -107,7 +107,7 @@
               {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
             {{else}}
               {{#each items as |item|}}
-                {{#paper-menu-item action="openSomething"}}
+                {{#paper-menu-item onClick="openSomething"}}
                     <p style="width: 190px;">{{item.title}}</p>
                     {{paper-icon item.icon class="md-menu-align-target"}}
                 {{/paper-menu-item}}
@@ -129,7 +129,7 @@ attributes to tell where it should position itself in respect to origin and alig
 {{#code-block language='handlebars'}}\{{#paper-menu position="target-right target" as |menu|}}
   \{{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}\{{paper-icon "local_phone" class="md-menu-origin"}}\{{/paper-button}}
 \{{else}}
-  \{{#paper-menu-item action="openSomething"}}
+  \{{#paper-menu-item onClick="openSomething"}}
       &lt;p style="width: 190px;"&gt;Some title&lt;/p&gt;
     \{{paper-icon "adb" class="md-menu-align-target"}}
   \{{/paper-menu-item}}
@@ -156,7 +156,7 @@ attributes to tell where it should position itself in respect to origin and alig
               {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
             {{else}}
               {{#each options as |item|}}
-                {{#paper-menu-item action="openSomething"}}
+                {{#paper-menu-item onClick="openSomething"}}
                     <span class="md-menu-align-target">Option</span> {{item}}
                 {{/paper-menu-item}}
               {{/each}}
@@ -168,7 +168,7 @@ attributes to tell where it should position itself in respect to origin and alig
               {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
             {{else}}
               {{#each options as |item|}}
-                {{#paper-menu-item action="openSomething"}}
+                {{#paper-menu-item onClick="openSomething"}}
                     <span class="md-menu-align-target">Option</span> {{item}}
                 {{/paper-menu-item}}
               {{/each}}
@@ -180,7 +180,7 @@ attributes to tell where it should position itself in respect to origin and alig
               {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
             {{else}}
               {{#each options as |item|}}
-                {{#paper-menu-item action="openSomething"}}
+                {{#paper-menu-item onClick="openSomething"}}
                     <span class="md-menu-align-target">Option</span> {{item}}
                 {{/paper-menu-item}}
               {{/each}}

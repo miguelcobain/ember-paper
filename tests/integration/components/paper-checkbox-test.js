@@ -112,5 +112,5 @@ test('the `onChange` function is mandatory', function(assert) {
 
   assert.throws(() => {
     this.render(hbs`{{paper-checkbox checked=true}}`);
-  }, /requires an `onChange` function/);
+  }, /requires an `onChange` action/);
 });

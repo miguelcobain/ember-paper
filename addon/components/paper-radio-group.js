@@ -14,7 +14,7 @@ export default BaseFocusable.extend({
   // Lifecycle hooks
   didInitAttrs() {
     this._super(...arguments);
-    Ember.assert('{{paper-radio-group}} requires an `onChange` function', !!this.get('onChange'));
+    Ember.assert('{{paper-radio-group}} requires an `onChange` action', !!this.get('onChange'));
   },
 
   childRadios: computed(function() {

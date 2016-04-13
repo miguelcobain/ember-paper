@@ -407,5 +407,5 @@ test('the `onChange` function is mandatory for paper-input', function(assert) {
     this.render(hbs`
       {{paper-input value="asd"}}
     `);
-  }, /requires an `onChange` function/);
+  }, /requires an `onChange` action/);
 });

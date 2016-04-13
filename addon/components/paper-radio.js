@@ -25,7 +25,7 @@ export default BaseFocusable.extend(RippleMixin, ColorMixin, {
   // Lifecycle hooks
   didInitAttrs() {
     this._super(...arguments);
-    assert('{{paper-radio}} requires an `onChange` function', !!this.get('onChange'));
+    assert('{{paper-radio}} requires an `onChange` action', !!this.get('onChange'));
 
     if (this.get('parentGroup')) {
       this.get('parentGroup').register(this);

@@ -100,5 +100,5 @@ test('the `onChange` function is mandatory for paper-radio', function(assert) {
 
   assert.throws(() => {
     this.render(hbs`{{paper-radio value="1"}}`);
-  }, /requires an `onChange` function/);
+  }, /requires an `onChange` action/);
 });

@@ -79,5 +79,5 @@ test('the `onChange` function is mandatory for paper-switch', function(assert) {
 
   assert.throws(() => {
     this.render(hbs`{{paper-switch value=true}}`);
-  }, /requires an `onChange` function/);
+  }, /requires an `onChange` action/);
 });
