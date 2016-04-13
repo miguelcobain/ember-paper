@@ -77,7 +77,7 @@
     <div class="menus" layout-fill="" layout-wrap="" layout="row" layout-align="space-between center">
         <div layout="column" flex="33" flex-sm="100" layout-align="center center">
             <p>Target Mode Positioning (default)</p>
-            {{#paper-menu is-open=menuTwoIsOpen as |menu|}}
+            {{#paper-menu isOpen=menuTwoIsOpen as |menu|}}
               {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
             {{else}}
               {{#each items as |item|}}
@@ -90,7 +90,7 @@
         </div>
         <div layout="column" flex="33" flex-sm="100" layout-align="center center">
             <p>Target mode with <code class="paper">md-offset</code></p>
-            {{#paper-menu is-open=menuThreeIsOpen offset="0 -5" as |menu|}}
+            {{#paper-menu isOpen=menuThreeIsOpen offset="0 -5" as |menu|}}
               {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
             {{else}}
               {{#each items as |item|}}
@@ -103,7 +103,7 @@
         </div>
         <div layout="column" flex="33" flex-sm="100" layout-align="center center">
             <p><code class="paper">md-position-mode="target-right target"</code></p>
-            {{#paper-menu is-open=menuFourIsOpen position="target-right target" as |menu|}}
+            {{#paper-menu isOpen=menuFourIsOpen position="target-right target" as |menu|}}
               {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
             {{else}}
               {{#each items as |item|}}

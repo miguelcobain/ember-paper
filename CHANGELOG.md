@@ -28,6 +28,7 @@
   - paper-select now uses required an `onchange` action.
   - paper-select now uses attribute `itemLabelCallback` instead of `item-label-callback`.
   - paper-select now uses attribute `getItems` instead of `on-open`.
+  - paper-menu now uses attribute `isOpen` instead of `is-open`.
 
 ### 0.2.11
 

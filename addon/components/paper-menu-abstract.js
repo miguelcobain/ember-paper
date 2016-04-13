@@ -5,12 +5,11 @@ const { Component, computed: { alias }, inject: { service }, assert } = Ember;
 export default Component.extend({
   constants: service(),
 
-  'is-open': false,
-
-  /* this is true when toggleMenu action is called, but only turns false when animation to hide the wrapper is done. */
-  isOpen: alias('is-open'),
+  /* `isOpen` true when toggleMenu action is called, but only turns false when animation to hide the wrapper is done. */
+  isOpen: false,
 
   /* Supports `getItems` that can return a promise, menu is not opened before this promise is resolved by the origin. */
+  getItems: null,
 
   /* async: is true if promise was not resolved. */
   isLoading: false,
