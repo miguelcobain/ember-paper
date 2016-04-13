@@ -10,8 +10,7 @@ export default Component.extend({
   /* this is true when toggleMenu action is called, but only turns false when animation to hide the wrapper is done. */
   isOpen: alias('is-open'),
 
-  /* Supports a on-open that can return a promise, menu is not opened before this promise is resolved by the origin. */
-  onOpen: alias('on-open'),
+  /* Supports `getItems` that can return a promise, menu is not opened before this promise is resolved by the origin. */
 
   /* async: is true if promise was not resolved. */
   isLoading: false,
@@ -40,11 +39,11 @@ export default Component.extend({
         if (this.get('preventMenuOpen')) {
           return;
         }
-        if (this.get('onOpen') && (!this.get('items') || !this.get('cache'))) {
+        if (this.get('getItems') && (!this.get('items') || !this.get('cache'))) {
           this.set('activeWrapper', null);
           this.set('isLoading', true);
           this.setOpen(true);
-          let promise = this.get('onOpen').call(this);
+          let promise = this.get('getItems').call(this);
           promise.then((data) => {
             this.set('items', data);
             this.set('isLoading', false);

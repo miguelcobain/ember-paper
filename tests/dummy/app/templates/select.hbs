@@ -102,7 +102,7 @@
   <p>Select can call an arbitrary function on show. If this function returns a promise, it will display a loading indicator while it is being resolved:</p>
   <div layout="column" layout-align="center center" style="height: 130px;">
     {{#paper-select
-      on-open=onUserLoad
+      getItems=onUserLoad
       itemLabelCallback=userLabelCallback
       placeholder="Assign to a user"
       value=selectedUser
@@ -125,10 +125,11 @@
 
 <h3>Template</h3>
 <p>
-    We provide two callbacks to the paper-select component <code class="paper">on-open</code> and <code class="paper">itemLabelCallback</code>.
-    The itemLabelCallback will resolve the label of the object's given from the <code class="paper">on-open</code> callback.
+    We provide two callbacks to the paper-select component <code class="paper">getItems</code> and <code class="paper">itemLabelCallback</code>.
+    <code class="paper">getItems</code> returns a promise which resolves to the list of items.
+    <code class="paper">itemLabelCallback</code> returns the label for the given item.
 </p>
-{{#code-block language='handlebars'}}\{{#paper-select on-open=onUserLoad itemLabelCallback=userLabelCallback placeholder="Assign to a user" value=selectedUser onChange=(action (mut selectedUser)) as |items|}}
+{{#code-block language='handlebars'}}\{{#paper-select getItems=onUserLoad itemLabelCallback=userLabelCallback placeholder="Assign to a user" value=selectedUser onChange=(action (mut selectedUser)) as |items|}}
   \{{#each items as |user|}}
     \{{#paper-option value=user}}
       \{{user.name}}
