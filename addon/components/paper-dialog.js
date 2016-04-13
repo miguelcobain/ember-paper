@@ -1,11 +1,6 @@
 import Ember from 'ember';
 
-const {
-  Component,
-  computed,
-  inject: { service },
-  isEmpty
-} = Ember;
+const { $, Component, computed, inject } = Ember;
 
 export default Component.extend({
   tagName: '',
@@ -43,7 +38,7 @@ export default Component.extend({
     }
   }),
 
-  constants: service(),
+  constants: inject.service(),
 
   didInsertElement() {
     if (this.get('escapeToClose')) {
