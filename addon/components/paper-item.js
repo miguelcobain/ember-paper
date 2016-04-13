@@ -19,9 +19,9 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
 
   hasProxiedComponent: Ember.computed.bool('proxiedComponents.length'),
 
-  hasSecondaryAction: Ember.computed('secondaryItem', 'action', function() {
+  hasSecondaryAction: Ember.computed('secondaryItem', 'onClick', function() {
     let secondaryItem = this.get('secondaryItem');
-    return secondaryItem && (secondaryItem.action || (this.get('action') && this.isProxiedComponent(secondaryItem)));
+    return secondaryItem && (secondaryItem.action || (this.get('onClick') && this.isProxiedComponent(secondaryItem)));
   }),
 
   secondaryItem: Ember.computed('proxiedComponents.[]', function() {
@@ -31,8 +31,8 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
     });
   }),
 
-  shouldBeClickable: Ember.computed('proxiedComponents.length', 'action', function() {
-    return this.get('proxiedComponents.length') || this.get('action');
+  shouldBeClickable: Ember.computed('proxiedComponents.length', 'onClick', function() {
+    return this.get('proxiedComponents.length') || this.get('onClick');
   }),
 
   didInsertElement() {
@@ -51,7 +51,7 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
 
     // Allow proxied component to propagate ripple hammer event
     this.get('proxiedComponents').forEach(function(component) {
-      if (!component.get('action')) {
+      if (!component.get('onClick')) {
         component.set('propagateRipple', true);
       }
     });
@@ -107,7 +107,7 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
           component.processProxy();
         }
       });
-      this.sendAction('action', this.get('param'));
+      this.sendAction('onClick');
     }
   }
 

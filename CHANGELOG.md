@@ -21,6 +21,7 @@
   - paper-button now uses the action `onClick` instead of `action`
 - [#xxx](https://github.com/miguelcobain/ember-paper/pull/xxx)
   - paper-menu-item now uses action `onClick` instead of `action`.
+  - paper-item now uses action `onClick` instead of `action`.
 
 ### 0.2.11
 
