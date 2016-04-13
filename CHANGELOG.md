@@ -33,7 +33,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [#324](https://github.com/miguelcobain/ember-paper/pull/324)
   - paper-button now uses `iconButton` instead of `icon-button`
   - paper-button now uses the action `onClick` instead of `action`
-- [#xxx](https://github.com/miguelcobain/ember-paper/pull/xxx)
+- [#334](https://github.com/miguelcobain/ember-paper/pull/334)
   - paper-menu-item now uses action `onClick` instead of `action`.
   - paper-item now uses action `onClick` instead of `action`.
   - paper-menu now uses `value` instead of `model`.
