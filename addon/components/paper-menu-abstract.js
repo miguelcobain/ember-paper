@@ -21,8 +21,6 @@ export default Component.extend({
 
   preventMenuOpen: false,
 
-  itemLabelCallback: alias('item-label-callback'),
-
   setOpen(newState) {
     this.set('isOpen', newState);
     let action = this.get(newState ? 'onOpenMenu' : 'onCloseMenu');

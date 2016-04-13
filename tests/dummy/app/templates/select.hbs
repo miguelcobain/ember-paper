@@ -103,7 +103,7 @@
   <div layout="column" layout-align="center center" style="height: 130px;">
     {{#paper-select
       on-open=onUserLoad
-      item-label-callback=userLabelCallback
+      itemLabelCallback=userLabelCallback
       placeholder="Assign to a user"
       value=selectedUser
       onChange=(action (mut selectedUser))
@@ -125,10 +125,10 @@
 
 <h3>Template</h3>
 <p>
-    We provide two callbacks to the paper-select component <code class="paper">on-open</code> and <code class="paper">item-label-callback</code>.
-    The item-label-callback will resolve the label of the object's given from the <code class="paper">on-open</code> callback.
+    We provide two callbacks to the paper-select component <code class="paper">on-open</code> and <code class="paper">itemLabelCallback</code>.
+    The itemLabelCallback will resolve the label of the object's given from the <code class="paper">on-open</code> callback.
 </p>
-{{#code-block language='handlebars'}}\{{#paper-select on-open=onUserLoad item-label-callback=userLabelCallback placeholder="Assign to a user" value=selectedUser onChange=(action (mut selectedUser)) as |items|}}
+{{#code-block language='handlebars'}}\{{#paper-select on-open=onUserLoad itemLabelCallback=userLabelCallback placeholder="Assign to a user" value=selectedUser onChange=(action (mut selectedUser)) as |items|}}
   \{{#each items as |user|}}
     \{{#paper-option value=user}}
       \{{user.name}}
