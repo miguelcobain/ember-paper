@@ -19,6 +19,8 @@
 - [#324](https://github.com/miguelcobain/ember-paper/pull/324)
   - paper-button now uses `iconButton` instead of `icon-button`
   - paper-button now uses the action `onClick` instead of `action`
+- [#xxx](https://github.com/miguelcobain/ember-paper/pull/xxx)
+  - paper-menu-item now uses action `onClick` instead of `action`.
 
 ### 0.2.11
 
