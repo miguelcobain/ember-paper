@@ -74,7 +74,7 @@ test('blockless mode should render label', function(assert) {
   });
 });
 
-test('the `onChange` function is mandatory for paper-switch', function(assert) {
+test('the `onChange` action is mandatory for paper-switch', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
