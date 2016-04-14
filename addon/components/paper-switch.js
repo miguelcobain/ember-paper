@@ -127,10 +127,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
       }
       this.set('dragging', false);
       this.set('dragAmount', null);
-      if (ev && ev.srcEvent) {
-        ev.srcEvent.stopImmediatePropagation();
-        ev.srcEvent.stopPropagation();
-      }
     }
   },
 
