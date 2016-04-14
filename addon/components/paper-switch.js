@@ -37,7 +37,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
       return htmlSafe('');
     }
 
-    let percent = this.get('dragAmount');
+    let percent = this.get('dragAmount') || (this.get('value') ? 100 : 0);
     let translate = Math.max(0, Math.min(1, percent));
     let transformProp = `translate3d(${100 * translate}%, 0, 0)`;
 
