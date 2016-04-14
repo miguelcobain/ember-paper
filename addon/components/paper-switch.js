@@ -37,10 +37,8 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
       return htmlSafe('');
     }
 
-    let percent = this.get('dragAmount') || (this.get('value') ? 100 : 0);
-    let translate = Math.max(0, Math.min(1, percent));
-    let transformProp = `translate3d(${100 * translate}%, 0, 0)`;
-
+    let translate = Math.max(0, Math.min(100, this.get('dragAmount') * 100));
+    let transformProp = `translate3d(${translate}%, 0, 0)`;
     return htmlSafe(`transform: ${transformProp};-webkit-transform: ${transformProp}`);
   }),
 
@@ -95,34 +93,28 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   _teardownSwitch() {
     if (this._switchContainerHammer) {
       this._switchContainerHammer.destroy();
-    }
-
-    if (this._switchHammer) {
       this._switchHammer.destroy();
     }
   },
 
   _dragStart() {
+    this.set('dragAmount', +this.get('value'));
     this.set('dragging', true);
   },
 
   _drag(event) {
     if (!this.get('disabled')) {
-      // Get the amount the switch has been dragged
-      let percent = event.deltaX / this.get('switchWidth');
-      percent = this.get('value') ? 1 + percent : percent;
-      this.set('dragAmount', percent);
+      // Set the amount the switch has been dragged
+      this.set('dragAmount', +this.get('value') + event.deltaX / this.get('switchWidth'));
     }
   },
 
-  _dragEnd(ev) {
+  _dragEnd() {
     if (!this.get('disabled')) {
       let value = this.get('value');
       let dragAmount = this.get('dragAmount');
 
-      if ((!this.get('dragging')) ||
-           (value && dragAmount < 0.5) ||
-           (!value && dragAmount > 0.5)) {
+      if (!this.get('dragging') || (value && dragAmount < 0.5) || (!value && dragAmount > 0.5)) {
         this.sendAction('onChange', !value);
       }
       this.set('dragging', false);
@@ -131,8 +123,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   keyPress(ev) {
-    if (ev.which === this.get('constants.KEYCODE.SPACE')
-      || ev.which === this.get('constants.KEYCODE.ENTER')) {
+    if (ev.which === this.get('constants.KEYCODE.SPACE') || ev.which === this.get('constants.KEYCODE.ENTER')) {
       ev.preventDefault();
       this._dragEnd();
     }
