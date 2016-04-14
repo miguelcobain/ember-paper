@@ -39,7 +39,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
   - paper-menu now uses `value` instead of `model`.
   - paper-checkbox now uses `value` instead of `checked`.
   - paper-switch now uses `value` instead of `checked`.
-  - paper-select now uses required an `onchange` action.
+  - paper-select now uses a required `onChange` action.
   - paper-select now uses attribute `itemLabelCallback` instead of `item-label-callback`.
   - paper-select now uses attribute `getItems` instead of `on-open`.
   - paper-menu now uses attribute `isOpen` instead of `is-open`.
