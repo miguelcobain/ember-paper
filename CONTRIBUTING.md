@@ -2,7 +2,7 @@
 
 ## Coordination, communication and community
 
-Many ember-paper contributors hang out on the [ember-paper channel on slack](https://embercommunity.slack.com/messages/ember-paper/). Not a slack user? [Get your invitation.](https://ember-community-slackin.herokuapp.com/)
+Many ember-paper contributors hang out on the [e-paper channel on slack](https://embercommunity.slack.com/messages/e-paper/). Not a slack user? [Get your invitation.](https://ember-community-slackin.herokuapp.com/)
 
 ## Coding style
 
