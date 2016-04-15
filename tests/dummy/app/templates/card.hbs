@@ -9,12 +9,163 @@
 
 {{#paper-content class="md-padding"}}
 <div class="doc-content">
-  {{#paper-content class="list-demo"}}
+  {{#paper-content class="card-demo"}}
+    <h2>Basic Usage</h2>
     <div class="layout-row">
-      <div>
+      <div class="flex-50">
+        {{#paper-card as |card|}}
+          {{#card.title as |title|}}
+            {{#title.text}}
+              <span class="md-headline">Card with image</span>
+              <span class="md-subhead">Large</span>
+            {{/title.text}}
+            {{#title.media}}
+              <div class="md-media-lg card-media"></div>
+            {{/title.media}}
+          {{/card.title}}
+          {{#card.actions}}
+            {{#paper-button}}Action 1{{/paper-button}}
+            {{#paper-button}}Action 2{{/paper-button}}
+          {{/card.actions}}
+        {{/paper-card}}
+
+        {{#paper-card as |card|}}
+          {{#card.title as |title|}}
+            {{#title.text}}
+              <span class="md-headline">Card with image</span>
+              <span class="md-subhead">Extra large</span>
+            {{/title.text}}
+          {{/card.title}}
+          {{#card.content class="layout-row layout-align-space-between"}}
+            <div class="md-media-xl card-media"></div>
+            {{#card.actions class="layout-column"}}
+              {{#paper-button iconButton=true}}{{paper-icon "favorite"}}{{/paper-button}}
+              {{#paper-button iconButton=true}}{{paper-icon "settings"}}{{/paper-button}}
+              {{#paper-button iconButton=true}}{{paper-icon "share"}}{{/paper-button}}
+            {{/card.actions}}
+          {{/card.content}}
+        {{/paper-card}}
+      </div>
+      <div class="flex-50">
+        {{#paper-card as |card|}}
+          {{#card.title as |title|}}
+            {{#title.text}}
+              <span class="md-headline">Card with image</span>
+              <span class="md-subhead">Small</span>
+            {{/title.text}}
+            {{#title.media}}
+              <div class="md-media-sm card-media"></div>
+            {{/title.media}}
+          {{/card.title}}
+          {{#card.actions}}
+            {{#paper-button}}Action 1{{/paper-button}}
+            {{#paper-button}}Action 2{{/paper-button}}
+          {{/card.actions}}
+        {{/paper-card}}
+
+        {{#paper-card as |card|}}
+          {{#card.title as |title|}}
+            {{#title.text}}
+              <span class="md-headline">Card with image</span>
+              <span class="md-subhead">Medium</span>
+            {{/title.text}}
+            {{#title.media}}
+              <div class="md-media-md card-media"></div>
+            {{/title.media}}
+          {{/card.title}}
+          {{#card.actions}}
+            {{#paper-button}}Action 1{{/paper-button}}
+            {{#paper-button}}Action 2{{/paper-button}}
+          {{/card.actions}}
+        {{/paper-card}}
+      </div>
+    </div>
+
+    <h3>Template</h3>
+    {{#code-block language="handlebars"}}
+&lt;h2>Basic Usage&lt;/h2>
+&lt;div class="layout-row">
+  &lt;div class="flex-50">
+    \{{#paper-card as |card|}}
+      \{{#card.title as |title|}}
+        \{{#title.text}}
+          &lt;span class="md-headline">Card with image&lt;/span>
+          &lt;span class="md-subhead">Large&lt;/span>
+        \{{/title.text}}
+        \{{#title.media}}
+          &lt;div class="md-media-lg card-media">&lt;/div>
+        \{{/title.media}}
+      \{{/card.title}}
+      \{{#card.actions}}
+        \{{#paper-button}}Action 1\{{/paper-button}}
+        \{{#paper-button}}Action 2\{{/paper-button}}
+      \{{/card.actions}}
+    \{{/paper-card}}
+
+    \{{#paper-card as |card|}}
+      \{{#card.title as |title|}}
+        \{{#title.text}}
+          &lt;span class="md-headline">Card with image&lt;/span>
+          &lt;span class="md-subhead">Extra large&lt;/span>
+        \{{/title.text}}
+      \{{/card.title}}
+      \{{#card.content class="layout-row layout-align-space-between"}}
+        &lt;div class="md-media-xl card-media">&lt;/div>
+        \{{#card.actions class="layout-column"}}
+          \{{#paper-button iconButton=true}}\{{paper-icon "favorite"}}\{{/paper-button}}
+          \{{#paper-button iconButton=true}}\{{paper-icon "settings"}}\{{/paper-button}}
+          \{{#paper-button iconButton=true}}\{{paper-icon "share"}}\{{/paper-button}}
+        \{{/card.actions}}
+      \{{/card.content}}
+    \{{/paper-card}}
+  &lt;/div>
+  &lt;div class="flex-50">
+    \{{#paper-card as |card|}}
+      \{{#card.title as |title|}}
+        \{{#title.text}}
+          &lt;span class="md-headline">Card with image&lt;/span>
+          &lt;span class="md-subhead">Small&lt;/span>
+        \{{/title.text}}
+        \{{#title.media}}
+          &lt;div class="md-media-sm card-media">&lt;/div>
+        \{{/title.media}}
+      \{{/card.title}}
+      \{{#card.actions}}
+        \{{#paper-button}}Action 1\{{/paper-button}}
+        \{{#paper-button}}Action 2\{{/paper-button}}
+      \{{/card.actions}}
+    \{{/paper-card}}
+
+    \{{#paper-card as |card|}}
+      \{{#card.title as |title|}}
+        \{{#title.text}}
+          &lt;span class="md-headline">Card with image&lt;/span>
+          &lt;span class="md-subhead">Medium&lt;/span>
+        \{{/title.text}}
+        \{{#title.media}}
+          &lt;div class="md-media-md card-media">&lt;/div>
+        \{{/title.media}}
+      \{{/card.title}}
+      \{{#card.actions}}
+        \{{#paper-button}}Action 1\{{/paper-button}}
+        \{{#paper-button}}Action 2\{{/paper-button}}
+      \{{/card.actions}}
+    \{{/paper-card}}
+  &lt;/div>
+&lt;/div>{{/code-block}}
+  {{/paper-content}}
+
+  {{#paper-content class="class-demo"}}
+    <h2>Card Action Buttons</h2>
+    <div class="layout-row">
+      <div class="flex-50">
         {{#paper-card as |card|}}
           <img class="md-card-image" src="washedout.png" alt="washed out" />
-          {{#card.title}}Action buttons{{/card.title}}
+          {{#card.title as |title|}}
+            {{#title.text}}
+              <span class="md-headline">Action buttons</span>
+            {{/title.text}}
+          {{/card.title}}
           {{#card.content}}
             <p>
               The titles of Washed Out's breakthrough song and the first single from Paracosm share the
@@ -37,7 +188,11 @@
 
         {{#paper-card as |card|}}
           <img class="md-card-image" src="washedout.png" alt="washed out" />
-          {{#card.title}}Vertical action buttons{{/card.title}}
+          {{#card.title as |title|}}
+            {{#title.text}}
+              <span class="md-headline">Vertical action buttons</span>
+            {{/title.text}}
+          {{/card.title}}
           {{#card.content}}
             <p>
               The titles of Washed Out's breakthrough song and the first single from Paracosm share the
@@ -51,10 +206,14 @@
         {{/paper-card}}
       </div>
 
-      <div>
+      <div class="flex-50">
         {{#paper-card as |card|}}
           <img class="md-card-image" src="washedout.png" alt="washed out" />
-          {{#card.title}}Vertical action buttons{{/card.title}}
+          {{#card.title as |title|}}
+            {{#title.text}}
+              <span class="md-headline">Icon action buttons</span>
+            {{/title.text}}
+          {{/card.title}}
           {{#card.content}}
             <p>
               The titles of Washed Out's breakthrough song and the first single from Paracosm share the
@@ -88,7 +247,11 @@
             {{/header.text}}
           {{/card.header}}
           <img class="md-card-image" src="washedout.png" alt="washed out" />
-          {{#card.title}}Card header{{/card.title}}
+          {{#card.title as |title|}}
+            {{#title.text}}
+              <span class="md-headline">Card header</span>
+            {{/title.text}}
+          {{/card.title}}
           {{#card.content}}
             <p>
               The titles of Washed Out's breakthrough song and the first single from Paracosm share the
@@ -103,7 +266,110 @@
 
   <h3>Template</h3>
   {{#code-block language='handlebars'}}
+&lt;h2>Card Action Buttons&lt;/h2>
+&lt;div class="layout-row">
+  &lt;div class="flex-50">
+    \{{#paper-card as |card|}}
+      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{#card.title as |title|}}
+        \{{#title.text}}
+          &lt;span class="md-headline">Action buttons&lt;/span>
+        \{{/title.text}}
+      \{{/card.title}}
+      \{{#card.content}}
+        &lt;p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        &lt;/p>
+        &lt;p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        &lt;/p>
+        &lt;p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        &lt;/p>
+      \{{/card.content}}
+      \{{#card.actions}}
+        \{{#paper-button}}Action 1\{{/paper-button}}
+        \{{#paper-button}}Action 2\{{/paper-button}}
+      \{{/card.actions}}
+    \{{/paper-card}}
 
-  {{/code-block}}
+    \{{#paper-card as |card|}}
+      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{#card.title as |title|}}
+        \{{#title.text}}
+          &lt;span class="md-headline">Vertical action buttons&lt;/span>
+        \{{/title.text}}
+      \{{/card.title}}
+      \{{#card.content}}
+        &lt;p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        &lt;/p>
+      \{{/card.content}}
+      \{{#card.actions class="layout-column"}}
+        \{{#paper-button}}Action 1\{{/paper-button}}
+        \{{#paper-button}}Action 2\{{/paper-button}}
+      \{{/card.actions}}
+    \{{/paper-card}}
+  &lt;/div>
+
+  &lt;div class="flex-50">
+    \{{#paper-card as |card|}}
+      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{#card.title as |title|}}
+        \{{#title.text}}
+          &lt;span class="md-headline">Icon action buttons&lt;/span>
+        \{{/title.text}}
+      \{{/card.title}}
+      \{{#card.content}}
+        &lt;p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        &lt;/p>
+      \{{/card.content}}
+      \{{#card.actions}}
+        \{{#paper-button iconButton=true}}\{{paper-icon "favorite"}}\{{/paper-button}}
+        \{{#paper-button iconButton=true}}\{{paper-icon "settings"}}\{{/paper-button}}
+        \{{#paper-button iconButton=true}}\{{paper-icon "share"}}\{{/paper-button}}
+      \{{/card.actions}}
+    \{{/paper-card}}
+
+    \{{#paper-card as |card|}}
+      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{#card.actions}}
+        \{{#paper-button iconButton=true}}\{{paper-icon "favorite"}}\{{/paper-button}}
+        \{{#paper-button iconButton=true}}\{{paper-icon "settings"}}\{{/paper-button}}
+        \{{#paper-button iconButton=true}}\{{paper-icon "share"}}\{{/paper-button}}
+      \{{/card.actions}}
+    \{{/paper-card}}
+
+    \{{#paper-card as |card|}}
+      \{{#card.header as |header|}}
+        \{{#header.avatar}}
+          &lt;img src="tomster.png" alt="tomster" />
+        \{{/header.avatar}}
+        \{{#header.text}}
+          &lt;span class="md-title">Ember&lt;/span>
+          &lt;span class="md-subhead">Paper&lt;/span>
+        \{{/header.text}}
+      \{{/card.header}}
+      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{#card.title as |title|}}
+        \{{#title.text}}
+          &lt;span class="md-headline">Card header&lt;/span>
+        \{{/title.text}}
+      \{{/card.title}}
+      \{{#card.content}}
+        &lt;p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        &lt;/p>
+      \{{/card.content}}
+    \{{/paper-card}}
+  &lt;/div>
+&lt;/div>{{/code-block}}
 </div>
 {{/paper-content}}

@@ -1,3 +1,4 @@
-<md-card-title-text>
-  <span class="md-headline">{{yield}}</span>
-</md-card-title-text>
+{{yield (hash
+  text=(component 'paper-card-title-text')
+  media=(component 'paper-card-title-media')
+)}}
