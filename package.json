@@ -70,6 +70,7 @@
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "https://miguelcobain.github.io/ember-paper"
+    "demoURL": "https://miguelcobain.github.io/ember-paper",
+    "before": "ember-cli-sri"
   }
 }
