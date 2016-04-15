@@ -57,8 +57,10 @@ export default Mixin.create({
             this.onTranslateFromEnd();
           }
         });
-        this.set('transformStyleApply', 'main');
-        this.set('transformIn', true);
+        if (!this.get('isDestroying') && !this.get('isDestroyed')) {
+          this.set('transformStyleApply', 'main');
+          this.set('transformIn', true);
+        }
       });
     });
   },

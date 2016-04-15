@@ -13,11 +13,11 @@ export default function(name, options = {}) {
     },
 
     afterEach() {
-      destroyApp(this.application);
-
       if (options.afterEach) {
         options.afterEach(...arguments);
       }
+
+      destroyApp(this.application);
     }
   });
 }

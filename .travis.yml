@@ -11,6 +11,7 @@ cache:
 
 env:
   - EMBER_TRY_SCENARIO=default
+  - EMBER_TRY_SCENARIO=ember-1.13
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
@@ -21,16 +22,14 @@ matrix:
     - env: EMBER_TRY_SCENARIO=ember-canary
 
 before_install:
+  - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
   - "npm config set spin false"
   - "npm install -g npm@^2"
-  - "npm install -g jscs"
 
 install:
   - npm install -g bower
-  - npm install -g phantomjs-prebuilt@2
   - npm install
   - bower install
 
 script:
   - ember try $EMBER_TRY_SCENARIO test
-  - jscs -c .jscsrc app addon tests
