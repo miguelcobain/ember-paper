@@ -8,13 +8,13 @@ module.exports = {
       }
     },
     {
-      name: 'ember-1.13',
+      name: 'ember-2.3',
       bower: {
         dependencies: {
-          'ember': '~1.13.0'
+          'ember': '~2.3.0'
         },
         resolutions: {
-          'ember': '~1.13.0'
+          'ember': '~2.3.0'
         }
       }
     },
