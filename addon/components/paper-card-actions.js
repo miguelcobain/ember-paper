@@ -1,15 +1,20 @@
 import Ember from 'ember';
-import FlexMixin from '../mixins/flex-mixin';
 
-const { Component, computed, String: Str } = Ember;
+const { Component } = Ember;
 
 export default Component.extend({
-  tagName: '',
+  tagName: 'md-card-actions',
+  classNameBindings: ['defaultClasses'],
 
-  layout: 'row',
-  layoutAlign: 'end center',
+  didReceiveAttrs() {
+    this._super(...arguments);
 
-  layoutAlignClassName: computed('layoutAlign', function() {
-    return Str.dasherize(this.get('layoutAlign'));
-  })
+    // if the consumer didn't set layout classes, we should set them
+    // to the default (layout = row, layout align = end center)
+    let providedClasses = this.get('class');
+
+    if (!providedClasses || providedClasses.indexOf('layout-') === -1) {
+      this.set('defaultClasses', 'layout-row layout-align-end-center');
+    }
+  }
 });
