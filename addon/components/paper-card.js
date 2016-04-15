@@ -1,7 +1,8 @@
 import Ember from 'ember';
-import FlexMixin from '../mixins/flex-mixin';
 
-export default Ember.Component.extend(FlexMixin, {
+const { Component } = Ember;
+
+export default Component.extend({
   tagName: 'md-card',
   classNames: ['paper-card']
 });
