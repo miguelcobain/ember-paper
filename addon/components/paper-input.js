@@ -15,14 +15,25 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   inputElementId: Ember.computed('elementId', function() {
     return 'input-' + this.get('elementId');
   }),
-  isInvalid: Ember.computed('isTouched', 'value', function() {
-    return this.validate();
+  isInvalid: Ember.computed('hasAppliedErrors', 'isTouched', 'value', function() {
+    return this.get('hasAppliedErrors') || this.validate();
   }),
   renderCharCount: Ember.computed('value', function() {
     var currentLength = this.get('value') ? this.get('value').length : 0;
     return currentLength + '/' + this.get('maxlength');
   }),
   iconFloat: Ember.computed.and('icon', 'label'),
+
+  // Set to display errors from server or other client side validation framework (ember-validations)
+  // Expects array of JavaScript objects. Objects must respond to a 'message' property.
+  errors: [],
+  hasAppliedErrors: Ember.computed.notEmpty('errors'),
+  _setAppliedError: Ember.on('init', Ember.observer('hasAppliedErrors', function() {
+    var errors = this.get('errors');
+    if(this.get('hasAppliedErrors')) {
+      this.set('errortext', errors.map( (item) => { return item.message; }).join(', ') );
+    }
+  })),
 
   didInsertElement() {
     if (this.get('textarea')) {

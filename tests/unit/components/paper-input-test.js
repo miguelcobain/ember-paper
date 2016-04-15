@@ -63,6 +63,21 @@ test('it does not set isInvalid when required is true, text has no value and isT
   assert.equal(component.get('isInvalid'), false, 'isInvalid is true');
 });
 
+test('it sets isInvalid when it is otherwise valid and the errors input is set', function(assert) {
+  assert.expect(2);
+  var component = this.subject();
+  component.set('required', true);
+  component.set('value', '');
+  component.set('isTouched', false);
+
+  // verify it is otherwise valid
+  assert.equal(component.get('isInvalid'), false, 'isInvalid is true');
+
+  // set the errors input property
+  component.set('errors', [{message: 'some custom error message'}]);
+  assert.equal(component.get('isInvalid'), true, 'isInvalid is false when the errors input is set');
+});
+
 test('it adds md-input-invalid css class when isInvalid', function(assert) {
   assert.expect(2);
   var inputGroup,
@@ -91,6 +106,28 @@ test('it sets error text when isInvalid', function(assert) {
   component.set('value', '');
   component.set('errorText', expectedError);
   component.set('isTouched', true);
+
+  this.render();
+
+  inputGroup = document.getElementsByTagName('md-input-container');
+
+  assert.equal(inputGroup.length === 1, true);
+
+  errorDiv = document.getElementById('error-input-' + inputGroup[0].id);
+
+  assert.equal(errorDiv.innerHTML, expectedError, 'Error text does not equal ' + expectedError);
+});
+
+test('it sets error text when errors input is set', function(assert) {
+  assert.expect(2);
+  var inputGroup,
+      errorDiv,
+      expectedError = 'A custom error message',
+      component = this.subject();
+
+  component.set('value', '');
+  component.set('isTouched', true);
+  component.set('errors', [{message: expectedError}]);
 
   this.render();
 
