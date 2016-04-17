@@ -18,7 +18,7 @@ $input-error-height: 24px !default;
 $icon-offset : 36px !default;
 
 $icon-float-top: -16px !default;
-$icon-float-focused-top: -8px !default;
+$icon-float-focused-top: $icon-float-top !default;
 
 md-input-container {
   display: flex;
