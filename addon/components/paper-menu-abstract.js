@@ -61,8 +61,9 @@ export default Component.extend({
 
   didReceiveAttrs() {
     Ember.run.scheduleOnce('afterRender', () => {
-      if (this.get('activeWrapper')) {
-        this.positionMenu(this.get('activeWrapper').$());
+      let wrapper = this.get('activeWrapper');
+      if (wrapper && !wrapper.get('isDestroyed') && !wrapper.get('isDestroying')) {
+        this.positionMenu(wrapper.$());
       }
     });
   },
