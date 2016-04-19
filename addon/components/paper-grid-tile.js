@@ -21,7 +21,6 @@ export default Ember.Component.extend({
     this._super(...arguments);
 
     this.get('gridList').send('invalidateLayout');
-
   },
 
   gridList: Ember.computed(function() {
@@ -30,9 +29,9 @@ export default Ember.Component.extend({
 
   _watchResponsiveAttributes(attrNames, watchFn) {
 
-    const checkObserverValues = (sender, key) => {
-      const oldValue = this.get(`old${key}`),
-            newValue = sender.get(key);
+    let checkObserverValues = (sender, key) => {
+      let oldValue = this.get(`old${key}`);
+      let newValue = sender.get(key);
 
       if (oldValue !== newValue) {
         watchFn();
@@ -41,15 +40,15 @@ export default Ember.Component.extend({
 
     attrNames.forEach((attrName) => {
       if (Ember.get(this, attrName)) {
-        this.set('old' + attrName, Ember.get(this, attrName));
+        this.set(`old${attrName}`, Ember.get(this, attrName));
 
         this.addObserver(attrName, checkObserverValues);
       }
 
-      for (var mediaName in this.get('constants.MEDIA')) {
-        var normalizedName = attrName + '-' + mediaName;
+      for (let mediaName in this.get('constants.MEDIA')) {
+        let normalizedName = `${attrName}-${mediaName}`;
         if (Ember.get(this, normalizedName)) {
-          this.set('old' + normalizedName, Ember.get(this, normalizedName));
+          this.set(`old${normalizedName}`, Ember.get(this, normalizedName));
 
           this.addObserver(normalizedName, checkObserverValues);
         }
@@ -57,6 +56,5 @@ export default Ember.Component.extend({
 
     });
   }
-
 
 });

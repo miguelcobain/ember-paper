@@ -1,86 +1,89 @@
 import Ember from 'ember';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+const { inject, computed, Component, isPresent } = Ember;
 
 function makeTransform(value) {
-  var scale = value / 100;
-  var translateX = (value - 100) / 2;
-  return 'translateX(' + translateX.toString() + '%) scale(' + scale.toString() + ', 1)';
+  let scale = value / 100;
+  let translateX = (value - 100) / 2;
+  return `translateX(${translateX.toString()}%) scale(${scale.toString()}, 1)`;
 }
 
-export default Ember.Component.extend(ColorMixin, {
+const MODE_DETERMINATE = 'determinate';
+const MODE_INDETERMINATE = 'indeterminate';
+const MODE_BUFFER = 'buffer';
+const MODE_QUERY = 'query';
+
+export default Component.extend(ColorMixin, {
   tagName: 'md-progress-linear',
 
-  attributeBindings: ['mode:md-mode', 'buffer-value:md-buffer-value'],
+  attributeBindings: ['mode:md-mode', 'bufferValue:md-buffer-value'],
   classNames: ['md-default-theme'],
 
-  constants: Ember.inject.service(),
+  constants: inject.service(),
 
   init() {
     this._super(...arguments);
     this.setupTransforms();
   },
 
-  mode: Ember.computed('value', function() {
-    var value = this.get('value');
-    var bufferValue = this.get('buffer-value');
+  mode: computed('value', function() {
+    let value = this.get('value');
+    let bufferValue = this.get('bufferValue');
 
-    if (Ember.isPresent(value)) {
-      if (Ember.isPresent(bufferValue)) {
-        return 'buffer';
+    if (isPresent(value)) {
+      if (isPresent(bufferValue)) {
+        return MODE_BUFFER;
       } else {
-        return 'determinate';
+        return MODE_DETERMINATE;
       }
     } else {
-      return 'indeterminate';
+      return MODE_INDETERMINATE;
+    }
+  }),
+
+  queryModeClass: computed('mode', function() {
+    let mode = this.get('mode');
+
+    switch (mode) {
+      case MODE_QUERY:
+      case MODE_BUFFER:
+      case MODE_DETERMINATE:
+      case MODE_INDETERMINATE:
+        return `md-mode-${mode}`;
+      default:
+        return '';
     }
   }),
 
   transforms: new Array(101),
 
   setupTransforms() {
-    for (var i = 0; i < 101; i++) {
+    for (let i = 0; i < 101; i++) {
       this.transforms[i] = makeTransform(i);
     }
   },
 
-  bar1Style: Ember.computed('clampedBufferValue', function() {
-    return new Ember.Handlebars.SafeString(this.get('constants.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedBufferValue')]);
+  bar1Style: computed('clampedBufferValue', function() {
+    return Ember.String.htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedBufferValue')]}`);
   }),
 
-  bar2Style: Ember.computed('clampedValue', function() {
+  bar2Style: computed('clampedValue', function() {
 
-    if (this.get('mode') === 'query') {
-      return new Ember.Handlebars.SafeString('');
+    if (this.get('mode') === MODE_QUERY) {
+      return Ember.String.htmlSafe('');
     }
 
-    return new Ember.Handlebars.SafeString(this.get('constants.CSS.TRANSFORM') + ': ' + this.transforms[this.get('clampedValue')]);
+    return Ember.String.htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedValue')]}`);
   }),
 
-  clampedValue: Ember.computed('value', function() {
-
-    var value = this.get('value');
-    if (value > 100) {
-      return 100;
-    }
-
-    if (value < 0) {
-      return 0;
-    }
-
-    return Math.ceil(value || 0);
+  clampedValue: computed('value', function() {
+    let value = this.get('value');
+    return Math.max(0, Math.min(value || 0, 100));
   }),
 
-  clampedBufferValue: Ember.computed('buffer-value', function() {
-    var value = this.get('buffer-value');
-    if (value > 100) {
-      return 100;
-    }
-
-    if (value < 0) {
-      return 0;
-    }
-
-    return Math.ceil(value || 0);
+  clampedBufferValue: computed('bufferValue', function() {
+    let value = this.get('bufferValue');
+    return Math.max(0, Math.min(value || 0, 100));
   })
 
 });

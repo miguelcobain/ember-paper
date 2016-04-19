@@ -10,7 +10,7 @@ test('it renders', function(assert) {
   assert.expect(2);
 
   // Creates the component instance
-  var component = this.subject();
+  let component = this.subject();
   assert.equal(component._state, 'preRender');
 
   // Renders the component to the page
@@ -22,9 +22,9 @@ test('it sets correct label when lookupKey is defined', function(assert) {
   assert.expect(1);
 
   // Creates the component instance
-  var component = this.subject({
+  let component = this.subject({
     lookupKey: 'name',
-    item: {id: 2, name: 'Blah Test'},
+    item: { id: 2, name: 'Blah Test' }
   });
 
   assert.equal(component.get('label'), 'Blah Test');
@@ -35,7 +35,7 @@ test('it sets correct label when lookupKey is NOT defined', function(assert) {
   assert.expect(1);
 
   // Creates the component instance
-  var component = this.subject({
+  let component = this.subject({
     item: 'Blah Test'
   });
 
@@ -47,7 +47,7 @@ test('it sets isSelected when index is equal to selectedIndex', function(assert)
   assert.expect(1);
 
   // Creates the component instance
-  var component = this.subject({
+  let component = this.subject({
     index: 23,
     selectedIndex: 23
   });
@@ -56,20 +56,19 @@ test('it sets isSelected when index is equal to selectedIndex', function(assert)
 
 });
 
-
 test('trigger external action when item is clicked', function(assert) {
   assert.expect(1);
 
-  var item = {name: "test"};
+  let item = { name: 'test' };
 
-  var component = this.subject({
-    item: item,
+  let component = this.subject({
+    item,
     lookupKey: 'name'
   });
   this.$();
 
-  var targetObject = {
-    externalAction: function(item2) {
+  let targetObject = {
+    externalAction(item2) {
       // we have the assertion here which will be
       // called when the action is triggered
       assert.equal(item, item2, 'external Action was called and item received was correct.');

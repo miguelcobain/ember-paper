@@ -1,14 +1,48 @@
 # Ember Paper Changelog
 
-### master
-- [#322](https://github.com/miguelcobain/ember-paper/pull/322) Remove documentation for searchTest in inverse block for `{{paper-autocomplete}}`.
-- [#323](https://github.com/miguelcobain/ember-paper/pull/323) Pass item through as expected rather than label to itemComponent for `{{paper-autocomplete}}`.
+### 1.0.0
 
-### 0.2.12
+#### Migrating from releases prior to 1.0
 
-- [#307](https://github.com/miguelcobain/ember-paper/pull/307) Add paper-card title components
-- [#283](https://github.com/miguelcobain/ember-paper/pull/283) Adds support for `fullTextSearch` attribute on `{{paper-autocomplete}}`. Enables passing Promises to the `model` attribute on `{{paper-autocomplete}}`. Docs updated.
-- [#311](https://github.com/miguelcobain/ember-paper/pull/311) Fixed issue with `paper-wormhole` div in `<head>` tag.
+Version 1.0 introduces many API changes relative to previous releases. In addition to the specific changelog listing below, the follow general changes have been made. Note that during the development of 1.0, the `wip/v1.0.0` branch reflects the most up-to-date version, with a mixture of updated and to-be-updated components.
+
+Contributions and pull requests are always welcome. Contributors may often be found on the slack.com #e-paper channel. Building the dummy application by installing `ember-paper` as if it were an application will provide you an up-to-date interactive demo, templates, and code samples.
+
+- Attributes are now `camelCased` rather than `kebob-cased`.
+- Components which accept user input, such as `paper-input`, `paper-checkbox`, and `paper-select` now receive their input via the one-way `value` attribute and notify of a changed value by the `onChange` actions.
+- When provided by the API, `onChange` actions are required and throw an assertion if not provided.
+- Actions maybe be specified by a string action name (`onChange="updateValue"`) or an action closure (`onChange=(action (mut "myValue"))`). If you need to specify a target or additional parameter, you must use an action closure.
+- Many attributes have been renamed for clarity and consistency. See the specific changes below.
+
+#### 1.0.0 specific changes
+- [1a9b641](https://github.com/miguelcobain/ember-paper/commit/1a9b6411a8ca30f3e9440d8585dc0f1ff4ff7649) paper-progress-circular now uses `diameter` instead of `md-diameter`
+- [cf2a8da](https://github.com/miguelcobain/ember-paper/commit/cf2a8da350ea805e11eef36914ae76213b4c9f24) paper-progress-linear now uses `bufferValue` instead of `buffer-value`
+- [#285](https://github.com/miguelcobain/ember-paper/pull/285) paper-checkbox now uses *actions up, data down*. `onChange` action is mandatory.
+- [#286](https://github.com/miguelcobain/ember-paper/pull/286) paper-radio no longer has the class `paper-radio`
+- [#286](https://github.com/miguelcobain/ember-paper/pull/286) paper-radio now uses `groupValue` instead of `selected`
+- [#286](https://github.com/miguelcobain/ember-paper/pull/286) paper-radio now sends the action `onChange` instead of `changed` and it is mandatory (see ddau)
+- [#303](https://github.com/miguelcobain/ember-paper/pull/303) paper-menu template may now specify `dense=true` to display menu items compactly
+- [#313](https://github.com/miguelcobain/ember-paper/pull/313) paper-backdrop `tap` action renamed `onTap` and required action closure.
+- [#326](https://github.com/miguelcobain/ember-paper/pull/319)
+  - paper-input now uses a passThru hash rather than individual attr-xxx attributes to pass attribute binds through to the underlying input.
+  - The required attribute can now be used to mean native validation, required label styling with an asterisk, and/or native html5 required validation.
+  - paper-input now uses `customValidations` instead of `customValidation`. customValidations has a new format.
+  - the error messages can now be overriden by specifiying `errorMessages=(hash required="new message")`
+  - first validation message now has suffix `-0` in its id
+  - paper-checkbox now uses *actions up, data down*. `onChange` action is mandatory.
+- [#324](https://github.com/miguelcobain/ember-paper/pull/324)
+  - paper-button now uses `iconButton` instead of `icon-button`
+  - paper-button now uses the action `onClick` instead of `action`
+- [#334](https://github.com/miguelcobain/ember-paper/pull/334)
+  - paper-menu-item now uses action `onClick` instead of `action`.
+  - paper-item now uses action `onClick` instead of `action`.
+  - paper-menu now uses `value` instead of `model`.
+  - paper-checkbox now uses `value` instead of `checked`.
+  - paper-switch now uses `value` instead of `checked`.
+  - paper-select now uses a required `onChange` action.
+  - paper-select now uses attribute `itemLabelCallback` instead of `item-label-callback`.
+  - paper-select now uses attribute `getItems` instead of `on-open`.
+  - paper-menu now uses attribute `isOpen` instead of `is-open`.
 
 ### 0.2.11
 

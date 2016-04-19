@@ -3,203 +3,193 @@ import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
+import requiredValidator from 'ember-paper/validators/required';
+import minValidator from 'ember-paper/validators/min';
+import maxValidator from 'ember-paper/validators/max';
+import minlengthValidator from 'ember-paper/validators/minlength';
+import maxlengthValidator from 'ember-paper/validators/maxlength';
+
+const { $, computed, isArray, isEmpty, Logger, A, run, assert, get } = Ember;
+
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
-  classNameBindings: ['hasValue:md-input-has-value', 'focus:md-input-focused', 'isInvalid:md-input-invalid', 'iconFloat:md-icon-float'],
+  classNameBindings: [
+    'hasValue:md-input-has-value',
+    'isInvalid:md-input-invalid',
+    'eitherIcon:md-has-icon',
+    'iconRight:md-icon-right',
+    'focused:md-input-focused',
+    'block:md-block'
+  ],
   type: 'text',
   autofocus: false,
-  tabindex: -1,
+  tabindex: null,
   hideAllMessages: false,
-  hasValue: Ember.computed.notEmpty('value'),
-  inputElementId: Ember.computed('elementId', function() {
-    return 'input-' + this.get('elementId');
-  }),
-  isInvalid: Ember.computed('isTouched', 'value', function() {
-    return this.validate();
-  }),
-  renderCharCount: Ember.computed('value', function() {
-    var currentLength = this.get('value') ? this.get('value').length : 0;
-    return currentLength + '/' + this.get('maxlength');
-  }),
-  iconFloat: Ember.computed.and('icon', 'label'),
+  isTouched: false,
 
-  didInsertElement() {
-    if (this.get('textarea')) {
-      this.setupTextarea();
-    }
+  hasValue: computed('value', 'isNativeInvalid', function() {
+    let value = this.get('value');
+    let isNativeInvalid = this.get('isNativeInvalid');
+    return !isEmpty(value) || isNativeInvalid;
+  }),
+
+  inputElementId: computed('elementId', function() {
+    return `input-${this.get('elementId')}`;
+  }),
+
+  isInvalid: computed('isTouched', 'validationErrorMessages.length', 'isNativeInvalid', function() {
+    return this.get('isTouched') && (this.get('validationErrorMessages.length') || this.get('isNativeInvalid'));
+  }),
+
+  renderCharCount: computed('value', function() {
+    let currentLength = this.get('value') ? this.get('value').length : 0;
+    return `${currentLength}/${this.get('maxlength')}`;
+  }),
+
+  eitherIcon: computed.or('icon', 'iconRight'),
+
+  /**
+   * Return the built-in validations.
+   *
+   * May be overridden to provide additional built-in validations. Be sure to
+   * call this._super() to retrieve the standard validations.
+   *
+   * @public
+   */
+  validations() {
+    return [
+      requiredValidator,
+      minValidator,
+      maxValidator,
+      minlengthValidator,
+      maxlengthValidator
+    ];
   },
 
-  setupTextarea() {
-    var textarea = this.$().children('textarea').first(),
-    textareaNode = textarea[0],
-    container = this.get('element'),
-    minRows = NaN,
-    lineHeight = null;
+  customValidations: [],
+  errors: [],
 
-    if (textareaNode.hasAttribute('rows')) {
-      minRows = parseInt(textareaNode.getAttribute('rows'));
-    }
+  /**
+   * Computed property that validate the input and return an array of error
+   * objects, each with an ng-message code and an error message.
+   *
+   * @public
+   */
+  validationErrorMessages: computed('value', 'errors.[]', 'customValidations.[]', function() {
+    let validations = A();
+    let messages = A();
 
-    textarea.on('keydown input', () => {
-      this.growTextarea(textarea, textareaNode, container, minRows, lineHeight);
+    // built-in validations
+    validations.pushObjects(this.validations());
+
+    // custom validations
+    let customValidations = this.get('customValidations');
+    assert('`customValidations` must be an array', isArray(customValidations));
+    validations.pushObjects(customValidations);
+
+    // execute validations
+    let currentValue = this.get('value');
+    validations.forEach((validation) => {
+      assert('validation must include an `validate(value)` function', validation && validation.validate && typeof validation.validate === 'function');
+      try {
+        let valParam = get(validation, 'param');
+        let paramValue = valParam ? this.get(valParam) : undefined;
+        if (!validation.validate(currentValue, paramValue)) {
+          let message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
+          messages.pushObject({
+            message: Ember.String.loc(message, paramValue, currentValue)
+          });
+        }
+      } catch (error) {
+        Logger.error('Exception with validation: ', validation, error);
+      }
     });
 
-    if (isNaN(minRows)) {
-      textarea.attr('rows','1');
+    // error messages array
+    let errors = this.get('errors');
+    assert('`errors` must be an array', isArray(errors));
+    messages.pushObjects(errors.map((e) => {
+      return get(e, 'message') ? e : { message: e };
+    }));
 
-      textarea.on('scroll', () => {
-        this.onScroll(textareaNode);
-      });
+    return messages;
+  }),
+
+  // Lifecycle hooks
+  didReceiveAttrs() {
+    this._super(...arguments);
+    assert('{{paper-input}} and {{paper-select}} require an `onChange` action.', !!this.get('onChange'));
+  },
+
+  didInsertElement() {
+    this._super(...arguments);
+    if (this.get('textarea')) {
+      $(window).on(`resize.${this.elementId}`, run.bind(this, this.growTextarea));
     }
-
-    Ember.$(window).on('resize', this.growTextarea(textarea, textareaNode, container, minRows, lineHeight));
   },
 
-  growTextarea(textarea, textareaNode, container, minRows, lineHeight) {
-    // sets the md-input-container height to avoid jumping around
-    container.style.height = container.offsetHeight+'px';
-
-    // temporarily disables element's flex so its height 'runs free'
-    textarea.addClass('md-no-flex');
-
-    if(isNaN(minRows)) {
-      textareaNode.style.height = "auto";
-      textareaNode.scrollTop = 0;
-      var height = this.getHeight(textareaNode);
-      if (height) {
-        textareaNode.style.height = height + 'px';
-      }
-    } else {
-      textareaNode.setAttribute("rows", 1);
-
-      if(!lineHeight) {
-        textareaNode.style.minHeight = '0';
-
-        lineHeight = textarea.prop('clientHeight');
-
-        textareaNode.style.minHeight = null;
-      }
-
-      var rows = Math.max(minRows, Math.round(textareaNode.scrollHeight / lineHeight));
-      textareaNode.setAttribute("rows", rows);
-    }
-
-    // reset everything back to normal
-    textarea.removeClass('md-no-flex');
-    container.style.height = 'auto';
-  },
-
-  getHeight(node) {
-    var line = node.scrollHeight - node.offsetHeight;
-    return node.offsetHeight + (line > 0 ? line : 0);
-  },
-
-  onScroll(node) {
-    node.scrollTop = 0;
-    // for smooth new line adding
-    var line = node.scrollHeight - node.offsetHeight;
-    var height = node.offsetHeight + line;
-    node.style.height = height + 'px';
+  didRender() {
+    this.growTextarea();
   },
 
   willDestroyElement() {
-    Ember.$(window).off('resize', this.growTextarea);
+    if (this.get('textarea')) {
+      $(window).off(`resize.${this.elementId}`);
+    }
   },
 
-  validate() {
+  growTextarea() {
+    if (this.get('textarea')) {
+      let inputElement = this.$('input, textarea');
+      inputElement.addClass('md-no-flex').attr('rows', 1);
 
-    if (!this.get('isTouched')) {
-      return false;
-    }
+      let minRows = this.get('passThru.rows');
 
-    var valueIsInvalid = false;
-    var currentValue = this.get('value');
-    var constraints = [
-      {
-        attr: 'required',
-        defaultError: 'This is required.',
-        isError: () => this.get('required') && !this.get('hasValue')
-      },
-      {
-        attr: 'min',
-        defaultError: 'Must be at least ' + this.get('min') + '.',
-        isError: () => +currentValue < +this.get('min')
-      },
-      {
-        attr: 'max',
-        defaultError: 'Must be less than ' + this.get('max') + '.',
-        isError: () => +currentValue > +this.get('max')
-      },
-      {
-        attr: 'maxlength',
-        defaultError: 'Must not exceed ' + this.get('maxlength') + ' characters.',
-        isError: () => currentValue && currentValue.length > +this.get('maxlength')
-      }
-    ];
-
-    constraints.some(thisConstraint => {
-      if(thisConstraint.isError()) {
-        this.setError(thisConstraint);
-        valueIsInvalid = true;
-        return true;
-      }
-    });
-
-    if (valueIsInvalid === true) {
-      return true;
-    }
-
-    if (!Ember.isEmpty(this.get('customValidation'))) {
-      var validationObjects = Ember.A();
-      var self = this;
-      var validationObjectsLength;
-
-      try {
-        if (!Ember.isArray(this.get('customValidation'))) {
-          validationObjects.addObject(this.get('customValidation'));
-        } else {
-          validationObjects = this.get('customValidation');
+      if (minRows) {
+        if (!this.lineHeight) {
+          inputElement.get(0).style.minHeight = 0;
+          this.lineHeight = inputElement.get(0).clientHeight;
+          inputElement.get(0).style.minHeight = null;
         }
 
-        validationObjectsLength = validationObjects.length;
-        for (var i = 0; i < validationObjectsLength; i++) {
-          if (typeof validationObjects[i].isError === 'function') {
-            if (validationObjects[i].isError.apply(null, [currentValue]) === true) {
-              self.setError(validationObjects[i]);
-              valueIsInvalid = true;
-              break;
-            }
-          }
+        let newRows = Math.round(Math.round(this.getHeight(inputElement) / this.lineHeight));
+        let rowsToSet = Math.min(newRows, minRows);
+
+        inputElement
+          .css('height', `${this.lineHeight * rowsToSet}px`)
+          .attr('rows', rowsToSet)
+          .toggleClass('md-textarea-scrollable', newRows >= minRows);
+      } else {
+        inputElement.css('height', 'auto');
+        inputElement.get(0).scrollTop = 0;
+        let height = this.getHeight(inputElement);
+        if (height) {
+          inputElement.css('height', `${height}px`);
         }
-      } catch (error) {
-        Ember.Logger.error('Exception with custom validation: ', error);
       }
 
+      inputElement.removeClass('md-no-flex');
     }
-
-    return valueIsInvalid;
   },
 
-  setError(constraint) {
-    this.set('ng-message', constraint.attr || 'custom');
-    this.set('errortext', this.get(constraint.attr + '-errortext') || constraint.defaultError || constraint.errorMessage);
+  getHeight(inputElement) {
+    let { offsetHeight } = inputElement.get(0);
+    let line = inputElement.get(0).scrollHeight - offsetHeight;
+    return offsetHeight + (line > 0 ? line : 0);
   },
 
   actions: {
-    focusIn(value) {
-      // We resend action so other components can take use of the actions also ( if they want ).
-      // Actions must be sent before focusing.
-      this.sendAction('focus-in', value);
-      this.set('focus',true);
+    handleInput(e) {
+      this.sendAction('onChange', e.target.value);
+      this.growTextarea();
+      let inputElement = this.$('input').get(0);
+      this.set('isNativeInvalid', inputElement && inputElement.validity && inputElement.validity.badInput);
     },
-    focusOut(value) {
-      this.sendAction('focus-out', value);
-      this.set('focus',false);
+
+    handleBlur(e) {
+      this.sendAction('onBlur', e);
       this.set('isTouched', true);
-    },
-    keyDown(value, event) {
-      this.sendAction('key-down', value, event);
     }
   }
 });

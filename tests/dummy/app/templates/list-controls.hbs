@@ -1,7 +1,7 @@
 {{#paper-toolbar}}
     <div class="md-toolbar-tools">
       {{#paper-sidenav-toggle as |toggle|}}
-        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
+        {{#paper-button onClick=(action "toggleMenu" target=toggle) iconButton=true}}{{paper-icon "menu"}}{{/paper-button}}
       {{/paper-sidenav-toggle}}
         <span class="md-breadcrumb-page">List Controls</span>
     </div>
@@ -15,32 +15,32 @@
 
         {{#paper-item}}
           <p>Checkbox 1</p>
-          {{paper-checkbox class="md-secondary" checked=checkboxEnabled1}}
+          {{paper-checkbox class="md-secondary" value=checkboxEnabled1 onChange=(action (mut checkboxEnabled1))}}
         {{/paper-item}}
 
         {{#paper-item}}
           <p>Checkbox 2</p>
-          {{paper-checkbox class="md-secondary" checked=checkboxEnabled2}}
+          {{paper-checkbox class="md-secondary" value=checkboxEnabled2 onChange=(action (mut checkboxEnabled2))}}
         {{/paper-item}}
 
         {{paper-divider}}
 
         {{#paper-subheader class="md-no-sticky"}}Clickable Items with Secondary Controls{{/paper-subheader}}
 
-        {{#paper-item action="transitionToWifiMenu"}}
-          {{paper-icon "network-wifi"}}
+        {{#paper-item onClick="transitionToWifiMenu"}}
+          {{paper-icon "network_wifi"}}
           <p>Wi-Fi</p>
-          {{paper-switch class="md-secondary" checked=wifiEnabled}}
+          {{paper-switch class="md-secondary" value=wifiEnabled onChange=(action (mut wifiEnabled))}}
         {{/paper-item}}
 
-        {{#paper-item action="transitionToBluetoothMenu"}}
+        {{#paper-item onClick="transitionToBluetoothMenu"}}
           {{paper-icon "bluetooth"}}
           <p>Bluetooth</p>
-          {{paper-switch class="md-secondary" checked=bluetoothEnabled}}
+          {{paper-switch class="md-secondary" value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
         {{/paper-item}}
 
-        {{#paper-item action="transitionToDataUsage"}}
-          {{paper-icon "data-usage"}}
+        {{#paper-item onClick="transitionToDataUsage"}}
+          {{paper-icon "data_usage"}}
           <p>Data Usage</p>
         {{/paper-item}}
 
@@ -50,9 +50,9 @@
 
         {{#each messageData as |item|}}
           {{#paper-item}}
-            {{#paper-checkbox}}{{/paper-checkbox}}
+            {{#paper-checkbox value=item.checked onChange=(action (mut item.checked))}}{{/paper-checkbox}}
             <p>{{item.message}}</p>
-            {{#paper-button icon-button=true param=item action="secondaryMessageClick"}}
+            {{#paper-button iconButton=true onClick=(action "secondaryMessageClick" item)}}
               {{paper-icon "message"}}
             {{/paper-button}}
           {{/paper-item}}
@@ -63,7 +63,7 @@
         {{#paper-subheader class="md-no-sticky"}}Clickable Avatars{{/paper-subheader}}
 
         {{#each listData as |item|}}
-          {{#paper-item class="md-3-line" param=item action="goToPerson"}}
+          {{#paper-item class="md-3-line" onClick=("goToPerson" item)}}
               <img src={{item.face}} alt={{item.who}} class="md-avatar">
               <div class="md-list-item-text">
                 <h3>{{item.what}}</h3>
@@ -78,14 +78,14 @@
         {{#paper-subheader class="md-no-sticky"}}Avatar with Secondary Action Icon{{/paper-subheader}}
 
         {{#each listData as |item|}}
-          {{#paper-item class="md-3-line" param=item action="goToPerson"}}
+          {{#paper-item class="md-3-line" onClick=(action "goToPerson" item)}}
               <img src={{item.face}} alt={{item.who}} class="md-avatar">
               <div class="md-list-item-text">
                 <h3>{{item.what}}</h3>
                 <h4>{{item.who}}</h4>
                 <p>{{item.notes}}</p>
               </div>
-              {{#paper-button icon-button=true param=item action="secondaryPersonClick"}}
+              {{#paper-button iconButton=true onClick=(action "secondaryPersonClick" item)}}
                 {{paper-icon "phone"}}
               {{/paper-button}}
           {{/paper-item}}
@@ -103,32 +103,32 @@
 
     \{{#paper-item}}
       &lt;p&gt;Checkbox 1&lt;/p&gt;
-      \{{paper-checkbox class="md-secondary" checked=checkboxEnabled1}}
+      \{{paper-checkbox class="md-secondary" value=checkboxEnabled1}}
     \{{/paper-item}}
 
     \{{#paper-item}}
       &lt;p&gt;Checkbox 2&lt;/p&gt;
-      \{{paper-checkbox class="md-secondary" checked=checkboxEnabled2}}
+      \{{paper-checkbox class="md-secondary" value=checkboxEnabled2}}
     \{{/paper-item}}
 
     \{{paper-divider}}
 
     \{{#paper-subheader class="md-no-sticky"}}Clickable Items with Secondary Controls\{{/paper-subheader}}
 
-    \{{#paper-item action="transitionToWifiMenu"}}
-      \{{paper-icon "network-wifi"}}
+    \{{#paper-item onClick="transitionToWifiMenu"}}
+      \{{paper-icon "network_wifi"}}
       &lt;p&gt;Wi-Fi&lt;/p&gt;
-      \{{paper-switch class="md-secondary" checked=wifiEnabled}}
+      \{{paper-switch class="md-secondary" value=wifiEnabled}}
     \{{/paper-item}}
 
-    \{{#paper-item action="transitionToBluetoothMenu"}}
+    \{{#paper-item onClick="transitionToBluetoothMenu"}}
       \{{paper-icon "bluetooth"}}
       &lt;p&gt;Bluetooth&lt;/p&gt;
-      \{{paper-switch class="md-secondary" checked=bluetoothEnabled}}
+      \{{paper-switch class="md-secondary" value=bluetoothEnabled}}
     \{{/paper-item}}
 
-    \{{#paper-item action="transitionToDataUsage"}}
-      \{{paper-icon "data-usage"}}
+    \{{#paper-item onClick="transitionToDataUsage"}}
+      \{{paper-icon "data_usage"}}
       &lt;p&gt;Data Usage&lt;/p&gt;
     \{{/paper-item}}
 
@@ -140,7 +140,7 @@
       \{{#paper-item}}
         \{{#paper-checkbox}}\{{/paper-checkbox}}
         &lt;p&gt;\{{item.message}}&lt;/p&gt;
-        \{{#paper-button icon-button=true param=item action="secondaryMessageClick"}}
+        \{{#paper-button iconButton=true onClick=(action "secondaryMessageClick" item)}}
           \{{paper-icon "message"}}
         \{{/paper-button}}
       \{{/paper-item}}
@@ -151,7 +151,7 @@
     \{{#paper-subheader class="md-no-sticky"}}Clickable Avatars\{{/paper-subheader}}
 
     \{{#each listData as |item|}}
-      \{{#paper-item class="md-3-line" param=item action="goToPerson"}}
+      \{{#paper-item class="md-3-line" onClick=(action "goToPerson" item)}}
           &lt;img src=\{{item.face}} alt=\{{item.who}} class="md-avatar"&gt;
           &lt;div class="md-list-item-text"&gt;
             &lt;h3&gt;\{{item.what}}&lt;/h3&gt;
@@ -166,14 +166,14 @@
     \{{#paper-subheader class="md-no-sticky"}}Avatar with Secondary Action Icon\{{/paper-subheader}}
 
     \{{#each listData as |item|}}
-      \{{#paper-item class="md-3-line" param=item action="goToPerson"}}
+      \{{#paper-item class="md-3-line" onClick=(action "goToPerson" item)}}
           &lt;img src=\{{item.face}} alt=\{{item.who}} class="md-avatar"&gt;
           &lt;div class="md-list-item-text"&gt;
             &lt;h3&gt;\{{item.what}}&lt;/h3&gt;
             &lt;h4&gt;\{{item.who}}&lt;/h4&gt;
             &lt;p&gt;\{{item.notes}}&lt;/p&gt;
           &lt;/div&gt;
-          \{{#paper-button icon-button=true param=item action="secondaryPersonClick"}}
+          \{{#paper-button iconButton=true onClick=(action "secondaryPersonClick" item)}}
             \{{paper-icon "phone"}}
           \{{/paper-button}}
       \{{/paper-item}}

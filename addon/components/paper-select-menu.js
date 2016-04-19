@@ -1,11 +1,9 @@
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
-var searchStr = '';
-var clearSearchTimeout, optNodes, optText;
-var CLEAR_SEARCH_AFTER = 300;
-
-
+let searchStr = '';
+let clearSearchTimeout, optNodes, optText;
+const CLEAR_SEARCH_AFTER = 300;
 
 export default Ember.Component.extend({
   tagName: 'md-select-menu',
@@ -13,15 +11,14 @@ export default Ember.Component.extend({
 
   constants: Ember.inject.service(),
 
-
   menuAbstract: Ember.computed(function() {
-    var container = this.nearestOfType(PaperMenuAbstract);
+    let container = this.nearestOfType(PaperMenuAbstract);
     return container;
   }),
 
   keyDown(ev) {
-    var KeyCodes = this.get('constants').KEYCODE;
-    switch(ev.keyCode) {
+    let KeyCodes = this.get('constants').KEYCODE;
+    switch (ev.keyCode) {
       case KeyCodes.get('TAB'):
       case KeyCodes.get('ESCAPE'):
         this.get('menuAbstract').send('toggleMenu');
@@ -34,7 +31,7 @@ export default Ember.Component.extend({
         break;
       default:
         if (ev.keyCode >= 31 && ev.keyCode <= 90) {
-          var optNode = this.optNodeForKeyboardSearch(ev);
+          let optNode = this.optNodeForKeyboardSearch(ev);
           this.get('menuAbstract').set('focusedNode', optNode || this.get('menuAbstract').get('focusedNode'));
           if (optNode) {
             optNode.focus();
@@ -42,7 +39,6 @@ export default Ember.Component.extend({
         }
     }
   },
-
 
   optNodeForKeyboardSearch(e) {
     if (clearSearchTimeout) {
@@ -55,7 +51,7 @@ export default Ember.Component.extend({
       optNodes = undefined;
     }, CLEAR_SEARCH_AFTER);
     searchStr += String.fromCharCode(e.keyCode);
-    var search = new RegExp('^' + searchStr, 'i');
+    let search = new RegExp(`^${searchStr}`, 'i');
     if (!optNodes) {
       optNodes = this.$().find('md-option');
       optText = new Array(optNodes.length);
@@ -63,19 +59,18 @@ export default Ember.Component.extend({
         optText[i] = el.textContent.trim();
       });
     }
-    for (var i = 0; i < optText.length; ++i) {
+    for (let i = 0; i < optText.length; ++i) {
       if (search.test(optText[i])) {
         return optNodes[i];
       }
     }
   },
 
-
   focusOption(direction) {
-    var optionsArray = this.$().find('md-option').toArray();
-    var index = optionsArray.indexOf(this.get('menuAbstract').get('focusedNode'));
+    let optionsArray = this.$().find('md-option').toArray();
+    let index = optionsArray.indexOf(this.get('menuAbstract').get('focusedNode'));
 
-    var newOption;
+    let newOption;
 
     do {
       if (index === -1) {

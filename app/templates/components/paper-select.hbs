@@ -1,11 +1,11 @@
 {{#if label}}
-  <label class={{if model 'md-static' 'md-placeholder'}} for={{inputElementId}}>{{label}}</label>
+  <label class={{if value 'md-static' 'md-placeholder'}} for={{inputElementId}}>{{label}}</label>
 {{/if}}
 
 {{#if icon}}
   {{paper-icon icon class=icon-class}}
 {{/if}}
 
-{{#paper-select-core placeholder=placeholder model=model disabled=disabled on-open=onOpen item-label-callback=itemLabelCallback as |items|}}
+{{#paper-select-core placeholder=placeholder value=value disabled=disabled getItems=getItems itemLabelCallback=itemLabelCallback as |items|}}
   {{yield items}}
 {{/paper-select-core}}

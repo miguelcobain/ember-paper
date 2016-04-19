@@ -1,7 +1,7 @@
 {{#paper-toolbar}}
     <div class="md-toolbar-tools">
       {{#paper-sidenav-toggle as |toggle|}}
-        {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
+        {{#paper-button onClick=(action "toggleMenu" target=toggle) iconButton=true}}{{paper-icon "menu"}}{{/paper-button}}
       {{/paper-sidenav-toggle}}
         <span class="md-breadcrumb-page">Card</span>
     </div>
@@ -10,22 +10,6 @@
 {{#paper-content class="md-padding"}}
 <div class="doc-content">
   {{#paper-content class="md-whiteframe-z1 list-demo"}}
-    {{#paper-card class="card-lg-media-demo"}}
-      {{#paper-card-title}}
-        {{#paper-card-title-text}}
-          <h2>Paracosm</h2>
-          <p>The titles of Washed Out's breakthrough song and the first single from Paracosm share the...</p>
-        {{/paper-card-title-text}}
-        {{#paper-card-title-media}}
-          <img class="md-media-lg" src="washedout.png">
-        {{/paper-card-title-media}}
-      {{/paper-card-title}}
-      <div class="md-actions" layout="row" layout-align="end center">
-        {{#paper-button}}Action 1{{/paper-button}}
-        {{#paper-button}}Action 2{{/paper-button}}
-      </div>
-    {{/paper-card}}
-
     {{#paper-card}}
       <img src="washedout.png" alt="Washed Out">
       {{#paper-card-content}}
@@ -74,23 +58,6 @@
 
 
   <h3>Template</h3>
-  {{#code-block language='handlebars'}}
-  \{{#paper-card}}
-    \{{#paper-card-title}}
-      \{{#paper-card-title-text}}
-        &lt;h2&gt;Paracosm&lt;/h2&gt;
-        &lt;p&gt;The titles of Washed Out's breakthrough song and the first single from Paracosm share the...&lt;/p&gt;
-      \{{/paper-card-title-text}}
-      \{{#paper-card-title-media}}
-        &lt;img class="md-media-lg" src="washedout.png"&gt;
-    \{{/paper-card-title-media}}
-    \{{/paper-card-title}}
-    &lt;div class="md-actions" layout="row" layout-align="end center"&gt;
-      \{{#paper-button}}Action 1\{{/paper-button}}
-      \{{#paper-button}}Action 2\{{/paper-button}}
-    &lt;/div&gt;
-  \{{/paper-card}}{{/code-block}}
-
   {{#code-block language='handlebars'}}
   \{{#paper-card}}
     &lt;img src="washedout.png" alt="Washed Out"&gt;

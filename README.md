@@ -17,7 +17,7 @@ This should also automatically create an scss file under `app/styles/app.scss` w
 Sass is an important part of Ember-paper. Using sass you can override default variables and easily change the default behavior of Ember-paper.
 
 All the components and styles are ready to use in your application templates.
-Navigate through the [docs](http://miguelcobain.github.io/ember-paper/) to understand how to use each component.
+Navigate through the docs to understand how to use each component.
 
 **Note** If upgrading from a previous version of ember-paper and you are seeing compile errors around `app.scss|sass` not existing, please make sure to remove `broccoli-sass` from your `package.json`, remove your `node_modules` and reinstall.
 
@@ -28,7 +28,8 @@ Ember Paper uses fonts from Google Fonts, so the URL to them has to be white lis
 ```js
 ENV.contentSecurityPolicy = {
   'default-src': "'none'",
-  'script-src': "'self'",
+  'script-src': "'self' 'unsafe-inline'",
+  'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
   'font-src': "'self' fonts.gstatic.com",
   'connect-src': "'self'",
   'img-src': "'self' data:",
@@ -68,7 +69,7 @@ If you need a component for your project which has not yet been migrated to vers
 
 - Building the `ember-paper` demo application will give you your own up-to-date reference. This can be accomplished by installing ember-paper as if it were an application and running `ember server`.
 
-- **Ready to help?** Install the version 1.0-focused `master` branch and read the CONTRIBUTING.md guide within.
+- **Ready to help?** Read our [Contributing Guide](CONTRIBUTING.md).
 
 ## Contributing
 

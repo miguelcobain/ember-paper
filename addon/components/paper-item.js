@@ -5,14 +5,11 @@ import ProxyMixin from 'ember-paper/mixins/proxy-mixin';
 export default Ember.Component.extend(RippleMixin, ProxyMixin, {
   tagName: 'md-list-item',
 
-  /* RippleMixin overrides */
+  // Ripple Overrides
+  rippleContainerSelector: '.md-no-style',
   center: false,
   dimBackground: true,
   outline: false,
-  isMenuItem: true,
-  fullRipple: true,
-  rippleContainerSelector: '.md-no-style',
-
   noink: Ember.computed.not('shouldBeClickable'),
 
   classNameBindings: ['shouldBeClickable:md-clickable', 'hasProxiedComponent:md-proxy-focus'],
@@ -22,31 +19,31 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
 
   hasProxiedComponent: Ember.computed.bool('proxiedComponents.length'),
 
-  hasSecondaryAction: Ember.computed('secondaryItem', 'action', function() {
-    var secondaryItem = this.get('secondaryItem');
-    return secondaryItem && (secondaryItem.action || (this.get('action') && this.isProxiedComponent(secondaryItem)));
+  hasSecondaryAction: Ember.computed('secondaryItem', 'onClick', function() {
+    let secondaryItem = this.get('secondaryItem');
+    return secondaryItem && (secondaryItem.action || (this.get('onClick') && this.isProxiedComponent(secondaryItem)));
   }),
 
   secondaryItem: Ember.computed('proxiedComponents.[]', function() {
-    var proxiedComponents = this.get('proxiedComponents');
+    let proxiedComponents = this.get('proxiedComponents');
     return proxiedComponents.find(function(component) {
       return component.classNames.indexOf('md-secondary') !== -1;
     });
   }),
 
-  shouldBeClickable: Ember.computed('proxiedComponents.length', 'action', function() {
-    return this.get('proxiedComponents.length') || this.get('action');
+  shouldBeClickable: Ember.computed('proxiedComponents.length', 'onClick', function() {
+    return this.get('proxiedComponents.length') || this.get('onClick');
   }),
 
   didInsertElement() {
     this._super(...arguments);
 
-    var _this = this,
-      tEl = this.$(),
-      proxies = this.get('proxiedComponents');
+    let _this = this;
+    let tEl = this.$();
+    let proxies = this.get('proxiedComponents');
 
-    //Secondary item has separate action.
-    //Unregister so we don't proxy it.
+    // Secondary item has separate action.
+    // Unregister so we don't proxy it.
     if (this.get('hasSecondaryAction')) {
       this.get('secondaryItem').set('bubbles', false);
       this.unregister(this.get('secondaryItem'));
@@ -54,7 +51,7 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
 
     // Allow proxied component to propagate ripple hammer event
     this.get('proxiedComponents').forEach(function(component) {
-      if (!component.get('action')) {
+      if (!component.get('onClick')) {
         component.set('propagateRipple', true);
       }
     });
@@ -65,12 +62,12 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
 
     if (this.get('hasProxiedComponent')) {
       proxies.forEach(function(view) {
-        var el = view.$();
+        let el = view.$();
 
         _this.mouseActive = false;
         el.on('mousedown', function() {
           _this.mouseActive = true;
-          Ember.run.later(function(){
+          Ember.run.later(function() {
             _this.mouseActive = false;
           }, 100);
         }).on('focus', function() {
@@ -86,11 +83,11 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
     }
 
     if (!this.get('shouldBeClickable')) {
-      let firstChild = tEl.find(">:first-child");
+      let firstChild = tEl.find('>:first-child');
       firstChild.on('keypress', function(e) {
-        var tagName = Ember.$(e.target).prop("tagName");
+        let tagName = Ember.$(e.target).prop('tagName');
         if (tagName !== 'INPUT' && tagName !== 'TEXTAREA') {
-          var keyCode = e.which || e.keyCode;
+          let keyCode = e.which || e.keyCode;
           if (keyCode === 32) {
             if (firstChild) {
               firstChild.click();
@@ -110,7 +107,7 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
           component.processProxy();
         }
       });
-      this.sendAction('action', this.get('param'));
+      this.sendAction('onClick');
     }
   }
 

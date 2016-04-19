@@ -9,7 +9,7 @@ export default Ember.Component.extend({
   closed: true,
   closeOnClick: true,
 
-  navContainer: Ember.computed(function () {
+  navContainer: Ember.computed(function() {
     return this.nearestOfType(PaperNavContainer);
   }),
 
@@ -18,15 +18,14 @@ export default Ember.Component.extend({
   tabindex: -1,
 
   _init: Ember.on('init', function() {
-    var _self = this;
-
+    let _self = this;
 
     if (this.get('navContainer')) {
       this.get('navContainer').set('sideBar', this);
     }
 
     this.matchMedia();
-    this.set('__resizeWindow', function () {
+    this.set('__resizeWindow', function() {
       _self.matchMedia();
     });
   }),
@@ -47,7 +46,7 @@ export default Ember.Component.extend({
   },
 
   matchMedia() {
-    var mediaQuery = this.get('constants').MEDIA[this.get('locked-open')];
+    let mediaQuery = this.get('constants').MEDIA[this.get('locked-open')];
     this.set('isLockedOpen', window.matchMedia(mediaQuery).matches);
     if (this.get('isLockedOpen')) {
       this.set('closed', true);
@@ -67,7 +66,7 @@ export default Ember.Component.extend({
       return;
     }
 
-    var _self = this;
+    let _self = this;
     Ember.run.next(function() {
       _self.set('closed', true);
     });

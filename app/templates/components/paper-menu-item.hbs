@@ -1,5 +1,5 @@
-{{#if action}}
-  {{#paper-button no-span=true action="action" disabled=disabled}}
+{{#if onClick}}
+  {{#paper-button onClick="handleClick" disabled=disabled}}
     {{yield}}
   {{/paper-button}}
 {{else}}

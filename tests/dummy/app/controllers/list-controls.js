@@ -37,23 +37,23 @@ export default Ember.Controller.extend({
   }]),
 
   actions: {
-    transitionToWifiMenu: function () {
-      alert("Imagine you transition to wifi settings here.");
+    transitionToWifiMenu() {
+      alert('Imagine you transition to wifi settings here.');
     },
-    transitionToBluetoothMenu: function () {
-      alert("Imagine you transition to Bluetooth settings here.");
+    transitionToBluetoothMenu() {
+      alert('Imagine you transition to Bluetooth settings here.');
     },
-    secondaryMessageClick: function () {
-      alert("Secondary actions can be used for one click actions.");
+    secondaryMessageClick() {
+      alert('Secondary actions can be used for one click actions.');
     },
-    goToPerson: function (person) {
-      alert("Imagine you transition to the person full view for '" + person.who + "' here.");
+    goToPerson(person) {
+      alert(`Imagine you transition to the person full view for '${person.who}' here.`);
     },
-    secondaryPersonClick: function (person) {
-      alert("'" + person.who + "'. Secondary actions can be used for one click actions.");
+    secondaryPersonClick(person) {
+      alert(`'${person.who}'. Secondary actions can be used for one click actions.`);
     },
-    transitionToDataUsage: function () {
-      alert("Imagine you would be taken to data-usage.");
+    transitionToDataUsage() {
+      alert('Imagine you would be taken to data-usage.');
     }
   }
 

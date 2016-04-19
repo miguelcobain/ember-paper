@@ -1,27 +1,29 @@
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
-export default Ember.Component.extend({
+const { $, Component, inject: { service }, run: { later } } = Ember;
+
+export default Component.extend({
   tagName: 'md-menu-content',
 
-  constants: Ember.inject.service(),
+  constants: service(),
 
   classNames: ['md-default-theme'],
+  classNameBindings: ['dense:md-dense'],
   attributeBindings: ['width'],
   width: 4,
+  dense: false,
 
-
-  menuAbstract: Ember.computed(function() {
-    var container = this.nearestOfType(PaperMenuAbstract);
-    return container;
-  }),
-
-
+  // menuAbstract: Ember.computed(function() {
+  //   let container = this.nearestOfType(PaperMenuAbstract);
+  //   return container;
+  // }),
+  //
   keyDown(ev) {
-    var KeyCodes = this.get('constants').KEYCODE;
-    switch(ev.keyCode) {
+    let KeyCodes = this.get('constants').KEYCODE;
+    switch (ev.keyCode) {
       case KeyCodes.get('ESCAPE'):
-        this.get('menuAbstract').send('toggleMenu');
+        this.nearestOfType(PaperMenuAbstract).send('toggleMenu');
         break;
       case KeyCodes.get('UP_ARROW'):
         this.focusMenuItem(ev, -1);
@@ -32,32 +34,29 @@ export default Ember.Component.extend({
     }
   },
 
-
   didInsertElement() {
-    var _self = this;
     // kick off initial focus in the menu on the first element
-
-    Ember.run.later(function () {
-      var focusTarget = _self.$().find('.md-menu-focus-target');
+    later(() => {
+      let focusTarget = this.$().find('.md-menu-focus-target');
       if (!focusTarget.length) {
-        focusTarget = _self.$().children().eq(0).children().eq(0);
+        focusTarget = this.$().children().eq(0).children().eq(0);
       }
       focusTarget.focus();
     });
   },
 
   focusMenuItem(e, direction) {
-    var currentItem = Ember.$(e.target).closest('md-menu-item');
+    let currentItem = $(e.target).closest('md-menu-item');
 
-    var children = this.$().children();
-    var items = Ember.$.makeArray(children);
-    var currentIndex = children.index(currentItem);
+    let children = this.$().children();
+    let items = $.makeArray(children);
+    let currentIndex = children.index(currentItem);
 
     // Traverse through our elements in the specified direction (+/-1) and try to
     // focus them until we find one that accepts focus
-    for (var i = currentIndex + direction; i >= 0 && i < items.length; i = i + direction) {
-      var focusTarget = items[i].firstElementChild || items[i];
-      var didFocus = this.attemptFocus(focusTarget);
+    for (let i = currentIndex + direction; i >= 0 && i < items.length; i = i + direction) {
+      let focusTarget = items[i].firstElementChild || items[i];
+      let didFocus = this.attemptFocus(focusTarget);
       if (didFocus) {
         break;
       }
@@ -72,30 +71,6 @@ export default Ember.Component.extend({
         return false;
       }
     }
-  },
-
-  checkClickTarget(e) {
-    var target = e.target;
-
-    // Traverse up the event until we get to the menuAbstract to see
-    // if there is a click and that the element is not disabled
-    do {
-      if (target === this.get('element')) {
-        return;
-      }
-
-      if (target.hasAttribute('action')) {
-        if (!target.hasAttribute('disabled')) {
-          this.get('menuAbstract').send('toggleMenu');
-        }
-        break;
-      }
-    } while (target = target.parentNode);
-
-  },
-
-  click(e) {
-    this.checkClickTarget(e);
   }
 
 });

@@ -3,39 +3,45 @@ import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+const { inject, assert } = Ember;
 
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
-  classNameBindings: ['checked:md-checked'],
+  classNameBindings: ['value:md-checked'],
 
-  constants: Ember.inject.service(),
-
-  checked: false,
-  toggle: true,
-
-  /* RippleMixin overrides */
+  /* Ripple Overrides */
+  rippleContainerSelector: '.md-container',
   center: true,
   dimBackground: false,
   fitRipple: true,
-  rippleContainerSelector: '.md-container',
 
-  //bubble actions by default
-  bubbles: true,
+  /* BaseFocusable Overrides */
+  focusOnlyOnKey: true,
+
+  constants: inject.service(),
+
+  value: false,
+
+  didInitAttrs() {
+    this._super(...arguments);
+    assert('{{paper-checkbox}} requires an `onChange` action', !!this.get('onChange'));
+  },
+
   click() {
     if (!this.get('disabled')) {
-      this.toggleProperty('checked');
+      this.sendAction('onChange', !this.get('value'));
     }
-    return this.get('bubbles');
   },
 
   keyPress(ev) {
-    if (ev.which === this.get('constants.KEYCODE.SPACE')) {
+    if (ev.which === this.get('constants.KEYCODE.SPACE') || ev.which === this.get('constants.KEYCODE.ENTER')) {
+      ev.preventDefault();
       this.click();
     }
   },
 
   processProxy() {
-    this.toggleProperty('checked');
+    this.sendAction('onChange', !this.get('value'));
   }
 });

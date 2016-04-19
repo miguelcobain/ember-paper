@@ -1,0 +1,22 @@
+{{#ember-wormhole to=destinationId}}
+  {{paper-backdrop
+    locked-open=isLockedOpen
+    opaque=true
+    fixed=(unless parent true)
+    class="md-dialog-backdrop"
+    onTap=(action "outsideClicked")
+  }}
+  {{#paper-dialog-container outsideClicked=(action "outsideClicked")}}
+    {{#paper-dialog-inner
+      origin=origin
+      defaultedParent=defaultedParent
+      defaultedOpenFrom=defaultedOpenFrom
+      defaultedCloseTo=defaultedCloseTo
+      fullscreen=fullscreen
+      clickOutsideToClose=clickOutsideToClose
+      focusOnOpen=focusOnOpen
+    }}
+      {{yield}}
+    {{/paper-dialog-inner}}
+  {{/paper-dialog-container}}
+{{/ember-wormhole}}

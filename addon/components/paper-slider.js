@@ -22,19 +22,17 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, ColorMixin, {
   tabindex: 0,
 
   trackContainer: Ember.computed(function() {
-    var element = this.$()[0];
-
-    return this.$(element.querySelector('.md-track-container'));
+    return this.$('.md-track-container');
   }),
 
   activeTrackStyle: Ember.computed('percent', function() {
-    var percent = this.get('percent') || 0;
-    return Ember.String.htmlSafe("width: " + (percent * 100) + "%");
+    let percent = this.get('percent') || 0;
+    return Ember.String.htmlSafe(`width: ${percent * 100}%`);
   }),
 
   thumbContainerStyle: Ember.computed('percent', function() {
-    var percent = this.get('percent') || 0;
-    return Ember.String.htmlSafe("left: " + (percent * 100) + "%");
+    let percent = this.get('percent') || 0;
+    return Ember.String.htmlSafe(`left: ${percent * 100}%`);
   }),
 
   isMinimum: Ember.computed('percent', 'min', function() {
@@ -42,8 +40,8 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, ColorMixin, {
   }),
 
   percent: Ember.computed('value', 'min', 'max', function() {
-    var min = parseInt(this.get('min'), 10);
-    var max = parseInt(this.get('max'), 10);
+    let min = parseInt(this.get('min'), 10);
+    let max = parseInt(this.get('max'), 10);
 
     return (this.get('value') - min) / (max - min);
   }),
@@ -53,19 +51,19 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, ColorMixin, {
   },
 
   percentToValue(x) {
-    var min = parseInt(this.get('min'), 10);
-    var max = parseInt(this.get('max'), 10);
+    let min = parseInt(this.get('min'), 10);
+    let max = parseInt(this.get('max'), 10);
     return (min + x * (max - min));
   },
 
   minMaxValidator(value) {
-    var min = parseInt(this.get('min'), 10);
-    var max = parseInt(this.get('max'), 10);
+    let min = parseInt(this.get('min'), 10);
+    let max = parseInt(this.get('max'), 10);
     return Math.max(min, Math.min(max, value));
   },
 
   stepValidator(value) {
-    var step = parseInt(this.get('step'), 10);
+    let step = parseInt(this.get('step'), 10);
     return Math.round(value / step) * step;
   },
 
@@ -77,9 +75,9 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, ColorMixin, {
   }),
 
   setValueFromEvent(event) {
-    //var exactVal = this.percentToValue(this.positionToPercent(event.deltaX || event.clientX));
-    var exactVal = this.percentToValue(this.positionToPercent(event.clientX || event.originalEvent.touches[0].clientX));
-    var closestVal = this.minMaxValidator(this.stepValidator(exactVal));
+    // let exactVal = this.percentToValue(this.positionToPercent(event.deltaX || event.clientX));
+    let exactVal = this.percentToValue(this.positionToPercent(event.clientX || event.originalEvent.touches[0].clientX));
+    let closestVal = this.minMaxValidator(this.stepValidator(exactVal));
 
     this.set('value', closestVal);
   },
@@ -125,7 +123,7 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, ColorMixin, {
       return;
     }
 
-    var changeAmount, newValue;
+    let changeAmount, newValue;
 
     if (event.keyCode === this.get('constants.KEYCODE.LEFT_ARROW')) {
       changeAmount = parseInt(this.get('step')) * -1;

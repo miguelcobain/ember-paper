@@ -11,9 +11,16 @@ body {
   max-height: 100%;
 }
 
-body > div.ember-view:first-of-type {
-  width: 100%;
-  height: 100%;
+body.ember-application {
+  flex-direction: row;
+  flex: 1;
+  display: flex;
+}
+
+body > div.ember-view {
+  flex-direction: row;
+  flex: 1;
+  display: flex;
 }
 
 .site-nav-container {

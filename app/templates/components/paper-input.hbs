@@ -1,65 +1,97 @@
 {{#if label}}
-    <label for={{inputElementId}}>{{label}}</label>
+  <label for={{inputElementId}} class="{{if required "md-required"}}">{{label}}</label>
 {{/if}}
 
 {{#if icon}}
-  {{paper-icon icon class=icon-class}}
+  {{paper-icon icon}}
 {{/if}}
 
 {{#if textarea}}
-  {{textarea class="md-input" id=inputElementId placeholder=placeholder value=value focus-in="focusIn" key-down="keyDown" focus-out="focusOut" disabled=disabled required=required autofocus=autofocus
-      name=attr-name
-      rows=attr-rows
-      cols=attr-cols
-      maxlength=attr-maxlength
-      tabindex=attr-tabindex
-      selectionEnd=attr-selectionEnd
-      selectionStart=attr-selectionStart
-      selectionDirection=attr-selectionDirection
-      wrap=attr-wrap
-      readonly=attr-readonly
-      form=attr-form
-      spellcheck=attr-spellcheck
+  <textarea
+    class="md-input {{if isInvalid "ng-invalid"}} {{if isTouched "ng-dirty"}}"
+    id={{inputElementId}}
+    placeholder={{placeholder}}
+    value={{value}}
+    disabled={{disabled}}
+    autofocus={{autofocus}}
+    onfocus={{onFocus}}
+    onblur={{action "handleBlur"}}
+    onkeydown={{onKeyDown}}
+    oninput={{action "handleInput"}}
 
-      enter=event-enter
-  }}
+    name={{passThru.name}}
+    rows={{passThru.rows}}
+    cols={{passThru.cols}}
+    maxlength={{passThru.maxlength}}
+    tabindex={{passThru.tabindex}}
+    required={{passThru.required}}
+    selectionEnd={{passThru.selectionEnd}}
+    selectionStart={{passThru.selectionStart}}
+    selectionDirection={{passThru.selectionDirection}}
+    wrap={{passThru.wrap}}
+    readonly={{passThru.readonly}}
+    form={{passThru.form}}
+    spellcheck={{passThru.spellcheck}}></textarea>
 {{else}}
-  {{input class="md-input" id=inputElementId placeholder=placeholder type=type value=value focus-in="focusIn" key-down="keyDown" focus-out="focusOut" disabled=disabled required=required autofocus=autofocus
-      accept=attr-accept
-      autocomplete=attr-autocomplete
-      autosave=attr-autosave
-      form=attr-form
-      formaction=attr-formaction
-      formenctype=attr-formenctype
-      formmethod=attr-formmethod
-      formnovalidate=attr-formnovalidate
-      formtarget=attr-formtarget
-      height=attr-height
-      inputmode=attr-inputmode
-      min=attr-min
-      maxlength=attr-maxlength
-      max=attr-max
-      multiple=attr-multiple
-      name=attr-name
-      pattern=attr-pattern
-      readonly=attr-readonly
-      selectionDirection=attr-selectionDirection
-      size=attr-size
-      spellcheck=attr-spellcheck
-      step=attr-step
-      tabindex=attr-tabindex
-      width=attr-width
+  <input
+    class="md-input {{if isInvalid "ng-invalid"}}  {{if isTouched "ng-dirty"}}"
+    id={{inputElementId}}
+    placeholder={{placeholder}}
+    type={{type}}
+    value={{value}}
+    disabled={{disabled}}
+    autofocus={{autofocus}}
+    onfocus={{onFocus}}
+    onblur={{action "handleBlur"}}
+    onkeydown={{onKeyDown}}
+    oninput={{action "handleInput"}}
 
-      enter=event-enter
-  }}
+    accept={{passThru.accept}}
+    autocomplete={{passThru.autocomplete}}
+    autosave={{passThru.autosave}}
+    form={{passThru.form}}
+    formaction={{passThru.formaction}}
+    formenctype={{passThru.formenctype}}
+    formmethod={{passThru.formmethod}}
+    formnovalidate={{passThru.formnovalidate}}
+    formtarget={{passThru.formtarget}}
+    height={{passThru.height}}
+    inputmode={{passThru.inputmode}}
+    min={{passThru.min}}
+    maxlength={{passThru.maxlength}}
+    max={{passThru.max}}
+    multiple={{passThru.multiple}}
+    name={{passThru.name}}
+    pattern={{passThru.pattern}}
+    readonly={{passThru.readonly}}
+    required={{passThru.required}}
+    selectionDirection={{passThru.selectionDirection}}
+    size={{passThru.size}}
+    spellcheck={{passThru.spellcheck}}
+    step={{passThru.step}}
+    tabindex={{passThru.tabindex}}
+    width={{passThru.width}}>
 {{/if}}
 
 {{#unless hideAllMessages}}
-    <div ng-messages>
-    <div id="error-{{inputElementId}}" ng-message="{{ng-message}}" class="{{if isInvalid 'ng-enter ng-enter-active' 'ng-leave ng-leave-active'}}">{{errortext}}</div>
+  <div class="md-errors-spacer">
+    {{#if maxlength}}
+      <div class="md-char-counter">{{renderCharCount}}</div>
+    {{/if}}
+  </div>
+  {{#if isInvalid}}
+    <div class="md-input-messages-animation md-auto-hide" ng-messages>
+      {{#each validationErrorMessages as |error index|}}
+        <div
+          id="error-{{inputElementId}}-{{index}}"
+          class="paper-input-error ng-enter ng-enter-active" ng-message>
+          {{error.message}}
+        </div>
+      {{/each}}
     </div>
+  {{/if}}
 {{/unless}}
 
-{{#if maxlength}}
-    <div class="md-char-counter">{{renderCharCount}}</div>
+{{#if iconRight}}
+  {{paper-icon iconRight}}
 {{/if}}

@@ -9,49 +9,43 @@ export default BaseFocusable.extend(RippleMixin, {
 
   constants: Ember.inject.service(),
 
+  /* Ripple Overrides */
+  rippleContainerSelector: null,
+  fitRipple: Ember.computed.readOnly('isIconButton'),
+  center: Ember.computed.readOnly('isIconButton'),
+  dimBackground: Ember.computed.not('isIconButton'),
 
   attributeBindings: ['selected', 'isDisabled:disabled'],
 
   focus: false,
 
-  /* RippleMixin overrides */
-  center: false,
-  dimBackground: true,
-  outline: false,
-  isMenuItem: false,
-  fullRipple: true,
-
-  isDisabled: Ember.computed('disabled', function () {
+  isDisabled: Ember.computed('disabled', function() {
     return this.get('disabled') ? 'disabled' : null;
   }),
 
-
-  menuAbstract: Ember.computed(function () {
-    var container = this.nearestOfType(PaperMenuAbstract);
+  menuAbstract: Ember.computed(function() {
+    let container = this.nearestOfType(PaperMenuAbstract);
     return container;
   }),
-
 
   click(ev) {
     this.selectListener(ev);
   },
 
-  keyDown (ev) {
+  keyDown(ev) {
     if (ev.keyCode === this.get('constants').KEYCODE.get('ENTER') || ev.keyCode === this.get('constants').KEYCODE.get('SPACE')) {
       this.selectListener(ev);
     }
   },
 
-
   selectListener(ev) {
-    var selectMenu = this.get('menuAbstract'),
-      isSelected = this.get('selected');
+    let selectMenu = this.get('menuAbstract');
+    let isSelected = this.get('selected');
 
     if (this.get('disabled')) {
       ev.stopImmediatePropagation();
       return;
     }
-
 
     if (selectMenu.get('multiple')) {
       if (isSelected) {
@@ -68,7 +62,7 @@ export default BaseFocusable.extend(RippleMixin, {
     this.get('menuAbstract').send('toggleMenu');
   },
 
-  selected: Ember.computed('menuAbstract.model', function () {
-    return this.get('menuAbstract').get('model') === this.get('value') ? 'selected' : null;
+  selected: Ember.computed('menuAbstract.value', function() {
+    return this.get('menuAbstract').get('value') === this.get('value') ? 'selected' : null;
   })
 });

@@ -31,5 +31,5 @@ export default Ember.Controller.extend({
       Ember.run.later(this, this.setupTimer2);
     }, 7200);
   }
-  
+
 });

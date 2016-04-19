@@ -13,7 +13,7 @@ test('it renders', function(assert) {
   Ember.$('#qunit-fixture').append('<div id="elId"></div>');
 
   // Creates the component instance
-  var component = this.subject({
+  let component = this.subject({
     wrapToElementId: 'elId'
   });
   assert.equal(component._state, 'preRender');
@@ -23,13 +23,10 @@ test('it renders', function(assert) {
   assert.equal(component._state, 'inDOM');
 });
 
-
-
-
 test('it sets positional styles on component when toggling hidden attribute', function(assert) {
 
   // Creates the component instance
-  var component = this.subject({
+  let component = this.subject({
     wrapToElementId: 'elId'
   });
   Ember.$('#qunit-fixture').append('<div id="elId"></div>');
@@ -42,5 +39,3 @@ test('it sets positional styles on component when toggling hidden attribute', fu
   assert.ok(component.$().attr('style'), 'Has styles set by hideSuggestionObserver');
 
 });
-
-

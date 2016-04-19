@@ -1,12 +1,10 @@
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
-
-/**
+/*
  * The paper-menu-container-abstract is responsible for animation and positioning the menu / select /  any other
  * menu based component.
  *
- * @abstract
  */
 export default Ember.Component.extend({
   transitionEvents: Ember.inject.service(),
@@ -16,29 +14,27 @@ export default Ember.Component.extend({
   classNameBindings: ['interaction:md-clickable'],
 
   menuAbstract: Ember.computed(function() {
-    var container = this.nearestOfType(PaperMenuAbstract);
+    let container = this.nearestOfType(PaperMenuAbstract);
     return container;
   }),
 
   _resizeHandler: Ember.computed(function() {
-    var _self = this;
-    return  function () {
-      _self.get('menuAbstract').registerWrapper(_self);
+    return () => {
+      this.get('menuAbstract').registerWrapper(this);
     };
   }),
 
-
   moveComponentToBody: Ember.on('didInsertElement', function() {
-    var _self = this;
-    var dom = this.$().detach();
+    let _self = this;
+    let dom = this.$().detach();
     Ember.$('body').append(dom);
 
-    var menuAbstract = this.get('menuAbstract');
+    let menuAbstract = this.get('menuAbstract');
 
-    window.requestAnimationFrame(function () {
-      window.requestAnimationFrame(function () {
+    window.requestAnimationFrame(function() {
+      window.requestAnimationFrame(function() {
         menuAbstract.registerWrapper(_self);
-        window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function() {
           _self.$().addClass('md-active');
           _self.set('alreadyOpen', true);
           _self.$()[0].style[_self.get('constants').get('CSS').TRANSFORM] = '';
@@ -46,20 +42,19 @@ export default Ember.Component.extend({
       });
     });
 
-
     // Register resize handler.
-    Ember.$(window).on('resize',this.get('_resizeHandler'));
+    Ember.$(window).on('resize', this.get('_resizeHandler'));
 
   }),
 
   willDestroyElement() {
     // Destroy resize handler.
-    Ember.$(window).off('resize',this.get('_resizeHandler'));
+    Ember.$(window).off('resize', this.get('_resizeHandler'));
   },
 
   hideWrapper() {
-    var _self = this;
-    return new Ember.RSVP.Promise(function (resolve/*, reject*/) {
+    let _self = this;
+    return new Ember.RSVP.Promise(function(resolve/*, reject*/) {
       _self.get('transitionEvents').addEndEventListener(_self.get('element'), resolve);
       _self.$().removeClass('md-active').addClass('md-leave');
     });

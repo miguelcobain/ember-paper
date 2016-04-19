@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
 
   items: Ember.A([
     {
-      icon: 'access-alarms',
+      icon: 'access_alarms',
       title: 'Alarm',
       isFirst: true
     },
@@ -16,15 +16,14 @@ export default Ember.Controller.extend({
     },
 
     {
-      icon: 'airplanemode-active',
+      icon: 'airplanemode_active',
       title: 'Airplane mode'
     }
   ]),
 
-
   actions: {
-    openSomething: function () {
-      alert("Some action handler.");
+    openSomething() {
+      alert('Some action handler.');
     }
   }
 });

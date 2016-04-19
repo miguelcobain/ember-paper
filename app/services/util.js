@@ -1,22 +1,23 @@
 import Ember from 'ember';
 
-/* global jQuery */
-
-var Util = Ember.Service.extend({
+let Util = Ember.Service.extend({
 
   // Disables scroll around the passed element.
-  disableScrollAround: function (element) {
-    var util = this,
-      $document = jQuery(window.document);
+  disableScrollAround(element) {
+    let util = this;
+    let $document = Ember.$(window.document);
 
     util.disableScrollAround._count = util.disableScrollAround._count || 0;
     ++util.disableScrollAround._count;
-    if (util.disableScrollAround._enableScrolling) return util.disableScrollAround._enableScrolling;
-    var body = $document[0].body,
-      restoreBody = disableBodyScroll(),
-      restoreElement = disableElementScroll();
+    if (util.disableScrollAround._enableScrolling) {
+      return util.disableScrollAround._enableScrolling;
+    }
 
-    return util.disableScrollAround._enableScrolling = function () {
+    let { body } = $document.get(0);
+    let restoreBody = disableBodyScroll();
+    let restoreElement = disableElementScroll();
+
+    return util.disableScrollAround._enableScrolling = function() {
       if (!--util.disableScrollAround._count) {
         restoreBody();
         restoreElement();
@@ -26,11 +27,11 @@ var Util = Ember.Service.extend({
 
     // Creates a virtual scrolling mask to absorb touchmove, keyboard, scrollbar clicking, and wheel events
     function disableElementScroll() {
-      var zIndex = 50;
-      var scrollMask = jQuery(
-        '<div class="md-scroll-mask" style="z-index: ' + zIndex + '">' +
-        '  <div class="md-scroll-mask-bar"></div>' +
-        '</div>');
+      let zIndex = 50;
+      let scrollMask = Ember.$(
+        `<div class="md-scroll-mask" style="z-index: ${zIndex}">
+          <div class="md-scroll-mask-bar"></div>
+        </div>`);
       body.appendChild(scrollMask[0]);
 
       scrollMask.on('wheel', preventDefault);
@@ -49,7 +50,7 @@ var Util = Ember.Service.extend({
       // used to stop the keypresses that could cause the page to scroll
       // (arrow keys, spacebar, tab, etc).
       function disableKeyNav(e) {
-        //-- temporarily removed this logic, will possibly re-add at a later date
+        // -- temporarily removed this logic, will possibly re-add at a later date
         return;
         if (!element[0].contains(e.target)) {
           e.preventDefault();
@@ -65,17 +66,17 @@ var Util = Ember.Service.extend({
     // Converts the body to a position fixed block and translate it to the proper scroll
     // position
     function disableBodyScroll() {
-      var htmlNode = body.parentNode;
-      var restoreHtmlStyle = htmlNode.getAttribute('style') || '';
-      var restoreBodyStyle = body.getAttribute('style') || '';
-      var scrollOffset = body.scrollTop + body.parentElement.scrollTop;
-      var clientWidth = body.clientWidth;
+      let htmlNode = body.parentNode;
+      let restoreHtmlStyle = htmlNode.getAttribute('style') || '';
+      let restoreBodyStyle = body.getAttribute('style') || '';
+      let scrollOffset = body.scrollTop + body.parentElement.scrollTop;
+      let { clientWidth } = body;
 
       if (body.scrollHeight > body.clientHeight) {
         applyStyles(body, {
           position: 'fixed',
           width: '100%',
-          top: -scrollOffset + 'px'
+          top: `${-scrollOffset}px`
         });
 
         applyStyles(htmlNode, {
@@ -83,8 +84,9 @@ var Util = Ember.Service.extend({
         });
       }
 
-
-      if (body.clientWidth < clientWidth) applyStyles(body, {overflow: 'hidden'});
+      if (body.clientWidth < clientWidth) {
+        applyStyles(body, { overflow: 'hidden' });
+      }
 
       return function restoreScroll() {
         body.setAttribute('style', restoreBodyStyle);
@@ -94,30 +96,30 @@ var Util = Ember.Service.extend({
     }
 
     function applyStyles(el, styles) {
-      for (var key in styles) {
+      for (let key in styles) {
         el.style[key] = styles[key];
       }
     }
   },
-  enableScrolling: function () {
-    var method = this.disableScrollAround._enableScrolling;
+  enableScrolling() {
+    let method = this.disableScrollAround._enableScrolling;
     method && method();
   },
 
-  /**
+  /*
    * supplant() method from Crockford's `Remedial Javascript`
    * Equivalent to use of $interpolate; without dependency on
    * interpolation symbols and scope. Note: the '{<token>}' can
    * be property names, property chains, or array indices.
    */
-  supplant: function(template, values, pattern) {
+  supplant(template, values, pattern) {
     pattern = pattern || /\{([^\{\}]*)\}/g;
     return template.replace(pattern, function(a, b) {
-      var p = b.split('.'),
-        r = values;
+      let p = b.split('.');
+      let r = values;
       try {
-        for (var s in p) {
-          if (p.hasOwnProperty(s) ) {
+        for (let s in p) {
+          if (p.hasOwnProperty(s)) {
             r = r[p[s]];
           }
         }
@@ -126,7 +128,16 @@ var Util = Ember.Service.extend({
       }
       return (typeof r === 'string' || typeof r === 'number') ? r : a;
     });
-  }
+  },
+  nextTick: (function(window, prefixes, i, p, fnc) {
+    while (!fnc && i < prefixes.length) {
+      fnc = window[`${prefixes[i++]}equestAnimationFrame`];
+    }
+    return (fnc && fnc.bind(window)) || window.setImmediate || function(fnc) {
+      window.setTimeout(fnc, 0);
+    };
+  })(window, 'r webkitR mozR msR oR'.split(' '), 0)
+
 });
 
 export default Util;

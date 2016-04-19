@@ -9,16 +9,16 @@ export default Ember.Service.extend({
   }),
 
   vendorProperty(name) {
-    var prefix = this.get('sniffer.vendorPrefix').toLowerCase();
+    let prefix = this.get('sniffer.vendorPrefix').toLowerCase();
     return this.get('webkit') ? `-webkit-${name.charAt(0)}${name.substring(1)}` : name;
   },
 
   CSS: Ember.computed('webkit', function() {
-    var webkit = this.get('webkit');
+    let webkit = this.get('webkit');
     return {
       /* Constants */
-      TRANSITIONEND:  'transitionend' + (webkit ? ' webkitTransitionEnd'  : ''),
-      ANIMATIONEND:   'animationend'  + (webkit ? ' webkitAnimationEnd'   : ''),
+      TRANSITIONEND:  `transitionend${webkit ? ' webkitTransitionEnd' : ''}`,
+      ANIMATIONEND:   `animationend${webkit ? ' webkitAnimationEnd' : ''}`,
 
       TRANSFORM:              this.vendorProperty('transform'),
       TRANSFORM_ORIGIN:       this.vendorProperty('transformOrigin'),

@@ -27,15 +27,15 @@ export default Ember.Mixin.create({
    * Move events
    */
 
-  mouseMove: function(e) {
+  mouseMove(e) {
     return this.move(e);
   },
 
-  touchMove: function(e) {
+  touchMove(e) {
     return this.move(e);
   },
 
-  pointerMove: function(e) {
+  pointerMove(e) {
     return this.move(e);
   },
 

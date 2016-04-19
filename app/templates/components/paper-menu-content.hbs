@@ -1,6 +1,6 @@
-{{#paper-menu-content-pane width=width}}
+{{#paper-menu-content-pane width=width dense=dense}}
   {{yield this}}
 {{/paper-menu-content-pane}}
 {{#ember-wormhole to="paper-wormhole"}}
-  {{paper-backdrop class="md-menu-backdrop" tap="toggleMenu"}}
+  {{paper-backdrop class="md-menu-backdrop" onTap=(action "toggleMenu")}}
 {{/ember-wormhole}}

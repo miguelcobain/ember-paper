@@ -7,6 +7,7 @@
       focus-out="inputFocusOut"
       key-down="inputKeyDown"
       value=searchText
+      onChange=(action (mut searchText))
       disabled=disabled
       required=required
       flex=true}}
@@ -27,7 +28,7 @@
       aria-expanded=notHidden}}
 
     {{#if enableClearButton}}
-      {{#paper-button icon-button=true themed=false action="clear"}}
+      {{#paper-button iconButton=true themed=false onClick=(action "clear")}}
         {{paper-icon "close"}}
       {{/paper-button}}
     {{/if}}
@@ -49,7 +50,7 @@
               {{yield searchText item index}}
             {{else}}
               {{#if itemComponent}}
-                {{component itemComponent searchText=searchText item=item index=index}}
+                {{component itemComponent searchText=searchText label=label index=index}}
               {{else}}
                 {{paper-autocomplete-highlight searchText=searchText label=label}}
               {{/if}}
@@ -58,13 +59,15 @@
 
         {{else}}
           {{#if showLoadingBar}}
-          {{!-- Render named component, then inverse block then default --}}
-            {{#if notFoundComponent}}
-              <li>{{component notFoundComponent searchText=searchText}}</li>
-            {{else if (has-block "inverse")}}
-              <li>{{yield to="inverse"}}</li>
+          {{!-- Render block template, then named component then default --}}
+            {{#if hasBlock}}
+                <li>{{yield searchText to="inverse"}}</li>
             {{else}}
-              <li>{{notFoundMsg}}</li>
+              {{#if notFoundComponent}}
+                  <li>{{component notFoundComponent searchText=searchText}}</li>
+              {{else}}
+                  <li>{{notFoundMsg}}</li>
+              {{/if}}
             {{/if}}
           {{/if}}
         {{/each}}
