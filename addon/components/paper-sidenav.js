@@ -47,6 +47,9 @@ export default Ember.Component.extend({
   },
 
   matchMedia() {
+    if (typeof FastBoot !== 'undefined') {
+      return;
+    }
     var mediaQuery = this.get('constants').MEDIA[this.get('locked-open')];
     this.set('isLockedOpen', window.matchMedia(mediaQuery).matches);
     if (this.get('isLockedOpen')) {

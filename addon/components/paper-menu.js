@@ -43,6 +43,9 @@ export default PaperMenuAbstract.extend({
   }),
 
   positionMenu(el) {
+    if (typeof FastBoot !== 'undefined') {
+      return;
+    }
     // containerNode = wrapper
     var containerNode = el[0],
     // md-menu-content / any other child.z

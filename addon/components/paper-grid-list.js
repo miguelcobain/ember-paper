@@ -64,6 +64,9 @@ export default Ember.Component.extend({
   },
 
   layoutIfMediaMatch(mediaName) {
+    if (typeof FastBoot !== 'undefined') {
+      return;
+    }
     if (mediaName == null) {
       this.send('invalidateLayout');
     } else if (window.matchMedia(mediaName)) {
@@ -72,7 +75,9 @@ export default Ember.Component.extend({
   },
 
   _watchMedia() {
-
+    if (typeof FastBoot !== 'undefined') {
+      return;
+    }
     const invalidateLayoutListener = this.get('_invalidateLayoutListener');
 
     for (var mediaName in this.get('constants.MEDIA')) {
@@ -113,6 +118,9 @@ export default Ember.Component.extend({
   },
 
   _unwatchMedia() {
+    if (typeof FastBoot !== 'undefined') {
+      return;
+    }
     const invalidateLayoutListener = this.get('_invalidateLayoutListener');
     for(var mediaName in this.get('constants.MEDIA')) {
       var query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
@@ -121,6 +129,9 @@ export default Ember.Component.extend({
   },
 
   _getResponsiveAttribute(component, attrName) {
+    if (typeof FastBoot !== 'undefined') {
+      return;
+    }
     const mediaPriorities = this.get('constants.MEDIA_PRIORITY');
     for (var i = 0; i < mediaPriorities.length; i++) {
       var mediaName = mediaPriorities[i],

@@ -64,6 +64,9 @@ export default Ember.Component.extend({
     }
   },
   attemptFocus(el) {
+    if (typeof FastBoot !== 'undefined') {
+      return;
+    }
     if (el && el.getAttribute('tabindex') !== -1) {
       el.focus();
       if (document.activeElement === el) {
