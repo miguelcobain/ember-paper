@@ -3,6 +3,5 @@ import Ember from 'ember';
 const { Component } = Ember;
 
 export default Component.extend({
-  tagName: 'md-card-title',
-  classNames: ['paper-card-title']
+  tagName: 'md-card-title'
 });

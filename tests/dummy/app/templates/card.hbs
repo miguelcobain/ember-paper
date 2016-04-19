@@ -15,13 +15,11 @@
       <div class="flex-50">
         {{#paper-card as |card|}}
           {{#card.title as |title|}}
-            {{#title.text}}
-              <span class="md-headline">Card with image</span>
-              <span class="md-subhead">Large</span>
+            {{#title.text as |text|}}
+              {{#text.headline}}Card with image{{/text.headline}}
+              {{#text.subhead}}Large{{/text.subhead}}
             {{/title.text}}
-            {{#title.media}}
-              <div class="md-media-lg card-media"></div>
-            {{/title.media}}
+            {{title.media size="lg" src="tomster.png" alt="Tomster" title="Tomster"}}
           {{/card.title}}
           {{#card.actions}}
             {{#paper-button}}Action 1{{/paper-button}}
@@ -31,13 +29,15 @@
 
         {{#paper-card as |card|}}
           {{#card.title as |title|}}
-            {{#title.text}}
-              <span class="md-headline">Card with image</span>
-              <span class="md-subhead">Extra large</span>
+            {{#title.text as |text|}}
+              {{#text.headline}}Card with block{{/text.headline}}
+              {{#text.subhead}}Extra large{{/text.subhead}}
             {{/title.text}}
           {{/card.title}}
           {{#card.content class="layout-row layout-align-space-between"}}
-            <div class="md-media-xl card-media"></div>
+            {{#card.media size="xl"}}
+              <div class="card-media"></div>
+            {{/card.media}}
             {{#card.actions class="layout-column"}}
               {{#paper-button iconButton=true}}{{paper-icon "favorite"}}{{/paper-button}}
               {{#paper-button iconButton=true}}{{paper-icon "settings"}}{{/paper-button}}
@@ -49,13 +49,11 @@
       <div class="flex-50">
         {{#paper-card as |card|}}
           {{#card.title as |title|}}
-            {{#title.text}}
-              <span class="md-headline">Card with image</span>
-              <span class="md-subhead">Small</span>
+            {{#title.text as |text|}}
+              {{#text.headline}}Card with image{{/text.headline}}
+              {{#text.subhead}}Small{{/text.subhead}}
             {{/title.text}}
-            {{#title.media}}
-              <div class="md-media-sm card-media"></div>
-            {{/title.media}}
+            {{title.media size="sm" src="tomster.png" alt="Tomster" title="Tomster"}}
           {{/card.title}}
           {{#card.actions}}
             {{#paper-button}}Action 1{{/paper-button}}
@@ -65,12 +63,12 @@
 
         {{#paper-card as |card|}}
           {{#card.title as |title|}}
-            {{#title.text}}
-              <span class="md-headline">Card with image</span>
-              <span class="md-subhead">Medium</span>
+            {{#title.text as |text|}}
+              {{#text.headline}}Card with block{{/text.headline}}
+              {{#text.subhead}}Medium{{/text.subhead}}
             {{/title.text}}
-            {{#title.media}}
-              <div class="md-media-md card-media"></div>
+            {{#title.media size="md"}}
+              <div class="card-media"></div>
             {{/title.media}}
           {{/card.title}}
           {{#card.actions}}
@@ -89,13 +87,11 @@
   &lt;div class="flex-50">
     \{{#paper-card as |card|}}
       \{{#card.title as |title|}}
-        \{{#title.text}}
-          &lt;span class="md-headline">Card with image&lt;/span>
-          &lt;span class="md-subhead">Large&lt;/span>
+        \{{#title.text as |text|}}
+          \{{#text.headline}}Card with image\{{/text.headline}}
+          \{{#text.subhead}}Large\{{/text.subhead}}
         \{{/title.text}}
-        \{{#title.media}}
-          &lt;div class="md-media-lg card-media">&lt;/div>
-        \{{/title.media}}
+        \{{title.media size="lg" src="tomster.png" alt="Tomster" title="Tomster"}}
       \{{/card.title}}
       \{{#card.actions}}
         \{{#paper-button}}Action 1\{{/paper-button}}
@@ -105,13 +101,15 @@
 
     \{{#paper-card as |card|}}
       \{{#card.title as |title|}}
-        \{{#title.text}}
-          &lt;span class="md-headline">Card with image&lt;/span>
-          &lt;span class="md-subhead">Extra large&lt;/span>
+        \{{#title.text as |text|}}
+          \{{#text.headline}}Card with block\{{/text.headline}}
+          \{{#text.subhead}}Extra large\{{/text.subhead}}
         \{{/title.text}}
       \{{/card.title}}
       \{{#card.content class="layout-row layout-align-space-between"}}
-        &lt;div class="md-media-xl card-media">&lt;/div>
+        \{{#card.media size="xl"}}
+          &lt;div class="card-media">&lt;/div>
+        \{{/card.media}}
         \{{#card.actions class="layout-column"}}
           \{{#paper-button iconButton=true}}\{{paper-icon "favorite"}}\{{/paper-button}}
           \{{#paper-button iconButton=true}}\{{paper-icon "settings"}}\{{/paper-button}}
@@ -123,13 +121,11 @@
   &lt;div class="flex-50">
     \{{#paper-card as |card|}}
       \{{#card.title as |title|}}
-        \{{#title.text}}
-          &lt;span class="md-headline">Card with image&lt;/span>
-          &lt;span class="md-subhead">Small&lt;/span>
+        \{{#title.text as |text|}}
+          \{{#text.headline}}Card with image\{{/text.headline}}
+          \{{#text.subhead}}Small\{{/text.subhead}}
         \{{/title.text}}
-        \{{#title.media}}
-          &lt;div class="md-media-sm card-media">&lt;/div>
-        \{{/title.media}}
+        \{{title.media size="sm" src="tomster.png" alt="Tomster" title="Tomster"}}
       \{{/card.title}}
       \{{#card.actions}}
         \{{#paper-button}}Action 1\{{/paper-button}}
@@ -139,12 +135,12 @@
 
     \{{#paper-card as |card|}}
       \{{#card.title as |title|}}
-        \{{#title.text}}
-          &lt;span class="md-headline">Card with image&lt;/span>
-          &lt;span class="md-subhead">Medium&lt;/span>
+        \{{#title.text as |text|}}
+          \{{#text.headline}}Card with block\{{/text.headline}}
+          \{{#text.subhead}}Medium\{{/text.subhead}}
         \{{/title.text}}
-        \{{#title.media}}
-          &lt;div class="md-media-md card-media">&lt;/div>
+        \{{#title.media size="md"}}
+          &lt;div class="card-media">&lt;/div>
         \{{/title.media}}
       \{{/card.title}}
       \{{#card.actions}}
@@ -160,10 +156,10 @@
     <div class="layout-row">
       <div class="flex-50">
         {{#paper-card as |card|}}
-          <img class="md-card-image" src="washedout.png" alt="washed out" />
+          {{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
           {{#card.title as |title|}}
-            {{#title.text}}
-              <span class="md-headline">Action buttons</span>
+            {{#title.text as |text|}}
+              {{#text.headline}}Action buttons{{/text.headline}}
             {{/title.text}}
           {{/card.title}}
           {{#card.content}}
@@ -187,10 +183,10 @@
         {{/paper-card}}
 
         {{#paper-card as |card|}}
-          <img class="md-card-image" src="washedout.png" alt="washed out" />
+          {{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
           {{#card.title as |title|}}
-            {{#title.text}}
-              <span class="md-headline">Vertical action buttons</span>
+            {{#title.text as |text|}}
+              {{#text.headline}}Vertical action buttons{{/text.headline}}
             {{/title.text}}
           {{/card.title}}
           {{#card.content}}
@@ -208,10 +204,10 @@
 
       <div class="flex-50">
         {{#paper-card as |card|}}
-          <img class="md-card-image" src="washedout.png" alt="washed out" />
+          {{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
           {{#card.title as |title|}}
-            {{#title.text}}
-              <span class="md-headline">Icon action buttons</span>
+            {{#title.text as |text|}}
+              {{#text.headline}}Icon action buttons{{/text.headline}}
             {{/title.text}}
           {{/card.title}}
           {{#card.content}}
@@ -228,7 +224,7 @@
         {{/paper-card}}
 
         {{#paper-card as |card|}}
-          <img class="md-card-image" src="washedout.png" alt="washed out" />
+          {{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
           {{#card.actions}}
             {{#paper-button iconButton=true}}{{paper-icon "favorite"}}{{/paper-button}}
             {{#paper-button iconButton=true}}{{paper-icon "settings"}}{{/paper-button}}
@@ -241,15 +237,15 @@
             {{#header.avatar}}
               <img src="tomster.png" alt="tomster" />
             {{/header.avatar}}
-            {{#header.text}}
-              <span class="md-title">Ember</span>
-              <span class="md-subhead">Paper</span>
+            {{#header.text as |text|}}
+              {{#text.title}}Ember{{/text.title}}
+              {{#text.subhead}}Paper{{/text.subhead}}
             {{/header.text}}
           {{/card.header}}
-          <img class="md-card-image" src="washedout.png" alt="washed out" />
+          {{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
           {{#card.title as |title|}}
-            {{#title.text}}
-              <span class="md-headline">Card header</span>
+            {{#title.text as |text|}}
+              {{#text.headline}}Card header{{/text.headline}}
             {{/title.text}}
           {{/card.title}}
           {{#card.content}}
@@ -270,10 +266,10 @@
 &lt;div class="layout-row">
   &lt;div class="flex-50">
     \{{#paper-card as |card|}}
-      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
       \{{#card.title as |title|}}
-        \{{#title.text}}
-          &lt;span class="md-headline">Action buttons&lt;/span>
+        \{{#title.text as |text|}}
+          \{{#text.headline}}Action buttons\{{/text.headline}}
         \{{/title.text}}
       \{{/card.title}}
       \{{#card.content}}
@@ -297,10 +293,10 @@
     \{{/paper-card}}
 
     \{{#paper-card as |card|}}
-      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
       \{{#card.title as |title|}}
-        \{{#title.text}}
-          &lt;span class="md-headline">Vertical action buttons&lt;/span>
+        \{{#title.text as |text|}}
+          \{{#text.headline}}Vertical action buttons\{{/text.headline}}
         \{{/title.text}}
       \{{/card.title}}
       \{{#card.content}}
@@ -318,10 +314,10 @@
 
   &lt;div class="flex-50">
     \{{#paper-card as |card|}}
-      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
       \{{#card.title as |title|}}
-        \{{#title.text}}
-          &lt;span class="md-headline">Icon action buttons&lt;/span>
+        \{{#title.text as |text|}}
+          \{{#text.headline}}Icon action buttons\{{/text.headline}}
         \{{/title.text}}
       \{{/card.title}}
       \{{#card.content}}
@@ -338,7 +334,7 @@
     \{{/paper-card}}
 
     \{{#paper-card as |card|}}
-      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
       \{{#card.actions}}
         \{{#paper-button iconButton=true}}\{{paper-icon "favorite"}}\{{/paper-button}}
         \{{#paper-button iconButton=true}}\{{paper-icon "settings"}}\{{/paper-button}}
@@ -351,15 +347,15 @@
         \{{#header.avatar}}
           &lt;img src="tomster.png" alt="tomster" />
         \{{/header.avatar}}
-        \{{#header.text}}
-          &lt;span class="md-title">Ember&lt;/span>
-          &lt;span class="md-subhead">Paper&lt;/span>
+        \{{#header.text as |text|}}
+          \{{#text.title}}Ember\{{/text.title}}
+          \{{#text.subhead}}Paper\{{/text.subhead}}
         \{{/header.text}}
       \{{/card.header}}
-      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
       \{{#card.title as |title|}}
-        \{{#title.text}}
-          &lt;span class="md-headline">Card header&lt;/span>
+        \{{#title.text as |text|}}
+          \{{#text.headline}}Card header\{{/text.headline}}
         \{{/title.text}}
       \{{/card.title}}
       \{{#card.content}}
@@ -377,10 +373,10 @@
     <div class="layout-row">
       <div class="flex-50">
         {{#paper-card as |card|}}
-          <img class="md-card-image" src="washedout.png" alt="washed out" />
+          {{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
           {{#card.title as |title|}}
-            {{#title.text}}
-              <span class="md-headline">In-card mixed actions</span>
+            {{#title.text as |text|}}
+              {{#text.headline}}In-card mixed actions{{/text.headline}}
             {{/title.text}}
           {{/card.title}}
           {{#card.actions class="layout-row layout-align-start-center" as |actions|}}
@@ -404,16 +400,16 @@
             {{#header.avatar}}
               <img src="tomster.png" alt="tomster" />
             {{/header.avatar}}
-            {{#header.text}}
-              <span class="md-title">User</span>
-              <span class="md-subhead">subhead</span>
+            {{#header.text as |text|}}
+              {{#text.title}}User{{/text.title}}
+              {{#text.subhead}}subhead{{/text.subhead}}
             {{/header.text}}
           {{/card.header}}
-          <img class="md-card-image" src="washedout.png" alt="washed out" />
+          {{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
           {{#card.title as |title|}}
-            {{#title.text}}
-              <span class="md-headline">In-card mixed actions</span>
-              <span class="md-subhead">Reversed</span>
+            {{#title.text as |text|}}
+              {{#text.headline}}In-card mixed actions{{/text.headline}}
+              {{#text.subhead}}Reversed{{/text.subhead}}
             {{/title.text}}
           {{/card.title}}
           {{#card.actions class="layout-row layout-align-start-center" as |actions|}}
@@ -438,16 +434,16 @@
             {{#header.avatar}}
               <img src="tomster.png" alt="tomster" />
             {{/header.avatar}}
-            {{#header.text}}
-              <span class="md-title">Title</span>
-              <span class="md-subhead">subhead</span>
+            {{#header.text as |text|}}
+              {{#text.title}}Title{{/text.title}}
+              {{#text.subhead}}subhead{{/text.subhead}}
             {{/header.text}}
           {{/card.header}}
-          <img class="md-card-image" src="washedout.png" alt="washed out" />
+          {{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
           {{#card.title as |title|}}
-            {{#title.text}}
-              <span class="md-headline">In-card mixed actions</span>
-              <span class="md-subhead">Description</span>
+            {{#title.text as |text|}}
+              {{#text.headline}}In-card mixed actions{{/text.headline}}
+              {{#text.subhead}}Description{{/text.subhead}}
             {{/title.text}}
           {{/card.title}}
           {{#card.actions class="layout-row layout-align-start-center" as |actions|}}
@@ -471,10 +467,10 @@
 &lt;div class="layout-row">
   &lt;div class="flex-50">
     \{{#paper-card as |card|}}
-      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
       \{{#card.title as |title|}}
-        \{{#title.text}}
-          &lt;span class="md-headline">In-card mixed actions&lt;/span>
+        \{{#title.text as |text|}}
+          \{{#text.headline}}In-card mixed actions\{{/text.headline}}
         \{{/title.text}}
       \{{/card.title}}
       \{{#card.actions class="layout-row layout-align-start-center" as |actions|}}
@@ -498,16 +494,16 @@
         \{{#header.avatar}}
           &lt;img src="tomster.png" alt="tomster" />
         \{{/header.avatar}}
-        \{{#header.text}}
-          &lt;span class="md-title">User&lt;/span>
-          &lt;span class="md-subhead">subhead&lt;/span>
+        \{{#header.text as |text|}}
+          \{{#text.title}}User\{{/text.title}}
+          \{{#text.subhead}}subhead\{{/text.subhead}}
         \{{/header.text}}
       \{{/card.header}}
-      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
       \{{#card.title as |title|}}
-        \{{#title.text}}
-          &lt;span class="md-headline">In-card mixed actions&lt;/span>
-          &lt;span class="md-subhead">Reversed&lt;/span>
+        \{{#title.text as |text|}}
+          \{{#text.headline}}In-card mixed actions\{{/text.headline}}
+          \{{#text.subhead}}Reversed\{{/text.subhead}}
         \{{/title.text}}
       \{{/card.title}}
       \{{#card.actions class="layout-row layout-align-start-center" as |actions|}}
@@ -532,16 +528,16 @@
         \{{#header.avatar}}
           &lt;img src="tomster.png" alt="tomster" />
         \{{/header.avatar}}
-        \{{#header.text}}
-          &lt;span class="md-title">Title&lt;/span>
-          &lt;span class="md-subhead">subhead&lt;/span>
+        \{{#header.text as |text|}}
+          \{{#text.title}}Title\{{/text.title}}
+          \{{#text.subhead}}subhead\{{/text.subhead}}
         \{{/header.text}}
       \{{/card.header}}
-      &lt;img class="md-card-image" src="washedout.png" alt="washed out" />
+      \{{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
       \{{#card.title as |title|}}
-        \{{#title.text}}
-          &lt;span class="md-headline">In-card mixed actions&lt;/span>
-          &lt;span class="md-subhead">Description&lt;/span>
+        \{{#title.text as |text|}}
+          \{{#text.headline}}In-card mixed actions\{{/text.headline}}
+          \{{#text.subhead}}Description\{{/text.subhead}}
         \{{/title.text}}
       \{{/card.title}}
       \{{#card.actions class="layout-row layout-align-start-center" as |actions|}}
