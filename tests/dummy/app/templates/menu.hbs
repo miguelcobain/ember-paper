@@ -156,7 +156,7 @@ attributes to tell where it should position itself in respect to origin and alig
               {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
             {{else}}
               {{#each options as |item|}}
-                {{#paper-menu-item onClick="openSomething"}}
+                {{#paper-menu-item onClick=(action "openSomething")}}
                     <span class="md-menu-align-target">Option</span> {{item}}
                 {{/paper-menu-item}}
               {{/each}}
