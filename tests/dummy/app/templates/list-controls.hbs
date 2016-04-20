@@ -63,7 +63,7 @@
         {{#paper-subheader class="md-no-sticky"}}Clickable Avatars{{/paper-subheader}}
 
         {{#each listData as |item|}}
-          {{#paper-item class="md-3-line" onClick=("goToPerson" item)}}
+          {{#paper-item class="md-3-line" onClick=(action "goToPerson" item)}}
               <img src={{item.face}} alt={{item.who}} class="md-avatar">
               <div class="md-list-item-text">
                 <h3>{{item.what}}</h3>
