@@ -43,6 +43,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
   - paper-select now uses attribute `itemLabelCallback` instead of `item-label-callback`.
   - paper-select now uses attribute `getItems` instead of `on-open`.
   - paper-menu now uses attribute `isOpen` instead of `is-open`.
+- [#338](https://github.com/miguelcobain/ember-paper/pull/338)
+  - paper-card now uses contextual components. The old paper-card-content and paper-card-title components still work.
+  - paper-card now supports the same configurations as the [Angular Material](https://material.angularjs.org/1.0.6/demo/card) version.
 
 ### 0.2.11
 
