@@ -175,6 +175,7 @@ export default Ember.Component.extend({
       // no cache
 
       let data = this.filterArray(source, searchText, lookupKey);
+
       if (source.then && source.get('isFulfilled')) {
         // cache when we have a PromiseArray
         this.cacheSet(searchText, data);
@@ -240,11 +241,11 @@ export default Ember.Component.extend({
     },
 
     pickModel(model) {
-      if(this.attrs.pickModel){
+      if (this.attrs.pickModel) {
         this.attrs.pickModel(model);
       } else {
         this.set('model', model);
-        var value = this.lookupLabelOfItem(model);
+        let value = this.lookupLabelOfItem(model);
         // First set previousSearchText then searchText ( do not trigger observer only update value! ).
         this.set('previousSearchText', value);
         this.set('searchText', value);
