@@ -103,8 +103,8 @@ module.exports = {
       'components/dialog/dialog-theme.scss'
     ];
 
-    var pathBase = this.project.addonPackages['ember-paper'].path;
-    var angularMaterialPath =  'node_modules/angular-material-source/src';
+    var pathBase = this.project.nodeModulesPath;
+    var angularMaterialPath =  'angular-material-source/src';
 
     var angularScssFiles = new Funnel(path.join(pathBase,angularMaterialPath), {
       files: scssFiles,
