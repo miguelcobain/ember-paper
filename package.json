@@ -9,7 +9,7 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "ember try:testall"
+    "test": "ember try:each"
   },
   "repository": "https://github.com/miguelcobain/ember-paper",
   "engines": {
@@ -71,6 +71,9 @@
   "ember-addon": {
     "configPath": "tests/dummy/config",
     "demoURL": "https://miguelcobain.github.io/ember-paper",
-    "before": "ember-cli-sri"
+    "before": "ember-cli-sri",
+    "versionCompatibility": {
+      "ember": ">=2.3.0"
+    }
   }
 }
