@@ -21,6 +21,7 @@ export default PowerSelect.extend({
   extra: computed('labelPath', 'label', function() {
     return { labelPath: this.get('labelPath'), label: this.get('label') };
   }),
+
   onchange: computed.alias('onChange'),
 
   actions: {

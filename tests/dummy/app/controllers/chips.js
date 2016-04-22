@@ -21,36 +21,36 @@ export default Ember.Controller.extend({
     image: 'tomster.png'
   }]),
 
-  remainingContacts: Ember.computed('allContacts.@each.email', 'contacts.@each.email', function(){
+  remainingContacts: Ember.computed('allContacts.@each.email', 'contacts.@each.email', function() {
     return this.get('allContacts').filter((source) => {
-      return !this.get('contacts').any(function(myContact){
+      return !this.get('contacts').any(function(myContact) {
         return source.email === myContact.email;
       });
     });
   }),
 
   actions: {
-    removeItem(item){
+    removeItem(item) {
       this.get('fruitNames').removeObject(item);
     },
 
-    addItem(item){
+    addItem(item) {
       this.get('fruitNames').pushObject(item);
     },
 
-    removeCustomItem(item){
+    removeCustomItem(item) {
       this.get('customFruitNames').removeObject(item);
     },
 
-    addCustomItem(item){
+    addCustomItem(item) {
       this.get('customFruitNames').pushObject(item);
     },
 
-    addContact(item){
+    addContact(item) {
       this.get('contacts').pushObject(item);
     },
 
-    removeContact(item){
+    removeContact(item) {
       this.get('contacts').removeObject(item);
     }
   }
