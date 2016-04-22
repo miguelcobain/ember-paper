@@ -5,19 +5,19 @@ export default Ember.Component.extend({
   classNames: ['md-default-theme'],
 
   actions: {
-    removeItem: function(item){
+    removeItem(item) {
       this.sendAction('removeItem', item);
     },
 
-    addItem(item){
+    addItem(item) {
       this.sendAction('addItem', item);
     },
 
-    inputFocus(){
+    inputFocus() {
       this.set('isFocused', true);
     },
 
-    inputBlur(){
+    inputBlur() {
       this.set('isFocused', false);
     }
   }

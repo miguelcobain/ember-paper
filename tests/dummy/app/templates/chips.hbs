@@ -22,7 +22,7 @@
         <h2>Contact Chips</h2>
         {{paper-contact-chips class="md-contact-chips" readOnly=readOnly removeItem="removeContact" addItem="addContact" placeholder="Add a tag" content=contacts source=remainingContacts}}
 
-        {{#paper-checkbox checked=readOnly}}Read Only{{/paper-checkbox}}
+        {{#paper-checkbox value=readOnly onChange=(action (mut readOnly))}}Read Only{{/paper-checkbox}}
       </md-card-content>
     {{/paper-card}}
 
@@ -40,7 +40,7 @@
 &lt;h2&gt;Contact Chips&lt;/h2&gt;
 \{{paper-contact-chips class="md-contact-chips" readOnly=readOnly removeItem="removeContact" addItem="addContact" placeholder="Add a tag" content=contacts source=remainingContacts}}
 
-\{{#paper-checkbox checked=readOnly}}Read Only\{{/paper-checkbox}}
+\{{#paper-checkbox value=readOnly checked=(action (mut readOnly))}}Read Only\{{/paper-checkbox}}
     {{/code-block}}
   </div>
 {{/paper-content}}
