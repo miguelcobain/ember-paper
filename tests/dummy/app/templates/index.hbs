@@ -11,11 +11,16 @@
   <h2 class="md-headline" style="margin-top: 0;">Welcome to Ember Paper.</h2>
   <p>This project aims to bring Google's new <a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design</a> to Ember. The goal is to encapsulate everything possible in Ember components. This project is packaged as an <a href="http://www.ember-cli.com/">Ember-cli</a> addon.</p>
 
+  <p>You are viewing the demonstration page for a pre-production built of {{#code-inline}}ember-paper{{/code-inline}}. This version is in flux. For version 1.0, all components are being updated to reflect the latest Ember coding practices and Angular Material stylesheets. Components which have not yet been updated are shown with a {{paper-icon "warning"}} and are subject to API changes.</p>
+
+
   <h2 class="md-headline">Installation</h2>
 
-  <p>Install the ember-cli addon in your ember-cli project:</p>
-
+  <p>Install your preferred version of this ember-cli addon in your ember-cli project. To install the 0.2 version:</p>
   {{#code-block language='bash'}}$ ember install ember-paper{{/code-block}}
+  <p>To install the latest pre-release development version:</p>
+  {{#code-block language='bash'}}$ ember install miguelcobain/ember-paper{{/code-block}}
+
 
   <p>This should also automatically create an scss file under {{#code-inline}}app/styles/app.scss{{/code-inline}} with {{#code-inline}}@import 'ember-paper';{{/code-inline}} and install {{#code-inline}}ember-cli-sass{{/code-inline}}.</p>
   <p>Sass is an important part of Ember-paper. Using sass you can override default variables and easily change the default behavior of Ember-paper.</p>
