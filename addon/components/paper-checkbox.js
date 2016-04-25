@@ -32,6 +32,8 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     if (!this.get('disabled')) {
       this.sendAction('onChange', !this.get('value'));
     }
+    // Prevent bubbling, if specified. If undefined, the event will bubble.
+    return this.get('bubbles');
   },
 
   keyPress(ev) {

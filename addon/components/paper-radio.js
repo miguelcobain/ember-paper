@@ -51,5 +51,7 @@ export default BaseFocusable.extend(RippleMixin, ColorMixin, {
         this.sendAction('onChange', this.get('value'));
       }
     }
+    // Prevent bubbling, if specified. If undefined, the event will bubble.
+    return this.get('bubbles');
   }
 });
