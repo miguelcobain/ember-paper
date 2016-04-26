@@ -1,7 +1,8 @@
 # Ember Paper Changelog
 
 ### master
-
+- Updated the dependency on Hammer.js from `hammerjs` to `hammer.js`.
+  - Update your project's `bower.json` to require `"hammer.js": "^2.0.8"`.
 
 ### 0.2.13
 
