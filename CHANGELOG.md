@@ -1,6 +1,9 @@
 # Ember Paper Changelog
 
 ### Unreleased
+
+### 0.2.14
+
 - Updated the dependency on Hammer.js from `hammerjs` to `hammer.js`.
   - Update your project's `bower.json` to require `"hammer.js": "^2.0.8"`.
 
