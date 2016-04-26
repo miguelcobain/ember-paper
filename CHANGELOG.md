@@ -46,6 +46,8 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [#338](https://github.com/miguelcobain/ember-paper/pull/338)
   - paper-card now uses contextual components. The old paper-card-content and paper-card-title components still work.
   - paper-card now supports the same configurations as the [Angular Material](https://material.angularjs.org/1.0.6/demo/card) version.
+- Updated the dependency on hammer from `hammerjs` to `hammer.js`.
+  - Update your project's `bower.json` to require `"hammer.js": "^2.0.8"`.
 
 ### 0.2.11
 

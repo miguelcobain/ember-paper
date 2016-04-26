@@ -10,7 +10,7 @@ module.exports = {
   afterInstall() {
     var _this = this;
     return this.addBowerPackagesToProject([
-      {name: 'hammerjs', target:'latest'},
+      {name: 'hammer.js', target:'latest'},
       {name: 'matchMedia', target: '0.2.0'}
     ]).then(function() {
       return _this.addPackagesToProject([
