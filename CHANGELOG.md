@@ -48,6 +48,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
   - paper-card now supports the same configurations as the [Angular Material](https://material.angularjs.org/1.0.6/demo/card) version.
 - Updated the dependency on hammer from `hammerjs` to `hammer.js` . (Also backported to 0.2.14.)
   - Update your project's `bower.json` to require `"hammer.js": "^2.0.8"`. Remove `bower_components/hammerjs`. Run `bower cache clean`, then `bower install`.
+- [5521f3b](https://github.com/miguelcobain/ember-paper/commit/5521f3b246be4c24cd54f5e0b5383fc9e78e24dd ) Validation status on `paper-input` is exposed via `onInvalid` action.
 
 ### 0.2.14
 
