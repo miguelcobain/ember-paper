@@ -17,13 +17,62 @@
 
   <p>"md-toolbar-tools" is a class that centers your elements in the toolbar.</p>
 
+
+  {{#paper-toolbar}}
+    <div class="md-toolbar-tools">
+      {{#paper-button}}
+        {{paper-icon 'menu'}}
+      {{/paper-button}}
+      <h2>
+        <span>Toolbar with Icon Buttons</span>
+      </h2>
+      <span flex></span>
+      {{#paper-button}}
+        {{paper-icon 'favorite'}}
+      {{/paper-button}}
+      {{#paper-button}}
+        {{paper-icon 'more-vert'}}
+      {{/paper-button}}
+    </div>
+  {{/paper-toolbar}}
+  <br />
+  {{#paper-toolbar tall=true accent=true}}
+    <h2 class="md-toolbar-tools">
+      <span>Toolbar: tall, accent</span>
+    </h2>
+  {{/paper-toolbar}}
+
   <h3>Template</h3>
-{{#code-block language='handlebars'}}
-\{{#paper-toolbar}}
-  &lt;div class="md-toolbar-tools"&gt;
-    \{{#paper-button}}Example button\{{/paper-button}}
-    \{{#paper-button}}Example button\{{/paper-button}}
-  &lt;/div&gt;
-\{{/paper-toolbar}}{{/code-block}}
+  {{#code-block language='handlebars'}}
+  \{{#paper-toolbar}}
+    &lt;div class="md-toolbar-tools"&gt;
+      \{{#paper-button}}Example button\{{/paper-button}}
+      \{{#paper-button}}Example button\{{/paper-button}}
+    &lt;/div&gt;
+
+    \{{#paper-toolbar}}
+      &lt;div class="md-toolbar-tools"&gt;
+        \{{#paper-button}}
+          \{{paper-icon 'menu'}}
+        \{{/paper-button}}
+        &lt;h2&gt;
+          &lt;span&gt;Toolbar with Icon Buttons&lt;/span&gt;
+        &lt;/h2&gt;
+        &lt;span flex&gt;&lt;/span&gt;
+        \{{#paper-button}}
+          \{{paper-icon 'favorite'}}
+        \{{/paper-button}}
+        \{{#paper-button}}
+          \{{paper-icon 'more-vert'}}
+        \{{/paper-button}}
+      &lt;/div&gt;
+    \{{/paper-toolbar}}
+
+    \{{#paper-toolbar tall=true accent=true}}
+      &lt;h2 class="md-toolbar-tools"&lt;
+        &lt;span&lt;Toolbar: tall, accent&lt;/span&lt;
+      &lt;/h2&lt;
+    \{{/paper-toolbar}}
+  \{{/paper-toolbar}}{{/code-block}}
 </div>
 {{/paper-content}}
