@@ -5,7 +5,7 @@ let PaperIconComponent = Ember.Component.extend(ColorMixin, {
   tagName: 'md-icon',
   classNames: ['paper-icon', 'md-font', 'material-icons', 'md-default-theme'],
   classNameBindings: ['sizeClass', 'spinClass'],
-  attributeBindings: ['aria-label'],
+  attributeBindings: ['aria-label', 'title'],
 
   icon: '',
   spin: false,
@@ -49,4 +49,3 @@ PaperIconComponent.reopenClass({
 });
 
 export default PaperIconComponent;
-
