@@ -1,40 +1,47 @@
 import Ember from 'ember';
+const { Controller } = Ember;
 
-export default Ember.Controller.extend({
-
+export default Controller.extend({
   left: false,
   right: true,
   top: true,
   bottom: false,
 
-
   actions: {
-    openCustom: function () {
+    openCustom() {
       this.set('isOpenCustom', true);
     },
-    closeCustom: function () {
+
+    closeCustom() {
       this.set('isOpenCustom', false);
     },
-    openDelayed: function () {
+
+    openDelayed() {
       this.set('isOpenDelayed', true);
     },
-    closeDelayed: function () {
+
+    closeDelayed() {
       this.set('isOpenDelayed', false);
     },
-    openBasic: function () {
+
+    openBasic() {
       this.set('basicMessage', 'Hello World!');
       this.set('isOpenBasic', true);
     },
-    closeBasic: function () {
+
+    closeBasic() {
       this.set('isOpenBasic', false);
     },
-    openFabBottom: function () {
+
+    openFabBottom() {
       this.set('isFabBottom', true);
     },
-    closeFabBottom: function () {
+
+    closeFabBottom() {
       this.set('isFabBottom', false);
     },
-    alertSomething: function () {
+    
+    alertSomething() {
       alert("Clicked action");
     }
   }
