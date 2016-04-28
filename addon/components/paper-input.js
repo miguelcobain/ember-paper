@@ -48,7 +48,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
    *
    * @return {boolean|null} Whether the input is or would be invalid.
    *    null: input has not yet been touched, but would be invalid if it were
-   *    false: input is valid (touched or not)
+   *    false: input is valid (touched or not), or is no longer rendered
    *    true: input has been touched and is invalid.
    */
   isInvalid: computed('isTouched', 'validationErrorMessages.length', 'isNativeInvalid', function() {
@@ -146,6 +146,10 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
   didRender() {
     this.growTextarea();
+  },
+
+  willClearRender() {
+    this.sendAction('onInvalid', false);
   },
 
   willDestroyElement() {
