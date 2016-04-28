@@ -65,7 +65,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 
 - [#307](https://github.com/miguelcobain/ember-paper/pull/307) Add paper-card title components
 - [#283](https://github.com/miguelcobain/ember-paper/pull/283) Adds support for `fullTextSearch` attribute on `{{paper-autocomplete}}`. Enables passing Promises to the `model` attribute on `{{paper-autocomplete}}`. Docs updated.
-- [#311](https://github.com/miguelcobain/ember-paper/pull/311) Fixed issue with `paper-wormhole` div in `<head>` tag.### 0.2.11
+- [#311](https://github.com/miguelcobain/ember-paper/pull/311) Fixed issue with `paper-wormhole` div in `<head>` tag.
+
+### 0.2.11
 
 - [#253](https://github.com/miguelcobain/ember-paper/pull/253) Add `closeOnClick` to paper-sidenav
 - [#255](https://github.com/miguelcobain/ember-paper/pull/255) Add class to backdrops
