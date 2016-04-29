@@ -1,3 +1,4 @@
+import isBrowser from '../utils/is-browser';
 import Ember from 'ember';
 
 // TODO Move to constants?
@@ -16,6 +17,11 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
+
+    if (!isBrowser()) {
+      return;
+    }
+
     this._resizeWindowEvent = Ember.run.bind(this, this.resizeWindowEvent);
   },
 

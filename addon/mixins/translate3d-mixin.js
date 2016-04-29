@@ -1,3 +1,4 @@
+import isBrowser from '../utils/is-browser';
 import Ember from 'ember';
 
 const {
@@ -37,6 +38,11 @@ export default Mixin.create({
 
   init() {
     this._super(...arguments);
+
+    if (!isBrowser()) {
+      return;
+    }
+
     this.TRANSITIONEND = this.get('constants').get('CSS').TRANSITIONEND;
   },
 

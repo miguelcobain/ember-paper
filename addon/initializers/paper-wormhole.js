@@ -1,8 +1,8 @@
-const hasDOM = typeof document !== 'undefined';
+import isBrowser from '../utils/is-browser';
 const defaultWormhole = 'paper-wormhole';
 
 export default function initialize() {
-  if (!hasDOM) {
+  if (!isBrowser()) {
     return;
   }
 
