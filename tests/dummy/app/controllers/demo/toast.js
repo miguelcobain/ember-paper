@@ -42,7 +42,7 @@ export default Controller.extend({
     },
 
     alertSomething() {
-      alert("Clicked action");
+      alert('Clicked action');
     }
   }
 });
