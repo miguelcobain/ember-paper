@@ -10,7 +10,7 @@ test('it renders', function(assert) {
   assert.expect(2);
 
   // Creates the component instance
-  var component = this.subject();
+  const component = this.subject();
   assert.equal(component._state, 'preRender');
 
   // Renders the component to the page
@@ -21,7 +21,7 @@ test('it renders', function(assert) {
 test('it sets positional classes', function(assert) {
   assert.expect(4);
 
-  var component =  this.subject({
+  const component =  this.subject({
     left: true,
     right: true,
     top: true,

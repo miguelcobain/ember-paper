@@ -6,11 +6,6 @@ const {
   computed,
   run
 } = Ember;
-const {
-  later,
-  scheduleOnce
-} = run;
-
 /*global Hammer*/
 
 export default Component.extend(TransitionMixin, {
@@ -34,50 +29,50 @@ export default Component.extend(TransitionMixin, {
   // right,left,bottom and top should only be given once.
   // Therefore we use a computed for each so that they can
   // never change once initially provided.
-  _right: computed(function () {
+  _right: computed(function() {
     return this.get('right');
   }),
 
-  _left: computed(function () {
+  _left: computed(function() {
     return this.get('left');
   }),
 
-  _bottom: computed(function () {
+  _bottom: computed(function() {
     return this.get('bottom');
   }),
 
-  _top: computed(function () {
+  _top: computed(function() {
     return this.get('top');
   }),
 
   didInsertElement() {
     if (this.get('hide-delay')) {
-      later( ()=> {
-        this.sendAction('on-close');
+      run.later(()=> {
+        this.sendAction('onClose');
       }, this.get('hide-delay'));
     }
 
-    const swipeHammer = new Hammer(this.get('element'));
+    let swipeHammer = new Hammer(this.get('element'));
     this.swipeHammer = swipeHammer;
     swipeHammer.on('swipeleft', run.bind(this, this.onSwipe));
     swipeHammer.on('swiperight', run.bind(this, this.onSwipe));
 
     // Add to parent to toast is open in it.
     if (this.get('toastBounds')) {
-      scheduleOnce('afterRender', this, function() {
+      run.scheduleOnce('afterRender', this, function() {
         this.get('toastBounds').send('toggleToast', (this.get('top') ? 'top' : 'bottom'));
       });
     }
   },
 
   addDestroyedElementClone(parent, index, clone) {
-   parent.append(clone);
+    parent.append(clone);
   },
 
   onSwipe(ev) {
-    //Add swipeleft/swiperight class to element so it can animate correctly
+    // Add swipeleft/swiperight class to element so it can animate correctly
     this.$().addClass(`md-${ev.type}`);
-    this.sendAction('on-close');
+    this.sendAction('onClose');
   },
 
   willDestroyElement() {
@@ -86,7 +81,7 @@ export default Component.extend(TransitionMixin, {
     }
 
     if (this.get('toastBounds')) {
-      scheduleOnce('afterRender', this, function () {
+      run.scheduleOnce('afterRender', this, function() {
         this.get('toastBounds').send('toggleToast', (this.get('top') ? 'top' : 'bottom'));
       });
     }
@@ -94,8 +89,8 @@ export default Component.extend(TransitionMixin, {
 
   actions: {
     buttonAction() {
-      this.sendAction('on-button', this);
-      this.sendAction('on-close');
+      this.sendAction('onButton', this);
+      this.sendAction('onClose');
     }
   }
 });

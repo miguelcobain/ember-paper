@@ -1,33 +1,35 @@
 {{#paper-toolbar}}
-    <h2 class="md-toolbar-tools">
-      {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
-        {{paper-icon icon="menu"}}
-      {{/paper-sidenav-toggle}}
-        <span>Toasts</span>
-    </h2>
+  <h2 class="md-toolbar-tools">
+    {{#paper-sidenav-toggle class="menu-sidenav-toggle"}}
+      {{paper-icon icon="menu"}}
+    {{/paper-sidenav-toggle}}
+    <span>Toasts</span>
+  </h2>
 {{/paper-toolbar}}
+
 {{#paper-content class="md-padding"}}
-    <div class="doc-content">
+  <div class="doc-content">
     {{#paper-toast-bounds}}
-        <h3>Basic Usage</h3>
-        <p>Toast can be dismissed with a swipe, a timer, or a button.</p>
+      <h3>Basic Usage</h3>
+      <p>Toast can be dismissed with a swipe, a timer, or a button.</p>
       {{#paper-button class="md-fab md-fab-top-right"}}FAB{{/paper-button}}
 
       <!-- some toasts -->
 
       {{#if isOpenCustom}}
         {{#paper-toast
-        on-close="closeCustom"
+        onClose="closeCustom"
         left=left right=right top=top bottom=bottom as |toast|}}
-            <span flex="">Custom template</span>
+          <span flex="">Custom template</span>
           {{#paper-button warn=true action="closeCustom"}}Close{{/paper-button}}
         {{/paper-toast}}
       {{/if}}
 
       {{#if isOpenDelayed}}
-        {{paper-toast hide-delay=4000
-        on-close="closeDelayed"
-        on-button="closeDelayed"
+        {{paper-toast
+        hideDelay=4000
+        onClose="closeDelayed"
+        onButton="closeDelayed"
         button="Close this"
         message="I'm removed within 4 seconds!!"
         left=left right=right top=top bottom=bottom}}
@@ -35,18 +37,17 @@
 
       {{#if isOpenBasic}}
         {{paper-toast
-        on-close="closeBasic"
-        on-button="closeBasic"
+        onClose="closeBasic"
+        onButton="closeBasic"
         button="Close this"
         left=left right=right top=top bottom=bottom
         message=basicMessage}}
       {{/if}}
 
-
       {{#if isFabBottom}}
         {{paper-toast
-        on-close="closeFabBottom"
-        on-button="alertSomething"
+        onClose="closeFabBottom"
+        onButton="alertSomething"
         button="Close this"
         bottom=true right=true
         message="Some message here."}}
@@ -54,118 +55,81 @@
 
       <!-- toasts end -->
 
-
       <div layout-fill layout="column">
-          <div layout="row" layout-sm="column" layout-align="space-around" style=" padding: 0 50px 0 50px;">
-            {{#paper-button action="openBasic"}}
-                Basic
-            {{/paper-button}}
-            {{#paper-button action="openCustom"}}
-                Custom template
-            {{/paper-button}}
-            {{#paper-button action="openDelayed"}}
-                Delayed
-            {{/paper-button}}
-          </div>
+        <div layout="row" layout-sm="column" layout-align="space-around" style=" padding: 0 50px 0 50px;">
+          {{#paper-button action="openBasic"}}
+            Basic
+          {{/paper-button}}
+
+          {{#paper-button action="openCustom"}}
+            Custom template
+          {{/paper-button}}
+
+          {{#paper-button action="openDelayed"}}
+            Delayed
+          {{/paper-button}}
+        </div>
       </div>
 
       <h3>Position</h3>
-      {{#paper-checkbox checked=bottom}}Bottom{{/paper-checkbox}}
-      {{#paper-checkbox checked=left}}Left{{/paper-checkbox}}
-      {{#paper-checkbox checked=right}}Right{{/paper-checkbox}}
-      {{#paper-checkbox checked=top}}Top{{/paper-checkbox}}
+      {{#paper-checkbox checked=bottom onChange=(action (mut bottom))}}Bottom{{/paper-checkbox}}
+      {{#paper-checkbox checked=left onChange=(action (mut left))}}Left{{/paper-checkbox}}
+      {{#paper-checkbox checked=right onChange=(action (mut right))}}Right{{/paper-checkbox}}
+      {{#paper-checkbox checked=top onChange=(action (mut top))}}Top{{/paper-checkbox}}
 
-
-      {{#paper-button action="openFabBottom" primary=true class="md-fab md-fab-bottom-right"}}FAB{{/paper-button}}
-
-
-
+      {{#paper-button action="openFabBottom" primary=true class="md-fab md-fab-bottom-right" }}FAB{{/paper-button}}
 
     {{/paper-toast-bounds}}
 
-<h3>Template</h3>
+    <h3>Template</h3>
 
-<p>Wrap <code>\{{paper-toast}}</code> in <code>\{{paper-toast-bounds}}</code> in order give bounds to the toast so the toast is correctly placed within the bounds.</p>
+    <p>Wrap <code>\{{paper-toast}}</code> in <code>\{{paper-toast-bounds}}</code> in order give bounds to the toast so the toast is correctly placed within the bounds.</p>
 
-{{#code-block language='handlebars'}}...
+    {{#code-block language='handlebars'}}
 \{{#paper-toast-bounds}}
   \{{#paper-button class="md-fab md-fab-top-right"}}FAB\{{/paper-button}}
   \{{#if isOpenBasic}}
-    \{{paper-toast on-close="closeBasic"
-      on-button="closeBasic"
-      button="Close this"
-      right=true top=true
-      message=basicMessage}}
+    \{{paper-toast onClose="closeBasic" onButton="closeBasic" button="Close this" right=true top=true message=basicMessage}}
   \{{/if}}
-\{{/paper-toast-bounds}}
-...{{/code-block}}
+\{{/paper-toast-bounds}}{{/code-block}}
+  </div>
 
+  <div class="doc-content">
+    <h3>Global toast</h3>
 
+    {{#paper-button raised=true primary=true action="saveSomething"}}
+      Global toast
+    {{/paper-button}}
 
-    </div>
+    <p>The toast must be inside some div that have enough height to display it. For example the toast can be placed in `application.hbs`.</p>
+    <p>The guide below tells you have to create a global toast that can be used by the sub-routes. Toasts would normally be opened by javascript (e.g. after some item got saved to the database). But can also be triggered open by buttons.</p>
 
-    <div class="doc-content">
+    <p>In this example, we will put our toast in the main application so that the toast will get rendered in the <code>bottom right</code> corner of the screen. We can use simple action bubbling to open the toast.</p>
 
-      <h3>Global toast</h3>
+    <h3>Template</h3>
 
-      {{#paper-button raised=true primary=true  action="saveSomething"}}
-          Global toast
-      {{/paper-button}}
+    <h5>app/templates/application.hbs</h5>
 
-      <p>The toast must be inside some div that have enough height to display it. For example the toast can be placed
-          in `application.hbs`.
-      </p>
-      <p>The guide below tells you have to create a global toast that can be used by the sub-routes.
-          Toasts would normally be opened by javascript (e.g. after some item got saved to the database). But can also be triggered
-          open by buttons.
-      </p>
-
-      <p>In this example, we will put our toast in the main application so that the toast will get rendered in the <code>bottom right</code>
-          corner of the screen. We can use simple action bubbling to open the toast.
-      </p>
-
-<h3>Template</h3>
-
-<h5>app/templates/application.hbs</h5>
-
-{{#code-block language='handlebars'}}...
+    {{#code-block language='handlebars'}}
 \{{#paper-toast-bounds}}
-\{{#if isOpenMessage}}
-  \{{paper-toast
-    on-close="closeToast"
-    on-button="closeToast"
-    button="Close this"
-    right=true
-    bottom=true
-    message=rightLeftToastMessage}}
-\{{/if}}
-\{{/paper-toast-bounds}}
-...{{/code-block}}
+  \{{#if isOpenMessage}}
+    \{{paper-toast onClose="closeToast" onButton="closeToast" button="Close this" right=true bottom=true message=rightLeftToastMessage}}
+  \{{/if}}
+\{{/paper-toast-bounds}}{{/code-block}}
 
+    <h3>Javascript</h3>
 
-<h3>Javascript</h3>
+    <h5>app/routes/application.js</h5>
 
-<h5>app/routes/application.js</h5>
+    {{#code-block language='javascript'}}import Ember from 'ember'; export default Ember.Route.extend({ actions: { openToast: function (msg) { this.controller.set('rightLeftToastMessage', msg); this.controller.set('isOpenMessage', true); }, closeToast: function () { this.controller.set('isOpenMessage',
+      false); } } });
+    {{/code-block}}
 
-{{#code-block language='javascript'}}import Ember from 'ember';
+    <p>Sub routes can now bubble the event upwards to the main controller and send messages.</p>
 
-export default Ember.Route.extend({
-  actions: {
-    openToast: function (msg) {
-      this.controller.set('rightLeftToastMessage', msg);
-      this.controller.set('isOpenMessage', true);
-    },
-    closeToast: function () {
-      this.controller.set('isOpenMessage', false);
-    }
-  }
-});{{/code-block}}
-
-
-<p>Sub routes can now bubble the event upwards to the main controller and send messages.</p>
-
-<h5>app/routes/application/news.js</h5>
-{{#code-block language='javascript'}}import Ember from 'ember';
+    <h5>app/routes/application/news.js</h5>
+{{#code-block language='javascript'}}
+import Ember from 'ember';
 export default Ember.Route.extend({
   actions: {
     saveNews () {
@@ -175,5 +139,5 @@ export default Ember.Route.extend({
   }
 });{{/code-block}}
 
-</div>
+  </div>
 {{/paper-content}}

@@ -1,13 +1,16 @@
 import Ember from 'ember';
+const { Component } = Ember;
 
-export default Ember.Component.extend({
-  tagName: 'div',
+export default Component.extend({
   classNames: ['paper-toast-bounds'],
-  classNameBindings: ['open-top:md-toast-open-top', 'open-bottom:md-toast-open-bottom'],
+  classNameBindings: [
+    'openTop:md-toast-open-top',
+    'openBottom:md-toast-open-bottom'
+  ],
 
   actions: {
     toggleToast(type) {
-      this.toggleProperty(`open-${type}`);
+      this.toggleProperty(`open${type.capitalize()}`);
     }
   }
 });

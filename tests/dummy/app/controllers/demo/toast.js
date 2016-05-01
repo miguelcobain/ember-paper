@@ -40,7 +40,7 @@ export default Controller.extend({
     closeFabBottom() {
       this.set('isFabBottom', false);
     },
-    
+
     alertSomething() {
       alert("Clicked action");
     }
