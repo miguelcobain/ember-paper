@@ -5,5 +5,5 @@ export default Ember.Component.extend(ColorMixin, {
   tagName: 'md-toolbar',
   classNames: ['md-default-theme'],
   classNameBindings: ['tall:md-tall'],
-  tall:false,
+  tall: false
 });
