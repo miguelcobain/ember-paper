@@ -36,6 +36,24 @@
     </div>
   {{/paper-toolbar}}
   <br />
+  {{#paper-toolbar}}
+     <div class="md-toolbar-tools">
+       {{#paper-button}}
+         Go Back
+       {{/paper-button}}
+       <h2>
+         <span>Toolbar with Standard Buttons</span>
+       </h2>
+       <span flex></span>
+       {{#paper-button raised=true}}
+         Learn More
+       {{/paper-button}}
+       {{#paper-button mini=true fab=true aria-label="Favorite"}}
+        {{paper-icon 'favorite'}}
+       {{/paper-button}}
+     </div>
+   {{/paper-toolbar}}
+  <br />
   {{#paper-toolbar tall=true accent=true}}
     <h2 class="md-toolbar-tools">
       <span>Toolbar: tall, accent</span>
@@ -73,6 +91,24 @@
           \{{/paper-button}}
         &lt;/div&gt;
       \{{/paper-toolbar}}
+
+      \{{#paper-toolbar}}
+         &lt;div class="md-toolbar-tools"&gt;
+           \{{#paper-button}}
+             Go Back
+           \{{/paper-button}}
+           &lt;h2&gt;
+             &lt;span&gt;Toolbar with Standard Buttons&lt;/span&gt;
+           &lt;/h2&gt;
+           &lt;span flex&gt;&lt;/span&gt;
+           \{{#paper-button raised=true}}
+             Learn More
+           \{{/paper-button}}
+           \{{#paper-button mini=true fab=true aria-label="Favorite"}}
+            \{{paper-icon 'favorite'}}
+           \{{/paper-button}}
+         &lt;/div&gt;
+       \{{/paper-toolbar}}
 
       \{{#paper-toolbar tall=true accent=true}}
         &lt;h2 class="md-toolbar-tools"&gt;
