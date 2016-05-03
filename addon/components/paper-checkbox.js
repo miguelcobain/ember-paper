@@ -8,8 +8,15 @@ const { inject, assert } = Ember;
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
-  classNameBindings: ['value:md-checked'],
+  classNameBindings: [
+    'value:md-checked',
+    'isSecondary:md-secondary'
+  ],
 
+  // Paper item secondary container class
+  isSecondary: false,
+  isSecondaryHandlersSet: false,
+  
   /* Ripple Overrides */
   rippleContainerSelector: '.md-container',
   center: true,

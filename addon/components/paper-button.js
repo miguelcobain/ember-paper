@@ -13,9 +13,13 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNames: ['paper-button', 'md-default-theme', 'md-button'],
   classNameBindings: [
     'raised:md-raised',
-    'iconButton:md-icon-button'
+    'iconButton:md-icon-button',
+    'isSecondary:md-secondary'
   ],
 
+  // Paper item secondary container class
+  isSecondary: false,
+  isSecondaryHandlersSet: false,
   // Ripple Overrides
   rippleContainerSelector: null,
   fitRipple: computed.readOnly('iconButton'),
