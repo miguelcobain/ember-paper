@@ -33,6 +33,15 @@ For example, `ember-paper-inner` is a private component:
  * As required by Ember, component names, module names, and file names should continue to be kebab-cased, such as
 `{{paper-input}}` and the filepath `ember-paper/addon/components/paper-input.js`.
 
+* **Optional template attributes**
+
+  * When attributes may be included in a template invocation to control optional behavior, define reasonable defaults in the invoked component's `.js` file. For example:
+```
+someOption: false,
+classNameBindings: ["someOption:md-some-option"],
+```
+This makes the usage clear to both future maintainers and developer-users who may read the code.
+
 * **Importing**
 
  * Import the module, then use const object destructing to extract the desired methods. For example,
