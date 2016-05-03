@@ -77,7 +77,6 @@ test('blockless mode should render label', function(assert) {
     assert.equal(this.get('switchValue'), false);
 
     let e = Ember.$.Event('keypress', { which: keyCode });
-    // e.which = keyCode; // # Some key code value
     this.$('md-switch').trigger(e);
 
     assert.equal(this.get('switchValue'), true);
