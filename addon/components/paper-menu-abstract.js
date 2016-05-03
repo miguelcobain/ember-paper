@@ -21,10 +21,7 @@ export default Component.extend({
 
   setOpen(newState) {
     this.set('isOpen', newState);
-    let action = this.get(newState ? 'onOpenMenu' : 'onCloseMenu');
-    if (action) {
-      action();
-    }
+    this.sendAction(newState ? 'onOpenMenu' : 'onCloseMenu');
   },
 
   actions: {
