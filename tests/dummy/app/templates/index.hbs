@@ -8,18 +8,24 @@
 {{/paper-toolbar}}
 {{#paper-content flex=true scroll-y=true layout-padding=true}}
 <div class="doc-content">
+  {{#paper-toolbar warn=true}}
+    <div class="md-toolbar-tools">
+      <h2>Pre-production Version</h2>
+    </div>
+  {{/paper-toolbar}}
+  {{#paper-content}}
+    <p>You are viewing the demonstration and documentation for a <strong>pre-production</strong> built of {{#code-inline}}ember-paper{{/code-inline}}. This version is in flux. For version 1.0, all components are being updated to reflect the latest Ember coding practices and Angular Material stylesheets. Components which have not yet been updated are shown with a {{paper-icon "warning"}} and are subject to API changes. Be sure to read CHANGELOG.md when updating.</p>
+    <p><strong>Wrong version?</strong> The currently-released version of ember-paper is <a href="/ember-paper/release-0-2">Version 0.2</a>, currently installed by <br>{{#code-inline language='bash'}}ember install ember-paper{{/code-inline}}. See README.md for advice on which version to use.</p>
+  {{/paper-content}}
+
   <h2 class="md-headline" style="margin-top: 0;">Welcome to Ember Paper.</h2>
   <p>This project aims to bring Google's new <a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design</a> to Ember. The goal is to encapsulate everything possible in Ember components. This project is packaged as an <a href="http://www.ember-cli.com/">Ember-cli</a> addon.</p>
 
-  <p>You are viewing the demonstration page for a pre-production built of {{#code-inline}}ember-paper{{/code-inline}}. This version is in flux. For version 1.0, all components are being updated to reflect the latest Ember coding practices and Angular Material stylesheets. Components which have not yet been updated are shown with a {{paper-icon "warning"}} and are subject to API changes.</p>
-
-  <p>The currently-released version of ember-paper is <a href="/ember-paper/release-0-2">Version 0.2</a>. See README.md for advice on which version to use.</p>
-
   <h2 class="md-headline">Installation</h2>
 
-  <p>Install your preferred version of this ember-cli addon in your ember-cli project. To install the 0.2 version:</p>
+  <p>Install your preferred version of this ember-cli addon in your ember-cli project. To install the 0.2 released version:</p>
   {{#code-block language='bash'}}$ ember install ember-paper{{/code-block}}
-  <p>To install the latest pre-release development version:</p>
+  <p>To install the latest pre-production 1.0 version:</p>
   {{#code-block language='bash'}}$ ember install miguelcobain/ember-paper{{/code-block}}
 
 
@@ -42,17 +48,16 @@
   'media-src': "'self'"
 }{{/code-block}}
 
-  <p>You can find out more information on the CSP addon page <a href="https://github.com/rwjblue/ember-cli-content-security-policy#ember-cli-content-security-policy">here</a>.</p>
-  <p>We also need to allow `data:` in `img-src` because of a <a href="https://github.com/miguelcobain/ember-paper/blob/master/app%2Fstyles%2Fpaper-button.scss">current hack</a> in paper-button.</p>
+  <p>You can find out more information on the CSP addon page <a href="https://github.com/rwjblue/ember-cli-content-security-policy#ember-cli-content-security-policy">here</a>. We also need to allow `data:` in `img-src` because of a <a href="https://github.com/miguelcobain/ember-paper/blob/master/app%2Fstyles%2Fpaper-button.scss">current hack</a> in paper-button.</p>
 
   <h2 class="md-headline">Contribution</h2>
-  <p>This is a very ambitious project. Google's design specs are extensive, and not trivial to implement. <strong>ember-paper</strong> is heavily based on <a href="https://github.com/angular/material">Angular Material</a> and <a href="https://github.com/google/web-starter-kit/tree/material-sprint">Web Starter Kit (material-sprint branch)</a>. These seem to be the most useful resources at the moment. If you feel like porting or fixing an element or two, please drop a pull request or issue at GitHub!</p>
-  <p>I believe that with the help of everyone we can bring these amazing design spec to Ember in a modular and robust way. The Ember way. </p>
+  <p>This is a very ambitious project. Google's design specs are extensive, and non-trivial to implement. If you can port or fix a component or two, please drop a pull request or issue on GitHub or join us on slack. See README.md for more resources.</p>
+  <p>With everyone's help, we can bring this amazing design spec to Ember in a modular and elegant way. The Ember way.</p>
   <p>
     <strong>Help us on Github!</strong>
-    <!-- Place this tag where you want the button to render. -->
   </p>
   <p>
+    <!-- Place this tag where you want the button to render. -->
     <a class="github-button" href="https://github.com/miguelcobain/ember-paper" data-style="mega" data-count-href="/miguelcobain/ember-paper/network" data-count-api="/repos/miguelcobain/ember-paper#forks_count">Fork</a>
   </p>
 </div>
