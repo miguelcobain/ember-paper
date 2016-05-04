@@ -3,10 +3,13 @@ import BaseFocusable from './base-focusable';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+
 const {
   assert,
   computed,
+  get,
   run,
+  isEmpty,
   String: {
     htmlSafe
   },
@@ -19,6 +22,19 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['value:md-checked', 'dragging:md-dragging'],
   toggle: true,
+
+  // Paper item secondary container class
+  isSecondary: computed('class', {
+    get() {
+      let cls = get(this, 'class');
+      if (!isEmpty(cls)) {
+        return cls.indexOf('md-secondary') !== -1;
+      } else {
+        return false;
+      }
+    }
+  }),
+  isProxyHandlerSet: false,
 
   /* Ripple Overrides */
   rippleContainerSelector: '.md-thumb',
@@ -84,10 +100,14 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     switchContainerHammer.on('panstart', run.bind(this, this._dragStart));
     switchContainerHammer.on('panmove', run.bind(this, this._drag));
     switchContainerHammer.on('panend', run.bind(this, this._dragEnd));
-
     let switchHammer = new Hammer(this.element);
     this._switchHammer = switchHammer;
     switchHammer.on('tap', run.bind(this, this._dragEnd));
+    this.$('.md-container').on('click', run.bind(this, this._handleNativeClick));
+  },
+
+  _handleNativeClick() {
+    return get(this, 'bubbles');
   },
 
   _teardownSwitch() {

@@ -15,12 +15,12 @@
 
         {{#paper-item}}
           <p>Checkbox 1</p>
-          {{paper-checkbox value=checkboxEnabled1 onChange=(action (mut checkboxEnabled1))}}
+          {{paper-checkbox class="md-secondary" value=checkboxEnabled1 onChange=(action (mut checkboxEnabled1))}}
         {{/paper-item}}
 
         {{#paper-item}}
           <p>Checkbox 2</p>
-          {{paper-checkbox value=checkboxEnabled2 onChange=(action (mut checkboxEnabled2))}}
+          {{paper-checkbox class="md-secondary" value=checkboxEnabled2 onChange=(action (mut checkboxEnabled2))}}
         {{/paper-item}}
 
         {{paper-divider}}
@@ -30,13 +30,13 @@
         {{#paper-item onClick="transitionToWifiMenu"}}
           {{paper-icon "network_wifi"}}
           <p>Wi-Fi</p>
-          {{paper-switch value=wifiEnabled onChange=(action (mut wifiEnabled))}}
+          {{paper-switch bubbles=false class="md-secondary" value=wifiEnabled onChange=(action (mut wifiEnabled))}}
         {{/paper-item}}
 
         {{#paper-item onClick="transitionToBluetoothMenu"}}
           {{paper-icon "bluetooth"}}
           <p>Bluetooth</p>
-          {{paper-switch value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
+          {{paper-switch bubbles=false class="md-secondary" value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
         {{/paper-item}}
 
         {{#paper-item onClick="transitionToDataUsage"}}
@@ -52,7 +52,7 @@
           {{#paper-item}}
             {{#paper-checkbox value=item.checked onChange=(action (mut item.checked))}}{{/paper-checkbox}}
             <p>{{item.message}}</p>
-            {{#paper-button iconButton=true onClick=(action "secondaryMessageClick" item)}}
+            {{#paper-button class="md-secondary" iconButton=true onClick=(action "secondaryMessageClick" item)}}
               {{paper-icon "message"}}
             {{/paper-button}}
           {{/paper-item}}
@@ -85,7 +85,7 @@
                 <h4>{{item.who}}</h4>
                 <p>{{item.notes}}</p>
               </div>
-              {{#paper-button iconButton=true onClick=(action "secondaryPersonClick" item)}}
+              {{#paper-button class="md-secondary" iconButton=true onClick=(action "secondaryPersonClick" item)}}
                 {{paper-icon "phone"}}
               {{/paper-button}}
           {{/paper-item}}

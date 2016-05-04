@@ -6,14 +6,13 @@ const {
   get,
   set,
   isEmpty,
-  isEqual,
   computed,
   run: { scheduleOnce, later }
 } = Ember;
 
 const {
-  not,
-  bool
+  bool,
+  notEmpty
 } = computed;
 
 export default Ember.Component.extend(RippleMixin, ProxyMixin, {
@@ -24,7 +23,6 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
   center: false,
   dimBackground: true,
   outline: false,
-  noink: not('shouldBeClickable'),
 
   classNameBindings: ['shouldBeClickable:md-clickable', 'hasProxiedComponent:md-proxy-focus'],
   attributeBindings: ['role', 'tabindex'],
@@ -33,13 +31,15 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
 
   hasProxiedComponent: bool('proxiedComponents.length'),
 
+  hasPrimaryAction: notEmpty('onClick'),
+
   hasSecondaryAction: computed('secondaryItem', 'onClick', {
     get() {
       let secondaryItem = get(this, 'secondaryItem');
       if (!isEmpty(secondaryItem)) {
-        let hasClickAction = get(this, 'onClick') && this.isProxiedComponent(secondaryItem);
-        let isCheckbox = get(secondaryItem, 'onChange') && this.isProxiedComponent(secondaryItem);
-        return secondaryItem && (secondaryItem.action || hasClickAction || isCheckbox);
+        let hasClickAction = get(secondaryItem, 'onClick') && this.isProxiedComponent(secondaryItem);
+        let hasChangeAction = get(secondaryItem, 'onChange') && this.isProxiedComponent(secondaryItem);
+        return hasClickAction || hasChangeAction;
       } else {
         return false;
       }
@@ -65,35 +65,16 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
     scheduleOnce('afterRender', this, ()=> {
       let tEl = this.$();
       let proxiedComponents = get(this, 'proxiedComponents');
-      // buttons and md-checkboxes should have .md-secondary class
       proxiedComponents.forEach((component)=> {
-        if (isEqual(get(component, 'tagName'), 'button') || isEqual(get(component, 'tagName'), 'md-checkbox')) {
-          if (!get(component, 'isSecondary')) {
-            set(component, 'isSecondary', true);
+        let isProxyHandlerSet = get(component, 'isProxyHandlerSet');
+        // we run init only once for each component.
+        if (isEmpty(isProxyHandlerSet)) {
+          // Allow proxied component to propagate ripple hammer event
+          if (!get(component, 'onClick') && !get(component, 'propagateRipple')) {
+            set(component, 'propagateRipple', true);
           }
-        }
-      });
-      // Secondary item has separate action.
-      // Unregister so we don't proxy it.
-      if (get(this, 'hasSecondaryAction')) {
-        let bubbles = get(this, 'secondaryItem.bubbles');
-        if (isEmpty(bubbles)) {
-          set(this, 'secondaryItem.bubbles', false);
-          this.unregister(get(this, 'secondaryItem'));
-        }
-      } else {
-        debugger;
-      }
-      // Allow proxied component to propagate ripple hammer event
-      proxiedComponents.forEach((component)=> {
-        if (!get(component, 'onClick') && !get(component, 'propagateRipple')) {
-          set(component, 'propagateRipple', true);
-        }
-      });
-      proxiedComponents.forEach((view)=> {
-        let isSecondaryHandlerSet = get(view, 'isSecondaryHandlerSet');
-        if (isEmpty(isSecondaryHandlerSet)) {
-          let el = view.$();
+          // ripple
+          let el = component.$();
           set(this, 'mouseActive', false);
           el.on('mousedown', ()=> {
             set(this, 'mouseActive', true);
@@ -110,7 +91,30 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
               el.off('blur', proxyOnBlur);
             });
           });
-          set(view, 'isSecondaryHandlerSet', true);
+          // If we don't have primary action then
+          // no need to bubble
+          if (!get(this, 'hasPrimaryAction')) {
+            let bubbles = get(component, 'bubbles');
+            if (isEmpty(bubbles)) {
+              set(component, 'bubbles', false);
+            }
+          } else if (get(proxiedComponents, 'length')) {
+            // primary action exists. Make sure child
+            // that has separate action won't bubble.
+            proxiedComponents.forEach((component)=> {
+              let hasClickAction = get(component, 'onClick');
+              let hasChangeAction = get(component, 'onChange');
+              if (hasClickAction || hasChangeAction) {
+                let bubbles = get(component, 'bubbles');
+                if (isEmpty(bubbles)) {
+                  set(component, 'bubbles', false);
+                }
+              }
+            });
+          }
+          // Init complete. We don't want it to run again
+          // for that particular component.
+          set(component, 'isProxyHandlerSet', true);
         }
       });
     });
@@ -124,7 +128,7 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
   actions: {
     buttonAction() {
       this.get('proxiedComponents').forEach((component)=> {
-        if (component.processProxy) {
+        if (component.processProxy && (get(component, 'bubbles') | !get(this, 'hasPrimaryAction'))) {
           component.processProxy();
         }
       });
