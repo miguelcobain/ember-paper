@@ -9,11 +9,5 @@ export default Ember.Mixin.create({
       this.get('proxiedComponents').addObject(component);
       this.setupProxiedComponent();
     }
-  },
-  unregister(component) {
-    this.get('proxiedComponents').removeObject(component);
-  },
-  isProxiedComponent(component) {
-    return this.get('proxiedComponents').contains(component);
   }
 });

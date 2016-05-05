@@ -37,8 +37,8 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
     get() {
       let secondaryItem = get(this, 'secondaryItem');
       if (!isEmpty(secondaryItem)) {
-        let hasClickAction = get(secondaryItem, 'onClick') && this.isProxiedComponent(secondaryItem);
-        let hasChangeAction = get(secondaryItem, 'onChange') && this.isProxiedComponent(secondaryItem);
+        let hasClickAction = get(secondaryItem, 'onClick');
+        let hasChangeAction = get(secondaryItem, 'onChange');
         return hasClickAction || hasChangeAction;
       } else {
         return false;
