@@ -7,17 +7,17 @@ export default Controller.extend({
   timer: null,
 
   start() {
-    this.set('determinateValue', 10);
+    this.set('determinateValue', 30);
     this.setupTimer();
   },
 
   setupTimer() {
     this.set('timer', run.later(this, function() {
-      // let value = this.incrementProperty('determinateValue', 1);
-      // if (value > 100) {
-      //   this.set('determinateValue', 30);
-      // }
-      // this.setupTimer();
+      let value = this.incrementProperty('determinateValue', 1);
+      if (value > 100) {
+        this.set('determinateValue', 30);
+      }
+      this.setupTimer();
     }, 100));
   },
 
