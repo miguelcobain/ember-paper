@@ -3,25 +3,12 @@ import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-const { inject, assert, computed, get, isEmpty } = Ember;
+const { inject, assert } = Ember;
 
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
   classNameBindings: ['value:md-checked'],
-
-  // Paper item secondary container class
-  isSecondary: computed('class', {
-    get() {
-      let cls = get(this, 'class');
-      if (!isEmpty(cls)) {
-        return cls.indexOf('md-secondary') !== -1;
-      } else {
-        return false;
-      }
-    }
-  }),
-  isProxyHandlerSet: false,
 
   /* Ripple Overrides */
   rippleContainerSelector: '.md-container',

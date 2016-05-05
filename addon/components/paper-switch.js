@@ -9,7 +9,6 @@ const {
   computed,
   get,
   run,
-  isEmpty,
   String: {
     htmlSafe
   },
@@ -23,19 +22,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNameBindings: ['value:md-checked', 'dragging:md-dragging'],
   toggle: true,
   constants: inject.service(),
-
-  // Paper item secondary container class
-  isSecondary: computed('class', {
-    get() {
-      let cls = get(this, 'class');
-      if (!isEmpty(cls)) {
-        return cls.indexOf('md-secondary') !== -1;
-      } else {
-        return false;
-      }
-    }
-  }),
-  isProxyHandlerSet: false,
 
   /* Ripple Overrides */
   rippleContainerSelector: '.md-thumb',

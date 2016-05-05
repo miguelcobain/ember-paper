@@ -4,7 +4,7 @@ import RippleMixin from '../mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-const { computed, get, isEmpty } = Ember;
+const { computed } = Ember;
 
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   attributeBindings: ['type'],
@@ -15,19 +15,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     'raised:md-raised',
     'iconButton:md-icon-button'
   ],
-
-  // Paper item secondary container class
-  isSecondary: computed('class', {
-    get() {
-      let cls = get(this, 'class');
-      if (!isEmpty(cls)) {
-        return cls.indexOf('md-secondary') !== -1;
-      } else {
-        return false;
-      }
-    }
-  }),
-  isProxyHandlerSet: false,
 
   // Ripple Overrides
   rippleContainerSelector: null,

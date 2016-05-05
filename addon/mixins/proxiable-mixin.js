@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import ProxyMixin from './proxy-mixin';
 
+const { computed, get, isEmpty } = Ember;
+
 export default Ember.Mixin.create({
   init() {
     this._super(...arguments);
@@ -14,5 +16,18 @@ export default Ember.Mixin.create({
     }
   },
 
-  processProxy: null
+  processProxy: null,
+
+  // Paper item secondary container class
+  isSecondary: computed('class', {
+    get() {
+      let cls = get(this, 'class');
+      if (!isEmpty(cls)) {
+        return cls.indexOf('md-secondary') !== -1;
+      } else {
+        return false;
+      }
+    }
+  }),
+  isProxyHandlerSet: false
 });
