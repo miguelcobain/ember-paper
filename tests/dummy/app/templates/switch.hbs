@@ -9,24 +9,39 @@
 {{#paper-content class="md-padding"}}
   <div class="doc-content">
     <p>
-      {{#paper-switch value=booleanProp1 onChange=(action (mut booleanProp1))}} {{booleanProp1}} {{/paper-switch}}
-      {{#paper-switch value=booleanProp2 onChange=(action (mut booleanProp2))}} {{booleanProp2}} {{/paper-switch}}
-      {{#paper-switch value=booleanProp3 onChange=(action "changeBooleanProp" "3") disabled=true}} Disabled switch {{/paper-switch}}
-      {{#paper-switch value=booleanProp4 onChange=(action "changeBooleanProp" "4") noink=true}} Noink switch {{/paper-switch}}
-
+      {{#paper-switch value=booleanProp1 onChange=(action (mut booleanProp1))}}
+        {{booleanProp1}}
+      {{/paper-switch}}
+      {{#paper-switch value=booleanProp2 onChange=(action (mut booleanProp2))}}
+        {{booleanProp2}}
+      {{/paper-switch}}
+      {{#paper-switch value=booleanProp3 onChange=(action "changeBooleanProp" "3") disabled=true}}
+        Disabled switch
+      {{/paper-switch}}
+      {{#paper-switch value=booleanProp4 onChange=(action "changeBooleanProp" "4") noink=true}}
+        Noink switch
+      {{/paper-switch}}
       {{paper-switch label="Blockless version" value=booleanProp5 onChange=(action "changeBooleanProp" "5")}}
     </p>
     <h3>Template</h3>
-    {{~#code-block language='handlebars'}}
-      \{{#paper-switch value=booleanProp1 onChange=(action (mut booleanProp1))}} \{{booleanProp1}} \{{/paper-switch}}
+{{~#code-block language='handlebars'}}
+\{{#paper-switch value=booleanProp1 onChange=(action (mut booleanProp1))}}
+  \{{booleanProp1}}
+\{{/paper-switch}}
 
-      \{{#paper-switch value=booleanProp2 onChange=(action (mut booleanProp2))}} \{{booleanProp2}} \{{/paper-switch}}
+\{{#paper-switch value=booleanProp2 onChange=(action (mut booleanProp2))}}
+  \{{booleanProp2}}
+\{{/paper-switch}}
 
-      \{{#paper-switch value=booleanProp3 onChange=(action "changeBooleanProp" "3") disabled=true}} Disabled switch \{{/paper-switch}}
+\{{#paper-switch disabled=true value=booleanProp3 onChange=(action "changeBooleanProp" "3")}}
+  Disabled switch
+\{{/paper-switch}}
 
-      \{{#paper-switch value=booleanProp4 onChange=(action "changeBooleanProp" "4") noink=true}} Noink switch \{{/paper-switch}}
+\{{#paper-switch noink=true value=booleanProp4 onChange=(action "changeBooleanProp" "4")}}
+  Noink switch
+\{{/paper-switch}}
 
-      \{{paper-switch label="Blockless version" value=booleanProp5 onChange=(action "changeBooleanProp" "5")}}
-    {{~/code-block}}
+\{{paper-switch label="Blockless version" value=booleanProp5 onChange=(action "changeBooleanProp" "5")}}
+{{~/code-block}}
   </div>
 {{/paper-content}}

@@ -30,13 +30,13 @@
         {{#paper-item onClick="transitionToWifiMenu"}}
           {{paper-icon "network_wifi"}}
           <p>Wi-Fi</p>
-          {{paper-switch bubbles=false class="md-secondary" value=wifiEnabled onChange=(action (mut wifiEnabled))}}
+          {{paper-switch class="md-secondary" value=wifiEnabled onChange=(action (mut wifiEnabled))}}
         {{/paper-item}}
 
         {{#paper-item onClick="transitionToBluetoothMenu"}}
           {{paper-icon "bluetooth"}}
           <p>Bluetooth</p>
-          {{paper-switch bubbles=false class="md-secondary" value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
+          {{paper-switch class="md-secondary" value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
         {{/paper-item}}
 
         {{#paper-item onClick="transitionToDataUsage"}}

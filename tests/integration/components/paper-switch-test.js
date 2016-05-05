@@ -21,6 +21,30 @@ test('should set selected class correctly', function(assert) {
   assert.ok(!this.$().hasClass('md-checked'));
 });
 
+test('should not set focused class', function(assert) {
+  this.render(hbs`
+    {{#paper-switch value=switchValue onChange=(action (mut switchValue))}}
+      Radio button 1
+    {{/paper-switch}}
+  `);
+  this.$('md-switch').click();
+
+  assert.ok(!this.$('md-switch').hasClass('md-focused'));
+});
+
+test('should set focused class', function(assert) {
+  this.render(hbs`
+    {{#paper-switch value=switchValue onChange=(action (mut switchValue))}}
+      Radio button 1
+    {{/paper-switch}}
+  `);
+  this.$('md-switch').click();
+  this.$('md-switch').focusout();
+  this.$('md-switch').focusin();
+
+  assert.ok(this.$('md-switch').hasClass('md-focused'));
+});
+
 test('should render block content as label', function(assert) {
   this.set('foo', () => { });
   this.set('switchValue', true);
@@ -52,8 +76,7 @@ test('blockless mode should render label', function(assert) {
     this.render(hbs`{{paper-switch value=switchValue onChange=(action (mut switchValue))}}`);
     assert.equal(this.get('switchValue'), false);
 
-    let e = Ember.$.Event('keypress');
-    e.which = keyCode; // # Some key code value
+    let e = Ember.$.Event('keypress', { which: keyCode });
     this.$('md-switch').trigger(e);
 
     assert.equal(this.get('switchValue'), true);

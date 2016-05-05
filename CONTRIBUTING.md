@@ -33,6 +33,15 @@ For example, `ember-paper-inner` is a private component:
  * As required by Ember, component names, module names, and file names should continue to be kebab-cased, such as
 `{{paper-input}}` and the filepath `ember-paper/addon/components/paper-input.js`.
 
+* **Optional template attributes**
+
+  * When attributes may be included in a template invocation to control optional behavior, define reasonable defaults in the invoked component's `.js` file. For example:
+```
+someOption: false,
+classNameBindings: ["someOption:md-some-option"],
+```
+This makes the usage clear to both future maintainers and developer-users who may read the code.
+
 * **Importing**
 
  * Import the module, then use const object destructing to extract the desired methods. For example,
@@ -74,3 +83,22 @@ becomes
 `<md-some-element>` should be implemented as an ember component, such as `{{paper-some-element}}`.
 
 * **Features.** Seek to provide feature parity using Angular Material styles, but implemented in an Ember-centric way.
+
+## Building and deploying the dummy app to github
+
+If needed, update `ember-cli-github-pages` to version `0.0.9` or later, or the latest master of `0.0.8`. This version supports the `destination` option.
+
+1. In the `master` branch, ensure that the version number in `package.json` reflects the current changes and CHANGELOG.md. If needed, bump the version number, commit, and make a git tag for the release.
+
+2. Build the `master` branch:
+```bash
+checkout master
+mkdir release-1 # if the directory does not already exist
+ember github-pages:commit --message "Publish gh-pages for v1.0.0-alpha.0" --destination "release-1"
+```
+
+3. If the `0.2` branch needs building, repeat step 2 for `release-0-2`.
+
+4. Checkout branch `gh-pages` and confirm that you are satisfied.
+
+5. Push `gh-pages` to github.

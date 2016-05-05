@@ -7,6 +7,7 @@ export default Ember.Mixin.create({
   register(component) {
     if (!component.get('skipProxy')) {
       this.get('proxiedComponents').addObject(component);
+      this.setupProxiedComponent();
     }
   },
   unregister(component) {
