@@ -121,7 +121,7 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
   actions: {
     buttonAction() {
       this.get('proxiedComponents').forEach((component)=> {
-        if (component.processProxy && (get(component, 'bubbles') | !get(this, 'hasPrimaryAction'))) {
+        if (component.processProxy && !get(component, 'disabled') && (get(component, 'bubbles') | !get(this, 'hasPrimaryAction'))) {
           component.processProxy();
         }
       });

@@ -27,6 +27,24 @@ test('single action checkboxes should react to checkbox clicks', function(assert
   });
 });
 
+test('single action checkboxes should not react to item clicks when disabled', function(assert) {
+  assert.expect(1);
+  set(this, 'checkboxEnabled', false);
+  this.render(hbs`
+    {{#paper-list}}
+      {{#paper-item}}
+        <p>Checkbox 1</p>
+        {{paper-checkbox class="md-secondary" disabled=true value=checkboxEnabled onChange=(action (mut checkboxEnabled))}}
+      {{/paper-item}}
+    {{/paper-list}}
+  `);
+  return wait().then(() => {
+    let item = this.$('.md-list-item-inner');
+    item.click();
+    assert.notOk(get(this, 'checkboxEnabled'));
+  });
+});
+
 test('single action checkboxes should react to item clicks', function(assert) {
   assert.expect(1);
   set(this, 'checkboxEnabled', false);
