@@ -17,13 +17,112 @@
 
   <p>"md-toolbar-tools" is a class that centers your elements in the toolbar.</p>
 
+
+  {{#paper-toolbar}}
+    <div class="md-toolbar-tools">
+      {{#paper-button}}
+        {{paper-icon 'menu'}}
+      {{/paper-button}}
+      <h2>
+        <span>Toolbar with Icon Buttons</span>
+      </h2>
+      <span flex></span>
+      {{#paper-button}}
+        {{paper-icon 'favorite'}}
+      {{/paper-button}}
+      {{#paper-button}}
+        {{paper-icon 'more-vert'}}
+      {{/paper-button}}
+    </div>
+  {{/paper-toolbar}}
+  <br />
+  {{#paper-toolbar}}
+     <div class="md-toolbar-tools">
+       {{#paper-button}}
+         Go Back
+       {{/paper-button}}
+       <h2>
+         <span>Toolbar with Standard Buttons</span>
+       </h2>
+       <span flex></span>
+       {{#paper-button raised=true}}
+         Learn More
+       {{/paper-button}}
+       {{#paper-button mini=true fab=true aria-label="Favorite"}}
+        {{paper-icon 'favorite'}}
+       {{/paper-button}}
+     </div>
+   {{/paper-toolbar}}
+  <br />
+  {{#paper-toolbar tall=true accent=true}}
+    <h2 class="md-toolbar-tools">
+      <span>Toolbar: tall, accent</span>
+    </h2>
+  {{/paper-toolbar}}
+  <br />
+  {{#paper-toolbar tall=true class="md-warn md-hue-3"}}
+    <span flex></span>
+    <h2 class="md-toolbar-tools md-toolbar-tools-bottom">
+      <span class="md-flex">Toolbar: tall with actions pin to the bottom (md-warn md-hue-3)</span>
+    </h2>
+  {{/paper-toolbar}}
   <h3>Template</h3>
-{{#code-block language='handlebars'}}
-\{{#paper-toolbar}}
-  &lt;div class="md-toolbar-tools"&gt;
-    \{{#paper-button}}Example button\{{/paper-button}}
-    \{{#paper-button}}Example button\{{/paper-button}}
-  &lt;/div&gt;
-\{{/paper-toolbar}}{{/code-block}}
+  {{#code-block language='handlebars'}}
+    \{{#paper-toolbar}}
+      &lt;div class="md-toolbar-tools"&gt;
+        \{{#paper-button}}Example button\{{/paper-button}}
+        \{{#paper-button}}Example button\{{/paper-button}}
+      &lt;/div&gt;
+
+      \{{#paper-toolbar}}
+        &lt;div class="md-toolbar-tools"&gt;
+          \{{#paper-button}}
+            \{{paper-icon 'menu'}}
+          \{{/paper-button}}
+          &lt;h2&gt;
+            &lt;span&gt;Toolbar with Icon Buttons&lt;/span&gt;
+          &lt;/h2&gt;
+          &lt;span flex&gt;&lt;/span&gt;
+          \{{#paper-button}}
+            \{{paper-icon 'favorite'}}
+          \{{/paper-button}}
+          \{{#paper-button}}
+            \{{paper-icon 'more-vert'}}
+          \{{/paper-button}}
+        &lt;/div&gt;
+      \{{/paper-toolbar}}
+
+      \{{#paper-toolbar}}
+         &lt;div class="md-toolbar-tools"&gt;
+           \{{#paper-button}}
+             Go Back
+           \{{/paper-button}}
+           &lt;h2&gt;
+             &lt;span&gt;Toolbar with Standard Buttons&lt;/span&gt;
+           &lt;/h2&gt;
+           &lt;span flex&gt;&lt;/span&gt;
+           \{{#paper-button raised=true}}
+             Learn More
+           \{{/paper-button}}
+           \{{#paper-button mini=true fab=true aria-label="Favorite"}}
+            \{{paper-icon 'favorite'}}
+           \{{/paper-button}}
+         &lt;/div&gt;
+       \{{/paper-toolbar}}
+
+      \{{#paper-toolbar tall=true accent=true}}
+        &lt;h2 class="md-toolbar-tools"&gt;
+          &lt;span&gt;Toolbar: tall, accent&lt;/span&gt;
+        &lt;/h2&gt;
+      \{{/paper-toolbar}}
+    \{{/paper-toolbar}}
+
+    \{{#paper-toolbar tall=true class="md-warn md-hue-3"}}
+      &lt;span flex&gt;&lt;/span&gt;
+      &lt;h2 class="md-toolbar-tools md-toolbar-tools-bottom"&gt;
+        &lt;span class="md-flex"&gt;Toolbar: tall with actions pin to the bottom (md-warn md-hue-3)&lt;/span&gt;
+      &lt;/h2&gt;
+    \{{/paper-toolbar}}
+  {{/code-block}}
 </div>
 {{/paper-content}}
