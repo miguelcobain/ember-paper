@@ -1,22 +1,28 @@
 import Ember from 'ember';
+const { Controller, run } = Ember;
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   mode: 'query',
-  determinateValue: 30,
+  determinateValue: 0,
+  timer: null,
 
-  init() {
+  start() {
+    this.set('determinateValue', 30);
     this.setupTimer();
   },
 
   setupTimer() {
-    Ember.run.later(this, function() {
-      this.incrementProperty('determinateValue', 1);
-      if (this.get('determinateValue') > 100) {
+    this.set('timer', run.later(this, function() {
+      let value = this.incrementProperty('determinateValue', 1);
+      if (value > 100) {
         this.set('determinateValue', 30);
       }
+      this.setupTimer();
+    }, 100));
+  },
 
-      Ember.run.later(this, this.setupTimer);
-
-    }, 100);
+  stop() {
+    run.cancel(this.get('timer'));
   }
+
 });
