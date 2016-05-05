@@ -5,7 +5,7 @@ moduleForComponent('paper-toolbar', 'Integration | Component | paper toolbar', {
   integration: true
 });
 
-test('should bind class names correctly', function(assert) {
+test('uses md-tall class tall=true', function(assert) {
   // Template block usage:
   this.render(hbs`
     {{#paper-toolbar tall=true}}
@@ -16,5 +16,4 @@ test('should bind class names correctly', function(assert) {
   `);
 
   assert.ok(this.$('md-toolbar').hasClass('md-tall'));
-  assert.ok(this.$('md-toolbar').hasClass('md-default-theme'));
 });
