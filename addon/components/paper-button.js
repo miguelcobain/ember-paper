@@ -11,9 +11,15 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   type: 'button',
   tagName: 'button',
   classNames: ['paper-button', 'md-default-theme', 'md-button'],
+  raised: false,
+  iconButton: false,
+  fab: computed.reads('mini'),  // circular button
+  mini: false,
   classNameBindings: [
     'raised:md-raised',
-    'iconButton:md-icon-button'
+    'iconButton:md-icon-button',
+    'fab:md-fab',
+    'mini:md-mini'
   ],
 
   // Ripple Overrides
