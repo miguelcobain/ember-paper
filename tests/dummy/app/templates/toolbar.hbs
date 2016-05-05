@@ -1,128 +1,125 @@
 {{#paper-toolbar}}
-    <div class="md-toolbar-tools">
+    {{#paper-toolbar-tools}}
       {{#paper-sidenav-toggle as |toggle|}}
         {{#paper-button onClick=(action "toggleMenu" target=toggle) iconButton=true}}{{paper-icon "menu"}}{{/paper-button}}
       {{/paper-sidenav-toggle}}
         <span class="md-breadcrumb-page">Toolbars</span>
-    </div>
+    {{/paper-toolbar-tools}}
 {{/paper-toolbar}}
 {{#paper-content class="md-padding"}}
 <div class="doc-content">
-  {{#paper-toolbar}}
-    <div class="md-toolbar-tools">
-      {{#paper-button}}Example button{{/paper-button}}
-      {{#paper-button}}Example button{{/paper-button}}
-    </div>
-  {{/paper-toolbar}}
-
-  <p>"md-toolbar-tools" is a class that centers your elements in the toolbar.</p>
-
 
   {{#paper-toolbar}}
-    <div class="md-toolbar-tools">
-      {{#paper-button}}
-        {{paper-icon 'menu'}}
+    {{#paper-toolbar-tools}}
+      {{#paper-button iconButton=true}}
+        {{paper-icon "menu"}}
       {{/paper-button}}
       <h2>
-        <span>Toolbar with Icon Buttons</span>
+        Toolbar with Icon Buttons
       </h2>
-      <span flex></span>
-      {{#paper-button}}
-        {{paper-icon 'favorite'}}
+      <span class="flex"></span>
+      {{#paper-button iconButton=true}}
+        {{paper-icon "favorite"}}
       {{/paper-button}}
-      {{#paper-button}}
-        {{paper-icon 'more-vert'}}
+      {{#paper-button iconButton=true}}
+        {{paper-icon "more_vert"}}
       {{/paper-button}}
-    </div>
+    {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
+
   <br />
-  {{#paper-toolbar}}
-     <div class="md-toolbar-tools">
+
+  {{#paper-toolbar as |toolbar|}}
+     {{#toolbar.tools}}
        {{#paper-button}}
          Go Back
        {{/paper-button}}
-       <h2>
-         <span>Toolbar with Standard Buttons</span>
-       </h2>
-       <span flex></span>
+       <h2>Toolbar with Standard Buttons</h2>
+       <span class="flex"></span>
        {{#paper-button raised=true}}
          Learn More
        {{/paper-button}}
-       {{#paper-button mini=true fab=true aria-label="Favorite"}}
-        {{paper-icon 'favorite'}}
+       {{#paper-button mini=true aria-label="Favorite"}}
+        {{paper-icon "favorite"}}
        {{/paper-button}}
-     </div>
+     {{/toolbar.tools}}
    {{/paper-toolbar}}
+
   <br />
+
   {{#paper-toolbar tall=true accent=true}}
-    <h2 class="md-toolbar-tools">
-      <span>Toolbar: tall, accent</span>
-    </h2>
+    {{#paper-toolbar-tools}}
+      <h2>Toolbar: tall=true, accent=true</h2>
+    {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
+
   <br />
-  {{#paper-toolbar tall=true class="md-warn md-hue-3"}}
+
+  {{#paper-toolbar tall=true warn=true}}
     <span flex></span>
-    <h2 class="md-toolbar-tools md-toolbar-tools-bottom">
-      <span class="md-flex">Toolbar: tall with actions pin to the bottom (md-warn md-hue-3)</span>
-    </h2>
+    {{#paper-toolbar-tools}}
+      <h2>Toolbar: tall with actions pin to the bottom (tall=true warn=true)</h2>
+    {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
+
+
   <h3>Template</h3>
-  {{#code-block language='handlebars'}}
-    \{{#paper-toolbar}}
-      &lt;div class="md-toolbar-tools"&gt;
-        \{{#paper-button}}Example button\{{/paper-button}}
-        \{{#paper-button}}Example button\{{/paper-button}}
-      &lt;/div&gt;
-
-      \{{#paper-toolbar}}
-        &lt;div class="md-toolbar-tools"&gt;
-          \{{#paper-button}}
-            \{{paper-icon 'menu'}}
-          \{{/paper-button}}
-          &lt;h2&gt;
-            &lt;span&gt;Toolbar with Icon Buttons&lt;/span&gt;
-          &lt;/h2&gt;
-          &lt;span flex&gt;&lt;/span&gt;
-          \{{#paper-button}}
-            \{{paper-icon 'favorite'}}
-          \{{/paper-button}}
-          \{{#paper-button}}
-            \{{paper-icon 'more-vert'}}
-          \{{/paper-button}}
-        &lt;/div&gt;
-      \{{/paper-toolbar}}
-
-      \{{#paper-toolbar}}
-         &lt;div class="md-toolbar-tools"&gt;
-           \{{#paper-button}}
-             Go Back
-           \{{/paper-button}}
-           &lt;h2&gt;
-             &lt;span&gt;Toolbar with Standard Buttons&lt;/span&gt;
-           &lt;/h2&gt;
-           &lt;span flex&gt;&lt;/span&gt;
-           \{{#paper-button raised=true}}
-             Learn More
-           \{{/paper-button}}
-           \{{#paper-button mini=true fab=true aria-label="Favorite"}}
-            \{{paper-icon 'favorite'}}
-           \{{/paper-button}}
-         &lt;/div&gt;
-       \{{/paper-toolbar}}
-
-      \{{#paper-toolbar tall=true accent=true}}
-        &lt;h2 class="md-toolbar-tools"&gt;
-          &lt;span&gt;Toolbar: tall, accent&lt;/span&gt;
-        &lt;/h2&gt;
-      \{{/paper-toolbar}}
-    \{{/paper-toolbar}}
-
-    \{{#paper-toolbar tall=true class="md-warn md-hue-3"}}
-      &lt;span flex&gt;&lt;/span&gt;
-      &lt;h2 class="md-toolbar-tools md-toolbar-tools-bottom"&gt;
-        &lt;span class="md-flex"&gt;Toolbar: tall with actions pin to the bottom (md-warn md-hue-3)&lt;/span&gt;
+  {{#code-block language="handlebars"}}
+  \{{#paper-toolbar}}
+    \{{#paper-toolbar-tools}}
+      \{{#paper-button iconButton=true}}
+        \{{paper-icon "menu"}}
+      \{{/paper-button}}
+      &lt;h2&gt;
+        Toolbar with Icon Buttons
       &lt;/h2&gt;
-    \{{/paper-toolbar}}
-  {{/code-block}}
+      &lt;span class="flex"&gt;&lt;/span&gt;
+      \{{#paper-button iconButton=true}}
+        \{{paper-icon "favorite"}}
+      \{{/paper-button}}
+      \{{#paper-button iconButton=true}}
+        \{{paper-icon "more_vert"}}
+      \{{/paper-button}}
+    \{{/paper-toolbar-tools}}
+  \{{/paper-toolbar}}
+
+  &lt;br /&gt;
+
+  \{{!-- using contextual components form --}}
+  \{{#paper-toolbar as |toolbar|}}
+     \{{#toolbar.tools}}
+       \{{#paper-button}}
+         Go Back
+       \{{/paper-button}}
+       &lt;h2&gt;Toolbar with Standard Buttons&lt;/h2&gt;
+       &lt;span class="flex"&gt;&lt;/span&gt;
+       \{{#paper-button raised=true}}
+         Learn More
+       \{{/paper-button}}
+       \{{#paper-button mini=true aria-label="Favorite"}}
+        \{{paper-icon "favorite"}}
+       \{{/paper-button}}
+     \{{/toolbar.tools}}
+   \{{/paper-toolbar}}
+
+  &lt;br /&gt;
+
+  \{{#paper-toolbar tall=true accent=true}}
+    \{{#paper-toolbar-tools}}
+      &lt;h2&gt;Toolbar: tall=true, accent=true&lt;/h2&gt;
+    \{{/paper-toolbar-tools}}
+  \{{/paper-toolbar}}
+
+  &lt;br /&gt;
+
+  \{{#paper-toolbar tall=true warn=true}}
+    &lt;span class="flex"&gt;&lt;/span&gt;
+    \{{#paper-toolbar-tools}}
+      &lt;h2&gt;Toolbar: tall with actions pin to the bottom (md-warn md-hue-3)&lt;/h2&gt;
+    \{{/paper-toolbar-tools}}
+  \{{/paper-toolbar}}
+
+  {{~/code-block}}
+
 </div>
 {{/paper-content}}
