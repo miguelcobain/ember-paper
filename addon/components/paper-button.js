@@ -13,7 +13,7 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNames: ['paper-button', 'md-default-theme', 'md-button'],
   raised: false,
   iconButton: false,
-  fab: false,  // circular button
+  fab: computed.reads('mini'),  // circular button
   mini: false,
   classNameBindings: [
     'raised:md-raised',
