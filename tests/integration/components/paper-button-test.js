@@ -80,11 +80,11 @@ test('uses md-fab class when fab=true', function(assert) {
   assert.ok(this.$('.md-button').hasClass('md-fab'));
 });
 
-test('uses md-mini class when mini=true', function(assert) {
+test('uses md-mini and md-fab class when mini=true', function(assert) {
   this.render(hbs`
     {{#paper-button mini=true}}
       A label
     {{/paper-button}}
   `);
-  assert.ok(this.$('.md-button').hasClass('md-mini'));
+  assert.ok(this.$('.md-button').is('.md-fab', '.md-mini'));
 });
