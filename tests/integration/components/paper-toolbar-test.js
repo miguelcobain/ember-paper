@@ -6,14 +6,25 @@ moduleForComponent('paper-toolbar', 'Integration | Component | paper toolbar', {
 });
 
 test('uses md-tall class tall=true', function(assert) {
-  // Template block usage:
+  assert.expect(1);
+
   this.render(hbs`
     {{#paper-toolbar tall=true}}
-      <h2 class="md-toolbar-tools">
-        <span>Toolbar: tall, accent</span>
-      </h2>
     {{/paper-toolbar}}
   `);
 
   assert.ok(this.$('md-toolbar').hasClass('md-tall'));
+});
+
+test('paper-toolbar-tools uses .md-toolbar-tools class', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`
+    {{#paper-toolbar tall=true}}
+      {{#paper-toolbar-tools}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+  `);
+
+  assert.equal(this.$('.md-toolbar-tools').length, 1);
 });
