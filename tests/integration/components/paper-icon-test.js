@@ -112,3 +112,18 @@ test('it renders with a provided aria-label', function(assert) {
 
   assert.equal($component.attr('aria-label'), 'bar-baz');
 });
+
+test('it renders the correct ligature when given a dashed or underscored icon name', function(assert) {
+  assert.expect(2);
+
+  this.set('iconName', 'aspect-ratio');
+  this.render(hbs`{{paper-icon iconName}}`);
+
+  let $component = this.$('md-icon');
+
+  assert.equal($component.text().trim(), 'aspect_ratio');
+
+  this.set('iconName', 'aspect_ratio');
+
+  assert.equal($component.text().trim(), 'aspect_ratio');
+});
