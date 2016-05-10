@@ -58,29 +58,32 @@ test('it renders with reverse spin class', function(assert) {
 });
 
 test('it renders with size class', function(assert) {
-  assert.expect(6);
+  assert.expect(7);
 
   this.set('size', 'lg');
   this.render(hbs`{{paper-icon "check" size=size}}`);
 
   let $component = this.$('md-icon');
 
-  assert.ok($component.hasClass('md-lg'));
+  assert.ok($component.hasClass('md-icon-size-lg'));
 
   this.set('size', 'sm');
-  assert.ok($component.hasClass('md-sm'));
+  assert.ok($component.hasClass('md-icon-size-sm'));
 
-  this.set('size', 2);
-  assert.ok($component.hasClass('md-2x'));
+  this.set('size', 12);
+  assert.ok($component.hasClass('md-icon-size-12'));
 
-  this.set('size', 3);
-  assert.ok($component.hasClass('md-3x'));
+  this.set('size', 18);
+  assert.ok($component.hasClass('md-icon-size-18'));
 
-  this.set('size', 4);
-  assert.ok($component.hasClass('md-4x'));
+  this.set('size', 24);
+  assert.ok($component.hasClass('md-icon-size-24'));
 
-  this.set('size', 5);
-  assert.ok($component.hasClass('md-5x'));
+  this.set('size', 36);
+  assert.ok($component.hasClass('md-icon-size-36'));
+
+  this.set('size', 48);
+  assert.ok($component.hasClass('md-icon-size-48'));
 });
 
 test('it renders with a default aria-label of the icon', function(assert) {

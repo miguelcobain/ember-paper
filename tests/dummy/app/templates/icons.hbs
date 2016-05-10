@@ -8,31 +8,50 @@
 {{/paper-toolbar}}
 {{#paper-content class="md-padding icon-demo"}}
 
-  <h3>Template</h3>
-  <h4>Basic Icons</h4>
+<div class="doc-content">
+
+  <h2>Available Icons</h2>
+  <p>
+    See the <a href="https://design.google.com/icons/" target="_blank">Material Icons page</a> for an overview of
+    available icons.
+  </p>
+
+  <h2>Usage</h2>
+
+  <h3>Basic Icons</h3>
+  <div>
+    {{paper-icon "check-circle"}}
+  </div>
   {{#code-block language='handlebars'}}
-    \{{paper-icon "check"}}
-  {{/code-block}}
-  <h4>Changing Sizes</h4>
+\{{paper-icon "check-circle"}}{{/code-block}}
+
+  <h3>Changing Sizes</h3>
+  <div class="layout-row">
+    {{paper-icon "check-circle" size="sm"}}
+    {{paper-icon "check-circle" size="lg"}}
+    {{paper-icon "check-circle" size=12}}
+    {{paper-icon "check-circle" size=18}}
+    {{paper-icon "check-circle" size=24}}
+    {{paper-icon "check-circle" size=36}}
+    {{paper-icon "check-circle" size=48}}
+  </div>
     {{#code-block language='handlebars'}}
-      \{{paper-icon "check" size="sm"}}
-      \{{paper-icon "check" size="lg"}}
-      \{{paper-icon "check" size=2}}
-      \{{paper-icon "check" size=3}}
-      \{{paper-icon "check" size=4}}
-      \{{paper-icon "check" size=5}}
-    {{/code-block}}
-  <h4>Spinners</h4>
+\{{paper-icon "check-circle" size="sm"}}
+\{{paper-icon "check-circle" size="lg"}}
+\{{paper-icon "check-circle" size=12}}
+\{{paper-icon "check-circle" size=18}}
+\{{paper-icon "check-circle" size=24}}
+\{{paper-icon "check-circle" size=36}}
+\{{paper-icon "check-circle" size=48}}{{/code-block}}
+
+  <h3>Spinners</h3>
+  <div>
+    {{paper-icon "rotate-right" spin=true}}
+    {{paper-icon "rotate-left" reverseSpin=true}}
+  </div>
     {{#code-block language='handlebars'}}
 \{{paper-icon "rotate-right" spin=true}}
 \{{paper-icon "rotate-left" reverseSpin=true}}{{/code-block}}
-  <div>
-    {{#each icons as |icon|}}
-      <div class="icon-tile">
-        {{paper-icon icon}}
-        <p>{{icon}}</p>
-      </div>
-    {{/each}}
-  </div>
+</div>
 
 {{/paper-content}}
