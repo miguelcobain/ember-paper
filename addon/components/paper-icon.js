@@ -1,24 +1,26 @@
 import Ember from 'ember';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-let PaperIconComponent = Ember.Component.extend(ColorMixin, {
+const { Component, computed, String: Str } = Ember;
+
+let PaperIconComponent = Component.extend(ColorMixin, {
   tagName: 'md-icon',
   classNames: ['paper-icon', 'md-font', 'material-icons', 'md-default-theme'],
-  classNameBindings: ['sizeClass', 'spinClass'],
-  attributeBindings: ['aria-label', 'title'],
+  classNameBindings: ['spinClass'],
+  attributeBindings: ['aria-label', 'title', 'sizeStyle:style'],
 
   icon: '',
   spin: false,
   reverseSpin: false,
 
-  iconClass: Ember.computed('icon', 'positionalIcon', function() {
+  iconClass: computed('icon', 'positionalIcon', function() {
     let icon = this.getWithDefault('positionalIcon', this.get('icon'));
     return icon;
   }),
 
-  'aria-label': Ember.computed.reads('iconClass'),
+  'aria-label': computed.reads('iconClass'),
 
-  spinClass: Ember.computed('spin', 'reverseSpin', function() {
+  spinClass: computed('spin', 'reverseSpin', function() {
     if (this.get('spin')) {
       return 'md-spin';
     } else if (this.get('reverseSpin')) {
@@ -26,10 +28,11 @@ let PaperIconComponent = Ember.Component.extend(ColorMixin, {
     }
   }),
 
-  sizeClass: Ember.computed('size', function() {
+  sizeStyle: computed('size', function() {
     let size = this.get('size');
+
     if (size) {
-      return `md-icon-size-${size}`;
+      return Str.htmlSafe(`height: ${size}px; font-size: ${size}px;`);
     }
   })
 });

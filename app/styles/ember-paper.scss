@@ -20,32 +20,6 @@
   animation: md-spin-reverse 1.5s infinite linear;
 }
 
-// Icon sizes (not part of angular-material)
-.md-icon-size-12 {
-  height: 12px;
-  font-size: 12px;
-}
-
-.md-icon-size-18, .md-icon-size-sm {
-  height: 18px;
-  font-size: 18px;
-}
-
-.md-icon-size-24 {
-  height: 24px;
-  font-size: 24px;
-}
-
-.md-icon-size-36 {
-  height: 36px;
-  font-size: 36px;
-}
-
-.md-icon-size-48, .md-icon-size-lg {
-  height: 48px;
-  font-size: 48px;
-}
-
 // Spin
 @keyframes md-spin {
   0% {

@@ -1,4 +1,4 @@
-import { underscore } from 'dummy/helpers/-ep-underscore';
+import { underscore } from 'dummy/helpers/-paper-underscore';
 import { module, test } from 'qunit';
 
 module('Unit | Helper | underscore');

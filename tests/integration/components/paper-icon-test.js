@@ -57,33 +57,32 @@ test('it renders with reverse spin class', function(assert) {
   assert.notOk($component.hasClass('md-spin-reverse'));
 });
 
-test('it renders with size class', function(assert) {
-  assert.expect(7);
+test('it renders with size styles', function(assert) {
+  assert.expect(10);
 
-  this.set('size', 'lg');
+  this.set('size', 12);
   this.render(hbs`{{paper-icon "check" size=size}}`);
 
   let $component = this.$('md-icon');
 
-  assert.ok($component.hasClass('md-icon-size-lg'));
-
-  this.set('size', 'sm');
-  assert.ok($component.hasClass('md-icon-size-sm'));
-
-  this.set('size', 12);
-  assert.ok($component.hasClass('md-icon-size-12'));
+  assert.equal($component.css('font-size'), '12px');
+  assert.equal($component.css('height'), '12px');
 
   this.set('size', 18);
-  assert.ok($component.hasClass('md-icon-size-18'));
+  assert.equal($component.css('font-size'), '18px');
+  assert.equal($component.css('height'), '18px');
 
   this.set('size', 24);
-  assert.ok($component.hasClass('md-icon-size-24'));
+  assert.equal($component.css('font-size'), '24px');
+  assert.equal($component.css('height'), '24px');
 
   this.set('size', 36);
-  assert.ok($component.hasClass('md-icon-size-36'));
+  assert.equal($component.css('font-size'), '36px');
+  assert.equal($component.css('height'), '36px');
 
   this.set('size', 48);
-  assert.ok($component.hasClass('md-icon-size-48'));
+  assert.equal($component.css('font-size'), '48px');
+  assert.equal($component.css('height'), '48px');
 });
 
 test('it renders with a default aria-label of the icon', function(assert) {
