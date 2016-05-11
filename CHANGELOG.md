@@ -9,7 +9,7 @@ Version 1.0 introduces many API changes relative to previous releases. In additi
 Contributions and pull requests are always welcome. Contributors may often be found on the slack.com #e-paper channel. Building the dummy application by installing `ember-paper` as if it were an application will provide you an up-to-date interactive demo, templates, and code samples.
 
 - Attributes are now `camelCased` rather than `kebob-cased`.
-- Components which accept user input, such as `paper-input`, `paper-checkbox`, and `paper-select` now receive their input via the one-way `value` attribute and notify of a changed value by the `onChange` actions.
+- Components which accept user input, such as `paper-input`, `paper-checkbox`, `paper-switch` and `paper-select` now receive their input via the one-way `value` attribute and notify of a changed value by the `onChange` actions.
 - When provided by the API, `onChange` actions are required and throw an assertion if not provided.
 - Actions maybe be specified by a string action name (`onChange="updateValue"`) or an action closure (`onChange=(action (mut "myValue"))`). If you need to specify a target or additional parameter, you must use an action closure.
 - Many attributes have been renamed for clarity and consistency. See the specific changes below.
