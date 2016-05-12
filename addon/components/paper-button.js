@@ -7,14 +7,22 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
 const { computed } = Ember;
 
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
-  attributeBindings: ['type'],
   type: 'button',
-  tagName: 'button',
+  tagName: computed('href', function() {
+    return this.get('href') ? 'a' : 'button';
+  }),
   classNames: ['paper-button', 'md-default-theme', 'md-button'],
   raised: false,
   iconButton: false,
   fab: computed.reads('mini'),  // circular button
   mini: false,
+  href: null,
+  target: null,
+  attributeBindings: [
+    'type',
+    'href',
+    'target'
+  ],
   classNameBindings: [
     'raised:md-raised',
     'iconButton:md-icon-button',
