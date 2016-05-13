@@ -29,7 +29,7 @@ export default Component.extend(RippleMixin, ProxyMixin, {
 
   hasPrimaryAction: computed.notEmpty('onClick'),
 
-  hasSecondaryAction: computed('secondaryItem', 'onClick', () => {
+  hasSecondaryAction: computed('secondaryItem', 'onClick', function() {
     let secondaryItem = get(this, 'secondaryItem');
     if (!isEmpty(secondaryItem)) {
       let hasClickAction = get(secondaryItem, 'onClick');
@@ -40,7 +40,7 @@ export default Component.extend(RippleMixin, ProxyMixin, {
     }
   }),
 
-  secondaryItem: computed('proxiedComponents.[]', () => {
+  secondaryItem: computed('proxiedComponents.[]', function() {
     let proxiedComponents = get(this, 'proxiedComponents');
     return proxiedComponents.find((component)=> {
       return get(component, 'isSecondary');
