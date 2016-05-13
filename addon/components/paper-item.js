@@ -7,15 +7,11 @@ const {
   set,
   isEmpty,
   computed,
-  run: { later }
+  run,
+  Component
 } = Ember;
 
-const {
-  bool,
-  notEmpty
-} = computed;
-
-export default Ember.Component.extend(RippleMixin, ProxyMixin, {
+export default Component.extend(RippleMixin, ProxyMixin, {
   tagName: 'md-list-item',
 
   // Ripple Overrides
@@ -29,37 +25,29 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
   role: 'listitem',
   tabindex: '-1',
 
-  hasProxiedComponent: bool('proxiedComponents.length'),
+  hasProxiedComponent: computed.bool('proxiedComponents.length'),
 
-  hasPrimaryAction: notEmpty('onClick'),
+  hasPrimaryAction: computed.notEmpty('onClick'),
 
-  hasSecondaryAction: computed('secondaryItem', 'onClick', {
-    get() {
-      let secondaryItem = get(this, 'secondaryItem');
-      if (!isEmpty(secondaryItem)) {
-        let hasClickAction = get(secondaryItem, 'onClick');
-        let hasChangeAction = get(secondaryItem, 'onChange');
-        return hasClickAction || hasChangeAction;
-      } else {
-        return false;
-      }
+  hasSecondaryAction: computed('secondaryItem', 'onClick', () => {
+    let secondaryItem = get(this, 'secondaryItem');
+    if (!isEmpty(secondaryItem)) {
+      let hasClickAction = get(secondaryItem, 'onClick');
+      let hasChangeAction = get(secondaryItem, 'onChange');
+      return hasClickAction || hasChangeAction;
+    } else {
+      return false;
     }
   }),
 
-  secondaryItem: computed('proxiedComponents.[]', {
-    get() {
-      let proxiedComponents = get(this, 'proxiedComponents');
-      return proxiedComponents.find((component)=> {
-        return get(component, 'isSecondary');
-      });
-    }
+  secondaryItem: computed('proxiedComponents.[]', () => {
+    let proxiedComponents = get(this, 'proxiedComponents');
+    return proxiedComponents.find((component)=> {
+      return get(component, 'isSecondary');
+    });
   }),
 
-  shouldBeClickable: computed('proxiedComponents.length', 'onClick', {
-    get() {
-      return get(this, 'proxiedComponents.length') || get(this, 'onClick');
-    }
-  }),
+  shouldBeClickable: computed.or('proxiedComponents.length', 'onClick'),
 
   setupProxiedComponent() {
     let tEl = this.$();
@@ -77,7 +65,7 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
         set(this, 'mouseActive', false);
         el.on('mousedown', ()=> {
           set(this, 'mouseActive', true);
-          later(()=> {
+          run.later(()=> {
             set(this, 'mouseActive', false);
           }, 100);
         });
