@@ -88,3 +88,23 @@ test('uses md-mini and md-fab class when mini=true', function(assert) {
   `);
   assert.ok(this.$('.md-button').is('.md-fab', '.md-mini'));
 });
+
+test('uses a tag when href is specified', function(assert) {
+  this.render(hbs`
+    {{#paper-button href="http://example.com"}}
+      A label
+    {{/paper-button}}
+  `);
+  assert.ok(this.$('.md-button').is('a'));
+  assert.ok(this.$('.md-button').attr('href') === 'http://example.com');
+});
+
+test('renders target', function(assert) {
+  this.render(hbs`
+    {{#paper-button href="http://example.com" target="_blank"}}
+      A label
+    {{/paper-button}}
+  `);
+  assert.ok(this.$('.md-button').is('a'));
+  assert.ok(this.$('.md-button').attr('target') === '_blank');
+});
