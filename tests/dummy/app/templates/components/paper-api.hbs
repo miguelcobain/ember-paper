@@ -1,0 +1,28 @@
+<h2>{{title}}</h2>
+
+<table>
+  <thead>
+    <tr>
+      {{#each header as |heading|}}
+        <th>{{heading}}</th>
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each categories as |category|}}
+      {{#each category as |row|}}
+        <tr>
+          {{#each row as |cell index|}}
+            <td>
+              {{#unless index}}
+                <strong>{{cell}}</strong>
+              {{else}}
+                {{cell}}
+              {{/unless}}
+            </td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    {{/each}}
+  </tbody>
+</table>
