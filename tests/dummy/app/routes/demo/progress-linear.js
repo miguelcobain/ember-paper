@@ -5,11 +5,11 @@ const { Route, on } = Ember;
 export default Route.extend({
 
   onActivate: on('activate', function() {
-    this.controllerFor('progress-circular').start();
+    this.controllerFor('demo.progress-linear').start();
   }),
 
   onDeactivate: on('deactivate', function() {
-    this.controllerFor('progress-circular').stop();
+    this.controllerFor('demo.progress-linear').stop();
   })
 
 });

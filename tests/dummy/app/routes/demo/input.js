@@ -13,7 +13,7 @@ export default Route.extend({
 
     willTransition() {
       // Clean up the record created for demonstration purposes.
-      let record = this.modelFor('input');
+      let record = this.modelFor('demo.input');
       record.rollbackAttributes();
       this.store.unloadRecord(record);
     }
