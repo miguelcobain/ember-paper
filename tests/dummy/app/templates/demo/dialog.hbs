@@ -1,11 +1,5 @@
-{{#paper-toolbar}}
-  <div class="md-toolbar-tools">
-    {{#paper-sidenav-toggle as |toggle|}}
-      {{#paper-button onClick=(action "toggleMenu" target=toggle) iconButton=true}}{{paper-icon icon="menu"}}{{/paper-button}}
-    {{/paper-sidenav-toggle}}
-    <span class="md-breadcrumb-page">Dialog</span>
-  </div>
-{{/paper-toolbar}}
+{{page-toolbar pageTitle="Dialog" isDemo=true}}
+
 {{#paper-content class="md-padding"}}
 
   <div class="doc-content">

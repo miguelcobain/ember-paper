@@ -1,0 +1,18 @@
+{{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+  {{#toolbar.tools}}
+    {{#paper-sidenav-toggle as |toggle|}}
+      {{#paper-button onClick=(action "toggleMenu" target=toggle) iconButton=true}}
+        {{paper-icon "menu"}}
+      {{/paper-button}}
+    {{/paper-sidenav-toggle}}
+    <h2>
+      {{#if isDemo}}
+        Demos {{paper-icon "chevron-right"}}
+      {{/if}}
+      {{pageTitle}}
+      {{#if isWIP}}
+        {{paper-icon "warning" title="Not updated yet."}}
+      {{/if}}
+    </h2>
+  {{/toolbar.tools}}
+{{/paper-toolbar}}

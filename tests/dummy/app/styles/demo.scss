@@ -149,6 +149,15 @@ ul li:first-child {
   padding: 20px;
 }
 
+md-toolbar.md-default-theme.page-main-toolbar {
+  background-color: color('grey', '100');
+  color: $dark-contrast-color;
+
+  md-icon {
+    color: inherit;
+    margin-top: -2px;
+  }
+}
 /* DEMO PAGE STYLES */
 .doc-content {
   max-width: 864px;
