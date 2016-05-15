@@ -49,6 +49,7 @@
     "ember-suave": "2.0.1",
     "ember-transition-helper": "0.0.6",
     "ember-try": "^0.2.2",
+    "liquid-fire": "0.23.1",
     "loader.js": "^4.0.1"
   },
   "dependencies": {

@@ -140,10 +140,6 @@ ul li:first-child {
   margin-top: 0;
 }
 
-.logo {
-  font-size: 24px;
-}
-
 .preview-block {
   background: #f5f5f5;
   padding: 20px;
@@ -158,6 +154,69 @@ md-toolbar.md-default-theme.page-main-toolbar {
     margin-top: -2px;
   }
 }
+
+md-sidenav.site-sidenav {
+  background: linear-gradient(to bottom left, color($primary, '500'), color($primary, '400'));
+
+  md-toolbar.md-default-theme {
+    background: transparent;
+    border-bottom: 1px solid rgba(#fff, .1);
+
+    .logo {
+      font-size: 24px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  md-content {
+    background: transparent;
+    color: $light-contrast-color;
+    md-icon {
+      color: inherit;
+    }
+  }
+
+  .menu-item {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+
+    .expand-icon {
+      position: relative;
+      right: -36px;
+      transition: transform 250ms linear;
+    }
+
+    &.expanded .expand-icon {
+      transform: rotate(-180deg);
+    }
+  }
+
+  .submenu-item {
+    .md-list-item-inner {
+      padding-left: 36px;
+    }
+  }
+
+  .menu-item, .submenu-item {
+    min-height: 40px;
+
+    &.active, &:hover {
+      background-color: rgba(#fff, .1);
+    }
+
+    .md-list-item-inner {
+      min-height: 40px;
+
+      md-icon {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
 /* DEMO PAGE STYLES */
 .doc-content {
   max-width: 864px;

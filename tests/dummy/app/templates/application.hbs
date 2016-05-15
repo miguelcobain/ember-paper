@@ -1,6 +1,6 @@
 {{#paper-nav-container class="site-nav-container"}}
   {{#paper-sidenav class="md-sidenav-left md-whiteframe-z2 site-sidenav" locked-open="gt-sm"}}
-    {{#paper-toolbar class="site-content-toolbar"}}
+    {{#paper-toolbar class="site-content-toolbar" tall=true}}
       <div class="logo layout-row layout-align-center-center">
         <div>
           <img src="ember-logo-white.png" height="30"/>&nbsp;&nbsp;
@@ -12,29 +12,35 @@
     {{#paper-content}}
 
       {{#paper-list}}
-        {{#paper-item onClick=(transition-to "index")}}Introduction{{/paper-item}}
+        {{#menu-item active=(is-active 'index' currentRouteName) onClick=(transition-to "index")}}Introduction{{/menu-item}}
 
-        {{#paper-item onClick=(transition-to "demo.autocomplete")}}Autocomplete {{paper-icon "warning" title="Not updated yet."}}{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.button")}}Button{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.card")}}Card{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.checkbox")}}Checkbox{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.dialog")}}Dialog{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.divider")}}Divider {{paper-icon "warning" title="Not updated yet."}}{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.grid-list")}}Grid List {{paper-icon "warning" title="Not updated yet."}}{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.icons")}}Icons{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.input")}}Input{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.list")}}List {{paper-icon "warning" title="Not updated yet."}}{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.list-controls")}}List Controls {{paper-icon "warning" title="Not updated yet."}}{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.menu")}}Menu {{paper-icon "warning" title="Not updated yet."}}{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.progress-circular")}}Progress Circular{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.progress-linear")}}Progress Linear{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.radio")}}Radio{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.select")}}Select {{paper-icon "warning" title="Not updated yet."}}{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.sidenav")}}Sidenav {{paper-icon "warning" title="Not updated yet."}}{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.slider")}}Slider {{paper-icon "warning" title="Not updated yet."}}{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.switch")}}Switch{{/paper-item}}
-        {{#paper-item onClick=(transition-to "demo.toolbar")}}Toolbar{{/paper-item}}
-        {{#paper-item onClick=(transition-to "typography")}}Typography{{/paper-item}}
+        {{#menu-item onClick=(action 'toggleDemosExpanded') expanded=demosExpanded canExpand=true}}Demos{{/menu-item}}
+
+        <div class="submenu">
+          {{#liquid-if demosExpanded}}
+            {{#submenu-item active=(is-active 'demo.autocomplete' currentRouteName) onClick=(transition-to "demo.autocomplete")}}Autocomplete {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.button' currentRouteName) onClick=(transition-to "demo.button")}}Button{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.card' currentRouteName) onClick=(transition-to "demo.card")}}Card{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.checkbox' currentRouteName) onClick=(transition-to "demo.checkbox")}}Checkbox{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.dialog' currentRouteName) onClick=(transition-to "demo.dialog")}}Dialog{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.divider' currentRouteName) onClick=(transition-to "demo.divider")}}Divider {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.grid-list' currentRouteName) onClick=(transition-to "demo.grid-list")}}Grid List {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.icons' currentRouteName) onClick=(transition-to "demo.icons")}}Icons{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.input' currentRouteName) onClick=(transition-to "demo.input")}}Input{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.list' currentRouteName) onClick=(transition-to "demo.list")}}List {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.list-controls' currentRouteName) onClick=(transition-to "demo.list-controls")}}List Controls {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.menu' currentRouteName) onClick=(transition-to "demo.menu")}}Menu {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.progress-circular' currentRouteName) onClick=(transition-to "demo.progress-circular")}}Progress Circular{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.progress-linear' currentRouteName) onClick=(transition-to "demo.progress-linear")}}Progress Linear{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.radio' currentRouteName) onClick=(transition-to "demo.radio")}}Radio{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.select' currentRouteName) onClick=(transition-to "demo.select")}}Select {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.sidenav' currentRouteName) onClick=(transition-to "demo.sidenav")}}Sidenav {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.slider' currentRouteName) onClick=(transition-to "demo.slider")}}Slider {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.switch' currentRouteName) onClick=(transition-to "demo.switch")}}Switch{{/submenu-item}}
+            {{#submenu-item active=(is-active 'demo.toolbar' currentRouteName) onClick=(transition-to "demo.toolbar")}}Toolbar{{/submenu-item}}
+          {{/liquid-if}}
+        </div>
+        {{#menu-item active=(is-active 'typography' currentRouteName) onClick=(transition-to "typography")}}Typography{{/menu-item}}
       {{/paper-list}}
 
     {{/paper-content}}
