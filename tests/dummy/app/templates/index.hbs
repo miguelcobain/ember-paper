@@ -2,6 +2,8 @@
 
 {{#paper-content flex=true scroll-y=true layout-padding=true}}
 <div class="doc-content">
+
+  {{#paper-card as |card|}}
   {{#paper-toolbar warn=true}}
     <div class="md-toolbar-tools">
       <h2>Pre-production Version</h2>
@@ -9,12 +11,13 @@
       {{#paper-button href="/ember-paper/release-0-2"}}Switch to version 0.2{{/paper-button}}
     </div>
   {{/paper-toolbar}}
-  {{#paper-content}}
+  {{#card.content}}
     <p>You are viewing the demonstration and documentation for a <strong>pre-production</strong> built of <code>ember-paper</code>. This version is in flux. For version 1.0, all components are being updated to reflect the latest Ember coding practices and Angular Material stylesheets. Components which have not yet been updated are shown with a {{paper-icon "warning"}} and are subject to API changes. Be sure to read CHANGELOG.md when updating.</p>
     <p><strong>Wrong version?</strong> The currently-released version of ember-paper is version 0.2, currently installed by <br><code>ember install ember-paper</code>. See README.md for advice on which version to use. <a href="/ember-paper/release-0-2">Switch to version 0.2.</a></p>
-  {{/paper-content}}
+  {{/card.content}}
+  {{/paper-card}}
 
-  <h2 class="md-headline" style="margin-top: 0;">Welcome to Ember Paper.</h2>
+  <h2 class="md-headline" style="margin-top: 24px;">Welcome to Ember Paper.</h2>
   <p>This project aims to bring Google's new <a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design</a> to Ember. The goal is to encapsulate everything possible in Ember components. This project is packaged as an <a href="http://www.ember-cli.com/">Ember-cli</a> addon.</p>
 
   <h2 class="md-headline">Installation</h2>

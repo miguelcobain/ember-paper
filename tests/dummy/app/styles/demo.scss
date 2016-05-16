@@ -105,15 +105,15 @@ td.description *:last-child {
 }
 
 tr:nth-child(odd) td {
-  background-color: #E3ECF5;
+  background-color: lighten(color($primary, '50'), 3);
 }
 
 tr:nth-child(even) td {
-  background-color: #D1DEEC;
+  background-color: lighten(color($primary, '50'), 5);
 }
 
 th {
-  background-color: #4C9EF0;
+  background-color: color($primary, '400');
   color: white;
 }
 
