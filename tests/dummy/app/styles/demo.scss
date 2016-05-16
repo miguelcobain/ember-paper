@@ -156,16 +156,26 @@ md-toolbar.md-default-theme.page-main-toolbar {
 }
 
 md-sidenav.site-sidenav {
-  background: linear-gradient(to bottom left, color($primary, '500'), color($primary, '400'));
+  background: color($primary, '400');
 
   md-toolbar.md-default-theme {
-    background: transparent;
+    background: linear-gradient(to bottom, color($primary, '500'), color($primary, '400'));;
     border-bottom: 1px solid rgba(#fff, .1);
+    color: #fff;
+
+    height: 230px;
+    min-height: 230px;
+    max-height: 230px;
 
     .logo {
-      font-size: 24px;
+      font-size: 54px;
+      font-weight: 500;
       width: 100%;
       height: 100%;
+
+      img {
+        width: 150px;
+      }
     }
   }
 
