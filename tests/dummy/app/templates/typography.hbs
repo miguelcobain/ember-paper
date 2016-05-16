@@ -1,11 +1,5 @@
-{{#paper-toolbar}}
-    <div class="md-toolbar-tools">
-      {{#paper-sidenav-toggle as |toggle|}}
-        {{#paper-button onClick=(action "toggleMenu" target=toggle) iconButton=true}}{{paper-icon "menu"}}{{/paper-button}}
-      {{/paper-sidenav-toggle}}
-        <span class="md-breadcrumb-page">HTML Elements</span>
-    </div>
-{{/paper-toolbar}}
+{{page-toolbar pageTitle="Typography" isDemo=false}}
+
 {{#paper-content class="md-padding"}}
 <div class="doc-content">
   <h3>Headings</h3>
@@ -79,9 +73,7 @@
   <h3>Multi-line code blocks</h3>
   <p>
   Use &lt;pre&gt; for multi-line code blocks.
-{{#code-block language='handlebars'}}
-&lt;p&gt;This is the first line of code&lt;/p&gt;
-&lt;p&gt;This is the second line of code&lt;/p&gt;{{/code-block}}
+{{code-snippet name="typography.code-block.hbs"}}
   </p>
 
   <h3>Inline code blocks</h3>

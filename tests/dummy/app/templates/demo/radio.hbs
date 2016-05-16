@@ -1,0 +1,36 @@
+{{page-toolbar pageTitle="Radio" isDemo=true}}
+
+{{#doc-content}}
+  <div layout layout-sm="column">
+    {{! BEGIN-SNIPPET radio.basic-usage }}
+    <div flex>{{#paper-radio onChange=(action "foo")}}A radio button{{/paper-radio}}</div>
+    <div flex>{{#paper-radio toggle=true value="123" groupValue=toggleValue onChange=(action (mut toggleValue))}}Toggable radio button{{/paper-radio}}</div>
+    <div flex>{{#paper-radio disabled=true onChange=(action "foo")}}Disabled radio button{{/paper-radio}}</div>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{code-snippet name="radio.basic-usage.hbs"}}
+
+  <h2>Radio Button Group</h2>
+  {{! BEGIN-SNIPPET radio.group }}
+  {{#paper-radio-group groupValue=groupValue onChange=(action (mut groupValue)) as |group|}}
+    {{#group.paper-radio value="1" primary=true}}
+      Radio button 1
+    {{/group.paper-radio}}
+    {{#group.paper-radio value="2" warn=true}}
+      Radio button 2
+    {{/group.paper-radio}}
+    {{#group.paper-radio value="3"}}
+      Radio button 3
+    {{/group.paper-radio}}
+  {{/paper-radio-group}}
+
+  <p>Selected value: {{groupValue}}</p>
+
+  <p>{{paper-radio toggle=true label="Blockless version" onChange=(action "foo")}}</p>
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="radio.group.hbs"}}
+
+{{/doc-content}}

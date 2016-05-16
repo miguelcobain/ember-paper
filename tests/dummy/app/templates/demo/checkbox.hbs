@@ -1,0 +1,33 @@
+{{page-toolbar pageTitle="Checkbox" isDemo=true}}
+
+{{#doc-content}}
+  {{! BEGIN-SNIPPET checkbox }}
+  <div class="layout-column">
+    {{#paper-checkbox value=value1 onChange=(action (mut value1))}}
+      A checkbox: {{value1}}
+    {{/paper-checkbox}}
+
+    {{#paper-checkbox value=value2 onChange=(action (mut value2))}}
+      A checkbox: {{if value2 "yep" "nope"}}
+    {{/paper-checkbox}}
+
+    {{#paper-checkbox value=value3 onChange=(action (mut value3)) disabled=true}}
+      Checkbox (disabled)
+    {{/paper-checkbox}}
+
+    {{#paper-checkbox value=true   onChange=(action (mut value4)) disabled=true}}
+      Checkbox (disabled and value)
+    {{/paper-checkbox}}
+
+    {{#paper-checkbox value=value5 onChange=(action (mut value5)) noink=true}}
+      Checkbox (no ink)
+    {{/paper-checkbox}}
+
+    {{paper-checkbox label="Blockless version" value=value6 onChange=(action "toggleValue6")}}
+  </div>
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="checkbox.hbs"}}
+
+{{/doc-content}}

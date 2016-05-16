@@ -1,0 +1,171 @@
+{{page-toolbar pageTitle="Menu" isDemo=true isWIP=true}}
+
+{{#doc-content}}
+
+
+{{#paper-card}}
+{{#paper-card-content}}
+<h2>Simple dropdown menu</h2>
+
+  <p>Note that applying the class <code class="paper">.md-menu-origin</code> and <code class="paper">md-menu-align-target</code>
+      attributes ensure that the menu elements align</p>
+
+<div layout-align="center center" layout="column">
+  {{! BEGIN-SNIPPET menu.simple-dropdown }}
+  {{#paper-menu width=4 as |menu|}}
+    {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+  {{else}}
+    {{#each items as |item|}}
+      {{#paper-menu-item onClick="openSomething"}}
+        {{paper-icon item.icon class="md-menu-align-target"}}
+        <span>{{item.title}}</span>
+      {{/paper-menu-item}}
+    {{/each}}
+
+    {{#paper-menu-item onClick="openSomething" disabled=true}}
+      {{paper-icon "adb" class="md-menu-align-target"}}
+        <span>This is disabled.</span>
+    {{/paper-menu-item}}
+
+    {{paper-divider}}
+
+    {{#each items as |item|}}
+      {{#paper-menu-item onClick="openSomething"}}
+        {{paper-icon item.icon class="md-menu-align-target"}} {{item.title}}
+      {{/paper-menu-item}}
+    {{/each}}
+  {{/paper-menu}}
+  {{! END-SNIPPET }}
+</div>
+
+<h3>Template</h3>
+{{code-snippet name="menu.simple-dropdown.hbs"}}
+
+{{/paper-card-content}}
+{{/paper-card}}
+
+{{#paper-card}}
+{{#paper-card-content}}
+<h2>Menu Position Modes</h2>
+
+<p>The <code class="paper">position</code> attribute can be used to specify the positioning along the
+    <code class="paper">x</code> and <code class="paper">y</code> axis.</p>
+
+<div layout-align="center center" layout="column">
+  {{! BEGIN-SNIPPET menu.position-modes }}
+  <div class="menus" layout-fill="" layout-wrap="" layout="row" layout-align="space-between center">
+    <div layout="column" flex="33" flex-sm="100" layout-align="center center">
+      <p>Target Mode Positioning (default)</p>
+      {{#paper-menu isOpen=menuTwoIsOpen as |menu|}}
+        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+      {{else}}
+        {{#each items as |item|}}
+          {{#paper-menu-item onClick="openSomething"}}
+            {{paper-icon item.icon class="md-menu-align-target"}}
+            <span>{{item.title}}</span>
+          {{/paper-menu-item}}
+        {{/each}}
+      {{/paper-menu}}
+    </div>
+    <div layout="column" flex="33" flex-sm="100" layout-align="center center">
+      <p>Target mode with <code class="paper">md-offset</code></p>
+      {{#paper-menu isOpen=menuThreeIsOpen offset="0 -5" as |menu|}}
+        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+      {{else}}
+        {{#each items as |item|}}
+          {{#paper-menu-item onClick="openSomething"}}
+            {{paper-icon item.icon class="md-menu-align-target"}}
+            <span>{{item.title}}</span>
+          {{/paper-menu-item}}
+        {{/each}}
+      {{/paper-menu}}
+    </div>
+    <div layout="column" flex="33" flex-sm="100" layout-align="center center">
+      <p><code class="paper">md-position-mode="target-right target"</code></p>
+      {{#paper-menu isOpen=menuFourIsOpen position="target-right target" as |menu|}}
+        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+      {{else}}
+        {{#each items as |item|}}
+          {{#paper-menu-item onClick="openSomething"}}
+            <p style="width: 190px;">{{item.title}}</p>
+            {{paper-icon item.icon class="md-menu-align-target"}}
+          {{/paper-menu-item}}
+        {{/each}}
+      {{/paper-menu}}
+    </div>
+  </div>
+  {{! END-SNIPPET }}
+</div>
+
+
+<h3>Template</h3>
+<p>Use the <code class="paper">position</code> attribute to set where the menu should appear. The position attribute
+should be used together with <code class="paper">.md-menu-origin</code> and <code class="paper">.md-menu-align-target</code>
+attributes to tell where it should position itself in respect to origin and align-target.
+</p>
+
+{{code-snippet name="menu.position-modes.hbs"}}
+
+{{/paper-card-content}}
+{{/paper-card}}
+
+
+
+{{#paper-card}}
+{{#paper-card-content}}
+<h2>Different Widths</h2>
+
+<p><code class="paper">paper-menu-content</code> may specify a width attribute which will follow the
+    <a href="http://www.google.com/design/spec/components/menus.html#menus-specs">official spec</a>.
+</p>
+
+<div layout-align="center center" layout="column">
+  {{! BEGIN-SNIPPET menu.different-widths }}
+  <div class="menus" layout-fill="" layout-wrap="" layout="row" layout-align="space-between center">
+    <div layout="column" flex="33" flex-sm="100" layout-align="center center">
+      <p>Wide menu (<code class="paper">width=6</code>)</p>
+      {{#paper-menu width=6 as |menu|}}
+        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+      {{else}}
+        {{#each options as |item|}}
+          {{#paper-menu-item onClick=(action "openSomething")}}
+            <span class="md-menu-align-target">Option</span> {{item}}
+          {{/paper-menu-item}}
+        {{/each}}
+      {{/paper-menu}}
+    </div>
+    <div layout="column" flex="33" flex-sm="100" layout-align="center center">
+      <p>Medium menu (<code class="paper">width=4</code>)</p>
+      {{#paper-menu width=4 offset="0 -5" as |menu|}}
+        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+      {{else}}
+        {{#each options as |item|}}
+          {{#paper-menu-item onClick="openSomething"}}
+            <span class="md-menu-align-target">Option</span> {{item}}
+          {{/paper-menu-item}}
+        {{/each}}
+      {{/paper-menu}}
+    </div>
+    <div layout="column" flex="33" flex-sm="100" layout-align="center center">
+      <p>Small menu (<code class="paper">width=2</code>)</p>
+      {{#paper-menu width=2 position="target-right target" as |menu|}}
+        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+      {{else}}
+        {{#each options as |item|}}
+          {{#paper-menu-item onClick="openSomething"}}
+            <span class="md-menu-align-target">Option</span> {{item}}
+          {{/paper-menu-item}}
+        {{/each}}
+      {{/paper-menu}}
+    </div>
+  </div>
+  {{! END-SNIPPET }}
+</div>
+
+<h3>Template</h3>
+{{code-snippet name="menu.different-widths.hbs"}}
+
+{{/paper-card-content}}
+{{/paper-card}}
+
+{{/doc-content}}

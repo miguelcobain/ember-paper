@@ -1,0 +1,6 @@
+{{#paper-item onClick=onClick class=(concat "menu-item" (if active ' active') (if expanded ' expanded'))}}
+  {{yield}}
+  {{#if canExpand}}
+    {{paper-icon 'expand-more' class='expand-icon'}}
+  {{/if}}
+{{/paper-item}}
