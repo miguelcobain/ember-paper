@@ -1,7 +1,6 @@
 {{page-toolbar pageTitle="Radio" isDemo=true}}
 
-{{#paper-content class="md-padding"}}
-<div class="doc-content">
+{{#doc-content}}
   <div layout layout-sm="column">
     <div flex>{{#paper-radio onChange=(action "foo")}}A radio button{{/paper-radio}}</div>
     <div flex>{{#paper-radio toggle=true value="123" groupValue=toggleValue onChange=(action (mut toggleValue))}}Toggable radio button{{/paper-radio}}</div>
@@ -44,5 +43,4 @@
 \{{paper-radio toggle=true label="Blockless version" onChange=(action "foo")}}
 
 {{~/code-block}}
-</div>
-{{/paper-content}}
+{{/doc-content}}

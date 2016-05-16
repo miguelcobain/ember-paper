@@ -1,7 +1,6 @@
 {{page-toolbar pageTitle="Switch" isDemo=true}}
 
-{{#paper-content class="md-padding"}}
-  <div class="doc-content">
+{{#doc-content}}
     <p>
       {{#paper-switch value=booleanProp1 onChange=(action (mut booleanProp1))}}
         {{booleanProp1}}
@@ -37,5 +36,4 @@
 
 \{{paper-switch label="Blockless version" value=booleanProp5 onChange=(action "changeBooleanProp" "5")}}
 {{~/code-block}}
-  </div>
-{{/paper-content}}
+{{/doc-content}}

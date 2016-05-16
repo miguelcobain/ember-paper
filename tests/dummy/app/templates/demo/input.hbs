@@ -1,7 +1,6 @@
 {{page-toolbar pageTitle="Input" isDemo=true}}
 
-{{#paper-content class="md-padding"}}
-  <div class="doc-content">
+{{#doc-content}}
     <div layout="" layout-sm="column">
       {{paper-input flex=30 label="Name" value=name onChange=(action (mut name))}}
       {{paper-input flex=30 label="E-mail" type="email" value=email onChange=(action (mut email))}}
@@ -411,5 +410,4 @@ multipleConstraints: [
       The latter format is compatible with errors from `ember-data`.
     </p>
 
-  </div>
-{{/paper-content}}
+{{/doc-content}}

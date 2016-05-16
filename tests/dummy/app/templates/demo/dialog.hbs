@@ -1,8 +1,6 @@
 {{page-toolbar pageTitle="Dialog" isDemo=true}}
 
-{{#paper-content class="md-padding"}}
-
-  <div class="doc-content">
+{{#doc-content}}
 
     {{#paper-card}}
       {{#paper-toolbar}}
@@ -193,9 +191,7 @@
 
     {{/paper-card}}
 
-  </div>
-
-{{/paper-content}}
+{{/doc-content}}
 
 {{#if showDialogWithParent}}
   {{#paper-dialog onClose=(action "closeDialogWithParent" "cancel") parent="#paper-dialog-demo" origin=dialogOrigin clickOutsideToClose=true}}

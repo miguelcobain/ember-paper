@@ -1,7 +1,7 @@
 {{page-toolbar pageTitle="Checkbox" isDemo=true}}
 
-{{#paper-content class="md-padding"}}
-<div class="doc-content" layout="column">
+{{#doc-content}}
+  <div class="layout-column">
   {{#paper-checkbox value=value1 onChange=(action (mut value1))}}
     A checkbox: {{value1}}
   {{/paper-checkbox}}
@@ -19,9 +19,10 @@
   {{/paper-checkbox}}
 
   {{paper-checkbox label="Blockless version" value=value6 onChange=(action "toggleValue6")}}
+  </div>
 
   <h3>Template</h3>
-{{~#code-block language='handlebars'}}
+{{#code-block language='handlebars'}}
 \{{#paper-checkbox value=value1 onChange=(action (mut value1))}}
   A checkbox: \{{value1}}
 \{{/paper-checkbox}}
@@ -44,5 +45,5 @@
 
 \{{paper-checkbox label="Blockless version" value=value6 onChange=(action "toggleValue6")}}
 {{~/code-block}}
-</div>
-{{/paper-content}}
+
+{{/doc-content}}
