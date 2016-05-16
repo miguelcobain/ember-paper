@@ -1,7 +1,7 @@
 /***************
  * Styles specific for the ember-paper demo site
  ***************/
-@import 'prism-overrides';
+@import 'highlight-overrides';
 @import 'modules/all';
 
 html {
@@ -262,22 +262,6 @@ md-sidenav.site-sidenav {
 
 .icon-demo md-icon {
   width: auto;
-}
-
-/* Inline code */
-code.paper {
-  color: #106CC8;
-  margin-left: 1px;
-  margin-right: 1px;
-  -webkit-font-smoothing: auto;
-  padding: 0.125em 0.35em;
-  border-radius: 2px;
-
-}
-
-code.paper {
-  font-size: 1.4rem;
-  background: rgba(0, 0, 0, 0.065);
 }
 
 .grid-list-demo1 {

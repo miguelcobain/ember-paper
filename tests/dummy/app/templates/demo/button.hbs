@@ -1,6 +1,7 @@
 {{page-toolbar pageTitle="Button" isDemo=true}}
 
 {{#doc-content}}
+  {{! BEGIN-SNIPPET buttons.example }}
   <div class="layout-row">
     {{#paper-button onClick=(action "flatButton")}}Button with action{{/paper-button}}
     {{#paper-button noink=true primary=true}}Primary (noink){{/paper-button}}
@@ -29,34 +30,10 @@
   <p>
     {{paper-button raised=true label="Blockless version"}}
   </p>
+  {{! END-SNIPPET }}
   <h3>Template</h3>
-  {{#code-block language='handlebars'}}
-  &lt;div class="layout-row"&gt;
-    \{{#paper-button onClick=(action "flatButton")}}Button with action\{{/paper-button}}
-    \{{#paper-button noink=true primary=true}}Primary (noink)\{{/paper-button}}
-    \{{#paper-button disabled=true}}disabled\{{/paper-button}}
-    \{{#paper-button warn=true}}warn\{{/paper-button}}
-    \{{#paper-button href="http://emberjs.com/images/tomsters/original.png" target="_blank"}}href link\{{/paper-button}}
-  &lt;/div&gt;
-  &lt;p&gt;
-    \{{#paper-button raised=true onClick=(action "raisedButton")}}Button with action\{{/paper-button}}
-    \{{#paper-button raised=true primary=true}}Primary\{{/paper-button}}
-    \{{#paper-button raised=true disabled=true}}disabled\{{/paper-button}}
-    \{{#paper-button raised=true warn=true}}warn\{{/paper-button}}
-  &lt;/p&gt;
-  &lt;p&gt;
-    \{{#paper-button raised=true onClick=(action "targetButton")}}Button with target\{{/paper-button}}
-    \{{#paper-button raised=true primary=true onClick=(action "targetButton")}}Button with bubble\{{/paper-button}}
-    \{{#paper-button raised=true primary=true onClick=(action "targetButton") bubbles=false}}Button no bubble\{{/paper-button}}
-  &lt;/p&gt;
-  &lt;p&gt;
-    \{{#paper-button raised=true fab=true}}Fab\{{/paper-button}}
-    \{{#paper-button raised=true mini=true}}Mini\{{/paper-button}}
-    \{{#paper-button iconButton=true}}\{{paper-icon "more-vert"}}\{{/paper-button}}
-  &lt;/p&gt;
-  &lt;p&gt;
-    \{{paper-button raised=true label="Blockless version"}}
-  &lt;/p&gt;{{/code-block}}
+  {{code-snippet name="buttons.example.hbs"}}
+  {{code-snippet name="buttons.component.js"}}
 
 <h2>Usage</h2>
 
@@ -77,7 +54,7 @@
     <tr>
       <td><strong>bubbles</strong></td>
       <td>boolean</td>
-      <td>Determines whether the Ember click event handler bubbles. Default is {{#code-inline}}undefined{{/code-inline}}, which bubbles</td>
+      <td>Determines whether the Ember click event handler bubbles. Default is <code>undefined</code>, which bubbles</td>
     </tr>
     <tr>
       <td><strong>disabled</strong></td>
@@ -92,7 +69,7 @@
     <tr>
       <td><strong>href</strong></td>
       <td>string</td>
-      <td>Displays the button as an {{#code-inline}}&lt;a&gt;{{/code-inline}} link to the specified destination URL</td>
+      <td>Displays the button as an <code>&lt;a&gt;</code> link to the specified destination URL</td>
     </tr>
     <tr>
       <td><strong>iconButton</strong></td>
@@ -107,7 +84,7 @@
     <tr>
       <td><strong>mini</strong></td>
       <td>boolean</td>
-      <td>Display as a mini-sized button. Implies {{#code-inline}}fab{{/code-inline}}, unless {{#code-inline}}fab{{/code-inline}} is explicity set falsy.</td>
+      <td>Display as a mini-sized button. Implies <code>fab</code>, unless <code>fab</code> is explicity set falsy.</td>
     </tr>
     <tr>
       <td><strong>noInk</strong></td>
@@ -132,12 +109,12 @@
     <tr>
       <td><strong>target</strong></td>
       <td>string</td>
-      <td>Sets the {{#code-inline}}&lt;a&gt;{{/code-inline}} link target attribute, such as {{#code-inline}}"_blank"{{/code-inline}}</td>
+      <td>Sets the <code>&lt;a&gt;</code> link target attribute, such as <code>"_blank"</code></td>
     </tr>
     <tr>
       <td><strong>type</strong></td>
       <td>string</td>
-      <td>Sets the html5 {{#code-inline}}type{{/code-inline}} attribute. Defaults to {{#code-inline}}"button"{{/code-inline}}</td>
+      <td>Sets the html5 <code>type</code> attribute. Defaults to <code>"button"</code></td>
     </tr>
     <tr>
       <td><strong>warn</strong></td>

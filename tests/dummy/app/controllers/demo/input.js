@@ -3,6 +3,7 @@ const { Controller } = Ember;
 
 export default Controller.extend({
 
+  // BEGIN-SNIPPET input.controller.multiple-constraints
   multipleConstraints: [{
     message: 'Value is not even',
     validate: (inputValue) => (+inputValue % 2) === 0
@@ -10,12 +11,16 @@ export default Controller.extend({
     message: 'Value does not equal 4',
     validate: (inputValue) => +inputValue === 4
   }],
+  // END-SNIPPET
 
+  // BEGIN-SNIPPET input.controller.single-constraint
   singleContraint: [{
     message: 'Value does not equal 16',
     validate: (inputValue) => +inputValue === 16
   }],
+  // END-SNIPPET
 
+  // BEGIN-SNIPPET input.controller.email-validation
   emailValidation: [{
     message: 'Please provide email in a valid format',
     validate: (inputValue) => {
@@ -23,6 +28,7 @@ export default Controller.extend({
       return emailPattern.test(inputValue);
     }
   }],
+  // END-SNIPPET
 
   eventName: '',
   actions: {

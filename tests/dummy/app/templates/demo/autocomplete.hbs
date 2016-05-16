@@ -7,12 +7,14 @@
   <h2>Basic Usage</h2>
   <blockquote>Use <code>\{{paper-autocomplete}}</code> to search for matches from local or remote data sources.</blockquote>
 
+  {{! BEGIN-SNIPPET autocomplete.basic-usage }}
   {{paper-autocomplete
     disabled=firstDisabled
     placeholder="Select a Country ..."
     notFoundMessage="Oops country: \"%@\" doesn't exist here."
     source=items lookupKey="name"
     model=myModel}}
+  {{! END-SNIPPET }}
   <p>
     {{#if myModel}}
       Selected country is {{myModel.name}}
@@ -26,13 +28,7 @@
 
 
 <h3>Template</h3>
-{{#code-block language='handlebars'}}
-\{{paper-autocomplete
-    disabled=firstDisabled
-    placeholder="Select a Country ..."
-    notFoundMessage="Oops country: \"%@\" doesn't exist here."
-    source=items lookupKey="name"
-    model=myModel}}{{/code-block}}
+{{code-snippet name="autocomplete.basic-usage.hbs"}}
 
   <h3>Allow non existing items</h3>
     <blockquote>Use attribute <code>allowNonExisting=true</code> for the autocomplete to allow setting model to non existing items in the autocomplete. This is useful for search boxes.</blockquote>
@@ -60,7 +56,16 @@
     Promise values are cached unless <code>noCache</code> is <code>true</code>.
   </blockquote>
 
-  {{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel cache-miss="updateFilter"}}
+  {{! BEGIN-SNIPPET autocomplete.promise-support }}
+  {{paper-autocomplete
+    minLength=0
+    delay=300
+    placeholder="Type e.g. Ram, Test, etc."
+    source=dataFromPromise
+    lookupKey="name"
+    model=otherModel
+    cache-miss="updateFilter"}}
+  {{! END-SNIPPET }}
   <p>
     {{#if otherModel}}
       You have selected: {{otherModel.name}} ({{otherModel.id}})
@@ -70,8 +75,7 @@
   </p>
 
 <h3>Template</h3>
-{{#code-block language="handlebars"}}
-\{{paper-autocomplete minLength=0 delay=300 placeholder="Type e.g. Ram, Test, etc." source=dataFromPromise lookupKey="name" model=otherModel cache-miss="updateFilter"}}{{/code-block}}
+{{code-snippet name="autocomplete.promise-support.hbs"}}
 
 <h3>Javascript (Ember-data)</h3>
 <p>
@@ -79,23 +83,7 @@
     We are also using the <code>cache-miss</code> action to update our computed property.
     Here is a sample configuration:
 </p>
-{{#code-block language="javascript"}}
-  ...
-  // searchText is received from the autocomplete component, this is what the user typed in the input field.
-  dataFromPromise: Ember.computed('filterText', function() {
-    let filterText = this.get('filterText');
-    return this.store.query('country', {
-      name: filterText
-    });
-  }),
-  actions: {
-    updateFilter(str) {
-      this.set('filterText', str);
-    }
-  }
-  ...{{/code-block}}
-
-
+{{code-snippet name="autocomplete.promise-controller.js"}}
 
 {{/paper-card-content}}
 {{/paper-card}}
@@ -105,6 +93,7 @@
     <h2>Block Custom template</h2>
     <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results. In this example we also use <code>minLength=0</code> which allow to see all results if input is empty.</blockquote>
 
+    {{! BEGIN-SNIPPET autocomplete.block-custom-template }}
     {{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |searchText item index|}}
       <span class="item-title">
       {{paper-icon "star"}}
@@ -113,6 +102,7 @@
     {{else}}
       Whoops! Could not find "{{searchText}}".
     {{/paper-autocomplete}}
+    {{! END-SNIPPET }}
 
     <p>
       {{#if fourthModel}}
@@ -123,15 +113,7 @@
     </p>
 
 <h3>Template</h3>
-{{#code-block language="handlebars"}}
-\{{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |searchText item index|}}}
-  &lt;span class="item-title"&gt;
-    \{{paper-icon "star"}}
-  &lt;span&gt; \{{paper-autocomplete-highlight searchText=searchText label=item}} &lt;/span&gt;
-  &lt;/span&gt;
-\{{else}}
-  Whoops! Could not find "\{{searchText}}".
-\{{/paper-autocomplete}}{{/code-block}}
+{{code-snippet name="autocomplete.block-custom-template.hbs"}}
 
 <p>The custom template receives <strong>3 block parameters</strong> (searchText, item and index).
 </p>
@@ -144,10 +126,17 @@
 </ul>
 
 <h2>Blockless Custom template</h2>
-<p>Alternatively you can use the blockless/named componend approach which produces the same result:</p>
+<p>Alternatively you can use the blockless/named component approach which produces the same result:</p>
 
-{{paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModelB
-    itemComponent="example-item" notFoundComponent="not-found"}}
+{{! BEGIN-SNIPPET autocomplete.blockless-custom-template }}
+{{paper-autocomplete
+  minLength=0
+  placeholder="Type e.g. ember, paper, one, two etc."
+  source=arrayOfItems
+  model=fourthModelB
+  itemComponent="example-item"
+  notFoundComponent="not-found"}}
+{{! END-SNIPPET }}
 
 <p>
   {{#if fourthModelB}}
@@ -158,32 +147,22 @@
 </p>
 
 <h3>Template</h3>
-{{#code-block language="handlebars"}}
-\{{paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModelB
-    itemComponent="example-item" notFoundComponent="not-found"}}{{/code-block}}
+{{code-snippet name="autocomplete.blockless-custom-template.hbs"}}
 
-{{#code-block language="handlebars"}}
-\{{!-- app/templates/components/not-found.hbs --}}
-Whoops! Could not find "\{{searchText}}".{{/code-block}}
+{{code-snippet name="autocomplete.not-found.hbs"}}
 
-{{#code-block language="handlebars"}}
-\{{!-- app/templates/components/example-item.hbs --}}
-&lt;span class="item-title"&gt;
-  \{{paper-icon "star"}}
-  &lt;span&gt;\{{paper-autocomplete-highlight searchText=searchText label=item}} (index \{{index}} )&lt;/span&gt;
-&lt;/span&gt;{{/code-block}}
+{{code-snippet name="autocomplete.example-item.hbs"}}
 
 {{/paper-card-content}}
 {{/paper-card}}
-
-
-
 
 {{#paper-card}}
 {{#paper-card-content}}
   <h2>Floating Label</h2>
   <blockquote>The following example demonstrates floating labels being used as a normal form element.</blockquote>
+  {{! BEGIN-SNIPPET autocomplete.floating-label }}
   {{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" model=thirdModel}}
+  {{! END-SNIPPET }}
   <p>
     {{#if thirdModel}}
       Selected country is {{thirdModel.name}} ({{thirdModel.code}})
@@ -192,8 +171,7 @@ Whoops! Could not find "\{{searchText}}".{{/code-block}}
     {{/if}}
   </p>
 <h3>Template</h3>
-{{#code-block language="handlebars"}}
-\{{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" model=thirdModel}}{{/code-block}}
+{{code-snippet name="autocomplete.floating-label"}}
 
 {{/paper-card-content}}
 {{/paper-card}}

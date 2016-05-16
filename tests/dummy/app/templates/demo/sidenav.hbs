@@ -1,63 +1,27 @@
 {{page-toolbar pageTitle="Sidenav" isDemo=true isWIP=true}}
 
 {{#doc-content}}
-    <h3>Demo</h3>
-    <p>Try to resize this webpage.</p>
+  <h2>Demo</h2>
+  <p>Try to resize this webpage.</p>
 
-    <h3>Sidenav attributes</h3>
+  <h2>Sidenav attributes</h2>
 
-    <p>
-      <strong>locked-open:</strong> You can chose when the sidenav should stay open, based on the screen size.<br>
-      Available sizes are: <code>sm, gt-sm, md, gt-md, lg, gt-lg</code>
-    </p>
+  <p>
+    <strong>locked-open:</strong> You can chose when the sidenav should stay open, based on the screen size.<br>
+    Available sizes are: <code>sm, gt-sm, md, gt-md, lg, gt-lg</code>
+  </p>
 
-    <p>
-      <strong>closeOnClick:</strong> An override for the sidenav closing if you click on the sidebar itself. Mainly
-      for use-cases where you have forms or something similar in the sidenav.<br>
-      Defaults to <code>true</code>.
-    </p>
+  <p>
+    <strong>closeOnClick:</strong> An override for the sidenav closing if you click on the sidebar itself. Mainly
+    for use-cases where you have forms or something similar in the sidenav.<br>
+    Defaults to <code>true</code>.
+  </p>
 
-    <p>
-      <strong>Note:</strong> The following Sidenav example contains a <code>transition-to</code> helper via the <a href="https://github.com/peec/ember-transition-helper">ember-transition-helper</a> addon, which is not installed by default.
-    </p>
+  <p>
+    <strong>Note:</strong> The following Sidenav example contains a <code>transition-to</code> helper via the <a href="https://github.com/peec/ember-transition-helper">ember-transition-helper</a> addon, which is not installed by default.
+  </p>
 
+  <h3>Template</h3>
+  {{code-snippet name="sidenav.hbs"}}
 
-    <h3>Template</h3>
-
-{{#code-block language='handlebars'}}
-\{{#paper-nav-container}}
-  \{{#paper-sidenav class="md-sidenav-left md-whiteframe-z2" locked-open="gt-sm"}}
-    \{{#paper-toolbar}}
-      &lt;div class="md-toolbar-tools"&gt;
-        &lt;div class="logo"&gt;
-          &lt;img src="ember-logo-white.png" height="30"/&gt;
-          &lt;strong&gt;Paper&lt;/strong&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    \{{/paper-toolbar}}
-
-    \{{#paper-content}}
-      \{{#paper-list}}
-        \{{#paper-item onClick=(transition-to "index")}}Introduction\{{/paper-item}}
-        \{{#paper-item onClick=(transition-to "index")}}Another link\{{/paper-item}}
-      \{{/paper-list}}
-    \{{/paper-content}}
-  \{{/paper-sidenav}}
-
-  &lt;div layout="column" tabindex="-1" role="main" flex&gt;
-    \{{#paper-toolbar}}
-      &lt;div class="md-toolbar-tools"&gt;
-        \{{#paper-sidenav-toggle as |toggle|}}
-          \{{#paper-button onClick=(action "toggleMenu" target=toggle) iconButton=true}}\{{paper-icon "menu"}}\{{/paper-button}}
-        \{{/paper-sidenav-toggle}}
-        &lt;span class="md-breadcrumb-page"&gt;Title&lt;/span&gt;
-      &lt;/div&gt;
-    \{{/paper-toolbar}}
-
-    \{{#paper-content class="md-padding"}}
-      &lt;p&gt;My content&lt;/p&gt;
-    \{{/paper-content}}
-  &lt;/div&gt;
-\{{/paper-nav-container}}
-{{/code-block}}
 {{/doc-content}}
