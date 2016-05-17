@@ -1,9 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 import wait from 'ember-test-helpers/wait';
-
-const { set, get } = Ember;
 
 moduleForComponent('paper-item', 'Integration | Component | paper item', {
   integration: true
@@ -11,7 +8,7 @@ moduleForComponent('paper-item', 'Integration | Component | paper item', {
 
 test('single action checkboxes should react to checkbox clicks', function(assert) {
   assert.expect(1);
-  set(this, 'checkboxEnabled', false);
+  this.set('checkboxEnabled', false);
   this.render(hbs`
     {{#paper-list}}
       {{#paper-item}}
@@ -23,13 +20,13 @@ test('single action checkboxes should react to checkbox clicks', function(assert
   return wait().then(() => {
     let checkbox = this.$('md-checkbox');
     checkbox.click();
-    assert.ok(get(this, 'checkboxEnabled'));
+    assert.ok(this.get('checkboxEnabled'));
   });
 });
 
 test('single action checkboxes should not react to item clicks when disabled', function(assert) {
   assert.expect(1);
-  set(this, 'checkboxEnabled', false);
+  this.set('checkboxEnabled', false);
   this.render(hbs`
     {{#paper-list}}
       {{#paper-item}}
@@ -41,13 +38,13 @@ test('single action checkboxes should not react to item clicks when disabled', f
   return wait().then(() => {
     let item = this.$('.md-list-item-inner');
     item.click();
-    assert.notOk(get(this, 'checkboxEnabled'));
+    assert.notOk(this.get('checkboxEnabled'));
   });
 });
 
 test('single action checkboxes should react to item clicks', function(assert) {
   assert.expect(1);
-  set(this, 'checkboxEnabled', false);
+  this.set('checkboxEnabled', false);
   this.render(hbs`
     {{#paper-list}}
       {{#paper-item}}
@@ -59,7 +56,7 @@ test('single action checkboxes should react to item clicks', function(assert) {
   return wait().then(() => {
     let item = this.$('.md-list-item-inner');
     item.click();
-    assert.ok(get(this, 'checkboxEnabled'));
+    assert.ok(this.get('checkboxEnabled'));
   });
 });
 
@@ -71,8 +68,8 @@ test('Clickable Items with Secondary Controls must not bubble main item action',
 
 test('Item checkbox with secondary action and no primary action is toggled by checkbox click', function(assert) {
   assert.expect(2);
-  set(this, 'secondaryValue', false);
-  set(this, 'checked', false);
+  this.set('secondaryValue', false);
+  this.set('checked', false);
 
   this.render(hbs`
     {{#paper-list}}
@@ -88,15 +85,15 @@ test('Item checkbox with secondary action and no primary action is toggled by ch
   let mdCheckbox = this.$('md-checkbox');
   return wait().then(() => {
     mdCheckbox.click();
-    assert.ok(get(this, 'checked'));
-    assert.notOk(get(this, 'secondaryValue'));
+    assert.ok(this.get('checked'));
+    assert.notOk(this.get('secondaryValue'));
   });
 });
 
 test('Item checkbox with secondary action and no primary action is toggled by primary click', function(assert) {
   assert.expect(2);
-  set(this, 'secondaryValue', false);
-  set(this, 'checked', false);
+  this.set('secondaryValue', false);
+  this.set('checked', false);
 
   this.render(hbs`
     {{#paper-list}}
@@ -112,18 +109,18 @@ test('Item checkbox with secondary action and no primary action is toggled by pr
   let item = this.$('.md-list-item-inner');
   return wait().then(() => {
     item.click();
-    assert.ok(get(this, 'checked'));
-    assert.notOk(get(this, 'secondaryValue'));
+    assert.ok(this.get('checked'));
+    assert.notOk(this.get('secondaryValue'));
   });
 });
 
 test('Item checkbox with secondary action and primary action dont bubble secondary event', function(assert) {
   assert.expect(3);
-  set(this, 'secondaryValue', false);
-  set(this, 'checked', false);
-  set(this, 'primaryValue', false);
-  set(this, 'primaryAction', () => {
-    set(this, 'primaryValue', !get(this, 'primaryValue'));
+  this.set('secondaryValue', false);
+  this.set('checked', false);
+  this.set('primaryValue', false);
+  this.set('primaryAction', () => {
+    this.set('primaryValue', !this.get('primaryValue'));
   });
 
   this.render(hbs`
@@ -140,19 +137,19 @@ test('Item checkbox with secondary action and primary action dont bubble seconda
   return wait().then(() => {
     let secondaryButton = this.$('button');
     secondaryButton.click();
-    assert.ok(get(this, 'secondaryValue'));
-    assert.notOk(get(this, 'primaryValue'));
-    assert.notOk(get(this, 'checked'));
+    assert.ok(this.get('secondaryValue'));
+    assert.notOk(this.get('primaryValue'));
+    assert.notOk(this.get('checked'));
   });
 });
 
 test('Item checkbox with secondary action and primary action dont bubble primary action on checkbox click when checkbox action exists', function(assert) {
   assert.expect(6);
-  set(this, 'secondaryValue', false);
-  set(this, 'checked', false);
-  set(this, 'primaryValue', false);
-  set(this, 'primaryAction', () => {
-    set(this, 'primaryValue', !get(this, 'primaryValue'));
+  this.set('secondaryValue', false);
+  this.set('checked', false);
+  this.set('primaryValue', false);
+  this.set('primaryAction', () => {
+    this.set('primaryValue', !this.get('primaryValue'));
   });
 
   this.render(hbs`
@@ -170,13 +167,13 @@ test('Item checkbox with secondary action and primary action dont bubble primary
   let mdCheckbox = this.$('md-checkbox');
   return wait().then(() => {
     mdCheckbox.click();
-    assert.ok(get(this, 'checked'));
-    assert.notOk(get(this, 'primaryValue'));
-    assert.notOk(get(this, 'secondaryValue'));
+    assert.ok(this.get('checked'));
+    assert.notOk(this.get('primaryValue'));
+    assert.notOk(this.get('secondaryValue'));
     item.click();
-    assert.ok(get(this, 'checked'));
-    assert.ok(get(this, 'primaryValue'));
-    assert.notOk(get(this, 'secondaryValue'));
+    assert.ok(this.get('checked'));
+    assert.ok(this.get('primaryValue'));
+    assert.notOk(this.get('secondaryValue'));
   });
 });
 

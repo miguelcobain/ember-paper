@@ -19,14 +19,12 @@ export default Ember.Mixin.create({
   processProxy: null,
 
   // Paper item secondary container class
-  isSecondary: computed('class', {
-    get() {
-      let cls = get(this, 'class');
-      if (!isEmpty(cls)) {
-        return cls.indexOf('md-secondary') !== -1;
-      } else {
-        return false;
-      }
+  isSecondary: computed('class', function() {
+    let cls = get(this, 'class');
+    if (!isEmpty(cls)) {
+      return cls.indexOf('md-secondary') !== -1;
+    } else {
+      return false;
     }
   }),
   isProxyHandlerSet: false
