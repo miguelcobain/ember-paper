@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import PaperNavContainer from './paper-nav-container';
+import isBrowser from '../utils/is-browser';
 
 export default Ember.Component.extend({
   constants: Ember.inject.service(),
@@ -18,8 +19,11 @@ export default Ember.Component.extend({
   tabindex: -1,
 
   _init: Ember.on('init', function() {
-    let _self = this;
+    if (!isBrowser()) {
+      return;
+    }
 
+    let _self = this;
     if (this.get('navContainer')) {
       this.get('navContainer').set('sideBar', this);
     }

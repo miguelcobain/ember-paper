@@ -1,3 +1,4 @@
+import isBrowser from '../utils/is-browser';
 import Ember from 'ember';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 const { inject, computed, Component, isPresent } = Ember;
@@ -23,6 +24,11 @@ export default Component.extend(ColorMixin, {
 
   init() {
     this._super(...arguments);
+
+    if (!isBrowser()) {
+      return;
+    }
+
     this.setupTransforms();
   },
 

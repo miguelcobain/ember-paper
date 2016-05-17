@@ -1,3 +1,4 @@
+import isBrowser from '../utils/is-browser';
 import Ember from 'ember';
 
 let isString = function(value) {
@@ -25,6 +26,10 @@ export default Ember.Service.extend({
 
   init() {
     this._super(...arguments);
+
+    if (!isBrowser()) {
+      return;
+    }
 
     let bodyStyle = this.get('document').body && this.get('document').body.style;
     let vendorPrefix;
