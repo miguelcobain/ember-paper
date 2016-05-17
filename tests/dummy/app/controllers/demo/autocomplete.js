@@ -9,6 +9,34 @@ let SOME_DATA_FROM_API = Ember.A([
 ]);
 
 export default Ember.Controller.extend({
+  api: [
+    ['source', 'mixed; see below', 'Used to look up possible suggestions for the autocomplete. The source option accepts:'],
+    ['source', 'array of strings', "Simple array of strings, such as `['One', 'Two']`."],
+    ['source', 'promise', 'A promise which resolves into an array of strings, such as is returned by ember-data or jQuery\'s $.ajax method. The action `cacheMiss` may be useful to update the promise. See promise example above.'],
+    ['source', 'array of objects', 'An array of objects containing options in key specified via `lookupKey`. Example if you have provided `[{id: 1, name="Car"}]` as source, you will also need to configure the lookupKey to `lookupKey="name"`.'],
+    ['model', 'mixed', 'When a user selects item from the suggestions, model will be set and updated. Provide a model so you can do something about the value when user clicks the item.'],
+    ['minLength', 'integer', 'Sets how many characters the user must type before the autocomplete gives suggestions. Default is `1`.'],
+    ['delay', 'integer', 'The delay attribute lets you configure how many milliseconds to wait before we trigger a search, this is useful to avoid mass sending HTTP requests to your backend if you are using Function based source with AJAX calls. Somewhere around <em>300 ms</em> is good.'],
+    ['noCache', 'boolean', 'Only effective if you use promise as source. This disables the cache of promise loaded suggestions. By default they are cached when loaded the first time.'],
+    ['autoselect', 'boolean', 'When suggestions is being displayed, by default when autoselect is true it will select the first element as selected. Default is false.'],
+    ['disabled', 'boolean', 'Disables the autocomplete.'],
+    ['required', 'boolean', 'Makes the autocomplete a required field.'],
+    ['allowNonExisting', 'boolean', 'allowNonExisting is useful for search boxes. It allows to use items that are not in the autocomplete selection. If you type e.g. "Chees" the model will also be set to "Chees".']
+  ],
+  actionsApi: [
+    ['', '', 'Actions'],
+    ['update-filter', 'action', 'Triggered as soon as the filter changes. Has `searchText` as a parameter.'],
+    ['debounced-update-filter', 'action', 'Triggered `delay`ms after the filter changes. Has `searchText` as a parameter'],
+    ['cache-miss', 'action', "Triggered `delay`ms after the filter changes <strong>and</strong> there arent't any cached results for this text. Has `searchText` as a parameter."],
+    ['cache-hit', 'action', 'Triggered `delay`ms after the filter changes <strong>and</strong> there are cached results for this text. Has `searchText` as a parameter.']
+  ],
+  appearance: [
+    ['', '', 'Appearance'],
+    ['placeholder', 'string', 'Sets a placeholder for the autocomplete input field.'],
+    ['floating', 'boolean', 'Makes the autocomplete field a normal input field with floating labels.'],
+    ['nonFoundMessage', 'string', 'The message to display if no items was found. Default is: `No matches found for "%@".`. The `%@` part will be replaced by the users input.']
+  ],
+
   myModel: { name: 'United States', code: 'US' },
 
   searchText: '',

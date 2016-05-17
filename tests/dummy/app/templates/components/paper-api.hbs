@@ -1,0 +1,26 @@
+{{#if title}}
+  <h3>{{title}}</h3>
+{{/if}}
+
+{{yield}}
+
+<table class="paper-api">
+  <thead>
+    <tr>
+      {{#each header as |heading|}}
+        <th>{{heading}}</th>
+      {{/each}}
+    </tr>
+  </thead>
+  {{#each categories as |category|}}
+    <tbody>
+      {{#each category as |row|}}
+        <tr class={{if (is-subheading row) "subheading"}}>
+          {{#each row as |cell index|}}
+            <td>{{cell}}</td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  {{/each}}
+</table>

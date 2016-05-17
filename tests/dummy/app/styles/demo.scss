@@ -105,16 +105,25 @@ td.description *:last-child {
 }
 
 tr:nth-child(odd) td {
-  background-color: lighten(color($primary, '50'), 3);
+  background-color: lighten(color($primary, '50'), 2);
 }
 
 tr:nth-child(even) td {
-  background-color: lighten(color($primary, '50'), 5);
+  background-color: lighten(color($primary, '50'), 4);
 }
 
 th {
   background-color: color($primary, '400');
   color: white;
+}
+
+table.paper-api td:first-child {
+  font-weight: bold;
+}
+
+tr.subheading td {
+  background-color: color($primary, '100');
+  font-weight: bold;
 }
 
 blockquote {
@@ -175,6 +184,11 @@ md-sidenav.site-sidenav {
 
       img {
         width: 150px;
+      }
+
+      div {
+        font-weight: bold;
+        margin-top: -20px;
       }
     }
   }

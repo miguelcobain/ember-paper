@@ -38,73 +38,7 @@
             <p>You dismissed the dialog with a result of "{{result}}".</p>
           {{/if}}
 
-          <h2>Usage</h2>
-
-          <table>
-            <thead>
-              <tr>
-                <th>API</th>
-                <th>Type</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>onClose</strong></td>
-                <td>action closure</td>
-                <td>an action to be executed when the dialog is closed, e.g. by pressing escape</td>
-              </tr>
-              <tr>
-                <td><strong>parent</strong></td>
-                <td>jQuery object, Element or selector</td>
-                <td>existing element where the modal and backdrop will be rendered</td>
-              </tr>
-              <tr>
-                <td><strong>origin</strong></td>
-                <td>jQuery object, Element or selector</td>
-                <td>
-                  if present, the dialog will use it as openFrom and closeTo. Also,
-                  focus will be returned to this element once the dialog closes.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>openFrom</strong></td>
-                <td>jQuery object, Element or selector</td>
-                <td>source for opening the dialog with a transition</td>
-              </tr>
-              <tr>
-                <td><strong>closeTo</strong></td>
-                <td>jQuery object, Element or selector</td>
-                <td>target for closing the dialog with a transition</td>
-              </tr>
-              <tr>
-                <td><strong>fullscreen</strong></td>
-                <td>boolean</td>
-                <td>if true dialog becomes fullscreen at smaller breakpoints</td>
-              </tr>
-              <tr>
-                <td><strong>clickOutsideToClose</strong></td>
-                <td>boolean</td>
-                <td>if true clicking on the backdrop triggers the onClose handler</td>
-              </tr>
-              <tr>
-                <td><strong>focusOnOpen</strong></td>
-                <td>boolean</td>
-                <td>
-                  if true focus an inner element with the autofocus attribute or,
-                  if not present, the last button inside paper-dialog-actions component.
-                  Defaults to true.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>escapeToClose</strong></td>
-                <td>boolean</td>
-                <td>
-                  if true pressing escape closes the dialog. Defaults to true.
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {{paper-api api actionsApi}}
 
         {{/paper-card-content}}
       </div>

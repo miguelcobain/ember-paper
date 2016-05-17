@@ -188,37 +188,17 @@
     {{code-snippet name="input.actions.hbs"}}
   </p>
 
-  <h2>Custom Validations</h2>
-  <p>
-    In addition to <code>required</code>,
-    <code>min</code>, <code>max</code>,
-    and <code>maxlength</code>, you may define your own
-    custom validations. Custom validations are defined by an object with two
-    attributes, <code>errorMessage</code> and
-    <code>isError</code>. You may bind a single validation
-    object, or an array of validation objects.
-  </p>
-  <table>
-    <thead>
-    <tr>
-      <th>Property</th>
-      <th>API</th>
-    </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>errorMessage</td>
-        <td>The text you want to display to the user when there is an error</td>
-      </tr>
-      <tr>
-        <td>isError</td>
-        <td>
-          A function returning a truthy value when the validation message should be displayed.
-          The function received one argument, which is an array containing the input's value.
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  {{#paper-api validationApi title="Custom Validations"}}
+    <p>
+      In addition to <code>required</code>,
+      <code>min</code>, <code>max</code>,
+      and <code>maxlength</code>, you may define your own
+      custom validations. Custom validations are defined by an object with two
+      attributes, <code>errorMessage</code> and
+      <code>isError</code>. You may bind a single validation
+      object, or an array of validation objects.
+    </p>
+  {{/paper-api}}
 
   <p>
     Here is an example of validating the input value matches typical email formats.

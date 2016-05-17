@@ -33,95 +33,10 @@
   {{! END-SNIPPET }}
   <h3>Template</h3>
   {{code-snippet name="buttons.example.hbs"}}
+  
+  <h3>Controller</h3>
   {{code-snippet name="buttons.component.js"}}
 
-<h2>Usage</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>API</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>accent</strong></td>
-      <td>boolean</td>
-      <td>Display in the theme's accent color</td>
-    </tr>
-    <tr>
-      <td><strong>bubbles</strong></td>
-      <td>boolean</td>
-      <td>Determines whether the Ember click event handler bubbles. Default is <code>undefined</code>, which bubbles</td>
-    </tr>
-    <tr>
-      <td><strong>disabled</strong></td>
-      <td>boolean</td>
-      <td>Whether the button is displayed as disabled and does not accept clicks</td>
-    </tr>
-    <tr>
-      <td><strong>fab</strong></td>
-      <td>boolean</td>
-      <td>Display as a Floating Action Button</td>
-    </tr>
-    <tr>
-      <td><strong>href</strong></td>
-      <td>string</td>
-      <td>Displays the button as an <code>&lt;a&gt;</code> link to the specified destination URL</td>
-    </tr>
-    <tr>
-      <td><strong>iconButton</strong></td>
-      <td>boolean</td>
-      <td>Set when the contents contains an icon and adjusts CSS appropriately</td>
-    </tr>
-    <tr>
-      <td><strong>label</strong></td>
-      <td>string</td>
-      <td>Set the content of the button when used as a blockless component</td>
-    </tr>
-    <tr>
-      <td><strong>mini</strong></td>
-      <td>boolean</td>
-      <td>Display as a mini-sized button. Implies <code>fab</code>, unless <code>fab</code> is explicity set falsy.</td>
-    </tr>
-    <tr>
-      <td><strong>noInk</strong></td>
-      <td>boolean</td>
-      <td>Suppresses the ripple effect when clicked</td>
-    </tr>
-    <tr>
-      <td><strong>onClick</strong></td>
-      <td>closure</td>
-      <td>Action sent when the button is clicked</td>
-    </tr>
-    <tr>
-      <td><strong>primary</strong></td>
-      <td>boolean</td>
-      <td>Display as the primary button, more prominent that other buttons</td>
-    </tr>
-    <tr>
-      <td><strong>raised</strong></td>
-      <td>boolean</td>
-      <td>Display button with a 3-D effect</td>
-    </tr>
-    <tr>
-      <td><strong>target</strong></td>
-      <td>string</td>
-      <td>Sets the <code>&lt;a&gt;</code> link target attribute, such as <code>"_blank"</code></td>
-    </tr>
-    <tr>
-      <td><strong>type</strong></td>
-      <td>string</td>
-      <td>Sets the html5 <code>type</code> attribute. Defaults to <code>"button"</code></td>
-    </tr>
-    <tr>
-      <td><strong>warn</strong></td>
-      <td>boolean</td>
-      <td>Display in the theme's warn color</td>
-    </tr>
-  </tbody>
-</table>
+  {{paper-api api link appearance "color"}}
 
 {{/doc-content}}
