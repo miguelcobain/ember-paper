@@ -7,28 +7,30 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('introduction');
-
-  this.route('autocomplete');
-  this.route('button');
-  this.route('card');
-  this.route('checkbox');
-  this.route('dialog');
-  this.route('divider');
-  this.route('grid-list');
-  this.route('icons');
-  this.route('input');
-  this.route('list');
-  this.route('list-controls');
-  this.route('menu');
-  this.route('progress-circular');
-  this.route('progress-linear');
-  this.route('radio');
-  this.route('select');
-  this.route('sidenav');
-  this.route('slider');
-  this.route('switch');
   this.route('typography');
-  this.route('toolbar');
+
+  this.route('demo', function() {
+    this.route('autocomplete');
+    this.route('button');
+    this.route('card');
+    this.route('checkbox');
+    this.route('dialog');
+    this.route('divider');
+    this.route('grid-list');
+    this.route('icons');
+    this.route('input');
+    this.route('list');
+    this.route('list-controls');
+    this.route('menu');
+    this.route('progress-circular');
+    this.route('progress-linear');
+    this.route('radio');
+    this.route('select');
+    this.route('sidenav');
+    this.route('slider');
+    this.route('switch');
+    this.route('toolbar');
+  });
 });
 
 export default Router;

@@ -14,7 +14,7 @@ const escape = function(text) {
   result = result.replace(/&#x60;(.*?)&#x60;/g, '<code>$1</code>');
   // Convert * markup to <strong> element.
   result = result.replace(/\*(.*)\*/g, '<strong>$1</strong>');
-  return htmlSafe(result);
+  return result ? htmlSafe(result) : '';
 };
 
 export default Component.extend({
@@ -27,7 +27,7 @@ export default Component.extend({
 
   // Predefined categories.
   color: [
-    ['', '', '*Theme colors*'],
+    ['', '', 'Theme colors'],
     ['warn', 'boolean', 'Displays the button in the theme\'s warn color.'],
     ['accent', 'boolean', 'Displays the button in the theme\'s Accent color.']
   ],

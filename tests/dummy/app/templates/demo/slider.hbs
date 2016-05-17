@@ -1,0 +1,71 @@
+{{page-toolbar pageTitle="Slider" isDemo=true isWIP=true}}
+
+{{#doc-content}}
+  {{! BEGIN-SNIPPET slider }}
+  <h2>
+    RGB <span style={{colorStyle}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </h2>
+
+  <div layout>
+    <div flex="10" layout layout-align="center center">
+      <span>R</span>
+    </div>
+    {{paper-slider flex=true min='0' max='255' value=color.red}}
+    <div flex="20" layout layout-align="center center">
+      {{input type="number" value=color.red}}
+    </div>
+  </div>
+
+  <div layout>
+    <div flex="10" layout layout-align="center center">
+      <span>G</span>
+    </div>
+    {{paper-slider flex=true min='0' max='255' value=color.green class='md-accent'}}
+    <div flex="20" layout layout-align="center center">
+      {{input type="number" value=color.green}}
+    </div>
+  </div>
+
+  <div layout>
+    <div flex="10" layout layout-align="center center">
+      <span>B</span>
+    </div>
+    {{paper-slider flex=true min='0' max='255' value=color.blue class='md-primary'}}
+    <div flex="20" layout layout-align="center center">
+      {{input type="number" value=color.blue}}
+    </div>
+  </div>
+
+  <h2>Rating: {{rating}}/5 - demo of theming classes</h2>
+  <div layout>
+    <div flex="10" layout layout-align="center center">
+      <span>default</span>
+    </div>
+    {{paper-slider flex=true discrete=true value=rating1 step='1' min='1' max='5'}}
+  </div>
+  <div layout>
+    <div flex="10" layout layout-align="center center">
+      <span>md-warn</span>
+    </div>
+    {{paper-slider flex=true warn=true discrete=true value=rating2 step="1" min="1" max="5"}}
+  </div>
+  <div layout>
+    <div flex="10" layout layout-align="center center">
+      <span>md-primary</span>
+    </div>
+    {{paper-slider flex=true primary=true discrete=true value=rating3 step="1" min="1" max="5"}}
+  </div>
+
+  <h2>Disabled</h2>
+  {{paper-slider value=disabled1 disabled=true}}
+  {{paper-slider value=disabled2 disabled=true}}
+
+  <h2>Disabled, Discrete</h2>
+  {{paper-slider value=disabled1 disabled=true step="3" discrete=true min="0" max="10"}}
+  {{paper-slider value=disabled2 disabled=true step="10" discrete=true}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="slider.hbs"}}
+
+{{/doc-content}}

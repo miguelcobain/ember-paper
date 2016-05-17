@@ -1,0 +1,291 @@
+{{page-toolbar pageTitle="Input" isDemo=true}}
+
+{{#doc-content}}
+  {{! BEGIN-SNIPPET input.basic-usage}}
+  <div layout="" layout-sm="column">
+    {{paper-input flex=30 label="Name" value=name onChange=(action (mut name))}}
+    {{paper-input flex=30 label="E-mail" type="email" value=email onChange=(action (mut email))}}
+    {{paper-input flex=40 label="Password" type="password" value=password onChange=(action (mut password))}}
+  </div>
+  <div layout="" layout-sm="column">
+    {{paper-input flex=true label="Submission date" type="date" value=date onChange=(action (mut date))}}
+    {{paper-input flex=true label="Company (disabled)" type="text" value="Google" disabled=true onChange=(action (mut foo))}}
+  </div>
+
+  {{paper-input textarea=true block=true label="Biography" maxlength=150 passThru=(hash rows=5)
+    value=biography onChange=(action (mut biography))}}
+  <p>Name: {{name}}</p>
+  <p>Email: {{email}}</p>
+
+  <h3>Input Errors</h3>
+  <p>
+    {{paper-input
+      label="Address"
+      value=address
+      onChange=(action (mut address))
+      required=true
+      errorMessages=(hash
+        reuired="Address is required."
+      )
+    }}
+    {{paper-input
+      type="number"
+      label="Maximum Value"
+      value=maxNumber
+      onChange=(action (mut maxNumber))
+      max="5"
+      errorMessages=(hash
+        max="Enter 5 or less."
+      )
+    }}
+    {{paper-input
+      type="number"
+      label="Minimum Value"
+      value=minNumber
+      onChange=(action (mut minNumber))
+      min="1"
+      errorMessages=(hash
+        min="Enter at least 1."
+      )
+    }}
+    {{paper-input
+      label="Maximum Character Length"
+      value=maxLength
+      onChange=(action (mut maxLength))
+      required=true
+      maxlength=10
+      errorMessages=(hash
+        maxlength="Maximum length exceeded."
+      )
+    }}
+    {{paper-input
+      label="All Constraints"
+      value=allConstraints
+      onChange=(action (mut allConstraints))
+      required=true
+      min="2"
+      max="10"
+      maxlength="2"
+      errorMessages=(hash
+        maxlength="Max length exceeded."
+      )
+    }}
+    {{paper-input
+      label="Required asterisk only"
+      value=requiredStyle
+      onChange=(action (mut requiredStyle))
+      required="style"
+    }}
+  </p>
+
+  <h3>Icons</h3>
+  <p>
+    {{paper-input label="Name" value=name onChange=(action (mut name)) icon="person"}}
+    {{paper-input placeholder="Phone Number" type="text" value=user.phone onChange=(action (mut user.phone)) icon="phone"}}
+    {{paper-input label="Email (no messages)" type="email" value=user.email onChange=(action (mut user.email)) icon="email" required=true hideAllMessages=true}}
+    {{paper-input placeholder="Address" type="text" value=user.address onChange=(action (mut user.address)) icon="place"}}
+    {{paper-input label="Name on right" type="text" value=name2 onChange=(action (mut name2)) iconRight="person"}}
+  </p>
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="input.basic-usage.hbs"}}
+
+  <p>
+    <strong>About Required.</strong>
+    Note that <code>required</code>, when set to <code>true</code>
+    both causes the input element to be validated to contain a value and causes the label to be styled
+    with a required asterisk (*). If only the asterisk styling is desired, such as when using external
+    validation mesages, use <code>required="style"</code>. To set the
+    html5 required attributed on the input element itself, use the <code>passThru</code>
+    option, setting <code>required="required"</code> as described below.
+  </p>
+
+  <h2>Input Attributes</h2>
+  <p>
+    These additional attributes will be passed through to the input helper inside of paper-input.
+    See the Ember <a href="http://guides.emberjs.com/v2.0.0/templates/input-helpers/">Input Helpers</a> for more information.
+    This is an example of using one of the attributes.
+  </p>
+  <p>
+    {{! BEGIN-SNIPPET input.attributes }}
+    {{paper-input
+      value=numberTest
+      onChange=(action (mut numberTest))
+      label="Number of bagels"
+      type="number"
+      passThru=(hash min="0" step="13" )
+    }}
+    {{! END-SNIPPET }}
+
+    {{code-snippet name="input.attributes.hbs"}}
+  </p>
+
+  <h4>Available Attributes for Text Fields</h4>
+  <p>
+    <code>accept</code>,
+    <code>autocomplete</code>,
+    <code>autosave</code>,
+    <code>form</code>,
+    <code>formaction</code>,
+    <code>formenctype</code>,
+    <code>formmethod</code>,
+    <code>formnovalidate</code>,
+    <code>formtarget</code>,
+    <code>inputmode</code>,
+    <code>maxlength</code>,
+    <code>min</code>,
+    <code>max</code>,
+    <code>multiple</code>,
+    <code>name</code>,
+    <code>pattern</code>,
+    <code>required</code>,
+    <code>selectionDirection</code>,
+    <code>size</code>,
+    <code>spellcheck</code>,
+    <code>step</code>,
+    <code>tabindex</code>, and
+    <code>width</code>.
+  </p>
+
+  <h4>Available Attributes for Text Areas</h4>
+  <p>
+    <code>cols</code>,
+    <code>form</code>,
+    <code>maxlength</code>,
+    <code>name</code>,
+    <code>readonly</code>,
+    <code>required</code>,
+    <code>rows</code>,
+    <code>selectionDirection</code>,
+    <code>selectionEnd</code>,
+    <code>selectionStart</code>,
+    <code>spellcheck</code>,
+    <code>tabindex</code>, and
+    <code>wrap</code>.
+  </p>
+
+  <h3>Actions</h3>
+  <p>
+    You may also pass through an action closures to receive notification upon
+    <code>onFocus</code>, <code>onBlur</code>,
+    <code>onKeyDown</code> and <code>onChange</code>.
+  </p>
+  <p>
+    {{! BEGIN-SNIPPET input.actions }}
+    {{paper-input
+      label="Event demonstration"
+      value=eventTest
+      onChange=(action (mut eventTest))
+      onFocus=(action "focusReceived")
+      onBlur=(action "blurReceived")
+      onKeyDown=(action "keyDownReceived")
+    }}
+    {{! END-SNIPPET }}
+    {{#if eventName}}
+      <div>The leaf controller for this route received the sent <strong>{{eventName}}</strong> action.</div>
+    {{/if}}
+    {{code-snippet name="input.actions.hbs"}}
+  </p>
+
+  {{#paper-api validationApi title="Custom Validations"}}
+    <p>
+      In addition to <code>required</code>,
+      <code>min</code>, <code>max</code>,
+      and <code>maxlength</code>, you may define your own
+      custom validations. Custom validations are defined by an object with two
+      attributes, <code>errorMessage</code> and
+      <code>isError</code>. You may bind a single validation
+      object, or an array of validation objects.
+    </p>
+  {{/paper-api}}
+
+  <p>
+    Here is an example of validating the input value matches typical email formats.
+  </p>
+  <p>
+    {{! BEGIN-SNIPPET input.custom-validations }}
+    {{paper-input label="E-mail" type="email" value=customemail onChange=(action (mut customemail)) customValidations=emailValidation}}
+    {{! END-SNIPPET }}
+  </p>
+
+  <h3>Template</h3>
+  {{code-snippet name="input.custom-validations.hbs"}}
+  <p>
+    Define your <code>emailValidation</code> object in your controller.
+    {{code-snippet name="input.controller.email-validation.js"}}
+  </p>
+  <p>
+    You may also define multiple custom constraints by using an array of validation objects.
+  </p>
+  <p>
+    {{! BEGIN-SNIPPET input.multiple-constraints }}
+    {{paper-input class="md-block" label="Value should be even and equal 4." type="email" value=customMultiple onChange=(action (mut customMultiple)) customValidations=multipleConstraints}}
+    {{! END-SNIPPET }}
+  </p>
+  {{code-snippet name="input.multiple-constraints.hbs"}}
+  {{code-snippet name="input.controller.multiple-constraints.js"}}
+
+  <h2>Setting validation messages from external validations</h2>
+  <p>
+    While <code>\{{paper-input}}</code> supplies four
+    built-in validation rules and the ability to specify programmed custom
+    validations, some projects need more complicated and elaborate validations,
+    such as are provided by <code>ember-cp-validations</code> or another validation add-on.
+    In this case, the code to validate the user input is outside of
+    <code>paper-input</code>, and only the resulting messages need be provided to the
+    <code>\{{paper-input}}</code> helper.
+  </p>
+  {{! BEGIN-SNIPPET input.external-validations }}
+  {{#paper-card as |card|}}
+    {{#card.content}}
+      <div layout="" layout-sm="row">
+        {{paper-input
+          flex=50
+          label="User name"
+          value=model.username
+          onChange=(action (mut model.username))
+          errors=model.validations.attrs.username.messages
+        }}
+      </div>
+      <div layout="" layout-sm="row">
+        {{paper-input
+          label="Password"
+          flex=34
+          type="password"
+          value=model.password
+          onChange=(action (mut model.password))
+          errors=model.validations.attrs.password.messages
+        }}
+        {{paper-input
+          label="E-mail"
+          flex=33
+          type="email"
+          value=model.email
+          onChange=(action (mut model.email))
+          errors=model.validations.attrs.email.messages
+        }}
+        {{paper-input
+          label="Retype your e-mail"
+          flex=33
+          type="email"
+          value=model.emailConfirmation
+          onChange=(action (mut model.emailConfirmation))
+          errors=model.validations.attrs.emailConfirmation.messages
+        }}
+      </div>
+    {{/card.content}}
+  {{/paper-card}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="input.external-validations.hbs"}}
+
+  <p>
+    The <code>errors</code> argument can either be an array of messages or an array of
+    hashes, each with a <code>message</code> property and an optional <code>attr</code> property,
+    which indentifies the type of error for possible theming or other use.
+    The latter format is compatible with errors from <code>ember-data</code>.
+  </p>
+
+{{/doc-content}}

@@ -1,6 +1,10 @@
-<h2>{{title}}</h2>
+{{#if title}}
+  <h3>{{title}}</h3>
+{{/if}}
 
-<table>
+{{yield}}
+
+<table class="paper-api">
   <thead>
     <tr>
       {{#each header as |heading|}}
@@ -8,21 +12,15 @@
       {{/each}}
     </tr>
   </thead>
-  <tbody>
-    {{#each categories as |category|}}
+  {{#each categories as |category|}}
+    <tbody>
       {{#each category as |row|}}
-        <tr>
+        <tr class={{if (is-subheading row) "subheading"}}>
           {{#each row as |cell index|}}
-            <td>
-              {{#unless index}}
-                <strong>{{cell}}</strong>
-              {{else}}
-                {{cell}}
-              {{/unless}}
-            </td>
+            <td>{{cell}}</td>
           {{/each}}
         </tr>
       {{/each}}
-    {{/each}}
-  </tbody>
+    </tbody>
+  {{/each}}
 </table>
