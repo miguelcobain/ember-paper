@@ -1,0 +1,102 @@
+{{page-toolbar pageTitle="Select" isDemo=true isWIP=true}}
+
+{{#doc-content}}
+<h2>Basic Usage</h2>
+
+<p>Enter an address</p>
+<div layout="row">
+  {{! BEGIN-SNIPPET select.basic-usage }}
+  {{paper-input label="Street Name" value=street onChange=(action (mut street))}}
+  {{paper-input label="City" value=city onChange=(action (mut city))}}
+  {{#paper-select
+    disabled=disableSelect
+    placeholder="State"
+    value=userState
+    onChange=(action (mut userState))
+  }}
+    {{#each states as |state|}}
+      {{#paper-option value=state.abbrev}}
+        {{state.abbrev}}
+      {{/paper-option}}
+    {{/each}}
+  {{/paper-select}}
+  {{! END-SNIPPET }}
+</div>
+
+<p>
+  {{paper-checkbox label="Disable select" value=disableSelect onChange=(action (mut disableSelect))}}
+</p>
+<h3>Template</h3>
+{{code-snippet name="select.basic-usage.hbs"}}
+
+<h2>Option groups</h2>
+
+<p>Pick your pizza below</p>
+<div layout="row">
+  {{! BEGIN-SNIPPET select.option-groups }}
+  {{#paper-select placeholder="Size" value=pizzaSize onChange=(action (mut pizzaSize))}}
+    {{#each sizes as |size|}}
+      {{#paper-option value=size}}
+        {{size}}
+      {{/paper-option}}
+    {{/each}}
+  {{/paper-select}}
+  {{#paper-select placeholder="Topping" value=topping onChange=(action (mut topping))}}
+    {{#paper-optgroup label="Meats"}}
+      {{#each meatToppings as |topping|}}
+        {{#paper-option value=topping.name}}
+          {{topping.name}}
+        {{/paper-option}}
+      {{/each}}
+    {{/paper-optgroup}}
+    {{#paper-optgroup label="Veg"}}
+      {{#each vegToppings as |topping|}}
+        {{#paper-option value=topping.name}}
+          {{topping.name}}
+        {{/paper-option}}
+      {{/each}}
+    {{/paper-optgroup}}
+  {{/paper-select}}
+  {{! END-SNIPPET }}
+</div>
+
+<h3>Template</h3>
+{{code-snippet name="select.option-groups.hbs"}}
+
+<h2>Options with async search</h2>
+
+<div layout="column" layout-align="center center">
+  <p>Select can call an arbitrary function on show. If this function returns a promise, it will display a loading indicator while it is being resolved:</p>
+  <div layout="column" layout-align="center center" style="height: 130px;">
+    {{! BEGIN-SNIPPET select.async-search }}
+  {{#paper-select
+    getItems=onUserLoad
+    itemLabelCallback=userLabelCallback
+    placeholder="Assign to a user"
+    value=selectedUser
+    onChange=(action (mut selectedUser))
+    as |items|
+  }}
+    {{#each items as |user|}}
+      {{#paper-option value=user}}
+        {{user.name}}
+      {{/paper-option}}
+    {{/each}}
+  {{/paper-select}}
+
+  {{#if selectedUser}}
+    <p>You have selected the user <code>{{selectedUser.name}}</code></p>
+  {{/if}}
+    {{! END-SNIPPET }}
+  </div>
+</div>
+
+<h3>Template</h3>
+<p>
+    We provide two callbacks to the paper-select component <code class="paper">getItems</code> and <code class="paper">itemLabelCallback</code>.
+    <code class="paper">getItems</code> returns a promise which resolves to the list of items.
+    <code class="paper">itemLabelCallback</code> returns the label for the given item.
+</p>
+{{code-snippet name="select.async-search.hbs"}}
+
+{{/doc-content}}

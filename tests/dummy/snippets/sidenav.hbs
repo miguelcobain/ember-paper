@@ -1,0 +1,25 @@
+{{#paper-nav-container class="site-nav-container"}}
+  {{#paper-sidenav class="md-sidenav-left md-whiteframe-z2 site-sidenav" locked-open="gt-sm"}}
+    {{#paper-toolbar class="site-content-toolbar"}}
+      <div class="logo layout-row layout-align-center-center">
+        <div>
+          <img src="ember-logo-white.png" height="30"/>&nbsp;&nbsp;
+          <strong>Paper 1.0</strong>
+        </div>
+      </div>
+    {{/paper-toolbar}}
+
+    {{#paper-content}}
+
+      {{#paper-list}}
+        {{#paper-item onClick=(transition-to 'index')}}Introduction{{/paper-item}}
+        {{#paper-item onClick=(transition-to 'demo')}}Demos{{/paper-item}}
+      {{/paper-list}}
+
+    {{/paper-content}}
+  {{/paper-sidenav}}
+
+  <div layout="column" tabindex="-1" role="main" flex>
+    {{outlet}}
+  </div>
+{{/paper-nav-container}}

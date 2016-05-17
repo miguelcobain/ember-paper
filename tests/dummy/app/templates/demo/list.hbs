@@ -1,0 +1,80 @@
+{{page-toolbar pageTitle="List" isDemo=true isWIP=true}}
+
+{{#doc-content}}
+  <h2>Basic Usage</h2>
+  {{! BEGIN-SNIPPET list }}
+  {{#paper-content class="md-whiteframe-z1 list-demo"}}
+    {{#paper-list}}
+      {{#each listData as |item|}}
+        {{#paper-item class="md-3-line"}}
+            <img src={{item.face}} alt={{item.who}} class="md-avatar">
+            <div class="md-list-item-text">
+
+                <h3>{{item.what}}</h3>
+                <h4>{{item.who}}</h4>
+                <p>
+                  {{item.notes}}
+                </p>
+            </div>
+        {{/paper-item}}
+      {{/each}}
+    {{/paper-list}}
+  {{/paper-content}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="list.hbs"}}
+
+  <h2>Full Width Dividers</h2>
+  {{! BEGIN-SNIPPET list.normal-divider }}
+  {{#paper-content class="md-whiteframe-z1 list-demo"}}
+    {{#paper-list}}
+      {{#each listData as |item|}}
+        {{#paper-item class="md-3-line"}}
+          <img src={{item.face}} alt={{item.who}} class="md-avatar">
+          <div class="md-list-item-text">
+            <h3>{{item.what}}</h3>
+            <h4>{{item.who}}</h4>
+            <p>
+              {{item.notes}}
+            </p>
+          </div>
+        {{/paper-item}}
+        {{paper-divider}}
+      {{/each}}
+    {{/paper-list}}
+  {{/paper-content}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="list.normal-divider.hbs"}}
+
+  <h2>Inset dividers</h2>
+
+  {{! BEGIN-SNIPPET list.inset-divider }}
+  {{#paper-content class="md-whiteframe-z1 list-demo"}}
+    {{#paper-list}}
+      {{#each listData as |item|}}
+        {{#paper-item class="md-3-line"}}
+          <img src={{item.face}} alt={{item.who}} class="md-avatar">
+          <div class="md-list-item-text">
+            <h3>{{item.what}}</h3>
+            <h4>{{item.who}}</h4>
+            <p>
+              {{item.notes}}
+            </p>
+          </div>
+        {{/paper-item}}
+        {{paper-divider inset=true}}
+      {{/each}}
+    {{/paper-list}}
+  {{/paper-content}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="list.inset-divider.hbs"}}
+
+{{/doc-content}}
+
+
+

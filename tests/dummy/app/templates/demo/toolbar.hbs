@@ -1,0 +1,63 @@
+{{page-toolbar pageTitle="Toolbar" isDemo=true}}
+
+{{#doc-content}}
+  {{! BEGIN-SNIPPET toolbar }}
+  {{! without contextual components }}
+  {{#paper-toolbar}}
+    {{#paper-toolbar-tools}}
+      {{#paper-button iconButton=true}}
+        {{paper-icon "menu"}}
+      {{/paper-button}}
+      <h2>
+        Toolbar with Icon Buttons
+      </h2>
+      <span class="flex"></span>
+      {{#paper-button iconButton=true}}
+        {{paper-icon "favorite"}}
+      {{/paper-button}}
+      {{#paper-button iconButton=true}}
+        {{paper-icon "more_vert"}}
+      {{/paper-button}}
+    {{/paper-toolbar-tools}}
+  {{/paper-toolbar}}
+
+  <br>
+  {{! with contextual components }}
+  {{#paper-toolbar as |toolbar|}}
+     {{#toolbar.tools}}
+       {{#paper-button}}
+         Go Back
+       {{/paper-button}}
+       <h2>Toolbar with Standard Buttons</h2>
+       <span class="flex"></span>
+       {{#paper-button raised=true}}
+         Learn More
+       {{/paper-button}}
+       {{#paper-button mini=true aria-label="Favorite"}}
+        {{paper-icon "favorite"}}
+       {{/paper-button}}
+     {{/toolbar.tools}}
+   {{/paper-toolbar}}
+
+  <br>
+
+  {{#paper-toolbar tall=true accent=true}}
+    {{#paper-toolbar-tools}}
+      <h2>Toolbar: tall=true, accent=true</h2>
+    {{/paper-toolbar-tools}}
+  {{/paper-toolbar}}
+
+  <br>
+
+  {{#paper-toolbar tall=true warn=true}}
+    <span class="flex"></span>
+    {{#paper-toolbar-tools}}
+      <h2>Toolbar: tall with actions pin to the bottom (tall=true warn=true)</h2>
+    {{/paper-toolbar-tools}}
+  {{/paper-toolbar}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="toolbar.hbs"}}
+
+{{/doc-content}}

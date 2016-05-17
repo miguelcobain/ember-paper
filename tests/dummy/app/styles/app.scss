@@ -1,3 +1,7 @@
+$primary: 'deep-orange';
+$warn: 'amber';
+$accent: 'pink';
+
 @import 'ember-paper';
 @import 'demo';
 
@@ -29,4 +33,12 @@ body > div.ember-view {
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+md-toolbar.md-warn {
+  a, button {
+    &.md-button.md-default-theme:not(.md-primary):not(.md-accent) {
+      color: $dark-contrast-color;
+    }
+  }
 }

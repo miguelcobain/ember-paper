@@ -1,0 +1,34 @@
+{{page-toolbar pageTitle="Progress Linear" isDemo=true}}
+
+{{#doc-content}}
+    <h2>Basic Usage</h2>
+
+    <h3>Determinate mode</h3>
+    <p>For operations where the percentage of the operation completed can be determined, use a determinate indicator. They give users a quick sense of how long an operation will take.</p>
+    {{! BEGIN-SNIPPET progress-linear.determinate }}
+    {{paper-progress-linear value=determinateValue}}
+    {{! END-SNIPPET }}
+    {{code-snippet name="progress-linear.determinate.hbs"}}
+
+    <h3>Indeterminate mode</h3>
+    <p>For operations where the user is asked to wait a moment while something finishes up, and it's not necessary to expose what's happening behind the scenes and how long it will take, use an indeterminate indicator:</p>
+    {{! BEGIN-SNIPPET progress-linear.indeterminate }}
+    {{paper-progress-linear}}
+    {{! END-SNIPPET }}
+    {{code-snippet name="progress-linear.indeterminate.hbs"}}
+
+    <h3>Buffer mode</h3>
+    <p>For operations where the user wants to indicate some activity or loading from the server, use the buffer indicator:</p>
+    {{! BEGIN-SNIPPET progress-linear.buffer }}
+    {{paper-progress-linear warn=true value=determinateValue bufferValue=determinateValue2}}
+    {{! END-SNIPPET }}
+    {{code-snippet name="progress-linear.buffer.hbs"}}
+
+    <h3>Query mode</h3>
+    <p>For situations where the user wants to indicate pre-loading (until the loading can actually be made), use the query indicator:</p>
+    {{! BEGIN-SNIPPET progress-linear.query }}
+    {{paper-progress-linear accent=true mode=mode value=determinateValue}}
+    {{! END-SNIPPET }}
+    {{code-snippet name="progress-linear.query.hbs"}}
+
+{{/doc-content}}
