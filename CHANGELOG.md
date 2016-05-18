@@ -15,6 +15,8 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - Many attributes have been renamed for clarity and consistency. See the specific changes below.
 - `paper-icon`'s `size` attribute now takes a size in pixels, and `lg` or `sm` values are no longer supported.
 
+#### 1.0.0-alpha.2
+
 #### 1.0.0-alpha.1
 
 - [#365](https://github.com/miguelcobain/ember-paper/pull/365) paper-button: Support for `fab` and `mini`.
