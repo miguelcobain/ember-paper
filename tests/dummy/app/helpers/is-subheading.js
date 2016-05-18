@@ -1,8 +1,8 @@
 import Ember from 'ember';
-const { Helper } = Ember;
+const { Helper, typeOf } = Ember;
 
 export default Helper.extend({
   compute([row]) {
-    return !row[0];
+    return typeOf(row) !== 'array';
   }
 });

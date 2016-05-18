@@ -15,11 +15,21 @@
   {{#each categories as |category|}}
     <tbody>
       {{#each category as |row|}}
-        <tr class={{if (is-subheading row) "subheading"}}>
-          {{#each row as |cell index|}}
-            <td>{{cell}}</td>
-          {{/each}}
-        </tr>
+        {{#if (is-subheading row)}}
+          <tr class="subheading">
+            <td colspan="3">{{row}}</td>
+          </tr>
+        {{else}}
+          <tr>
+            {{#each row as |cell index|}}
+              {{#unless index}}
+                <td><code>{{cell}}</code></td>
+              {{else}}
+                <td>{{cell}}</td>
+              {{/unless}}
+            {{/each}}
+          </tr>
+        {{/if}}
       {{/each}}
     </tbody>
   {{/each}}

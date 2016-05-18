@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
     ['escapeToClose', 'boolean', 'Causes pressing escape to close the dialog. Defaults to `true`.']
   ],
   actionsApi: [
-    ['', '', 'Actions'],
+    'Actions',
     ['onClose', 'action', 'An action to be executed when the dialog is closed, e.g. by pressing escape.']
   ],
 

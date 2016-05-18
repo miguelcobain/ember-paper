@@ -27,7 +27,7 @@ export default Component.extend({
 
   // Predefined categories.
   color: [
-    ['', '', 'Theme colors'],
+    'Theme colors',
     ['warn', 'boolean', 'Displays the button in the theme\'s warn color.'],
     ['accent', 'boolean', 'Displays the button in the theme\'s Accent color.']
   ],
@@ -42,15 +42,15 @@ export default Component.extend({
   }),
 
   getEscapedCategory(category) {
+    /* jshint -W014 */
     return category.sort(function(a, b) {
-      /* jshint -W014 */
       return a[0] < b[0]
                 ? -1
                 : a[0] > b[0] ? 1 : 0;
-    }).map(function(row) {
-      return row.map(function(cell) {
-        return escape(cell);
-      });
+    }).map((row) => {
+      return typeOf(row) === 'array'
+          ? row.map((cell) => escape(cell))
+          : escape(row);
     });
   }
 

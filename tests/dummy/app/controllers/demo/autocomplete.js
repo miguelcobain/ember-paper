@@ -24,14 +24,14 @@ export default Ember.Controller.extend({
     ['allowNonExisting', 'boolean', 'allowNonExisting is useful for search boxes. It allows to use items that are not in the autocomplete selection. If you type e.g. "Chees" the model will also be set to "Chees".']
   ],
   actionsApi: [
-    ['', '', 'Actions'],
+    'Actions',
     ['update-filter', 'action', 'Triggered as soon as the filter changes. Has `searchText` as a parameter.'],
     ['debounced-update-filter', 'action', 'Triggered `delay`ms after the filter changes. Has `searchText` as a parameter'],
     ['cache-miss', 'action', "Triggered `delay`ms after the filter changes <strong>and</strong> there arent't any cached results for this text. Has `searchText` as a parameter."],
     ['cache-hit', 'action', 'Triggered `delay`ms after the filter changes <strong>and</strong> there are cached results for this text. Has `searchText` as a parameter.']
   ],
   appearance: [
-    ['', '', 'Appearance'],
+    'Appearance',
     ['placeholder', 'string', 'Sets a placeholder for the autocomplete input field.'],
     ['floating', 'boolean', 'Makes the autocomplete field a normal input field with floating labels.'],
     ['nonFoundMessage', 'string', 'The message to display if no items was found. Default is: `No matches found for "%@".`. The `%@` part will be replaced by the users input.']

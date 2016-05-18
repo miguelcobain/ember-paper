@@ -9,12 +9,12 @@ export default Controller.extend({
     ['disabled', 'boolean', 'Whether the button is displayed as disabled and does not accept clicks.']
   ],
   link: [
-    ['', '', 'Link buttons'],
+    'Link buttons',
     ['href', 'string', 'Displays the button as an `<a>` link to the specified destination URL.'],
     ['target', 'string', 'Sets the `<a>` link target attribute, such as `"_blank"`.']
   ],
   appearance: [
-    ['', '', 'Appearance'],
+    'Appearance',
     ['fab', 'boolean', 'Display as a Floating Action Button.'],
     ['iconButton', 'boolean', 'Set when the contents contains an icon and adjusts CSS appropriately.'],
     ['label', 'string', 'Set the content of the button when used as a blockless component.'],
