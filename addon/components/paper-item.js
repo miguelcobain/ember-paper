@@ -2,7 +2,16 @@ import Ember from 'ember';
 import RippleMixin from '../mixins/ripple-mixin';
 import ProxyMixin from 'ember-paper/mixins/proxy-mixin';
 
-export default Ember.Component.extend(RippleMixin, ProxyMixin, {
+const {
+  get,
+  set,
+  isEmpty,
+  computed,
+  run,
+  Component
+} = Ember;
+
+export default Component.extend(RippleMixin, ProxyMixin, {
   tagName: 'md-list-item',
 
   // Ripple Overrides
@@ -10,100 +19,97 @@ export default Ember.Component.extend(RippleMixin, ProxyMixin, {
   center: false,
   dimBackground: true,
   outline: false,
-  noink: Ember.computed.not('shouldBeClickable'),
 
   classNameBindings: ['shouldBeClickable:md-clickable', 'hasProxiedComponent:md-proxy-focus'],
   attributeBindings: ['role', 'tabindex'],
   role: 'listitem',
   tabindex: '-1',
 
-  hasProxiedComponent: Ember.computed.bool('proxiedComponents.length'),
+  hasProxiedComponent: computed.bool('proxiedComponents.length'),
 
-  hasSecondaryAction: Ember.computed('secondaryItem', 'onClick', function() {
-    let secondaryItem = this.get('secondaryItem');
-    return secondaryItem && (secondaryItem.action || (this.get('onClick') && this.isProxiedComponent(secondaryItem)));
+  hasPrimaryAction: computed.notEmpty('onClick'),
+
+  hasSecondaryAction: computed('secondaryItem', 'onClick', function() {
+    let secondaryItem = get(this, 'secondaryItem');
+    if (!isEmpty(secondaryItem)) {
+      let hasClickAction = get(secondaryItem, 'onClick');
+      let hasChangeAction = get(secondaryItem, 'onChange');
+      return hasClickAction || hasChangeAction;
+    } else {
+      return false;
+    }
   }),
 
-  secondaryItem: Ember.computed('proxiedComponents.[]', function() {
-    let proxiedComponents = this.get('proxiedComponents');
-    return proxiedComponents.find(function(component) {
-      return component.classNames.indexOf('md-secondary') !== -1;
+  secondaryItem: computed('proxiedComponents.[]', function() {
+    let proxiedComponents = get(this, 'proxiedComponents');
+    return proxiedComponents.find((component)=> {
+      return get(component, 'isSecondary');
     });
   }),
 
-  shouldBeClickable: Ember.computed('proxiedComponents.length', 'onClick', function() {
-    return this.get('proxiedComponents.length') || this.get('onClick');
-  }),
+  shouldBeClickable: computed.or('proxiedComponents.length', 'onClick'),
 
-  didInsertElement() {
-    this._super(...arguments);
-
-    let _this = this;
+  setupProxiedComponent() {
     let tEl = this.$();
-    let proxies = this.get('proxiedComponents');
-
-    // Secondary item has separate action.
-    // Unregister so we don't proxy it.
-    if (this.get('hasSecondaryAction')) {
-      this.get('secondaryItem').set('bubbles', false);
-      this.unregister(this.get('secondaryItem'));
-    }
-
-    // Allow proxied component to propagate ripple hammer event
-    this.get('proxiedComponents').forEach(function(component) {
-      if (!component.get('onClick')) {
-        component.set('propagateRipple', true);
+    let proxiedComponents = get(this, 'proxiedComponents');
+    proxiedComponents.forEach((component)=> {
+      let isProxyHandlerSet = get(component, 'isProxyHandlerSet');
+      // we run init only once for each component.
+      if (!isProxyHandlerSet) {
+        // Allow proxied component to propagate ripple hammer event
+        if (!get(component, 'onClick') && !get(component, 'propagateRipple')) {
+          set(component, 'propagateRipple', true);
+        }
+        // ripple
+        let el = component.$();
+        set(this, 'mouseActive', false);
+        el.on('mousedown', ()=> {
+          set(this, 'mouseActive', true);
+          run.later(()=> {
+            set(this, 'mouseActive', false);
+          }, 100);
+        });
+        el.on('focus', ()=> {
+          if (!get(this, 'mouseActive')) {
+            tEl.addClass('md-focused');
+          }
+          el.on('blur', function proxyOnBlur() {
+            tEl.removeClass('md-focused');
+            el.off('blur', proxyOnBlur);
+          });
+        });
+        // If we don't have primary action then
+        // no need to bubble
+        if (!get(this, 'hasPrimaryAction')) {
+          let bubbles = get(component, 'bubbles');
+          if (isEmpty(bubbles)) {
+            set(component, 'bubbles', false);
+          }
+        } else if (get(proxiedComponents, 'length')) {
+          // primary action exists. Make sure child
+          // that has separate action won't bubble.
+          proxiedComponents.forEach((component)=> {
+            let hasClickAction = get(component, 'onClick');
+            let hasChangeAction = get(component, 'onChange');
+            if (hasClickAction || hasChangeAction) {
+              let bubbles = get(component, 'bubbles');
+              if (isEmpty(bubbles)) {
+                set(component, 'bubbles', false);
+              }
+            }
+          });
+        }
+        // Init complete. We don't want it to run again
+        // for that particular component.
+        set(component, 'isProxyHandlerSet', true);
       }
     });
-    // Don't allow proxied component to bubble click event to parent list-item
-    this.get('proxiedComponents').setEach('bubbles', false);
-
-    this.$('.md-icon-button').addClass('md-secondary-container');
-
-    if (this.get('hasProxiedComponent')) {
-      proxies.forEach(function(view) {
-        let el = view.$();
-
-        _this.mouseActive = false;
-        el.on('mousedown', function() {
-          _this.mouseActive = true;
-          Ember.run.later(function() {
-            _this.mouseActive = false;
-          }, 100);
-        }).on('focus', function() {
-            if (_this.mouseActive === false) {
-              tEl.addClass('md-focused');
-            }
-            el.on('blur', function proxyOnBlur() {
-              tEl.removeClass('md-focused');
-              el.off('blur', proxyOnBlur);
-            });
-          });
-      });
-    }
-
-    if (!this.get('shouldBeClickable')) {
-      let firstChild = tEl.find('>:first-child');
-      firstChild.on('keypress', function(e) {
-        let tagName = Ember.$(e.target).prop('tagName');
-        if (tagName !== 'INPUT' && tagName !== 'TEXTAREA') {
-          let keyCode = e.which || e.keyCode;
-          if (keyCode === 32) {
-            if (firstChild) {
-              firstChild.click();
-              e.preventDefault();
-              e.stopPropagation();
-            }
-          }
-        }
-      });
-    }
   },
 
   actions: {
     buttonAction() {
-      this.get('proxiedComponents').forEach(function(component) {
-        if (component.processProxy) {
+      this.get('proxiedComponents').forEach((component)=> {
+        if (component.processProxy && !get(component, 'disabled') && (get(component, 'bubbles') | !get(this, 'hasPrimaryAction'))) {
           component.processProxy();
         }
       });

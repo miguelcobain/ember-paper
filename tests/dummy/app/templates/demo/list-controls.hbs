@@ -46,7 +46,7 @@
         {{#paper-item}}
           {{#paper-checkbox value=item.checked onChange=(action (mut item.checked))}}{{/paper-checkbox}}
           <p>{{item.message}}</p>
-          {{#paper-button iconButton=true onClick=(action "secondaryMessageClick" item)}}
+          {{#paper-button class="md-secondary" iconButton=true onClick=(action "secondaryMessageClick" item)}}
             {{paper-icon "message"}}
           {{/paper-button}}
         {{/paper-item}}
@@ -79,7 +79,7 @@
               <h4>{{item.who}}</h4>
               <p>{{item.notes}}</p>
             </div>
-            {{#paper-button iconButton=true onClick=(action "secondaryPersonClick" item)}}
+            {{#paper-button iconButton=true class="md-secondary" onClick=(action "secondaryPersonClick" item)}}
               {{paper-icon "phone"}}
             {{/paper-button}}
         {{/paper-item}}

@@ -3,9 +3,11 @@ import BaseFocusable from './base-focusable';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+
 const {
   assert,
   computed,
+  get,
   run,
   String: {
     htmlSafe
@@ -19,7 +21,6 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['value:md-checked', 'dragging:md-dragging'],
   toggle: true,
-
   constants: inject.service(),
 
   /* Ripple Overrides */
@@ -89,6 +90,11 @@ export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     // Enable tapping gesture on the switch
     this._switchHammer = new Hammer(this.element);
     this._switchHammer.on('tap', run.bind(this, this._dragEnd));
+    this.$('.md-container').on('click', run.bind(this, this._handleNativeClick));
+  },
+
+  _handleNativeClick() {
+    return get(this, 'bubbles');
   },
 
   _teardownSwitch() {
