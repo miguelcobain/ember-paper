@@ -202,7 +202,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     let isInvalid = this.get('isInvalid');
     if (this.get('lastIsInvalid') !== isInvalid) {
       this.sendAction('onInvalid', this.get('isInvalid'));
-      this.set('lastIsinvalid');
+      this.set('lastIsInvalid', this.get('isInvalid'));
     }
   },
 
