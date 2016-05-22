@@ -7,7 +7,9 @@
     {{/paper-sidenav-toggle}}
     <h2>
       {{#if isDemo}}
-        Demos {{paper-icon "chevron-right"}}
+        Components {{paper-icon "chevron-right"}}
+      {{else if isLayout}}
+        Layout {{paper-icon "chevron-right"}}
       {{/if}}
       {{pageTitle}}
       {{#if isWIP}}
