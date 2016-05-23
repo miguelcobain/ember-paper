@@ -9,7 +9,7 @@ Router.map(function() {
   this.route('introduction');
   this.route('typography');
 
-  this.route('demo', function() {
+  this.route('demo', { path: 'components' }, function() {
     this.route('autocomplete');
     this.route('button');
     this.route('card');
@@ -17,7 +17,7 @@ Router.map(function() {
     this.route('dialog');
     this.route('divider');
     this.route('grid-list');
-    this.route('icons');
+    this.route('icons', { path: 'icon' });
     this.route('input');
     this.route('list');
     this.route('list-controls');
@@ -30,6 +30,13 @@ Router.map(function() {
     this.route('slider');
     this.route('switch');
     this.route('toolbar');
+  });
+
+  this.route('layout', function() {
+    this.route('introduction');
+    this.route('layout-containers');
+    this.route('layout-children');
+    this.route('child-alignment');
   });
 });
 
