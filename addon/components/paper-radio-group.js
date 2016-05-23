@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
-const { computed, inject } = Ember;
+const { A, computed, inject, assert } = Ember;
 
 export default BaseFocusable.extend({
   tagName: 'md-radio-group',
@@ -14,11 +14,11 @@ export default BaseFocusable.extend({
   // Lifecycle hooks
   didInitAttrs() {
     this._super(...arguments);
-    Ember.assert('{{paper-radio-group}} requires an `onChange` action', !!this.get('onChange'));
+    assert('{{paper-radio-group}} requires an `onChange` action or null for no action', this.get('onChange') !== undefined);
   },
 
   childRadios: computed(function() {
-    return Ember.A();
+    return A();
   }),
 
   enabledChildRadios: computed.filterBy('childRadios', 'disabled', false),
