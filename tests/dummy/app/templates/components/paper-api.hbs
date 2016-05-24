@@ -5,13 +5,15 @@
 {{yield}}
 
 <table class="paper-api">
-  <thead>
-    <tr>
-      {{#each header as |heading|}}
-        <th>{{heading}}</th>
-      {{/each}}
-    </tr>
-  </thead>
+  {{#if header}}
+    <thead>
+      <tr>
+        {{#each header as |heading|}}
+          <th>{{heading}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+  {{/if}}
   {{#each categories as |category|}}
     <tbody>
       {{#each category as |row|}}

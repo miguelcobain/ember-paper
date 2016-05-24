@@ -1,0 +1,134 @@
+{{page-toolbar pageTitle="Introduction" isLayout=true}}
+
+{{#doc-content class="layout-docs"}}
+
+  <h2>Overview</h2>
+
+  <p>
+  Ember Paper's layout features provide sugar to enable developers to more easily create modern,
+  responsive layouts on top of CSS3 flexbox. The layout API consists of a set of classes
+  that can be applied to any of your application's HTML content.
+  </p>
+
+  <p>
+  Ember Paper's layout system is based on
+  <a target="_blank" href="https://material.angularjs.org/1.0.6/layout/introduction">Angular Material's</a>.
+  Most of the class names can be derived from the attributes described in their documentation.
+  </p>
+
+  <p>
+  The classes consist of an <em>attribute</em> and optional <em>parameters</em>, separated by
+  dashes. See the table below for an overview of the most important classes.
+  </p>
+
+  {{paper-api
+    (p-section
+      (p-row "layout" "`row | column`" "`layout-row`, `layout-column`")
+      (p-row "flex" "integer (increments of 5 for 0%->100%, 100%/3, 200%/3)" "`layout`, `flex-50`")
+      (p-row "flex-order" "integer values from -20 to 20" "`flex-order-15`, `flex-order--5`")
+      (p-row "flex-offset" "integer (increments of 5 for 0%->100%, 100%/3, 200%/3)" "`flex-offset-15`, `flex-offset-66`")
+      (p-row "layout-align" "`start | center | end | space-around | space-between`, `start | center | end | stretch`" "`layout-align-space-around-center`, `layout-align-start`")
+      (p-row "layout-fill" "**none**" "")
+      (p-row "layout-wrap" "**none**" "")
+      (p-row "layout-nowrap" "**none**" "")
+      (p-row "layout-margin" "**none**" "")
+      (p-row "layout-padding" "**none**" "")
+      (p-row "show" "**none**" "")
+      (p-row "hide" "**none**" "")
+    )
+    header=(p-row "Base attribute" "Parameter values" "Examples")
+    sort=false
+  }}
+
+  <p>
+  We can associate breakpoints with mediaQuery definitions using breakpoint <strong>alias(es)</strong>,
+  based on the breakpoints specified in the Material Design spec:
+  </p>
+
+  {{paper-api
+    (p-section
+      (p-row "xs" "'(max-width: *599*px)'")
+      (p-row "gt-xs" "'(min-width: *600*px)'")
+      (p-row "sm" "'(min-width: *600*px) and (max-width: *959*px)'")
+      (p-row "gt-sm" "'(min-width: *960*px)'")
+      (p-row "md" "'(min-width: *960*px) and (max-width: *1279*px)'")
+      (p-row "gt-md" "'(min-width: *1280*px)'")
+      (p-row "lg" "'(min-width: *1280*px) and (max-width: *1919*px)'")
+      (p-row "gt-lg" "'(min-width: *1920*px)'")
+      (p-row "xl" "'(min-width: *1920*px)'")
+    )
+    header=(p-row "Breakpoint" "Media query (pixel range)")
+    sort=false
+  }}
+
+  <h3>API with Responsive Breakpoints</h3>
+  <p>
+  Now we can combine the breakpoint alias with the layout classes to easily support responsive breakpoints
+  with our simple layout class convention. The alias is simply used as suffix extensions to the base attribute class.
+  </p>
+  <p>
+  This notation results in, for example, the following table for the layout and flex classes:
+  </p>
+
+  {{paper-api
+    (p-section
+      (p-row "layout" "`flex`" "Sets the default layout direction & flex unless overriden by another breakpoint.")
+      (p-row "layout-xs" "`flex-xs`"       "width < *600*px")
+      (p-row "layout-gt-xs" "`flex-gt-xs`" "width >= *600*px")
+      (p-row "layout-sm" "`flex-sm`"       "width *600*px <= width < *960*px")
+      (p-row "layout-gt-sm" "`flex-gt-sm`" "width >= *960*px")
+      (p-row "layout-md" "`flex-md`"       "*960*px <= width < *1280*px")
+      (p-row "layout-gt-md" "`flex-gt-md`" "width >= *1280*px")
+      (p-row "layout-lg" "`flex-lg`"       "*1280*px <= width < *1920*px")
+      (p-row "layout-gt-lg" "`flex-gt-lg`" "width >= *1920*px")
+      (p-row "layout-xl" "`flex-xl`"       "width >= *1920*px")
+    )
+    header=(p-row "layout class" "flex class" "Description")
+    sort=false
+  }}
+
+  <p>Below is an example of the usage of the responsive layout classes:</p>
+
+  {{#paper-card as |card|}}
+    {{! BEGIN-SNIPPET layout-introduction }}
+    <div class="layout-column example introduction-example">
+      <div class="flex-33 flex-md-{{box1Height}} box-one"></div>
+      <div class="flex-33 layout-{{direction}} layout-md-row box-two">
+        <div class="flex-20 flex-md-10 hide-lg box-two-one"></div>
+        <div class="flex-30 {{if hideBox "hide-md"}} flex-md-25 box-two-two"></div>
+        <div class="flex-20 flex-md-65 box-two-three"></div>
+      </div>
+      <div class="flex box-three"></div>
+    </div>
+    {{! END-SNIPPET }}
+    {{#card.content}}
+
+      <div class="layout-row layout-align-space-between-start">
+        {{paper-input
+        value=box1Height
+        label="box1Height"
+        type="number"
+        passThru=(hash min="0" max="100" step="5")
+        onChange=(action (mut box1Height))
+        }}
+
+        <div class="demo-group">
+          <h4>direction</h4>
+          {{#paper-radio-group groupValue=direction onChange=(action (mut direction)) as |group|}}
+            {{#group.paper-radio value="row"}}
+              row
+            {{/group.paper-radio}}
+            {{#group.paper-radio value="column"}}
+              column
+            {{/group.paper-radio}}
+          {{/paper-radio-group}}
+        </div>
+
+        {{#paper-switch value=hideBox onChange=(action (mut hideBox))}}hideBox{{/paper-switch}}
+      </div>
+
+      {{code-snippet name="layout-introduction.hbs"}}
+    {{/card.content}}
+  {{/paper-card}}
+
+{{/doc-content}}

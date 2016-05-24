@@ -37,6 +37,29 @@
   <h3>Controller</h3>
   {{code-snippet name="buttons.component.js"}}
 
-  {{paper-api api link appearance "color"}}
+  {{paper-api
+    (p-section
+      (p-row "onClick" "closure" "Action sent when the button is clicked.")
+      (p-row "type" "string" 'Sets the html5 `type` attribute. Defaults to `"button"`, except for `<a>` link buttons.')
+      (p-row "bubbles" "boolean" "Determines whether the Ember click event handler bubbles. Default is `undefined`, which bubbles.")
+      (p-row "disabled" "boolean" "Whether the button is displayed as disabled and does not accept clicks.")
+    )
+    (p-section
+      "Link buttons"
+      (p-row "href" "string" "Displays the button as an `<a>` link to the specified destination URL.")
+      (p-row "target" "string" 'Sets the `<a>` link target attribute, such as `"_blank"`.')
+    )
+    (p-section
+      "Appearance"
+      (p-row "fab" "boolean" "Display as a Floating Action Button.")
+      (p-row "iconButton" "boolean" "Set when the contents contains an icon and adjusts CSS appropriately.")
+      (p-row "label" "string" "Set the content of the button when used as a blockless component.")
+      (p-row "mini" "boolean" "Display as a mini-sized button. Implies `fab`, unless `fab` is explicity set falsy.")
+      (p-row "noInk" "boolean" "Suppresses the ripple effect when clicked.")
+      (p-row "primary" "boolean" "Display as the primary button, more prominent that other buttons.")
+      (p-row "raised" "boolean" "Display button with a 3-D effect.")
+    )
+    "color"
+  }}
 
 {{/doc-content}}

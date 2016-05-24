@@ -1,0 +1,141 @@
+{{page-toolbar pageTitle="Layout Children" isLayout=true}}
+
+{{#doc-content class="layout-docs children"}}
+
+  <h2>Children within a Layout Container</h2>
+
+  <p>
+    To customize the size and position of elements in a layout <strong>container</strong>,
+    use the <code>flex</code>, <code>flex-order</code>, and <code>flex-offset</code> classes
+    on the container's child elements:
+  </p>
+
+  {{#paper-card as |card|}}
+    <div class="example example-1">
+    {{! BEGIN-SNIPPET layout-children.example1 }}
+      <div class="layout-row">
+        <div class="flex-20">flex-20</div>
+        <div class="flex-70">flex-70</div>
+        <div class="flex">flex</div>
+      </div>
+    {{! END-SNIPPET }}
+    </div>
+    {{#card.content}}
+      {{code-snippet name="layout-children.example1.hbs"}}
+    {{/card.content}}
+  {{/paper-card}}
+
+  <p>
+    Add the <code>flex</code> class to a layout's child element and the element will flex (grow or shrink)
+    to fit the area unused by other elements. <code>flex</code> defines how the element will adjust its size
+    with respect to its parent container and the other elements within the container.
+  </p>
+
+  {{#paper-card as |card|}}
+    <div class="example example-2">
+    {{! BEGIN-SNIPPET layout-children.example2 }}
+      <div class="layout-row layout-wrap">
+        <div class="flex-30">flex-30</div>
+        <div class="flex-45">flex-45</div>
+        <div class="flex-25">flex-25</div>
+        <div class="flex-33">flex-33</div>
+        <div class="flex-66">flex-66</div>
+        <div class="flex-50">flex-50</div>
+        <div class="flex">flex</div>
+      </div>
+    {{! END-SNIPPET }}
+    </div>
+    {{#card.content}}
+      {{code-snippet name="layout-children.example2.hbs"}}
+    {{/card.content}}
+  {{/paper-card}}
+
+  <p>
+    A layout child's <code>flex</code> class can be given an integer parameter from 0-100.
+    The element will stretch to the percentage of available space matching the value.
+    Currently, the <code>flex</code> class value is restricted to multiples of five, 33 or 66.
+  </p>
+  <p>
+    For example: <code>flex-5</code>, <code>flex-20</code>, <code>flex-33</code>,
+    <code>flex-50</code>, <code>flex-66</code>, <code>flex-75</code>, ... <code>flex-100</code>.
+  </p>
+
+  {{#paper-card as |card|}}
+    <div class="example example-3">
+    {{! BEGIN-SNIPPET layout-children.example3 }}
+      <div class="layout-row">
+        <div class="flex-gt-sm-66 flex-33">
+          flex 33% on mobile, <br>and 66% on gt-sm devices.
+        </div>
+        <div class="flex-gt-sm-33 flex-66">
+          flex 66%  on mobile, <br>and 33% on gt-sm devices.
+        </div>
+      </div>
+    {{! END-SNIPPET }}
+    </div>
+    {{#card.content}}
+      {{code-snippet name="layout-children.example3.hbs"}}
+    {{/card.content}}
+  {{/paper-card}}
+
+  <h2>Additional Flex Parameters</h2>
+
+  <p>
+    There are additional flex parameters provided by Ember Paper to improve flexibility and to make the
+    API easier to understand.
+  </p>
+
+  {{#paper-card as |card|}}
+    <div class="example example-4">
+    {{! BEGIN-SNIPPET layout-children.example4 }}
+      <div class="layout-row layout-wrap">
+        <div class="flex-none">flex-none</div>
+        <div class="flex">flex</div>
+        <div class="flex-nogrow">flex-nogrow</div>
+        <div class="flex-grow">flex-grow</div>
+        <div class="flex-initial">flex-initial</div>
+        <div class="flex-auto">flex-auto</div>
+        <div class="flex-noshrink">flex-noshrink</div>
+      </div>
+    {{! END-SNIPPET }}
+    </div>
+    {{#card.content}}
+      {{code-snippet name="layout-children.example4.hbs"}}
+
+      {{paper-api
+        (p-section
+          (p-row "flex" "Will grow and shrink as needed. Starts with a size of 0%. Same as `flex-0`.")
+          (p-row "flex-none" "Will not grow or shrink. Sized based on its `width` and `height` values.")
+          (p-row "flex-initial" "Will shrink as needed. Starts with a size based on its `width` and `height` values.")
+          (p-row "flex-auto" "Will shrink as needed. Starts with a size based on its `width` and `height` values.")
+          (p-row "flex-grow" "Will grow and shrink as needed. Starts with a size of 100%. Same as `flex-100`.")
+          (p-row "flex-nogrow" "Will shrink as needed, but won't grow. Starts with a size based on its `width` and `height` values.")
+          (p-row "flex-noshrink" "Will grow as needed, but won't shrink. Starts with a size based on its `width` and `height` values.")
+        )
+        header=(p-row "Class" "Effect")
+      }}
+    {{/card.content}}
+  {{/paper-card}}
+
+  <h2>Ordering HTML Elements</h2>
+
+  <p>Add the <code>flex-order</code> class to a layout child to set its order position within the layout container.
+  Any integer parameter value from -20 to 20 is accepted.</p>
+
+  {{#paper-card as |card|}}
+    <div class="example example-5">
+    {{! BEGIN-SNIPPET layout-children.example5 }}
+      <div class="layout-row">
+        <div class="flex flex-order-2">flex-order-2</div>
+        <div class="flex flex-order-3">flex-order-3</div>
+        <div class="flex flex-order-1">flex-order-1</div>
+        <div class="flex flex-order--1">flex-order--1</div>
+      </div>
+    {{! END-SNIPPET }}
+    </div>
+    {{#card.content}}
+      {{code-snippet name="layout-children.example5.hbs"}}
+    {{/card.content}}
+  {{/paper-card}}
+
+{{/doc-content}}

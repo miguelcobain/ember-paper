@@ -12,7 +12,7 @@
       {{#paper-list}}
         {{#menu-item active=(is-active "index" currentRouteName) onClick=(transition-to "index")}}Introduction{{/menu-item}}
 
-        {{#menu-item onClick=(action "toggleDemosExpanded") expanded=demosExpanded canExpand=true}}Demos{{/menu-item}}
+        {{#menu-item onClick=(action "toggleExpandedItem" "demos") expanded=demosExpanded canExpand=true}}Components{{/menu-item}}
 
         <div class="submenu">
           {{#liquid-if demosExpanded}}
@@ -38,6 +38,16 @@
           {{/liquid-if}}
         </div>
         {{#menu-item active=(is-active "typography" currentRouteName) onClick=(transition-to "typography")}}Typography{{/menu-item}}
+
+        {{#menu-item onClick=(action "toggleExpandedItem" "layout") expanded=layoutExpanded canExpand=true}}Layout{{/menu-item}}
+        <div class="submenu">
+          {{#liquid-if layoutExpanded}}
+            {{#submenu-item active=(is-active "layout.introduction" currentRouteName) onClick=(transition-to "layout.introduction")}}Introduction{{/submenu-item}}
+            {{#submenu-item active=(is-active "layout.layout-containers" currentRouteName) onClick=(transition-to "layout.layout-containers")}}Layout Containers{{/submenu-item}}
+            {{#submenu-item active=(is-active "layout.layout-children" currentRouteName) onClick=(transition-to "layout.layout-children")}}Layout Children{{/submenu-item}}
+            {{#submenu-item active=(is-active "layout.child-alignment" currentRouteName) onClick=(transition-to "layout.child-alignment")}}Child Alignment{{/submenu-item}}
+          {{/liquid-if}}
+        </div>
       {{/paper-list}}
 
     {{/paper-content}}

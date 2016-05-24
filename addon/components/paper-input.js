@@ -133,7 +133,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   // Lifecycle hooks
   didReceiveAttrs() {
     this._super(...arguments);
-    assert('{{paper-input}} and {{paper-select}} require an `onChange` action.', !!this.get('onChange'));
+    assert('{{paper-input}} and {{paper-select}} require an `onChange` action or null for no action.', this.get('onChange') !== undefined);
     this.notifyInvalid();
   },
 
@@ -202,7 +202,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     let isInvalid = this.get('isInvalid');
     if (this.get('lastIsInvalid') !== isInvalid) {
       this.sendAction('onInvalid', this.get('isInvalid'));
-      this.set('lastIsinvalid');
+      this.set('lastIsInvalid', this.get('isInvalid'));
     }
   },
 

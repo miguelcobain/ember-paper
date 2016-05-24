@@ -1,0 +1,109 @@
+{{page-toolbar pageTitle="Child Alignment" isLayout=true}}
+
+{{#doc-content class="layout-docs alignment"}}
+
+  <p>
+    The <code>layout-align</code> class takes two words. The first word says how the children
+    will be aligned in the layout's direction, and the second word says how the
+    children will be aligned perpendicular to the layout's direction.
+  </p>
+  <p>
+    Only one parameter value is required for this class. For example, <code>layout-row
+    layout-align-center</code> would make the elements center horizontally and use
+    the default behavior vertically.
+  </p>
+
+  <p>
+    <code>layout-column layout-align-center-end</code> would make children align along
+    the center vertically and along the end (right) horizontally.
+  </p>
+
+  <p>
+    Below is an interactive demo that lets you explore the visual results of the different
+    settings:
+  </p>
+
+  {{#paper-card as |card|}}
+    {{#paper-toolbar as |toolbar|}}
+      {{#toolbar.tools}}
+        <h2>
+          <span class="layout-class">{{layoutClass}}</span>
+          <span class="layout-align-class">{{layoutAlignClass}}</span>
+        </h2>
+      {{/toolbar.tools}}
+    {{/paper-toolbar}}
+    <div class="example interactive-demo">
+    {{! BEGIN-SNIPPET child-alignment }}
+      <div class="{{layoutClass}} {{layoutAlignClass}}">
+        <div class="one">one</div>
+        <div class="two">two</div>
+        <div class="three">three</div>
+      </div>
+    {{! END-SNIPPET }}
+    </div>
+    {{#card.content}}
+      <div class="layout-row layout-align-space-between-start">
+        <div class="demo-group">
+          <h4>Layout Direction</h4>
+          {{#paper-radio-group groupValue=layoutDirection onChange=(action (mut layoutDirection)) as |group|}}
+            {{#group.paper-radio value="row"}}
+              row
+            {{/group.paper-radio}}
+            {{#group.paper-radio value="column"}}
+              column
+            {{/group.paper-radio}}
+          {{/paper-radio-group}}
+        </div>
+
+        <div class="demo-group">
+          <h4>Alignment in Layout Direction</h4>
+          {{#paper-radio-group groupValue=mainDirection onChange=(action (mut mainDirection)) as |group|}}
+            {{#group.paper-radio value=""}}
+              none
+            {{/group.paper-radio}}
+            {{#group.paper-radio value="start"}}
+              start (default)
+            {{/group.paper-radio}}
+            {{#group.paper-radio value="center"}}
+              center
+            {{/group.paper-radio}}
+            {{#group.paper-radio value="end"}}
+              end
+            {{/group.paper-radio}}
+            {{#group.paper-radio value="space-around"}}
+              space-around
+            {{/group.paper-radio}}
+            {{#group.paper-radio value="space-between"}}
+              space-between
+            {{/group.paper-radio}}
+          {{/paper-radio-group}}
+        </div>
+
+        <div class="demo-group">
+          <h4>Alignment in Perpendicular Direction</h4>
+          {{#paper-radio-group groupValue=perpDirection onChange=(action (mut perpDirection)) as |group|}}
+            {{#group.paper-radio value=""}}
+              <em>none</em>
+            {{/group.paper-radio}}
+            {{#group.paper-radio value="start"}}
+              start
+            {{/group.paper-radio}}
+            {{#group.paper-radio value="center"}}
+              center
+            {{/group.paper-radio}}
+            {{#group.paper-radio value="end"}}
+              end
+            {{/group.paper-radio}}
+            {{#group.paper-radio value="stretch"}}
+              stretch (default)
+            {{/group.paper-radio}}
+          {{/paper-radio-group}}
+        </div>
+      </div>
+
+      {{code-snippet name="child-alignment.hbs"}}
+    {{/card.content}}
+  {{/paper-card}}
+
+
+{{/doc-content}}

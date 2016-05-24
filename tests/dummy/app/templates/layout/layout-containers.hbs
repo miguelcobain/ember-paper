@@ -1,0 +1,90 @@
+{{page-toolbar pageTitle="Layout Containers" isLayout=true}}
+
+{{#doc-content class="layout-docs containers"}}
+  <h2>Layout and Containers</h2>
+  <p>
+    Use the <code>layout</code> class on a container element to specify the layout direction for its
+    children: horizontally in a row (<code>layout-row</code>) or vertically in a column (<code>layout-column</code>).
+    Note that <code>row</code> is the default layout direction if you use the <code>layout</code> class
+    without a parameter.
+  </p>
+
+  {{paper-api
+    (p-section
+      (p-row "layout-row" "Items arranged horizontally. `max-height = 100%` and `max-width` is the width of the items in the container.")
+      (p-row "layout-column" "Items arranged vertically. `max-width = 100%` and `max-height` is the width of the items in the container.")
+    )
+    header=(p-row "Class" "Effect")
+  }}
+
+  {{#paper-card as |card|}}
+    <div class="example example-1 layout-row">
+    {{! BEGIN-SNIPPET layout-containers.example1 }}
+      <div class="layout-row flex">
+        <div class="flex">First item in row</div>
+        <div class="flex">Second item in row</div>
+      </div>
+      <div class="layout-column flex">
+        <div class="flex">First item in column</div>
+        <div class="flex">Second item in column</div>
+      </div>
+    {{! END-SNIPPET }}
+    </div>
+    {{#card.content}}
+      {{code-snippet name="layout-containers.example1.hbs"}}
+    {{/card.content}}
+  {{/paper-card}}
+
+  <p>
+    Note that <code>layout</code> only affects the flow direction for that container's immediate children.
+  </p>
+
+  <h2>Layouts and Responsive Breakpoints</h2>
+
+  <p>
+    As discussed in the {{#link-to "layout.introduction"}}Layout Introduction{{/link-to}} page you can make
+    your layout change depending upon the device view size by using breakpoint alias suffixes.
+  </p>
+  <p>
+    To make your layout automatically change depending upon the device screen size, use one to the following
+    <code>layout</code> classes to set the layout direction for devices with view widths:
+  </p>
+
+  {{paper-api
+    (p-section
+      (p-row "layout" "Sets the default layout direction unless overriden by another breakpoint.")
+      (p-row "layout-xs" "width < *600*px")
+      (p-row "layout-gt-xs" "width >= *600*px")
+      (p-row "layout-sm" "width *600*px <= width < *960*px")
+      (p-row "layout-gt-sm" "width >= *960*px")
+      (p-row "layout-md" "*960*px <= width < *1280*px")
+      (p-row "layout-gt-md" "width >= *1280*px")
+      (p-row "layout-lg" "*1280*px <= width < *1920*px")
+      (p-row "layout-gt-lg" "width >= *1920*px")
+      (p-row "layout-xl" "width >= *1920*px")
+    )
+    header=(p-row "Class" "Device width when breakpoint overrides default")
+    sort=false
+  }}
+
+  <p>
+    For the demo below, as you shrink your browser window width notice the flow direction
+    changes to <code>column</code> for mobile devices (<code>xs</code>). And as you expand
+    it will reset to <code>row</code> for <code>gt-sm</code> view sizes.
+  </p>
+
+  {{#paper-card as |card|}}
+    <div class="example example-2">
+    {{! BEGIN-SNIPPET layout-containers.example2 }}
+      <div class="layout-row layout-xs-column">
+        <div class="flex">I'm above on mobile, and to the left on larger devices.</div>
+        <div class="flex">I'm below on mobile, and to the right on larger devices.</div>
+      </div>
+    {{! END-SNIPPET }}
+    </div>
+    {{#card.content}}
+      {{code-snippet name="layout-containers.example2.hbs"}}
+    {{/card.content}}
+  {{/paper-card}}
+
+{{/doc-content}}

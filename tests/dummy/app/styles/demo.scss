@@ -3,6 +3,7 @@
  ***************/
 @import 'highlight-overrides';
 @import 'modules/all';
+@import 'layout-demo';
 
 html {
   font-size: 62.5%;
@@ -153,8 +154,8 @@ md-toolbar.md-default-theme.page-main-toolbar {
   background-color: color('grey', '100');
   color: $dark-contrast-color;
 
-  md-icon {
-    color: inherit;
+  md-icon, .md-button md-icon {
+    color: $dark-contrast-color;
     margin-top: -2px;
   }
 }

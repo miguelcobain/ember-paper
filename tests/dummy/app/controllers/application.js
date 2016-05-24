@@ -1,13 +1,25 @@
 import Ember from 'ember';
 
-const { Controller } = Ember;
+const { Controller, computed } = Ember;
 
 export default Controller.extend({
   actions: {
-    toggleDemosExpanded() {
-      this.toggleProperty('demosExpanded');
+    toggleExpandedItem(value) {
+      if (this.get('expandedItem') === value) {
+        value = null;
+      }
+      this.set('expandedItem', value);
     }
   },
 
-  demosExpanded: true
+  expandedItem: computed('currentRouteName', function() {
+    if (this.get('currentRouteName').startsWith('layout')) {
+      return 'layout';
+    } else {
+      return 'demos';
+    }
+  }),
+
+  demosExpanded: computed.equal('expandedItem', 'demos'),
+  layoutExpanded: computed.equal('expandedItem', 'layout')
 });

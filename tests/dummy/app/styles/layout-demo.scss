@@ -1,0 +1,162 @@
+$flexbox-shadow: inset 0px 0px 5px 0 rgba(0,0,0,0.16);
+$flexbox-color1: color('deep-purple', '200');
+$flexbox-color2: color('orange', '400');
+$flexbox-color3: color('blue', '300');
+$flexbox-color4: color('teal', '200');
+$flexbox-color5: color('pink', '300');
+$flexbox-color6: color('lime', '300');
+$flexbox-color7: color('amber', '300');
+
+.doc-content.layout-docs {
+  .demo-group h4 {
+    color: color('grey');
+    font-size: 90%;
+  }
+
+  md-card {
+    margin-bottom: 24px;
+
+    md-toolbar {
+      border-radius: 3px 3px 0 0;
+    }
+  }
+
+  .example {
+    border-radius: 3px 3px 0 0;
+    overflow: hidden;
+  }
+
+  .example div div {
+    box-shadow: $flexbox-shadow;
+    text-align: center;
+    color: $dark-contrast-color;
+  }
+
+  .introduction-example {
+    height: 350px;
+
+    .box-one {
+      background-color: $flexbox-color1;
+    }
+
+    .box-two-one {
+      background-color: $flexbox-color2;
+    }
+    .box-two-two {
+      background-color: $flexbox-color3;
+    }
+    .box-two-three {
+      background-color: $flexbox-color4;
+    }
+    .box-three {
+      background-color: $flexbox-color5;
+    }
+  }
+
+  &.containers {
+    .example {
+      height: 150px;
+
+      div:nth-child(1) > div {
+        padding: 12px;
+
+        &:nth-child(1) {
+          background-color: $flexbox-color1;
+        }
+        &:nth-child(2) {
+          background-color: $flexbox-color2;
+        }
+      }
+      div:nth-child(2) > div {
+        padding: 12px;
+
+        &:nth-child(1) {
+          background-color: $flexbox-color3;
+        }
+        &:nth-child(2) {
+          background-color: $flexbox-color4;
+        }
+      }
+    }
+
+    .example-2 > div {
+      height: 100%;
+    }
+  }
+
+  &.children {
+    .example {
+      > div {
+        height: 100%;
+      }
+
+      div > div {
+        padding: 12px;
+
+        &:nth-child(1) {
+          background-color: $flexbox-color1;
+        }
+        &:nth-child(2) {
+          background-color: $flexbox-color2;
+        }
+        &:nth-child(3) {
+          background-color: $flexbox-color3;
+        }
+        &:nth-child(4) {
+          background-color: $flexbox-color4;
+        }
+        &:nth-child(5) {
+          background-color: $flexbox-color5;
+        }
+        &:nth-child(6) {
+          background-color: $flexbox-color6;
+        }
+        &:nth-child(7) {
+          background-color: $flexbox-color7;
+        }
+      }
+    }
+
+    .example-1, .example-3, .example-5 {
+      height: 128px;
+    }
+
+    .example-2, .example-4 {
+      height: 150px;
+    }
+  }
+
+  &.alignment {
+    .example {
+      border-radius: 0;
+      border-bottom: 1px dotted color('grey', '300');
+    }
+
+    .layout-class {
+      margin-right: 24px;
+      display: inline-block;
+    }
+
+    .interactive-demo {
+      height: 180px;
+
+      > div {
+        height: 100%;
+      }
+
+      div > div {
+        padding: 12px;
+      }
+
+      .one {
+        background-color: $flexbox-color1;
+      }
+      .two {
+        background-color: $flexbox-color2;
+      }
+      .three {
+        background-color: $flexbox-color3;
+      }
+    }
+  }
+}
