@@ -24,6 +24,7 @@ export default Component.extend(TransitionMixin, {
   },
 
   didInsertElement() {
+    this._super(...arguments);
     let backdropHammer = new Hammer(this.element);
     backdropHammer.on('tap', run.bind(this, this._onTap));
     this._backdropHammer = backdropHammer;

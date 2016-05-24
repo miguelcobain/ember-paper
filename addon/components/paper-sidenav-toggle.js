@@ -1,26 +1,25 @@
 import Ember from 'ember';
-import PaperNavContainer from './paper-nav-container';
+const { Component } = Ember;
 
-export default Ember.Component.extend({
-  tagName: 'div',
+export default Component.extend({
 
-  navContainer: Ember.computed(function() {
-    return this.nearestOfType(PaperNavContainer);
-  }),
+  classNameBindings: ['hideClass'],
+
+  name: 'default',
+
+  init() {
+    this._super(...arguments);
+    if (this.get('navContainer')) {
+      let lockedOpen = this.get('navContainer').get('sideBar').get('lockedOpen');
+      if (lockedOpen) {
+        this.set('hideClass', `hide-${lockedOpen}`);
+      }
+    }
+  },
 
   actions: {
     toggleMenu() {
       this.get('navContainer').get('sideBar').send('toggleMenu');
-    }
-  },
-
-  didInsertElement() {
-    this._super(...arguments);
-    if (this.get('navContainer')) {
-      let lockedOpen = this.get('navContainer').get('sideBar').get('locked-open');
-      if (lockedOpen) {
-        this.$().attr(`hide-${lockedOpen}`, true);
-      }
     }
   }
 

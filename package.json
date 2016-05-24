@@ -53,14 +53,14 @@
     "loader.js": "^4.0.1"
   },
   "dependencies": {
+    "angular-material-source": "angular/material#v1.0.6",
     "broccoli-autoprefixer": "^3.0.0",
     "broccoli-filter": "^1.2.3",
     "broccoli-funnel": "^1.0.1",
     "broccoli-merge-trees": "^1.1.0",
     "ember-cli-babel": "^5.1.6",
-    "ember-css-transitions": "^0.1.0",
-    "ember-wormhole": "^0.3.4",
-    "angular-material-source": "angular/material#v1.0.6"
+    "ember-css-transitions": "miguelcobain/ember-css-transitions",
+    "ember-wormhole": "^0.3.4"
   },
   "keywords": [
     "ember-addon",

@@ -1,54 +1,66 @@
 import Ember from 'ember';
-import PaperNavContainer from './paper-nav-container';
+import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
+import PaperSidenavContainer from './paper-sidenav-container';
 
-export default Ember.Component.extend({
-  constants: Ember.inject.service(),
+const { Component, inject, computed, $, run } = Ember;
+
+export default Component.extend(TransitionMixin, {
   tagName: 'md-sidenav',
+  attributeBindings: ['tabindex'],
+  classNameBindings: ['positionClass'],
+  transitionTriggers: ['isLockedOpen:md-locked-open', 'closed:md-closed'],
 
-  'locked-open': 'gt-sm',
+  constants: inject.service(),
+  paperSidenav: inject.service(),
+
+  name: 'default',
+  position: 'left',
+  lockedOpen: 'gt-sm',
   closed: true,
   closeOnClick: true,
-
-  navContainer: Ember.computed(function() {
-    return this.nearestOfType(PaperNavContainer);
-  }),
-
-  attributeBindings: ['tabindex'],
-  classNameBindings: ['isLockedOpen:md-locked-open', 'closed:md-closed'],
   tabindex: -1,
 
-  _init: Ember.on('init', function() {
-    let _self = this;
+  navContainer: computed(function() {
+    return this.nearestOfType(PaperSidenavContainer);
+  }),
 
-    if (this.get('navContainer')) {
+  positionClass: computed('position', function() {
+    return `md-sidenav-${this.get('position')}`;
+  }),
+
+  init() {
+    this.updateLockedOpen();
+
+    this._super(...arguments);
+
+    /*if (this.get('navContainer')) {
       this.get('navContainer').set('sideBar', this);
-    }
+    }*/
 
-    this.matchMedia();
-    this.set('__resizeWindow', function() {
-      _self.matchMedia();
-    });
-  }),
-
-  _observeClosedState: Ember.observer('closed', function() {
-    if (this.get('closed')) {
-      Ember.$('body').css('overflow', 'inherit');
-    } else {
-      Ember.$('body').css('overflow', 'hidden');
-    }
-  }),
+    this.get('paperSidenav').register(this.get('name'));
+  },
 
   didInsertElement() {
-    Ember.$(window).on('resize', this.get('__resizeWindow'));
-  },
-  willDestroyElement() {
-    Ember.$(window).off('resize', this.get('__resizeWindow'));
+    this._super(...arguments);
+    $(window).on(`resize.${this.elementId}`, run.bind(this, 'updateLockedOpen'));
   },
 
-  matchMedia() {
-    let mediaQuery = this.get('constants').MEDIA[this.get('locked-open')];
-    this.set('isLockedOpen', window.matchMedia(mediaQuery).matches);
-    if (this.get('isLockedOpen')) {
+  willDestroyElement() {
+    this._super(...arguments);
+    $(window).off(`resize.${this.elementId}`, run.bind(this, 'updateLockedOpen'));
+  },
+
+  updateLockedOpen() {
+    let mediaQuery = this.get('constants').MEDIA[this.get('lockedOpen')];
+    let isLockedOpen = window.matchMedia(mediaQuery).matches;
+    this.set('isLockedOpen', isLockedOpen);
+    if (isLockedOpen) {
+      this.set('closed', true);
+    }
+  },
+
+  click() {
+    if (this.get('closeOnClick') && !this.get('isLockedOpen')) {
       this.set('closed', true);
     }
   },
@@ -59,17 +71,6 @@ export default Ember.Component.extend({
         this.toggleProperty('closed');
       }
     }
-  },
-
-  click() {
-    if (!this.get('closeOnClick') || this.get('isLockedOpen')) {
-      return;
-    }
-
-    let _self = this;
-    Ember.run.next(function() {
-      _self.set('closed', true);
-    });
   }
 
 });

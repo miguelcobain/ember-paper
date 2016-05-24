@@ -17,6 +17,10 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 
 #### 1.0.0-alpha.2
 
+- [xxx]() update sidenav
+  - `paper-nav-container` was renamed to `paper-sidenav-container`
+  - `locked-open` was renamed to `lockedOpen`
+
 #### 1.0.0-alpha.1
 
 - [#365](https://github.com/miguelcobain/ember-paper/pull/365) paper-button: Support for `fab` and `mini`.
