@@ -9,10 +9,13 @@
     without a parameter.
   </p>
 
-  {{paper-api (array
-    (array "layout-row" "Items arranged horizontally. `max-height = 100%` and `max-width` is the width of the items in the container.")
-    (array "layout-column" "Items arranged vertically. `max-width = 100%` and `max-height` is the width of the items in the container.")
-  ) header=(array)}}
+  {{paper-api
+    (p-section
+      (p-row "layout-row" "Items arranged horizontally. `max-height = 100%` and `max-width` is the width of the items in the container.")
+      (p-row "layout-column" "Items arranged vertically. `max-width = 100%` and `max-height` is the width of the items in the container.")
+    )
+    header=(p-row "Class" "Effect")
+  }}
 
   {{#paper-card as |card|}}
     <div class="example example-1 layout-row">
@@ -47,18 +50,22 @@
     <code>layout</code> classes to set the layout direction for devices with view widths:
   </p>
 
-  {{paper-api (array
-    (array "layout" "Sets the default layout direction unless overriden by another breakpoint.")
-    (array "layout-xs" "width < *600*px")
-    (array "layout-gt-xs" "width >= *600*px")
-    (array "layout-sm" "width *600*px <= width < *960*px")
-    (array "layout-gt-sm" "width >= *960*px")
-    (array "layout-md" "*960*px <= width < *1280*px")
-    (array "layout-gt-md" "width >= *1280*px")
-    (array "layout-lg" "*1280*px <= width < *1920*px")
-    (array "layout-gt-lg" "width >= *1920*px")
-    (array "layout-xl" "width >= *1920*px")
-  ) header=(array "Class" "Device width when breakpoint overrides default") sort=false}}
+  {{paper-api
+    (p-section
+      (p-row "layout" "Sets the default layout direction unless overriden by another breakpoint.")
+      (p-row "layout-xs" "width < *600*px")
+      (p-row "layout-gt-xs" "width >= *600*px")
+      (p-row "layout-sm" "width *600*px <= width < *960*px")
+      (p-row "layout-gt-sm" "width >= *960*px")
+      (p-row "layout-md" "*960*px <= width < *1280*px")
+      (p-row "layout-gt-md" "width >= *1280*px")
+      (p-row "layout-lg" "*1280*px <= width < *1920*px")
+      (p-row "layout-gt-lg" "width >= *1920*px")
+      (p-row "layout-xl" "width >= *1920*px")
+    )
+    header=(p-row "Class" "Device width when breakpoint overrides default")
+    sort=false
+  }}
 
   <p>
     For the demo below, as you shrink your browser window width notice the flow direction

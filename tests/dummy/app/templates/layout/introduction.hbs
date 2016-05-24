@@ -21,37 +21,45 @@
   dashes. See the table below for an overview of the most important classes.
   </p>
 
-  {{paper-api (array
-    (array "layout" "`row | column`" "`layout-row`, `layout-column`")
-    (array "flex" "integer (increments of 5 for 0%->100%, 100%/3, 200%/3)" "`layout`, `flex-50`")
-    (array "flex-order" "integer values from -20 to 20" "`flex-order-15`, `flex-order--5`")
-    (array "flex-offset" "integer (increments of 5 for 0%->100%, 100%/3, 200%/3)" "`flex-offset-15`, `flex-offset-66`")
-    (array "layout-align" "`start | center | end | space-around | space-between`, `start | center | end | stretch`" "`layout-align-space-around-center`, `layout-align-start`")
-    (array "layout-fill" "**none**" "")
-    (array "layout-wrap" "**none**" "")
-    (array "layout-nowrap" "**none**" "")
-    (array "layout-margin" "**none**" "")
-    (array "layout-padding" "**none**" "")
-    (array "show" "**none**" "")
-    (array "hide" "**none**" "")
-  ) header=(array "Base attribute" "Parameter values" "Examples") sort=false}}
+  {{paper-api
+    (p-section
+      (p-row "layout" "`row | column`" "`layout-row`, `layout-column`")
+      (p-row "flex" "integer (increments of 5 for 0%->100%, 100%/3, 200%/3)" "`layout`, `flex-50`")
+      (p-row "flex-order" "integer values from -20 to 20" "`flex-order-15`, `flex-order--5`")
+      (p-row "flex-offset" "integer (increments of 5 for 0%->100%, 100%/3, 200%/3)" "`flex-offset-15`, `flex-offset-66`")
+      (p-row "layout-align" "`start | center | end | space-around | space-between`, `start | center | end | stretch`" "`layout-align-space-around-center`, `layout-align-start`")
+      (p-row "layout-fill" "**none**" "")
+      (p-row "layout-wrap" "**none**" "")
+      (p-row "layout-nowrap" "**none**" "")
+      (p-row "layout-margin" "**none**" "")
+      (p-row "layout-padding" "**none**" "")
+      (p-row "show" "**none**" "")
+      (p-row "hide" "**none**" "")
+    )
+    header=(p-row "Base attribute" "Parameter values" "Examples")
+    sort=false
+  }}
 
   <p>
   We can associate breakpoints with mediaQuery definitions using breakpoint <strong>alias(es)</strong>,
   based on the breakpoints specified in the Material Design spec:
   </p>
 
-  {{paper-api (array
-    (array "xs" "'(max-width: *599*px)'")
-    (array "gt-xs" "'(min-width: *600*px)'")
-    (array "sm" "'(min-width: *600*px) and (max-width: *959*px)'")
-    (array "gt-sm" "'(min-width: *960*px)'")
-    (array "md" "'(min-width: *960*px) and (max-width: *1279*px)'")
-    (array "gt-md" "'(min-width: *1280*px)'")
-    (array "lg" "'(min-width: *1280*px) and (max-width: *1919*px)'")
-    (array "gt-lg" "'(min-width: *1920*px)'")
-    (array "xl" "'(min-width: *1920*px)'")
-  ) header=(array "Breakpoint" "Media query (pixel range)") sort=false}}
+  {{paper-api
+    (p-section
+      (p-row "xs" "'(max-width: *599*px)'")
+      (p-row "gt-xs" "'(min-width: *600*px)'")
+      (p-row "sm" "'(min-width: *600*px) and (max-width: *959*px)'")
+      (p-row "gt-sm" "'(min-width: *960*px)'")
+      (p-row "md" "'(min-width: *960*px) and (max-width: *1279*px)'")
+      (p-row "gt-md" "'(min-width: *1280*px)'")
+      (p-row "lg" "'(min-width: *1280*px) and (max-width: *1919*px)'")
+      (p-row "gt-lg" "'(min-width: *1920*px)'")
+      (p-row "xl" "'(min-width: *1920*px)'")
+    )
+    header=(p-row "Breakpoint" "Media query (pixel range)")
+    sort=false
+  }}
 
   <h3>API with Responsive Breakpoints</h3>
   <p>
@@ -62,18 +70,22 @@
   This notation results in, for example, the following table for the layout and flex classes:
   </p>
 
-  {{paper-api (array
-    (array "layout" "`flex`" "Sets the default layout direction & flex unless overriden by another breakpoint.")
-    (array "layout-xs" "`flex-xs`"       "width < *600*px")
-    (array "layout-gt-xs" "`flex-gt-xs`" "width >= *600*px")
-    (array "layout-sm" "`flex-sm`"       "width *600*px <= width < *960*px")
-    (array "layout-gt-sm" "`flex-gt-sm`" "width >= *960*px")
-    (array "layout-md" "`flex-md`"       "*960*px <= width < *1280*px")
-    (array "layout-gt-md" "`flex-gt-md`" "width >= *1280*px")
-    (array "layout-lg" "`flex-lg`"       "*1280*px <= width < *1920*px")
-    (array "layout-gt-lg" "`flex-gt-lg`" "width >= *1920*px")
-    (array "layout-xl" "`flex-xl`"       "width >= *1920*px")
-  ) header=(array "layout class" "flex class" "Description") sort=false}}
+  {{paper-api
+    (p-section
+      (p-row "layout" "`flex`" "Sets the default layout direction & flex unless overriden by another breakpoint.")
+      (p-row "layout-xs" "`flex-xs`"       "width < *600*px")
+      (p-row "layout-gt-xs" "`flex-gt-xs`" "width >= *600*px")
+      (p-row "layout-sm" "`flex-sm`"       "width *600*px <= width < *960*px")
+      (p-row "layout-gt-sm" "`flex-gt-sm`" "width >= *960*px")
+      (p-row "layout-md" "`flex-md`"       "*960*px <= width < *1280*px")
+      (p-row "layout-gt-md" "`flex-gt-md`" "width >= *1280*px")
+      (p-row "layout-lg" "`flex-lg`"       "*1280*px <= width < *1920*px")
+      (p-row "layout-gt-lg" "`flex-gt-lg`" "width >= *1920*px")
+      (p-row "layout-xl" "`flex-xl`"       "width >= *1920*px")
+    )
+    header=(p-row "layout class" "flex class" "Description")
+    sort=false
+  }}
 
   <p>Below is an example of the usage of the responsive layout classes:</p>
 

@@ -38,7 +38,21 @@
             <p>You dismissed the dialog with a result of "{{result}}".</p>
           {{/if}}
 
-          {{paper-api api actionsApi}}
+          {{paper-api
+            (p-section
+              (p-row "parent" "jQuery object, element or selector" "Existing element where the modal and backdrop will be rendered")
+              (p-row "origin" "jQuery object, element, or selector" "If present, the dialog will use it as openFrom and closeTo. Also, focus will be returned to this element once the dialog closes.")
+              (p-row "closeTo" "jQuery object, element or selector" "Target for closing the dialog with a transition.")
+              (p-row "fullscreen" "boolean" "Causes the dialog to become fullscreen at smaller breakpoints.")
+              (p-row "clickOutsideToClose" "boolean" "Causes clicking on the backdrop to trigger the `onClose` handler.")
+              (p-row "focusOnOpen" "boolean" "Causes the initial focus to be on an inner element with the autofocus attribute, rather than the last button inside `{{paper-dialog-actions}}`. Defaults to `true`.")
+              (p-row "escapeToClose" "boolean" "Causes pressing escape to close the dialog. Defaults to `true`.")
+            )
+            (p-section
+              "Actions"
+              (p-row "onClose" "action" "An action to be executed when the dialog is closed, e.g. by pressing escape.")
+            )
+          }}
 
         {{/paper-card-content}}
       </div>
