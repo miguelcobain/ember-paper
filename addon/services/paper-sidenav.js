@@ -1,58 +1,39 @@
 import Ember from 'ember';
-const { Service, $, run, Object: EmObject, assert } = Ember;
+const { Service, assert } = Ember;
 
 export default Service.extend({
   init() {
     this._super(...arguments);
-    this.set('sidenavs', EmObject.create());
+    this.sidenavs = {};
   },
 
-  didInsertElement() {
+  willDestroy() {
     this._super(...arguments);
-    $(window).on('resize.sidenav-service', run.bind(this, 'updateLockedOpen'));
+    delete this.sidenavs;
   },
 
-  willDestroyElement() {
-    this._super(...arguments);
-    $(window).off('resize.sidenav-service', run.bind(this, 'updateLockedOpen'));
+  register(name, sidenav) {
+    assert(`You tried to register a sidenav named '${name}' but there is already a sidenav with that name registered`, !this.sidenavs[name]);
+    this.sidenavs[name] = sidenav;
   },
 
-  updateLockedOpen() {
-    let sidenavs = this.get('sidenavs');
-    Object.keys(sidenavs)
-    .map((k) => sidenavs.get(k))
-    .forEach((s) => {
-      let lockedOpen = s.get('lockedOpen');
-      let mediaQuery = this.get('constants').MEDIA[lockedOpen];
-      let match = window.matchMedia(mediaQuery).matches;
-      s.set('isLockedOpen', match);
-      if (match) {
-        s.set('closed', match);
-      }
-    });
-  },
-
-  register(name, lockedOpen) {
-    assert(`You tried to register a sidenav named '${name}' but there is already a sidenav with that name registered`, !this.get('sidenavs').get(name));
-    this.get('sidenavs').set(name, EmObject.create({
-      open: false,
-      isLockedOpen: false,
-      lockedOpen
-    }));
+  unregister(name) {
+    assert(`You tried to unregister a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name]);
+    delete this.sidenavs[name];
   },
 
   open(name = 'default') {
-    assert(`You tried to open a sidenav named '${name}' but no such sidenav is registered`, this.get('sidenavs').get(name));
-    this.get('sidenavs').get(name).set('open', true);
+    assert(`You tried to open a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name]);
+    this.get('sidenavs').get(name).open();
   },
 
   close(name = 'default') {
-    assert(`You tried to close a sidenav named '${name}' but no such sidenav is registered`, this.get('sidenavs').get(name));
-    this.get('sidenavs').get(name).set('open', false);
+    assert(`You tried to close a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name]);
+    this.sidenavs[name].close();
   },
 
-  toggle() {
-    assert(`You tried to toggle a sidenav named '${name}' but no such sidenav is registered`, this.get('sidenavs').get(name));
-    this.get('sidenavs').get(name).toggleProperty(name);
+  toggle(name = 'default') {
+    assert(`You tried to toggle a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name]);
+    this.sidenavs[name].toggle(name);
   }
 });

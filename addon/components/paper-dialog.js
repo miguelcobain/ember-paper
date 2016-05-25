@@ -41,16 +41,18 @@ export default Component.extend({
   constants: inject.service(),
 
   didInsertElement() {
+    this._super(...arguments);
     if (this.get('escapeToClose')) {
       $(this.get('defaultedParent')).on(`keydown.${this.elementId}`, (e) => {
         if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.get('onClose')) {
-          this.get('onClose')();
+          this.sendAction('onClose');
         }
       });
     }
   },
 
   willDestroyElement() {
+    this._super(...arguments);
     if (this.get('escapeToClose')) {
       $(this.get('defaultedParent')).off(`keydown.${this.elementId}`);
     }
@@ -59,7 +61,7 @@ export default Component.extend({
   actions: {
     outsideClicked() {
       if (this.get('clickOutsideToClose') && this.get('onClose')) {
-        this.get('onClose')();
+        this.sendAction('onClose');
       }
     }
   }
