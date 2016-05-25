@@ -28,10 +28,6 @@ export default Component.extend(TransitionMixin, {
 
     this._super(...arguments);
 
-    /*if (this.get('navContainer')) {
-      this.get('navContainer').set('sideBar', this);
-    }*/
-
     this.get('paperSidenav').register(this.get('name'), this);
   },
 
