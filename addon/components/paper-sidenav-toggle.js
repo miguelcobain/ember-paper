@@ -1,11 +1,13 @@
 import Ember from 'ember';
-const { Component } = Ember;
+const { Component, inject } = Ember;
 
 export default Component.extend({
 
   classNameBindings: ['hideClass'],
 
   name: 'default',
+
+  paperSidenav: inject.service(),
 
   init() {
     this._super(...arguments);
@@ -17,9 +19,13 @@ export default Component.extend({
     }
   },
 
+  click() {
+    this.get('paperSidenav').toggle(this.get('name'));
+  },
+
   actions: {
     toggleMenu() {
-      this.get('navContainer').get('sideBar').send('toggleMenu');
+      this.get('paperSidenav').toggle(this.get('name'));
     }
   }
 

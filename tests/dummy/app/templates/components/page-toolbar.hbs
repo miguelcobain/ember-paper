@@ -1,7 +1,7 @@
 {{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
   {{#toolbar.tools}}
-    {{#paper-sidenav-toggle as |toggle|}}
-      {{#paper-button onClick=(action "toggleMenu" target=toggle) iconButton=true}}
+    {{#paper-sidenav-toggle}}
+      {{#paper-button onClick=null iconButton=true}}
         {{paper-icon "menu"}}
       {{/paper-button}}
     {{/paper-sidenav-toggle}}
