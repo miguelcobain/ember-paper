@@ -17,9 +17,14 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 
 #### 1.0.0-alpha.2
 
-- [xxx]() update sidenav
+- [#384](https://github.com/miguelcobain/ember-paper/pull/384) update sidenav
   - `paper-nav-container` was renamed to `paper-sidenav-container`
   - `locked-open` was renamed to `lockedOpen`
+  - sidenav opening now follows DDAU with the `open` attribute and `onToggle` action
+  - animations work
+  - there is a `paperSidenav` service that allows sidenav toggling across the application
+  - `paper-sidenav-toggle` no longer sets a class to hide at certain breakpoints
+  - `paper-sidenav` now can use a `position` param that positions the sidenav `left` (default) or `right`
 
 #### 1.0.0-alpha.1
 
