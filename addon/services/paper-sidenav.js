@@ -13,27 +13,33 @@ export default Service.extend({
   },
 
   register(name, sidenav) {
-    assert(`You tried to register a sidenav named '${name}' but there is already a sidenav with that name registered`, !this.sidenavs[name]);
-    this.sidenavs[name] = sidenav;
+    if (!this.sidenavs[name]) {
+      this.sidenavs[name] = [];
+    }
+    this.sidenavs[name].push({ name, sidenav });
   },
 
   unregister(name) {
-    assert(`You tried to unregister a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name]);
-    delete this.sidenavs[name];
+    assert(`You tried to unregister a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name] && this.sidenavs[name].length);
+    let sidenavs = this.sidenavs[name] || [];
+    this.sidenavs[name] = sidenavs.filter((s) => s.name !== name);
   },
 
   open(name = 'default') {
-    assert(`You tried to open a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name]);
-    this.get('sidenavs').get(name).open();
+    assert(`You tried to open a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name] && this.sidenavs[name].length);
+    let sidenavs = this.sidenavs[name] || [];
+    sidenavs.forEach((s) => s.sidenav.open());
   },
 
   close(name = 'default') {
-    assert(`You tried to close a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name]);
-    this.sidenavs[name].close();
+    assert(`You tried to close a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name] && this.sidenavs[name].length);
+    let sidenavs = this.sidenavs[name] || [];
+    sidenavs.forEach((s) => s.sidenav.close());
   },
 
   toggle(name = 'default') {
-    assert(`You tried to toggle a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name]);
-    this.sidenavs[name].toggle(name);
+    assert(`You tried to toggle a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name] && this.sidenavs[name].length);
+    let sidenavs = this.sidenavs[name] || [];
+    sidenavs.forEach((s) => s.sidenav.toggle());
   }
 });
