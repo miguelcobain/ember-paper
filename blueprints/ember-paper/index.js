@@ -1,13 +1,13 @@
 'use strict';
 
 module.exports = {
-  normalizeEntityName() {
+  normalizeEntityName: function() {
     // this prevents an error when the entityName is
     // not specified (since that doesn't actually matter
     // to us
   },
 
-  afterInstall() {
+  afterInstall: function() {
     var _this = this;
     return this.addBowerPackagesToProject([
       {name: 'hammer.js', target:'latest'},
