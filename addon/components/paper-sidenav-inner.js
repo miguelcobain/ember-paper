@@ -24,10 +24,10 @@ export default Component.extend(TransitionMixin, {
   }),
 
   init() {
+    // need to updateLockedOpen() first because otherwise the transition classes
+    // would be applied due to transition mixin's `init`
     this.updateLockedOpen();
-
     this._super(...arguments);
-
     this.get('paperSidenav').register(this.get('name'), this);
   },
 
@@ -45,9 +45,21 @@ export default Component.extend(TransitionMixin, {
   updateLockedOpen() {
     let mediaQuery = this.get('constants').MEDIA[this.get('lockedOpen')];
     let isLockedOpen = window.matchMedia(mediaQuery).matches;
-    this.sendAction('onLockedOpenChange', isLockedOpen);
-    if (isLockedOpen) {
-      this.sendAction('onToggle', false);
+
+    if (this.get('isLockedOpen') !== isLockedOpen) {
+      // if there is an action available, delegate the change to the upper level
+      // otherwise, do the change ourselves
+      if (this.get('onLockedOpenChange')) {
+        this.sendAction('onLockedOpenChange', isLockedOpen);
+      } else {
+        this.set('isLockedOpen', isLockedOpen);
+      }
+
+      // if sidenav is open and we enter lockedOpen,
+      // make the sidenav enter the "closed" state
+      if (!this.get('closed') && isLockedOpen) {
+        this.sendAction('onToggle', false);
+      }
     }
   },
 
@@ -72,5 +84,4 @@ export default Component.extend(TransitionMixin, {
   toggle() {
     this.sendAction('onToggle', this.get('closed'));
   }
-
 });

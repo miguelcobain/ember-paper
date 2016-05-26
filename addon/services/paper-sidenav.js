@@ -4,42 +4,42 @@ const { Service, assert } = Ember;
 export default Service.extend({
   init() {
     this._super(...arguments);
-    this.sidenavs = {};
+    this._sidenavs = {};
   },
 
   willDestroy() {
     this._super(...arguments);
-    delete this.sidenavs;
+    delete this._sidenavs;
   },
 
   register(name, sidenav) {
-    if (!this.sidenavs[name]) {
-      this.sidenavs[name] = [];
+    if (!this._sidenavs[name]) {
+      this._sidenavs[name] = [];
     }
-    this.sidenavs[name].push({ name, sidenav });
+    this._sidenavs[name].push({ name, sidenav });
   },
 
   unregister(name) {
-    assert(`You tried to unregister a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name] && this.sidenavs[name].length);
-    let sidenavs = this.sidenavs[name] || [];
-    this.sidenavs[name] = sidenavs.filter((s) => s.name !== name);
+    assert(`You tried to unregister a sidenav named '${name}' but no such sidenav is registered`, this._sidenavs[name] && this._sidenavs[name].length);
+    let sidenavs = this._sidenavs[name] || [];
+    this._sidenavs[name] = sidenavs.filter((s) => s.name !== name);
   },
 
   open(name = 'default') {
-    assert(`You tried to open a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name] && this.sidenavs[name].length);
-    let sidenavs = this.sidenavs[name] || [];
+    assert(`You tried to open a sidenav named '${name}' but no such sidenav is registered`, this._sidenavs[name] && this._sidenavs[name].length);
+    let sidenavs = this._sidenavs[name] || [];
     sidenavs.forEach((s) => s.sidenav.open());
   },
 
   close(name = 'default') {
-    assert(`You tried to close a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name] && this.sidenavs[name].length);
-    let sidenavs = this.sidenavs[name] || [];
+    assert(`You tried to close a sidenav named '${name}' but no such sidenav is registered`, this._sidenavs[name] && this._sidenavs[name].length);
+    let sidenavs = this._sidenavs[name] || [];
     sidenavs.forEach((s) => s.sidenav.close());
   },
 
   toggle(name = 'default') {
-    assert(`You tried to toggle a sidenav named '${name}' but no such sidenav is registered`, this.sidenavs[name] && this.sidenavs[name].length);
-    let sidenavs = this.sidenavs[name] || [];
+    assert(`You tried to toggle a sidenav named '${name}' but no such sidenav is registered`, this._sidenavs[name] && this._sidenavs[name].length);
+    let sidenavs = this._sidenavs[name] || [];
     sidenavs.forEach((s) => s.sidenav.toggle());
   }
 });
