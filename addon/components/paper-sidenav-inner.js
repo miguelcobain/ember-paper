@@ -43,17 +43,20 @@ export default Component.extend(TransitionMixin, {
   },
 
   updateLockedOpen() {
-    let mediaQuery = this.get('constants').MEDIA[this.get('lockedOpen')];
-    let isLockedOpen = window.matchMedia(mediaQuery).matches;
+    let lockedOpen = this.get('lockedOpen');
+    let isLockedOpen;
+
+    // if `true` or `false` is specified, always/never "lock open"
+    // otherwise proceed with normal matchMedia test
+    if (typeof lockedOpen === 'boolean') {
+      isLockedOpen = lockedOpen;
+    } else {
+      let mediaQuery = this.get('constants').MEDIA[lockedOpen] || lockedOpen;
+      let isLockedOpen = window.matchMedia(mediaQuery).matches;
+    }
 
     if (this.get('isLockedOpen') !== isLockedOpen) {
-      // if there is an action available, delegate the change to the upper level
-      // otherwise, do the change ourselves
-      if (this.get('onLockedOpenChange')) {
-        this.sendAction('onLockedOpenChange', isLockedOpen);
-      } else {
-        this.set('isLockedOpen', isLockedOpen);
-      }
+      this.set('isLockedOpen', isLockedOpen);
 
       // if sidenav is open and we enter lockedOpen,
       // make the sidenav enter the "closed" state
