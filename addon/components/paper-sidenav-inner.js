@@ -70,18 +70,20 @@ export default Component.extend(TransitionMixin, {
   },
 
   open() {
-    if (this.get('closed')) {
+    if (this.get('closed') && this.get('isLockedOpen')) {
       this.sendAction('onToggle', true);
     }
   },
 
   close() {
-    if (!this.get('closed')) {
+    if (!this.get('closed') && !this.get('isLockedOpen')) {
       this.sendAction('onToggle', false);
     }
   },
 
   toggle() {
-    this.sendAction('onToggle', this.get('closed'));
+    if (!this.get('isLockedOpen')) {
+      this.sendAction('onToggle', this.get('closed'));
+    }
   }
 });
