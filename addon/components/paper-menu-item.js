@@ -12,7 +12,7 @@ export default Component.extend({
       this.sendAction('onClick', event);
     }
   },
-  mouseEnter: function() {
+  mouseEnter() {
   	this.$('.md-button:not([disabled])').focus();
   }
 
