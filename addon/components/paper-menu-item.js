@@ -11,6 +11,9 @@ export default Component.extend({
       this.nearestOfType(PaperMenuAbstract).send('toggleMenu');
       this.sendAction('onClick', event);
     }
+  },
+  mouseEnter: function() {
+  	this.$('.md-button:not([disabled])').focus();
   }
 
 });
