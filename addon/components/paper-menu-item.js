@@ -11,6 +11,11 @@ export default Component.extend({
       this.nearestOfType(PaperMenuAbstract).send('toggleMenu');
       this.sendAction('onClick', event);
     }
+  },
+  mouseEnter() {
+    if (!this.get('disabled')) {
+      this.$('button').focus();
+    }
   }
 
 });
