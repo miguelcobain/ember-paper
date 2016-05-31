@@ -13,7 +13,9 @@ export default Component.extend({
     }
   },
   mouseEnter() {
-  	this.$('.md-button:not([disabled])').focus();
+    if (!this.get('disabled')) {
+      this.$('button').focus();
+    }
   }
 
 });
