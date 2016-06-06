@@ -4,7 +4,7 @@
     opaque=true
     fixed=(unless parent true)
     class="md-dialog-backdrop"
-    onTap=(action "outsideClicked")
+    onClick=(action "outsideClicked")
   }}
   {{#paper-dialog-container outsideClicked=(action "outsideClicked")}}
     {{#paper-dialog-inner

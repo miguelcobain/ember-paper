@@ -38,8 +38,8 @@ export default Component.extend(TransitionMixin, {
 
   willDestroyElement() {
     this._super(...arguments);
-    $(window).off(`resize.${this.elementId}`, run.bind(this, 'updateLockedOpen'));
-    this.get('paperSidenav').unregister(this.get('name'));
+    $(window).off(`resize.${this.elementId}`);
+    this.get('paperSidenav').unregister(this.get('name'), this);
   },
 
   updateLockedOpen() {
@@ -52,7 +52,7 @@ export default Component.extend(TransitionMixin, {
       isLockedOpen = lockedOpen;
     } else {
       let mediaQuery = this.get('constants').MEDIA[lockedOpen] || lockedOpen;
-      let isLockedOpen = window.matchMedia(mediaQuery).matches;
+      isLockedOpen = window.matchMedia(mediaQuery).matches;
     }
 
     if (this.get('isLockedOpen') !== isLockedOpen) {

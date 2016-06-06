@@ -24,7 +24,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
   - animations work
   - there is a `paperSidenav` service that allows sidenav toggling across the application
   - `paper-sidenav-toggle` no longer sets a class to hide at certain breakpoints
+  - `paper-sidenav-toggle` is now tagless. It is essentially a functional component that yields an action to its block
   - `paper-sidenav` now can use a `position` param that positions the sidenav `left` (default) or `right`
+  - `paper-backdrop` action `onTap` changed to `onClick`
 
 #### 1.0.0-alpha.1
 

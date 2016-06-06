@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
-const { Component, computed, run, String: { htmlSafe } } = Ember;
-/* global Hammer */
+const { Component, computed, String: { htmlSafe } } = Ember;
 
 export default Component.extend(TransitionMixin, {
 
@@ -23,25 +22,9 @@ export default Component.extend(TransitionMixin, {
     parent.append(clone);
   },
 
-  didInsertElement() {
-    this._super(...arguments);
-    let backdropHammer = new Hammer(this.element);
-    backdropHammer.on('tap', run.bind(this, this._onTap));
-    this._backdropHammer = backdropHammer;
-  },
-
-  willDestroyElement() {
-    this._super(...arguments);
-    if (this._backdropHammer) {
-      this._backdropHammer.destroy();
-    }
-  },
-
-  _onTap(e) {
+  click(e) {
     e.preventDefault();
-    if (this.get('onTap')) {
-      this.get('onTap')(e);
-    }
+    this.sendAction('onClick', e);
   }
 
 });
