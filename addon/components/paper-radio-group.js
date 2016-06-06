@@ -12,7 +12,7 @@ export default BaseFocusable.extend({
   constants: inject.service(),
 
   // Lifecycle hooks
-  didInitAttrs() {
+  init() {
     this._super(...arguments);
     assert('{{paper-radio-group}} requires an `onChange` action or null for no action', this.get('onChange') !== undefined);
   },
