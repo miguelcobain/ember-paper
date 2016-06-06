@@ -1,75 +1,22 @@
 import Ember from 'ember';
-import PaperNavContainer from './paper-nav-container';
+const { Component, computed } = Ember;
 
-export default Ember.Component.extend({
-  constants: Ember.inject.service(),
-  tagName: 'md-sidenav',
+export default Component.extend({
+  tagName: '',
 
-  'locked-open': 'gt-sm',
-  closed: true,
+  name: 'default',
+  position: 'left',
+  lockedOpen: 'gt-sm',
+  open: false,
+  closed: computed.not('open'),
   closeOnClick: true,
 
-  navContainer: Ember.computed(function() {
-    return this.nearestOfType(PaperNavContainer);
-  }),
-
-  attributeBindings: ['tabindex'],
-  classNameBindings: ['isLockedOpen:md-locked-open', 'closed:md-closed'],
-  tabindex: -1,
-
-  _init: Ember.on('init', function() {
-    let _self = this;
-
-    if (this.get('navContainer')) {
-      this.get('navContainer').set('sideBar', this);
-    }
-
-    this.matchMedia();
-    this.set('__resizeWindow', function() {
-      _self.matchMedia();
-    });
-  }),
-
-  _observeClosedState: Ember.observer('closed', function() {
-    if (this.get('closed')) {
-      Ember.$('body').css('overflow', 'inherit');
-    } else {
-      Ember.$('body').css('overflow', 'hidden');
-    }
-  }),
-
-  didInsertElement() {
-    Ember.$(window).on('resize', this.get('__resizeWindow'));
-  },
-  willDestroyElement() {
-    Ember.$(window).off('resize', this.get('__resizeWindow'));
-  },
-
-  matchMedia() {
-    let mediaQuery = this.get('constants').MEDIA[this.get('locked-open')];
-    this.set('isLockedOpen', window.matchMedia(mediaQuery).matches);
-    if (this.get('isLockedOpen')) {
-      this.set('closed', true);
-    }
-  },
-
   actions: {
-    toggleMenu() {
-      if (!this.get('isLockedOpen')) {
-        this.toggleProperty('closed');
-      }
+    onToggle() {
+      this.sendAction('onToggle', ...arguments);
+    },
+    onBackdropTap() {
+      this.sendAction('onToggle', false);
     }
-  },
-
-  click() {
-    if (!this.get('closeOnClick') || this.get('isLockedOpen')) {
-      return;
-    }
-
-    let _self = this;
-    Ember.run.next(function() {
-      _self.set('closed', true);
-    });
   }
-
 });

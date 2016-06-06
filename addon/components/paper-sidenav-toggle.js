@@ -1,27 +1,16 @@
 import Ember from 'ember';
-import PaperNavContainer from './paper-nav-container';
+const { Component, inject } = Ember;
 
-export default Ember.Component.extend({
-  tagName: 'div',
+export default Component.extend({
 
-  navContainer: Ember.computed(function() {
-    return this.nearestOfType(PaperNavContainer);
-  }),
+  tagName: '',
 
-  actions: {
-    toggleMenu() {
-      this.get('navContainer').get('sideBar').send('toggleMenu');
-    }
-  },
+  name: 'default',
 
-  didInsertElement() {
-    this._super(...arguments);
-    if (this.get('navContainer')) {
-      let lockedOpen = this.get('navContainer').get('sideBar').get('locked-open');
-      if (lockedOpen) {
-        this.$().attr(`hide-${lockedOpen}`, true);
-      }
-    }
+  paperSidenav: inject.service(),
+
+  toggle() {
+    this.get('paperSidenav').toggle(this.get('name'));
   }
 
 });
