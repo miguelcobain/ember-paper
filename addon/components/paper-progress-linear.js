@@ -67,8 +67,7 @@ export default Component.extend(ColorMixin, {
     return Ember.String.htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedBufferValue')]}`);
   }),
 
-  bar2Style: computed('clampedValue', function() {
-
+  bar2Style: computed('clampedValue', 'mode', function() {
     if (this.get('mode') === MODE_QUERY) {
       return Ember.String.htmlSafe('');
     }
