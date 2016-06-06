@@ -17,6 +17,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 
 #### 1.0.0-alpha.2
 
+- This version uses an updated version of `ember-css-transitions` from github rather than npm.
 - [#384](https://github.com/miguelcobain/ember-paper/pull/384) update sidenav
   - `paper-nav-container` was renamed to `paper-sidenav-container`
   - `locked-open` was renamed to `lockedOpen`
