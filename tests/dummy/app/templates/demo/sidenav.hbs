@@ -21,9 +21,12 @@
     {{! BEGIN-SNIPPET sidenav }}
     {{#paper-sidenav-container class="inner-sidenav"}}
 
-      {{#paper-sidenav class="md-whiteframe-z2"
-        name="left" open=leftSideBarOpen
-        onToggle=(action (mut leftSideBarOpen))}}
+      {{#paper-sidenav 
+        class="md-whiteframe-z2"
+        name="left" 
+        open=leftSideBarOpen
+        onToggle=(action (mut leftSideBarOpen))
+      }}
         {{#paper-toolbar as |toolbar|}}
           {{#paper-toolbar-tools}}Left Sidenav{{/paper-toolbar-tools}}
         {{/paper-toolbar}}
