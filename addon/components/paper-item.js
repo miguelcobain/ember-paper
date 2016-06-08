@@ -107,13 +107,13 @@ export default Component.extend(RippleMixin, ProxyMixin, {
   },
 
   actions: {
-    buttonAction() {
+    buttonAction(ev) {
       this.get('proxiedComponents').forEach((component)=> {
         if (component.processProxy && !get(component, 'disabled') && (get(component, 'bubbles') | !get(this, 'hasPrimaryAction'))) {
           component.processProxy();
         }
       });
-      this.sendAction('onClick');
+      this.sendAction('onClick', ev);
     }
   }
 

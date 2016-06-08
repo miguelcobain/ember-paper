@@ -4,11 +4,12 @@ const { Controller, computed } = Ember;
 
 export default Controller.extend({
   actions: {
-    toggleExpandedItem(value) {
+    toggleExpandedItem(value, ev) {
       if (this.get('expandedItem') === value) {
         value = null;
       }
       this.set('expandedItem', value);
+      ev.stopPropagation();
     }
   },
 
