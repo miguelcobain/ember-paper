@@ -21,7 +21,7 @@ const escape = function(text) {
 };
 
 export default Component.extend({
-
+  tagName: '',
   // As statically-declared properties, these are shared amongst all instances
   // of `ember-api`.
   title: 'Usage',

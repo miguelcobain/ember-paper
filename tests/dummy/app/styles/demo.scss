@@ -23,6 +23,11 @@ table {
   overflow: hidden;
 }
 
+.table-wrapper {
+  flex: 1;
+  overflow: auto;
+}
+
 /***************
  * TYPE DEFAULTS
  ***************/
