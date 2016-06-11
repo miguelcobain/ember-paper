@@ -4,6 +4,6 @@ import FlexMixin from '../mixins/flex-mixin';
 export default Ember.Component.extend(FlexMixin, {
   tagName: 'md-content',
   classNames: ['md-default-theme'],
-  attributeBindings: ['layout-padding', 'scroll-y:md-scroll-y'],
+  attributeBindings: ['layout-padding', 'scroll-y:md-scroll-y', 'tabindex'],
   classNameBindings: ['padding:md-padding']
 });
