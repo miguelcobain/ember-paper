@@ -39,6 +39,7 @@
           {{/liquid-if}}
         </div>
         {{#menu-item active=(is-active "typography" currentRouteName) onClick=(transition-to "typography")}}Typography{{/menu-item}}
+        {{#menu-item active=(is-active "theme" currentRouteName) onClick=(transition-to "theme")}}Color & Theme{{/menu-item}}
 
         {{#menu-item onClick=(action "toggleExpandedItem" "layout") expanded=layoutExpanded canExpand=true}}Layout{{/menu-item}}
         <div class="submenu">
