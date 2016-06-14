@@ -14,7 +14,7 @@ export default Controller.extend({
   },
 
   expandedItem: computed('currentRouteName', function() {
-    if (this.get('currentRouteName').startsWith('layout')) {
+    if (this.get('currentRouteName').substr(0, 6) === 'layout') {
       return 'layout';
     } else {
       return 'demos';
