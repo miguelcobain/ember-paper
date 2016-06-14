@@ -1,18 +1,16 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const { get, Component } = Ember;
+
+export default Component.extend({
   tagName: 'md-chips',
   classNames: ['md-default-theme'],
 
   actions: {
-    removeItem(item) {
-      this.sendAction('removeItem', item);
-    },
-
-    addItem() {
-      if (this.get('newItem.length')) {
-        this.sendAction('addItem', this.get('newItem'));
-        this.set('newItem', '');
+    addItem(newItem) {
+      if (get(newItem, 'length')) {
+        this.sendAction('addItem', newItem);
+        this.set('newChipValue', '');
       }
     },
 
