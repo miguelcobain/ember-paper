@@ -4,10 +4,10 @@
 
   {{! BEGIN-SNIPPET chips.example }}
   <h2>Default Template</h2>
-  {{paper-chips content=fruitNames readOnly=readOnly removeItem="removeItem" addItem="addItem" placeholder="Add a tag"}}
+  {{paper-chips content=fruitNames readOnly=readOnly removeItem=(action 'removeItem') addItem=(action 'addItem') placeholder="Add a tag"}}
 
   <h2>Custom Template</h2>
-  {{#paper-chips readOnly=readOnly removeItem="removeCustomItem" addItem="addCustomItem" placeholder="Add a tag" content=customFruitNames as |item|}}
+  {{#paper-chips readOnly=readOnly removeItem=(action 'removeCustomItem') addItem=(action 'addCustomItem') placeholder="Add a tag" content=customFruitNames as |item|}}
     <strong>{{item}}</strong>
     <em>(fruit)</em>
   {{/paper-chips}}
