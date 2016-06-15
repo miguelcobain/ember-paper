@@ -1,9 +1,23 @@
-import Ember from 'ember';
-import PaperMenuAbstract from './paper-menu-abstract';
+import BasicDropdownComponent from 'ember-basic-dropdown/components/basic-dropdown';
+
+export default BasicDropdownComponent.extend({
+  renderInPlace: true
+  /*applyReposition(trigger, dropdown, positions) {
+    let { top: triggerTop } = trigger.getBoundingClientRect();
+    let $window = $(self.window);
+    let scroll = { top: $window.scrollTop() };
+    let triggerTopWithScroll = triggerTop + scroll.top;
+    let dropdownTop = triggerTopWithScroll;
+
+    positions.style.top = `${dropdownTop}px`;
+    this._super(trigger, dropdown, positions);
+  }*/
+});
+
+/*
 
 let MENU_EDGE_MARGIN = 8;
-
-export default PaperMenuAbstract.extend({
+export default BasicDropdownComponent.extend({
   tagName: 'md-menu',
 
   position: 'target',
@@ -135,33 +149,5 @@ export default PaperMenuAbstract.extend({
 
     containerNode.style[this.get('constants').get('CSS').TRANSFORM_ORIGIN] = transformOrigin;
 
-    /*if (!this.get('alreadyOpen')) {
-      // Animate a scale out if we aren't just repositioning
-      containerNode.style[this.get('constants').get('CSS').TRANSFORM] = 'scale(' +
-       Math.min(originNodeRect.width / containerNode.offsetWidth, 1.0) + ',' +
-       Math.min(originNodeRect.height / containerNode.offsetHeight, 1.0) +
-       ')';
-    }*/
-    /*
-     * Clamps the repositioning of the menu within the confines of
-     * bounding element (often the screen/body)
-     */
-    function clamp(pos) {
-      pos.top = Math.max(Math.min(pos.top, bounds.bottom - containerNode.offsetHeight), bounds.top);
-      pos.left = Math.max(Math.min(pos.left, bounds.right - containerNode.offsetWidth), bounds.left);
-    }
 
-    /*
-     * Gets the first visible child in the openMenuNode
-     * Necessary incase menu nodes are being dynamically hidden
-     */
-    function firstVisibleChild() {
-      for (let i = 0; i < openMenuNode.children.length; ++i) {
-        if (window.getComputedStyle(openMenuNode.children[i]).display !== 'none') {
-          return openMenuNode.children[i];
-        }
-      }
-    }
-  }
-
-});
+    */

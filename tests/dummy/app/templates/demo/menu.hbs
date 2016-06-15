@@ -4,36 +4,48 @@
 
 
 {{#paper-card}}
-{{#paper-card-content}}
-<h2>Simple dropdown menu</h2>
+  {{#paper-toolbar}}
+    <div class="md-toolbar-tools">
+      <h2>Basic Usage</h2>
+    </div>
+  {{/paper-toolbar}}
+  {{#paper-card-content}}
+    <h2>Simple dropdown menu</h2>
 
-  <p>Note that applying the class <code class="paper">.md-menu-origin</code> and <code class="paper">md-menu-align-target</code>
-      attributes ensure that the menu elements align</p>
+    <p>
+      Note that applying the class <code class="paper">.md-menu-origin</code>
+      and <code class="paper">md-menu-align-target</code>attributes ensure that the menu elements align.
+    </p>
 
-<div layout-align="center center" layout="column">
+  <div layout-align="center center" layout="column">
   {{! BEGIN-SNIPPET menu.simple-dropdown }}
-  {{#paper-menu width=4 as |menu|}}
-    {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
-  {{else}}
-    {{#each items as |item|}}
-      {{#paper-menu-item onClick="openSomething"}}
-        {{paper-icon item.icon class="md-menu-align-target"}}
-        <span>{{item.title}}</span>
+  {{#paper-menu as |menu|}}
+    {{#menu.trigger}}
+      {{#paper-button onClick=null iconButton=true}}
+        {{paper-icon "local_phone" class="md-menu-origin"}}
+      {{/paper-button}}
+    {{/menu.trigger}}
+    {{#menu.content width=4}}
+      {{#each items as |item|}}
+        {{#paper-menu-item onClick="openSomething"}}
+          {{paper-icon item.icon class="md-menu-align-target"}}
+          <span>{{item.title}}</span>
+        {{/paper-menu-item}}
+      {{/each}}
+
+      {{#paper-menu-item onClick="openSomething" disabled=true}}
+        {{paper-icon "adb" class="md-menu-align-target"}}
+          <span>This is disabled.</span>
       {{/paper-menu-item}}
-    {{/each}}
 
-    {{#paper-menu-item onClick="openSomething" disabled=true}}
-      {{paper-icon "adb" class="md-menu-align-target"}}
-        <span>This is disabled.</span>
-    {{/paper-menu-item}}
+      {{paper-divider}}
 
-    {{paper-divider}}
-
-    {{#each items as |item|}}
-      {{#paper-menu-item onClick="openSomething"}}
-        {{paper-icon item.icon class="md-menu-align-target"}} {{item.title}}
-      {{/paper-menu-item}}
-    {{/each}}
+      {{#each items as |item|}}
+        {{#paper-menu-item onClick="openSomething"}}
+          {{paper-icon item.icon class="md-menu-align-target"}} {{item.title}}
+        {{/paper-menu-item}}
+      {{/each}}
+    {{/menu.content}}
   {{/paper-menu}}
   {{! END-SNIPPET }}
 </div>
@@ -57,7 +69,9 @@
     <div layout="column" flex="33" flex-sm="100" layout-align="center center">
       <p>Target Mode Positioning (default)</p>
       {{#paper-menu isOpen=menuTwoIsOpen as |menu|}}
-        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+        {{#paper-button onClick=(action menu.actions.toggle) iconButton=true}}
+          {{paper-icon "local_phone" class="md-menu-origin"}}
+        {{/paper-button}}
       {{else}}
         {{#each items as |item|}}
           {{#paper-menu-item onClick="openSomething"}}
@@ -70,7 +84,9 @@
     <div layout="column" flex="33" flex-sm="100" layout-align="center center">
       <p>Target mode with <code class="paper">md-offset</code></p>
       {{#paper-menu isOpen=menuThreeIsOpen offset="0 -5" as |menu|}}
-        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+        {{#paper-button onClick=(action menu.actions.toggle) iconButton=true}}
+          {{paper-icon "local_phone" class="md-menu-origin"}}
+        {{/paper-button}}
       {{else}}
         {{#each items as |item|}}
           {{#paper-menu-item onClick="openSomething"}}
@@ -83,7 +99,9 @@
     <div layout="column" flex="33" flex-sm="100" layout-align="center center">
       <p><code class="paper">md-position-mode="target-right target"</code></p>
       {{#paper-menu isOpen=menuFourIsOpen position="target-right target" as |menu|}}
-        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+        {{#paper-button onClick=(action menu.actions.toggle) iconButton=true}}
+          {{paper-icon "local_phone" class="md-menu-origin"}}
+        {{/paper-button}}
       {{else}}
         {{#each items as |item|}}
           {{#paper-menu-item onClick="openSomething"}}
@@ -125,7 +143,7 @@ attributes to tell where it should position itself in respect to origin and alig
     <div layout="column" flex="33" flex-sm="100" layout-align="center center">
       <p>Wide menu (<code class="paper">width=6</code>)</p>
       {{#paper-menu width=6 as |menu|}}
-        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+        {{#paper-button onClick=(action menu.actions.toggle) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
       {{else}}
         {{#each options as |item|}}
           {{#paper-menu-item onClick=(action "openSomething")}}
@@ -137,7 +155,7 @@ attributes to tell where it should position itself in respect to origin and alig
     <div layout="column" flex="33" flex-sm="100" layout-align="center center">
       <p>Medium menu (<code class="paper">width=4</code>)</p>
       {{#paper-menu width=4 offset="0 -5" as |menu|}}
-        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+        {{#paper-button onClick=(action menu.actions.toggle) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
       {{else}}
         {{#each options as |item|}}
           {{#paper-menu-item onClick="openSomething"}}
@@ -149,7 +167,7 @@ attributes to tell where it should position itself in respect to origin and alig
     <div layout="column" flex="33" flex-sm="100" layout-align="center center">
       <p>Small menu (<code class="paper">width=2</code>)</p>
       {{#paper-menu width=2 position="target-right target" as |menu|}}
-        {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
+        {{#paper-button onClick=(action menu.actions.toggle) iconButton=true}}{{paper-icon "local_phone" class="md-menu-origin"}}{{/paper-button}}
       {{else}}
         {{#each options as |item|}}
           {{#paper-menu-item onClick="openSomething"}}

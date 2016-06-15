@@ -1,6 +1,21 @@
-{{#paper-menu-content-pane width=width dense=dense}}
+{{!--{{#paper-menu-content-pane width=width dense=dense}}
   {{yield this}}
 {{/paper-menu-content-pane}}
 {{#ember-wormhole to="paper-wormhole"}}
   {{paper-backdrop class="md-menu-backdrop" onClick=(action "toggleMenu")}}
-{{/ember-wormhole}}
+{{/ember-wormhole}}--}}
+
+{{#if dropdown.isOpen}}
+  {{#basic-dropdown/wormhole to=to renderInPlace=renderInPlace didInsert=(action "didOpen") willRemove=(action "willClose")}}
+    <div
+      id={{elementId}}
+      class="ember-basic-dropdown-content {{class}} {{if renderInPlace 'ember-basic-dropdown-content--in-place'}} {{if hPosition (concat 'ember-basic-dropdown-content--' hPosition)}} {{if vPosition (concat 'ember-basic-dropdown-content--' vPosition)}}
+      md-open-menu-container md-whiteframe-z2 md-clickable {{if isActive "md-active"}}"
+      style="position: absolute"
+      dir={{dir}}>
+      <md-menu-content width={{width}}>
+        {{yield}}
+      </md-menu-content>
+    </div>
+  {{/basic-dropdown/wormhole}}
+{{/if}}

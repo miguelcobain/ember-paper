@@ -1,6 +1,39 @@
-{{yield this}}
+{{!--{{yield this}}
 {{#if isOpen}}
   {{#paper-menu-content width=width dense=dense}}
     {{yield to="inverse"}}
   {{/paper-menu-content}}
 {{/if}}
+
+
+
+{{#paper-menu as |menu|}}
+  {{#dropdown.trigger}}{{yield this}}{{/dropdown.trigger}}
+  {{#dropdown.content}}Content of the trigger{{/dropdown.content}}
+{{/paper-menu}}--}}
+
+{{yield (hash
+  isOpen=publicAPI.isOpen
+  disabled=publicAPI.disabled
+  actions=publicAPI.actions
+  trigger=(component 'basic-dropdown/trigger'
+    tagName="md-menu"
+    appRoot=(readonly appRoot)
+    dropdown=(readonly publicAPI)
+    dropdownId=(readonly dropdownId)
+    elementId=(readonly triggerId)
+    hPosition=(readonly hPosition)
+    onFocus=(action "handleFocus")
+    renderInPlace=(readonly renderInPlace)
+    vPosition=(readonly vPosition)
+  )
+  content=(component 'paper-menu-content'
+    appRoot=(readonly appRoot)
+    dropdown=(readonly publicAPI)
+    elementId=(readonly dropdownId)
+    hPosition=(readonly hPosition)
+    renderInPlace=(readonly renderInPlace)
+    triggerId=(readonly triggerId)
+    vPosition=(readonly vPosition)
+  )
+)}}
