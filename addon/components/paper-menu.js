@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BasicDropdownComponent from 'ember-basic-dropdown/components/basic-dropdown';
-const { assert } = Ember;
+const { assert, computed } = Ember;
 
 const MENU_EDGE_MARGIN = 8;
 
@@ -10,7 +10,7 @@ function clamp(pos, bounds, containerNode) {
 }
 
 function firstVisibleChild(node) {
-  for (var i = 0; i < node.children.length; ++i) {
+  for (let i = 0; i < node.children.length; ++i) {
     if (window.getComputedStyle(node.children[i]).display !== 'none') {
       return node.children[i];
     }
@@ -18,10 +18,33 @@ function firstVisibleChild(node) {
 }
 
 export default BasicDropdownComponent.extend({
-  positionMode: {
-    left: 'target',
-    top: 'target'
+
+  close() {
+    this._super(...arguments);
+    this.didAnimateScale = false;
   },
+
+  position: 'target',
+
+  // If attachment is a single item, duplicate it for our second value.
+  // ie. 'target' -> 'target target'
+  positionMode: computed('position', function() {
+    let position = this.get('position') || 'target';
+    let [left, top] = position.split(' ').map((s) => s.trim());
+    top = top || left;
+
+    return { left, top };
+  }),
+
+  offset: '0 0',
+
+  offsets: computed('offset', function() {
+    let offset = this.get('offset') || '0 0';
+    let [left, top] = offset.split(' ').map((s) => s.trim()).map(parseFloat);
+    top = top || left;
+
+    return { left, top };
+  }),
 
   performFullReposition(trigger, dropdown) {
     let containerNode = dropdown;
@@ -109,8 +132,12 @@ export default BasicDropdownComponent.extend({
         assert(`Invalid target mode '${positionMode.left}' specified for paper-menu on X axis.`);
     }
 
-    // TODO sum offsets
-    clamp(position, bounds, containerNode)
+    // sum offsets
+    let offsets = this.get('offsets');
+    position.top += offsets.top;
+    position.left += offsets.left;
+
+    clamp(position, bounds, containerNode);
 
     let dropdownTop = Math.round(position.top);
     let dropdownLeft = Math.round(position.left);
@@ -122,9 +149,11 @@ export default BasicDropdownComponent.extend({
       top: `${dropdownTop}px`,
       left: `${dropdownLeft}px`,
       // Animate a scale out if we aren't just repositioning
-      transform: !this.publicAPI.isOpen ? `scale(${scaleX}, ${scaleY})` : undefined,
+      transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
       transformOrigin
     };
+
+    this.didAnimateScale = true;
 
     this.applyReposition(trigger, dropdown, { style });
   }

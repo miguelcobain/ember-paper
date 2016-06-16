@@ -22,9 +22,10 @@ function waitForAnimations(element, callback) {
 }
 
 export default ContentComponent.extend({
-  animateIn(/*dropdownElement*/) {
+  animateIn(dropdownElement) {
     run.next(() => {
       this.set('isActive', true);
+      dropdownElement.style.transform = '';
     });
   },
   animateOut(dropdownElement) {
