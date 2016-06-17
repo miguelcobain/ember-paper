@@ -122,6 +122,9 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
     // error messages array
     let errors = this.get('errors') || [];
+
+    this.set('isTouched', true)
+
     assert('`errors` must be an array', isArray(errors));
     messages.pushObjects(errors.map((e) => {
       return get(e, 'message') ? e : { message: e };
