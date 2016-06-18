@@ -3,10 +3,18 @@
 {{#doc-content}}
   {{#paper-toolbar}}
     {{#paper-toolbar-tools}}
-      <span>Full Bleed</span>
+      <h2>Full Bleed</h2>
+      <span class="flex"></span>
+      {{#paper-button onClick=(action "toggleSourceCodeFull") iconButton=true}}
+        {{paper-icon icon="code"}}
+      {{/paper-button}}
     {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
   {{#paper-content}}
+    <div class="doc-code-example {{if showSourceCodeFull 'is-visible'}}">
+      {{code-snippet name="divider.full.hbs"}}
+    </div>
+    {{! BEGIN-SNIPPET divider.full }}
     {{#paper-list}}
       {{#each messages as |item|}}
         {{#paper-item class="md-3-line"}}
@@ -20,13 +28,23 @@
         {{/paper-item}}
       {{/each}}
     {{/paper-list}}
+    {{! END-SNIPPET }}
   {{/paper-content}}
+
   {{#paper-toolbar}}
-    <h2 class="md-toolbar-tools">
-      <span>Inset</span>
-    </h2>
+    {{#paper-toolbar-tools}}
+      <h2>Inset</h2>
+      <span class="flex"></span>
+      {{#paper-button onClick=(action "toggleSourceCodeInset") iconButton=true}}
+        {{paper-icon icon="code"}}
+      {{/paper-button}}
+    {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
   {{#paper-content}}
+    <div class="doc-code-example {{if showSourceCodeInset 'is-visible'}}">
+      {{code-snippet name="divider.inset.hbs"}}
+    </div>
+    {{! BEGIN-SNIPPET divider.inset }}
     {{#paper-list classNames="list-demo"}}
       {{#each messages as |item|}}
         {{#paper-item class="md-3-line"}}
@@ -40,5 +58,6 @@
         {{/paper-item}}
       {{/each}}
     {{/paper-list}}
+    {{! END-SNIPPET }}
   {{/paper-content}}
 {{/doc-content}}
