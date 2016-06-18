@@ -1,0 +1,44 @@
+{{page-toolbar pageTitle="Divider" isDemo=true}}
+
+{{#doc-content}}
+  {{#paper-toolbar}}
+    {{#paper-toolbar-tools}}
+      <span>Full Bleed</span>
+    {{/paper-toolbar-tools}}
+  {{/paper-toolbar}}
+  {{#paper-content}}
+    {{#paper-list}}
+      {{#each messages as |item|}}
+        {{#paper-item class="md-3-line"}}
+          <div class="md-list-item-text">
+            <h3>{{item.what}}</h3>
+            <h4>{{item.who}}</h4>
+            <p>{{item.notes}}</p>
+          </div>
+          {{paper-divider}}
+          {{#paper-button}}Respond{{/paper-button}}
+        {{/paper-item}}
+      {{/each}}
+    {{/paper-list}}
+  {{/paper-content}}
+  {{#paper-toolbar}}
+    <h2 class="md-toolbar-tools">
+      <span>Inset</span>
+    </h2>
+  {{/paper-toolbar}}
+  {{#paper-content}}
+    {{#paper-list classNames="list-demo"}}
+      {{#each messages as |item|}}
+        {{#paper-item class="md-3-line"}}
+          <img src="{{item.face}}?{{$index}}" class="face" alt="{{item.who}}">
+          <div class="md-list-item-text">
+            <h3>{{item.what}}</h3>
+            <h4>{{item.who}}</h4>
+            <p>{{item.notes}}</p>
+          </div>
+          {{paper-divider inset=true}}
+        {{/paper-item}}
+      {{/each}}
+    {{/paper-list}}
+  {{/paper-content}}
+{{/doc-content}}
