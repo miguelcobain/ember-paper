@@ -24,7 +24,18 @@ test('uses md-inset attribute when passed inset=true', function(assert) {
     {{/paper-divider}}
   `);
 
-  assert.equal(this.$('md-divider').attr('md-inset'), 'true');
+  assert.ok(this.$('md-divider').attr('md-inset'));
+});
+
+test('no md-inset attribute when passed inset=false', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`
+    {{#paper-divider inset=false}}
+    {{/paper-divider}}
+  `);
+
+  assert.notOk(this.$('md-divider').attr('md-inset'));
 });
 
 test('md-inset attribute is not present when inset is not passed', function(assert) {
