@@ -3,7 +3,15 @@ const { Component } = Ember;
 
 export default Component.extend({
   tagName: 'md-divider',
-  attributeBindings: ['inset:md-inset'],
+  attributeBindings: ['insetAttr:md-inset'],
+  inset: false,
   classNames: ['paper-divider','md-default-theme'],
-  inset: null
+
+  /*
+   * Not binding boolean values in Ember 1.8.1?
+   * https://github.com/emberjs/ember.js/issues/9595
+   */
+  insetAttr: Ember.computed('inset', function() {
+    return this.get('inset') ? 'md-inset' : null;
+  })
 });
