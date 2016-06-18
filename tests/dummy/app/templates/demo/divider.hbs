@@ -1,63 +1,69 @@
 {{page-toolbar pageTitle="Divider" isDemo=true}}
 
 {{#doc-content}}
-  {{#paper-toolbar}}
-    {{#paper-toolbar-tools}}
-      <h2>Full Bleed</h2>
-      <span class="flex"></span>
-      {{#paper-button onClick=(action "toggleSourceCodeFull") iconButton=true}}
-        {{paper-icon icon="code"}}
-      {{/paper-button}}
-    {{/paper-toolbar-tools}}
-  {{/paper-toolbar}}
-  {{#paper-content}}
-    <div class="doc-code-example {{if showSourceCodeFull 'is-visible'}}">
-      {{code-snippet name="divider.full.hbs"}}
-    </div>
-    {{! BEGIN-SNIPPET divider.full }}
-    {{#paper-list}}
-      {{#each messages as |item|}}
-        {{#paper-item class="md-3-line"}}
-          <div class="md-list-item-text">
-            <h3>{{item.what}}</h3>
-            <h4>{{item.who}}</h4>
-            <p>{{item.notes}}</p>
-          </div>
-          {{paper-divider}}
-          {{#paper-button}}Respond{{/paper-button}}
-        {{/paper-item}}
-      {{/each}}
-    {{/paper-list}}
-    {{! END-SNIPPET }}
-  {{/paper-content}}
 
-  {{#paper-toolbar}}
-    {{#paper-toolbar-tools}}
-      <h2>Inset</h2>
-      <span class="flex"></span>
-      {{#paper-button onClick=(action "toggleSourceCodeInset") iconButton=true}}
-        {{paper-icon icon="code"}}
-      {{/paper-button}}
-    {{/paper-toolbar-tools}}
-  {{/paper-toolbar}}
-  {{#paper-content}}
-    <div class="doc-code-example {{if showSourceCodeInset 'is-visible'}}">
-      {{code-snippet name="divider.inset.hbs"}}
-    </div>
-    {{! BEGIN-SNIPPET divider.inset }}
-    {{#paper-list classNames="list-demo"}}
-      {{#each messages as |item|}}
-        {{#paper-item class="md-3-line"}}
-          <img src="{{item.face}}?{{$index}}" class="face" alt="{{item.who}}">
-          <div class="md-list-item-text">
-            <h3>{{item.what}}</h3>
-            <h4>{{item.who}}</h4>
-            <p>{{item.notes}}</p>
-          </div>
-          {{paper-divider inset=true}}
-        {{/paper-item}}
-      {{/each}}
-    {{/paper-list}}
-    {{! END-SNIPPET }}
-  {{/paper-content}}
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Full Bleed</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCodeFull") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-content}}
+      <div class="doc-code-example {{if showSourceCodeFull 'is-visible'}}">
+        {{code-snippet name="divider.full.hbs"}}
+      </div>
+      {{! BEGIN-SNIPPET divider.full }}
+      {{#paper-list}}
+        {{#each messages as |item|}}
+          {{#paper-item class="md-3-line"}}
+            <div class="md-list-item-text">
+              <h3>{{item.what}}</h3>
+              <h4>{{item.who}}</h4>
+              <p>{{item.notes}}</p>
+            </div>
+            {{paper-divider}}
+            {{#paper-button}}Respond{{/paper-button}}
+          {{/paper-item}}
+        {{/each}}
+      {{/paper-list}}
+      {{! END-SNIPPET }}
+    {{/paper-content}}
+
+  {{/paper-card}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Inset</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCodeInset") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-content}}
+      <div class="doc-code-example {{if showSourceCodeInset 'is-visible'}}">
+        {{code-snippet name="divider.inset.hbs"}}
+      </div>
+      {{! BEGIN-SNIPPET divider.inset }}
+      {{#paper-list classNames="list-demo"}}
+        {{#each messages as |item|}}
+          {{#paper-item class="md-3-line"}}
+            <img src="{{item.face}}?{{$index}}" class="face" alt="{{item.who}}">
+            <div class="md-list-item-text">
+              <h3>{{item.what}}</h3>
+              <h4>{{item.who}}</h4>
+              <p>{{item.notes}}</p>
+            </div>
+            {{paper-divider inset=true}}
+          {{/paper-item}}
+        {{/each}}
+      {{/paper-list}}
+      {{! END-SNIPPET }}
+    {{/paper-content}}
+  {{/paper-card}}
 {{/doc-content}}
