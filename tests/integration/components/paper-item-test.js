@@ -126,11 +126,11 @@ test('Item checkbox with secondary action and primary action dont bubble seconda
   this.render(hbs`
     {{#paper-list}}
       {{#paper-item onClick=(action primaryAction)}}
-          {{#paper-checkbox value=checked onChange=(action (mut checked))}}{{/paper-checkbox}}
-          <p>Item with checkbox and secondary action</p>
-          {{#paper-button class="md-secondary" iconButton=true onClick=(action (mut secondaryValue))}}
-            {{paper-icon "message"}}
-          {{/paper-button}}
+        {{#paper-checkbox value=checked onChange=(action (mut checked))}}{{/paper-checkbox}}
+        <p>Item with checkbox and secondary action</p>
+        {{#paper-button class="md-secondary" iconButton=true onClick=(action (mut secondaryValue))}}
+          {{paper-icon "message"}}
+        {{/paper-button}}
       {{/paper-item}}
     {{/paper-list}}
   `);
@@ -155,11 +155,11 @@ test('Item checkbox with secondary action and primary action dont bubble primary
   this.render(hbs`
     {{#paper-list}}
       {{#paper-item onClick=(action primaryAction)}}
-          {{#paper-checkbox value=checked onChange=(action (mut checked))}}{{/paper-checkbox}}
-          <p>Item with checkbox and secondary action</p>
-          {{#paper-button class="md-secondary" iconButton=true onClick=(action (mut secondaryValue))}}
-            {{paper-icon "message"}}
-          {{/paper-button}}
+        {{#paper-checkbox value=checked onChange=(action (mut checked))}}{{/paper-checkbox}}
+        <p>Item with checkbox and secondary action</p>
+        {{#paper-button class="md-secondary" iconButton=true onClick=(action (mut secondaryValue))}}
+          {{paper-icon "message"}}
+        {{/paper-button}}
       {{/paper-item}}
     {{/paper-list}}
   `);
@@ -176,4 +176,3 @@ test('Item checkbox with secondary action and primary action dont bubble primary
     assert.notOk(this.get('secondaryValue'));
   });
 });
-

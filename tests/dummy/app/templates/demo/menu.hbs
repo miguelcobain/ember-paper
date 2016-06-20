@@ -21,20 +21,20 @@
   {{! BEGIN-SNIPPET menu.simple-dropdown }}
   {{#paper-menu as |menu|}}
     {{#menu.trigger}}
-      {{#paper-button onClick=null iconButton=true}}
-        {{paper-icon "local_phone" class="md-menu-origin"}}
+      {{#paper-button iconButton=true}}
+        {{paper-icon "local_phone"}}
       {{/paper-button}}
     {{/menu.trigger}}
     {{#menu.content width=4}}
       {{#each items as |item|}}
         {{#paper-menu-item onClick="openSomething"}}
-          {{paper-icon item.icon class="md-menu-align-target"}}
+          {{paper-icon item.icon}}
           <span>{{item.title}}</span>
         {{/paper-menu-item}}
       {{/each}}
 
       {{#paper-menu-item onClick="openSomething" disabled=true}}
-        {{paper-icon "adb" class="md-menu-align-target"}}
+        {{paper-icon "adb"}}
         <span>This is disabled.</span>
       {{/paper-menu-item}}
 
@@ -42,7 +42,7 @@
 
       {{#each items as |item|}}
         {{#paper-menu-item onClick="openSomething"}}
-          {{paper-icon item.icon class="md-menu-align-target"}} {{item.title}}
+          {{paper-icon item.icon}} {{item.title}}
         {{/paper-menu-item}}
       {{/each}}
     {{/menu.content}}

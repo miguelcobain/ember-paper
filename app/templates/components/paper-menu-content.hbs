@@ -5,9 +5,10 @@
       class="ember-basic-dropdown-content {{class}} {{if renderInPlace 'ember-basic-dropdown-content--in-place'}} {{if hPosition (concat 'ember-basic-dropdown-content--' hPosition)}} {{if vPosition (concat 'ember-basic-dropdown-content--' vPosition)}}
       md-open-menu-container md-whiteframe-z2 md-clickable {{if isActive "md-active"}}"
       dir={{dir}}>
-      <md-menu-content width={{width}} class="{{if dense "md-dense"}}">
+      {{#paper-menu-content-inner width=width dense=dense dropdown=dropdown}}
         {{yield}}
-      </md-menu-content>
+      {{/paper-menu-content-inner}}
     </div>
+    {{paper-backdrop class="md-menu-backdrop md-click-catcher"}}
   {{/basic-dropdown/wormhole}}
 {{/if}}

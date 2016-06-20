@@ -28,6 +28,7 @@ export default ContentComponent.extend({
       dropdownElement.style.transform = '';
     });
   },
+
   animateOut(dropdownElement) {
     let parentElement = this.get('renderInPlace') ? dropdownElement.parentElement.parentElement : dropdownElement.parentElement;
     let clone = dropdownElement.cloneNode(true);

@@ -55,7 +55,7 @@ export default BasicDropdownComponent.extend({
 
     let menuStyle = window.getComputedStyle(openMenuNode);
 
-    let originNode = trigger.querySelector('.md-menu-origin') || trigger;
+    let originNode = trigger.querySelector('md-icon') || trigger.querySelector('.md-menu-origin') || trigger;
     let originNodeRect = originNode.getBoundingClientRect();
 
     let bounds = {
@@ -75,7 +75,7 @@ export default BasicDropdownComponent.extend({
       if (alignTarget) {
         // TODO: Allow centering on an arbitrary node, for now center on first menu-item's child
         alignTarget = alignTarget.firstElementChild || alignTarget;
-        alignTarget = alignTarget.querySelector('.md-menu-align-target') || alignTarget;
+        alignTarget = alignTarget.querySelector('md-icon') || alignTarget.querySelector('.md-menu-align-target') || alignTarget;
         alignTargetRect = alignTarget.getBoundingClientRect();
 
         existingOffsets = {
