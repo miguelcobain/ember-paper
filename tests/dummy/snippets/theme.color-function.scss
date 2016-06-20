@@ -1,0 +1,8 @@
+.my-component {
+  color: color($primary, 'contrast');
+  background-color: color($primary, '200');
+}
+
+.oh-dear {
+  background-color: color($warn, 'A100');
+}

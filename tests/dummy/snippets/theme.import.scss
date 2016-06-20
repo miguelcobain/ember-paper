@@ -1,0 +1,16 @@
+// app.scss
+
+// Define desired color palettes.
+$primary: "teal";
+$accent: "light-green";
+$warn: "pink";
+
+// If desired, import the palettes and modify to your liking.
+@import "color-palette";
+$color-teal: map-merge($color-teal, ('contrast':  $light-contrast-color));
+$color-light-green: map-merge($color-light-green, ('contrast':  $light-contrast-color));
+
+// Import the rest of ember-paper.
+@import "ember-paper";
+
+// Import or define the rest of your application's styles.

@@ -14,16 +14,19 @@
   {{/paper-toolbar}}
 
   <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
-    {{code-snippet name="dialog.hbs"}}
+    {{code-snippet name="sidenav.hbs"}}
   </div>
 
   <div class="doc-content-example">
-    {{! BEGIN-SNIPPET dialog }}
+    {{! BEGIN-SNIPPET sidenav }}
     {{#paper-sidenav-container class="inner-sidenav"}}
 
-      {{#paper-sidenav class="md-whiteframe-z2"
-        name="left" open=leftSideBarOpen
-        onToggle=(action (mut leftSideBarOpen))}}
+      {{#paper-sidenav 
+        class="md-whiteframe-z2"
+        name="left" 
+        open=leftSideBarOpen
+        onToggle=(action (mut leftSideBarOpen))
+      }}
         {{#paper-toolbar as |toolbar|}}
           {{#paper-toolbar-tools}}Left Sidenav{{/paper-toolbar-tools}}
         {{/paper-toolbar}}
@@ -50,7 +53,7 @@
         </div>
       {{/paper-card-content}}
     {{/paper-sidenav-container}}
-    {{! END-SNIPPET dialog }}
+    {{! END-SNIPPET sidenav }}
   </div>
 
 {{/paper-card}}

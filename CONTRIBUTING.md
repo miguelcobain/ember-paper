@@ -87,7 +87,7 @@ becomes
 
 ## Building and deploying the dummy app to github
 
-If needed, update `ember-cli-github-pages` to version `0.0.9` or later, or the latest master of `0.0.8`. This version supports the `destination` option.
+If needed, run `npm install` to update `ember-cli-github-pages` to version `0.1.0` or later to obtain `destination` option support.
 
 1. In the `master` branch, ensure that the version number in `package.json` reflects the current changes and CHANGELOG.md. If needed, bump the version number, commit, and make a git tag for the release.
 

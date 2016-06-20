@@ -55,7 +55,7 @@ export default Ember.Service.extend({
     'xl': '(min-width: 1920px)',
     'print': 'print'
   },
-  
+
   MEDIA_PRIORITY: [
     'xl',
     'gt-lg',
