@@ -1,0 +1,8 @@
+.md-char-counter {
+  display: none;
+}
+
+md-input-container.md-input-focused .md-char-counter,
+md-input-container.md-input-invalid .md-char-counter {
+  display: block;
+}

@@ -51,6 +51,8 @@
             {{#submenu-item active=(is-active "layout.child-alignment" currentRouteName) onClick=(transition-to "layout.child-alignment")}}Child Alignment{{/submenu-item}}
           {{/liquid-if}}
         </div>
+
+        {{#menu-item active=(is-active "cookbook" currentRouteName) onClick=(transition-to "cookbook")}}Cookbook{{/menu-item}}
       {{/paper-list}}
 
     {{/paper-content}}
