@@ -208,17 +208,20 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
   actions: {
     handleInput(e) {
-      this.sendAction('onChange', e.target.value);
-      this.growTextarea();
-      let inputElement = this.$('input').get(0);
-      this.set('isNativeInvalid', inputElement && inputElement.validity && inputElement.validity.badInput);
-      this.notifyInvalid();
+      Ember.run(() => {
+        this.sendAction('onChange', e.target.value);
+        this.growTextarea();
+        let inputElement = this.$('input').get(0);
+        this.set('isNativeInvalid', inputElement && inputElement.validity && inputElement.validity.badInput);
+        this.notifyInvalid();
+      });
     },
-
     handleBlur(e) {
-      this.sendAction('onBlur', e);
-      this.set('isTouched', true);
-      this.notifyInvalid();
+      Ember.run(() => {
+        this.sendAction('onBlur', e);
+        this.set('isTouched', true);
+        this.notifyInvalid();
+      });
     }
   }
 });

@@ -27,7 +27,6 @@ export default Component.extend(Translate3dMixin, {
   click(ev) {
     if (this.get('clickOutsideToClose')) {
       ev.stopPropagation();
-      return false;
     }
   }
 
