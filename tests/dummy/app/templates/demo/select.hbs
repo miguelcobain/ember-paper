@@ -90,7 +90,6 @@
     {{! END-SNIPPET }}
   </div>
 </div>
-
 <h3>Template</h3>
 <p>
     We provide two callbacks to the paper-select component <code class="paper">getItems</code> and <code class="paper">itemLabelCallback</code>.
@@ -98,5 +97,41 @@
     <code class="paper">itemLabelCallback</code> returns the label for the given item.
 </p>
 {{code-snippet name="select.async-search.hbs"}}
+
+<h2>Select Header</h2>
+
+<div layout="column" layout-align="center center">
+  <div layout="column" layout-align="center center" style="height: 130px;">
+    {{! BEGIN-SNIPPET select.select-header }}
+  {{#paper-select
+    placeholder="Vegetable"
+    value=selectedVegetable
+    itemLabelCallback=vegetableLabelCallback
+    onChange=(action (mut selectedVegetable))
+    as |items|
+  }}
+    {{#paper-select-header class="demo-select-header"}}
+      {{input value=searchTerm
+              type="search"
+              placeholder="Search for a vegetable.."
+              class="demo-header-searchbox _md-text"
+              key-down="searchKeyPressed"}}
+    {{/paper-select-header}}
+    {{#each filteredVegetables as |vegetable|}}
+      {{#paper-option bubbles=false value=vegetable}}
+        {{#paper-checkbox value=vegetable.checked onChange=(action (mut vegetable.checked))}}
+          {{vegetable.name}}
+        {{/paper-checkbox}}
+      {{/paper-option}}
+    {{/each}}
+  {{/paper-select}}
+
+    {{! END-SNIPPET }}
+  </div>
+</div>
+
+<h3>Template</h3>
+
+{{code-snippet name="select.select-header.hbs"}}
 
 {{/doc-content}}

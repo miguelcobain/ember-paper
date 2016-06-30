@@ -7,7 +7,17 @@ export default Ember.Controller.extend({
     return 'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'
             .split(' ').map((state) => ({ abbrev: state }));
   }),
-
+  vegetables: Ember.A([
+    {name: "Corn", checked: false},
+    {name: "Onions", checked: false},
+    {name: "Kale", checked: false},
+    {name: "Arugula", checked: false},
+    {name: "Peas", checked: false},
+    {name: "Zucchini", checked: false}]),
+  searchTerm: "",
+  filteredVegetables: Ember.computed.filter('vegetables',function(vegetable) {
+    return vegetable.name.toLowerCase().indexOf(this.get('searchTerm').toLowerCase()) > -1;
+  }).property('vegetables','searchTerm'),
   sizes: Ember.A([
     'small (12-inch)',
     'medium (14-inch)',
@@ -48,7 +58,9 @@ export default Ember.Controller.extend({
     // using ember data, this might be 'item.get('name')'
     return item.name;
   },
-
+  vegetableLabelCallback(item) {
+    return item.name;
+  },
   toppings: Ember.A([
     { category: 'meat', name: 'Pepperoni' },
     { category: 'meat', name: 'Sausage' },
@@ -66,6 +78,11 @@ export default Ember.Controller.extend({
 
   vegToppings: Ember.computed('toppings.[]', function() {
     return this.get('toppings').filter((item) => item.category === 'veg');
-  })
+  }),
+  actions: {
+    searchKeyPressed(e) {
+      e.stopPropagation();
+    }
+  }
 
 });
