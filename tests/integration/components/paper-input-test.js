@@ -409,3 +409,83 @@ test('the `onChange` action is mandatory for paper-input', function(assert) {
     `);
   }, /`onChange` action/);
 });
+
+test('inputHasValue works when user types', function(assert) {
+  this.foo = '';
+  this.render(hbs`{{paper-input value=foo onChange=(action (mut foo))}}`);
+
+  assert.notOk(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should not have md-input-has-value class if input does not have value'
+  );
+
+  let $input = this.$('md-input-container input');
+  $input.val('abc').trigger('input');
+
+  assert.ok(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should have md-input-has-value class if input has value'
+  );
+});
+
+test('inputHasValue works when `value` updated programatically', function(assert) {
+  this.foo = '';
+  this.render(hbs`{{paper-input value=foo onChange=(action (mut foo))}}`);
+
+  assert.notOk(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should not have md-input-has-value class if input does not have value'
+  );
+
+  this.set('foo', 'abc');
+
+  assert.ok(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should have md-input-has-value class if input has value'
+  );
+});
+
+test('inputHasValue works when user types even if `value` is not updated', function(assert) {
+  this.render(hbs`{{paper-input value="" onChange=null}}`);
+
+  assert.notOk(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should not have md-input-has-value class if input does not have value'
+  );
+
+  let $input = this.$('md-input-container input');
+  $input.val('abc').trigger('input');
+
+  assert.ok(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should have md-input-has-value class if input has value'
+  );
+});
+
+test('setting value updates input value even if it previously deviated', function(assert) {
+  // Ensuring that DDAU is honored
+  this.foo = 'XYZ';
+  this.render(hbs`{{paper-input value=foo onChange=null}}`);
+
+  assert.ok(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should have md-input-has-value class if input has value'
+  );
+
+  let $input = this.$('md-input-container input');
+
+  assert.equal($input.val(), 'XYZ', 'Initial input value should be the value of foo');
+
+  $input.val('abc').trigger('input');
+
+  assert.equal($input.val(), 'abc', 'Typing into the input should update its value');
+  assert.equal(this.get('foo'), 'XYZ', 'Typing into the input does not update foo');
+
+  this.set('foo', '');
+
+  assert.equal($input.val(), '', 'Setting foo should update the input value');
+  assert.notOk(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should not have md-input-has-value class if input does not have value'
+  );
+});

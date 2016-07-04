@@ -9,13 +9,13 @@ import maxValidator from 'ember-paper/validators/max';
 import minlengthValidator from 'ember-paper/validators/minlength';
 import maxlengthValidator from 'ember-paper/validators/maxlength';
 
-const { $, computed, isArray, isEmpty, Logger, A, run, assert, get } = Ember;
+const { $, computed, observer, isArray, isEmpty, Logger, A, run, assert, get } = Ember;
 
 export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
   classNameBindings: [
-    'hasValue:md-input-has-value',
+    'inputHasValue:md-input-has-value',
     'isInvalid:md-input-invalid',
     'eitherIcon:md-has-icon',
     'iconRight:md-icon-right',
@@ -29,8 +29,14 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   isTouched: false,
   lastIsInvalid: undefined,
 
-  hasValue: computed('value', 'isNativeInvalid', function() {
-    let value = this.get('value');
+  inputValue: computed.oneWay('value'),
+  updateInputValue: observer('value', function() {
+    // Honor changes to `value` even if inputValue has deviated (DDAU)
+    this.set('inputValue', this.get('value'));
+  }),
+
+  inputHasValue: computed('inputValue', 'isNativeInvalid', function() {
+    let value = this.get('inputValue');
     let isNativeInvalid = this.get('isNativeInvalid');
     return !isEmpty(value) || isNativeInvalid;
   }),
@@ -208,6 +214,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
   actions: {
     handleInput(e) {
+      this.set('inputValue', e.target.value);
       this.sendAction('onChange', e.target.value);
       this.growTextarea();
       let inputElement = this.$('input').get(0);
