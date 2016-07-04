@@ -22,11 +22,13 @@ function waitForAnimations(element, callback) {
 }
 
 export default ContentComponent.extend({
-  animateIn(/*dropdownElement*/) {
+  animateIn(dropdownElement) {
     run.next(() => {
       this.set('isActive', true);
+      dropdownElement.style.transform = '';
     });
   },
+
   animateOut(dropdownElement) {
     let parentElement = this.get('renderInPlace') ? dropdownElement.parentElement.parentElement : dropdownElement.parentElement;
     let clone = dropdownElement.cloneNode(true);

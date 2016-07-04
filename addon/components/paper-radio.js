@@ -1,10 +1,11 @@
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
-import RippleMixin from '../mixins/ripple-mixin';
+import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+import ChildMixin from 'ember-paper/mixins/child-mixin';
 const { computed, assert } = Ember;
 
-export default BaseFocusable.extend(RippleMixin, ColorMixin, {
+export default BaseFocusable.extend(RippleMixin, ColorMixin, ChildMixin, {
   tagName: 'md-radio-button',
   classNames: ['md-default-theme'],
   classNameBindings: ['checked:md-checked'],
@@ -24,19 +25,8 @@ export default BaseFocusable.extend(RippleMixin, ColorMixin, {
 
   // Lifecycle hooks
   init() {
-    this._super(...arguments);
     assert('{{paper-radio}} requires an `onChange` action or null for no action.', this.get('onChange') !== undefined);
-
-    if (this.get('parentGroup')) {
-      this.get('parentGroup').register(this);
-    }
-  },
-
-  willDestroyElement() {
     this._super(...arguments);
-    if (this.get('parentGroup')) {
-      this.get('parentGroup').unregister(this);
-    }
   },
 
   checked: computed('groupValue', 'value', function() {
