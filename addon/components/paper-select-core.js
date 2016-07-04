@@ -56,10 +56,10 @@ export default PaperMenuAbstract.extend({
 
   actions: {
     selectOption(value) {
-      this.set('value', value);
+      this.get('onChange')(value);
     },
     deselectOption() {
-      this.set('value', null);
+      this.get('onChange')(null);
     }
   },
 

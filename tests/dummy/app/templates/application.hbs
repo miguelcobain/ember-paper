@@ -22,6 +22,7 @@
             {{#submenu-item active=(is-active "demo.card" currentRouteName) onClick=(transition-to "demo.card")}}Card{{/submenu-item}}
             {{#submenu-item active=(is-active "demo.checkbox" currentRouteName) onClick=(transition-to "demo.checkbox")}}Checkbox{{/submenu-item}}
             {{#submenu-item active=(is-active "demo.dialog" currentRouteName) onClick=(transition-to "demo.dialog")}}Dialog{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.divider" currentRouteName) onClick=(transition-to "demo.divider")}}Divider{{/submenu-item}}
             {{#submenu-item active=(is-active "demo.grid-list" currentRouteName) onClick=(transition-to "demo.grid-list")}}Grid List {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
             {{#submenu-item active=(is-active "demo.icons" currentRouteName) onClick=(transition-to "demo.icons")}}Icons{{/submenu-item}}
             {{#submenu-item active=(is-active "demo.input" currentRouteName) onClick=(transition-to "demo.input")}}Input{{/submenu-item}}
@@ -39,6 +40,7 @@
           {{/liquid-if}}
         </div>
         {{#menu-item active=(is-active "typography" currentRouteName) onClick=(transition-to "typography")}}Typography{{/menu-item}}
+        {{#menu-item active=(is-active "theme" currentRouteName) onClick=(transition-to "theme")}}Color & Theme{{/menu-item}}
 
         {{#menu-item onClick=(action "toggleExpandedItem" "layout") expanded=layoutExpanded canExpand=true}}Layout{{/menu-item}}
         <div class="submenu">
@@ -49,6 +51,8 @@
             {{#submenu-item active=(is-active "layout.child-alignment" currentRouteName) onClick=(transition-to "layout.child-alignment")}}Child Alignment{{/submenu-item}}
           {{/liquid-if}}
         </div>
+
+        {{#menu-item active=(is-active "cookbook" currentRouteName) onClick=(transition-to "cookbook")}}Cookbook{{/menu-item}}
       {{/paper-list}}
 
     {{/paper-content}}
