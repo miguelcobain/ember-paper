@@ -4,7 +4,7 @@ export default Ember.Component.extend({
 	tagName: '',
 	classNames: [],
 	attributeBindings: ['style'],
-	style: "width:100%",
+	style: 'width:100%',
 	numberOfInvalids: 0,
 	isValid: Ember.computed('numberOfInvalids', function() {
 		return this.get('numberOfInvalids') === 0 ? true : false;
@@ -26,6 +26,11 @@ export default Ember.Component.extend({
 			}
 		},
 		submit: function() {
+			if (this.get('isInvalid')) {
+				this.set('isTouched', false);
+				this.set('isTouched', true);
+				return;
+			}
 			if (this.get('parentSubmit')) {
 				this.get('parentSubmit')();
 			}
