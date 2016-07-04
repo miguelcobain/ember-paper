@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+const { computed } = Ember;
+
 export default Ember.Controller.extend({
 
   userState: '',
@@ -8,16 +10,18 @@ export default Ember.Controller.extend({
             .split(' ').map((state) => ({ abbrev: state }));
   }),
   vegetables: Ember.A([
-    {name: "Corn", checked: false},
-    {name: "Onions", checked: false},
-    {name: "Kale", checked: false},
-    {name: "Arugula", checked: false},
-    {name: "Peas", checked: false},
-    {name: "Zucchini", checked: false}]),
-  searchTerm: "",
-  filteredVegetables: Ember.computed.filter('vegetables',function(vegetable) {
-    return vegetable.name.toLowerCase().indexOf(this.get('searchTerm').toLowerCase()) > -1;
-  }).property('vegetables','searchTerm'),
+    { name: 'Corn', checked: false },
+    { name: 'Onions', checked: false },
+    { name: 'Kale', checked: false },
+    { name: 'Arugula', checked: false },
+    { name: 'Peas', checked: false },
+    { name: 'Zucchini', checked: false }]),
+  searchTerm: '',
+  filteredVegetables: computed('vegetables.[]', 'searchTerm', function() {
+    return this.get('vegetables').filter(function(vegetable) {
+      return vegetable.name.toLowerCase().indexOf(this.get('searchTerm').toLowerCase()) > -1;
+    }.bind(this));
+  }),
   sizes: Ember.A([
     'small (12-inch)',
     'medium (14-inch)',
