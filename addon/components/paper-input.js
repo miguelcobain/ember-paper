@@ -146,9 +146,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
   didRender() {
     this.growTextarea();
-    if (this.get('value')) {
-      this.send('setValue', this.get('value'));
-    }
+    // setValue below ensures that the input value is the same as this.value
+    this.setValue(this.get('value'));
   },
 
   willClearRender() {
@@ -208,11 +207,15 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       this.set('lastIsInvalid', this.get('isInvalid'));
     }
   },
+  setValue(value) {
+    this.$('input, textarea').val(value);
+  },
 
   actions: {
     handleInput(e) {
       this.sendAction('onChange', e.target.value);
-      this.send('setValue', this.get('value'));
+      // setValue below ensures that the input value is the same as this.value
+      this.setValue(this.get('value'));
       this.growTextarea();
       let inputElement = this.$('input').get(0);
       this.set('isNativeInvalid', inputElement && inputElement.validity && inputElement.validity.badInput);
@@ -223,9 +226,6 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       this.sendAction('onBlur', e);
       this.set('isTouched', true);
       this.notifyInvalid();
-    },
-    setValue(value) {
-      this.$('input, textarea').val(value);
     }
   }
 });
