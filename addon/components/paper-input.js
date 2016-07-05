@@ -210,7 +210,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
       this.set('lastIsInvalid', isInvalid);
     }
   },
-  
+
   setValue(value) {
     this.$('input, textarea').val(value);
   },
