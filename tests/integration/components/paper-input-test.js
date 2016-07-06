@@ -461,4 +461,3 @@ test('errors only show after input is touched and input is invalid', function(as
   assert.equal(this.$('.md-input-invalid').length, 1, 'renders one error');
 
 });
-
