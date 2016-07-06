@@ -442,3 +442,20 @@ test('displayed input value matches actual input value with no onChange method',
   assert.equal(this.get('value'), 'foo', 'component value should be foo');
 
 });
+
+test('errors only show after input is touched and input is invalid', function(assert) {
+  assert.expect(2);
+
+  let errors = [{
+    message: 'foo should be a number.',
+    attribute: 'foo'
+  }];
+  this.set('errors', errors);
+
+  this.render(hbs`{{paper-input onChange=null errors=errors}}`);
+
+  assert.equal(this.$('.paper-input-error').length, 0, 'renders zero errors');
+  this.$('input, textarea').trigger('blur');
+  assert.equal(this.$('.paper-input-error').length, 1, 'renders one error');
+
+});
