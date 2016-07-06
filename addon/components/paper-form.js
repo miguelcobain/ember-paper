@@ -32,14 +32,14 @@ export default Component.extend({
     },
     submit() {
       if (this.get('isInvalid')) {
-        this.set('isTouched', false);
+        // this.set('isTouched', false);
         this.set('isTouched', true);
         return;
       }
       if (this.get('parentSubmit')) {
         this.get('parentSubmit')();
       }
-      this.set('isTouched', true);
+      // this.set('isTouched', true);
       this.set('isTouched', false);
     }
   }
