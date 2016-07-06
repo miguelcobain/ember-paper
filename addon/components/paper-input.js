@@ -16,7 +16,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   classNames: ['md-default-theme'],
   classNameBindings: [
     'hasValue:md-input-has-value',
-    'isInvalid:md-input-invalid',
+    'isInvalidAndTouched:md-input-invalid',
     'eitherIcon:md-has-icon',
     'iconRight:md-icon-right',
     'focused:md-input-focused',
@@ -51,6 +51,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
    *    true: input has been touched and is invalid.
    */
   isInvalid: computed.or('validationErrorMessages.length', 'isNativeInvalid'),
+
+  isInvalidAndTouched: computed.and('isInvalid', 'isTouched'),
 
   renderCharCount: computed('value', function() {
     let currentLength = this.get('value') ? this.get('value').length : 0;

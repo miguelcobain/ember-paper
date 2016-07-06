@@ -77,18 +77,15 @@
       <div class="md-char-counter">{{renderCharCount}}</div>
     {{/if}}
   </div>
-  {{#if isTouched}}
-    {{#if isInvalid}}
-      <div class="md-input-messages-animation md-auto-hide" ng-messages>
-        {{#each validationErrorMessages as |error index|}}
-          <div
-          id="error-{{inputElementId}}-{{index}}"
-          class="paper-input-error ng-enter ng-enter-active" ng-message>
-            {{error.message}}
-          </div>
-        {{/each}}
-      </div>
-    {{/if}}
+  {{#if isInvalidAndTouched}}
+    <div class="md-input-messages-animation md-auto-hide" ng-messages>
+      {{#each validationErrorMessages as |error index|}}
+        <div id="error-{{inputElementId}}-{{index}}"
+        class="paper-input-error ng-enter ng-enter-active" ng-message>
+          {{error.message}}
+        </div>
+      {{/each}}
+    </div>
   {{/if}}
 {{/unless}}
 
