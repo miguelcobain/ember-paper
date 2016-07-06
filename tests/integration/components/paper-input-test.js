@@ -454,10 +454,10 @@ test('errors only show after input is touched and input is invalid', function(as
 
   this.render(hbs`{{paper-input onChange=null errors=errors}}`);
 
-  assert.equal(this.$('.md-input-invalid').length, 0, 'renders zero errors');
+  assert.equal(this.$('.md-input-invalid').length, 0, 'does not render md-input-invalid class');
   assert.equal(this.$('.paper-input-error').length, 0, 'renders zero errors');
   this.$('input, textarea').trigger('blur');
-  assert.equal(this.$('.paper-input-error').length, 1, 'renders one error');
+  assert.equal(this.$('.paper-input-error').length, 1, 'render md-input-invalid class');
   assert.equal(this.$('.md-input-invalid').length, 1, 'renders one error');
 
 });
