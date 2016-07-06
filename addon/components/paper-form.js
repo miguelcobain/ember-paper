@@ -7,6 +7,7 @@ export default Component.extend({
   attributeBindings: ['style'],
   style: 'width:100%',
   numberOfInvalids: 0,
+  isTouched: false,
   isValid: Ember.computed('numberOfInvalids', function() {
     return this.get('numberOfInvalids') === 0;
   }),
