@@ -46,14 +46,13 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
    *
    * @public
    *
-   * @return {boolean|null} Whether the input is or would be invalid.
-   *    null: input has not yet been touched, but would be invalid if it were
+   * @return {boolean} Whether the input is or would be invalid.
    *    false: input is valid (touched or not), or is no longer rendered
    *    true: input has been touched and is invalid.
    */
-  isInvalid: computed('isTouched', 'validationErrorMessages.length', 'isNativeInvalid', function() {
+  isInvalid: computed('validationErrorMessages.length', 'isNativeInvalid', function() {
     let isInvalid = this.get('validationErrorMessages.length') || this.get('isNativeInvalid');
-    return isInvalid && !this.get('isTouched') ? null : !!isInvalid;
+    return isInvalid;
   }),
 
   renderCharCount: computed('value', function() {
@@ -203,9 +202,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   notifyInvalid() {
     let isInvalid = this.get('isInvalid');
     let lastIsInvalid = this.get('lastIsInvalid');
-    let isInvalidChanged = (lastIsInvalid !== isInvalid);
-    let isNotRedundant = !((lastIsInvalid === null && isInvalid) || (lastIsInvalid && isInvalid === null));
-    if (isInvalidChanged && isNotRedundant) {
+    if (lastIsInvalid !== isInvalid) {
       this.sendAction('onInvalid', isInvalid);
       this.set('lastIsInvalid', isInvalid);
     }
