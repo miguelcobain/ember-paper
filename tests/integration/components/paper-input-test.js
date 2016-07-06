@@ -444,7 +444,7 @@ test('displayed input value matches actual input value with no onChange method',
 });
 
 test('errors only show after input is touched and input is invalid', function(assert) {
-  assert.expect(2);
+  assert.expect(4);
 
   let errors = [{
     message: 'foo should be a number.',
@@ -454,8 +454,10 @@ test('errors only show after input is touched and input is invalid', function(as
 
   this.render(hbs`{{paper-input onChange=null errors=errors}}`);
 
+  assert.equal(this.$('.md-input-invalid').length, 0, 'does not render md-input-invalid class');
   assert.equal(this.$('.paper-input-error').length, 0, 'renders zero errors');
   this.$('input, textarea').trigger('blur');
-  assert.equal(this.$('.paper-input-error').length, 1, 'renders one error');
+  assert.equal(this.$('.paper-input-error').length, 1, 'render md-input-invalid class');
+  assert.equal(this.$('.md-input-invalid').length, 1, 'renders one error');
 
 });
