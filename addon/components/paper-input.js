@@ -50,10 +50,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
    *    false: input is valid (touched or not), or is no longer rendered
    *    true: input has been touched and is invalid.
    */
-  isInvalid: computed('validationErrorMessages.length', 'isNativeInvalid', function() {
-    let isInvalid = this.get('validationErrorMessages.length') || this.get('isNativeInvalid');
-    return isInvalid;
-  }),
+  isInvalid: computed.or('validationErrorMessages.length', 'isNativeInvalid'),
 
   renderCharCount: computed('value', function() {
     let currentLength = this.get('value') ? this.get('value').length : 0;
