@@ -3,8 +3,6 @@ const { Component } = Ember;
 
 export default Component.extend({
   tagName: '',
-  attributeBindings: ['style'],
-  style: 'width:100%',
   onChange: null,
   customValidations: [],
   hasValidation: Ember.computed('min', 'max', 'errorMessages', 'maxlength', 'required', 'customValidations', function() {
