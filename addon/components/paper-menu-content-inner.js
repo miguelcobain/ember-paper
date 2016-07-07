@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
-const { Component, inject, computed, run: { later } } = Ember;
+const { Component, inject, computed, run } = Ember;
 
 export default Component.extend(ParentMixin, {
   tagName: 'md-menu-content',
@@ -11,7 +11,7 @@ export default Component.extend(ParentMixin, {
   enabledMenuItems: computed.filterBy('childComponents', 'disabled', false),
 
   didInsertElement() {
-    later(() => {
+    run.later(() => {
       let focusTarget = this.$().find('.md-menu-focus-target');
       if (!focusTarget.length) {
         focusTarget = this.get('enabledMenuItems.firstObject.element.firstElementChild');

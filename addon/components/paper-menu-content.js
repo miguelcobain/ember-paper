@@ -36,12 +36,15 @@ export default ContentComponent.extend({
     let $clone = $(clone);
     parentElement.appendChild(clone);
     run.next(() => {
-      this.set('isActive', false);
-      $clone.addClass('md-leave');
-      waitForAnimations(clone, function() {
-        $clone.removeClass('md-active');
-        parentElement.removeChild(clone);
-      });
+      if (!this.get('isDestroyed')) {
+        this.set('isActive', false);
+      
+        $clone.addClass('md-leave');
+        waitForAnimations(clone, function() {
+          $clone.removeClass('md-active');
+          parentElement.removeChild(clone);
+        });
+      }
     });
   }
 });
