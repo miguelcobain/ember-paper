@@ -11,7 +11,7 @@ function focus(el) {
   if (!el) {
     return;
   }
-  let $el = jQuery(el);
+  let $el = $(el);
   if ($el.is(':input, [contenteditable=true]')) {
     let type = $el.prop('type');
     if (type !== 'checkbox' && type !== 'radio' && type !== 'hidden') {
@@ -66,11 +66,10 @@ test('opens on click', function(assert) {
         {{/content.menu-item}}
     {{/menu.content}}
   {{/paper-menu}}`);
-  
-  
+
   return wait().then(() => {
     clickTrigger();
-    
+
     return wait().then(() => {
       let selectors = $('.md-open-menu-container');
       assert.ok(selectors.length, 'opened menu');
@@ -96,11 +95,10 @@ test('backdrop removed if menu closed', function(assert) {
         {{/content.menu-item}}
     {{/menu.content}}
   {{/paper-menu}}`);
-  
-  
+
   return wait().then(() => {
     clickTrigger();
-    
+
     return wait().then(() => {
 
       let selectors = $('.md-open-menu-container');
@@ -108,7 +106,7 @@ test('backdrop removed if menu closed', function(assert) {
       clickTrigger();
       return wait().then(() => {
         let selector = $('.md-backdrop');
-        assert.ok(!selector.length,'backdrop removed');
+        assert.ok(!selector.length, 'backdrop removed');
       });
     });
   });
@@ -129,11 +127,10 @@ test('backdrop removed if backdrop clicked', function(assert) {
         {{/content.menu-item}}
     {{/menu.content}}
   {{/paper-menu}}`);
-  
-  
+
   return wait().then(() => {
     clickTrigger();
-    
+
     return wait().then(() => {
 
       let selectors = $('.md-open-menu-container');
@@ -141,7 +138,7 @@ test('backdrop removed if backdrop clicked', function(assert) {
       $('md-backdrop').click();
       return wait().then(() => {
         let selector = $('.md-backdrop');
-        assert.ok(!selector.length,'backdrop removed');
+        assert.ok(!selector.length, 'backdrop removed');
       });
     });
   });
@@ -165,45 +162,36 @@ test('keydown changes focused element', function(assert) {
         {{/content.menu-item}}
     {{/menu.content}}
   {{/paper-menu}}`);
-  
-  
+
   return wait().then(() => {
     clickTrigger();
-    
+
     return wait().then(() => {
 
       let selectors = $('md-menu-item');
       assert.ok($(selectors[0].firstElementChild).hasClass('md-focused'), 'first menu item given focus');
-      let e = $.Event("keydown");
-      let menu = $('md-menu-content')[0];
+      let e = $.Event('keydown');
+      let menu = $('md-menu-content');
       e.which = 40;
-      e.target = menu.firstElementChild;
-     
-      $(menu.firstElementChild).trigger(e); // down arrow
-      
+      e.target = menu[0].firstElementChild;
+
+      $(menu[0].firstElementChild).trigger(e);
+
       return wait().then(() => {
-        debugger
-        let first = $(selectors[0].firstElementChild)
+        let first = $(selectors[0].firstElementChild);
         let second = $(selectors[1].firstElementChild);
         assert.ok(second.hasClass('md-focused') && !first.hasClass('md-focused'), 'focus has changed to second item');
-        let e = $.Event("keydown");
-        let menu = $('md-menu-content')[0];
+        let e = $.Event('keydown');
         e.which = 38;
         e.target = selectors[1];
-     
-        $(selectors[1]).trigger(e); // down arrow
+        $(selectors[1]).trigger(e);
         return wait().then(() => {
-          let first = $(selectors[0].firstElementChild)
+          let first = $(selectors[0].firstElementChild);
           let second = $(selectors[1].firstElementChild);
           assert.ok(!second.hasClass('md-focused') && first.hasClass('md-focused'), 'focus has changed to first item');
 
-        })
-      })
-      // $('md-backdrop').click();
-      // return wait().then(() => {
-      //   let selector = $('.md-backdrop');
-      //   assert.ok(!selector.length,'backdrop removed');
-      // });
+        });
+      });
     });
   });
 });

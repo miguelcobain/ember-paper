@@ -38,7 +38,6 @@ export default ContentComponent.extend({
     run.next(() => {
       if (!this.get('isDestroyed')) {
         this.set('isActive', false);
-      
         $clone.addClass('md-leave');
         waitForAnimations(clone, function() {
           $clone.removeClass('md-active');
