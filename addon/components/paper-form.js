@@ -1,13 +1,12 @@
 import Ember from 'ember';
+import ParentMixin from 'ember-paper/mixins/parent-mixin';
+
 const { Component, computed, on, observer } = Ember;
 
-export default Component.extend({
+export default Component.extend(ParentMixin, {
   tagName: '',
-  numberOfInvalids: 0,
-  isTouched: false,
-  touchedTrigger: 0,
-  isValid: computed('numberOfInvalids', function() {
-    return this.get('numberOfInvalids') === 0;
+  isValid: computed('childComponents.@each.isInvalid', function() {
+    return !this.get('childComponents').isAny('isInvalid');
   }),
   isInvalid: computed('isValid', function() {
     return !this.get('isValid');
@@ -19,21 +18,11 @@ export default Component.extend({
     this.get('parentAction')(this.get('isValid'));
   })),
   actions: {
-    onInvalid(status) {
-      if (status || status === null) {
-        this.set('numberOfInvalids', this.get('numberOfInvalids') + 1);
-      } else {
-        if (this.get('numberOfInvalids') === 0) {
-          return;
-        }
-        this.set('numberOfInvalids', this.get('numberOfInvalids') - 1);
-      }
-    },
     submit() {
       if (this.get('parentSubmit')) {
         this.get('parentSubmit')();
       }
-      this.set('touchedTrigger', this.get('touchedTrigger') + 1);
+      this.get('childComponents').setEach('isTouched', false);
     }
   }
 });

@@ -461,25 +461,3 @@ test('errors only show after input is touched and input is invalid', function(as
   assert.equal(this.$('.md-input-invalid').length, 1, 'renders one error');
 
 });
-
-test('isTouched updates properly when passed in from parent', function(assert) {
-  assert.expect(6);
-
-  this.set('isTouched', false);
-  this.set('touchedIncrement', 0);
-
-  this.render(hbs`{{paper-input value=value onChange=(action (mut value)) _isTouched=(readonly isTouched) touchedTrigger=touchedIncrement}}`);
-
-  assert.equal(this.$('.ng-dirty').length, 0, 'has not been touched');
-  this.$('input, textarea').trigger('blur');
-  assert.equal(this.$('.ng-dirty').length, 1, 'has been touched');
-  this.$('input, textarea').val('12345').trigger('input');
-  assert.equal(this.$('.ng-dirty').length, 1, 'has been touched after input');
-  this.$('input, textarea').trigger('blur');
-  assert.equal(this.$('.ng-dirty').length, 1, 'has been touched after blur');
-  this.set('touchedIncrement', this.get('touchedIncrement') + 1);
-  assert.equal(this.$('.ng-dirty').length, 0, 'has not been touched after parent value does not change but trigger does');
-  this.set('isTouched', true);
-  assert.equal(this.$('.ng-dirty').length, 1, 'has been touched after parent value changes to true');
-
-});
