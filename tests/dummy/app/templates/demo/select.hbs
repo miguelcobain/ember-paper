@@ -111,11 +111,12 @@
     as |items|
   }}
     {{#paper-select-header class="demo-select-header"}}
-      {{input value=searchTerm
+      <input value={{searchTerm}}
               type="search"
               placeholder="Search for a vegetable.."
-              class="demo-header-searchbox _md-text"
-              key-down="searchKeyPressed"}}
+              class="demo-header-searchbox"
+              onkeydown={{action "searchKeyPressed"}} 
+              oninput={{action (mut searchTerm) value="target.value"}}>
     {{/paper-select-header}}
     {{#each filteredVegetables as |vegetable|}}
       {{#paper-option bubbles=false value=vegetable}}
