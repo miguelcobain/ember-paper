@@ -3,19 +3,16 @@ const { Component } = Ember;
 
 export default Component.extend({
   tagName: '',
-  classNames: [],
-  attributeBindings: ['style'],
-  style: 'width:100%',
   numberOfInvalids: 0,
   isTouched: false,
   touchedTrigger: 0,
-  isValid: Ember.computed('numberOfInvalids', function() {
+  isValid: computed('numberOfInvalids', function() {
     return this.get('numberOfInvalids') === 0;
   }),
-  isInvalid: Ember.computed('isValid', function() {
+  isInvalid: computed('isValid', function() {
     return !this.get('isValid');
   }),
-  sendToParent: Ember.on('init', Ember.observer('isValid', function() {
+  sendToParent: on('init', observer('isValid', function() {
     if (!this.get('parentAction')) {
       return;
     }
@@ -36,7 +33,7 @@ export default Component.extend({
       if (this.get('parentSubmit')) {
         this.get('parentSubmit')();
       }
-      this.set('touchedTrigger', this.get('touchedTrigger') + 1);
+      this.set('touchedTrigger', this.get('touchedTrigger') + 1)
     }
   }
 });
