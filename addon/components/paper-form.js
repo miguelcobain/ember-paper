@@ -8,6 +8,7 @@ export default Component.extend({
   style: 'width:100%',
   numberOfInvalids: 0,
   isTouched: false,
+  touchedTrigger: 0,
   isValid: Ember.computed('numberOfInvalids', function() {
     return this.get('numberOfInvalids') === 0;
   }),
@@ -32,16 +33,10 @@ export default Component.extend({
       }
     },
     submit() {
-      if (this.get('isInvalid')) {
-        // this.set('isTouched', false);
-        this.set('isTouched', true);
-        return;
-      }
       if (this.get('parentSubmit')) {
         this.get('parentSubmit')();
       }
-      // this.set('isTouched', true);
-      this.set('isTouched', false);
+      this.set('touchedTrigger', this.get('touchedTrigger') + 1);
     }
   }
 });

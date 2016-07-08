@@ -27,6 +27,11 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   tabindex: null,
   hideAllMessages: false,
   isTouched: false,
+  // The below 2 properties exists so that paper-form can properly reset the isTouched property. Passing in isTouched with a read only helper
+  // doesn't work because when the component rerenders, it reinherits (wrongfully) the isTouched value of the parent on each rerender.
+  _isTouched: false,
+  touchedTrigger: 0,
+  previousTriggerValue: 0,
   lastIsInvalid: undefined,
 
   hasValue: computed('value', 'isNativeInvalid', function() {
@@ -133,6 +138,18 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
     this._super(...arguments);
     assert('{{paper-input}} and {{paper-select}} require an `onChange` action or null for no action.', this.get('onChange') !== undefined);
     this.notifyInvalid();
+  },
+
+  didUpdateAttrs(params) {
+    // This exists so that a form can properly reset the isTouched value upon successful submittal. Simply passing in a readonly version of the
+    // property does not work due to the fact that this component reinherits the isTouched value of the parent on every rerender. So here,
+    // we check to see that the facade property has actually changed before updating the real property. We have to use the increment properties
+    // to trigger the set in the case of the form resetting isTouched to false -- the parent value will have not changed, but we need to trigger
+    // isTouched to reset to false regardless
+    if (params.oldAttrs._isTouched !== params.newAttrs._isTouched || (this.get('touchedTrigger') > this.get('previousTriggerValue'))) {
+      this.set('previousTriggerValue', this.get('touchedTrigger'));
+      this.set('isTouched', this.get('_isTouched'));
+    }
   },
 
   didInsertElement() {
