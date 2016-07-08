@@ -110,7 +110,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
         if (!validation.validate(currentValue, paramValue)) {
           let message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
           messages.pushObject({
-            message: Ember.String.loc(message, paramValue, currentValue)
+            message: Ember.String.loc(message.string || message, paramValue, currentValue)
           });
         }
       } catch (error) {
