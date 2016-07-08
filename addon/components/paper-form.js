@@ -33,7 +33,7 @@ export default Component.extend({
       if (this.get('parentSubmit')) {
         this.get('parentSubmit')();
       }
-      this.set('touchedTrigger', this.get('touchedTrigger') + 1)
+      this.set('touchedTrigger', this.get('touchedTrigger') + 1);
     }
   }
 });
