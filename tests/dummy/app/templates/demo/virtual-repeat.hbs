@@ -1,0 +1,69 @@
+{{page-toolbar pageTitle="Virtual Repeat" isDemo=true isWIP=true}}
+{{#doc-content}}
+<h2>Deferred Loading</h2>
+
+<div layout="row">
+  {{! BEGIN-SNIPPET virtual-repeat.deferred }}
+  
+	  {{#paper-virtual-repeat class="vertical-demo"
+	    items=items2
+	    length=50000
+	    getAtIndex=(action 'getAtIndex')
+	    as |visibleItems|
+	  }}
+	    {{#each visibleItems as |item|}}
+	      <div class="repeated-item">
+	      	{{#deferred-content promise=item as |d|}}
+	      		{{#d.fulfilled as |num|}}{{num}}{{/d.fulfilled}}
+	      	{{/deferred-content}}
+	      </div>
+	    {{/each}}
+	  {{/paper-virtual-repeat}}
+
+  {{! END-SNIPPET }}
+</div>
+
+<h3>Template</h3>
+{{code-snippet name="virtual-repeat.deferred.hbs"}}
+
+<h2>Horizontal Orientation</h2>
+
+<div layout="row">
+  {{! BEGIN-SNIPPET virtual-repeat.vertical }}
+  
+	  {{#paper-virtual-repeat class="horizontal-demo"
+	    items=items
+	    horizontal=true
+	    as |visibleItems|
+	  }}
+	    {{#each visibleItems as |item|}}
+	      <div class="repeated-item-horiz">{{item}}</div>
+	    {{/each}}
+	  {{/paper-virtual-repeat}}
+
+  {{! END-SNIPPET }}
+</div>
+
+<h3>Template</h3>
+{{code-snippet name="virtual-repeat.vertical.hbs"}}
+
+<h2>Vertical Orientation</h2>
+
+<div layout="row">
+  {{! BEGIN-SNIPPET virtual-repeat.vertical }}
+  
+	  {{#paper-virtual-repeat class="vertical-demo"
+	    items=items
+	    as |visibleItems|
+	  }}
+	    {{#each visibleItems as |item|}}
+	      <div class="repeated-item">{{item}}</div>
+	    {{/each}}
+	  {{/paper-virtual-repeat}}
+
+  {{! END-SNIPPET }}
+</div>
+
+<h3>Template</h3>
+{{code-snippet name="virtual-repeat.vertical.hbs"}}
+{{/doc-content}}

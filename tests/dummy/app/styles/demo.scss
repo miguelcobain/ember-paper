@@ -335,6 +335,37 @@ md-sidenav.site-sidenav {
   }
 }
 
+.horizontal-demo {
+  height: 100px;
+  width: 100%;
+  max-width: 830px;
+  border: solid 1px grey;
+}
+
+.vertical-demo {
+  height: 296px;
+  width: 100%;
+  max-width: 400px;
+  border: solid 1px grey;
+}
+
+.repeated-item {
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+  height: 40px;
+  padding-top: 10px;
+  padding-left: 16px;
+}
+.repeated-item-horiz {
+  border-right: 1px solid #ddd;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 84px;
+  padding-top: 35px;
+  text-align: center;
+  width: 50px;
+}
+
 .card-demo {
   .card-media {
     background-color: #999999;
