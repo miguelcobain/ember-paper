@@ -5,10 +5,10 @@ const { Component, computed, on, observer } = Ember;
 
 export default Component.extend(ParentMixin, {
   tagName: '',
-  isValid: computed('childComponents.@each.isInvalid', function() {
-    return !this.get('childComponents').isAny('isInvalid');
+  isValid: computed.not('isInvalid'),
+  isInvalid: computed('childComponents.@each.isInvalid', function() {
+    return this.get('childComponents').isAny('isInvalid');
   }),
-  isInvalid: computed.not('isValid'),
   sendToParent: on('init', observer('isValid', function() {
     if (!this.get('parentAction')) {
       return;
