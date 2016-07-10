@@ -2,6 +2,7 @@ import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
+import ChildMixin from 'ember-paper/mixins/child-mixin';
 
 import requiredValidator from 'ember-paper/validators/required';
 import minValidator from 'ember-paper/validators/min';
@@ -11,7 +12,7 @@ import maxlengthValidator from 'ember-paper/validators/maxlength';
 
 const { $, computed, isArray, isEmpty, Logger, A, run, assert, get } = Ember;
 
-export default BaseFocusable.extend(ColorMixin, FlexMixin, {
+export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
   classNameBindings: [
