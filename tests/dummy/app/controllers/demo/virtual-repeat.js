@@ -11,11 +11,47 @@ export default Controller.extend({
 		return Ember.A(arr);
    }),
    items2: [],
-
+   items3: Ember.computed(function() {
+   	let selectedYear = 0;
+    let years = [];
+    let items = [];
+    var currentYear = new Date().getFullYear();
+    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'];
+    // Build a list of months over 20 years
+    for (var y = currentYear; y >= (currentYear-20); y--) {
+      years.push(y);
+      items.push({year: y, text: y, header: true});
+      for (var m = 11; m >= 0; m--) {
+        items.push({year: y, month: m, text: monthNames[m]});
+      }
+    }
+    this.set('years',years);
+    return Ember.Object.create({items: items, years: Ember.A(years)});
+   }),
+   infiniteItems: Ember.A([]),
    loadedPages: {},
    PAGE_SIZE: 50,
+   scrollIndex: 0,
+   yearIndex: 0,
    length: 50000,
    actions: {
+    fetchMore() {
+      let arr = this.get('infiniteItems');
+     
+      let length = arr.get('length');
+      for (let i = length; i < length + 50; i++) {
+        arr.pushObject(i);
+      }
+      
+      //arr.push(arr1[arr.length]);
+    },
+   	scrollTo(selected) {
+   		this.set('selected',selected);
+   		
+   		this.set('scrollIndex',this.get('years').indexOf(selected) * 13);
+   		
+   	},
    	getAtIndex(index) {
    		let pageNumber = Math.floor(index / this.PAGE_SIZE);
    		let page = this.loadedPages[pageNumber];
