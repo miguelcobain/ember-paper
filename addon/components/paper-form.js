@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
 
-const { Component, computed, on, observer } = Ember;
+const { Component, computed } = Ember;
 
 export default Component.extend(ParentMixin, {
   tagName: '',
@@ -9,17 +9,15 @@ export default Component.extend(ParentMixin, {
   isInvalid: computed('childComponents.@each.isInvalid', function() {
     return this.get('childComponents').isAny('isInvalid');
   }),
-  sendToParent: on('init', observer('isValid', function() {
-    if (!this.get('parentAction')) {
-      return;
-    }
-    this.get('parentAction')(this.get('isValid'));
-  })),
   actions: {
-    submit() {
-      if (this.get('parentSubmit')) {
-        this.get('parentSubmit')();
+    onValidityChange() {
+      if (this.get('lastIsValid') !== this.get('isValid')) {
+        this.sendAction('onValidityChange', this.get('isValid'));
+        this.set('lastIsValid', this.get('isValid'));
       }
+    },
+    onSubmit() {
+      this.sendAction('onSubmit');
       this.get('childComponents').setEach('isTouched', false);
     }
   }

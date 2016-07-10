@@ -1,2 +1,10 @@
-{{yield (hash validStatus=isValid isInvalid=isInvalid input=(component "paper-input" parentComponent=this) submit=(action 'submit'))}}
+{{yield (hash
+  isValid=isValid
+  isInvalid=isInvalid
+  input=(component "paper-input"
+    parentComponent=this
+    onValidityChange=(action "onValidityChange")
+  )
+  onSubmit=(action "onSubmit")
+)}}
 
