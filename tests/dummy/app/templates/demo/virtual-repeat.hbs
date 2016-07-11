@@ -6,7 +6,7 @@
   {{! BEGIN-SNIPPET virtual-repeat.deferred }}
   
 	  {{#paper-virtual-repeat class="vertical-demo"
-	    items=items2
+	    items=deferredItems
 	    length=50000
 	    getAtIndex=(action 'getAtIndex')
 	    as |visibleItems|
@@ -80,7 +80,7 @@
   	  	{{/each}}
   	  {{/paper-select}}
 	  {{#paper-virtual-repeat class="vertical-demo"
-	    items=items3.items
+	    items=scrollToItems
 	    positionIndex=scrollIndex
 	    as |visibleItems|
 	  }}

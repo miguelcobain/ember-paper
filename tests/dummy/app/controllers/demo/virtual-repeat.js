@@ -10,8 +10,8 @@ export default Controller.extend({
     }
     return Ember.A(arr);
   }),
-  items2: [],
-  items3: computed(function() {
+  deferredItems: [],
+  scrollToItems: computed(function() {
     let years = [];
     let items = [];
     let currentYear = new Date().getFullYear();
