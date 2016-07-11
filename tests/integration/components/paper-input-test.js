@@ -427,7 +427,6 @@ test('displayed input value matches actual input value', function(assert) {
   this.$('input, textarea').val('abcdefg').trigger('input');
   assert.equal(this.$('input, textarea').val(), '123', 'input values do not match');
   assert.equal(this.value, '123', 'component value should be 123');
-
 });
 
 test('displayed input value matches actual input value with no onChange method', function(assert) {
@@ -440,7 +439,6 @@ test('displayed input value matches actual input value with no onChange method',
   this.$('input, textarea').val('12345').trigger('input');
   assert.equal(this.$('input, textarea').val(), 'foo', 'input value should be `foo` (component value)');
   assert.equal(this.get('value'), 'foo', 'component value should be foo');
-
 });
 
 test('errors only show after input is touched and input is invalid', function(assert) {
@@ -459,5 +457,39 @@ test('errors only show after input is touched and input is invalid', function(as
   this.$('input, textarea').trigger('blur');
   assert.equal(this.$('.paper-input-error').length, 1, 'render md-input-invalid class');
   assert.equal(this.$('.md-input-invalid').length, 1, 'renders one error');
+});
 
+test('hasValue works when user types', function(assert) {
+  this.foo = '';
+  this.render(hbs`{{paper-input value=foo onChange=(action (mut foo))}}`);
+
+  assert.notOk(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should not have md-input-has-value class if input does not have value'
+  );
+
+  let $input = this.$('md-input-container input');
+  $input.val('abc').trigger('input');
+
+  assert.ok(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should have md-input-has-value class if input has value'
+  );
+});
+
+test('hasValue works when `value` updated programatically', function(assert) {
+  this.foo = '';
+  this.render(hbs`{{paper-input value=foo onChange=(action (mut foo))}}`);
+
+  assert.notOk(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should not have md-input-has-value class if input does not have value'
+  );
+
+  this.set('foo', 'abc');
+
+  assert.ok(
+    this.$('md-input-container').hasClass('md-input-has-value'),
+    'should have md-input-has-value class if input has value'
+  );
 });
