@@ -108,3 +108,36 @@ test('form is reset after submit action is invoked', function(assert) {
 
   assert.equal(this.$('.ng-dirty').length, 0, 'inputs were reset');
 });
+
+test('works without using contextual components', function(assert) {
+  assert.expect(4);
+
+  this.render(hbs`
+    {{#paper-form as |form|}}
+      {{paper-input value=foo onChange=(action (mut foo)) label="Foo"}}
+      {{paper-input value=bar onChange=(action (mut bar)) label="Bar" errors=errors}}
+
+      {{#if form.isInvalid}}
+        <div class="invalid-div">Form is invalid!</div>
+      {{/if}}
+      {{#if form.isValid}}
+        <div class="valid-div">Form is valid!</div>
+      {{/if}}
+
+    {{/paper-form}}
+  `);
+
+  assert.equal(this.$('.invalid-div').length, 0);
+  assert.equal(this.$('.valid-div').length, 1);
+
+  this.set('errors', [{
+    message: 'foo should be a number.',
+    attribute: 'foo'
+  }, {
+    message: 'foo should be smaller than 12.',
+    attribute: 'foo'
+  }]);
+
+  assert.equal(this.$('.invalid-div').length, 1);
+  assert.equal(this.$('.valid-div').length, 0);
+});
