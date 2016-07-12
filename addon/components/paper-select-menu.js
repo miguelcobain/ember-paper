@@ -15,7 +15,7 @@ export default PaperMenuContentInner.extend({
         focusTarget = this.get('enabledOptions.firstObject.element');
       }
       focusTarget.focus();
-    },50);
+    }, 50);
   },
 
   keyDown(ev) {
