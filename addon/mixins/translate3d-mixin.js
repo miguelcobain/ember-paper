@@ -84,7 +84,7 @@ export default Mixin.create({
         dialogClone.removeClass('md-transition-in');
         dialogClone.addClass('md-transition-out');
         dialogClone.attr('style', toStyle);
-        run.next(() => {
+        window.requestAnimationFrame(() => {
           this.waitTransitionEnd(dialogClone).then(() => {
             containerClone.remove();
             this.onTranslateToEnd($(this.get('origin')));
