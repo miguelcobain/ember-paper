@@ -29,7 +29,8 @@ Contributions and pull requests are always welcome. Contributors may often be fo
   - `paper-sidenav-toggle` is now tagless. It is essentially a functional component that yields an action to its block
   - `paper-sidenav` now can use a `position` param that positions the sidenav `left` (default) or `right`
   - `paper-backdrop` action `onTap` changed to `onClick`
-  - [#408](https://github.com/miguelcobain/ember-paper/pull/408) added paper-form component. `paper-input`'s `onInvalid` action renamed to `onValidityChange`
+- [#408](https://github.com/miguelcobain/ember-paper/pull/408) added paper-form component. `paper-input`'s `onInvalid` action renamed to `onValidityChange`
+- [#430](https://github.com/miguelcobain/ember-paper/pull/430) added fastboot support. Removed errors associated with `document` when running `ember fastboot`
 
 #### 1.0.0-alpha.1
 
