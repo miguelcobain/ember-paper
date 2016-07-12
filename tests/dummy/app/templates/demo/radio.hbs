@@ -14,15 +14,15 @@
   <h2>Radio Button Group</h2>
   {{! BEGIN-SNIPPET radio.group }}
   {{#paper-radio-group groupValue=groupValue onChange=(action (mut groupValue)) as |group|}}
-    {{#group.paper-radio value="1" primary=true}}
+    {{#group.radio value="1" primary=true}}
       Radio button 1
-    {{/group.paper-radio}}
-    {{#group.paper-radio value="2" warn=true}}
+    {{/group.radio}}
+    {{#group.radio value="2" warn=true}}
       Radio button 2
-    {{/group.paper-radio}}
-    {{#group.paper-radio value="3"}}
+    {{/group.radio}}
+    {{#group.radio value="3"}}
       Radio button 3
-    {{/group.paper-radio}}
+    {{/group.radio}}
   {{/paper-radio-group}}
 
   <p>Selected value: {{groupValue}}</p>
@@ -36,15 +36,15 @@
   <h3>Radio Button w/ Images</h3>
   {{! BEGIN-SNIPPET radio.images }}
   {{#paper-radio-group groupValue=groupValue2 onChange=(action (mut groupValue2)) as |group|}}
-    {{#group.paper-radio value="image1" primary=true}}
+    {{#group.radio value="image1" primary=true}}
       <img src="http://diagramcenter.org/wp-content/uploads/2016/03/image.png">
-    {{/group.paper-radio}}
-    {{#group.paper-radio value="image2" warn=true}}
+    {{/group.radio}}
+    {{#group.radio value="image2" warn=true}}
       <img src="http://www.coffeecup.com/images/software/icons/image-mapper_5.0_win_en.png">
-    {{/group.paper-radio}}
-    {{#group.paper-radio value="image3"}}
+    {{/group.radio}}
+    {{#group.radio value="image3"}}
       <img src="http://a2.mzstatic.com/us/r30/Purple69/v4/d3/3c/13/d33c13c4-2cdd-0ef7-13f3-e3097607f2da/icon128.png">
-    {{/group.paper-radio}}
+    {{/group.radio}}
   {{/paper-radio-group}}
 {{! END-SNIPPET }}
 
