@@ -10,6 +10,7 @@ export default Component.extend(TransitionMixin, {
   transitionTriggers: ['isLockedOpen:md-locked-open', 'closed:md-closed'],
 
   constants: inject.service(),
+  fastboot: inject.service(),
   paperSidenav: inject.service(),
 
   name: 'default',
@@ -24,10 +25,13 @@ export default Component.extend(TransitionMixin, {
   }),
 
   init() {
+    this._super(...arguments);
+    if (Ember.get(this, 'fastboot.isFastBoot')) {
+      return;
+    }
     // need to updateLockedOpen() first because otherwise the transition classes
     // would be applied due to transition mixin's `init`
     this.updateLockedOpen();
-    this._super(...arguments);
     this.get('paperSidenav').register(this.get('name'), this);
   },
 

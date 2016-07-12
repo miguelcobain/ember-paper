@@ -13,20 +13,32 @@ let toInt = function(str) {
 };
 
 export default Ember.Service.extend({
+  fastboot: Ember.inject.service(),
   vendorPrefix: '',
   transitions: false,
   animations: false,
-  document,
-  window,
+  _document: null,
+  _window: null,
 
   android: Ember.computed('', function() {
-    return toInt((/android (\d+)/.exec(lowercase((this.get('window').navigator || {}).userAgent)) || [])[1]);
+    return toInt((/android (\d+)/.exec(lowercase((this.get('_window').navigator || {}).userAgent)) || [])[1]);
   }),
 
   init() {
     this._super(...arguments);
+    if (Ember.get(this, 'fastboot.isFastBoot')) {
+      return;
+    }
 
-    let bodyStyle = this.get('document').body && this.get('document').body.style;
+    let _document = document;
+    let _window = window;
+
+    this.setProperties({
+      _document,
+      _window
+    });
+
+    let bodyStyle = _document.body && _document.body.style;
     let vendorPrefix;
     let vendorRegex = /^(Moz|webkit|ms)(?=[A-Z])/;
 
