@@ -1,11 +1,67 @@
-{{#if label}}
-  <label class={{if value 'md-static' 'md-placeholder'}} for={{inputElementId}}>{{label}}</label>
-{{/if}}
+{{#paper-select-core
+  registerAPI=(action "registerAPI")
+  searchEnabled=(readonly searchEnabled)
+  as |menu|}}
 
-{{#if icon}}
-  {{paper-icon icon class=icon-class}}
-{{/if}}
+  {{#menu.trigger}}
+     {{#component triggerComponent
+      allowClear=(readonly allowClear)
+      buildSelection=(readonly buildSelection)
+      extra=(readonly extra)
+      listboxId=(readonly optionsId)
+      onFocus=(action "onFocus")
+      activate=(action "activate")
+      onBlur=(action "deactivate")
+      onInput=(action "onInput")
+      placeholder=(readonly placeholder)
+      onKeydown=(action "onKeydown")
+      searchEnabled=(readonly searchEnabled)
+      searchField=(readonly searchField)
+      select=(readonly publicAPI)
+      selectedItemComponent=(readonly selectedItemComponent)
+      as |opt term|}}
+      {{yield opt term}}
+    {{/component}}
+  {{/menu.trigger}}
 
-{{#paper-select-core placeholder=placeholder value=value disabled=disabled onChange=onChange getItems=getItems itemLabelCallback=itemLabelCallback as |items|}}
-  {{yield items}}
+  {{#menu.content searchEnabled=(readonly searchEnabled) as |content|}}
+    {{component beforeOptionsComponent
+      extra=(readonly extra)
+      listboxId=(readonly optionsId)
+      onInput=(action "onInput")
+      onKeydown=(action "onKeydown")
+      searchEnabled=(readonly searchEnabled)
+      onFocus=(action "onFocus")
+      onBlur=(action "deactivate")
+      searchPlaceholder=(readonly searchPlaceholder)
+      select=(readonly publicAPI)}}
+    {{#if mustShowSearchMessage}}
+      <ul class="ember-power-select-options" role="listbox">
+        <li class="ember-power-select-option ember-power-select-option--search-message" role="option">
+          {{searchMessage}}
+        </li>
+      </ul>
+    {{else if mustShowNoMessages}}
+      {{#if (hasBlock "inverse")}}
+        {{yield to="inverse"}}
+      {{else if noMatchesMessage}}
+
+      {{/if}}
+    {{else}}
+      {{#component 'paper-select-options'
+        class="ember-power-select-options"
+        groupIndex=""
+        loadingMessage=(readonly loadingMessage)
+        id=(readonly optionsId)
+        options=(readonly publicAPI.results)
+        searchEnabled=(readonly searchEnabled)
+        optionsComponent=(readonly optionsComponent)
+        select=(readonly publicAPI)
+        menuParent=content.menu
+        as |option term|}}
+        {{yield option term}}
+      {{/component}}
+    {{/if}}
+    {{component afterOptionsComponent select=(readonly publicAPI) extra=(readonly extra)}}
+  {{/menu.content}}
 {{/paper-select-core}}

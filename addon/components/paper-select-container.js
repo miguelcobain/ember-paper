@@ -1,6 +1,4 @@
-import PaperMenuContainerAbstract from './paper-menu-container-abstract';
+import PaperMenuContent from './paper-menu-content';
 
-export default PaperMenuContainerAbstract.extend({
-  classNames: ['md-select-menu-container'],
-  interaction: true
+export default PaperMenuContent.extend({
 });

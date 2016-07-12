@@ -1,8 +1,13 @@
 import Ember from 'ember';
-import PaperInput from './paper-input';
+import PowerSelect from 'ember-power-select/components/power-select';
 
 let { computed } = Ember;
 
-export default PaperInput.extend({
-  label: computed.alias('placeholder')
+export default PowerSelect.extend({
+  tagName: 'md-input-container',
+  onchange: computed.alias('onChange'),
+  optionsComponent: 'paper-select-options',
+  triggerComponent: 'paper-select-value',
+  beforeOptionsComponent: 'paper-select-search',
+  searchEnabled: false
 });

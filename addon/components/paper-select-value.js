@@ -1,20 +1,13 @@
 import Ember from 'ember';
+import TriggerComponent from 'ember-power-select/components/power-select/trigger';
 
-export default Ember.Component.extend({
+const { computed } = Ember;
+
+export default TriggerComponent.extend({
   tagName: 'md-select-value',
   classNames: ['md-select-value'],
   classNameBindings: ['isPlaceholder:md-select-placeholder'],
-
-  isPlaceholder: Ember.computed('value', function() {
-    return !this.get('value');
-  }),
-
-  label: Ember.computed('isPlaceholder', function() {
-    if (this.get('isPlaceholder')) {
-      return this.get('placeholder');
-    } else {
-      return this.get('value');
-    }
+  isPlaceholder: computed('placeholder', 'select.selected', function() {
+    return this.get('placeholder') && !this.get('select.selected');
   })
-
 });

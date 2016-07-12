@@ -22,10 +22,10 @@ function waitForAnimations(element, callback) {
 }
 
 export default ContentComponent.extend({
-  animateIn(dropdownElement) {
+  animateIn() {
     run.next(() => {
       this.set('isActive', true);
-      dropdownElement.style.transform = '';
+      this.dropdownElement.style.transform = '';
     });
   },
 
@@ -35,7 +35,7 @@ export default ContentComponent.extend({
     clone.id = `${clone.id}--clone`;
     let $clone = $(clone);
     parentElement.appendChild(clone);
-    run.next(() => {
+    window.requestAnimationFrame(() => {
       if (!this.get('isDestroyed')) {
         this.set('isActive', false);
         $clone.addClass('md-leave');

@@ -1,14 +1,26 @@
-{{paper-select-value placeholder=placeholder value=label}}
-{{#if isOpen}}
-  {{#paper-select-container}}
-    {{#paper-select-menu}}
-      {{#paper-content class="md-default-theme"}}
-        {{#if isLoading}}
-          <div>{{paper-progress-circular}}</div>
-        {{else}}
-          {{yield items}}
-        {{/if}}
-      {{/paper-content}}
-    {{/paper-select-menu}}
-  {{/paper-select-container}}
-{{/if}}
+{{yield (hash
+  isOpen=publicAPI.isOpen
+  disabled=publicAPI.disabled
+  actions=publicAPI.actions
+  trigger=(component 'basic-dropdown/trigger'
+    tagName="md-select"
+    appRoot=(readonly appRoot)
+    dropdown=(readonly publicAPI)
+    dropdownId=(readonly dropdownId)
+    elementId=(readonly triggerId)
+    hPosition=(readonly hPosition)
+    onFocus=(action "handleFocus")
+    renderInPlace=(readonly renderInPlace)
+    vPosition=(readonly vPosition)
+  )
+  content=(component 'paper-select-container'
+    appRoot=(readonly appRoot)
+    dropdown=(readonly publicAPI)
+    elementId=(readonly dropdownId)
+    hPosition=(readonly hPosition)
+    renderInPlace=(readonly renderInPlace)
+    triggerId=(readonly triggerId)
+    vPosition=(readonly vPosition)
+    searchEnabled=(readonly searchEnabled)
+  )
+)}}

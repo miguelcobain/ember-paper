@@ -1,0 +1,32 @@
+{{#if select.loading}}
+  {{#if loadingMessage}}
+   {{paper-progress-circular}}
+  {{/if}}
+{{/if}}
+{{#each options as |opt index|}}
+  {{#if opt.groupName}}
+    <md-optgroup class="ember-power-select-group" aria-disabled={{ember-power-select-true-string-if-present opt.disabled}} role="option">
+      <label class="ember-power-select-group-name">{{opt.groupName}}</label>
+      {{#component optionsComponent
+        options=(readonly opt.options)
+        select=(readonly select)
+        groupIndex=(concat groupIndex index ".")
+        optionsComponent=(readonly optionsComponent)
+        menuParent=menuParent
+        role="group"
+        class="ember-power-select-options" as |option|}}
+        {{yield option select}}
+      {{/component}}
+    </md-optgroup>
+  {{else}}
+    {{#paper-option parentComponent=menuParent class="ember-power-select-option"
+      aria-selected=(ember-power-select-is-selected opt select.selected)
+      selected=(if (ember-power-select-is-selected opt select.selected) "selected" undefined)
+      aria-disabled=(ember-power-select-true-string-if-present opt.disabled)
+      aria-current=(eq opt select.highlighted)
+      data-option-index=(concat groupIndex index)
+      role="option"}}
+      {{yield opt select}}
+    {{/paper-option}}
+  {{/if}}
+{{/each}}
