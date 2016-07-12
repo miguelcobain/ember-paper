@@ -210,14 +210,18 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
   },
 
   setValue(value) {
-    this.$('input, textarea').val(value);
+    if (this.$('input, textarea').val() !== value) {
+      this.$('input, textarea').val(value);
+    }
   },
 
   actions: {
     handleInput(e) {
       this.sendAction('onChange', e.target.value);
       // setValue below ensures that the input value is the same as this.value
-      this.setValue(this.get('value'));
+      run.next(() => {
+        this.setValue(this.get('value'));
+      });
       this.growTextarea();
       let inputElement = this.$('input').get(0);
       this.set('isNativeInvalid', inputElement && inputElement.validity && inputElement.validity.badInput);

@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('paper-input', 'Integration | Component | paper input', {
   integration: true,
@@ -421,12 +422,18 @@ test('displayed input value matches actual input value', function(assert) {
   this.render(hbs`{{paper-input onChange=onChange value=value}}`);
 
   this.$('input, textarea').val('12345').trigger('input');
-  assert.equal(this.$('input, textarea').val(), '123', 'input value should be 123');
-  assert.equal(this.value, '123', 'component value should be 123');
 
-  this.$('input, textarea').val('abcdefg').trigger('input');
-  assert.equal(this.$('input, textarea').val(), '123', 'input values do not match');
-  assert.equal(this.value, '123', 'component value should be 123');
+  return wait().then(() => {
+    assert.equal(this.$('input, textarea').val(), '123', 'input value should be 123');
+    assert.equal(this.value, '123', 'component value should be 123');
+
+    this.$('input, textarea').val('abcdefg').trigger('input');
+
+    return wait();
+  }).then(() => {
+    assert.equal(this.$('input, textarea').val(), '123', 'input values do not match');
+    assert.equal(this.value, '123', 'component value should be 123');
+  });
 });
 
 test('displayed input value matches actual input value with no onChange method', function(assert) {
