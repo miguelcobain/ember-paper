@@ -24,15 +24,15 @@ export default Component.extend(TransitionMixin, {
     return `md-sidenav-${this.get('position')}`;
   }),
 
-  init() {
-    if (!Ember.get(this, 'fastboot.isFastBoot')) {
-      this.updateLockedOpen();
-    }
-    // need to updateLockedOpen() first because otherwise the transition classes
-    // would be applied due to transition mixin's `init`
-    this._super(...arguments);
-    this.get('paperSidenav').register(this.get('name'), this);
-  },
+init() {
+  // need to updateLockedOpen() first because otherwise the transition classes
+  // would be applied due to transition mixin's `init`
+  if (!Ember.get(this, 'fastboot.isFastBoot')) {
+    this.updateLockedOpen();
+  }
+  this._super(...arguments);
+  this.get('paperSidenav').register(this.get('name'), this);
+},
 
   didInsertElement() {
     this._super(...arguments);
