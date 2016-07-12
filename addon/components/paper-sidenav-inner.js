@@ -25,19 +25,19 @@ export default Component.extend(TransitionMixin, {
   }),
 
   init() {
-    this._super(...arguments);
-    if (Ember.get(this, 'fastboot.isFastBoot')) {
-      return;
+    if (!Ember.get(this, 'fastboot.isFastBoot')) {
+      this.updateLockedOpen();
     }
     // need to updateLockedOpen() first because otherwise the transition classes
     // would be applied due to transition mixin's `init`
-    this.updateLockedOpen();
+    this._super(...arguments);
     this.get('paperSidenav').register(this.get('name'), this);
   },
 
   didInsertElement() {
     this._super(...arguments);
     $(window).on(`resize.${this.elementId}`, run.bind(this, 'updateLockedOpen'));
+    this.updateLockedOpen();
   },
 
   willDestroyElement() {
