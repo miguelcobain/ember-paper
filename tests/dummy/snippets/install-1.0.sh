@@ -1,1 +1,1 @@
-$ ember install miguelcobain/ember-paper
+$ ember install ember-paper
