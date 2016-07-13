@@ -16,6 +16,8 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - `paper-icon`'s `size` attribute now takes a size in pixels, and `lg` or `sm` values are no longer supported.
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 
+#### 1.0.0-alpha.3
+
 #### 1.0.0-alpha.2
 
 - This version uses an updated version of `ember-css-transitions` from github rather than npm.
