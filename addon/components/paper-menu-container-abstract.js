@@ -1,12 +1,19 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
-/*
- * The paper-menu-container-abstract is responsible for animation and positioning the menu / select /  any other
- * menu based component.
+const { Component } = Ember;
+
+/**
+ * The paper-menu-container-abstract is responsible for animation and
+ * positioning the menu or select or any other menu based component.
  *
+ * @class PaperMenuContainerAbstract
+ * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   transitionEvents: Ember.inject.service(),
   constants: Ember.inject.service(),
 

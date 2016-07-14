@@ -1,6 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
-export default Ember.Mixin.create({
+const { Mixin } = Ember;
+
+/**
+ * @class ProxyMixin
+ * @extends Ember.Mixin
+ */
+export default Mixin.create({
   proxiedComponents: Ember.computed(function() {
     return Ember.A();
   }),

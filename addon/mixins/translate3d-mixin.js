@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
 const {
@@ -11,6 +14,10 @@ const {
   K
 } = Ember;
 
+/**
+ * @class Translate3dMixin
+ * @extends Ember.Mixin
+ */
 export default Mixin.create({
   constants: inject.service(),
 

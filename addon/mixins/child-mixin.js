@@ -1,7 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
+
 const { Mixin, computed } = Ember;
 
+/**
+ * @class ChildMixin
+ * @extends Ember.Mixin
+ */
 export default Mixin.create({
 
   // override to look for a specific parent class

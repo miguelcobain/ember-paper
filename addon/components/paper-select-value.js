@@ -1,6 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const { Component } = Ember;
+
+/**
+ * @class PaperSelectValue
+ * @extends Ember.Component
+ */
+export default Component.extend({
   tagName: 'md-select-value',
   classNames: ['md-select-value'],
   classNameBindings: ['isPlaceholder:md-select-placeholder'],

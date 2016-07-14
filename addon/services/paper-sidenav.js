@@ -1,6 +1,14 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
+
 const { Service, assert } = Ember;
 
+/**
+ * @class PaperSidenav
+ * @extends Ember.Service
+ */
 export default Service.extend({
   init() {
     this._super(...arguments);

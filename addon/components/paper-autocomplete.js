@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import { promiseArray } from 'ember-paper/utils/promise-proxies';
 
@@ -19,12 +22,8 @@ function isString(item) {
   return typeof item === 'string' || item instanceof String;
 }
 
-/*
- * @name paper-autocomplete
- *
- * @description
- *     Provides material design autocomplete.
- *
+/**
+ * Provides material design autocomplete.
  *
  * ## Dependencies
  * - paper-autocomplete-item
@@ -32,6 +31,9 @@ function isString(item) {
  * - paper-input
  * - paper-button
  * - input
+ *
+ * @class PaperAutoComplete
+ * @extends Ember.Component
  */
 export default Component.extend({
   util: inject.service(),

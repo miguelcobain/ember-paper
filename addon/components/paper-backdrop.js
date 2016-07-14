@@ -1,7 +1,16 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
+
 const { Component, computed, String: { htmlSafe } } = Ember;
 
+/**
+ * @class PaperBackdrop
+ * @extends Ember.Component
+ * @uses TransitionMixin
+ */
 export default Component.extend(TransitionMixin, {
 
   tagName: 'md-backdrop',
