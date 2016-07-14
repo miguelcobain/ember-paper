@@ -10,9 +10,11 @@ export default PaperMenuContentInner.extend({
   enabledOptions: computed.filterBy('childComponents', 'disabled', false),
   didInsertElement() {
     run.later(() => {
-      let focusTarget = this.$().find('.md-menu-focus-target');
-      if (!focusTarget.length) {
+      let focusTarget = this.$('md-option[aria-selected="true"]');
+      if (!focusTarget || !focusTarget.length) {
         focusTarget = this.get('enabledOptions.firstObject.element');
+      } else {
+        focusTarget = focusTarget[0];
       }
       focusTarget.focus();
     }, 50);
