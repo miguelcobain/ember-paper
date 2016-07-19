@@ -33,6 +33,24 @@ export default PaperMenuContent.extend({
       });
     });
   },
+  animateOut(dropdownElement) {
+    let parentElement = this.get('renderInPlace') ? dropdownElement.parentElement.parentElement : dropdownElement.parentElement;
+    let clone = dropdownElement.cloneNode(true);
+    clone.id = `${clone.id}--clone`;
+    let $clone = $(clone);
+    $(clone.children[0].children[0]).scrollTop(288);
+    parentElement.appendChild(clone);
+    window.requestAnimationFrame(() => {
+      if (!this.get('isDestroyed')) {
+        this.set('isActive', false);
+        $clone.addClass('md-leave');
+        waitForAnimations(clone, function() {
+          $clone.removeClass('md-active');
+          parentElement.removeChild(clone);
+        });
+      }
+    });
+  },
   addGlobalEvents() {
     self.window.addEventListener('scroll', this.runloopAwareReposition);
     self.window.addEventListener('resize', this.runloopAwareReposition);
