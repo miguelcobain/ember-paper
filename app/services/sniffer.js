@@ -1,3 +1,4 @@
+/* globals FastBoot */
 import Ember from 'ember';
 
 let isString = function(value) {
@@ -13,7 +14,6 @@ let toInt = function(str) {
 };
 
 export default Ember.Service.extend({
-  fastboot: Ember.inject.service(),
   vendorPrefix: '',
   transitions: false,
   animations: false,
@@ -26,7 +26,7 @@ export default Ember.Service.extend({
 
   init() {
     this._super(...arguments);
-    if (Ember.get(this, 'fastboot.isFastBoot')) {
+    if (typeof FastBoot !== 'undefined') {
       return;
     }
 
