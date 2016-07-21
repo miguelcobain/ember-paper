@@ -1,0 +1,16 @@
+{
+  "name": "ember-paper",
+  "description": "The Ember approach to Material Design.",
+  "options": {
+    "paths": [
+      "addon"
+    ],
+    "exclude": "vendor",
+    "outdir": "docs",
+    "linkNatives": true,
+    "quiet": true,
+    "parseOnly": false,
+    "lint": false,
+    "enabledEnvironments": ["development", "production"]
+  }
+}
