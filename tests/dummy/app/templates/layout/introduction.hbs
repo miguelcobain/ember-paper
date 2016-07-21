@@ -115,12 +115,12 @@
         <div class="demo-group">
           <h4>direction</h4>
           {{#paper-radio-group groupValue=direction onChange=(action (mut direction)) as |group|}}
-            {{#group.paper-radio value="row"}}
+            {{#group.radio value="row"}}
               row
-            {{/group.paper-radio}}
-            {{#group.paper-radio value="column"}}
+            {{/group.radio}}
+            {{#group.radio value="column"}}
               column
-            {{/group.paper-radio}}
+            {{/group.radio}}
           {{/paper-radio-group}}
         </div>
 
