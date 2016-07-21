@@ -1,11 +1,20 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
+
+const { Component } = Ember;
 
 let searchStr = '';
 let clearSearchTimeout, optNodes, optText;
 const CLEAR_SEARCH_AFTER = 300;
 
-export default Ember.Component.extend({
+/**
+ * @class PaperSelectMenu
+ * @extends Ember.Component
+ */
+export default Component.extend({
   tagName: 'md-select-menu',
   classNames: ['md-default-theme'],
 

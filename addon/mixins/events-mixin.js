@@ -1,6 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
-export default Ember.Mixin.create({
+const { Mixin } = Ember;
+
+/**
+ * @class EventsMixin
+ * @extends Ember.Mixin
+ */
+export default Mixin.create({
   touchStart(e) {
     return this.down(e);
   },

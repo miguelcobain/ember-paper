@@ -1,5 +1,10 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import gridLayout from '../utils/grid-layout';
+
+const { Component } = Ember;
 
 const UNIT = (units) => {
   return `${ units.share}% - (${ units.gutter } * ${ units.gutterShare})`;
@@ -17,7 +22,11 @@ const MEDIA = (mediaName) => {
   return ((mediaName.charAt(0) !== '(') ? (`(${mediaName})`) : mediaName);
 };
 
-export default Ember.Component.extend({
+/**
+ * @class PaperGridList
+ * @extends Ember.Component
+ */
+export default Component.extend({
   tagName: 'md-grid-list',
 
   constants: Ember.inject.service(),

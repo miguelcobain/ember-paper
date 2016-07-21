@@ -1,9 +1,17 @@
+/**
+ * @module ember-paper
+ */
 /* globals FastBoot */
 import Ember from 'ember';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
 const { Component, inject, computed, $, run } = Ember;
 
+/**
+ * @class PaperSidenavInner
+ * @extends Ember.Component
+ * @uses TransitionMixin
+ */
 export default Component.extend(TransitionMixin, {
   tagName: 'md-sidenav',
   attributeBindings: ['tabindex'],

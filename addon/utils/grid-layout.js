@@ -1,6 +1,9 @@
+/**
+ * @module ember-paper
+ */
 let defaultAnimator = GridTileAnimator;
 
-/*
+/**
  * Publish layout function
  */
 function GridLayout(colCount, tileSpans) {
@@ -179,4 +182,3 @@ function calculateGridfor(colCount, tileSpans) {
 }
 
 export default GridLayout;
-

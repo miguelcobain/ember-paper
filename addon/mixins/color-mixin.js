@@ -1,5 +1,14 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
-export default Ember.Mixin.create({
+const { Mixin } = Ember;
+
+/**
+ * @class ColorMixin
+ * @extends Ember.Mixin;
+ */
+export default Mixin.create({
   classNameBindings: ['warn:md-warn', 'accent:md-accent', 'primary:md-primary']
 });

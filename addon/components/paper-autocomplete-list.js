@@ -1,11 +1,19 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
+const { Component } = Ember;
 // TODO Move to constants?
 const ITEM_HEIGHT = 41;
 const MAX_HEIGHT = 5.5 * ITEM_HEIGHT;
 const MENU_PADDING = 8;
 
-export default Ember.Component.extend({
+/**
+ * @class PaperAutocompleteList
+ * @extends Ember.Component
+ */
+export default Component.extend({
   util: Ember.inject.service(),
 
   tagName: 'ul',

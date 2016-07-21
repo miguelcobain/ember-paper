@@ -1,4 +1,8 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
+
 const { isEmpty, isNone } = Ember;
 
 export function maxlength(value, maxlength) {
