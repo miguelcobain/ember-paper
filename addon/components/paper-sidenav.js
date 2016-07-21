@@ -6,7 +6,7 @@ import Ember from 'ember';
 const { Component, computed } = Ember;
 
 /**
- * @class
+ * @class PaperSidenav
  * @extends Ember.Component
  */
 export default Component.extend({
