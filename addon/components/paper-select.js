@@ -1,8 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import PaperInput from './paper-input';
 
-let { computed } = Ember;
+const { computed } = Ember;
 
+/**
+ * @class PaperSelect
+ * @extends PaperInput
+ */
 export default PaperInput.extend({
   label: computed.alias('placeholder')
 });

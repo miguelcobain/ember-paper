@@ -1,8 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
 const { $, Component, inject: { service }, run: { later } } = Ember;
 
+/**
+ * @class PaperMenuContentPane
+ * @extends Ember.Component
+ */
 export default Component.extend({
   tagName: 'md-menu-content',
 

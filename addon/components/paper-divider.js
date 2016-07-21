@@ -1,6 +1,14 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
+
 const { Component } = Ember;
 
+/**
+ * @class PaperDivider
+ * @extends Ember.Component
+ */
 export default Component.extend({
   tagName: 'md-divider',
   attributeBindings: ['insetAttr:md-inset'],

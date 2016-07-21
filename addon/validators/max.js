@@ -1,4 +1,8 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
+
 const { isEmpty } = Ember;
 
 export function max(value, max) {

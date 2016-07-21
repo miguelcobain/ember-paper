@@ -1,7 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
+
 const { A, computed, inject, assert } = Ember;
 
+/**
+ * @class PaperRadioGroup
+ * @extends BaseFocusable
+ */
 export default BaseFocusable.extend({
   tagName: 'md-radio-group',
   tabindex: 0,

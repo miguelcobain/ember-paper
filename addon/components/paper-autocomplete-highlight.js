@@ -1,6 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const { Component } = Ember;
+
+/**
+ * @class PaperAutocompleteHighlight
+ * @extends Ember.Component
+ */
+export default Component.extend({
   tagName: 'span',
   flags: '',
 

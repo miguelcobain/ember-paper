@@ -1,5 +1,9 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+
 const { Component, computed, isPresent, inject } = Ember;
 
 const DEFAULT_PROGRESS_SIZE = 100;
@@ -8,6 +12,11 @@ const DEFAULT_SCALING = 0.5;
 const MODE_DETERMINATE = 'determinate';
 const MODE_INDETERMINATE = 'indeterminate';
 
+/**
+ * @class PaperProgressCircular
+ * @extends Ember.Component
+ * @uses ColorMixin
+ */
 export default Component.extend(ColorMixin, {
 
   tagName: 'md-progress-circular',

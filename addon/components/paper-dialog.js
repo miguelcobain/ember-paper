@@ -1,7 +1,14 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
 const { $, Component, computed, inject } = Ember;
 
+/**
+ * @class PaperDialog
+ * @extends Ember.Component
+ */
 export default Component.extend({
   tagName: '',
 

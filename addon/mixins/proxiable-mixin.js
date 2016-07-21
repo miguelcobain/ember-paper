@@ -1,9 +1,16 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import ProxyMixin from './proxy-mixin';
 
-const { computed, get, isEmpty } = Ember;
+const { Mixin, computed, get, isEmpty } = Ember;
 
-export default Ember.Mixin.create({
+/**
+ * @class ProxiableMixin
+ * @extends Ember.Mixin
+ */
+export default Mixin.create({
   init() {
     this._super(...arguments);
     Ember.run.next(this, 'registerProxy');

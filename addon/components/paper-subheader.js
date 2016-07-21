@@ -1,6 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const { Component } = Ember;
+
+/**
+ * @class PaperSubheader
+ * @extends Ember.Component
+ */
+export default Component.extend({
   tagName: 'h2',
   classNames: ['md-subheader']
 });
