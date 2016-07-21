@@ -1,3 +1,4 @@
+/* globals FastBoot */
 import Ember from 'ember';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
@@ -10,7 +11,6 @@ export default Component.extend(TransitionMixin, {
   transitionTriggers: ['isLockedOpen:md-locked-open', 'closed:md-closed'],
 
   constants: inject.service(),
-  fastboot: inject.service(),
   paperSidenav: inject.service(),
 
   name: 'default',
@@ -27,7 +27,7 @@ export default Component.extend(TransitionMixin, {
   init() {
     // need to updateLockedOpen() first because otherwise the transition classes
     // would be applied due to transition mixin's `init`
-    if (!Ember.get(this, 'fastboot.isFastBoot')) {
+    if (typeof FastBoot === 'undefined') {
       this.updateLockedOpen();
     }
     this._super(...arguments);
