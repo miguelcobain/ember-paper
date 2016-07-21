@@ -1,6 +1,6 @@
 'use strict';
 
-(function(factory) {
+(function (factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define([], factory);
@@ -13,9 +13,8 @@
     // Browser globals (root is window)
     window.propagating = factory();
   }
-}(function() {
+}(function () {
   var _firstTarget = null; // singleton, will contain the target element where the touch event started
-  var _processing = false; // singleton, true when a touch event is being handled
 
   /**
    * Extend an Hammer.js instance with event propagation.
@@ -33,7 +32,7 @@
    *
    * @param {Hammer.Manager} hammer   An hammer instance.
    * @param {Object} [options]        Available options:
-   *                                  - `preventDefault: true | 'mouse' | 'touch' | 'pen'`.
+   *                                  - `preventDefault: true | false | 'mouse' | 'touch' | 'pen'`.
    *                                    Enforce preventing the default browser behavior.
    *                                    Cannot be set to `false`.
    * @return {Hammer.Manager} Returns the same hammer instance with extended
@@ -51,14 +50,14 @@
 
       var PropagatingHammer = function(element, options) {
         var o = Object.create(_options);
-        if (options) Hammer.extend(o, options);
+        if (options) Hammer.assign(o, options);
         return propagating(new Hammer(element, o), o);
       };
-      Hammer.extend(PropagatingHammer, Hammer);
+      Hammer.assign(PropagatingHammer, Hammer);
 
-      PropagatingHammer.Manager = function(element, options) {
+      PropagatingHammer.Manager = function (element, options) {
         var o = Object.create(_options);
-        if (options) Hammer.extend(o, options);
+        if (options) Hammer.assign(o, options);
         return propagating(new Hammer.Manager(element, o), o);
       };
 
@@ -72,12 +71,12 @@
     // attach to DOM element
     var element = hammer.element;
 
-    if (!element.hammer) element.hammer = [];
+    if(!element.hammer) element.hammer = [];
     element.hammer.push(wrapper);
 
     // register an event to catch the start of a gesture and store the
     // target in a singleton
-    hammer.on('hammer.input', function(event) {
+    hammer.on('hammer.input', function (event) {
       if (_options.preventDefault === true || (_options.preventDefault === event.pointerType)) {
         event.preventDefault();
       }
@@ -95,9 +94,9 @@
      * @param {function} handler A callback function, called as handler(event)
      * @returns {Hammer.Manager} Returns the hammer instance
      */
-    wrapper.on = function(events, handler) {
+    wrapper.on = function (events, handler) {
       // register the handler
-      split(events).forEach(function(event) {
+      split(events).forEach(function (event) {
         var _handlers = wrapper._handlers[event];
         if (!_handlers) {
           wrapper._handlers[event] = _handlers = [];
@@ -119,12 +118,12 @@
      *                             are removed.
      * @returns {Hammer.Manager}   Returns the hammer instance
      */
-    wrapper.off = function(events, handler) {
+    wrapper.off = function (events, handler) {
       // unregister the handler
-      split(events).forEach(function(event) {
+      split(events).forEach(function (event) {
         var _handlers = wrapper._handlers[event];
         if (_handlers) {
-          _handlers = handler ? _handlers.filter(function(h) {
+          _handlers = handler ? _handlers.filter(function (h) {
             return h !== handler;
           }) : [];
 
@@ -152,12 +151,12 @@
       hammer.emit(eventType, event);
     };
 
-    wrapper.destroy = function() {
+    wrapper.destroy = function () {
       // Detach from DOM element
       var hammers = hammer.element.hammer;
       var idx = hammers.indexOf(wrapper);
-      if (idx !== -1) hammers.splice(idx,1);
-      if (!hammers.length) delete hammer.element.hammer;
+      if(idx !== -1) hammers.splice(idx,1);
+      if(!hammers.length) delete hammer.element.hammer;
 
       // clear all handlers
       wrapper._handlers = {};
@@ -194,13 +193,13 @@
 
       // attach a stopPropagation function to the event
       var stopped = false;
-      event.stopPropagation = function() {
+      event.stopPropagation = function () {
         stopped = true;
       };
 
       //wrap the srcEvent's stopPropagation to also stop hammer propagation:
-      var srcStop = event.srcEvent.stopPropagation;
-      if (typeof srcStop == "function") {
+      var srcStop = event.srcEvent.stopPropagation.bind(event.srcEvent);
+      if(typeof srcStop == "function") {
         event.srcEvent.stopPropagation = function(){
           srcStop();
           event.stopPropagation();
@@ -213,11 +212,12 @@
       // propagate over all elements (until stopped)
       var elem = _firstTarget;
       while (elem && !stopped) {
-        if (elem.hammer){
+        var elemHammer = elem.hammer;
+        if(elemHammer){
           var _handlers;
-          for (var k = 0; k < elem.hammer.length; k++){
-            _handlers = elem.hammer[k]._handlers[event.type];
-            if (_handlers) for (var i = 0; i < _handlers.length && !stopped; i++) {
+          for(var k = 0; k < elemHammer.length; k++){
+            _handlers = elemHammer[k]._handlers[event.type];
+            if(_handlers) for (var i = 0; i < _handlers.length && !stopped; i++) {
               _handlers[i](event);
             }
           }
