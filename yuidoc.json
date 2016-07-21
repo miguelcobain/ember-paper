@@ -6,11 +6,10 @@
       "addon"
     ],
     "exclude": "vendor",
-    "outdir": "docs",
+    "outdir": "tests/dummy/public/api-docs",
     "linkNatives": true,
     "quiet": true,
     "parseOnly": false,
-    "lint": false,
-    "enabledEnvironments": ["development", "production"]
+    "lint": false
   }
 }

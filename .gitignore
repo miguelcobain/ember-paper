@@ -19,3 +19,6 @@ testem.log
 
 # editors
 /.idea
+
+# rendered API docs
+/tests/dummy/public/api-docs
