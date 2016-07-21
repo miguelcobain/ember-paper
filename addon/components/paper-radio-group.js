@@ -1,7 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
+
 const { A, computed, inject, assert } = Ember;
 
+/**
+ * @class PaperRadioGroup
+ * @extends BaseFocusable
+ */
 export default BaseFocusable.extend({
   tagName: 'md-radio-group',
   tabindex: 0,
@@ -12,7 +20,7 @@ export default BaseFocusable.extend({
   constants: inject.service(),
 
   // Lifecycle hooks
-  didInitAttrs() {
+  init() {
     this._super(...arguments);
     assert('{{paper-radio-group}} requires an `onChange` action or null for no action', this.get('onChange') !== undefined);
   },

@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 const hasDOM = typeof document !== 'undefined';
 const defaultWormhole = 'paper-wormhole';
 

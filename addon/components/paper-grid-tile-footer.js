@@ -1,5 +1,14 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const { Component } = Ember;
+
+/**
+ * @class PaperGridTileFooter
+ * @extends Ember.Component
+ */
+export default Component.extend({
   tagName: 'md-grid-tile-footer'
 });

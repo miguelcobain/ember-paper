@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
@@ -16,6 +19,10 @@ function getOffsetRect(node) {
   } : { left: 0, top: 0, width: 0, height: 0 };
 }
 
+/**
+ * @class PaperSelectCore
+ * @extends PaperMenuAbstract
+ */
 export default PaperMenuAbstract.extend({
   tagName: 'md-select',
   placeholder: null,
@@ -56,10 +63,10 @@ export default PaperMenuAbstract.extend({
 
   actions: {
     selectOption(value) {
-      this.set('value', value);
+      this.get('onChange')(value);
     },
     deselectOption() {
-      this.set('value', null);
+      this.get('onChange')(null);
     }
   },
 

@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import RippleMixin from '../mixins/ripple-mixin';
 import ProxyMixin from 'ember-paper/mixins/proxy-mixin';
@@ -11,6 +14,12 @@ const {
   Component
 } = Ember;
 
+/**
+ * @class PaperItem
+ * @extends Ember.Component
+ * @uses ProxyMixin
+ * @uses RippleMixin
+ */
 export default Component.extend(RippleMixin, ProxyMixin, {
   tagName: 'md-list-item',
 
@@ -48,6 +57,15 @@ export default Component.extend(RippleMixin, ProxyMixin, {
   }),
 
   shouldBeClickable: computed.or('proxiedComponents.length', 'onClick'),
+
+  click(ev) {
+    this.get('proxiedComponents').forEach((component)=> {
+      if (component.processProxy && !get(component, 'disabled') && (get(component, 'bubbles') | !get(this, 'hasPrimaryAction'))) {
+        component.processProxy();
+      }
+    });
+    this.sendAction('onClick', ev);
+  },
 
   setupProxiedComponent() {
     let tEl = this.$();
@@ -104,17 +122,5 @@ export default Component.extend(RippleMixin, ProxyMixin, {
         set(component, 'isProxyHandlerSet', true);
       }
     });
-  },
-
-  actions: {
-    buttonAction() {
-      this.get('proxiedComponents').forEach((component)=> {
-        if (component.processProxy && !get(component, 'disabled') && (get(component, 'bubbles') | !get(this, 'hasPrimaryAction'))) {
-          component.processProxy();
-        }
-      });
-      this.sendAction('onClick');
-    }
   }
-
 });

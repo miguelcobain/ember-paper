@@ -46,57 +46,57 @@
         <div class="demo-group">
           <h4>Layout Direction</h4>
           {{#paper-radio-group groupValue=layoutDirection onChange=(action (mut layoutDirection)) as |group|}}
-            {{#group.paper-radio value="row"}}
+            {{#group.radio value="row"}}
               row
-            {{/group.paper-radio}}
-            {{#group.paper-radio value="column"}}
+            {{/group.radio}}
+            {{#group.radio value="column"}}
               column
-            {{/group.paper-radio}}
+            {{/group.radio}}
           {{/paper-radio-group}}
         </div>
 
         <div class="demo-group">
           <h4>Alignment in Layout Direction</h4>
           {{#paper-radio-group groupValue=mainDirection onChange=(action (mut mainDirection)) as |group|}}
-            {{#group.paper-radio value=""}}
+            {{#group.radio value=""}}
               none
-            {{/group.paper-radio}}
-            {{#group.paper-radio value="start"}}
+            {{/group.radio}}
+            {{#group.radio value="start"}}
               start (default)
-            {{/group.paper-radio}}
-            {{#group.paper-radio value="center"}}
+            {{/group.radio}}
+            {{#group.radio value="center"}}
               center
-            {{/group.paper-radio}}
-            {{#group.paper-radio value="end"}}
+            {{/group.radio}}
+            {{#group.radio value="end"}}
               end
-            {{/group.paper-radio}}
-            {{#group.paper-radio value="space-around"}}
+            {{/group.radio}}
+            {{#group.radio value="space-around"}}
               space-around
-            {{/group.paper-radio}}
-            {{#group.paper-radio value="space-between"}}
+            {{/group.radio}}
+            {{#group.radio value="space-between"}}
               space-between
-            {{/group.paper-radio}}
+            {{/group.radio}}
           {{/paper-radio-group}}
         </div>
 
         <div class="demo-group">
           <h4>Alignment in Perpendicular Direction</h4>
           {{#paper-radio-group groupValue=perpDirection onChange=(action (mut perpDirection)) as |group|}}
-            {{#group.paper-radio value=""}}
+            {{#group.radio value=""}}
               <em>none</em>
-            {{/group.paper-radio}}
-            {{#group.paper-radio value="start"}}
+            {{/group.radio}}
+            {{#group.radio value="start"}}
               start
-            {{/group.paper-radio}}
-            {{#group.paper-radio value="center"}}
+            {{/group.radio}}
+            {{#group.radio value="center"}}
               center
-            {{/group.paper-radio}}
-            {{#group.paper-radio value="end"}}
+            {{/group.radio}}
+            {{#group.radio value="end"}}
               end
-            {{/group.paper-radio}}
-            {{#group.paper-radio value="stretch"}}
+            {{/group.radio}}
+            {{#group.radio value="stretch"}}
               stretch (default)
-            {{/group.paper-radio}}
+            {{/group.radio}}
           {{/paper-radio-group}}
         </div>
       </div>

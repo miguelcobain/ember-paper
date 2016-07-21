@@ -1,9 +1,17 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
 import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 
+/**
+ * @class PaperOption
+ * @extends BaseFocusable
+ * @uses RippleMixin
+ */
 export default BaseFocusable.extend(RippleMixin, {
   tagName: 'md-option',
 

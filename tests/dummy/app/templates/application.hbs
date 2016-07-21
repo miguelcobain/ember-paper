@@ -1,59 +1,64 @@
-{{#paper-nav-container class="site-nav-container"}}
-  {{#paper-sidenav class="md-sidenav-left md-whiteframe-z2 site-sidenav" locked-open="gt-sm"}}
+{{#paper-sidenav-container class="site-nav-container"}}
+  {{#paper-sidenav class="md-whiteframe-z2 site-sidenav" lockedOpen="gt-sm"
+    open=isSidenavOpen onToggle=(action (mut isSidenavOpen))}}
     {{#paper-toolbar class="site-content-toolbar" tall=true}}
       <div class="logo layout-column layout-align-center-center">
-          <img src="ember-logo-white.png" />
-          <div>paper</div>
+        <img src="ember-logo-white.png">
+        <div>paper</div>
       </div>
     {{/paper-toolbar}}
 
     {{#paper-content}}
 
       {{#paper-list}}
-        {{#menu-item active=(is-active 'index' currentRouteName) onClick=(transition-to "index")}}Introduction{{/menu-item}}
+        {{#menu-item active=(is-active "index" currentRouteName) onClick=(transition-to "index")}}Introduction{{/menu-item}}
 
-        {{#menu-item onClick=(action 'toggleExpandedItem' 'demos') expanded=demosExpanded canExpand=true}}Components{{/menu-item}}
+        {{#menu-item onClick=(action "toggleExpandedItem" "demos") expanded=demosExpanded canExpand=true}}Components{{/menu-item}}
 
         <div class="submenu">
           {{#liquid-if demosExpanded}}
-            {{#submenu-item active=(is-active 'demo.autocomplete' currentRouteName) onClick=(transition-to "demo.autocomplete")}}Autocomplete {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.button' currentRouteName) onClick=(transition-to "demo.button")}}Button{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.card' currentRouteName) onClick=(transition-to "demo.card")}}Card{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.checkbox' currentRouteName) onClick=(transition-to "demo.checkbox")}}Checkbox{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.dialog' currentRouteName) onClick=(transition-to "demo.dialog")}}Dialog{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.grid-list' currentRouteName) onClick=(transition-to "demo.grid-list")}}Grid List {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.icons' currentRouteName) onClick=(transition-to "demo.icons")}}Icons{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.input' currentRouteName) onClick=(transition-to "demo.input")}}Input{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.list' currentRouteName) onClick=(transition-to "demo.list")}}List {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.list-controls' currentRouteName) onClick=(transition-to "demo.list-controls")}}List Controls {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.menu' currentRouteName) onClick=(transition-to "demo.menu")}}Menu {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.progress-circular' currentRouteName) onClick=(transition-to "demo.progress-circular")}}Progress Circular{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.progress-linear' currentRouteName) onClick=(transition-to "demo.progress-linear")}}Progress Linear{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.radio' currentRouteName) onClick=(transition-to "demo.radio")}}Radio{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.select' currentRouteName) onClick=(transition-to "demo.select")}}Select {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.sidenav' currentRouteName) onClick=(transition-to "demo.sidenav")}}Sidenav {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.slider' currentRouteName) onClick=(transition-to "demo.slider")}}Slider {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.switch' currentRouteName) onClick=(transition-to "demo.switch")}}Switch{{/submenu-item}}
-            {{#submenu-item active=(is-active 'demo.toolbar' currentRouteName) onClick=(transition-to "demo.toolbar")}}Toolbar{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.autocomplete" currentRouteName) onClick=(transition-to "demo.autocomplete")}}Autocomplete {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.button" currentRouteName) onClick=(transition-to "demo.button")}}Button{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.card" currentRouteName) onClick=(transition-to "demo.card")}}Card{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.checkbox" currentRouteName) onClick=(transition-to "demo.checkbox")}}Checkbox{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.dialog" currentRouteName) onClick=(transition-to "demo.dialog")}}Dialog{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.divider" currentRouteName) onClick=(transition-to "demo.divider")}}Divider{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.grid-list" currentRouteName) onClick=(transition-to "demo.grid-list")}}Grid List {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.icons" currentRouteName) onClick=(transition-to "demo.icons")}}Icons{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.input" currentRouteName) onClick=(transition-to "demo.input")}}Input{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.list" currentRouteName) onClick=(transition-to "demo.list")}}List {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.list-controls" currentRouteName) onClick=(transition-to "demo.list-controls")}}List Controls {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.menu" currentRouteName) onClick=(transition-to "demo.menu")}}Menu {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.progress-circular" currentRouteName) onClick=(transition-to "demo.progress-circular")}}Progress Circular{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.progress-linear" currentRouteName) onClick=(transition-to "demo.progress-linear")}}Progress Linear{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.radio" currentRouteName) onClick=(transition-to "demo.radio")}}Radio{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.select" currentRouteName) onClick=(transition-to "demo.select")}}Select {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.sidenav" currentRouteName) onClick=(transition-to "demo.sidenav")}}Sidenav{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.slider" currentRouteName) onClick=(transition-to "demo.slider")}}Slider {{paper-icon "warning" title="Not updated yet."}}{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.switch" currentRouteName) onClick=(transition-to "demo.switch")}}Switch{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.toolbar" currentRouteName) onClick=(transition-to "demo.toolbar")}}Toolbar{{/submenu-item}}
           {{/liquid-if}}
         </div>
-        {{#menu-item active=(is-active 'typography' currentRouteName) onClick=(transition-to "typography")}}Typography{{/menu-item}}
+        {{#menu-item active=(is-active "typography" currentRouteName) onClick=(transition-to "typography")}}Typography{{/menu-item}}
+        {{#menu-item active=(is-active "theme" currentRouteName) onClick=(transition-to "theme")}}Color & Theme{{/menu-item}}
 
-        {{#menu-item onClick=(action 'toggleExpandedItem' 'layout') expanded=layoutExpanded canExpand=true}}Layout{{/menu-item}}
+        {{#menu-item onClick=(action "toggleExpandedItem" "layout") expanded=layoutExpanded canExpand=true}}Layout{{/menu-item}}
         <div class="submenu">
           {{#liquid-if layoutExpanded}}
-            {{#submenu-item active=(is-active 'layout.introduction' currentRouteName) onClick=(transition-to "layout.introduction")}}Introduction{{/submenu-item}}
-            {{#submenu-item active=(is-active 'layout.layout-containers' currentRouteName) onClick=(transition-to "layout.layout-containers")}}Layout Containers{{/submenu-item}}
-            {{#submenu-item active=(is-active 'layout.layout-children' currentRouteName) onClick=(transition-to "layout.layout-children")}}Layout Children{{/submenu-item}}
-            {{#submenu-item active=(is-active 'layout.child-alignment' currentRouteName) onClick=(transition-to "layout.child-alignment")}}Child Alignment{{/submenu-item}}
+            {{#submenu-item active=(is-active "layout.introduction" currentRouteName) onClick=(transition-to "layout.introduction")}}Introduction{{/submenu-item}}
+            {{#submenu-item active=(is-active "layout.layout-containers" currentRouteName) onClick=(transition-to "layout.layout-containers")}}Layout Containers{{/submenu-item}}
+            {{#submenu-item active=(is-active "layout.layout-children" currentRouteName) onClick=(transition-to "layout.layout-children")}}Layout Children{{/submenu-item}}
+            {{#submenu-item active=(is-active "layout.child-alignment" currentRouteName) onClick=(transition-to "layout.child-alignment")}}Child Alignment{{/submenu-item}}
           {{/liquid-if}}
         </div>
+
+        {{#menu-item active=(is-active "cookbook" currentRouteName) onClick=(transition-to "cookbook")}}Cookbook{{/menu-item}}
       {{/paper-list}}
 
     {{/paper-content}}
   {{/paper-sidenav}}
 
-  <div layout="column" tabindex="-1" role="main" flex>
+  <div class="flex layout-column" tabindex="-1" role="main">
     {{outlet}}
   </div>
-{{/paper-nav-container}}
+{{/paper-sidenav-container}}

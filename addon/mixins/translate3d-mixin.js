@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
 const {
@@ -11,6 +14,10 @@ const {
   K
 } = Ember;
 
+/**
+ * @class Translate3dMixin
+ * @extends Ember.Mixin
+ */
 export default Mixin.create({
   constants: inject.service(),
 
@@ -84,7 +91,7 @@ export default Mixin.create({
         dialogClone.removeClass('md-transition-in');
         dialogClone.addClass('md-transition-out');
         dialogClone.attr('style', toStyle);
-        run.next(() => {
+        window.requestAnimationFrame(() => {
           this.waitTransitionEnd(dialogClone).then(() => {
             containerClone.remove();
             this.onTranslateToEnd($(this.get('origin')));

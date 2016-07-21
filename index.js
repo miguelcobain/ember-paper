@@ -16,9 +16,8 @@ module.exports = {
     if (!process.env.EMBER_CLI_FASTBOOT) {
       app.import(app.bowerDirectory + '/hammer.js/hammer.js')
       app.import(app.bowerDirectory + '/matchMedia/matchMedia.js');
-    };
-
-    app.import('vendor/propagating.js');
+      app.import('vendor/propagating.js');
+    }
   },
 
   contentFor: function(type) {

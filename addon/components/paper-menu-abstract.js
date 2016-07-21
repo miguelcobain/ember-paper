@@ -1,7 +1,14 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 
 const { Component, inject, assert } = Ember;
 
+/**
+ * @class PaperMenuAbstract
+ * @extends Ember.Component
+ */
 export default Component.extend({
   constants: inject.service(),
 

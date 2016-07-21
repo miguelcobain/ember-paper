@@ -1,8 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
 let MENU_EDGE_MARGIN = 8;
 
+/**
+ * @class PaperMenu
+ * @extends Ember.Component
+ */
 export default PaperMenuAbstract.extend({
   tagName: 'md-menu',
 

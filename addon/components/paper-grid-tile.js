@@ -1,7 +1,16 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import PaperGridList from './paper-grid-list';
 
-export default Ember.Component.extend({
+const { Component } = Ember;
+
+/**
+ * @class PaperGridTile
+ * @extends Ember.Component
+ */
+export default Component.extend({
   tagName: 'md-grid-tile',
 
   constants: Ember.inject.service(),

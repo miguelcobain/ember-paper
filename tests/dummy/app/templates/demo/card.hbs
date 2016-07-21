@@ -3,8 +3,8 @@
 {{#doc-content class="card-demo"}}
   <h2>Basic Usage</h2>
   {{! BEGIN-SNIPPET card.basic-usage }}
-  <div class="layout-row">
-    <div class="flex-50">
+  <div class="layout-row layout-xs-column">
+    <div class="layout-column flex-xs flex-gt-xs-50">
       {{#paper-card as |card|}}
         {{#card.title as |title|}}
           {{#title.text as |text|}}
@@ -38,7 +38,7 @@
         {{/card.content}}
       {{/paper-card}}
     </div>
-    <div class="flex-50">
+    <div class="layout-column flex-xs flex-gt-xs-50">
       {{#paper-card as |card|}}
         {{#card.title as |title|}}
           {{#title.text as |text|}}
@@ -77,8 +77,8 @@
 
   <h2>Card Action Buttons</h2>
   {{! BEGIN-SNIPPET card.action-buttons }}
-  <div class="layout-row">
-    <div class="flex-50">
+  <div class="layout-row layout-xs-column">
+    <div class="layout-column flex-xs flex-gt-xs-50">
       {{#paper-card as |card|}}
         {{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
         {{#card.title as |title|}}
@@ -126,7 +126,7 @@
       {{/paper-card}}
     </div>
 
-    <div class="flex-50">
+    <div class="layout-column flex-xs flex-gt-xs-50">
       {{#paper-card as |card|}}
         {{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
         {{#card.title as |title|}}
@@ -188,8 +188,8 @@
 
   <h2>In Card Actions</h2>
   {{! BEGIN-SNIPPET card.in-card-actions }}
-  <div class="layout-row">
-    <div class="flex-50">
+  <div class="layout-row layout-xs-column">
+    <div class="layout-column flex-xs flex-gt-xs-50">
       {{#paper-card as |card|}}
         {{card.image src="washedout.png" alt="Washed Out" title="Washed Out"}}
         {{#card.title as |title|}}
@@ -246,7 +246,7 @@
       {{/paper-card}}
     </div>
 
-    <div class="flex-50">
+    <div class="layout-column flex-xs flex-gt-xs-50">
       {{#paper-card as |card|}}
         {{#card.header as |header|}}
           {{#header.avatar}}

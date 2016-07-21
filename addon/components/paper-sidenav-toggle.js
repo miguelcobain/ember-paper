@@ -1,27 +1,24 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
-import PaperNavContainer from './paper-nav-container';
 
-export default Ember.Component.extend({
-  tagName: 'div',
+const { Component, inject } = Ember;
 
-  navContainer: Ember.computed(function() {
-    return this.nearestOfType(PaperNavContainer);
-  }),
+/**
+ * @class PaperSidenavToggle
+ * @extends Ember.Component
+ */
+export default Component.extend({
 
-  actions: {
-    toggleMenu() {
-      this.get('navContainer').get('sideBar').send('toggleMenu');
-    }
-  },
+  tagName: '',
 
-  didInsertElement() {
-    this._super(...arguments);
-    if (this.get('navContainer')) {
-      let lockedOpen = this.get('navContainer').get('sideBar').get('locked-open');
-      if (lockedOpen) {
-        this.$().attr(`hide-${lockedOpen}`, true);
-      }
-    }
+  name: 'default',
+
+  paperSidenav: inject.service(),
+
+  toggle() {
+    this.get('paperSidenav').toggle(this.get('name'));
   }
 
 });

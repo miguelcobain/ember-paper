@@ -8,6 +8,8 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('introduction');
   this.route('typography');
+  this.route('theme');
+  this.route('cookbook');
 
   this.route('demo', { path: 'components' }, function() {
     this.route('autocomplete');

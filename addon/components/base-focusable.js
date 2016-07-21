@@ -1,7 +1,16 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import EventsMixin from '../mixins/events-mixin';
+
 const { Component, computed } = Ember;
 
+/**
+ * @class BaseFocusable
+ * @extends Ember.Component
+ * @uses EventsMixin
+ */
 export default Component.extend(EventsMixin, {
 
   disabled: false,

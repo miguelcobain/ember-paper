@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import EventsMixin from 'ember-paper/mixins/events-mixin';
 import BaseFocusable from './base-focusable';
@@ -5,6 +8,13 @@ import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
+/**
+ * @class PaperSlider
+ * @extends BaseFocusable
+ * @uses ColorMixin
+ * @uses EventsMixin
+ * @uses FlexMixin
+ */
 export default BaseFocusable.extend(EventsMixin, FlexMixin, ColorMixin, {
 
   tagName: 'md-slider',

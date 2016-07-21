@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
@@ -6,6 +9,13 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 const { computed } = Ember;
 
+/**
+ * @class PaperButton
+ * @extends BaseFocusable
+ * @uses ColorMixin
+ * @uses ProxiableMixin
+ * @uses RippleMixin
+ */
 export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'button',
   classNames: ['paper-button', 'md-default-theme', 'md-button'],

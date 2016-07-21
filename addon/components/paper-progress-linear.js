@@ -1,5 +1,9 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+
 const { inject, computed, Component, isPresent } = Ember;
 
 function makeTransform(value) {
@@ -13,6 +17,11 @@ const MODE_INDETERMINATE = 'indeterminate';
 const MODE_BUFFER = 'buffer';
 const MODE_QUERY = 'query';
 
+/**
+ * @class PaperProgressLinear
+ * @extends Ember.Component
+ * @uses ColorMixin
+ */
 export default Component.extend(ColorMixin, {
   tagName: 'md-progress-linear',
 
@@ -67,8 +76,7 @@ export default Component.extend(ColorMixin, {
     return Ember.String.htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedBufferValue')]}`);
   }),
 
-  bar2Style: computed('clampedValue', function() {
-
+  bar2Style: computed('clampedValue', 'mode', function() {
     if (this.get('mode') === MODE_QUERY) {
       return Ember.String.htmlSafe('');
     }

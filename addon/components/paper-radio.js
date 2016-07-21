@@ -1,9 +1,19 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import RippleMixin from '../mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+
 const { computed, assert } = Ember;
 
+/**
+ * @class PaperRadio
+ * @extends BaseFocusable
+ * @uses ColorMixin
+ * @uses RippleMixin
+ */
 export default BaseFocusable.extend(RippleMixin, ColorMixin, {
   tagName: 'md-radio-button',
   classNames: ['md-default-theme'],
@@ -23,7 +33,7 @@ export default BaseFocusable.extend(RippleMixin, ColorMixin, {
   focusOnlyOnKey: true,
 
   // Lifecycle hooks
-  didInitAttrs() {
+  init() {
     this._super(...arguments);
     assert('{{paper-radio}} requires an `onChange` action or null for no action.', this.get('onChange') !== undefined);
 

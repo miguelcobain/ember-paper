@@ -1,16 +1,29 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import { promiseArray } from 'ember-paper/utils/promise-proxies';
+
+const {
+  Component,
+  inject,
+  computed,
+  String: { fmt },
+  observer,
+  run,
+  get,
+  isArray,
+  A,
+  assert,
+  isPresent
+} = Ember;
 
 function isString(item) {
   return typeof item === 'string' || item instanceof String;
 }
 
-/*
- * @name paper-autocomplete
- *
- * @description
- *     Provides material design autocomplete.
- *
+/**
+ * Provides material design autocomplete.
  *
  * ## Dependencies
  * - paper-autocomplete-item
@@ -18,10 +31,13 @@ function isString(item) {
  * - paper-input
  * - paper-button
  * - input
+ *
+ * @class PaperAutoComplete
+ * @extends Ember.Component
  */
-export default Ember.Component.extend({
-  util: Ember.inject.service(),
-  constants: Ember.inject.service(),
+export default Component.extend({
+  util: inject.service(),
+  constants: inject.service(),
 
   tagName: 'md-autocomplete',
   classNameBindings: ['notFloating:md-default-theme'],
@@ -36,7 +52,7 @@ export default Ember.Component.extend({
   searchText: '',
   // wrap in a computed property so that cache
   // isn't shared among autocomplete instances
-  itemCache: Ember.computed(function() {
+  itemCache: computed(function() {
     return {};
   }),
 
@@ -60,10 +76,10 @@ export default Ember.Component.extend({
     }
   },
 
-  notFloating: Ember.computed.not('floating'),
-  notHidden: Ember.computed.not('hidden'),
+  notFloating: computed.not('floating'),
+  notHidden: computed.not('hidden'),
 
-  autocompleteWrapperId: Ember.computed('elementId', function() {
+  autocompleteWrapperId: computed('elementId', function() {
     return `autocomplete-wrapper-${this.get('elementId')}`;
   }),
 
@@ -72,31 +88,31 @@ export default Ember.Component.extend({
     notFoundTemplate: { isNotFoundTemplate: true }
   },
 
-  notFoundMsg: Ember.computed('searchText', 'notFoundMessage', function() {
-    return Ember.String.fmt(this.get('notFoundMessage'), [this.get('searchText')]);
+  notFoundMsg: computed('searchText', 'notFoundMessage', function() {
+    return fmt(this.get('notFoundMessage'), [this.get('searchText')]);
   }),
 
   /*
    * Needed because of false = disabled='false'.
    */
-  showDisabled: Ember.computed('disabled', function() {
+  showDisabled: computed('disabled', function() {
     if (this.get('disabled')) {
       return true;
     }
   }),
 
-  showLoadingBar: Ember.computed('loading', 'allowNonExisting', 'debouncingState', function() {
+  showLoadingBar: computed('loading', 'allowNonExisting', 'debouncingState', function() {
     return !this.get('loading') && !this.get('allowNonExisting') && !this.get('debouncingState');
   }),
 
-  enableClearButton: Ember.computed('searchText', 'disabled', function() {
+  enableClearButton: computed('searchText', 'disabled', function() {
     return this.get('searchText') && !this.get('disabled');
   }),
 
   /*
    * Source filtering logic
    */
-  searchTextDidChange: Ember.observer('searchText', function() {
+  searchTextDidChange: observer('searchText', function() {
     let searchText = this.get('searchText');
     if (searchText !== this.get('previousSearchText')) {
       if (!this.get('allowNonExisting')) {
@@ -108,12 +124,12 @@ export default Ember.Component.extend({
       this.sendAction('update-filter', searchText);
 
       this.set('debouncingState', true);
-      Ember.run.debounce(this, this.setDebouncedSearchText, this.get('delay'));
+      run.debounce(this, this.setDebouncedSearchText, this.get('delay'));
       this.set('previousSearchText', searchText);
     }
   }),
 
-  modelDidChange: Ember.observer('model', function() {
+  modelDidChange: observer('model', function() {
     let model = this.get('model');
     let value = this.lookupLabelOfItem(model);
     // First set previousSearchText then searchText ( do not trigger observer only update value! ).
@@ -143,25 +159,25 @@ export default Ember.Component.extend({
     this.set('debouncingState', false);
   },
 
-  loading: Ember.computed.bool('sourcePromiseArray.isPending').readOnly(),
+  loading: computed.bool('sourcePromiseArray.isPending').readOnly(),
 
   // coalesces all promises into PromiseArrays or Arrays
-  sourcePromiseArray: Ember.computed('source', function() {
+  sourcePromiseArray: computed('source', function() {
     let source = this.get('source');
     if (source && source.then) {
       // coalesce into promise array
       return promiseArray(source);
-    } else if (Ember.isArray(source)) {
+    } else if (isArray(source)) {
       // return array
-      return Ember.A(source);
+      return A(source);
     } else {
       // Unknown source type
-      Ember.assert('The provided \'source\' for paper-autocomplete must be an Array or a Promise.', !Ember.isPresent(source));
-      return Ember.A();
+      assert('The provided \'source\' for paper-autocomplete must be an Array or a Promise.', !isPresent(source));
+      return A();
     }
   }).readOnly(),
 
-  suggestions: Ember.computed('debouncedSearchText', 'sourcePromiseArray.[]', function() {
+  suggestions: computed('debouncedSearchText', 'sourcePromiseArray.[]', function() {
     let source = this.get('sourcePromiseArray');
     let lookupKey = this.get('lookupKey');
     let searchText = (this.get('debouncedSearchText') || '').toLowerCase();
@@ -179,7 +195,7 @@ export default Ember.Component.extend({
         // cache when we have a PromiseArray
         this.cacheSet(searchText, data);
       }
-      suggestions = Ember.A(data);
+      suggestions = A(data);
     }
     // If we have no item suggestions, and allowNonExisting is enabled
     // We need to close the paper-autocomplete-list so all mouse events get activated again.
@@ -191,15 +207,15 @@ export default Ember.Component.extend({
 
   filterArray(array, searchText, lookupKey) {
     return array.filter(function(item) {
-      Ember.assert(`You have not defined \`lookupKey\` on paper-autocomplete, when source contained
+      assert(`You have not defined \`lookupKey\` on paper-autocomplete, when source contained
         items that are not of type String. To fix this error provide a
-        lookupKey=\`key to lookup from source item\`.`, isString(item) || Ember.isPresent(lookupKey));
+        lookupKey=\`key to lookup from source item\`.`, isString(item) || isPresent(lookupKey));
 
-      Ember.assert(`You specified \`lookupKey\` as a lookupKey on paper-autocomplete,
+      assert(`You specified \`lookupKey\` as a lookupKey on paper-autocomplete,
         but at least one of its values is not of type String. To fix this error make sure that every \`lookupKey\`
-        value is a string.`, isString(item) || (Ember.isPresent(lookupKey) && isString(Ember.get(item, lookupKey))));
+        value is a string.`, isString(item) || (isPresent(lookupKey) && isString(get(item, lookupKey))));
 
-      let search = isString(item) ? item.toLowerCase() : Ember.get(item, lookupKey).toLowerCase();
+      let search = isString(item) ? item.toLowerCase() : get(item, lookupKey).toLowerCase();
       return search.indexOf(searchText) === 0;
     });
   },
@@ -213,9 +229,9 @@ export default Ember.Component.extend({
     this.get('itemCache')[text] = data;
   },
 
-  shouldHide: Ember.computed.not('isMinLengthMet'),
+  shouldHide: computed.not('isMinLengthMet'),
 
-  isMinLengthMet: Ember.computed('searchText', 'minLength', function() {
+  isMinLengthMet: computed('searchText', 'minLength', function() {
     return this.get('searchText').length >= this.get('minLength');
   }),
 
@@ -223,12 +239,12 @@ export default Ember.Component.extend({
    * Returns the default index based on whether or not autoselect is enabled.
    * @returns {number}
    */
-  defaultIndex: Ember.computed('autoselect', function() {
+  defaultIndex: computed('autoselect', function() {
     return this.get('autoselect') ? 0 : -1;
   }),
 
   lookupLabelOfItem(model) {
-    return this.get('lookupKey') ? Ember.get(model, this.get('lookupKey')) : model;
+    return this.get('lookupKey') ? get(model, this.get('lookupKey')) : model;
   },
 
   actions: {
