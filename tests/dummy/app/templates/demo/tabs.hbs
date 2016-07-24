@@ -1,35 +1,19 @@
-{{#paper-toolbar}}
-  <div class="md-toolbar-tools">
-    {{#paper-sidenav-toggle as |toggle|}}
-      {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
-    {{/paper-sidenav-toggle}}
-      <span class="md-breadcrumb-page">Tabs</span>
-  </div>
-{{/paper-toolbar}}
+{{page-toolbar pageTitle="Tabs" isDemo=true}}
 
-<div class="doc-content">
-  <h2>Contextual Components</h2>
-
-  {{#paper-content class="md-whiteframe-z1 list-demo"}}
+{{#doc-content}}
+  {{! BEGIN-SNIPPET tabs }}
     {{#paper-tabs dynamicHeight=true as |tabs|}}
-      {{tabs.tab label="Great! This is a really long tab for pagination development"}}
       {{#tabs.tab label="tab one" as |tab|}}
         {{#paper-content class="md-padding"}}
            <h1>Tab One</h1>
            <p>Lorem ipsum dolor sit amet.</p>
         {{/paper-content}}
       {{/tabs.tab}}
-      {{#tabs.tab as |tab|}}
-        {{#tab.label}}
-        HTML &bull; Label
-        {{/tab.label}}
-        {{#tab.body}}
-          {{#paper-content class="md-padding"}}
-            <h1>Tab Two</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
-          {{/paper-content}}
-        {{/tab.body}}
+      {{#tabs.tab label="tab two" as |tab|}}
+        {{#paper-content class="md-padding"}}
+           <h1>Tab Two</h1>
+           <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
       {{/tabs.tab}}
       {{#tabs.tab label="tab three" as |tab|}}
         {{#paper-content class="md-padding"}}
@@ -38,23 +22,14 @@
         {{/paper-content}}
       {{/tabs.tab}}
     {{/paper-tabs}}
-  {{/paper-content}}
+  {{! END-SNIPPET }}
 
-</div>
+  <h3>Template</h3>
+  {{code-snippet name="tabs.hbs"}}
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>bottom</td>
-      <td>boolean</td>
-      <td>Align tabs to bottom</td>
-    </tr>
-  </tbody>
-</table>
+  {{paper-api
+    (p-section
+      (p-row "bottom" "boolean" "Align tabs to bottom")
+    )
+  }}
+{{/doc-content}}
