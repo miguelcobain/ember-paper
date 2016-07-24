@@ -55,7 +55,6 @@ export default Ember.Component.extend({
     return this.get('selectedTab.offsetLeft') - leftOffset;
   }),
   inkBarRightPosition: computed('inkBarLeftPosition', 'selectedTab.offsetWidth', 'pagingWidth', 'offsetLeft', function() {
-    let leftOffset = this.$().offset().left;
     let position = this.get('pagingWidth');// - this.get('selectedTab.left');
     position -= this.get('inkBarLeftPosition');
     position -= this.get('selectedTab.offsetWidth');
