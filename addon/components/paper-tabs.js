@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { computed, observer, $, run } = Ember;
+const { computed, observer, $ } = Ember;
 
 export default Ember.Component.extend({
   tagName: 'md-tabs',
@@ -75,7 +75,6 @@ export default Ember.Component.extend({
     return ((canvasWidth - pagingWidth) < 0) ? true : false;
   }),
   pagingWidth: computed('tabs.[].id', 'shouldStretchTabs', function() {
-    let context = this;
     let width = 0;
     this.get('tabs').forEach(function(tab) {
       if (tab.id) {
@@ -194,7 +193,7 @@ export default Ember.Component.extend({
   nextPage() {
     let canvasWidth = this.get('canvasWidth');
     let totalWidth = canvasWidth + this.get('offsetLeft');
-    let i, tab, element;
+    let i, tab;
 
     for (i = 0; i < this.get('tabs.length'); i++) {
       tab = document.getElementById(this.get('tabs')[i].id);
@@ -265,7 +264,7 @@ export default Ember.Component.extend({
       tab = this.getTabByIndex(newIndex - i);
       if (tab && (tab.get('disabled') !== true)) {
         return this.getTabIndex(tab);
-      };
+      }
     }
     return newIndex;
   },
@@ -276,8 +275,7 @@ export default Ember.Component.extend({
 
   /* Events */
 
-  keyDown(ev) {
-    debugger;
+  keyDown() {
   },
 
   actions: {
@@ -297,7 +295,7 @@ export default Ember.Component.extend({
     createTab(object) {
       this.get('tabs').pushObject(object);
       if (this.get('autoSelect')) {
-        this.set('selected', getTabIndex(object));
+        this.set('selected', this.getTabIndex(object));
       }
     },
     destroyTab(object) {

@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import RippleMixin from '../mixins/ripple-mixin';
-import BaseFocusable from './base-focusable';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 const { computed, observer } = Ember;
@@ -95,7 +94,7 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   setTargetTabHeight() {
-    let height = $(`#${this.get('self.content')}`).height();
+    let height = this.$(`#${this.get('self.content')}`).height();
     this.set('self.height', height);
   },
 
