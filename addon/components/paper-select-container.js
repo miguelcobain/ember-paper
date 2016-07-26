@@ -1,7 +1,8 @@
 import PaperMenuContent from './paper-menu-content';
+import Ember from 'ember';
 
-const { run } = Ember;
-const MutObserver = self.window.MutationObserver || self.window.WebKitMutationObserver;
+const { run, $ } = Ember;
+const MutObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 function waitForAnimations(element, callback) {
   let computedStyle = window.getComputedStyle(element);
@@ -25,11 +26,11 @@ function waitForAnimations(element, callback) {
 export default PaperMenuContent.extend({
   animateIn() {
     run.next(() => {
-      this.set('isActive', true);
-      this.dropdownElement.style.transform = '';
-      run.scheduleOnce('afterRender',this,() => {
+      run.scheduleOnce('afterRender', this, () => {
         let dropdown = this.get('dropdown');
         dropdown.actions.reposition();
+        this.set('isActive', true);
+        this.dropdownElement.style.transform = '';
       });
     });
   },
@@ -38,8 +39,8 @@ export default PaperMenuContent.extend({
     let clone = dropdownElement.cloneNode(true);
     clone.id = `${clone.id}--clone`;
     let $clone = $(clone);
-    $(clone.children[0].children[0]).scrollTop(288);
     parentElement.appendChild(clone);
+    $(clone.children[0].children[0]).scrollTop($(dropdownElement.children[0].children[0]).scrollTop());
     window.requestAnimationFrame(() => {
       if (!this.get('isDestroyed')) {
         this.set('isActive', false);
@@ -52,9 +53,9 @@ export default PaperMenuContent.extend({
     });
   },
   addGlobalEvents() {
-    self.window.addEventListener('scroll', this.runloopAwareReposition);
-    self.window.addEventListener('resize', this.runloopAwareReposition);
-    self.window.addEventListener('orientationchange', this.runloopAwareReposition);
+    window.addEventListener('scroll', this.runloopAwareReposition);
+    window.addEventListener('resize', this.runloopAwareReposition);
+    window.addEventListener('orientationchange', this.runloopAwareReposition);
     if (MutObserver) {
       this.mutationObserver = new MutObserver((mutations) => {
         // e-b-d incorrectly counts ripples as a mutation, triggering a problematic repositon
