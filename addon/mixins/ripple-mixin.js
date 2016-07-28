@@ -126,9 +126,8 @@ export default Mixin.create({
 
   },
   bindEvents() {
-    this.rippleElement.on('mousedown', run.bind(this, this.handleMousedown));
-    this.rippleElement.on('mouseup touchend', run.bind(this, this.handleMouseup));
-    this.rippleElement.on('mouseleave', run.bind(this, this.handleMouseup));
+    this.rippleElement.on('mousedown touchstart pointerdown', run.bind(this, this.handleMousedown));
+    this.rippleElement.on('mouseup mouseleave touchend touchcancel pointerup pointercancel', run.bind(this, this.handleMouseup));
     this.rippleElement.on('touchmove', run.bind(this, this.handleTouchmove));
   },
   handleMousedown(event) {
