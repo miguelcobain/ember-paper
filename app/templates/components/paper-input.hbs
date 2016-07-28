@@ -11,7 +11,6 @@
     class="md-input {{if isInvalid "ng-invalid"}} {{if isTouched "ng-dirty"}}"
     id={{inputElementId}}
     placeholder={{placeholder}}
-    value={{value}}
     disabled={{disabled}}
     autofocus={{autofocus}}
     onfocus={{onFocus}}
@@ -38,7 +37,6 @@
     id={{inputElementId}}
     placeholder={{placeholder}}
     type={{type}}
-    value={{value}}
     disabled={{disabled}}
     autofocus={{autofocus}}
     onfocus={{onFocus}}
@@ -79,12 +77,11 @@
       <div class="md-char-counter">{{renderCharCount}}</div>
     {{/if}}
   </div>
-  {{#if isInvalid}}
+  {{#if isInvalidAndTouched}}
     <div class="md-input-messages-animation md-auto-hide" ng-messages>
       {{#each validationErrorMessages as |error index|}}
-        <div
-          id="error-{{inputElementId}}-{{index}}"
-          class="paper-input-error ng-enter ng-enter-active" ng-message>
+        <div id="error-{{inputElementId}}-{{index}}"
+        class="paper-input-error ng-enter ng-enter-active" ng-message>
           {{error.message}}
         </div>
       {{/each}}

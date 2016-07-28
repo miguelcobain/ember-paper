@@ -42,6 +42,7 @@
     "ember-code-snippet": "1.3.0",
     "ember-cp-validations": "2.6.1",
     "ember-data": "^2.6.0",
+    "ember-deferred-content": "0.2.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.5",
@@ -52,7 +53,8 @@
     "ember-suave": "2.0.1",
     "ember-transition-helper": "0.0.6",
     "liquid-fire": "0.23.1",
-    "loader.js": "^4.0.1"
+    "loader.js": "^4.0.1",
+    "virtual-each": "0.2.2"
   },
   "dependencies": {
     "angular-material-source": "angular/material#v1.0.6",

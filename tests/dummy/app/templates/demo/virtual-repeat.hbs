@@ -1,0 +1,117 @@
+{{page-toolbar pageTitle="Virtual Repeat" isDemo=true isWIP=true}}
+{{#doc-content}}
+<h2>Deferred Loading</h2>
+
+<div layout="row">
+  {{! BEGIN-SNIPPET virtual-repeat.deferred }}
+  
+	  {{#paper-virtual-repeat class="vertical-demo"
+	    items=deferredItems
+	    length=50000
+	    getAtIndex=(action 'getAtIndex')
+	    as |visibleItems|
+	  }}
+	    {{#each visibleItems as |item|}}
+	      <div class="repeated-item">
+	      	{{#deferred-content promise=item as |d|}}
+	      		{{#d.fulfilled as |num|}}{{num}}{{/d.fulfilled}}
+	      	{{/deferred-content}}
+	      </div>
+	    {{/each}}
+	  {{/paper-virtual-repeat}}
+
+  {{! END-SNIPPET }}
+</div>
+
+<h3>Template</h3>
+{{code-snippet name="virtual-repeat.deferred.hbs"}}
+
+<h2>Horizontal Orientation</h2>
+
+<div layout="row">
+  {{! BEGIN-SNIPPET virtual-repeat.horizontal }}
+  
+	  {{#paper-virtual-repeat class="horizontal-demo"
+	    items=items
+	    horizontal=true
+	    as |visibleItems|
+	  }}
+	    {{#each visibleItems as |item|}}
+	      <div class="repeated-item-horiz">{{item}}</div>
+	    {{/each}}
+	  {{/paper-virtual-repeat}}
+
+  {{! END-SNIPPET }}
+</div>
+
+<h3>Template</h3>
+{{code-snippet name="virtual-repeat.horizontal.hbs"}}
+
+<h2>Infinite Scroll</h2>
+
+<div layout="row">
+  {{! BEGIN-SNIPPET virtual-repeat.infinite }}
+  
+	  {{#paper-virtual-repeat class="vertical-demo"
+	    items=infiniteItems
+	    onScrollBottomed=(action 'fetchMore')
+	    as |visibleItems|
+	  }}
+	    {{#each visibleItems as |item|}}
+	      <div class="repeated-item">{{item}}</div>
+	    {{/each}}
+	  {{/paper-virtual-repeat}}
+
+  {{! END-SNIPPET }}
+</div>
+
+<h3>Template</h3>
+{{code-snippet name="virtual-repeat.infinite.hbs"}}
+
+<h2>Scroll To</h2>
+
+<div layout="column">
+  {{! BEGIN-SNIPPET virtual-repeat.scrollto }}
+  	  {{#paper-select class="flex-start" value=selected placeholder="Year" onChange=(action 'scrollTo')}}
+  	  	{{#each years as |year|}}
+  	  		{{#paper-option value=year}}
+  	  			{{year}}
+  	  		{{/paper-option}}
+  	  	{{/each}}
+  	  {{/paper-select}}
+	  {{#paper-virtual-repeat class="vertical-demo"
+	    items=scrollToItems
+	    positionIndex=scrollIndex
+	    as |visibleItems|
+	  }}
+	    {{#each visibleItems as |item|}}
+	      <div class="repeated-item {{if item.header "header"}}">{{item.text}}</div>
+	    {{/each}}
+	  {{/paper-virtual-repeat}}
+
+  {{! END-SNIPPET }}
+</div>
+
+<h3>Template</h3>
+{{code-snippet name="virtual-repeat.scrollto.hbs"}}
+
+<h2>Vertical Orientation</h2>
+
+<div layout="row">
+  {{! BEGIN-SNIPPET virtual-repeat.vertical }}
+  
+	  {{#paper-virtual-repeat class="vertical-demo"
+	    items=items
+	    as |visibleItems|
+	  }}
+	    {{#each visibleItems as |item|}}
+	      <div class="repeated-item">{{item}}</div>
+	    {{/each}}
+	  {{/paper-virtual-repeat}}
+
+  {{! END-SNIPPET }}
+</div>
+
+<h3>Template</h3>
+{{code-snippet name="virtual-repeat.vertical.hbs"}}
+{{/doc-content}}

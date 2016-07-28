@@ -409,3 +409,55 @@ test('the `onChange` action is mandatory for paper-input', function(assert) {
     `);
   }, /`onChange` action/);
 });
+
+test('displayed input value matches actual input value', function(assert) {
+  assert.expect(4);
+
+  this.set('value', '');
+  this.onChange = () => {
+    this.set('value', '123');
+  };
+
+  this.render(hbs`{{paper-input onChange=onChange value=value}}`);
+
+  this.$('input, textarea').val('12345').trigger('input');
+  assert.equal(this.$('input, textarea').val(), '123', 'input value should be 123');
+  assert.equal(this.value, '123', 'component value should be 123');
+
+  this.$('input, textarea').val('abcdefg').trigger('input');
+  assert.equal(this.$('input, textarea').val(), '123', 'input values do not match');
+  assert.equal(this.value, '123', 'component value should be 123');
+
+});
+
+test('displayed input value matches actual input value with no onChange method', function(assert) {
+  assert.expect(2);
+
+  this.set('value', 'foo');
+
+  this.render(hbs`{{paper-input onChange=null value=value}}`);
+
+  this.$('input, textarea').val('12345').trigger('input');
+  assert.equal(this.$('input, textarea').val(), 'foo', 'input value should be `foo` (component value)');
+  assert.equal(this.get('value'), 'foo', 'component value should be foo');
+
+});
+
+test('errors only show after input is touched and input is invalid', function(assert) {
+  assert.expect(4);
+
+  let errors = [{
+    message: 'foo should be a number.',
+    attribute: 'foo'
+  }];
+  this.set('errors', errors);
+
+  this.render(hbs`{{paper-input onChange=null errors=errors}}`);
+
+  assert.equal(this.$('.md-input-invalid').length, 0, 'does not render md-input-invalid class');
+  assert.equal(this.$('.paper-input-error').length, 0, 'renders zero errors');
+  this.$('input, textarea').trigger('blur');
+  assert.equal(this.$('.paper-input-error').length, 1, 'render md-input-invalid class');
+  assert.equal(this.$('.md-input-invalid').length, 1, 'renders one error');
+
+});
