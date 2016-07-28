@@ -8,12 +8,18 @@
     <blockquote>Use <code>\{{paper-autocomplete}}</code> to search for matches from local or remote data sources.</blockquote>
 
     {{! BEGIN-SNIPPET autocomplete.basic-usage }}
-    {{paper-autocomplete
+    {{#paper-autocomplete
       disabled=firstDisabled
+      options=shorterItems
+      selected=selectedCountry
+      search=(if simulateQuery (action 'searchAction'))
+      searchField="name"
+      labelPath="name"
       placeholder="Select a Country ..."
-      notFoundMessage="Oops country: \"%@\" doesn't exist here."
-      source=items lookupKey="name"
-      model=myModel}}
+      noMatchesMessage="Oops country doesn't exist here. Add one?"
+      onchange=(action (mut selectedCountry)) as |country select|}}
+        {{country.name}}
+    {{/paper-autocomplete}}
     {{! END-SNIPPET }}
     <p>
       {{#if myModel}}
@@ -23,67 +29,13 @@
           Nothing selected...
       {{/if}}
     </p>
-    {{#paper-checkbox value=firstDisabled onChange=(action (mut firstDisabled))}}Disable input{{/paper-checkbox}}
-
+    {{#paper-checkbox value=firstDisabled onChange=(action (mut firstDisabled))}}Disable input?{{/paper-checkbox}}
+    {{#paper-checkbox value=simulateQuery onChange=(action (mut simulateQuery))}}Simulate query?{{/paper-checkbox}}
+    {{#paper-checkbox value=disableCache onChange=(action (mut disableCache))}}Disable Cache?{{/paper-checkbox}}
 
 
     <h3>Template</h3>
     {{code-snippet name="autocomplete.basic-usage.hbs"}}
-
-    <h3>Allow non existing items</h3>
-      <blockquote>Use attribute <code>allowNonExisting=true</code> for the autocomplete to allow setting model to non existing items in the autocomplete. This is useful for search boxes.</blockquote>
-
-    {{paper-autocomplete minLength=0 allowNonExisting=true placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=sixthModel}}
-    <p>
-      {{#if sixthModel}}
-        Selected thing was: {{sixthModel}}
-      {{else}}
-        Nothing is selected...
-      {{/if}}
-    </p>
-
-  {{/paper-card-content}}
-  {{/paper-card}}
-
-
-  {{#paper-card}}
-  {{#paper-card-content}}
-    <h2>Promise support</h2>
-    <blockquote>You may pass a promise to the <code>source</code> attribute. This means you can use Ember Data async relationships directly, for example.
-      You can even use a computed property that returns a promise.
-      When dealing with Promises that possibly hit the server, the <code>delay</code> attribute is recommended to set a delay for the search to start.
-      This way we avoid unecessary requests while the user types.
-      Promise values are cached unless <code>noCache</code> is <code>true</code>.
-    </blockquote>
-
-    {{! BEGIN-SNIPPET autocomplete.promise-support }}
-    {{paper-autocomplete
-      minLength=0
-      delay=300
-      placeholder="Type e.g. Ram, Test, etc."
-      source=dataFromPromise
-      lookupKey="name"
-      model=otherModel
-      cache-miss="updateFilter"}}
-    {{! END-SNIPPET }}
-    <p>
-      {{#if otherModel}}
-        You have selected: {{otherModel.name}} ({{otherModel.id}})
-      {{else}}
-          No Item Selected.
-      {{/if}}
-    </p>
-
-    <h3>Template</h3>
-    {{code-snippet name="autocomplete.promise-support.hbs"}}
-
-    <h3>Javascript (Ember-data)</h3>
-    <p>
-        In the above template we use the variable <code>dataFromPromise</code> which is a computed property that returns a promise.
-        We are also using the <code>cache-miss</code> action to update our computed property.
-        Here is a sample configuration:
-    </p>
-    {{code-snippet name="autocomplete.promise-controller.js"}}
 
   {{/paper-card-content}}
   {{/paper-card}}
@@ -94,19 +46,24 @@
     <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results. In this example we also use <code>minLength=0</code> which allow to see all results if input is empty.</blockquote>
 
     {{! BEGIN-SNIPPET autocomplete.block-custom-template }}
-    {{#paper-autocomplete minLength=0 placeholder="Type e.g. ember, paper, one, two etc." source=arrayOfItems model=fourthModel as |searchText item index|}}
+    {{#paper-autocomplete 
+      placeholder="Type e.g. ember, paper, one, two etc."
+      options=arrayOfItems
+      selected=selectedItem
+      onchange=(action (mut selectedItem))
+      as |item term|}}
       <span class="item-title">
-      {{paper-icon "star"}}
-      <span>{{paper-autocomplete-highlight searchText=searchText label=item}} (index {{index}} )</span>
+        {{paper-icon "star"}}
+        <span>{{paper-autocomplete-highlight searchText=term.searchText label=item}}</span>
       </span>
-    {{else}}
-      Whoops! Could not find "{{searchText}}".
+      {{else}}
+      Whoops! could not find!
     {{/paper-autocomplete}}
     {{! END-SNIPPET }}
 
     <p>
-      {{#if fourthModel}}
-        Selected thing was: {{fourthModel}}
+      {{#if selectedItem}}
+        Selected thing was: {{selectedItem}}
       {{else}}
           Nothing selected...
       {{/if}}
@@ -124,34 +81,6 @@
       <li><strong>index</strong> This is the index of the suggestions that are currently in the list. Not defined in the inverse template.</li>
     </ul>
 
-    <h2>Blockless Custom template</h2>
-    <p>Alternatively you can use the blockless/named component approach which produces the same result:</p>
-
-    {{! BEGIN-SNIPPET autocomplete.blockless-custom-template }}
-    {{paper-autocomplete
-      minLength=0
-      placeholder="Type e.g. ember, paper, one, two etc."
-      source=arrayOfItems
-      model=fourthModelB
-      itemComponent="example-item"
-      notFoundComponent="not-found"}}
-    {{! END-SNIPPET }}
-
-    <p>
-      {{#if fourthModelB}}
-        Selected thing was: {{fourthModelB}}
-      {{else}}
-        Nothing selected...
-      {{/if}}
-    </p>
-
-    <h3>Template</h3>
-    {{code-snippet name="autocomplete.blockless-custom-template.hbs"}}
-
-    {{code-snippet name="autocomplete.not-found.hbs"}}
-
-    {{code-snippet name="autocomplete.example-item.hbs"}}
-
   {{/paper-card-content}}
   {{/paper-card}}
 
@@ -159,9 +88,22 @@
   {{#paper-card-content}}
     <h2>Floating Label</h2>
     <blockquote>The following example demonstrates floating labels being used as a normal form element.</blockquote>
-    {{! BEGIN-SNIPPET autocomplete.floating-label }}
-    {{paper-autocomplete floating=true placeholder="Select a Country ..." source=items lookupKey="name" model=thirdModel}}
-    {{! END-SNIPPET }}
+    <div class="layout-row">
+      {{! BEGIN-SNIPPET autocomplete.floating-label }}
+        {{paper-input label="Name" value=name onChange=(action (mut name)) flex=true}}
+          {{#paper-autocomplete
+        disabled=firstDisabled
+        options=shorterItems
+        selected=selectedCountry
+        searchField="name"
+        labelPath="name"
+        label="Select a Country.."
+        noMatchesMessage="Oops country doesn't exist here. Add one?"
+        onchange=(action (mut selectedCountry)) as |country select|}}
+          {{country.name}}
+      {{/paper-autocomplete}}
+      {{! END-SNIPPET }}
+    </div>
     <p>
       {{#if thirdModel}}
         Selected country is {{thirdModel.name}} ({{thirdModel.code}})
