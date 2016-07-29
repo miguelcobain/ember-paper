@@ -8,7 +8,7 @@ export default BasicDropdown.extend({
     if (!this.publicAPI.isOpen) {
       return;
     }
-    let [dropdownElement] = $(`.${this.dropdownId}`);
+    let dropdownElement = $(`.${this.dropdownId}`).get(0);
     let triggerElement = document.getElementById(this.triggerId);
     if (!dropdownElement || !triggerElement) {
       return;
