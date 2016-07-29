@@ -11,6 +11,9 @@ export default Controller.extend({
     updateFilter(str) {
       this.set('searchText', str);
     },
+    addCountry(name) {
+      this.get('items').addObject({ name, code: '' });
+    },
     searchAction() {
       return new RSVP.Promise((resolve) => {
         run.later(this, () => {

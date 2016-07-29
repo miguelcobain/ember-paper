@@ -4,6 +4,23 @@ import BasicDropdown from 'ember-basic-dropdown/components/basic-dropdown';
 const { $ } = Ember;
 
 export default BasicDropdown.extend({
+  reposition() {
+    if (!this.publicAPI.isOpen) {
+      return;
+    }
+    let [dropdownElement] = $(`.${this.dropdownId}`);
+    let triggerElement = document.getElementById(this.triggerId);
+    if (!dropdownElement || !triggerElement) {
+      return;
+    }
+
+    let renderInPlace = this.get('renderInPlace');
+    if (renderInPlace) {
+      this.performNaiveReposition(triggerElement, dropdownElement);
+    } else {
+      this.performFullReposition(triggerElement, dropdownElement);
+    }
+  },
   performFullReposition(trigger, dropdown) {
     let {
       horizontalPosition, verticalPosition, matchTriggerWidth

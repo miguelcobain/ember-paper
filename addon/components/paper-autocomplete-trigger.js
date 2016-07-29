@@ -56,8 +56,8 @@ export default Ember.Component.extend({
     },
 
     handleInputLocal(e) {
-      this.get('onInput')(e);
-      this.set('text', e.target.value);
+      this.get('onInput')(e.target ? e : { target: { value: e } });
+      this.set('text', e.target ? e.target.value : e);
     }
   },
 

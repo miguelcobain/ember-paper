@@ -1,16 +1,16 @@
 {{#if extra.label}}
-	{{paper-input label=extra.label value=text onChange=(action 'handleInputLocal') onFocus=(action onFocus) onKeyDown=(action 'handleKeydown')}}
+	{{paper-input label=extra.label flex=flex value=text onChange=(action 'handleInputLocal') onFocus=(action onFocus) onKeyDown=(action 'handleKeydown')}}
 {{else}}
 	<input type="search"
 	  value={{text}}
-	  class="ember-power-select-typeahead-input ember-power-select-search-input"
+	  class="ember-power-select-typeahead-input ember-power-select-search-input {{if flex "flex"}}"
 	  placeholder={{placeholder}}
 	  oninput={{action "handleInputLocal"}}
 	  onfocus={{action onFocus}}
 	  onkeydown={{action "handleKeydown"}}
 	  disabled={{disabled}}
 	  onmousedown={{action "stopPropagation"}}>
-	{{#if select.loading}}
-		{{paper-progress-linear}}
-	{{/if}}
+{{/if}}
+{{#if select.loading}}
+	{{paper-progress-linear}}
 {{/if}}

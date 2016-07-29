@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import VirtualEachComponent from 'virtual-each/components/virtual-each';
 
-const { computed, run, get, set, Handlebars, RSVP } = Ember;
+const { computed, run, get, set, Handlebars, RSVP, $ } = Ember;
 
 const EXTRA_ROW_PADDING = 3;
 
@@ -58,7 +58,7 @@ export default VirtualEachComponent.extend({
   }).readOnly(),
   didRender() {
     if (!this.get('itemHeight')) {
-      let elem = this.$('.md-virtual-repeat-offsetter')[0].firstElementChild;
+      let elem = this.get('containerSelector') ? $(this.get('containerSelector'))[0].firstElementChild : this.$('.md-virtual-repeat-offsetter')[0].firstElementChild;
       if (elem) {
         this.set('itemHeight', this.get('horizontal') ? elem.offsetWidth : elem.offsetHeight);
         this.set('_totalHeight', Math.max((this.get('length') ? this.get('length') : get(this.get('items'), 'length')) * this.get('itemHeight'), 0));

@@ -7,6 +7,7 @@
   registerAPI=(action "registerAPI")
   renderInPlace=(readonly renderInPlace)
   triggerComponent='paper-autocomplete-trigger-container'
+  contentComponent='paper-autocomplete-content'
   verticalPosition=(readonly verticalPosition)
   disabled=(readonly disabled)
   as |dropdown|}}
@@ -23,11 +24,13 @@
     onBlur=(action "deactivate")
     tabindex=(readonly tabindex)
     tagName='md-autocomplete'
+    flex=flex
     disabledProxy=disabled
     label=label}}
     {{#component triggerComponent
       allowClear=(readonly allowClear)
       class="layout-row"
+      flex=flex
       disabled=disabled
       buildSelection=(readonly buildSelection)
       extra=(readonly extra)
@@ -50,7 +53,9 @@
   {{/dropdown.trigger}}
   {{#dropdown.content
     class=(readonly concatenatedDropdownClasses)
-    to=(readonly destination)}}
+    select=(readonly publicAPI)
+    to=(readonly destination)
+    as |items|}}
    {{!--  {{component beforeOptionsComponent
       extra=(readonly extra)
       listboxId=(readonly optionsId)
@@ -77,17 +82,18 @@
         </ul>
       {{/if}}
     {{else}}
-      {{#component optionsComponent
-        class="ember-power-select-options md-autocomplete-suggestions"
-        groupIndex=""
-        loadingMessage=(readonly loadingMessage)
-        id=(readonly optionsId)
-        options=(readonly publicAPI.results)
-        optionsComponent=(readonly optionsComponent)
-        select=(readonly publicAPI)
-        as |option term|}}
-        {{yield option term}}
-      {{/component}}
+        {{#component optionsComponent
+          class="ember-power-select-options md-autocomplete-suggestions"
+          groupIndex=""
+          loadingMessage=(readonly loadingMessage)
+          id=(readonly optionsId)
+          options=items
+          optionsComponent=(readonly optionsComponent)
+          select=(readonly publicAPI)
+          as |option term|}}
+          {{yield option term}}
+        {{/component}}
+{{!--       {{/paper-virtual-repeat}} --}}
     {{/if}}
     {{component afterOptionsComponent select=(readonly publicAPI) extra=(readonly extra)}}
   {{/dropdown.content}}

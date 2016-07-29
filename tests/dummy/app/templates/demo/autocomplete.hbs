@@ -10,21 +10,22 @@
     {{! BEGIN-SNIPPET autocomplete.basic-usage }}
     {{#paper-autocomplete
       disabled=firstDisabled
-      options=shorterItems
+      onCreate=(action 'addCountry')
+      options=items
       selected=selectedCountry
       search=(if simulateQuery (action 'searchAction'))
       searchField="name"
       labelPath="name"
       placeholder="Select a Country ..."
       noMatchesMessage="Oops country doesn't exist here. Add one?"
-      onchange=(action (mut selectedCountry)) as |country select|}}
+      onChange=(action (mut selectedCountry)) as |country select|}}
         {{country.name}}
     {{/paper-autocomplete}}
     {{! END-SNIPPET }}
     <p>
       {{#if myModel}}
-        Selected country is {{myModel.name}}
-          ({{myModel.code}})
+        Selected country is {{selectedCountry.name}}
+          ({{selectedCountry.code}})
       {{else}}
           Nothing selected...
       {{/if}}
@@ -50,7 +51,7 @@
       placeholder="Type e.g. ember, paper, one, two etc."
       options=arrayOfItems
       selected=selectedItem
-      onchange=(action (mut selectedItem))
+      onChange=(action (mut selectedItem))
       as |item term|}}
       <span class="item-title">
         {{paper-icon "star"}}
@@ -93,13 +94,14 @@
         {{paper-input label="Name" value=name onChange=(action (mut name)) flex=true}}
           {{#paper-autocomplete
         disabled=firstDisabled
-        options=shorterItems
-        selected=selectedCountry
+        flex=true
+        options=items
+        selected=selectedCountry2
         searchField="name"
         labelPath="name"
         label="Select a Country.."
         noMatchesMessage="Oops country doesn't exist here. Add one?"
-        onchange=(action (mut selectedCountry)) as |country select|}}
+        onChange=(action (mut selectedCountry2)) as |country select|}}
           {{country.name}}
       {{/paper-autocomplete}}
       {{! END-SNIPPET }}
