@@ -16,3 +16,6 @@
 {{#if select.loading}}
 	{{paper-progress-linear}}
 {{/if}}
+{{#if (and (or selected text) allowClear (not select.disabled))}}
+<button onmousedown={{action 'clear'}}>{{paper-icon 'close'}}</button>
+{{/if}}
