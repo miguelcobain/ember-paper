@@ -25,8 +25,12 @@ export default Component.extend(ParentMixin, {
       }
     },
     onSubmit() {
-      this.sendAction('onSubmit');
-      this.get('childComponents').setEach('isTouched', false);
+      if (this.get('isInvalid')) {
+        this.get('childComponents').setEach('isTouched', true);
+      } else {
+        this.sendAction('onSubmit');
+        this.get('childComponents').setEach('isTouched', false);
+      }
     }
   }
 });
