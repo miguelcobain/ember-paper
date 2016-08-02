@@ -1,45 +1,25 @@
 import Ember from 'ember';
 
-let SOME_DATA_FROM_API = Ember.A([
-  { name: 'Computer', id: 1 },
-  { name: 'Ham', id: 2 },
-  { name: 'Unfair', id: 3 },
-  { name: 'Ram', id: 4 },
-  { name: 'Test', id: 5 }
-]);
+const { run, RSVP, Controller } = Ember;
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   myModel: { name: 'United States', code: 'US' },
 
   searchText: '',
 
-  /*
-   * This is a sample of data loaded dynamically.
-   * Here we use a fake promise, but this can come directly from the ember-data filter API or e.g. jQuery $.getJSON
-   *
-   * @param searchText Search text from the autocomplete API. Lower cased version.
-   * @returns {Promise}
-   */
-  dataFromPromise: Ember.computed('searchText', function() {
-    let searchText = this.get('searchText');
-
-    // Can also come from e.g. this.store.query('country', {text: searchText}).then( ... );
-    return new Ember.RSVP.Promise((resolve) => {
-      // Just wait for 800ms to 2 seconds for a fake progress, so it feels like a query.
-      let waitMS = Math.floor(Math.random() * 1000) + 800;
-
-      Ember.run.later(this, function() {
-        let result = SOME_DATA_FROM_API.filter(function(item) {
-          return item.name.toLowerCase().indexOf(searchText.toLowerCase()) === 0;
-        });
-        resolve(Ember.A(result));
-      }, waitMS);
-    });
-  }),
-
   actions: {
     updateFilter(str) {
       this.set('searchText', str);
+    },
+    addCountry(name) {
+      this.get('items').addObject({ name, code: '' });
+    },
+    searchAction() {
+      return new RSVP.Promise((resolve) => {
+        run.later(this, () => {
+          resolve([]);
+        }, Math.floor(Math.random() * 1000) + 800);
+      });
     }
   },
 
@@ -49,6 +29,12 @@ export default Ember.Controller.extend({
    * Array of static Objects.
    * When having objects, use lookupKey="name" on the paper-autocomplete component so it knows to use "name" to search in.
    */
+  shorterItems: Ember.A([{ name: 'Afghanistan', code: 'AF' },
+    { name: 'Åland Islands', code: 'AX' },
+    { name: 'Albania', code: 'AL' },
+    { name: 'Algeria', code: 'DZ' },
+    { name: 'American Samoa', code: 'AS' },
+    { name: 'AndorrA', code: 'AD' }]),
   items: Ember.A([
     { name: 'Afghanistan', code: 'AF' },
     { name: 'Åland Islands', code: 'AX' },

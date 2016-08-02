@@ -49,6 +49,15 @@ export default Component.extend(RippleMixin, ProxyMixin, {
 
   shouldBeClickable: computed.or('proxiedComponents.length', 'onClick'),
 
+  click(ev) {
+    this.get('proxiedComponents').forEach((component)=> {
+      if (component.processProxy && !get(component, 'disabled') && (get(component, 'bubbles') | !get(this, 'hasPrimaryAction'))) {
+        component.processProxy();
+      }
+    });
+    this.sendAction('onClick', ev);
+  },
+
   setupProxiedComponent() {
     let tEl = this.$();
     let proxiedComponents = get(this, 'proxiedComponents');
@@ -104,17 +113,5 @@ export default Component.extend(RippleMixin, ProxyMixin, {
         set(component, 'isProxyHandlerSet', true);
       }
     });
-  },
-
-  actions: {
-    buttonAction(ev) {
-      this.get('proxiedComponents').forEach((component)=> {
-        if (component.processProxy && !get(component, 'disabled') && (get(component, 'bubbles') | !get(this, 'hasPrimaryAction'))) {
-          component.processProxy();
-        }
-      });
-      this.sendAction('onClick', ev);
-    }
   }
-
 });

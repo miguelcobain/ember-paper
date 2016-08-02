@@ -1,0 +1,21 @@
+{{#if extra.label}}
+	{{paper-input label=extra.label flex=flex value=text onChange=(action 'handleInputLocal') onFocus=(action onFocus) onBlur=(action onBlur) onKeyDown=(action 'handleKeydown')}}
+{{else}}
+	<input type="search"
+	  value={{text}}
+	  class="ember-power-select-typeahead-input ember-power-select-search-input {{if flex "flex"}}"
+	  placeholder={{placeholder}}
+	  oninput={{action "handleInputLocal"}}
+	  onchange={{action "handleInputLocal"}}
+	  onfocus={{action onFocus}}
+	  onblur={{action onBlur}} 
+	  onkeydown={{action "handleKeydown"}}
+	  disabled={{disabled}}
+	  onmousedown={{action "stopPropagation"}}>
+{{/if}}
+{{#if select.loading}}
+	{{paper-progress-linear}}
+{{/if}}
+{{#if (and (or selected text) allowClear (not select.disabled))}}
+<button onmousedown={{action 'clear'}}>{{paper-icon 'close'}}</button>
+{{/if}}

@@ -16,7 +16,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
   classNames: ['md-default-theme'],
   classNameBindings: [
     'hasValue:md-input-has-value',
-    'isInvalid:md-input-invalid',
+    'isInvalidAndTouched:md-input-invalid',
     'eitherIcon:md-has-icon',
     'iconRight:md-icon-right',
     'focused:md-input-focused',
@@ -46,15 +46,13 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
    *
    * @public
    *
-   * @return {boolean|null} Whether the input is or would be invalid.
-   *    null: input has not yet been touched, but would be invalid if it were
+   * @return {boolean} Whether the input is or would be invalid.
    *    false: input is valid (touched or not), or is no longer rendered
    *    true: input has been touched and is invalid.
    */
-  isInvalid: computed('isTouched', 'validationErrorMessages.length', 'isNativeInvalid', function() {
-    let isInvalid = this.get('validationErrorMessages.length') || this.get('isNativeInvalid');
-    return isInvalid && !this.get('isTouched') ? null : !!isInvalid;
-  }),
+  isInvalid: computed.or('validationErrorMessages.length', 'isNativeInvalid'),
+
+  isInvalidAndTouched: computed.and('isInvalid', 'isTouched'),
 
   renderCharCount: computed('value', function() {
     let currentLength = this.get('value') ? this.get('value').length : 0;
@@ -112,7 +110,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
         if (!validation.validate(currentValue, paramValue)) {
           let message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
           messages.pushObject({
-            message: Ember.String.loc(message, paramValue, currentValue)
+            message: Ember.String.loc(message.string || message, paramValue, currentValue)
           });
         }
       } catch (error) {
@@ -146,6 +144,8 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
   didRender() {
     this.growTextarea();
+    // setValue below ensures that the input value is the same as this.value
+    this.setValue(this.get('value'));
   },
 
   willClearRender() {
@@ -200,15 +200,22 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, {
 
   notifyInvalid() {
     let isInvalid = this.get('isInvalid');
-    if (this.get('lastIsInvalid') !== isInvalid) {
-      this.sendAction('onInvalid', this.get('isInvalid'));
-      this.set('lastIsInvalid', this.get('isInvalid'));
+    let lastIsInvalid = this.get('lastIsInvalid');
+    if (lastIsInvalid !== isInvalid) {
+      this.sendAction('onInvalid', isInvalid);
+      this.set('lastIsInvalid', isInvalid);
     }
+  },
+
+  setValue(value) {
+    this.$('input, textarea').val(value);
   },
 
   actions: {
     handleInput(e) {
       this.sendAction('onChange', e.target.value);
+      // setValue below ensures that the input value is the same as this.value
+      this.setValue(this.get('value'));
       this.growTextarea();
       let inputElement = this.$('input').get(0);
       this.set('isNativeInvalid', inputElement && inputElement.validity && inputElement.validity.badInput);

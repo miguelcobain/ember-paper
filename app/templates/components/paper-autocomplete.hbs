@@ -1,84 +1,100 @@
-<md-autocomplete-wrap id={{autocompleteWrapperId}} role="listbox" layout="row" class="{{if notFloating "md-whiteframe-z1"}} {{if notHidden "md-menu-showing"}}">
-  {{#if floating}}
-    {{paper-input
-      type="search"
-      label=placeholder
-      focus-in="inputFocusIn"
-      focus-out="inputFocusOut"
-      key-down="inputKeyDown"
-      value=searchText
-      onChange=(action (mut searchText))
+{{#paper-autocomplete-dropdown
+  horizontalPosition=(readonly horizontalPosition)
+  initiallyOpened=(readonly initiallyOpened)
+  matchTriggerWidth=(readonly matchTriggerWidth)
+  onClose=(action "onClose")
+  onOpen=(action "onOpen")
+  registerAPI=(action "registerAPI")
+  renderInPlace=(readonly renderInPlace)
+  triggerComponent='paper-autocomplete-trigger-container'
+  contentComponent='paper-autocomplete-content'
+  verticalPosition=(readonly verticalPosition)
+  disabled=(readonly disabled)
+  as |dropdown|}}
+
+  {{#dropdown.trigger
+    ariaDescribedBy=(readonly ariaDescribedBy)
+    ariaInvalid=(readonly ariaInvalid)
+    ariaLabel=(readonly ariaLabel)
+    ariaLabelledBy=(readonly ariaLabelledBy)
+    ariaRequired=(readonly required)
+    class=(readonly concatenatedTriggerClasses)
+    onKeydown=(action "onTriggerKeydown")
+    onFocus=(action "onTriggerFocus")
+    onBlur=(action "deactivate")
+    tabindex=(readonly tabindex)
+    tagName='md-autocomplete'
+    flex=flex
+    disabledProxy=disabled
+    label=label}}
+    {{#component triggerComponent
+      allowClear=(readonly allowClear)
+      class="layout-row"
+      flex=flex
       disabled=disabled
-      required=required
-      flex=true}}
-  {{else}}
-    {{input type="search"
-      flex=true
-      placeholder=placeholder
-      value=searchText
-      focus-in="inputFocusIn"
-      focus-out="inputFocusOut"
-      key-down="inputKeyDown"
-      autocomplete="off"
-      disabled=disabled
-      required=required
-      aria-haspopup=true
-      aria-autocomplete="list"
-      aria-activedescendant=""
-      aria-expanded=notHidden}}
+      buildSelection=(readonly buildSelection)
+      extra=(readonly extra)
+      listboxId=(readonly optionsId)
+      onFocus=(action "onFocus")
+      activate=(action "activate")
+      onBlur=(action "deactivate")
+      onInput=(action "onInput")
+      placeholder=(readonly placeholder)
+      onKeydown=(action "onKeydown")
+      searchEnabled=(readonly searchEnabled)
+      searchField=(readonly searchField)
+      select=(readonly publicAPI)
+      selected=(readonly selected)
+      selectedItemComponent=(readonly selectedItemComponent)
+      as |opt term|}}
+      {{yield opt term}}
+    {{/component}}
 
-    {{#if enableClearButton}}
-      {{#paper-button iconButton=true themed=false onClick=(action "clear")}}
-        {{paper-icon "close"}}
-      {{/paper-button}}
+  {{/dropdown.trigger}}
+  {{#dropdown.content
+    class=(readonly concatenatedDropdownClasses)
+    select=(readonly publicAPI)
+    to=(readonly destination)
+    as |items|}}
+   {{!--  {{component beforeOptionsComponent
+      extra=(readonly extra)
+      listboxId=(readonly optionsId)
+      onInput=(action "onInput")
+      onKeydown=(action "onKeydown")
+      searchEnabled=(readonly searchEnabled)
+      onFocus=(action "onFocus")
+      onBlur=(action "deactivate")
+      searchPlaceholder=(readonly searchPlaceholder)
+      select=(readonly publicAPI)}} --}}
+    {{#if mustShowSearchMessage}}
+      {{component searchMessageComponent
+        searchMessage=(readonly searchMessage)
+        select=(readonly publicAPI)
+      }}
+    {{else if mustShowNoMessages}}
+      {{#if (hasBlock "inverse")}}
+        {{yield to="inverse"}}
+      {{else if noMatchesMessage}}
+        <ul class="ember-power-select-options md-autocomplete-suggestions" role="listbox">
+          <li class="ember-power-select-option ember-power-select-option--no-matches-message" role="option" {{action 'onCreate' publicAPI.searchText}}>
+            {{noMatchesMessage}}
+          </li>
+        </ul>
+      {{/if}}
+    {{else}}
+        {{#component optionsComponent
+          class="ember-power-select-options md-autocomplete-suggestions"
+          groupIndex=""
+          loadingMessage=(readonly loadingMessage)
+          id=(readonly optionsId)
+          options=items
+          optionsComponent=(readonly optionsComponent)
+          select=(readonly publicAPI)
+          as |option term|}}
+          {{yield option term}}
+        {{/component}}
+{{!--       {{/paper-virtual-repeat}} --}}
     {{/if}}
-
-  {{/if}}
-
-  {{#if loading}}
-    {{paper-progress-linear}}
-  {{/if}}
-
-  {{#if notHidden}}
-    {{#paper-autocomplete-list suggestions=suggestions selectedIndex=selectedIndex wrapToElementId=autocompleteWrapperId mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter"}}
-
-        {{#each suggestions as |item index|}}
-
-          {{#paper-autocomplete-item lookupKey=lookupKey item=item selectedIndex=selectedIndex index=index pick="pickModel" as |label|}}
-          {{!-- Render block template, then named component then default --}}
-            {{#if hasBlock}}
-              {{yield searchText item index}}
-            {{else}}
-              {{#if itemComponent}}
-                {{component itemComponent searchText=searchText label=label index=index}}
-              {{else}}
-                {{paper-autocomplete-highlight searchText=searchText label=label}}
-              {{/if}}
-            {{/if}}
-          {{/paper-autocomplete-item}}
-
-        {{else}}
-          {{#if showLoadingBar}}
-          {{!-- Render block template, then named component then default --}}
-            {{#if hasBlock}}
-                <li>{{yield searchText to="inverse"}}</li>
-            {{else}}
-              {{#if notFoundComponent}}
-                  <li>{{component notFoundComponent searchText=searchText}}</li>
-              {{else}}
-                  <li>{{notFoundMsg}}</li>
-              {{/if}}
-            {{/if}}
-          {{/if}}
-        {{/each}}
-    {{/paper-autocomplete-list}}
-  {{/if}}
-</md-autocomplete-wrap>
-
-<aria-status class="md-visually-hidden" role="status" aria-live="assertive">
-  {{#each messages as |message index|}}
-    {{#if message}}
-        <p>{{message}}</p>
-    {{/if}}
-  {{/each}}
-</aria-status>
+    {{component afterOptionsComponent select=(readonly publicAPI) extra=(readonly extra)}}
+  {{/dropdown.content}}
+{{/paper-autocomplete-dropdown}}
