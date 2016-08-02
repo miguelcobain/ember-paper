@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import PaperMenu from './paper-menu';
 
@@ -18,6 +21,10 @@ function clamp(min, n, max) {
   return Math.max(min, Math.min(n, max));
 }
 
+/**
+ * @class PaperSelectMenu
+ * @extends Ember.Component
+ */
 export default PaperMenu.extend({
   performFullReposition(trigger, dropdown) {
     let $dropdown = $(dropdown);

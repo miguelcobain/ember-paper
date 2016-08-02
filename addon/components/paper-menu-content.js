@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import ContentComponent from 'ember-basic-dropdown/components/basic-dropdown/content';
 const { run, $ } = Ember;
@@ -21,6 +24,10 @@ function waitForAnimations(element, callback) {
   }
 }
 
+/**
+ * @class PaperMenuContent
+ * @extends ContentComponent
+ */
 export default ContentComponent.extend({
   animateIn() {
     run.next(() => {

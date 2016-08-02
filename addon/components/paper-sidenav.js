@@ -1,6 +1,14 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
+
 const { Component, computed } = Ember;
 
+/**
+ * @class
+ * @extends Ember.Component
+ */
 export default Component.extend({
   tagName: '',
 

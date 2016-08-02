@@ -1,15 +1,16 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
-import PowerSelect from 'ember-power-select/components/power-select';
+import PowerSelectComponent from 'ember-power-select/components/power-select';
 
 const { computed, inject } = Ember;
-/*
- * @name paper-autocomplete
- *
- * @description
- *     Provides material design autocomplete.
- *
+
+/**
+ * @class PaperAutocomplete
+ * @extends PowerSelectComponent
  */
-export default PowerSelect.extend({
+export default PowerSelectComponent.extend({
   util: inject.service(),
   constants: inject.service(),
   triggerComponent: 'paper-autocomplete-trigger',
@@ -17,6 +18,7 @@ export default PowerSelect.extend({
     return { labelPath: this.get('labelPath'), label: this.get('label') };
   }),
   onchange: computed.alias('onChange'),
+
   actions: {
     onFocus(event) {
       this.send('activate');

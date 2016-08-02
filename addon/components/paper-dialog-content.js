@@ -1,8 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import PaperDialogInner from './paper-dialog-inner';
 
 const { Component, computed, run } = Ember;
 
+/**
+ * @class PaperDialogComponent
+ * @extends Ember.Component
+ */
 export default Component.extend({
   tagName: 'md-dialog-content',
   classNames: ['md-dialog-content'],

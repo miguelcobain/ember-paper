@@ -1,8 +1,17 @@
+/**
+ * @module ember-paper
+ */
+/* globals FastBoot */
 import Ember from 'ember';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
 const { Component, inject, computed, $, run } = Ember;
 
+/**
+ * @class PaperSidenavInner
+ * @extends Ember.Component
+ * @uses TransitionMixin
+ */
 export default Component.extend(TransitionMixin, {
   tagName: 'md-sidenav',
   attributeBindings: ['tabindex'],
@@ -26,7 +35,9 @@ export default Component.extend(TransitionMixin, {
   init() {
     // need to updateLockedOpen() first because otherwise the transition classes
     // would be applied due to transition mixin's `init`
-    this.updateLockedOpen();
+    if (typeof FastBoot === 'undefined') {
+      this.updateLockedOpen();
+    }
     this._super(...arguments);
     this.get('paperSidenav').register(this.get('name'), this);
   },
@@ -34,6 +45,7 @@ export default Component.extend(TransitionMixin, {
   didInsertElement() {
     this._super(...arguments);
     $(window).on(`resize.${this.elementId}`, run.bind(this, 'updateLockedOpen'));
+    this.updateLockedOpen();
   },
 
   willDestroyElement() {

@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import BasicDropdownComponent from 'ember-basic-dropdown/components/basic-dropdown';
 const { assert, computed } = Ember;
@@ -17,6 +20,10 @@ function firstVisibleChild(node) {
   }
 }
 
+/**
+ * @class PaperMenu
+ * @extends BasicDropdownComponent
+ */
 export default BasicDropdownComponent.extend({
 
   close() {

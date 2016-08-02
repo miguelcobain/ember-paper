@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 const { RSVP: { Promise } } = Ember;
 

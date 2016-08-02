@@ -1,8 +1,17 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import BaseFocusable from './base-focusable';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
+
 const { computed, inject, assert } = Ember;
 
+/**
+ * @class PaperRadioGroup
+ * @extends BaseFocusable
+ * @uses ParentMixin
+ */
 export default BaseFocusable.extend(ParentMixin, {
   tagName: 'md-radio-group',
   tabindex: 0,

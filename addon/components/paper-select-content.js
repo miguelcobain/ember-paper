@@ -1,3 +1,6 @@
+/**
+ * @module ember-paper
+ */
 import PaperMenuContent from './paper-menu-content';
 import Ember from 'ember';
 
@@ -23,6 +26,10 @@ function waitForAnimations(element, callback) {
   }
 }
 
+/**
+ * @class PaperSelectContent
+ * @extends PaperMenuContent
+ */
 export default PaperMenuContent.extend({
   animateIn() {
     run.next(() => {

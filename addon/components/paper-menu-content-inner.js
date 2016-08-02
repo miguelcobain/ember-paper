@@ -1,7 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
 const { Component, inject, computed, run } = Ember;
 
+/**
+ * @class PaperMenuContentInner
+ * @extends Ember.Component
+ * @uses ParentMixin
+ */
 export default Component.extend(ParentMixin, {
   tagName: 'md-menu-content',
   attributeBindings: ['width'],

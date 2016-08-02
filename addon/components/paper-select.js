@@ -1,8 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import PowerSelect from 'ember-power-select/components/power-select';
 
-let { computed } = Ember;
+const { computed } = Ember;
 
+/**
+ * @class PaperSelect
+ * @extends PaperInput
+ */
 export default PowerSelect.extend({
   tagName: 'md-input-container',
   onchange: computed.alias('onChange'),

@@ -14,6 +14,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - Actions maybe be specified by a string action name (`onChange="updateValue"`) or an action closure (`onChange=(action (mut "myValue"))`). If you need to specify a target or additional parameter, you must use an action closure.
 - Many attributes have been renamed for clarity and consistency. See the specific changes below.
 - `paper-icon`'s `size` attribute now takes a size in pixels, and `lg` or `sm` values are no longer supported.
+- renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
+
+#### 1.0.0-alpha.3
 
 #### 1.0.0-alpha.2
 
@@ -28,6 +31,8 @@ Contributions and pull requests are always welcome. Contributors may often be fo
   - `paper-sidenav-toggle` is now tagless. It is essentially a functional component that yields an action to its block
   - `paper-sidenav` now can use a `position` param that positions the sidenav `left` (default) or `right`
   - `paper-backdrop` action `onTap` changed to `onClick`
+- [#408](https://github.com/miguelcobain/ember-paper/pull/408) added paper-form component. `paper-input`'s `onInvalid` action renamed to `onValidityChange`
+- [#430](https://github.com/miguelcobain/ember-paper/pull/430) added fastboot support. Removed errors associated with `document` when running `ember fastboot`
 
 #### 1.0.0-alpha.1
 
