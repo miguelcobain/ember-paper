@@ -1,94 +1,155 @@
 import Ember from 'ember';
-import PaperMenuContentInner from './paper-menu-content-inner';
-import { indexOfOption, optionAtIndex, countOptions } from 'ember-power-select/utils/group-utils';
-const { computed, run } = Ember;
+import PaperMenu from './paper-menu';
 
-function advanceSelectableOption(options, currentOption, step) {
-  let resultsLength = countOptions(options);
-  let startIndex = Math.min(Math.max(indexOfOption(options, currentOption) + step, 0), resultsLength - 1);
-  let { disabled, option } = optionAtIndex(options, startIndex);
-  while (option && disabled) {
-    let next = optionAtIndex(options, startIndex += step);
-    disabled = next.disabled;
-    option = next.option;
-  }
-  return option;
+const { $ } = Ember;
+
+const SELECT_EDGE_MARGIN = 8;
+
+function getOffsetRect(node) {
+  return node ? {
+    left: node.offsetLeft,
+    top: node.offsetTop,
+    width: node.offsetWidth,
+    height: node.offsetHeight
+  } : { left: 0, top: 0, width: 0, height: 0 };
 }
 
-export default PaperMenuContentInner.extend({
-  tagName: 'md-select-menu',
-  classNames: ['md-default-theme'],
-  classNameBindings: ['searchEnabled:md-overflow'],
-  enabledOptions: computed.filterBy('childComponents', 'disabled', false),
-  didInsertElement() {
-    run.next(() => {
-      let focusTarget = this.$('md-option[aria-selected="true"]');
-      if (!focusTarget || !focusTarget.length) {
-        focusTarget = this.get('enabledOptions.firstObject.element');
-        let newHighlighted = advanceSelectableOption(this.dropdown.results, this.dropdown.highlighted, -1);
-        this.dropdown.actions.highlight(newHighlighted, null);
-      } else {
-        focusTarget = focusTarget[0];
-      }
-      focusTarget.focus();
-    });
-  },
+function clamp(min, n, max) {
+  return Math.max(min, Math.min(n, max));
+}
 
-  keyDown(ev) {
-    switch (ev.which) {
-      case this.get('constants.KEYCODE.ESCAPE'):
-        this.dropdown.actions.close();
-        break;
-      case this.get('constants.KEYCODE.LEFT_ARROW'):
-      case this.get('constants.KEYCODE.UP_ARROW'):
-        ev.preventDefault();
-        this.focusOption(ev, -1);
-        let newHighlighted = advanceSelectableOption(this.dropdown.results, this.dropdown.highlighted, -1);
-        this.dropdown.actions.highlight(newHighlighted, ev);
-        this.dropdown.actions.scrollTo(newHighlighted);
-        break;
-      case this.get('constants.KEYCODE.RIGHT_ARROW'):
-      case this.get('constants.KEYCODE.DOWN_ARROW'):
-        ev.preventDefault();
-        this.focusOption(ev, 1);
-        let newHighlighted2 = advanceSelectableOption(this.dropdown.results, this.dropdown.highlighted, 1);
-        this.dropdown.actions.highlight(newHighlighted2, ev);
-        this.dropdown.actions.scrollTo(newHighlighted2);
-        break;
-      case this.get('constants.KEYCODE.ENTER'):
-        ev.preventDefault();
-        this.dropdown.actions.choose(this.dropdown.highlighted);
-        break;
+export default PaperMenu.extend({
+  performFullReposition(trigger, dropdown) {
+    let $dropdown = $(dropdown);
+    let opts = {
+      target: $(trigger),
+      parent: Ember.$('body'),
+      selectEl: $dropdown.find('md-select-menu'),
+      contentEl: $dropdown.find('md-content')
+    };
+
+    let containerNode = $dropdown.get(0);
+    let targetNode = opts.target[0].firstElementChild; // target the label
+    let parentNode = opts.parent.get(0);
+    let selectNode = opts.selectEl.get(0);
+    let contentNode = opts.contentEl.get(0);
+    let parentRect = parentNode.getBoundingClientRect();
+    let targetRect = targetNode.getBoundingClientRect();
+    let shouldOpenAroundTarget = false;
+    let bounds = {
+      left: parentRect.left + SELECT_EDGE_MARGIN,
+      top: SELECT_EDGE_MARGIN,
+      bottom: parentRect.height - SELECT_EDGE_MARGIN,
+      right: parentRect.width - SELECT_EDGE_MARGIN - (this.get('floatingScrollbars') ? 16 : 0)
+    };
+    let spaceAvailable = {
+      top: targetRect.top - bounds.top,
+      left: targetRect.left - bounds.left,
+      right: bounds.right - (targetRect.left + targetRect.width),
+      bottom: bounds.bottom - (targetRect.top + targetRect.height)
+    };
+    let maxWidth = parentRect.width - SELECT_EDGE_MARGIN * 2;
+    let isScrollable = contentNode.scrollHeight > contentNode.offsetHeight;
+    let selectedNode = selectNode.querySelector('md-option[selected]');
+    let optionNodes = selectNode.getElementsByTagName('md-option');
+    let optgroupNodes = selectNode.getElementsByTagName('md-optgroup');
+
+    let centeredNode;
+    // If a selected node, center around that
+    if (selectedNode) {
+      centeredNode = selectedNode;
+      // If there are option groups, center around the first option group
+    } else if (optgroupNodes.length) {
+      centeredNode = optgroupNodes[0];
+      // Otherwise, center around the first optionNode
+    } else if (optionNodes.length) {
+      centeredNode = optionNodes[0];
+      // In case there are no options, center on whatever's in there... (eg progress indicator)
+    } else {
+      centeredNode = contentNode.firstElementChild || contentNode;
     }
-  },
 
-  focusOption(e, direction) {
-    let currentItem = this.$(e.target).closest('md-option');
+    if (contentNode.offsetWidth > maxWidth) {
+      contentNode.style['max-width'] = `${maxWidth}px`;
+    }
+    if (shouldOpenAroundTarget) {
+      contentNode.style['min-width'] = `${targetRect.width}px`;
+    }
 
-    let children = this.get('enabledMenuItems');
-    let items = children.map((child) => child.element);
+    // Remove padding before we compute the position of the menu
 
-    let currentIndex = items.indexOf(currentItem[0]);
+    let focusedNode = centeredNode;
+    if ((focusedNode.tagName || '').toUpperCase() === 'MD-OPTGROUP') {
+      focusedNode = optionNodes[0] || contentNode.firstElementChild || contentNode;
+      centeredNode = focusedNode;
+    }
 
-    // Traverse through our elements in the specified direction (+/-1) and try to
-    // focus them until we find one that accepts focus
-    for (let i = currentIndex + direction; i >= 0 && i < items.length; i = i + direction) {
-      let focusTarget = items[i];
-      let didFocus = this.attemptFocus(focusTarget);
-      if (didFocus) {
-        break;
+    // Get the selectMenuRect *after* max-width is possibly set above
+    containerNode.style.display = 'block';
+    let selectMenuRect = selectNode.getBoundingClientRect();
+    let centeredRect = getOffsetRect(centeredNode);
+
+    if (centeredNode) {
+      let centeredStyle = window.getComputedStyle(centeredNode);
+      centeredRect.paddingLeft = parseInt(centeredStyle.paddingLeft, 10) || 0;
+      centeredRect.paddingRight = parseInt(centeredStyle.paddingRight, 10) || 0;
+    }
+
+    if (isScrollable) {
+      let scrollBuffer = contentNode.offsetHeight / 2;
+      contentNode.scrollTop = centeredRect.top + centeredRect.height / 2 - scrollBuffer;
+
+      if (spaceAvailable.top < scrollBuffer) {
+        contentNode.scrollTop = Math.min(
+          centeredRect.top,
+          contentNode.scrollTop + scrollBuffer - spaceAvailable.top
+        );
+      } else if (spaceAvailable.bottom < scrollBuffer) {
+        contentNode.scrollTop = Math.max(
+          centeredRect.top + centeredRect.height - selectMenuRect.height,
+          contentNode.scrollTop - scrollBuffer + spaceAvailable.bottom
+        );
       }
     }
-  },
 
-  attemptFocus(el) {
-    if (el && el.getAttribute('tabindex') !== -1) {
-      el.focus();
-      if (document.activeElement === el) {
-        return true;
-      } else {
-        return false;
+    let left, top, transformOrigin;
+    if (shouldOpenAroundTarget) {
+      left = targetRect.left;
+      top = targetRect.top + targetRect.height;
+      transformOrigin = '50% 0';
+      if (top + selectMenuRect.height > bounds.bottom) {
+        top = targetRect.top - selectMenuRect.height;
+        transformOrigin = '50% 100%';
       }
+    } else {
+      left = (targetRect.left + centeredRect.left - centeredRect.paddingLeft) + 2;
+      top = Math.floor(targetRect.top + targetRect.height / 2 - centeredRect.height / 2 -
+          centeredRect.top + contentNode.scrollTop) + 2;
+
+      transformOrigin = `${centeredRect.left + targetRect.width / 2}px
+        ${centeredRect.top + centeredRect.height / 2 - contentNode.scrollTop}px 0px`;
+
+      containerNode.style.minWidth = `${targetRect.width + centeredRect.paddingLeft +
+        centeredRect.paddingRight}px`;
     }
+
+    let containerRect = containerNode.getBoundingClientRect();
+
+    let dropdownTop = clamp(bounds.top, top, bounds.bottom - containerRect.height);
+    let dropdownLeft = clamp(bounds.left, left, bounds.right - containerRect.width);
+
+    let scaleX = Math.min(targetRect.width / selectMenuRect.width, 1.0);
+    let scaleY = Math.min(targetRect.height / selectMenuRect.height, 1.0);
+    let style = {
+      top: `${dropdownTop}px`,
+      left: `${dropdownLeft}px`,
+      // Animate a scale out if we aren't just repositioning
+      transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
+      transformOrigin
+    };
+
+    this.didAnimateScale = true;
+
+    this.applyReposition(trigger, dropdown, { style });
   }
 });

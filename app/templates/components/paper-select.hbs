@@ -1,4 +1,4 @@
-{{#paper-select-core
+{{#paper-select-menu
   registerAPI=(action "registerAPI")
   searchEnabled=(readonly searchEnabled)
   as |menu|}}
@@ -64,4 +64,4 @@
     {{/if}}
     {{component afterOptionsComponent select=(readonly publicAPI) extra=(readonly extra)}}
   {{/menu.content}}
-{{/paper-select-core}}
+{{/paper-select-menu}}

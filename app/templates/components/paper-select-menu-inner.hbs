@@ -1,0 +1,7 @@
+{{#if searchEnabled}}
+	<md-content>
+		{{yield (hash menu=this)}}
+	</md-content>
+{{else}}
+	{{yield (hash menu=this)}}
+{{/if}}
