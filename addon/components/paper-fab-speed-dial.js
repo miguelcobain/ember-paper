@@ -85,12 +85,12 @@ export default Component.extend({
 
     if (isPresent(items)) {
       // Grab our trigger element
-      let triggerElement = document.querySelector('md-fab-trigger');
+      let triggerElement = document.querySelector('.md-fab-trigger');
 
-      // Grab our element which stores CSS letiables
-      let letiablesElement = document.querySelector('.md-css-letiables');
+      // Grab our element which stores CSS variables
+      let variablesElement = document.querySelector('.md-css-variables');
 
-      let startZIndex = parseInt(window.getComputedStyle(letiablesElement).zIndex);
+      let startZIndex = parseInt(window.getComputedStyle(variablesElement).zIndex);
 
       items.each((index, item) => {
         let styles = item.style;
