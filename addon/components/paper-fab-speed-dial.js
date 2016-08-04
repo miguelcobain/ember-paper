@@ -85,7 +85,7 @@ export default Component.extend({
 
     if (isPresent(items)) {
       // Grab our trigger element
-      let triggerElement = document.querySelector('.md-fab-trigger');
+      let triggerElement = document.querySelector('md-fab-trigger');
 
       // Grab our element which stores CSS variables
       let variablesElement = document.querySelector('._md-css-variables');
