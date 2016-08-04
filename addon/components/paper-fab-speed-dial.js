@@ -88,7 +88,7 @@ export default Component.extend({
       let triggerElement = document.querySelector('.md-fab-trigger');
 
       // Grab our element which stores CSS variables
-      let variablesElement = document.querySelector('.md-css-variables');
+      let variablesElement = document.querySelector('._md-css-variables');
 
       let startZIndex = parseInt(window.getComputedStyle(variablesElement).zIndex);
 
