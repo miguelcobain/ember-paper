@@ -5,20 +5,21 @@
   <h2>Overview</h2>
 
   <p>
-  Ember Paper's layout features provide sugar to enable developers to more easily create modern,
-  responsive layouts on top of CSS3 flexbox. The layout API consists of a set of classes
-  that can be applied to any of your application's HTML content.
+    Ember Paper's layout features provide sugar to enable developers to more easily create modern,
+    responsive layouts on top of CSS3 flexbox. The layout API consists of a set of classes
+    that can be applied to any of your application's HTML content.
   </p>
 
   <p>
-  Ember Paper's layout system is based on
-  <a target="_blank" href="https://material.angularjs.org/1.0.6/layout/introduction">Angular Material's</a>.
-  Most of the class names can be derived from the attributes described in their documentation.
+    Ember Paper's layout system is based on
+    <a target="_blank" href="https://material.angularjs.org/1.0.6/layout/introduction">Angular Material's</a>.
+    Most of the class names can be derived from the attributes described in their documentation. Ember Paper
+    uses classes rather than attributes for performance reasons. Under the hood, Angular does the same.
   </p>
 
   <p>
-  The classes consist of an <em>attribute</em> and optional <em>parameters</em>, separated by
-  dashes. See the table below for an overview of the most important classes.
+    The classes consist of an <em>attribute</em> and optional <em>parameters</em>, separated by
+    dashes. See the table below for an overview of the most important classes.
   </p>
 
   {{paper-api
@@ -41,8 +42,8 @@
   }}
 
   <p>
-  We can associate breakpoints with mediaQuery definitions using breakpoint <strong>alias(es)</strong>,
-  based on the breakpoints specified in the Material Design spec:
+    We can associate breakpoints with mediaQuery definitions using breakpoint <strong>alias(es)</strong>,
+    based on the breakpoints specified in the Material Design spec:
   </p>
 
   {{paper-api
@@ -63,11 +64,11 @@
 
   <h3>API with Responsive Breakpoints</h3>
   <p>
-  Now we can combine the breakpoint alias with the layout classes to easily support responsive breakpoints
-  with our simple layout class convention. The alias is simply used as suffix extensions to the base attribute class.
+    Now we can combine the breakpoint alias with the layout classes to easily support responsive breakpoints
+    with our simple layout class convention. The alias is simply used as suffix extensions to the base attribute class.
   </p>
   <p>
-  This notation results in, for example, the following table for the layout and flex classes:
+    This notation results in, for example, the following table for the layout and flex classes:
   </p>
 
   {{paper-api
