@@ -132,7 +132,7 @@ module.exports = {
 
   postprocessTree: function(type, tree) {
     if (type === 'all' || type === 'styles') {
-      tree = autoprefixer(tree, { browsers: ['last 2 versions'] });
+      tree = autoprefixer(tree, { browsers: ['last 2 versions', 'Safari >= 6'] });
     }
     return tree;
   },
