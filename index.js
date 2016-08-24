@@ -136,10 +136,5 @@ module.exports = {
           this.app.options.autoprefixer || { browsers: ['last 2 versions'] });
     }
     return tree;
-  },
-
-  // TODO: Remove once ember-paper is stable.
-  isDevelopingAddon: function() {
-    return true;
   }
 };
