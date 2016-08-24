@@ -22,8 +22,7 @@ module.exports = {
 
   contentFor: function(type) {
     if (type === 'head') {
-      return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">' +
-        '<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">';
+      return '<link rel="stylesheet" href="/ember-paper/fonts.css">';
     }
   },
 
