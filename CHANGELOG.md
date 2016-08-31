@@ -16,7 +16,13 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - `paper-icon`'s `size` attribute now takes a size in pixels, and `lg` or `sm` values are no longer supported.
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 
+#### 1.0.0-alpha.4
+- [#466](https://github.com/miguelcobain/ember-paper/pull/466) added autoprefixer configuration option
+
 #### 1.0.0-alpha.3
+- [#441](https://github.com/miguelcobain/ember-paper/pull/441) fixed fastboot service check
+- [#449](https://github.com/miguelcobain/ember-paper/pull/449) Update `ember-css-transitions` to `0.1.4`
+- [#446](https://github.com/miguelcobain/ember-paper/pull/446) update `ember-wormhole` to `^0.4.0`
 
 #### 1.0.0-alpha.2
 
