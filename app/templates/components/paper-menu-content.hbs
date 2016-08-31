@@ -5,6 +5,7 @@
         <div class="ember-basic-dropdown-overlay"></div>
       {{/if}}
     --}}
+    {{paper-backdrop class="md-menu-backdrop md-click-catcher"}}
     <div
       id={{dropdownId}}
       class="ember-basic-dropdown-content {{class}} {{if renderInPlace 'ember-basic-dropdown-content--in-place'}} {{if hPosition (concat 'ember-basic-dropdown-content--' hPosition)}} {{if vPosition (concat 'ember-basic-dropdown-content--' vPosition)}}
@@ -15,6 +16,5 @@
         {{yield innerContentHash}}
       {{/paper-menu-content-inner}}
     </div>
-    {{paper-backdrop class="md-menu-backdrop md-click-catcher"}}
   {{/ember-wormhole}}
 {{/if}}
