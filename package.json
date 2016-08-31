@@ -63,8 +63,8 @@
     "ember-cli-babel": "^5.1.6",
     "ember-css-transitions": "peec/ember-css-transitions#v0.1.4",
     "ember-wormhole": "^0.4.0",
-    "ember-basic-dropdown": "^0.12.0",
-    "ember-power-select": "1.0.0-beta.5",
+    "ember-basic-dropdown": "^0.15.0-beta.5",
+    "ember-power-select": "1.0.0-beta.14",
     "virtual-each": "0.2.2"
   },
   "keywords": [
