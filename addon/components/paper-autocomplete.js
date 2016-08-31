@@ -244,8 +244,8 @@ export default Component.extend({
   }),
 
   lookupLabelOfItem(model) {
-    //model might be null (when user cleared the input for example)
-    if(!model){
+    // model might be null (when user cleared the input for example)
+    if (!model) {
       return '';
     }
     return this.get('lookupKey') ? get(model, this.get('lookupKey')) : model;
