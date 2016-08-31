@@ -41,7 +41,8 @@
 
   {{#if notHidden}}
     {{#paper-autocomplete-list suggestions=suggestions selectedIndex=selectedIndex wrapToElementId=autocompleteWrapperId mouse-up="listMouseUp" mouse-leave="listMouseLeave" mouse-enter="listMouseEnter"}}
-
+      
+      <ul class="md-autocomplete-suggestions">
         {{#each suggestions as |item index|}}
 
           {{#paper-autocomplete-item lookupKey=lookupKey item=item selectedIndex=selectedIndex index=index pick="pickModel" as |label|}}
@@ -71,6 +72,7 @@
             {{/if}}
           {{/if}}
         {{/each}}
+      </ul>
     {{/paper-autocomplete-list}}
   {{/if}}
 </md-autocomplete-wrap>
