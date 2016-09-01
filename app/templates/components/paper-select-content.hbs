@@ -12,7 +12,7 @@
       md-select-menu-container md-clickable {{if isActive "md-active"}} {{unless isActive "md-leave"}}"
       style={{style}}
       dir={{dir}}>
-      {{#paper-select-menu-inner width=width dense=dense dropdown=dropdown searchEnabled as |innerContentHash|}}
+      {{#paper-select-menu-inner width=width dense=dense dropdown=dropdown searchEnabled=searchEnabled as |innerContentHash|}}
         {{yield innerContentHash}}
       {{/paper-select-menu-inner}}
     </div>

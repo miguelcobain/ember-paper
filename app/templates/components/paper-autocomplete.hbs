@@ -6,10 +6,9 @@
   onOpen=(action "onOpen")
   registerAPI=(action "registerAPI")
   renderInPlace=(readonly renderInPlace)
-  triggerComponent='paper-autocomplete-trigger-container'
-  contentComponent='paper-autocomplete-content'
   verticalPosition=(readonly verticalPosition)
   disabled=(readonly disabled)
+  contentComponent=(readonly contentComponent)
   as |dropdown|}}
 
   {{#dropdown.trigger
@@ -49,8 +48,8 @@
       as |opt term|}}
       {{yield opt term}}
     {{/component}}
-
   {{/dropdown.trigger}}
+
   {{#dropdown.content
     class=(readonly concatenatedDropdownClasses)
     select=(readonly publicAPI)
@@ -87,13 +86,12 @@
           groupIndex=""
           loadingMessage=(readonly loadingMessage)
           id=(readonly optionsId)
-          options=items
+          options=(readonly publicAPI.results)
           optionsComponent=(readonly optionsComponent)
           select=(readonly publicAPI)
           as |option term|}}
           {{yield option term}}
         {{/component}}
-{{!--       {{/paper-virtual-repeat}} --}}
     {{/if}}
     {{component afterOptionsComponent select=(readonly publicAPI) extra=(readonly extra)}}
   {{/dropdown.content}}
