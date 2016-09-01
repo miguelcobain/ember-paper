@@ -16,8 +16,8 @@ const MENU_PADDING = 8;
 export default Component.extend({
   util: Ember.inject.service(),
 
-  tagName: 'ul',
-  classNames: ['md-default-theme', 'md-autocomplete-suggestions', 'md-whiteframe-z1'],
+  tagName: 'div',
+  classNames: ['md-default-theme', 'md-autocomplete-suggestions-container', 'md-virtual-repeat-container', 'md-whiteframe-z1'],
   attributeNameBindings: ['role'],
   role: 'presentation',
   stickToElement: null,
