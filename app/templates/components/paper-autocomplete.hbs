@@ -22,14 +22,13 @@
     onFocus=(action "onTriggerFocus")
     onBlur=(action "deactivate")
     tabindex=(readonly tabindex)
-    tagName='md-autocomplete'
-    flex=flex
+    flex=(readonly flex)
     disabledProxy=disabled
     label=label}}
     {{#component triggerComponent
       allowClear=(readonly allowClear)
       class="layout-row"
-      flex=flex
+      flex=(readonly flex)
       disabled=disabled
       buildSelection=(readonly buildSelection)
       extra=(readonly extra)
