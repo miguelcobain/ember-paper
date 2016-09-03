@@ -9,7 +9,6 @@ const escapeRegExp = (input) => {
   return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 };
 
-
 export default Controller.extend({
   myModel: { name: 'United States', code: 'US' },
 
