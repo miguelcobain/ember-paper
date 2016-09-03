@@ -5,6 +5,7 @@ const { $ } = Ember;
 
 export default BasicDropdown.extend({
   triggerComponent: 'paper-autocomplete-trigger-container',
+
   reposition() {
     if (!this.publicAPI.isOpen) {
       return;
