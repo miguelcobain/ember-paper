@@ -19,14 +19,14 @@
       labelPath="name"
       placeholder="Select a Country..."
       loadingMessage="Searching countries..."
-      noMatchesMessage="Oops this country doesn't exist."
+      noMatchesMessage="Oops this country doesn't exist. Create a new country?"
       onChange=(action (mut selectedCountry)) as |country select|}}
         {{country.name}}
     {{/paper-autocomplete}}
     {{! END-SNIPPET }}
     <p>
       {{#if selectedCountry}}
-        Selected country is {{selectedCountry2.name}} ({{selectedCountry2.code}})
+        Selected country is {{selectedCountry.name}} ({{selectedCountry.code}})
       {{else}}
           Nothing selected...
       {{/if}}
