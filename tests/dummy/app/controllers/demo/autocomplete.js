@@ -2,6 +2,14 @@ import Ember from 'ember';
 
 const { run, RSVP, Controller } = Ember;
 
+// per MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+const escapeRegExp = (input) => {
+
+  // $& means the whole matched string
+  return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
+
+
 export default Controller.extend({
   myModel: { name: 'United States', code: 'US' },
 
@@ -14,11 +22,19 @@ export default Controller.extend({
     addCountry(name) {
       this.get('items').addObject({ name, code: '' });
     },
-    searchAction() {
+
+    searchCountries(term) {
+      let XHR_TIMEOUT = Math.floor(Math.random() * 1000) + 100;
+
       return new RSVP.Promise((resolve) => {
-        run.later(this, () => {
-          resolve([]);
-        }, Math.floor(Math.random() * 1000) + 800);
+        run.cancel(this.searchTimer);
+
+        this.searchTimer = run.later(this, () => {
+          let nameRegExp = new RegExp(escapeRegExp(`${term}`),'i', 'g');
+          let countries = this.get('items');
+          let results = countries.filter((c) => nameRegExp.exec(c.name)) || [];
+          resolve(results);
+        }, XHR_TIMEOUT);
       });
     }
   },
@@ -29,12 +45,15 @@ export default Controller.extend({
    * Array of static Objects.
    * When having objects, use lookupKey="name" on the paper-autocomplete component so it knows to use "name" to search in.
    */
-  shorterItems: Ember.A([{ name: 'Afghanistan', code: 'AF' },
+  shorterItems: Ember.A([
+    { name: 'Afghanistan', code: 'AF' },
     { name: 'Åland Islands', code: 'AX' },
     { name: 'Albania', code: 'AL' },
     { name: 'Algeria', code: 'DZ' },
     { name: 'American Samoa', code: 'AS' },
-    { name: 'AndorrA', code: 'AD' }]),
+    { name: 'AndorrA', code: 'AD' }
+  ]),
+
   items: Ember.A([
     { name: 'Afghanistan', code: 'AF' },
     { name: 'Åland Islands', code: 'AX' },

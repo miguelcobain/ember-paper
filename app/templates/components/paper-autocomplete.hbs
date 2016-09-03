@@ -54,16 +54,6 @@
     select=(readonly publicAPI)
     to=(readonly destination)
     as |items|}}
-   {{!--  {{component beforeOptionsComponent
-      extra=(readonly extra)
-      listboxId=(readonly optionsId)
-      onInput=(action "onInput")
-      onKeydown=(action "onKeydown")
-      searchEnabled=(readonly searchEnabled)
-      onFocus=(action "onFocus")
-      onBlur=(action "deactivate")
-      searchPlaceholder=(readonly searchPlaceholder)
-      select=(readonly publicAPI)}} --}}
     {{#if mustShowSearchMessage}}
       {{component searchMessageComponent
         searchMessage=(readonly searchMessage)
@@ -80,17 +70,17 @@
         </ul>
       {{/if}}
     {{else}}
-        {{#component optionsComponent
-          class="ember-power-select-options md-autocomplete-suggestions"
-          groupIndex=""
-          loadingMessage=(readonly loadingMessage)
-          id=(readonly optionsId)
-          options=(readonly publicAPI.results)
-          optionsComponent=(readonly optionsComponent)
-          select=(readonly publicAPI)
-          as |option term|}}
+      {{#component optionsComponent
+        class="ember-power-select-options md-autocomplete-suggestions"
+        groupIndex=""
+        loadingMessage=(readonly loadingMessage)
+        id=(readonly optionsId)
+        options=(readonly publicAPI.results)
+        optionsComponent=(readonly optionsComponent)
+        select=(readonly publicAPI)
+        as |option term|}}
           {{yield option term}}
-        {{/component}}
+      {{/component}}
     {{/if}}
     {{component afterOptionsComponent select=(readonly publicAPI) extra=(readonly extra)}}
   {{/dropdown.content}}
