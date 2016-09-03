@@ -3,7 +3,8 @@
  */
 import Ember from 'ember';
 import ContentComponent from 'ember-basic-dropdown/components/basic-dropdown/content';
-const { run, $ } = Ember;
+import { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
+const { $ } = Ember;
 
 function waitForAnimations(element, callback) {
   let computedStyle = window.getComputedStyle(element);
@@ -30,7 +31,7 @@ function waitForAnimations(element, callback) {
  */
 export default ContentComponent.extend({
   animateIn() {
-    run.next(() => {
+    nextTick().then(() => {
       this.set('isActive', true);
       this.dropdownElement.style.transform = '';
     });
@@ -42,7 +43,7 @@ export default ContentComponent.extend({
     clone.id = `${clone.id}--clone`;
     let $clone = $(clone);
     parentElement.appendChild(clone);
-    window.requestAnimationFrame(() => {
+    nextTick().then(() => {
       if (!this.get('isDestroyed')) {
         this.set('isActive', false);
         $clone.addClass('md-leave');

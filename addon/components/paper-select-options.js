@@ -33,5 +33,9 @@ export default PowerOptions.extend({
     if (this.get('isTouchDevice')) {
       this._addTouchEvents();
     }
+    if (this.get('role') !== 'group') {
+      let select = this.get('select');
+      select.actions.scrollTo(select.highlighted);
+    }
   }
 });

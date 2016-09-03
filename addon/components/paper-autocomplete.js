@@ -2,7 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import PowerSelectComponent from 'ember-power-select/components/power-select';
+import PowerSelect from 'ember-power-select/components/power-select';
 
 const { computed, inject } = Ember;
 
@@ -10,10 +10,14 @@ const { computed, inject } = Ember;
  * @class PaperAutocomplete
  * @extends PowerSelectComponent
  */
-export default PowerSelectComponent.extend({
+export default PowerSelect.extend({
   util: inject.service(),
   constants: inject.service(),
-  triggerComponent: 'paper-autocomplete-trigger',
+  triggerComponent: 'paper-autocomplete-trigger', // paper-autocomplete-trigger paper-autocomplete-trigger-container
+  contentComponent: 'paper-autocomplete-content',
+  optionsComponent: 'paper-autocomplete-options',
+  concatenatedDropdownClasses: ['md-autocomplete-suggestions-container md-virtual-repeat-container'],
+
   extra: computed('labelPath', 'label', function() {
     return { labelPath: this.get('labelPath'), label: this.get('label') };
   }),
@@ -34,6 +38,5 @@ export default PowerSelectComponent.extend({
       }
       this.publicAPI.actions.close();
     }
-  },
-  concatenatedDropdownClasses: ['md-autocomplete-suggestions-container md-virtual-repeat-container']
+  }
 });

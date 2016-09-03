@@ -1,10 +1,28 @@
 {{#paper-select-menu
+  horizontalPosition=(readonly horizontalPosition)
+  initiallyOpened=(readonly initiallyOpened)
+  matchTriggerWidth=(readonly matchTriggerWidth)
+  onClose=(action "onClose")
+  onOpen=(action "onOpen")
   registerAPI=(action "registerAPI")
-  searchEnabled=(readonly searchEnabled)
+  renderInPlace=(readonly renderInPlace)
+  verticalPosition=(readonly verticalPosition)
+  disabled=(readonly disabled)
+  searchEnabled=searchEnabled
   as |menu|}}
 
-  {{#menu.trigger}}
-     {{#component triggerComponent
+  {{#menu.trigger
+    ariaDescribedBy=(readonly ariaDescribedBy)
+    ariaInvalid=(readonly ariaInvalid)
+    ariaLabel=(readonly ariaLabel)
+    ariaLabelledBy=(readonly ariaLabelledBy)
+    ariaRequired=(readonly required)
+    class=(readonly concatenatedTriggerClasses)
+    onKeydown=(action "onTriggerKeydown")
+    onFocus=(action "onTriggerFocus")
+    onBlur=(action "deactivate")
+    tabindex=(readonly tabindex)}}
+    {{#component triggerComponent
       allowClear=(readonly allowClear)
       buildSelection=(readonly buildSelection)
       extra=(readonly extra)
@@ -24,7 +42,11 @@
     {{/component}}
   {{/menu.trigger}}
 
-  {{#menu.content searchEnabled=(readonly searchEnabled) as |content|}}
+  {{#menu.content
+    class=(readonly concatenatedDropdownClasses)
+    to=(readonly destination)
+    searchEnabled=searchEnabled
+    dropdown=publicAPI as |content|}}
     {{component beforeOptionsComponent
       extra=(readonly extra)
       listboxId=(readonly optionsId)
@@ -36,19 +58,22 @@
       searchPlaceholder=(readonly searchPlaceholder)
       select=(readonly publicAPI)}}
     {{#if mustShowSearchMessage}}
-      <ul class="ember-power-select-options" role="listbox">
-        <li class="ember-power-select-option ember-power-select-option--search-message" role="option">
-          {{searchMessage}}
-        </li>
-      </ul>
+      {{component searchMessageComponent
+        searchMessage=(readonly searchMessage)
+        select=(readonly publicAPI)
+      }}
     {{else if mustShowNoMessages}}
       {{#if (hasBlock "inverse")}}
         {{yield to="inverse"}}
       {{else if noMatchesMessage}}
-
+        <ul class="ember-power-select-options" role="listbox">
+          <li class="ember-power-select-option ember-power-select-option--no-matches-message" role="option">
+            {{noMatchesMessage}}
+          </li>
+        </ul>
       {{/if}}
     {{else}}
-      {{#component 'paper-select-options'
+      {{#component optionsComponent
         class="ember-power-select-options"
         groupIndex=""
         loadingMessage=(readonly loadingMessage)
