@@ -22,7 +22,7 @@ module.exports = {
 
   contentFor: function(type) {
     if (type === 'head') {
-      return '<link rel="stylesheet" href="/ember-paper/fonts.css">';
+      return '<link rel="stylesheet" href="ember-paper/fonts.css">';
     }
   },
 
