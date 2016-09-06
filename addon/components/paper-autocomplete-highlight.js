@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { Component, computed } = Ember;
 
 /**
  * @class PaperAutocompleteHighlight
@@ -13,9 +13,8 @@ export default Component.extend({
   tagName: 'span',
   flags: '',
 
-  highlight: Ember.computed('searchText', 'label', 'flags', function() {
-    let unsafeText = Ember.Handlebars.Utils.escapeExpression(this.get('label'));
-    let text = unsafeText;
+  highlight: computed('searchText', 'label', 'flags', function() {
+    let text = Ember.Handlebars.Utils.escapeExpression(this.get('label'));
     let flags = this.get('flags');
     let regex = this.getRegExp(this.get('searchText'), flags);
     let html  = text.replace(regex, '<span class="highlight">$&</span>');
