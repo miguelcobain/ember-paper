@@ -81,10 +81,10 @@
     <blockquote>The following example demonstrates floating labels being used as a normal form element.</blockquote>
     <div class="layout-row">
       {{! BEGIN-SNIPPET autocomplete.floating-label }}
-        {{paper-input label="Name" value=name onChange=(action (mut name)) flex=true}}
+        {{paper-input label="Name" value=name onChange=(action (mut name)) class="flex"}}
         {{#paper-autocomplete
           disabled=disabled2
-          flex=true
+          triggerClass="flex"
           options=items
           selected=selectedCountry2
           search=(if simulateQuery2 (action "searchCountries"))
