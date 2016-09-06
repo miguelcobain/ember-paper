@@ -12,6 +12,7 @@
 
 {{#if dropdown.isOpen}}
   {{#ember-wormhole to=to renderInPlace=renderInPlace}}
+    {{paper-backdrop class="md-select-backdrop md-click-catcher"}}
     <md-virtual-repeat-container
       id={{readonly dropdownId}}
       class="md-virtual-repeat-container virtual-each {{concat dropdownId " md-autocomplete-suggestions-container" " ember-basic-dropdown-content " (if renderInPlace 'ember-basic-dropdown-content--in-place ') (if hPosition (concat 'ember-basic-dropdown-content--' hPosition ' ')) (if vPosition (concat 'ember-basic-dropdown-content--' vPosition ' ') "md-whiteframe-z1 ") animationClass}}">
