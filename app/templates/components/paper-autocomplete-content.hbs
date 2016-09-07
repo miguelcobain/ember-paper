@@ -1,5 +1,6 @@
-<!-- {{#if dropdown.isOpen}}
+{{#if dropdown.isOpen}}
   {{#ember-wormhole to=to renderInPlace=renderInPlace}}
+    {{paper-backdrop class="md-select-backdrop md-click-catcher"}}
     {{#paper-virtual-repeat
       id=(readonly dropdownId)
       class=(concat dropdownId " md-autocomplete-suggestions-container" " ember-basic-dropdown-content " (if renderInPlace 'ember-basic-dropdown-content--in-place ') (if hPosition (concat 'ember-basic-dropdown-content--' hPosition ' ')) (if vPosition (concat 'ember-basic-dropdown-content--' vPosition ' ') "md-whiteframe-z1 ") animationClass)
@@ -8,9 +9,9 @@
       {{yield virtualItems}}
     {{/paper-virtual-repeat}}
   {{/ember-wormhole}}
-{{/if}} -->
+{{/if}}
 
-{{#if dropdown.isOpen}}
+{{!-- {{#if dropdown.isOpen}}
   {{#ember-wormhole to=to renderInPlace=renderInPlace}}
     {{paper-backdrop class="md-select-backdrop md-click-catcher"}}
     <md-virtual-repeat-container
@@ -24,4 +25,4 @@
       </div>
     </md-virtual-repeat-container>
   {{/ember-wormhole}}
-{{/if}}
+{{/if}} --}}

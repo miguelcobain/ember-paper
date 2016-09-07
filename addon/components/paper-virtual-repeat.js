@@ -60,12 +60,16 @@ export default VirtualEachComponent.extend({
     if (!this.get('itemHeight')) {
       let elem = this.get('containerSelector') ? $(this.get('containerSelector'))[0].firstElementChild : this.$('.md-virtual-repeat-offsetter')[0].firstElementChild;
       if (elem) {
-        this.set('itemHeight', this.get('horizontal') ? elem.offsetWidth : elem.offsetHeight);
-        this.set('_totalHeight', Math.max((this.get('length') ? this.get('length') : get(this.get('items'), 'length')) * this.get('itemHeight'), 0));
+        run.schedule('actions', () => {
+          this.set('itemHeight', this.get('horizontal') ? elem.offsetWidth : elem.offsetHeight);
+          this.set('_totalHeight', Math.max((this.get('length') ? this.get('length') : get(this.get('items'), 'length')) * this.get('itemHeight'), 0));
+        });
         // this.rerender();
       }
     }
-    this.set('height', this.get('horizontal') ? this.$()[0].clientWidth : this.$()[0].clientHeight);
+    run.schedule('actions', () => {
+      this.set('height', this.get('horizontal') ? this.$()[0].clientWidth : this.$()[0].clientHeight);
+    });
 
   },
   visibleItems: computed('_startAt', '_visibleItemCount', '_items', {
