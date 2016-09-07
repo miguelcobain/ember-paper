@@ -17,6 +17,7 @@ export default Component.extend(ChildMixin, {
 
   actions: {
     handleClick(event) {
+      this.get('dropdown.actions').close();
       this.sendAction('onClick', event);
     }
   },
