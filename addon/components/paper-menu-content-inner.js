@@ -24,7 +24,9 @@ export default Component.extend(ParentMixin, {
       if (!focusTarget.length) {
         focusTarget = this.get('enabledMenuItems.firstObject.element.firstElementChild');
       }
-      focusTarget.focus();
+      if (focusTarget) {
+        focusTarget.focus();
+      }
     });
   },
 
