@@ -72,6 +72,16 @@ export default VirtualEachComponent.extend({
     });
 
   },
+  offsetterStyle: computed('horizontal', '_marginTop', {
+    get() {
+      let margin = Handlebars.Utils.escapeExpression(get(this, '_marginTop'));
+
+      return new Handlebars.SafeString(this.get('horizontal') ? `transform: translateX(${margin}px);` : `transform: translateY(${margin}px);`);
+    }
+  }).readOnly(),
+  // offsetterStyle: computed('horizontal','_marginTop', function() {
+  //   return Handlebars.SafeString(this.get('horizontal') ? 'transform: translateX(' + this.get('_marginTop') + 'px);' : 'transform: translateY(' + this.get('_marginTop') + 'px);');
+  // }),
   visibleItems: computed('_startAt', '_visibleItemCount', '_items', {
     get() {
       let items = get(this, '_items');
