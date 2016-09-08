@@ -10,7 +10,9 @@
   disabled=(readonly disabled)
   searchEnabled=searchEnabled
   as |menu|}}
-
+  {{#if shouldShowLabel}}
+    <label for={{concat "ember-basic-dropdown-trigger-" publicAPI.uniqueId}}>{{label}}</label>
+  {{/if}}
   {{#menu.trigger
     ariaDescribedBy=(readonly ariaDescribedBy)
     ariaInvalid=(readonly ariaInvalid)
@@ -26,6 +28,7 @@
       allowClear=(readonly allowClear)
       buildSelection=(readonly buildSelection)
       extra=(readonly extra)
+      label=label
       listboxId=(readonly optionsId)
       onFocus=(action "onFocus")
       activate=(action "activate")

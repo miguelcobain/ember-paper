@@ -14,7 +14,7 @@ export default TriggerComponent.extend({
   tagName: 'md-select-value',
   classNames: ['md-select-value'],
   classNameBindings: ['isPlaceholder:md-select-placeholder'],
-  isPlaceholder: computed('placeholder', 'select.selected', function() {
-    return this.get('placeholder') && !this.get('select.selected');
+  isPlaceholder: computed('placeholder', 'select.selected', 'label', function() {
+    return (this.get('placeholder') || this.get('label')) && !this.get('select.selected');
   })
 });
