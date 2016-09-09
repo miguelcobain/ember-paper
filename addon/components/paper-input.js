@@ -176,21 +176,23 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
       inputElement.addClass('md-no-flex').attr('rows', 1);
 
       let minRows = this.get('passThru.rows');
-
+      let height = this.getHeight(inputElement);
       if (minRows) {
         if (!this.lineHeight) {
           inputElement.get(0).style.minHeight = 0;
           this.lineHeight = inputElement.get(0).clientHeight;
           inputElement.get(0).style.minHeight = null;
         }
-
-        let newRows = Math.round(Math.round(this.getHeight(inputElement) / this.lineHeight));
-        let rowsToSet = Math.min(newRows, minRows);
-
+        if (minRows && this.lineHeight) {
+          height = Math.max(height, this.lineHeight * minRows);
+        }
+        let proposedHeight = Math.round(height / this.lineHeight);
+        let maxRows = this.get('passThru.maxRows') ? this.get('passThru.maxRows') : 99999999;
+        let rowsToSet = Math.min(proposedHeight, maxRows);
         inputElement
           .css('height', `${this.lineHeight * rowsToSet}px`)
           .attr('rows', rowsToSet)
-          .toggleClass('md-textarea-scrollable', newRows >= minRows);
+         .toggleClass('md-textarea-scrollable', proposedHeight >= maxRows);
       } else {
         inputElement.css('height', 'auto');
         inputElement.get(0).scrollTop = 0;
@@ -232,7 +234,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
       run.next(() => {
         this.setValue(this.get('value'));
       });
-      this.growTextarea();
+      run.debounce(this, this.growTextarea, 10);
       let inputElement = this.$('input').get(0);
       this.set('isNativeInvalid', inputElement && inputElement.validity && inputElement.validity.badInput);
       this.notifyValidityChange();
