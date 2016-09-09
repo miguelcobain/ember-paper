@@ -10,7 +10,7 @@
   disabled=(readonly disabled)
   searchEnabled=searchEnabled
   as |menu|}}
-
+  <label class="{{if required "md-required"}}"></label>
   {{#menu.trigger
     ariaDescribedBy=(readonly ariaDescribedBy)
     ariaInvalid=(readonly ariaInvalid)
@@ -41,6 +41,24 @@
       {{yield opt term}}
     {{/component}}
   {{/menu.trigger}}
+
+  {{#unless hideAllMessages}}
+    <div class="md-errors-spacer">
+      {{#if maxlength}}
+        <div class="md-char-counter">{{renderCharCount}}</div>
+      {{/if}}
+    </div>
+    {{#if isInvalidAndTouched}}
+      <div class="md-input-messages-animation md-auto-hide" ng-messages>
+        {{#each validationErrorMessages as |error index|}}
+          <div id="error-{{inputElementId}}-{{index}}"
+          class="paper-input-error ng-enter ng-enter-active" ng-message>
+            {{error.message}}
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+  {{/unless}}
 
   {{#menu.content
     class=(readonly concatenatedDropdownClasses)
