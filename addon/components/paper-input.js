@@ -183,11 +183,11 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
           this.lineHeight = inputElement.get(0).clientHeight;
           inputElement.get(0).style.minHeight = null;
         }
-        if (minRows && this.lineHeight) {
+        if (this.lineHeight) {
           height = Math.max(height, this.lineHeight * minRows);
         }
         let proposedHeight = Math.round(height / this.lineHeight);
-        let maxRows = this.get('passThru.maxRows') ? this.get('passThru.maxRows') : 99999999;
+        let maxRows = this.get('passThru.maxRows') ? this.get('passThru.maxRows') : Number.MAX_VALUE;
         let rowsToSet = Math.min(proposedHeight, maxRows);
         inputElement
           .css('height', `${this.lineHeight * rowsToSet}px`)
@@ -234,7 +234,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
       run.next(() => {
         this.setValue(this.get('value'));
       });
-      run.debounce(this, this.growTextarea, 10);
+      this.growTextarea();
       let inputElement = this.$('input').get(0);
       this.set('isNativeInvalid', inputElement && inputElement.validity && inputElement.validity.badInput);
       this.notifyValidityChange();
