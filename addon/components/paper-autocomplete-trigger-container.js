@@ -11,7 +11,6 @@ export default BasicTrigger.extend({
 
   // Chrome 51: setting tabindex=0 explicitly stops tab propogation to
   // other elements. We need to verify that other browsers behave as expected.
-
   tabIndex: computed('dropdown.disabled', 'tabindex', function() {
     let tabindex = this.get('tabindex');
 
@@ -22,26 +21,14 @@ export default BasicTrigger.extend({
     return tabindex;
   }),
 
-  addMandatoryHandlers() {
-   if (this.get('isTouchDevice')) {
-     this.element.addEventListener('touchstart', () => {
-       document.body.addEventListener('touchmove', this._touchMoveHandler);
-     });
-     this.element.addEventListener('touchend', (e) => {
-       this.send('handleTouchEnd', e);
-       e.preventDefault(); // Prevent synthetic click
-     });
-   }
+  actions: {
 
-   // Target the input element as the trigger not the whole md-autcomplete
-   let [inputTarget] = this.element.getElementsByTagName('input');
-   inputTarget.addEventListener('mousedown', (e) => {
-     this.send('handleMousedown', e);
-   });
-   this.element.addEventListener('keydown', (e) => {
-     this.send('handleKeydown', e);
-   });
- }
-
-
+    handleMousedown() {
+      let dropdown = this.get('dropdown');
+      if (dropdown.disabled) {
+        return;
+      }
+      this.stopTextSelectionUntilMouseup();
+    }
+  }
 });

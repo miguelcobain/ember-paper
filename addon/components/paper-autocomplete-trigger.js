@@ -54,8 +54,6 @@ export default Ember.Component.extend({
       this.get('onInput')({ target: { value: '' } });
       this.set('text', '');
       this.get('onFocus')(e);
-      let [input] = this.element.getElementsByTagName('input');
-      input.focus();
     },
 
     handleKeydown(e) {
