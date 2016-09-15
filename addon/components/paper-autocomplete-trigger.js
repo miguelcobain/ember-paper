@@ -14,8 +14,8 @@ export default Ember.Component.extend({
       return v;
     }
   }),
-  noLabel: computed.not('extra.label'),
 
+  noLabel: computed.not('extra.label'),
 
   // Lifecycle hooks
   didUpdateAttrs({ oldAttrs, newAttrs }) {
@@ -57,6 +57,7 @@ export default Ember.Component.extend({
       let [input] = this.element.getElementsByTagName('input');
       input.focus();
     },
+
     handleKeydown(e) {
       let isLetter = e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode === 32; // Keys 0-9, a-z or SPACE
       let isSpecialKeyWhileClosed = !isLetter && !this.get('select.isOpen') && [13, 27, 38, 40].indexOf(e.keyCode) > -1;

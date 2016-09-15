@@ -9,7 +9,6 @@ export default BasicTrigger.extend({
     return this.get('disabledProxy') ? this.get('disabledProxy') : undefined;
   }),
 
-
   // Chrome 51: setting tabindex=0 explicitly stops tab propogation to
   // other elements. We need to verify that other browsers behave as expected.
 
@@ -36,8 +35,12 @@ export default BasicTrigger.extend({
 
    // Target the input element as the trigger not the whole md-autcomplete
    let [inputTarget] = this.element.getElementsByTagName('input');
-   inputTarget.addEventListener('mousedown', (e) => this.send('handleMousedown', e));
-   this.element.addEventListener('keydown', (e) => this.send('handleKeydown', e));
+   inputTarget.addEventListener('mousedown', (e) => {
+     this.send('handleMousedown', e);
+   });
+   this.element.addEventListener('keydown', (e) => {
+     this.send('handleKeydown', e);
+   });
  }
 
 
