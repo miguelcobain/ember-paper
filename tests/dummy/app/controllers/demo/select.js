@@ -26,6 +26,31 @@ export default Controller.extend({
   /*
    * Fake promise to fetch data, here you would use ember-data, jQuery.ajax or whatever you want.
    */
+   actions: {
+    searchtest(term) {
+      return new RSVP.Promise(function(resolve) {
+      // Just wait for 800ms to 2 seconds for a fake progress, so it feels like a query.
+      let waitMS = Math.floor(Math.random() * 2000) + 800;
+
+      let dataFromServer = Ember.A([
+        { id: 1, name: 'Scooby Doo' },
+        { id: 2, name: 'Shaggy Rodgers' },
+        { id: 3, name: 'Fred Jones' },
+        { id: 4, name: 'Daphne Blake' },
+        { id: 5, name: 'Velma Dinkley' }
+      ]);
+
+      run.later(_self, function() {
+        /*
+         * Two arguments to the resolve:
+         * - data from the server
+         * - callback to be able to get the 'label'.
+         */
+        resolve(dataFromServer);
+      }, waitMS);
+    });
+   }
+  },
   users: computed(function() {
     let _self = this;
     return new RSVP.Promise(function(resolve) {

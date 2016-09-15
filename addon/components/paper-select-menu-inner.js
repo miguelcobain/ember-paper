@@ -30,7 +30,9 @@ export default PaperMenuContentInner.extend({
       } else {
         focusTarget = focusTarget[0];
       }
-      focusTarget.focus();
+      if (focusTarget) {
+        focusTarget.focus();
+      }
     });
   },
 
