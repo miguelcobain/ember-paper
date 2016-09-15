@@ -11,12 +11,13 @@
   {{#paper-select
     disabled=disableSelect
     label="State"
-    options=states
+    searchEnabled=true
+    search=(action 'searchtest')
     selected=userState
     onChange=(action (mut userState))
-    as |state|
+    as |user|
   }} 
-    {{state.abbrev}}
+    {{user.name}}
   {{/paper-select}}
   {{! END-SNIPPET }}
 </div>

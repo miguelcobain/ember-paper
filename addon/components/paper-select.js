@@ -16,6 +16,7 @@ export default PowerSelect.extend({
   classNameBindings: ['selected:md-input-has-value', 'focused:md-input-focused'],
   optionsComponent: 'paper-select-options',
   triggerComponent: 'paper-select-trigger',
+  searchMessageComponent: 'paper-search-message',
   beforeOptionsComponent: 'paper-select-search',
   searchEnabled: false,
   focused: false,
