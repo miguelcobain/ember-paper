@@ -89,12 +89,6 @@ export default BasicDropdown.extend({
       style.width = `${dropdownWidth}px`;
     }
     this.applyReposition(trigger, dropdown, { horizontalPosition, verticalPosition, style });
-  },
-
-
-  toggle(e) {
-
-    debugger;
-    this._super(...arguments);
   }
+
 });
