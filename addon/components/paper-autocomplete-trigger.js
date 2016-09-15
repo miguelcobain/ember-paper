@@ -4,7 +4,7 @@ const { isBlank, run, get, computed } = Ember;
 
 export default Ember.Component.extend({
   tagName: 'md-autocomplete-wrap',
-  classNameBindings: ['noLabel:md-whiteframe-z1'],
+  classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
   // CPs
   text: computed('selected', 'extra.labelPath', {
     get() {
@@ -50,10 +50,11 @@ export default Ember.Component.extend({
 
     clear(e) {
       e.stopPropagation();
+      this.set('text', '');
       this.get('select').actions.select(null);
       this.get('onInput')({ target: { value: '' } });
-      this.set('text', '');
       this.get('onFocus')(e);
+      this.$('input').focus();
     },
 
     handleKeydown(e) {
