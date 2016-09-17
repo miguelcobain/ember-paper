@@ -1,7 +1,15 @@
 import Ember from 'ember';
 import VirtualEachComponent from 'virtual-each/components/virtual-each';
 
-const { computed, run, get, set, Handlebars, RSVP, $ } = Ember;
+const {
+  computed,
+  run,
+  get,
+  set,
+  Handlebars,
+  RSVP,
+  observer,
+  String: { htmlSafe } } = Ember;
 
 const EXTRA_ROW_PADDING = 3;
 
@@ -10,15 +18,51 @@ export default VirtualEachComponent.extend({
   classNames: ['md-virtual-repeat-container'],
   classNameBindings: ['horizontal:md-orient-horizontal'],
   visibleItemsRaw: computed.mapBy('visibleItems', 'raw'),
+  containerSelector: null,
+  height: computed.alias('_totalHeight'),
 
   actions: {
     onScroll(e) {
       this.eventHandlers.scroll.call(this, e);
     }
   },
+
   defaultAttrs: {
-    scrollTimeout: 30
+    scrollTimeout: 10,
+    height: 48
   },
+
+  // Received coordinates {top, left, right, width} from the dropdown
+  // Convert them to style and cache - they usually don't change
+  positionStyle: computed('positionCoordinates', {
+    get() {
+      let coords = this.get('positionCoordinates');
+      let style = '';
+
+      // {top, left, right, width}
+      Object.keys(coords).forEach((type) => {
+        if (coords[type]) {
+          style += `${type}: ${coords[type]}; `;
+        }
+      });
+
+      return style.trim();
+    }
+  }).readOnly(),
+
+  style: computed('height', 'positionStyle', {
+    get() {
+      let height = this.get('height') || this.get('defaultAttrs.height');
+      let style = this.get('positionStyle');
+
+      if (height !== null && !isNaN(height)) {
+        height = Handlebars.Utils.escapeExpression(height);
+        style += ` height: ${height}px;`;
+      }
+      return htmlSafe(style);
+    }
+  }).readOnly(),
+
   calculateVisibleItems(positionIndex) {
     run(() => {
       let startAt = get(this, '_startAt');
@@ -30,6 +74,7 @@ export default VirtualEachComponent.extend({
       }
     });
   },
+
   _marginTop: computed('_totalHeight', '_startAt', '_visibleItemCount', 'itemHeight', {
     get() {
       let itemHeight = this.get('itemHeight');
@@ -41,33 +86,44 @@ export default VirtualEachComponent.extend({
       return Math.min(maxMargin, margin);
     }
   }).readOnly(),
+
   contentStyle: computed('_marginTop', '_totalHeight', {
     get() {
-
       let height = Handlebars.Utils.escapeExpression(get(this, '_totalHeight'));
-
-      return new Handlebars.SafeString(this.get('horizontal') ? `width: ${height}px;` : `height: ${height}px;`);
+      return htmlSafe(this.get('horizontal') ? `width: ${height}px;` : `height: ${height}px;`);
     }
   }).readOnly(),
+
+  offsetterStyle: computed('_marginTop', 'horizontal', {
+    get() {
+      let { horizontal, _marginTop } = this.getProperties('_marginTop', 'horizontal');
+      let dir = horizontal ? 'X' : 'Y';
+      return htmlSafe(`transform: translate${dir}(${_marginTop}px);`);
+    }
+  }).readOnly(),
+
   _visibleItemCount: computed('height', 'itemHeight', {
     get() {
       let height = this.get('height');
-
       return Math.ceil(this.get('itemHeight') ? height / this.get('itemHeight') : 1) + EXTRA_ROW_PADDING;
     }
   }).readOnly(),
+
   didRender() {
     if (!this.get('itemHeight')) {
-      let elem = this.get('containerSelector') ? $(this.get('containerSelector'))[0].firstElementChild : this.$('.md-virtual-repeat-offsetter')[0].firstElementChild;
-      if (elem) {
-        this.set('itemHeight', this.get('horizontal') ? elem.offsetWidth : elem.offsetHeight);
-        this.set('_totalHeight', Math.max((this.get('length') ? this.get('length') : get(this.get('items'), 'length')) * this.get('itemHeight'), 0));
-        // this.rerender();
-      }
-    }
-    this.set('height', this.get('horizontal') ? this.$()[0].clientWidth : this.$()[0].clientHeight);
+      run.schedule('afterRender', this, function() {
+        let selector = this.getWithDefault('containerSelector', '.md-virtual-repeat-offsetter');
+        let elem = this.$(selector)[0].firstElementChild;
 
+        if (elem) {
+          this.set('itemHeight', this.get('horizontal') ? elem.offsetWidth : elem.offsetHeight);
+          this.set('_totalHeight', Math.max((this.get('length') ? this.get('length') : get(this.get('items'), 'length')) * this.get('itemHeight'), 0));
+        }
+        this.set('height', this.get('horizontal') ? this.$()[0].clientWidth : this.$()[0].clientHeight);
+      });
+    }
   },
+
   visibleItems: computed('_startAt', '_visibleItemCount', '_items', {
     get() {
       let items = get(this, '_items');
@@ -97,6 +153,7 @@ export default VirtualEachComponent.extend({
       });
     }
   }).readOnly(),
+
   didReceiveAttrs() {
     this._super(...arguments);
 
@@ -110,8 +167,8 @@ export default VirtualEachComponent.extend({
       });
     });
   },
-  scrollTo: Ember.observer('_positionIndex', function() {
 
+  scrollTo: observer('_positionIndex', function() {
     this.scheduledRender = run.scheduleOnce('afterRender', () => {
       let positionIndex = get(this, '_positionIndex');
       let itemHeight = this.get('itemHeight');
@@ -131,8 +188,13 @@ export default VirtualEachComponent.extend({
       }
     });
   }),
-  lengthObserver: Ember.observer('items.length', function() {
-    this.set('_totalHeight', Math.max((this.get('length') ? this.get('length') : this.get('items.length')) * this.get('itemHeight'), 0));
+
+  lengthObserver: observer('items.length', function() {
+    let totalHeight = this.get('length');
+    if (totalHeight) {
+      totalHeight = this.get('items.length') * this.get('itemHeight');
+    }
+    this.set('_totalHeight', Math.max(totalHeight, 0));
   })
 
 });

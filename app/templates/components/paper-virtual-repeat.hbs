@@ -1,6 +1,6 @@
 {{#paper-virtual-repeat-scroller onScroll=(action 'onScroll')}}
 	<div class="md-virtual-repeat-sizer" style={{contentStyle}}></div>
-	<div class="md-virtual-repeat-offsetter" style={{concat "transform: " (if horizontal "translateX(" "translateY(")  _marginTop "px);"}}>
+	<div class="md-virtual-repeat-offsetter" style={{offsetterStyle}}>
 		{{yield visibleItemsRaw}}
 	</div>
 {{/paper-virtual-repeat-scroller}}
