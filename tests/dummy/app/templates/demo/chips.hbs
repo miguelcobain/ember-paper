@@ -13,7 +13,7 @@
   {{/paper-chips}}
 
   <h2>Contact Chips</h2>
-  {{paper-contact-chips class="md-contact-chips" readOnly=readOnly removeItem="removeContact" addItem="addContact" placeholder="Add a tag" content=contacts source=remainingContacts}}
+  {{paper-contact-chips class="md-contact-chips" readOnly=readOnly removeItem=(action 'removeContact') addItem=(action 'addContact') placeholder="Add a tag" content=contacts source=remainingContacts}}
 
   {{#paper-checkbox value=readOnly onChange=(action (mut readOnly))}}Read Only{{/paper-checkbox}}
   {{! END-SNIPPET }}
