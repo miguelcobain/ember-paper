@@ -2,12 +2,12 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import FocusableMixin from 'ember-paper/mixins/base-focusable';
+import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 
-const { Componente, computed, assert } = Ember;
+const { Component, computed, assert } = Ember;
 
 /**
  * @class PaperRadio
