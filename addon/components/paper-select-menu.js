@@ -26,6 +26,7 @@ function clamp(min, n, max) {
  * @extends Ember.Component
  */
 export default PaperMenu.extend({
+  triggerComponent: 'paper-select-menu-trigger',
   performFullReposition(trigger, dropdown) {
     let $dropdown = $(dropdown);
     let opts = {
