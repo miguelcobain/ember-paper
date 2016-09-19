@@ -1,3 +1,9 @@
+{{#if selected}}
+  {{#if placeholder}}
+    <label>{{placeholder}}</label>
+  {{/if}}
+{{/if}}
+
 {{#paper-select-menu
   horizontalPosition=(readonly horizontalPosition)
   initiallyOpened=(readonly initiallyOpened)
