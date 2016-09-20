@@ -25,7 +25,7 @@
   {{#unless readOnly}}
     {{#if source.length}}
       <div class="md-chip-input-container">
-        {{#paper-autocomplete closeOnSelect=false onclose=(action 'autocompleteClose') onChange=(action 'autocompleteChange') placeholder="Add A Contact" options=source searchField="email" as |item select|}}
+        {{#paper-autocomplete closeOnSelect=false onclose=(action 'autocompleteClose') onChange=(action 'autocompleteChange') placeholder=placeholder options=source searchField="email" as |item select|}}
           <div class="md-contact-suggestion">
             <img src={{item.image}} alt={{item.name}} class="md-contact-avatar">
 
