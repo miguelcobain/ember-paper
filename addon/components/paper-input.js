@@ -179,21 +179,23 @@ export default Component.extend(FocusableMixin, ColorMixin, FlexMixin, ChildMixi
       inputElement.addClass('md-no-flex').attr('rows', 1);
 
       let minRows = this.get('passThru.rows');
-
+      let height = this.getHeight(inputElement);
       if (minRows) {
         if (!this.lineHeight) {
           inputElement.get(0).style.minHeight = 0;
           this.lineHeight = inputElement.get(0).clientHeight;
           inputElement.get(0).style.minHeight = null;
         }
-
-        let newRows = Math.round(Math.round(this.getHeight(inputElement) / this.lineHeight));
-        let rowsToSet = Math.min(newRows, minRows);
-
+        if (this.lineHeight) {
+          height = Math.max(height, this.lineHeight * minRows);
+        }
+        let proposedHeight = Math.round(height / this.lineHeight);
+        let maxRows = this.get('passThru.maxRows') || Number.MAX_VALUE;
+        let rowsToSet = Math.min(proposedHeight, maxRows);
         inputElement
           .css('height', `${this.lineHeight * rowsToSet}px`)
           .attr('rows', rowsToSet)
-          .toggleClass('md-textarea-scrollable', newRows >= minRows);
+          .toggleClass('md-textarea-scrollable', proposedHeight >= maxRows);
       } else {
         inputElement.css('height', 'auto');
         inputElement.get(0).scrollTop = 0;
