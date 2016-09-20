@@ -6,6 +6,12 @@ export default Component.extend({
   tagName: 'md-contact-chips',
   classNames: ['md-default-theme'],
 
+  sourceEmpty: Ember.observer('source.length', function() {
+    if (!this.get('source').length) {
+      this.send('inputBlur');
+    }
+  }),
+
   actions: {
     inputFocus() {
       this.set('isFocused', true);
@@ -31,6 +37,9 @@ export default Component.extend({
     },
 
     autocompleteClose() {
+      // Mark field as having lost focus.
+      this.send('inputBlur');
+
       if (this.get('source').length) {
         // We still have options left; go ahead and close the underlying ember-power-select.
         return true;
