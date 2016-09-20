@@ -109,10 +109,10 @@ module.exports = {
       'components/dialog/dialog.scss',
       'components/dialog/dialog-theme.scss',
 
-      'components/virtualRepeat/virtual-repeater.scss'
+      'components/virtualRepeat/virtual-repeater.scss',
 
       'components/chips/chips.scss',
-      'components/chips/chips-theme.scss',
+      'components/chips/chips-theme.scss'
     ];
 
     /*
