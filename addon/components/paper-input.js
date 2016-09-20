@@ -190,12 +190,12 @@ export default Component.extend(FocusableMixin, ColorMixin, FlexMixin, ChildMixi
           height = Math.max(height, this.lineHeight * minRows);
         }
         let proposedHeight = Math.round(height / this.lineHeight);
-        let maxRows = this.get('passThru.maxRows') ? this.get('passThru.maxRows') : Number.MAX_VALUE;
+        let maxRows = this.get('passThru.maxRows') || Number.MAX_VALUE;
         let rowsToSet = Math.min(proposedHeight, maxRows);
         inputElement
           .css('height', `${this.lineHeight * rowsToSet}px`)
           .attr('rows', rowsToSet)
-         .toggleClass('md-textarea-scrollable', proposedHeight >= maxRows);
+          .toggleClass('md-textarea-scrollable', proposedHeight >= maxRows);
       } else {
         inputElement.css('height', 'auto');
         inputElement.get(0).scrollTop = 0;
