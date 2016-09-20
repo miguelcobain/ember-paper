@@ -1,5 +1,5 @@
-<md-chips-wrap class="md-chips md-contact-chips {{if isFocused 'md-focused'}}">
-  <md-chips>
+<md-chips class="md-chips md-contact-chips {{if isFocused 'md-focused'}}">
+  <md-chips-wrap class="md-chips md-contact-chips {{if isFocused 'md-focused'}}">
     {{#each content as |item|}}
       <md-chip class="md-chip md-default-theme">
         <div class="md-chip-content" tabindex="-1" aria-hidden="true">
@@ -21,19 +21,19 @@
         {{/unless}}
       </md-chip>
     {{/each}}
-  </md-chips>
-  {{#unless readOnly}}
-    {{#if source.length}}
-      <div class="md-chip-input-container">
-        {{#paper-autocomplete closeOnSelect=false onclose=(action 'autocompleteClose') onChange=(action 'autocompleteChange') placeholder=placeholder options=source searchField="email" as |item select|}}
-          <div class="md-contact-suggestion">
-            <img src={{item.image}} alt={{item.name}} class="md-contact-avatar">
+    {{#unless readOnly}}
+      {{#if source.length}}
+        <div class="md-chip-input-container">
+          {{#paper-autocomplete closeOnSelect=false onclose=(action 'autocompleteClose') onChange=(action 'autocompleteChange') onfocus=(action 'inputFocus')  onopen=(action 'inputFocus') placeholder=placeholder options=source searchField="email" as |item select|}}
+            <div class="md-contact-suggestion">
+              <img src={{item.image}} alt={{item.name}} class="md-contact-avatar">
 
-            <span class="md-contact-name">{{item.name}}</span>
-            <span class="md-contact-email">{{item.email}}</span>
-          </div>
-        {{/paper-autocomplete}}
-      </div>
-    {{/if}}
-  {{/unless}}
-</md-chips-wrap>
+              <span class="md-contact-name">{{item.name}}</span>
+              <span class="md-contact-email">{{item.email}}</span>
+            </div>
+          {{/paper-autocomplete}}
+        </div>
+      {{/if}}
+    {{/unless}}
+  </md-chips-wrap>
+</md-chips>
