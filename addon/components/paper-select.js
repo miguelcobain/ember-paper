@@ -18,6 +18,8 @@ export default PowerSelect.extend(FocusableMixin, {
   triggerComponent: 'paper-select-trigger',
   beforeOptionsComponent: 'paper-select-search',
   searchEnabled: false,
-  classNameBindings: ['selected:md-input-has-value', 'focused:md-input-focused'],
-  attributeBindings: ['parentTabindex:tabindex']
+  attributeBindings: ['parentTabindex:tabindex'],
+  classNameBindings: ['selected:md-input-has-value', 'focusedAndSelected:md-input-focused'],
+  shouldShowLabel: computed.and('label', 'selected'),
+  focusedAndSelected: computed.and('focused', 'selected')
 });

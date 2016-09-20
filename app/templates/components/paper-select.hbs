@@ -1,7 +1,5 @@
-{{#if selected}}
-  {{#if placeholder}}
-    <label>{{placeholder}}</label>
-  {{/if}}
+{{#if shouldShowLabel}}
+  <label for={{concat "ember-basic-dropdown-trigger-" publicAPI.uniqueId}}>{{label}}</label>
 {{/if}}
 
 {{#paper-select-menu
@@ -38,6 +36,7 @@
       onBlur=(action "deactivate")
       onInput=(action "onInput")
       placeholder=(readonly placeholder)
+      label=(readonly label)
       onKeydown=(action "onKeydown")
       searchEnabled=(readonly searchEnabled)
       searchField=(readonly searchField)
@@ -72,11 +71,11 @@
       {{#if (hasBlock "inverse")}}
         {{yield to="inverse"}}
       {{else if noMatchesMessage}}
-        <ul class="ember-power-select-options" role="listbox">
-          <li class="ember-power-select-option ember-power-select-option--no-matches-message" role="option">
+        <md-content class="ember-power-select-options" role="listbox">
+          <md-option class="ember-power-select-option ember-power-select-option--no-matches-message" role="option">
             {{noMatchesMessage}}
-          </li>
-        </ul>
+          </md-option>
+        </md-content>
       {{/if}}
     {{else}}
       {{#component optionsComponent
