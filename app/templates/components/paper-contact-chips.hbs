@@ -1,25 +1,27 @@
 <md-chips-wrap class="md-chips md-contact-chips {{if isFocused 'md-focused'}}">
-  {{#each content as |item|}}
-    <md-chip class="md-chip md-default-theme">
-      <div class="md-chip-content" tabindex="-1" aria-hidden="true">
-        <div class="md-contact-avatar">
-          <img src={{item.image}}>
+  <md-chips>
+    {{#each content as |item|}}
+      <md-chip class="md-chip md-default-theme">
+        <div class="md-chip-content" tabindex="-1" aria-hidden="true">
+          <div class="md-contact-avatar">
+            <img src={{item.image}}>
+          </div>
+          <span class="md-contact-name">{{item.name}}</span>
         </div>
-        <span class="md-contact-name">{{item.name}}</span>
-      </div>
-      <div class="md-chip-remove-container">
+        <div class="md-chip-remove-container">
+          {{#unless readOnly}}
+            <button class="md-chip-remove" {{action (action removeItem item)}} type="button" aria-hidden="true" tabindex="-1">
+              {{paper-icon icon="clear"}}
+              <span class="md-visually-hidden"> Remove </span>
+            </button>
+          {{/unless}}
+        </div>
         {{#unless readOnly}}
-          <button class="md-chip-remove" {{action (action removeItem item)}} type="button" aria-hidden="true" tabindex="-1">
-            {{paper-icon icon="clear"}}
-            <span class="md-visually-hidden"> Remove </span>
-          </button>
+          <span class="md-visually-hidden"> Press delete to remove this chip. </span>
         {{/unless}}
-      </div>
-      {{#unless readOnly}}
-        <span class="md-visually-hidden"> Press delete to remove this chip. </span>
-      {{/unless}}
-    </md-chip>
-  {{/each}}
+      </md-chip>
+    {{/each}}
+  </md-chips>
   {{#unless readOnly}}
     {{#if source.length}}
       <div class="md-chip-input-container">
