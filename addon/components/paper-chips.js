@@ -7,6 +7,12 @@ export default Component.extend({
   classNames: ['md-default-theme'],
   activeChip: -1,
 
+  resetActiveChip: Ember.observer('isFocused', function() {
+    if (!this.get('isFocused')) {
+      this.set('activeChip', -1);
+    }
+  }),
+
   actions: {
     addItem(newItem) {
       if (get(newItem, 'length')) {
@@ -21,6 +27,8 @@ export default Component.extend({
 
       if (!this.get('content').length && !input.is(':focus')) {
         input.focus();
+      } else {
+        this.set('activeChip', -1);
       }
     },
 
@@ -38,8 +46,8 @@ export default Component.extend({
 
         if (key === 'ArrowLeft' || (key === 'Backspace' && current === -1)) {
           if (current === -1) {
-            this.set('activeChip', chips.length-1);
             this.$('md-chips-wrap', this.element).focus();
+            this.set('activeChip', chips.length-1);
           } else if (current > 0) {
             this.decrementProperty('activeChip');
           }
