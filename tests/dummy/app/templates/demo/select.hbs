@@ -10,12 +10,12 @@
   {{paper-input label="City" value=city onChange=(action (mut city))}}
   {{#paper-select
     disabled=disableSelect
-    placeholder="State"
+    label="State"
     options=states
     selected=userState
     onChange=(action (mut userState))
     as |state|
-  }} 
+  }}
     {{state.abbrev}}
   {{/paper-select}}
   {{! END-SNIPPET }}
@@ -32,10 +32,10 @@
 <p>Pick your pizza below</p>
 <div layout="row">
   {{! BEGIN-SNIPPET select.option-groups }}
-  {{#paper-select options=sizes placeholder="Size" selected=pizzaSize onChange=(action (mut pizzaSize)) as |size|}}
+  {{#paper-select options=sizes label="Size" selected=pizzaSize onChange=(action (mut pizzaSize)) as |size|}}
     {{size}}
   {{/paper-select}}
-  {{#paper-select options=groupedToppings placeholder="Topping" selected=topping onChange=(action (mut topping)) as |topping|}}
+  {{#paper-select options=groupedToppings label="Topping" selected=topping onChange=(action (mut topping)) as |topping|}}
     {{topping}}
   {{/paper-select}}
   {{! END-SNIPPET }}
@@ -55,8 +55,7 @@
     selected=selectedUser
     options=users
     onChange=(action (mut selectedUser))
-    as |user|
-  }}
+    as |user|}}
     {{user.name}}
   {{/paper-select}}
 
