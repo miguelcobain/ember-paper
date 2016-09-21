@@ -72,7 +72,8 @@ export default Component.extend({
     } else if (current >= 0 && (key === 'Delete' || key === 'Backspace')) {
       this.sendAction('removeItem', chips[current]);
       if (current >= chips.length) {
-        input.focus();
+        // Delay slightly so that any changes have happened.
+        Ember.run.later(() => this.$('.md-chip-input-container input').focus(), 10);
         this.set('activeChip', -1);
       }
     }
