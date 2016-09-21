@@ -1,6 +1,6 @@
-<md-chips-wrap class="md-chips {{if isFocused 'md-focused'}}">
-  {{#each content as |item|}}
-    <md-chip class="md-chip md-default-theme">
+<md-chips-wrap class="md-chips {{if isFocused 'md-focused'}}" tabindex="-1" onkeydown={{action 'keyDown'}} onfocus={{action 'inputFocus'}} onblur={{'inputBlur'}}>
+  {{#each content as |item index|}}
+    <md-chip class="md-chip md-default-theme {{if (eq activeChip index) 'md-focused'}}">
       <div class="md-chip-content" tabindex="-1" aria-hidden="true">
         {{#if hasBlock}}
           {{yield item}}
