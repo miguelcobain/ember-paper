@@ -13,7 +13,7 @@
   {{/paper-chips}}
 
   <h2>Chips with Autocomplete</h2>
-  {{#paper-chips readOnly=readOnly removeItem=(action 'removeVegetable') addItem=(action 'addVegetable') placeholder="Add a vegetable" content=vegetables source=remainingVegetables searchField="name" noMatchesMessage="Not found.  Click to add." requireMatch=true as |item|}}
+  {{#paper-chips readOnly=readOnly removeItem=(action 'removeVegetable') addItem=(action 'addVegetable') placeholder="Add a vegetable" content=vegetables source=remainingVegetables searchField="name" noMatchesMessage="Not found.  Click to add." as |item|}}
     <strong>{{item.name}}</strong>
     {{#if item.family}}
       <em>{{item.family}}</em>
