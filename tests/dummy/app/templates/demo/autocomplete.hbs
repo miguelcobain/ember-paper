@@ -21,7 +21,8 @@
       loadingMessage="Searching countries..."
       noMatchesMessage="Oops this country doesn't exist. Create a new country?"
       onChange=(action (mut selectedCountry)) as |country select|}}
-        {{country.name}}
+      {{paper-autocomplete-highlight label=country.name searchText=select.searchText flags="i"}}
+        {{!-- {{country.name}} --}}
     {{/paper-autocomplete}}
     {{! END-SNIPPET }}
     <p>
