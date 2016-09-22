@@ -96,7 +96,7 @@ export default Component.extend({
     },
 
     keyDown(event) {
-      let input = this.$('.md-chip-input-container input')[0];
+      let [input] = this.$('.md-chip-input-container input');
       if (!this.get('readOnly') && isEmpty(input.value) && isPresent(this.get('content'))) {
         this.keyboardNavigation(event);
         if (this.get('activeChip') >= 0 && !isEmpty(this.get('autocomplete')) && !isEmpty(this.get('autocomplete').actions)) {
