@@ -2,21 +2,22 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import BaseFocusable from './base-focusable';
+import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 
-const { computed, assert } = Ember;
+const { Component, computed, assert } = Ember;
 
 /**
  * @class PaperRadio
- * @extends BaseFocusable
+ * @extends Ember.Component
+ * @uses FocusableMixin
  * @uses ColorMixin
  * @uses RippleMixin
  * @uses ChildMixin
  */
-export default BaseFocusable.extend(RippleMixin, ColorMixin, ChildMixin, {
+export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ChildMixin, {
   tagName: 'md-radio-button',
   classNames: ['md-default-theme'],
   classNameBindings: ['checked:md-checked'],
@@ -31,7 +32,7 @@ export default BaseFocusable.extend(RippleMixin, ColorMixin, ChildMixin, {
   dimBackground: false,
   fitRipple: true,
 
-  /* BaseFocusable Overrides */
+  /* FocusableMixin Overrides */
   focusOnlyOnKey: true,
 
   // Lifecycle hooks

@@ -2,7 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import BaseFocusable from './base-focusable';
+import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
@@ -13,16 +13,19 @@ import maxValidator from 'ember-paper/validators/max';
 import minlengthValidator from 'ember-paper/validators/minlength';
 import maxlengthValidator from 'ember-paper/validators/maxlength';
 
-const { $, computed, isArray, isEmpty, Logger, A, run, assert, get } = Ember;
+const {
+  Component, $, computed, isArray, isEmpty, Logger, A, run, assert, get
+} = Ember;
 
 /**
  * @class PaperInput
- * @extends BaseFocusable
+ * @extends Ember.Component
+ * @uses FocusableMixin
  * @uses ChildMixin
  * @uses ColorMixin
  * @uses FlexMixin
  */
-export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
+export default Component.extend(FocusableMixin, ColorMixin, FlexMixin, ChildMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
   classNameBindings: [
@@ -176,21 +179,23 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
       inputElement.addClass('md-no-flex').attr('rows', 1);
 
       let minRows = this.get('passThru.rows');
-
+      let height = this.getHeight(inputElement);
       if (minRows) {
         if (!this.lineHeight) {
           inputElement.get(0).style.minHeight = 0;
           this.lineHeight = inputElement.get(0).clientHeight;
           inputElement.get(0).style.minHeight = null;
         }
-
-        let newRows = Math.round(Math.round(this.getHeight(inputElement) / this.lineHeight));
-        let rowsToSet = Math.min(newRows, minRows);
-
+        if (this.lineHeight) {
+          height = Math.max(height, this.lineHeight * minRows);
+        }
+        let proposedHeight = Math.round(height / this.lineHeight);
+        let maxRows = this.get('passThru.maxRows') || Number.MAX_VALUE;
+        let rowsToSet = Math.min(proposedHeight, maxRows);
         inputElement
           .css('height', `${this.lineHeight * rowsToSet}px`)
           .attr('rows', rowsToSet)
-          .toggleClass('md-textarea-scrollable', newRows >= minRows);
+          .toggleClass('md-textarea-scrollable', proposedHeight >= maxRows);
       } else {
         inputElement.css('height', 'auto');
         inputElement.get(0).scrollTop = 0;

@@ -198,7 +198,32 @@ md-toolbar.md-default-theme.page-main-toolbar {
   align-items: center;
   width: auto; }
 
+/************
+ * DOCS MENU
+ ************/
 
+*::-webkit-scrollbar {
+   width: 5px;
+ }
+
+*::-webkit-scrollbar-track {
+   background: color($color-grey, '200');
+ }
+
+*::-webkit-scrollbar-thumb {
+   background: color($color-grey, '500');
+ }
+
+.site-sidenav,
+.site-sidenav.md-locked-open-add-active,
+.site-sidenav.md-locked-open {
+  width:     272px;
+  min-width: 272px;
+  max-width: 272px;
+}
+.site-sidenav > * {
+  min-width: 218px;
+}
 md-sidenav.site-sidenav {
   background: color($primary, '400');
 

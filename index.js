@@ -20,10 +20,15 @@ module.exports = {
     }
   },
 
-  contentFor: function(type) {
+  contentFor: function(type, config) {
     if (type === 'head') {
       return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">' +
         '<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">';
+    } else if (type === 'body-footer') {
+      var emberPowerSelect = this.addons.filter(function(addon) {
+        return addon.name === 'ember-power-select';
+      })[0];
+      return emberPowerSelect.contentFor(type, config);
     }
   },
 

@@ -2,16 +2,16 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import EventsMixin from '../mixins/events-mixin';
+import EventsMixin from './events-mixin';
 
-const { Component, computed } = Ember;
+const { Mixin, computed } = Ember;
 
 /**
- * @class BaseFocusable
- * @extends Ember.Component
+ * @class FocusableMixin
+ * @extends Ember.Mixin
  * @uses EventsMixin
  */
-export default Component.extend(EventsMixin, {
+export default Mixin.create(EventsMixin, {
 
   disabled: false,
   pressed: false,
