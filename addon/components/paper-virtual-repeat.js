@@ -8,18 +8,17 @@ const {
   set,
   Handlebars,
   RSVP,
-  observer,
+  A: emberArray,
   String: { htmlSafe } } = Ember;
 
 const EXTRA_ROW_PADDING = 3;
 
-export default VirtualEachComponent.extend({
+const VirtualRepeatComponent = VirtualEachComponent.extend({
   tagName: 'md-virtual-repeat-container',
   classNames: ['md-virtual-repeat-container'],
   classNameBindings: ['horizontal:md-orient-horizontal'],
   visibleItemsRaw: computed.mapBy('visibleItems', 'raw'),
-  containerSelector: null,
-  height: computed.alias('_totalHeight'),
+  containerSelector: undefined,
 
   actions: {
     onScroll(e) {
@@ -28,15 +27,27 @@ export default VirtualEachComponent.extend({
   },
 
   defaultAttrs: {
-    scrollTimeout: 10,
+    scrollTimeout: 30,
     height: 48
   },
+
+  height: computed('initialSize', 'items.length', 'itemHeight', {
+    get() {
+      let itemSize = this.get('itemHeight');
+      let fullSize = this.get('items.length')  * itemSize;
+
+      if (fullSize <= itemSize) {
+        return itemSize;
+      }
+      return Math.min(fullSize, this.get('initialSize'));
+    }
+  }).readOnly(),
 
   // Received coordinates {top, left, right, width} from the dropdown
   // Convert them to style and cache - they usually don't change
   positionStyle: computed('positionCoordinates', {
     get() {
-      let coords = this.get('positionCoordinates');
+      let coords = this.get('positionCoordinates') || {};
       let style = '';
 
       // {top, left, right, width}
@@ -52,7 +63,7 @@ export default VirtualEachComponent.extend({
 
   style: computed('height', 'positionStyle', {
     get() {
-      let height = this.get('height') || this.get('defaultAttrs.height');
+      let height = this.get('height') || null;
       let style = this.get('positionStyle');
 
       if (height !== null && !isNaN(height)) {
@@ -109,27 +120,60 @@ export default VirtualEachComponent.extend({
     }
   }).readOnly(),
 
-  didRender() {
-    if (!this.get('itemHeight')) {
-      run.schedule('afterRender', this, function() {
-        let selector = this.getWithDefault('containerSelector', '.md-virtual-repeat-offsetter');
-        let elem = this.$(selector)[0].firstElementChild;
+  didInsertElement() {
+    this._super(...arguments);
 
-        if (elem) {
-          this.set('itemHeight', this.get('horizontal') ? elem.offsetWidth : elem.offsetHeight);
-          this.set('_totalHeight', Math.max((this.get('length') ? this.get('length') : get(this.get('items'), 'length')) * this.get('itemHeight'), 0));
-        }
-        this.set('height', this.get('horizontal') ? this.$()[0].clientWidth : this.$()[0].clientHeight);
-      });
-    }
+    run.scheduleOnce('afterRender', this, function() {
+      let [element] = this.$();
+      this.initialSize = this.get('horizontal') ? element.clientWidth : element.clientHeight;
+    });
   },
+
+  didRender() {
+    let itemHeight = this.get('itemHeight');
+    let selector = this.getWithDefault('containerSelector', '.md-virtual-repeat-offsetter');
+    let offsetter = this.$(selector).get(0);
+    if (!offsetter) {
+      return;
+    }
+
+    let optionElement = offsetter.firstElementChild;
+    if (!optionElement) {
+      return;
+    }
+    if (itemHeight) {
+      return;
+    }
+
+    run.cancel(this._measureHeightHandler);
+    this._measureHeightHandler = run.schedule('afterRender', this, function() {
+      if (this.get('horizontal')) {
+        this.setProperties({
+          itemHeight: optionElement.offsetWidth
+        });
+      } else {
+        this.setProperties({
+          itemHeight: optionElement.offsetHeight
+        });
+      }
+    });
+  },
+
+  endAt: computed('_startAt', '_visibleItemCount', 'items.length', {
+    get() {
+      let { _startAt, _visibleItemCount } = this.getProperties('_startAt' , '_visibleItemCount');
+      let totalItemsCount = get(this, 'items.length');
+
+      return Math.min(totalItemsCount, _startAt + _visibleItemCount);
+    }
+  }).readOnly(),
 
   visibleItems: computed('_startAt', '_visibleItemCount', '_items', {
     get() {
       let items = get(this, '_items');
       let startAt = get(this, '_startAt');
       let _visibleItemCount = get(this, '_visibleItemCount');
-      let itemsLength = this.get('length') ? this.get('length') : get(items, 'length');
+      let itemsLength = get(items, 'length');
       let endAt = Math.min(itemsLength, startAt + _visibleItemCount);
       let onScrollBottomed = this.getAttr('onScrollBottomed');
 
@@ -144,6 +188,7 @@ export default VirtualEachComponent.extend({
           }
         }
       }
+      // console.log('Visible items - changed. StartAt: ', startAt, ' endAt: ', endAt);
       return items.slice(startAt, endAt).map((item, index) => {
         return {
           raw: item,
@@ -154,47 +199,59 @@ export default VirtualEachComponent.extend({
     }
   }).readOnly(),
 
-  didReceiveAttrs() {
+  didReceiveAttrs(changes) {
     this._super(...arguments);
+    let { newAttrs, oldAttrs={} } = changes;
 
     RSVP.cast(this.getAttr('items')).then((attrItems) => {
-      let items = Ember.A(attrItems);
-
+      let items = emberArray(attrItems);
       this.setProperties({
         _items: items,
         _positionIndex: this.getAttr('positionIndex'),
-        _totalHeight: Math.max((this.get('length') ? this.get('length') : get(items, 'length')) * this.get('itemHeight'), 0)
+        _totalHeight: Math.max(get(items, 'length') * this.get('itemHeight'), 0)
       });
+
+      // Scroll index has changed, load more data & scroll
+      if (oldAttrs.scrollItemIndex && newAttrs.scrollItemIndex !== oldAttrs.scrollItemIndex) {
+        this.scrollToVirtualItem(newAttrs.scrollItemIndex);
+      }
     });
   },
 
-  scrollTo: observer('_positionIndex', function() {
-    this.scheduledRender = run.scheduleOnce('afterRender', () => {
-      let positionIndex = get(this, '_positionIndex');
-      let itemHeight = this.get('itemHeight');
-      let totalHeight = get(this, '_totalHeight');
-      let _visibleItemCount = get(this, '_visibleItemCount');
-      let startingIndex = isNaN(positionIndex) ? get(this, '_startAt') : Math.max(positionIndex, 0);
-      let startingPadding = itemHeight * startingIndex;
-      let maxVisibleItemTop = Math.max(0, (get(this, '_items.length') - _visibleItemCount + EXTRA_ROW_PADDING));
-      let maxPadding = Math.max(0, totalHeight - ((_visibleItemCount - 1) * itemHeight) + (EXTRA_ROW_PADDING * itemHeight));
-      let sanitizedIndex = Math.min(startingIndex, maxVisibleItemTop);
-      let sanitizedPadding = (startingPadding > maxPadding) ? maxPadding : startingPadding;
+  scrollToVirtualItem(newIndex) {
+    let {
+      itemHeight,
+      _visibleItemCount,
+      _startAt,
+      endAt,
+      _items,
+      height
+      } = this.getProperties(
+      'itemHeight',
+      '_visibleItemCount',
+      '_startAt',
+      'endAt',
+      '_items',
+      'height');
+
+    let itemsLength = _items.get('length');
+
+    // Already loaded, just scroll
+    if (newIndex < _startAt || newIndex > endAt) {
+
+      let maxVisibleItemTop = Math.max(0, (itemsLength - _visibleItemCount + EXTRA_ROW_PADDING));
+      let sanitizedIndex = Math.min(_startAt, maxVisibleItemTop);
       this.calculateVisibleItems(sanitizedIndex);
-      if (this.get('horizontal')) {
-        this.$('.md-virtual-repeat-scroller').scrollLeft(sanitizedPadding);
-      } else {
-        this.$('.md-virtual-repeat-scroller').scrollTop(sanitizedPadding);
-      }
-    });
-  }),
-
-  lengthObserver: observer('items.length', function() {
-    let totalHeight = this.get('length');
-    if (totalHeight) {
-      totalHeight = this.get('items.length') * this.get('itemHeight');
     }
-    this.set('_totalHeight', Math.max(totalHeight, 0));
-  })
 
+    let topOffset = (newIndex + 1) * itemHeight;
+    let topScroll = topOffset - height;
+    this.$('.md-virtual-repeat-scroller').scrollTop(topScroll);
+  }
 });
+
+VirtualRepeatComponent.reopenClass({
+  positionalParams: ['items']
+});
+
+export default VirtualRepeatComponent;
