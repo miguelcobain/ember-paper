@@ -16,6 +16,7 @@ Router.map(function() {
     this.route('button');
     this.route('card');
     this.route('checkbox');
+    this.route('chips');
     this.route('dialog');
     this.route('divider');
     this.route('grid-list');
@@ -32,6 +33,7 @@ Router.map(function() {
     this.route('slider');
     this.route('switch');
     this.route('toolbar');
+    this.route('virtual-repeat');
   });
 
   this.route('layout', function() {

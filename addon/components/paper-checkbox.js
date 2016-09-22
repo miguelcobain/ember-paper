@@ -2,32 +2,33 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import BaseFocusable from './base-focusable';
-import RippleMixin from '../mixins/ripple-mixin';
+import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
+import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-const { inject, assert } = Ember;
+const { Component, inject, assert } = Ember;
 
 /**
  * @class PaperCheckbox
- * @extends BaseFocusable
+ * @extends Ember.Component
+ * @uses FocusableMixin
  * @uses ColorMixin
  * @uses ProxiableMixin
  * @uses RippleMixin
  */
-export default BaseFocusable.extend(RippleMixin, ProxiableMixin, ColorMixin, {
+export default Component.extend(FocusableMixin, RippleMixin, ProxiableMixin, ColorMixin, {
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
   classNameBindings: ['value:md-checked'],
 
-  /* Ripple Overrides */
+  /* RippleMixin Overrides */
   rippleContainerSelector: '.md-container',
   center: true,
   dimBackground: false,
   fitRipple: true,
 
-  /* BaseFocusable Overrides */
+  /* FocusableMixin Overrides */
   focusOnlyOnKey: true,
 
   constants: inject.service(),

@@ -1,0 +1,20 @@
+{{#if dropdown.isOpen}}
+  {{#ember-wormhole to=to renderInPlace=renderInPlace}}
+    {{!-- we already have our own paper-backdrop
+      {{#if overlay}}
+        <div class="ember-basic-dropdown-overlay"></div>
+      {{/if}}
+    --}}
+    {{paper-backdrop class="md-select-backdrop md-click-catcher"}}
+    <div
+      id={{dropdownId}}
+      class="ember-basic-dropdown-content {{class}} {{if renderInPlace 'ember-basic-dropdown-content--in-place'}} {{if hPosition (concat 'ember-basic-dropdown-content--' hPosition)}} {{if vPosition (concat 'ember-basic-dropdown-content--' vPosition)}}
+      md-select-menu-container md-clickable {{if isActive "md-active"}} {{unless isActive "md-leave"}}"
+      style={{style}}
+      dir={{dir}}>
+      {{#paper-select-menu-inner width=width dense=dense dropdown=dropdown searchEnabled=searchEnabled as |innerContentHash|}}
+        {{yield innerContentHash}}
+      {{/paper-select-menu-inner}}
+    </div>
+  {{/ember-wormhole}}
+{{/if}}

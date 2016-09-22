@@ -42,6 +42,7 @@
     "ember-code-snippet": "1.3.0",
     "ember-cp-validations": "2.6.1",
     "ember-data": "^2.6.0",
+    "ember-deferred-content": "0.2.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.5",
@@ -60,8 +61,11 @@
     "broccoli-funnel": "^1.0.1",
     "broccoli-merge-trees": "^1.1.0",
     "ember-cli-babel": "^5.1.6",
-    "ember-css-transitions": "peec/ember-css-transitions#v0.1.4",
-    "ember-wormhole": "^0.4.0"
+    "ember-css-transitions": "miguelcobain/ember-css-transitions#19baa1de8025abac0cf91206f9ef32210cb411ce",
+    "ember-wormhole": "^0.4.0",
+    "ember-basic-dropdown": "^0.15.0-beta.5",
+    "ember-power-select": "1.0.0-beta.14",
+    "virtual-each": "0.2.2"
   },
   "keywords": [
     "ember-addon",
