@@ -12,6 +12,17 @@
     <em>(fruit)</em>
   {{/paper-chips}}
 
+  <h2>Chips with Autocomplete</h2>
+  {{#paper-chips readOnly=readOnly removeItem=(action 'removeVegetable') addItem=(action 'addVegetable') placeholder="Add a vegetable" content=vegetables source=remainingVegetables searchField="name" noMatchesMessage="Not found.  Click to add." requireMatch=true as |item|}}
+    <strong>{{item.name}}</strong>
+    {{#if item.family}}
+      <em>{{item.family}}</em>
+    {{/if}}
+  {{/paper-chips}}
+
+  <h2>Chips with Autocomplete (requires match)</h2>
+  {{paper-chips readOnly=readOnly removeItem=(action 'removeVegeName') addItem=(action 'addVegeName') placeholder="Add a vegetable" content=vegeNames source=remainingVegeNames requireMatch=true}}
+
   <h2>Contact Chips</h2>
   {{paper-contact-chips class="md-contact-chips" readOnly=readOnly removeItem=(action 'removeContact') addItem=(action 'addContact') placeholder="Add a contact" content=contacts source=remainingContacts}}
 
