@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { get, Component, isEmpty, isPresent } = Ember;
+const { Component, isEmpty, isPresent } = Ember;
 
 export default Component.extend({
   tagName: 'md-chips',
@@ -46,7 +46,7 @@ export default Component.extend({
     },
 
     inputFocus(autocomplete) {
-      const input = this.$('.md-chip-input-container input');
+      let input = this.$('.md-chip-input-container input');
       this.set('isFocused', true);
 
       if (!this.get('content').length && !input.is(':focus')) {
@@ -63,20 +63,10 @@ export default Component.extend({
 
     inputBlur() {
       this.set('isFocused', false);
-    },/*
+    },
 
-    keyDown(event) {
-      if (!this.get('readOnly') && isEmpty(this.get('newChipValue')) && isPresent(this.get('content'))) {
-        this.keyboardNavigation(event);
-      } else {
-        // Make sure we don't leave a chip focused while typing.
-        this.set('activeChip', -1);
-      }
-    },*/
-
-    autocompleteChange(item, select) {
+    autocompleteChange(item) {
       if (item) {
-        const input = this.$('.ember-power-select-typeahead-input', this.element)[0];
         // Trigger onChange for the new item.
         this.sendAction('addItem', item);
 
@@ -106,7 +96,7 @@ export default Component.extend({
     },
 
     keyDown(event) {
-      const input = this.$('.md-chip-input-container input')[0];
+      let input = this.$('.md-chip-input-container input')[0];
       if (!this.get('readOnly') && isEmpty(input.value) && isPresent(this.get('content'))) {
         this.keyboardNavigation(event);
         if (this.get('activeChip') >= 0 && !isEmpty(this.get('autocomplete')) && !isEmpty(this.get('autocomplete').actions)) {
@@ -131,17 +121,16 @@ export default Component.extend({
     }
   },
 
-  keyboardNavigation(event) {
+  keyboardNavigation({ key }) {
     // No text has been entered, but we have chips; cursor keys should select chips.
-    const key = event.key,
-      current = this.get('activeChip'),
-      chips = this.get('content'),
-      input = this.$('.md-chip-input-container input');
+    let current = this.get('activeChip');
+    let chips = this.get('content');
+    let input = this.$('.md-chip-input-container input');
 
     if (['ArrowLeft', 'Left'].includes(key) || (key === 'Backspace' && current === -1)) {
       if (current === -1) {
         this.$('md-chips-wrap', this.element).focus();
-        this.set('activeChip', chips.length-1);
+        this.set('activeChip', chips.length - 1);
       } else if (current > 0) {
         this.decrementProperty('activeChip');
       }
@@ -165,8 +154,8 @@ export default Component.extend({
   },
 
   resetAutocomplete() {
-    const select = this.get('autocomplete'),
-      input = this.$('.ember-power-select-typeahead-input', this.element)[0];
+    let select = this.get('autocomplete');
+    let [input] = this.$('.ember-power-select-typeahead-input', this.element);
 
     if (isEmpty(input) || isEmpty(select)) {
       // Autocomplete has been removed, so we have nothing left to do.
@@ -181,5 +170,5 @@ export default Component.extend({
     select.actions.close();
     select.actions.open();
     input.focus();
-}
+  }
 });
