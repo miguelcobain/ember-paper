@@ -23,7 +23,21 @@
   {{/each}}
   {{#unless readOnly}}
     <div class="md-chip-input-container">
-      {{input tabindex="0" placeholder=placeholder aria-label="Add Tag" value=newChipValue focus-in="inputFocus" focus-out="inputBlur" enter=(action 'addItem' newChipValue)}}
+      {{#if (or requireMatch source)}}
+        {{#if source.length}}
+          {{#paper-autocomplete closeOnSelect=false onclose=(action 'autocompleteClose') onChange=(action 'autocompleteChange') onfocus=(action 'inputFocus') onopen=(action 'inputFocus') onCreate=(action 'addItem') placeholder=placeholder options=source searchField=searchField noMatchesMessage=noMatchesMessage as |item|}}
+            {{#if hasBlock}}
+              {{yield item}}
+            {{else}}
+              <span>{{item}}</span>
+            {{/if}}
+          {{/paper-autocomplete}}
+        {{else}}
+          {{input tabindex="0" focus-in="inputFocus" focus-out="inputBlur" key-down="noUnselected"}}
+        {{/if}}
+      {{else}}
+        {{input tabindex="0" placeholder=placeholder aria-label="Add Tag" value=newChipValue focus-in="inputFocus" focus-out="inputBlur" enter=(action 'addItem' newChipValue)}}
+      {{/if}}
     </div>
   {{/unless}}
 </md-chips-wrap>
