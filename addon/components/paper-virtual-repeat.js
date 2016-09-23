@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import VirtualEachComponent from 'virtual-each/components/virtual-each';
+import VirtualEachComponent from 'virtual-each/components/virtual-each/component';
 
 const {
   computed,
