@@ -1,7 +1,3 @@
-{{#if shouldShowLabel}}
-  <label for={{concat "ember-basic-dropdown-trigger-" publicAPI.uniqueId}}>{{label}}</label>
-{{/if}}
-
 {{#paper-select-menu
   horizontalPosition=(readonly horizontalPosition)
   initiallyOpened=(readonly initiallyOpened)
@@ -15,6 +11,10 @@
   searchEnabled=searchEnabled
   as |menu|}}
 
+  {{#if shouldShowLabel}}
+    <label for={{concat "ember-basic-dropdown-trigger-" publicAPI.uniqueId}} class="{{if required "md-required"}}">{{label}}</label>
+  {{/if}}
+
   {{#menu.trigger
     ariaDescribedBy=(readonly ariaDescribedBy)
     ariaInvalid=(readonly ariaInvalid)
@@ -25,7 +25,8 @@
     onKeydown=(action "onTriggerKeydown")
     onFocus=(action "onTriggerFocus")
     onBlur=(action "deactivate")
-    tabindex=(readonly tabindex)}}
+    tabindex=(readonly tabindex)
+    required=(readonly required)}}
     {{#component triggerComponent
       allowClear=(readonly allowClear)
       buildSelection=(readonly buildSelection)
@@ -46,6 +47,24 @@
       {{yield opt term}}
     {{/component}}
   {{/menu.trigger}}
+
+  {{#unless hideAllMessages}}
+    <div class="md-errors-spacer">
+      {{#if maxlength}}
+        <div class="md-char-counter">{{renderCharCount}}</div>
+      {{/if}}
+    </div>
+    {{#if isInvalidAndTouched}}
+      <div class="md-input-messages-animation md-auto-hide" ng-messages>
+        {{#each validationErrorMessages as |error index|}}
+          <div id="error-{{inputElementId}}-{{index}}"
+          class="paper-input-error ng-enter ng-enter-active" ng-message>
+            {{error.message}}
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+  {{/unless}}
 
   {{#menu.content
     class=(readonly concatenatedDropdownClasses)
