@@ -10,6 +10,7 @@ import minValidator from 'ember-paper/validators/min';
 import maxValidator from 'ember-paper/validators/max';
 import minlengthValidator from 'ember-paper/validators/minlength';
 import maxlengthValidator from 'ember-paper/validators/maxlength';
+
 /**
  * In order to make validation generic it is required that components using the validation mixin
  * specify what property the validation logic should be based on.
@@ -67,7 +68,7 @@ function buildComputedValidationMessages(property) {
 export default Mixin.create({
   validationErrorMessages: null,
   lastIsInvalid: undefined,
-  validationProperty: '', // property that validation should be based on
+  validationProperty: null, // property that validation should be based on
   init() {
     this._super(...arguments);
     assert('validationProperty must be set', this.get('validationProperty'));
@@ -105,6 +106,7 @@ export default Mixin.create({
       maxlengthValidator
     ];
   },
+
   notifyValidityChange() {
     let isValid = this.get('isValid');
     let lastIsValid = this.get('lastIsValid');
