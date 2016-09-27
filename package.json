@@ -60,7 +60,7 @@
     "broccoli-funnel": "^1.0.1",
     "broccoli-merge-trees": "^1.1.0",
     "ember-cli-babel": "^5.1.6",
-    "ember-css-transitions": "miguelcobain/ember-css-transitions#19baa1de8025abac0cf91206f9ef32210cb411ce",
+    "ember-css-transitions": "miguelcobain/ember-css-transitions#df1e312e183f87c5d47f47d71f97a0e9a23c55b6",
     "ember-wormhole": "^0.4.0"
   },
   "keywords": [
