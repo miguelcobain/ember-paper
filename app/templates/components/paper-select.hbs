@@ -1,7 +1,3 @@
-{{#if shouldShowLabel}}
-  <label for={{concat "ember-basic-dropdown-trigger-" publicAPI.uniqueId}}>{{label}}</label>
-{{/if}}
-
 {{#paper-select-menu
   horizontalPosition=(readonly horizontalPosition)
   initiallyOpened=(readonly initiallyOpened)
@@ -14,7 +10,11 @@
   disabled=(readonly disabled)
   searchEnabled=searchEnabled
   as |menu|}}
-  <label class="{{if required "md-required"}}"></label>
+
+  {{#if shouldShowLabel}}
+    <label for={{concat "ember-basic-dropdown-trigger-" publicAPI.uniqueId}} class="{{if required "md-required"}}">{{label}}</label>
+  {{/if}}
+
   {{#menu.trigger
     ariaDescribedBy=(readonly ariaDescribedBy)
     ariaInvalid=(readonly ariaInvalid)
@@ -25,7 +25,8 @@
     onKeydown=(action "onTriggerKeydown")
     onFocus=(action "onTriggerFocus")
     onBlur=(action "deactivate")
-    tabindex=(readonly tabindex)}}
+    tabindex=(readonly tabindex)
+    required=(readonly required)}}
     {{#component triggerComponent
       allowClear=(readonly allowClear)
       buildSelection=(readonly buildSelection)

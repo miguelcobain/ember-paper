@@ -5,7 +5,7 @@ const { computed } = Ember;
 
 export default BasicTrigger.extend({
   tagName: 'md-select',
-  attributeBindings: ['disabledAttr:disabled'],
+  attributeBindings: ['disabledAttr:disabled', 'required'],
   disabledAttr: computed('disabled', function() {
     return this.get('disabled') ? 'disabled' : null;
   })
