@@ -1,0 +1,118 @@
+/**
+ * @module ember-paper
+ */
+import Ember from 'ember';
+
+const { Mixin, computed, A, assert, isArray, Logger, get } = Ember;
+
+import requiredValidator from 'ember-paper/validators/required';
+import minValidator from 'ember-paper/validators/min';
+import maxValidator from 'ember-paper/validators/max';
+import minlengthValidator from 'ember-paper/validators/minlength';
+import maxlengthValidator from 'ember-paper/validators/maxlength';
+/**
+ * In order to make validation generic it is required that components using the validation mixin
+ * specify what property the validation logic should be based on.
+ *
+ * @public
+ *
+ * @return computed property that depends on the supplied property name
+ */
+function buildComputedValidationMessages(property) {
+  return computed(property, 'errors.[]', 'customValidations.[]', function() {
+    let validations = A();
+    let messages = A();
+
+    // built-in validations
+    validations.pushObjects(this.validations());
+
+    // custom validations
+    let customValidations = this.get('customValidations');
+    assert('`customValidations` must be an array', isArray(customValidations));
+    validations.pushObjects(customValidations);
+
+    // execute validations
+    let currentValue = this.get(property);
+    validations.forEach((validation) => {
+      assert('validation must include an `validate(value)` function', validation && validation.validate && typeof validation.validate === 'function');
+      try {
+        let valParam = get(validation, 'param');
+        let paramValue = valParam ? this.get(valParam) : undefined;
+        if (!validation.validate(currentValue, paramValue)) {
+          let message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
+          messages.pushObject({
+            message: Ember.String.loc(message.string || message, paramValue, currentValue)
+          });
+        }
+      } catch (error) {
+        Logger.error('Exception with validation: ', validation, error);
+      }
+    });
+
+    // error messages array
+    let errors = this.get('errors') || [];
+    assert('`errors` must be an array', isArray(errors));
+    messages.pushObjects(errors.map((e) => {
+      return get(e, 'message') ? e : { message: e };
+    }));
+
+    return messages;
+  });
+}
+
+/**
+ * @class ValidationMixin
+ * @extends Ember.Mixin
+ */
+export default Mixin.create({
+  validationErrorMessages: null,
+  lastIsInvalid: undefined,
+  validationProperty: '', // property that validation should be based on
+  init() {
+    this._super(...arguments);
+    assert('validationProperty must be set', this.get('validationProperty'));
+    this.set('validationErrorMessages', buildComputedValidationMessages(this.get('validationProperty')));
+  },
+
+  /**
+   * The result of isInvalid is appropriate for controlling the display of
+   * validation error messages. It also may be used to distinguish whether
+   * the input would be considered valid after it is touched.
+   *
+   * @public
+   *
+   * @return {boolean} Whether the input is or would be invalid.
+   *    false: input is valid (touched or not), or is no longer rendered
+   *    true: input has been touched and is invalid.
+   */
+  isInvalid: computed.or('validationErrorMessages.length'),
+  isValid: computed.not('isInvalid'),
+
+  /**
+   * Return the built-in validations.
+   *
+   * May be overridden to provide additional built-in validations. Be sure to
+   * call this._super() to retrieve the standard validations.
+   *
+   * @public
+   */
+  validations() {
+    return [
+      requiredValidator,
+      minValidator,
+      maxValidator,
+      minlengthValidator,
+      maxlengthValidator
+    ];
+  },
+  notifyValidityChange() {
+    let isValid = this.get('isValid');
+    let lastIsValid = this.get('lastIsValid');
+    if (lastIsValid !== isValid) {
+      this.sendAction('onValidityChange', isValid);
+      this.set('lastIsValid', isValid);
+    }
+  },
+  customValidations: [],
+  errors: []
+});
