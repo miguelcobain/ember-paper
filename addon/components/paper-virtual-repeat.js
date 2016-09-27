@@ -30,72 +30,75 @@ export default VirtualEachComponent.extend({
       }
     });
   },
-  _marginTop: computed('_totalHeight', '_startAt', '_visibleItemCount', 'itemHeight', {
-    get() {
-      let itemHeight = this.get('itemHeight');
-      let totalHeight = get(this, '_totalHeight');
-      let margin = get(this, '_startAt') * itemHeight;
-      let visibleItemCount = get(this, '_visibleItemCount');
-      let maxMargin = Math.max(0, totalHeight - ((visibleItemCount - 1) * itemHeight) + (EXTRA_ROW_PADDING * itemHeight));
+  _marginTop: computed('_totalHeight', '_startAt', '_visibleItemCount', 'itemHeight', function() {
+    let itemHeight = this.get('itemHeight');
+    let totalHeight = get(this, '_totalHeight');
+    let margin = get(this, '_startAt') * itemHeight;
+    let visibleItemCount = get(this, '_visibleItemCount');
+    let maxMargin = Math.max(0, totalHeight - ((visibleItemCount - 1) * itemHeight) + (EXTRA_ROW_PADDING * itemHeight));
 
-      return Math.min(maxMargin, margin);
-    }
+    return Math.min(maxMargin, margin);
   }).readOnly(),
-  contentStyle: computed('_marginTop', '_totalHeight', {
-    get() {
+  contentStyle: computed('_marginTop', '_totalHeight', function() {
+    let height = Handlebars.Utils.escapeExpression(get(this, '_totalHeight'));
 
-      let height = Handlebars.Utils.escapeExpression(get(this, '_totalHeight'));
-
-      return new Handlebars.SafeString(this.get('horizontal') ? `width: ${height}px;` : `height: ${height}px;`);
-    }
+    return new Handlebars.SafeString(this.get('horizontal') ? `width: ${height}px;` : `height: ${height}px;`);
   }).readOnly(),
-  _visibleItemCount: computed('height', 'itemHeight', {
-    get() {
-      let height = this.get('height');
+  _visibleItemCount: computed('height', 'itemHeight', function() {
+    let height = this.get('height');
 
-      return Math.ceil(this.get('itemHeight') ? height / this.get('itemHeight') : 1) + EXTRA_ROW_PADDING;
-    }
+    return Math.ceil(this.get('itemHeight') ? height / this.get('itemHeight') : 1) + EXTRA_ROW_PADDING;
   }).readOnly(),
   didRender() {
     if (!this.get('itemHeight')) {
       let elem = this.get('containerSelector') ? $(this.get('containerSelector'))[0].firstElementChild : this.$('.md-virtual-repeat-offsetter')[0].firstElementChild;
       if (elem) {
-        this.set('itemHeight', this.get('horizontal') ? elem.offsetWidth : elem.offsetHeight);
-        this.set('_totalHeight', Math.max((this.get('length') ? this.get('length') : get(this.get('items'), 'length')) * this.get('itemHeight'), 0));
+        run.schedule('actions', () => {
+          this.set('itemHeight', this.get('horizontal') ? elem.offsetWidth : elem.offsetHeight);
+          this.set('_totalHeight', Math.max((this.get('length') ? this.get('length') : get(this.get('items'), 'length')) * this.get('itemHeight'), 0));
+        });
         // this.rerender();
       }
     }
-    this.set('height', this.get('horizontal') ? this.$()[0].clientWidth : this.$()[0].clientHeight);
+    run.schedule('actions', () => {
+      this.set('height', this.get('horizontal') ? this.$()[0].clientWidth : this.$()[0].clientHeight);
+    });
 
   },
-  visibleItems: computed('_startAt', '_visibleItemCount', '_items', {
-    get() {
-      let items = get(this, '_items');
-      let startAt = get(this, '_startAt');
-      let _visibleItemCount = get(this, '_visibleItemCount');
-      let itemsLength = this.get('length') ? this.get('length') : get(items, 'length');
-      let endAt = Math.min(itemsLength, startAt + _visibleItemCount);
-      let onScrollBottomed = this.getAttr('onScrollBottomed');
+  offsetterStyle: computed('horizontal', '_marginTop', function() {
+    let margin = Handlebars.Utils.escapeExpression(get(this, '_marginTop'));
 
-      if (typeof onScrollBottomed === 'function' && (startAt + _visibleItemCount - EXTRA_ROW_PADDING) >= itemsLength) {
-        onScrollBottomed(startAt, endAt);
-      }
-      let getAtIndex = this.get('getAtIndex');
-      if (getAtIndex) {
-        for (let i = startAt; i < endAt; i++) {
-          if (!items[i]) {
-            items[i] = getAtIndex(i);
-          }
+    return new Handlebars.SafeString(this.get('horizontal') ? `transform: translateX(${margin}px);` : `transform: translateY(${margin}px);`);
+  }).readOnly(),
+  // offsetterStyle: computed('horizontal','_marginTop', function() {
+  //   return Handlebars.SafeString(this.get('horizontal') ? 'transform: translateX(' + this.get('_marginTop') + 'px);' : 'transform: translateY(' + this.get('_marginTop') + 'px);');
+  // }),
+  visibleItems: computed('_startAt', '_visibleItemCount', '_items', function() {
+    let items = get(this, '_items');
+    let startAt = get(this, '_startAt');
+    let _visibleItemCount = get(this, '_visibleItemCount');
+    let itemsLength = this.get('length') ? this.get('length') : get(items, 'length');
+    let endAt = Math.min(itemsLength, startAt + _visibleItemCount);
+    let onScrollBottomed = this.getAttr('onScrollBottomed');
+
+    if (typeof onScrollBottomed === 'function' && (startAt + _visibleItemCount - EXTRA_ROW_PADDING) >= itemsLength) {
+      onScrollBottomed(startAt, endAt);
+    }
+    let getAtIndex = this.get('getAtIndex');
+    if (getAtIndex) {
+      for (let i = startAt; i < endAt; i++) {
+        if (!items[i]) {
+          items[i] = getAtIndex(i);
         }
       }
-      return items.slice(startAt, endAt).map((item, index) => {
-        return {
-          raw: item,
-          actualIndex: startAt + index,
-          virtualIndex: index
-        };
-      });
     }
+    return items.slice(startAt, endAt).map((item, index) => {
+      return {
+        raw: item,
+        actualIndex: startAt + index,
+        virtualIndex: index
+      };
+    });
   }).readOnly(),
   didReceiveAttrs() {
     this._super(...arguments);
