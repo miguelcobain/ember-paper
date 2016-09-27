@@ -51,6 +51,8 @@ export default ContentComponent.extend({
           $clone.removeClass('md-active');
           parentElement.removeChild(clone);
         });
+      } else {
+        parentElement.removeChild(clone);
       }
     });
   }
