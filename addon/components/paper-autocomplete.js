@@ -32,6 +32,12 @@ export default PowerSelect.extend({
         action(this.publicAPI, event);
       }
     },
+    onBlur(event) {
+      let action = this.get('onblur');
+      if (action) {
+        action(this.publicAPI, event);
+      }
+    },
     onCreate(text) {
       if (this.get('onCreate')) {
         this.get('onCreate')(text);
