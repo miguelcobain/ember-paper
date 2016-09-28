@@ -33,6 +33,7 @@ export default PowerSelect.extend({
       }
     },
     onBlur(event) {
+      this.send('deactivate');
       let action = this.get('onblur');
       if (action) {
         action(this.publicAPI, event);
