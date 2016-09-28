@@ -1,4 +1,4 @@
-<md-chips-wrap class="md-chips {{if isFocused 'md-focused'}}" tabindex="-1" onkeydown={{action 'keyDown'}} onfocus={{action 'inputFocus'}} onblur={{action 'inputBlur'}}>
+<md-chips-wrap class="md-chips {{if componentFocused 'md-focused'}}" tabindex="-1" onkeydown={{action 'keyDown'}} onfocus={{action 'chipsFocus'}} onblur={{action 'chipsBlur'}}>
   {{#each content as |item index|}}
     <md-chip class="md-chip md-default-theme {{if (eq activeChip index) 'md-focused'}}">
       <div class="md-chip-content" tabindex="-1" aria-hidden="true">
@@ -24,17 +24,13 @@
   {{#unless readOnly}}
     <div class="md-chip-input-container">
       {{#if (or requireMatch source)}}
-        {{#if source.length}}
-          {{#paper-autocomplete closeOnSelect=false onclose=(action 'autocompleteClose') onChange=(action 'autocompleteChange') onfocus=(action 'inputFocus') onopen=(action 'inputFocus') onCreate=(action 'addItem') placeholder=placeholder options=source searchField=searchField noMatchesMessage=noMatchesMessage as |item|}}
-            {{#if hasBlock}}
-              {{yield item}}
-            {{else}}
-              <span>{{item}}</span>
-            {{/if}}
-          {{/paper-autocomplete}}
-        {{else}}
-          {{input tabindex="0" focus-in="inputFocus" focus-out="inputBlur" key-down="noUnselected"}}
-        {{/if}}
+        {{#paper-autocomplete closeOnSelect=false onblur=(action 'inputBlur') onChange=(action 'autocompleteChange') onfocus=(action 'inputFocus') onopen=(action 'inputFocus') onCreate=(action 'addItem') placeholder=placeholder options=source searchField=searchField noMatchesMessage=noMatchesMessage as |item|}}
+          {{#if hasBlock}}
+            {{yield item}}
+          {{else}}
+            <span>{{item}}</span>
+          {{/if}}
+        {{/paper-autocomplete}}
       {{else}}
         {{input tabindex="0" placeholder=placeholder aria-label="Add Tag" value=newChipValue focus-in="inputFocus" focus-out="inputBlur" enter=(action 'addItem' newChipValue)}}
       {{/if}}

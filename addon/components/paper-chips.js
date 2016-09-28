@@ -6,17 +6,19 @@ export default Component.extend({
   tagName: 'md-chips',
   classNames: ['md-default-theme'],
   activeChip: -1,
+  chipsFocused: false,
+  inputFocused: false,
+  componentFocused: Ember.computed.or('chipsFocused', 'inputFocused'),
 
-  resetActiveChip: Ember.observer('isFocused', function() {
-    if (!this.get('isFocused')) {
+  handleFocusChange: Ember.observer('chipsFocused', 'inputFocused', function() {
+    if (!this.get('componentFocused')) {
       this.set('activeChip', -1);
     }
-  }),
 
-  sourceEmpty: Ember.observer('source.length', function() {
-    if (!this.get('source').length) {
-      // Delay slightly so that autocomplete can be replaced with input.
-      Ember.run.later(() => this.$('.md-chip-input-container input').focus(), 10);
+    if (this.get('chipsFocused') || this.get('inputFocused')) {
+      this.sendAction('focusIn', window.event);
+    } else {
+      this.sendAction('focusOut', window.event);
     }
   }),
 
@@ -40,14 +42,15 @@ export default Component.extend({
 
         if (isPresent(this.get('autocomplete'))) {
           // We have an autocomplete - reset it once it's closed itself.
-          Ember.run.later(this, this.resetAutocomplete, 10);
+          Ember.run.later(this, this.resetInput, 10);
         }
       }
     },
 
     inputFocus(autocomplete) {
-      let input = this.$('.md-chip-input-container input');
-      this.set('isFocused', true);
+      let input = this.getInput();
+
+      this.set('inputFocused', true);
 
       if (!this.get('content').length && !input.is(':focus')) {
         input.focus();
@@ -62,7 +65,15 @@ export default Component.extend({
     },
 
     inputBlur() {
-      this.set('isFocused', false);
+      this.set('inputFocused', false);
+    },
+
+    chipsFocus() {
+      this.set('chipsFocused', true);
+    },
+
+    chipsBlur() {
+      this.set('chipsFocused', false);
     },
 
     autocompleteChange(item) {
@@ -70,33 +81,13 @@ export default Component.extend({
         // Trigger onChange for the new item.
         this.sendAction('addItem', item);
 
-        this.resetAutocomplete();
+        this.resetInput();
         return true;
       }
-    },
-
-    autocompleteClose() {
-      if (this.get('activeChip') === -1) {
-        // Mark field as having lost focus - no chip is selected.
-        this.send('inputBlur');
-      }
-
-      if (this.get('source').length) {
-        // We still have options left; go ahead and close the underlying ember-power-select.
-        return true;
-      }
-
-      // Reset reference to autocomplete widget.
-      this.set('autocomplete', null);
-
-      // There are no options left; the paper-autocomplete / ember-power-select will be removed
-      // automatically, so there's no need to try closing it - if you do, you risk trying to close
-      // it after it's already been destroyed, which throws an error.
-      return false;
     },
 
     keyDown(event) {
-      let [input] = this.$('.md-chip-input-container input');
+      let [input] = this.getInput();
       if (!this.get('readOnly') && isEmpty(input.value) && isPresent(this.get('content'))) {
         this.keyboardNavigation(event);
         if (this.get('activeChip') >= 0 && !isEmpty(this.get('autocomplete')) && !isEmpty(this.get('autocomplete').actions)) {
@@ -125,10 +116,11 @@ export default Component.extend({
     // No text has been entered, but we have chips; cursor keys should select chips.
     let current = this.get('activeChip');
     let chips = this.get('content');
-    let input = this.$('.md-chip-input-container input');
+    let input = this.getInput();
 
     if (['ArrowLeft', 'Left'].includes(key) || (key === 'Backspace' && current === -1)) {
       if (current === -1) {
+        input.blur();
         this.$('md-chips-wrap', this.element).focus();
         this.set('activeChip', chips.length - 1);
       } else if (current > 0) {
@@ -146,29 +138,30 @@ export default Component.extend({
     } else if (current >= 0 && ['Backspace', 'Delete', 'Del'].includes(key)) {
       this.sendAction('removeItem', chips[current]);
       if (current >= chips.length) {
-        // Delay slightly so that any changes have happened.
-        Ember.run.later(() => this.$('.md-chip-input-container input').focus(), 10);
+        this.resetInput();
         this.set('activeChip', -1);
       }
     }
   },
 
-  resetAutocomplete() {
+  resetInput() {
     let select = this.get('autocomplete');
-    let [input] = this.$('.ember-power-select-typeahead-input', this.element);
+    let input = this.getInput();
 
-    if (isEmpty(input) || isEmpty(select)) {
-      // Autocomplete has been removed, so we have nothing left to do.
-      return;
+    if (input.is('.ember-power-select-typeahead-input') && isPresent(select)) {
+      // Reset the underlying ember-power-select so that it's ready for another selection.
+      input.value = '';
+      select.actions.search('');
+
+      // Re-open ember-power-select to trigger it to reposition the dropdown.
+      select.actions.close();
+      select.actions.open();
     }
 
-    // Reset the underlying ember-power-select so that it's ready for another selection.
-    input.value = '';
-    select.actions.search('');
-
-    // Re-open ember-power-select to trigger it to reposition the dropdown.
-    select.actions.close();
-    select.actions.open();
     input.focus();
+  },
+
+  getInput() {
+    return this.$('.md-chip-input-container input');
   }
 });
