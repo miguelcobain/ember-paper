@@ -1,5 +1,5 @@
-<md-chips class="md-chips md-contact-chips {{if isFocused 'md-focused'}}">
-  <md-chips-wrap class="md-chips md-contact-chips {{if isFocused 'md-focused'}}" tabindex="-1" onkeydown={{action 'keyDown'}} onfocus={{action 'inputFocus'}} onblur={{action 'inputBlur'}}>
+<md-chips class="md-chips md-contact-chips {{if componentFocused 'md-focused'}}">
+  <md-chips-wrap class="md-chips md-contact-chips {{if componentFocused 'md-focused'}}" tabindex="-1" onkeydown={{action 'keyDown'}} onfocus={{action 'chipsFocus'}} onblur={{action 'chipsBlur'}}>
     {{#each content as |item index|}}
       <md-chip class="md-chip md-default-theme {{if (eq activeChip index) 'md-focused'}}">
         <div class="md-chip-content" tabindex="-1" aria-hidden="true">
@@ -23,18 +23,14 @@
     {{/each}}
     {{#unless readOnly}}
       <div class="md-chip-input-container">
-        {{#if source.length}}
-          {{#paper-autocomplete closeOnSelect=false onclose=(action 'autocompleteClose') onChange=(action 'autocompleteChange') onfocus=(action 'inputFocus') onopen=(action 'inputFocus') placeholder=placeholder options=source searchField="email" as |item select|}}
-            <div class="md-contact-suggestion">
-              <img src={{item.image}} alt={{item.name}} class="md-contact-avatar">
+        {{#paper-autocomplete closeOnSelect=false onblur=(action 'inputBlur') onChange=(action 'autocompleteChange') onfocus=(action 'inputFocus') onopen=(action 'inputFocus') placeholder=placeholder options=source searchField="email" as |item select|}}
+          <div class="md-contact-suggestion">
+            <img src={{item.image}} alt={{item.name}} class="md-contact-avatar">
 
-              <span class="md-contact-name">{{item.name}}</span>
-              <span class="md-contact-email">{{item.email}}</span>
-            </div>
-          {{/paper-autocomplete}}
-        {{else}}
-          {{input tabindex="0" focus-in="inputFocus" focus-out="inputBlur" key-down="noUnselected"}}
-        {{/if}}
+            <span class="md-contact-name">{{item.name}}</span>
+            <span class="md-contact-email">{{item.email}}</span>
+          </div>
+        {{/paper-autocomplete}}
       </div>
     {{/unless}}
   </md-chips-wrap>
