@@ -6,15 +6,10 @@ import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
-
-import requiredValidator from 'ember-paper/validators/required';
-import minValidator from 'ember-paper/validators/min';
-import maxValidator from 'ember-paper/validators/max';
-import minlengthValidator from 'ember-paper/validators/minlength';
-import maxlengthValidator from 'ember-paper/validators/maxlength';
+import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 
 const {
-  Component, $, computed, isArray, isEmpty, Logger, A, run, assert, get
+  Component, $, computed, isEmpty, run, assert
 } = Ember;
 
 /**
@@ -24,8 +19,9 @@ const {
  * @uses ChildMixin
  * @uses ColorMixin
  * @uses FlexMixin
+ * @uses ValidationMixin
  */
-export default Component.extend(FocusableMixin, ColorMixin, FlexMixin, ChildMixin, {
+export default Component.extend(FocusableMixin, ColorMixin, FlexMixin, ChildMixin, ValidationMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
   classNameBindings: [
@@ -41,8 +37,7 @@ export default Component.extend(FocusableMixin, ColorMixin, FlexMixin, ChildMixi
   tabindex: null,
   hideAllMessages: false,
   isTouched: false,
-  lastIsInvalid: undefined,
-
+  isInvalid: computed.or('validationErrorMessages.length', 'isNativeInvalid'),
   hasValue: computed('value', 'isNativeInvalid', function() {
     let value = this.get('value');
     let isNativeInvalid = this.get('isNativeInvalid');
@@ -53,95 +48,15 @@ export default Component.extend(FocusableMixin, ColorMixin, FlexMixin, ChildMixi
     return `input-${this.get('elementId')}`;
   }),
 
-  /**
-   * The result of isInvalid is appropriate for controlling the display of
-   * validation error messages. It also may be used to distinguish whether
-   * the input would be considered valid after it is touched.
-   *
-   * @public
-   *
-   * @return {boolean} Whether the input is or would be invalid.
-   *    false: input is valid (touched or not), or is no longer rendered
-   *    true: input has been touched and is invalid.
-   */
-  isInvalid: computed.or('validationErrorMessages.length', 'isNativeInvalid'),
-  isValid: computed.not('isInvalid'),
-
-  isInvalidAndTouched: computed.and('isInvalid', 'isTouched'),
-
   renderCharCount: computed('value', function() {
     let currentLength = this.get('value') ? this.get('value').length : 0;
     return `${currentLength}/${this.get('maxlength')}`;
   }),
 
   eitherIcon: computed.or('icon', 'iconRight'),
+  isInvalidAndTouched: computed.and('isInvalid', 'isTouched'),
 
-  /**
-   * Return the built-in validations.
-   *
-   * May be overridden to provide additional built-in validations. Be sure to
-   * call this._super() to retrieve the standard validations.
-   *
-   * @public
-   */
-  validations() {
-    return [
-      requiredValidator,
-      minValidator,
-      maxValidator,
-      minlengthValidator,
-      maxlengthValidator
-    ];
-  },
-
-  customValidations: [],
-  errors: [],
-
-  /**
-   * Computed property that validate the input and return an array of error
-   * objects, each with an ng-message code and an error message.
-   *
-   * @public
-   */
-  validationErrorMessages: computed('value', 'errors.[]', 'customValidations.[]', function() {
-    let validations = A();
-    let messages = A();
-
-    // built-in validations
-    validations.pushObjects(this.validations());
-
-    // custom validations
-    let customValidations = this.get('customValidations');
-    assert('`customValidations` must be an array', isArray(customValidations));
-    validations.pushObjects(customValidations);
-
-    // execute validations
-    let currentValue = this.get('value');
-    validations.forEach((validation) => {
-      assert('validation must include an `validate(value)` function', validation && validation.validate && typeof validation.validate === 'function');
-      try {
-        let valParam = get(validation, 'param');
-        let paramValue = valParam ? this.get(valParam) : undefined;
-        if (!validation.validate(currentValue, paramValue)) {
-          let message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
-          messages.pushObject({
-            message: Ember.String.loc(message.string || message, paramValue, currentValue)
-          });
-        }
-      } catch (error) {
-        Logger.error('Exception with validation: ', validation, error);
-      }
-    });
-
-    // error messages array
-    let errors = this.get('errors') || [];
-    assert('`errors` must be an array', isArray(errors));
-    messages.pushObjects(errors.map((e) => {
-      return get(e, 'message') ? e : { message: e };
-    }));
-
-    return messages;
-  }),
+  validationProperty: 'value', // property that validations should be run on
 
   // Lifecycle hooks
   didReceiveAttrs() {
@@ -213,15 +128,6 @@ export default Component.extend(FocusableMixin, ColorMixin, FlexMixin, ChildMixi
     let { offsetHeight } = inputElement.get(0);
     let line = inputElement.get(0).scrollHeight - offsetHeight;
     return offsetHeight + (line > 0 ? line : 0);
-  },
-
-  notifyValidityChange() {
-    let isValid = this.get('isValid');
-    let lastIsValid = this.get('lastIsValid');
-    if (lastIsValid !== isValid) {
-      this.sendAction('onValidityChange', isValid);
-      this.set('lastIsValid', isValid);
-    }
   },
 
   setValue(value) {
