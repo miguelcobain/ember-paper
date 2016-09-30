@@ -51,8 +51,7 @@
   {{#dropdown.content
     class=(readonly concatenatedDropdownClasses)
     select=(readonly publicAPI)
-    to=(readonly destination)
-    as |virtualItems|}}
+    to=(readonly destination) as |virtualItems|}}
     {{#if mustShowSearchMessage}}
       {{component searchMessageComponent
         searchMessage=(readonly searchMessage)

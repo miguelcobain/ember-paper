@@ -1,8 +1,27 @@
 import Ember from 'ember';
 
-const { computed, Controller, RSVP, run } = Ember;
+const {
+  computed,
+  Controller,
+  RSVP,
+  run } = Ember;
+
+const months = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
 
 export default Controller.extend({
+
+  yearScrollIndex: 0,
+  deferredItems: [],
+  infiniteItems: Ember.A([]),
+  loadedPages: {},
+  PAGE_SIZE: 50,
+  scrollIndex: 0,
+  yearIndex: 0,
+  length: 50000,
+  selectedYear: 2016,
+
   items: computed(function() {
     let arr = [];
     for (let i = 0; i < 1000; i++) {
@@ -10,31 +29,30 @@ export default Controller.extend({
     }
     return Ember.A(arr);
   }),
-  deferredItems: [],
-  scrollToItems: computed(function() {
-    let years = [];
-    let items = [];
-    let currentYear = new Date().getFullYear();
-    let monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'];
-    // Build a list of months over 20 years
-    for (let y = currentYear; y >= (currentYear - 20); y--) {
-      years.push(y);
-      items.push({ year: y, text: y, header: true });
-      for (let m = 11; m >= 0; m--) {
-        items.push({ year: y, month: m, text: monthNames[m] });
-      }
+
+  years: computed({
+    get() {
+      let currentYear = new Date().getFullYear();
+      return Array.from(Array(20), (_, i) => currentYear - i);
     }
-    this.set('years', years);
-    return items;
-  }),
-  infiniteItems: Ember.A([]),
-  loadedPages: {},
-  PAGE_SIZE: 50,
-  scrollIndex: 0,
-  yearIndex: 0,
-  length: 50000,
+  }).readOnly(),
+
+  monthsWithYears: computed('years', {
+    get() {
+      let results = [];
+      this.get('years').forEach((year) => {
+        results.push({year, text: year, header: true});
+        let monthsInYear = Array.from(Array(12), (_, i) => {
+          return { year, month: i, text: months[i] };
+        });
+        results.push(...monthsInYear);
+      });
+      return results;
+    }
+  }).readOnly(),
+
   actions: {
+
     fetchMore() {
       let arr = this.get('infiniteItems');
 
@@ -43,15 +61,17 @@ export default Controller.extend({
         arr.pushObject(i);
       }
     },
-    scrollTo(selected) {
-      this.set('selected', selected);
 
-      this.set('scrollIndex', this.get('years').indexOf(selected) * 13);
-
+    scrollTo(chosenYear) {
+      console.log('ScrollTo called...', chosenYear);
+      this.set('selectedYear', chosenYear);
+      this.set('yearScrollIndex', this.get('years').indexOf(chosenYear) * 13);
     },
+
     getAtIndex(index) {
       let pageNumber = Math.floor(index / this.PAGE_SIZE);
       let page = this.loadedPages[pageNumber];
+
       if (page) {
         return new RSVP.Promise((resolve) => resolve(page[index % this.PAGE_SIZE]));
       } else if (page !== null) {
@@ -66,6 +86,7 @@ export default Controller.extend({
       }
     }
   },
+
   fetchPage(pageNumber, index) {
     this.loadedPages[pageNumber] = null;
     return new RSVP.Promise((resolve) => {

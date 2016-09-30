@@ -17,7 +17,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
   tagName: 'md-virtual-repeat-container',
   classNames: ['md-virtual-repeat-container'],
   classNameBindings: ['horizontal:md-orient-horizontal'],
-  visibleItemsRaw: computed.mapBy('visibleItems', 'raw'),
+  rawVisibleItems: computed.mapBy('visibleItems', 'raw'),
   containerSelector: undefined,
 
   actions: {
@@ -31,7 +31,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     height: 48
   },
 
-  height: computed('initialSize', 'items.length', 'itemHeight', {
+  size: computed('initialSize', 'items.length', 'itemHeight', {
     get() {
       let itemSize = this.get('itemHeight');
       let fullSize = this.get('items.length')  * itemSize;
@@ -42,6 +42,15 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
       return Math.min(fullSize, this.get('initialSize'));
     }
   }).readOnly(),
+
+  height: computed('size', 'horizontal', {
+    get() {
+      if (this.get('horizontal')) {
+        return false;
+      }
+      return this.get('size');
+    }
+  }),
 
   // Received coordinates {top, left, right, width} from the dropdown
   // Convert them to style and cache - they usually don't change
@@ -83,6 +92,10 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
       if (visibleStart !== startAt) {
         set(this, '_startAt', visibleStart);
       }
+
+      if(isNaN(visibleStart)) {
+        set(this, '_startAt', 0);
+      }
     });
   },
 
@@ -113,10 +126,10 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     }
   }).readOnly(),
 
-  _visibleItemCount: computed('height', 'itemHeight', {
+  _visibleItemCount: computed('size', 'itemHeight', {
     get() {
-      let height = this.get('height');
-      return Math.ceil(this.get('itemHeight') ? height / this.get('itemHeight') : 1) + EXTRA_ROW_PADDING;
+      let size = this.get('size');
+      return Math.ceil(this.get('itemHeight') ? size / this.get('itemHeight') : 1) + EXTRA_ROW_PADDING;
     }
   }).readOnly(),
 
@@ -125,7 +138,29 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
 
     run.scheduleOnce('afterRender', this, function() {
       let [element] = this.$();
-      this.initialSize = this.get('horizontal') ? element.clientWidth : element.clientHeight;
+
+      let initSize = this.get('horizontal') ? element.clientWidth : element.clientHeight;
+      this.set('initialSize', initSize);
+    });
+  },
+
+  didReceiveAttrs(changes) {
+    this._super(...arguments);
+    let { newAttrs, oldAttrs={} } = changes;
+
+    RSVP.cast(this.getAttr('items')).then((attrItems) => {
+      let items = emberArray(attrItems);
+      let itemsCount = this.get('totalItemsCount') || get(items, 'length');
+      this.setProperties({
+        _items: items,
+        _positionIndex: this.getAttr('positionIndex'),
+        _totalHeight: Math.max(itemsCount * this.get('itemHeight'), 0),
+      });
+
+      // Scroll index has changed, load more data & scroll
+      if (oldAttrs.scrollIndex !== newAttrs.scrollIndex) {
+        this.scrollToVirtualItem(newAttrs.scrollIndex, newAttrs.scrollTop);
+      }
     });
   },
 
@@ -147,13 +182,17 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
 
     run.cancel(this._measureHeightHandler);
     this._measureHeightHandler = run.schedule('afterRender', this, function() {
+      let itemsCount = this.get('totalItemsCount') || get(this, 'items.length');
+
       if (this.get('horizontal')) {
         this.setProperties({
-          itemHeight: optionElement.offsetWidth
+          itemHeight: optionElement.offsetWidth,
+          _totalHeight: Math.max(itemsCount *  optionElement.offsetWidth, 0)
         });
       } else {
         this.setProperties({
-          itemHeight: optionElement.offsetHeight
+          itemHeight: optionElement.offsetHeight,
+          _totalHeight: Math.max(itemsCount * optionElement.offsetHeight, 0)
         });
       }
     });
@@ -173,12 +212,12 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
       let items = get(this, '_items');
       let startAt = get(this, '_startAt');
       let _visibleItemCount = get(this, '_visibleItemCount');
-      let itemsLength = get(items, 'length');
+      let itemsLength = get(this, 'totalItemsCount') || get(items, 'length');
       let endAt = Math.min(itemsLength, startAt + _visibleItemCount);
       let onScrollBottomed = this.getAttr('onScrollBottomed');
 
       if (typeof onScrollBottomed === 'function' && (startAt + _visibleItemCount - EXTRA_ROW_PADDING) >= itemsLength) {
-        onScrollBottomed(startAt, endAt);
+        run.next(this, onScrollBottomed, startAt, endAt);
       }
       let getAtIndex = this.get('getAtIndex');
       if (getAtIndex) {
@@ -188,7 +227,6 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
           }
         }
       }
-      // console.log('Visible items - changed. StartAt: ', startAt, ' endAt: ', endAt);
       return items.slice(startAt, endAt).map((item, index) => {
         return {
           raw: item,
@@ -199,54 +237,30 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     }
   }).readOnly(),
 
-  didReceiveAttrs(changes) {
-    this._super(...arguments);
-    let { newAttrs, oldAttrs={} } = changes;
+  scrollToVirtualItem(newIndex, toTop) {
+    let { _startAt, endAt } = this.getProperties('_startAt', 'endAt',);
 
-    RSVP.cast(this.getAttr('items')).then((attrItems) => {
-      let items = emberArray(attrItems);
-      this.setProperties({
-        _items: items,
-        _positionIndex: this.getAttr('positionIndex'),
-        _totalHeight: Math.max(get(items, 'length') * this.get('itemHeight'), 0)
-      });
-
-      // Scroll index has changed, load more data & scroll
-      if (oldAttrs.scrollItemIndex && newAttrs.scrollItemIndex !== oldAttrs.scrollItemIndex) {
-        this.scrollToVirtualItem(newAttrs.scrollItemIndex);
-      }
-    });
-  },
-
-  scrollToVirtualItem(newIndex) {
-    let {
-      itemHeight,
-      _visibleItemCount,
-      _startAt,
-      endAt,
-      _items,
-      height
-      } = this.getProperties(
-      'itemHeight',
-      '_visibleItemCount',
-      '_startAt',
-      'endAt',
-      '_items',
-      'height');
-
-    let itemsLength = _items.get('length');
-
-    // Already loaded, just scroll
     if (newIndex < _startAt || newIndex > endAt) {
+      let { _visibleItemCount, _items } = this.getProperties('_visibleItemCount', '_items');
+      let itemsLength = _items.get('length');
 
       let maxVisibleItemTop = Math.max(0, (itemsLength - _visibleItemCount + EXTRA_ROW_PADDING));
       let sanitizedIndex = Math.min(_startAt, maxVisibleItemTop);
       this.calculateVisibleItems(sanitizedIndex);
     }
 
-    let topOffset = (newIndex + 1) * itemHeight;
-    let topScroll = topOffset - height;
-    this.$('.md-virtual-repeat-scroller').scrollTop(topScroll);
+    let itemHeight = this.get('itemHeight');
+    let itemOffset = (newIndex + 1) * itemHeight;
+    let offset = itemOffset - this.get('size');
+
+    if (toTop) {
+      offset = newIndex * itemHeight;
+    }
+    if (this.get('horizontal')) {
+      this.$('.md-virtual-repeat-scroller').scrollLeft(offset);
+    } else {
+      this.$('.md-virtual-repeat-scroller').scrollTop(offset);
+    }
   }
 });
 

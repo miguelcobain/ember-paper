@@ -33,6 +33,7 @@ export default PowerSelect.extend({
   },
 
   actions: {
+
     onFocus(event) {
       this.send('activate');
       this.publicAPI.actions.open(event);
@@ -41,6 +42,7 @@ export default PowerSelect.extend({
         action(this.publicAPI, event);
       }
     },
+
     onCreate(text) {
       if (this.get('onCreate')) {
         this.get('onCreate')(text);
@@ -63,8 +65,9 @@ export default PowerSelect.extend({
       if (index === -1) {
         return;
       }
-      // Update the scrollItem index
-      this.updateState({ scrollItemIndex: index });
+
+      // Update the scroll index
+      this.updateState({ scrollIndex: index });
     }
   }
 });
