@@ -8,10 +8,10 @@ export default Component.extend({
   activeChip: -1,
   chipsFocused: false,
   inputFocused: false,
-  componentFocused: Ember.computed.or('chipsFocused', 'inputFocused'),
+  isFocused: Ember.computed.or('chipsFocused', 'inputFocused'),
 
   handleFocusChange: Ember.observer('chipsFocused', 'inputFocused', function() {
-    if (!this.get('componentFocused')) {
+    if (!this.get('isFocused')) {
       this.set('activeChip', -1);
     }
 
