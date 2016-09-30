@@ -1,4 +1,4 @@
-<md-chips-wrap class="md-chips {{if componentFocused 'md-focused'}}" tabindex="-1" onkeydown={{action 'keyDown'}} onfocus={{action 'chipsFocus'}} onblur={{action 'chipsBlur'}}>
+<md-chips-wrap class="md-chips {{if isFocused 'md-focused'}}" tabindex="-1" onkeydown={{action 'keyDown'}} onfocus={{action 'chipsFocus'}} onblur={{action 'chipsBlur'}}>
   {{#each content as |item index|}}
     <md-chip class="md-chip md-default-theme {{if (eq activeChip index) 'md-focused'}}">
       <div class="md-chip-content" tabindex="-1" aria-hidden="true">
