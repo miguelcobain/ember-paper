@@ -93,7 +93,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
         set(this, '_startAt', visibleStart);
       }
 
-      if(isNaN(visibleStart)) {
+      if (isNaN(visibleStart)) {
         set(this, '_startAt', 0);
       }
     });
@@ -154,7 +154,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
       this.setProperties({
         _items: items,
         _positionIndex: this.getAttr('positionIndex'),
-        _totalHeight: Math.max(itemsCount * this.get('itemHeight'), 0),
+        _totalHeight: Math.max(itemsCount * this.get('itemHeight'), 0)
       });
 
       // Scroll index has changed, load more data & scroll
@@ -238,7 +238,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
   }).readOnly(),
 
   scrollToVirtualItem(newIndex, toTop) {
-    let { _startAt, endAt } = this.getProperties('_startAt', 'endAt',);
+    let { _startAt, endAt } = this.getProperties('_startAt', 'endAt');
 
     if (newIndex < _startAt || newIndex > endAt) {
       let { _visibleItemCount, _items } = this.getProperties('_visibleItemCount', '_items');
