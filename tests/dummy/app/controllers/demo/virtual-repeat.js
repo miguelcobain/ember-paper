@@ -33,7 +33,7 @@ export default Controller.extend({
   years: computed({
     get() {
       let currentYear = new Date().getFullYear();
-      return Array.from(Array(20), (_, i) => currentYear - i);
+      return Array.apply(null, { length: 20 }).map((_, i) => currentYear - i);
     }
   }).readOnly(),
 
@@ -41,8 +41,8 @@ export default Controller.extend({
     get() {
       let results = [];
       this.get('years').forEach((year) => {
-        results.push({year, text: year, header: true});
-        let monthsInYear = Array.from(Array(12), (_, i) => {
+        results.push({ year, text: year, header: true });
+        let monthsInYear =  Array.apply(null, { length: 12 }).map((_, i) => {
           return { year, month: i, text: months[i] };
         });
         results.push(...monthsInYear);
