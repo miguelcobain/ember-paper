@@ -137,7 +137,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     this._super(...arguments);
 
     run.scheduleOnce('afterRender', this, function() {
-      let [element] = this.$();
+      let element = this.$().get(0);
 
       let initSize = this.get('horizontal') ? element.clientWidth : element.clientHeight;
       this.set('initialSize', initSize);
