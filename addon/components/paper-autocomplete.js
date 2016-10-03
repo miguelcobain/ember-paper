@@ -22,6 +22,8 @@ export default PowerSelect.extend({
     return { labelPath: this.get('labelPath'), label: this.get('label') };
   }),
   onchange: computed.alias('onChange'),
+  onfocus: computed.alias('onFocus'),
+  onblur: computed.alias('onBlur'),
 
   actions: {
     onFocus(event) {
