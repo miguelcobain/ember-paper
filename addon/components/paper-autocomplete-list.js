@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { Component, inject, run, observer, $ } = Ember;
 // TODO Move to constants?
 const ITEM_HEIGHT = 41;
 const MAX_HEIGHT = 5.5 * ITEM_HEIGHT;
@@ -14,7 +14,7 @@ const MENU_PADDING = 8;
  * @extends Ember.Component
  */
 export default Component.extend({
-  util: Ember.inject.service(),
+  util: inject.service(),
 
   tagName: 'ul',
   classNames: ['md-default-theme', 'md-autocomplete-suggestions', 'md-whiteframe-z1'],
@@ -24,7 +24,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    this._resizeWindowEvent = Ember.run.bind(this, this.resizeWindowEvent);
+    this._resizeWindowEvent = run.bind(this, this.resizeWindowEvent);
   },
 
   mouseEnter() {
@@ -41,18 +41,18 @@ export default Component.extend({
 
   // TODO reafactor into a computed property that binds directly to dropdown's `style`
   positionDropdown() {
-    let hrect  = Ember.$(`#${this.get('wrapToElementId')}`)[0].getBoundingClientRect();
-    let vrect  = hrect;
-    let root   = document.body.getBoundingClientRect();
-    let top    = vrect.bottom - root.top;
-    let bot    = root.bottom - vrect.top;
-    let left   = hrect.left - root.left;
-    let { width }  = hrect;
+    let hrect = $(`#${this.get('wrapToElementId')}`)[0].getBoundingClientRect();
+    let vrect = hrect;
+    let root = document.body.getBoundingClientRect();
+    let top = vrect.bottom - root.top;
+    let bot = root.bottom - vrect.top;
+    let left = hrect.left - root.left;
+    let { width } = hrect;
     let styles = {
-        left: `${left}px`,
-        minWidth: `${width}px`,
-        maxWidth: `${Math.max(hrect.right - root.left, root.right - hrect.left) - MENU_PADDING}px`
-      };
+      left: `${left}px`,
+      minWidth: `${width}px`,
+      maxWidth: `${Math.max(hrect.right - root.left, root.right - hrect.left) - MENU_PADDING}px`
+    };
     let ul = this.$();
 
     if (top > bot && root.height - hrect.bottom - MENU_PADDING < MAX_HEIGHT) {
@@ -80,7 +80,7 @@ export default Component.extend({
     }
   },
 
-  observeIndex: Ember.observer('selectedIndex', function() {
+  observeIndex: observer('selectedIndex', function() {
     let suggestions = this.get('suggestions');
     if (!suggestions || !suggestions.objectAt(this.get('selectedIndex'))) {
       return;
@@ -108,14 +108,14 @@ export default Component.extend({
 
     // TODO refactor using ember-wormhole?
     let ul = this.$().detach();
-    Ember.$('body').append(ul);
-    Ember.$(window).on('resize', this._resizeWindowEvent);
+    $('body').append(ul);
+    $(window).on('resize', this._resizeWindowEvent);
     this.get('util').disableScrollAround(this.$());
     this.positionDropdown();
   },
 
   willDestroyElement() {
-    Ember.$(window).off('resize', this._resizeWindowEvent);
+    $(window).off('resize', this._resizeWindowEvent);
     this.get('util').enableScrolling();
   }
 

@@ -4,7 +4,7 @@
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
-const { Component } = Ember;
+const { Component, computed, inject, on, $, RSVP } = Ember;
 
 /**
  * The paper-menu-container-abstract is responsible for animation and
@@ -14,27 +14,27 @@ const { Component } = Ember;
  * @extends Ember.Component
  */
 export default Component.extend({
-  transitionEvents: Ember.inject.service(),
-  constants: Ember.inject.service(),
+  transitionEvents: inject.service(),
+  constants: inject.service(),
 
   classNames: ['md-default-theme'],
   classNameBindings: ['interaction:md-clickable'],
 
-  menuAbstract: Ember.computed(function() {
+  menuAbstract: computed(function() {
     let container = this.nearestOfType(PaperMenuAbstract);
     return container;
   }),
 
-  _resizeHandler: Ember.computed(function() {
+  _resizeHandler: computed(function() {
     return () => {
       this.get('menuAbstract').registerWrapper(this);
     };
   }),
 
-  moveComponentToBody: Ember.on('didInsertElement', function() {
+  moveComponentToBody: on('didInsertElement', function() {
     let _self = this;
     let dom = this.$().detach();
-    Ember.$('body').append(dom);
+    $('body').append(dom);
 
     let menuAbstract = this.get('menuAbstract');
 
@@ -50,18 +50,18 @@ export default Component.extend({
     });
 
     // Register resize handler.
-    Ember.$(window).on('resize', this.get('_resizeHandler'));
+    $(window).on('resize', this.get('_resizeHandler'));
 
   }),
 
   willDestroyElement() {
     // Destroy resize handler.
-    Ember.$(window).off('resize', this.get('_resizeHandler'));
+    $(window).off('resize', this.get('_resizeHandler'));
   },
 
   hideWrapper() {
     let _self = this;
-    return new Ember.RSVP.Promise(function(resolve/*, reject*/) {
+    return new RSVP.Promise(function(resolve/*, reject*/) {
       _self.get('transitionEvents').addEndEventListener(_self.get('element'), function() {
         _self.$().removeClass('md-active');
         resolve();

@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { Component, String: { htmlSafe } } = Ember;
 
 /**
  * @class PaperSidenavContainer
@@ -12,5 +12,5 @@ const { Component } = Ember;
 export default Component.extend({
   classNames: ['flex', 'layout-row'],
   attributeBindings: ['style'],
-  style: Ember.String.htmlSafe('overflow: hidden')
+  style: htmlSafe('overflow: hidden')
 });

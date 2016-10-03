@@ -4,7 +4,7 @@
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
-const { Component } = Ember;
+const { Component, inject, computed } = Ember;
 
 let searchStr = '';
 let clearSearchTimeout, optNodes, optText;
@@ -18,9 +18,9 @@ export default Component.extend({
   tagName: 'md-select-menu',
   classNames: ['md-default-theme'],
 
-  constants: Ember.inject.service(),
+  constants: inject.service(),
 
-  menuAbstract: Ember.computed(function() {
+  menuAbstract: computed(function() {
     let container = this.nearestOfType(PaperMenuAbstract);
     return container;
   }),

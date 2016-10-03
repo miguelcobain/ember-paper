@@ -4,7 +4,7 @@
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
-const { $, Component, inject: { service }, run: { later } } = Ember;
+const { $, Component, inject, run } = Ember;
 
 /**
  * @class PaperMenuContentPane
@@ -13,7 +13,7 @@ const { $, Component, inject: { service }, run: { later } } = Ember;
 export default Component.extend({
   tagName: 'md-menu-content',
 
-  constants: service(),
+  constants: inject.service(),
 
   classNames: ['md-default-theme'],
   classNameBindings: ['dense:md-dense'],
@@ -21,7 +21,7 @@ export default Component.extend({
   width: 4,
   dense: false,
 
-  // menuAbstract: Ember.computed(function() {
+  // menuAbstract: computed(function() {
   //   let container = this.nearestOfType(PaperMenuAbstract);
   //   return container;
   // }),
@@ -43,7 +43,7 @@ export default Component.extend({
 
   didInsertElement() {
     // kick off initial focus in the menu on the first element
-    later(() => {
+    run.later(() => {
       let focusTarget = this.$().find('.md-menu-focus-target');
       if (!focusTarget.length) {
         focusTarget = this.$().children().eq(0).children().eq(0);

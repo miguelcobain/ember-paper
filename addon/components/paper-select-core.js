@@ -4,6 +4,8 @@
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
+const { computed, $ } = Ember;
+
 const SELECT_EDGE_MARGIN = 8;
 
 function clamp(min, n, max) {
@@ -30,24 +32,24 @@ export default PaperMenuAbstract.extend({
   classNames: ['md-default-theme'],
 
   attributeBindings: ['tabindex', 'readonlyAttr:readonly', 'multipleAttr:multiple'],
-  tabindex: Ember.computed('readonly', function() {
+  tabindex: computed('readonly', function() {
     return this.get('readonly') ? -1 : 0;
   }),
   readonly: null,
   multiple: null,
 
-  readonlyAttr: Ember.computed('readonly', function() {
+  readonlyAttr: computed('readonly', function() {
     return this.get('readonly') ? 'readonly' : null;
   }),
-  multipleAttr: Ember.computed('multiple', function() {
+  multipleAttr: computed('multiple', function() {
     return this.get('multiple') ? 'multiple' : null;
   }),
 
-  preventMenuOpen: Ember.computed('disabled', function() {
+  preventMenuOpen: computed('disabled', function() {
     return !!this.get('disabled');
   }),
 
-  label: Ember.computed('value', 'itemLabelCallback', function() {
+  label: computed('value', 'itemLabelCallback', function() {
     if (!this.get('value')) {
       return null;
     }
@@ -71,9 +73,9 @@ export default PaperMenuAbstract.extend({
   },
 
   /* @todo move to util */
-  floatingScrollbars: Ember.computed(function() {
-    let tempNode = Ember.$('<div style="width: 100%; z-index: -1; position: absolute; height: 35px; overflow-y: scroll"><div style="height: 60;"></div></div>');
-    Ember.$('body').append(tempNode[0]);
+  floatingScrollbars: computed(function() {
+    let tempNode = $('<div style="width: 100%; z-index: -1; position: absolute; height: 35px; overflow-y: scroll"><div style="height: 60;"></div></div>');
+    $('body').append(tempNode[0]);
     let hasFloating = (tempNode[0].offsetWidth === tempNode[0].childNodes[0].offsetWidth);
     tempNode.remove();
     return hasFloating;
@@ -116,7 +118,7 @@ export default PaperMenuAbstract.extend({
     let _self = this;
     let opts = {
       target: this.$(),
-      parent: Ember.$('body'),
+      parent: $('body'),
       selectEl: element.find('md-select-menu'),
       contentEl: element.find('md-content')
     };

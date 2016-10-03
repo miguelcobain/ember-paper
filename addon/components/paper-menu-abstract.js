@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { Component, inject, assert } = Ember;
+const { Component, inject, assert, A, run } = Ember;
 
 /**
  * @class PaperMenuAbstract
@@ -51,7 +51,7 @@ export default Component.extend({
             this.set('items', data);
             this.set('isLoading', false);
           }, () => {
-            this.set('items', Ember.A([]));
+            this.set('items', A([]));
             this.setOpen(false);
             this.set('isLoading', false);
           });
@@ -64,7 +64,7 @@ export default Component.extend({
   },
 
   didReceiveAttrs() {
-    Ember.run.scheduleOnce('afterRender', () => {
+    run.scheduleOnce('afterRender', () => {
       let wrapper = this.get('activeWrapper');
       if (wrapper && !wrapper.get('isDestroyed') && !wrapper.get('isDestroying')) {
         this.positionMenu(wrapper.$());

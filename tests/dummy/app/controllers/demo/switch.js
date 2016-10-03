@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+const { Controller } = Ember;
+
+export default Controller.extend({
   booleanProp1: true,
   booleanProp2: false,
   booleanProp3: false,

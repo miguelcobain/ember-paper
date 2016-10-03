@@ -4,6 +4,8 @@
 import Ember from 'ember';
 import PaperMenuAbstract from './paper-menu-abstract';
 
+const { computed } = Ember;
+
 let MENU_EDGE_MARGIN = 8;
 
 /**
@@ -17,7 +19,7 @@ export default PaperMenuAbstract.extend({
 
   offset: '0 0',
 
-  positionMode: Ember.computed('position', function() {
+  positionMode: computed('position', function() {
     let attachment = (this.get('position') || 'target').split(' ');
 
     // If attachment is a single item, duplicate it for our second value.
@@ -32,7 +34,7 @@ export default PaperMenuAbstract.extend({
     };
   }),
 
-  offsets: Ember.computed('offset', function() {
+  offsets: computed('offset', function() {
     let offsets = (this.get('offset') || '0 0').split(' ').map(parseFloat);
     if (offsets.length === 2) {
       return {

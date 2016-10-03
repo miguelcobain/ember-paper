@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { Component, computed, get } = Ember;
 
 /**
  * @class PaperAutocompleteItem
@@ -16,16 +16,16 @@ export default Component.extend({
   tabindex: 0,
   role: 'option',
 
-  label: Ember.computed('item', function() {
+  label: computed('item', function() {
     return this.lookupLabelOfItem(this.get('item'));
   }),
 
-  isSelected: Ember.computed('selectedIndex', function() {
+  isSelected: computed('selectedIndex', function() {
     return this.get('selectedIndex') === this.get('index');
   }),
 
   lookupLabelOfItem(model) {
-    return this.get('lookupKey') ? Ember.get(model, this.get('lookupKey')) : model;
+    return this.get('lookupKey') ? get(model, this.get('lookupKey')) : model;
   },
 
   click() {

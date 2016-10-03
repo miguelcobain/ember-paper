@@ -1,6 +1,8 @@
 /* globals FastBoot */
 import Ember from 'ember';
 
+const { Service, computed } = Ember;
+
 let isString = function(value) {
   return typeof value === 'string';
 };
@@ -13,14 +15,14 @@ let toInt = function(str) {
   return parseInt(str, 10);
 };
 
-export default Ember.Service.extend({
+export default Service.extend({
   vendorPrefix: '',
   transitions: false,
   animations: false,
   _document: null,
   _window: null,
 
-  android: Ember.computed('', function() {
+  android: computed('', function() {
     return toInt((/android (\d+)/.exec(lowercase((this.get('_window').navigator || {}).userAgent)) || [])[1]);
   }),
 

@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { Component, computed } = Ember;
 
 /**
  * @class PaperSelectValue
@@ -14,11 +14,11 @@ export default Component.extend({
   classNames: ['md-select-value'],
   classNameBindings: ['isPlaceholder:md-select-placeholder'],
 
-  isPlaceholder: Ember.computed('value', function() {
+  isPlaceholder: computed('value', function() {
     return !this.get('value');
   }),
 
-  label: Ember.computed('isPlaceholder', function() {
+  label: computed('isPlaceholder', function() {
     if (this.get('isPlaceholder')) {
       return this.get('placeholder');
     } else {

@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
-let SOME_DATA_FROM_API = Ember.A([
+const { Controller, A, computed, RSVP, run } = Ember;
+
+let SOME_DATA_FROM_API = A([
   { name: 'Computer', id: 1 },
   { name: 'Ham', id: 2 },
   { name: 'Unfair', id: 3 },
@@ -8,7 +10,7 @@ let SOME_DATA_FROM_API = Ember.A([
   { name: 'Test', id: 5 }
 ]);
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   myModel: { name: 'United States', code: 'US' },
 
   searchText: '',
@@ -20,19 +22,19 @@ export default Ember.Controller.extend({
    * @param searchText Search text from the autocomplete API. Lower cased version.
    * @returns {Promise}
    */
-  dataFromPromise: Ember.computed('searchText', function() {
+  dataFromPromise: computed('searchText', function() {
     let searchText = this.get('searchText');
 
     // Can also come from e.g. this.store.query('country', {text: searchText}).then( ... );
-    return new Ember.RSVP.Promise((resolve) => {
+    return new RSVP.Promise((resolve) => {
       // Just wait for 800ms to 2 seconds for a fake progress, so it feels like a query.
       let waitMS = Math.floor(Math.random() * 1000) + 800;
 
-      Ember.run.later(this, function() {
+      run.later(this, function() {
         let result = SOME_DATA_FROM_API.filter(function(item) {
           return item.name.toLowerCase().indexOf(searchText.toLowerCase()) === 0;
         });
-        resolve(Ember.A(result));
+        resolve(A(result));
       }, waitMS);
     });
   }),
@@ -49,7 +51,7 @@ export default Ember.Controller.extend({
    * Array of static Objects.
    * When having objects, use lookupKey="name" on the paper-autocomplete component so it knows to use "name" to search in.
    */
-  items: Ember.A([
+  items: A([
     { name: 'Afghanistan', code: 'AF' },
     { name: 'Åland Islands', code: 'AX' },
     { name: 'Albania', code: 'AL' },

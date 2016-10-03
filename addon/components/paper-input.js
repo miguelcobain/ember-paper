@@ -13,7 +13,7 @@ import maxValidator from 'ember-paper/validators/max';
 import minlengthValidator from 'ember-paper/validators/minlength';
 import maxlengthValidator from 'ember-paper/validators/maxlength';
 
-const { $, computed, isArray, isEmpty, Logger, A, run, assert, get } = Ember;
+const { $, computed, isArray, isEmpty, Logger, A, run, assert, get, String: { loc } } = Ember;
 
 /**
  * @class PaperInput
@@ -122,7 +122,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
         if (!validation.validate(currentValue, paramValue)) {
           let message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
           messages.pushObject({
-            message: Ember.String.loc(message.string || message, paramValue, currentValue)
+            message: loc(message.string || message, paramValue, currentValue)
           });
         }
       } catch (error) {

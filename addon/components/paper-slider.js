@@ -8,6 +8,8 @@ import BaseFocusable from './base-focusable';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import FlexMixin from 'ember-paper/mixins/flex-mixin';
 
+const { computed, inject, String: { htmlSafe } } = Ember;
+
 /**
  * @class PaperSlider
  * @extends BaseFocusable
@@ -24,32 +26,32 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, ColorMixin, {
   classNames: ['md-default-theme'],
   classNameBindings: ['isMinimum:md-min', 'active', 'dragging'],
 
-  constants: Ember.inject.service(),
+  constants: inject.service(),
 
   min: 0,
   max: 100,
   step: 1,
   tabindex: 0,
 
-  trackContainer: Ember.computed(function() {
+  trackContainer: computed(function() {
     return this.$('.md-track-container');
   }),
 
-  activeTrackStyle: Ember.computed('percent', function() {
+  activeTrackStyle: computed('percent', function() {
     let percent = this.get('percent') || 0;
-    return Ember.String.htmlSafe(`width: ${percent * 100}%`);
+    return htmlSafe(`width: ${percent * 100}%`);
   }),
 
-  thumbContainerStyle: Ember.computed('percent', function() {
+  thumbContainerStyle: computed('percent', function() {
     let percent = this.get('percent') || 0;
-    return Ember.String.htmlSafe(`left: ${percent * 100}%`);
+    return htmlSafe(`left: ${percent * 100}%`);
   }),
 
-  isMinimum: Ember.computed('percent', 'min', function() {
+  isMinimum: computed('percent', 'min', function() {
     return this.get('percent') === this.get('min');
   }),
 
-  percent: Ember.computed('value', 'min', 'max', function() {
+  percent: computed('value', 'min', 'max', function() {
     let min = parseInt(this.get('min'), 10);
     let max = parseInt(this.get('max'), 10);
 
@@ -80,7 +82,7 @@ export default BaseFocusable.extend(EventsMixin, FlexMixin, ColorMixin, {
   active: false,
   dragging: false,
 
-  sliderDimensions: Ember.computed(function() {
+  sliderDimensions: computed(function() {
     return this.get('trackContainer')[0].getBoundingClientRect();
   }),
 
