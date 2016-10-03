@@ -3,8 +3,8 @@
   "fastboot": {
     "moduleWhitelist": [],
     "manifest": {
-      "appFile": "fastboot/dummy-9848b31746437f16ecde8a9700b7abe9.js",
-      "vendorFile": "fastboot/vendor-b2000fda41c8861e2c22f7d16beb7232.js",
+      "appFile": "fastboot/dummy-7a0be167a8cc14ea7bbe4dd83a99572e.js",
+      "vendorFile": "fastboot/vendor-176d11e495f152b750d8172dc072fe4f.js",
       "htmlFile": "index.html"
     },
     "appConfig": {
@@ -18,7 +18,7 @@
       "APP": {
         "rootElement": "body",
         "name": "ember-paper",
-        "version": "v1.0.0-alpha.3",
+        "version": "1.0.0-alpha.3+bd130982",
         "autoboot": false
       },
       "contentSecurityPolicy": {
