@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { Mixin, computed, A, assert, isArray, Logger, get } = Ember;
+const { Mixin, computed, A, assert, isArray, Logger, get, String: { loc } } = Ember;
 
 import requiredValidator from 'ember-paper/validators/required';
 import minValidator from 'ember-paper/validators/min';
@@ -42,7 +42,7 @@ function buildComputedValidationMessages(property) {
         if (!validation.validate(currentValue, paramValue)) {
           let message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
           messages.pushObject({
-            message: Ember.String.loc(message.string || message, paramValue, currentValue)
+            message: loc(message.string || message, paramValue, currentValue)
           });
         }
       } catch (error) {

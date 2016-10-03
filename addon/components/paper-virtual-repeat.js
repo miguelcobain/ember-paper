@@ -99,16 +99,14 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     });
   },
 
-  _marginTop: computed('_totalHeight', '_startAt', '_visibleItemCount', 'itemHeight', {
-    get() {
-      let itemHeight = this.get('itemHeight');
-      let totalHeight = get(this, '_totalHeight');
-      let margin = get(this, '_startAt') * itemHeight;
-      let visibleItemCount = get(this, '_visibleItemCount');
-      let maxMargin = Math.max(0, totalHeight - ((visibleItemCount - 1) * itemHeight) + (EXTRA_ROW_PADDING * itemHeight));
+  _marginTop: computed('_totalHeight', '_startAt', '_visibleItemCount', 'itemHeight', function() {
+    let itemHeight = this.get('itemHeight');
+    let totalHeight = get(this, '_totalHeight');
+    let margin = get(this, '_startAt') * itemHeight;
+    let visibleItemCount = get(this, '_visibleItemCount');
+    let maxMargin = Math.max(0, totalHeight - ((visibleItemCount - 1) * itemHeight) + (EXTRA_ROW_PADDING * itemHeight));
 
-      return Math.min(maxMargin, margin);
-    }
+    return Math.min(maxMargin, margin);
   }).readOnly(),
 
   contentStyle: computed('_marginTop', '_totalHeight', {
@@ -176,6 +174,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     if (!optionElement) {
       return;
     }
+
     if (itemHeight) {
       return;
     }
@@ -227,17 +226,17 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
           }
         }
       }
-      return items.slice(startAt, endAt).map((item, index) => {
-        return {
-          raw: item,
-          actualIndex: startAt + index,
-          virtualIndex: index
-        };
-      });
-    }
+
+    return items.slice(startAt, endAt).map((item, index) => {
+      return {
+        raw: item,
+        actualIndex: startAt + index,
+        virtualIndex: index
+      };
+    });
   }).readOnly(),
 
-  scrollToVirtualItem(newIndex, toTop) {
+  scrollToVirtualItem(newIndex, toTop=false) {
     let { _startAt, endAt } = this.getProperties('_startAt', 'endAt');
 
     if (newIndex < _startAt || newIndex > endAt) {

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { run, RSVP, Controller } = Ember;
+const { run, RSVP, Controller, A } = Ember;
 
 // per MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 const escapeRegExp = (input) => {
@@ -44,7 +44,7 @@ export default Controller.extend({
    * Array of static Objects.
    * When having objects, use lookupKey="name" on the paper-autocomplete component so it knows to use "name" to search in.
    */
-  shorterItems: Ember.A([
+  shorterItems: A([
     { name: 'Afghanistan', code: 'AF' },
     { name: 'Åland Islands', code: 'AX' },
     { name: 'Albania', code: 'AL' },
@@ -53,7 +53,7 @@ export default Controller.extend({
     { name: 'AndorrA', code: 'AD' }
   ]),
 
-  items: Ember.A([
+  items: A([
     { name: 'Afghanistan', code: 'AF' },
     { name: 'Åland Islands', code: 'AX' },
     { name: 'Albania', code: 'AL' },

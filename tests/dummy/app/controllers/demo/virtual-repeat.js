@@ -4,7 +4,8 @@ const {
   computed,
   Controller,
   RSVP,
-  run } = Ember;
+  run,
+  A: emberArray } = Ember;
 
 const months = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -14,7 +15,7 @@ export default Controller.extend({
 
   yearScrollIndex: 0,
   deferredItems: [],
-  infiniteItems: Ember.A([]),
+  infiniteItems: emberArray([]),
   loadedPages: {},
   PAGE_SIZE: 50,
   scrollIndex: 0,
@@ -27,7 +28,7 @@ export default Controller.extend({
     for (let i = 0; i < 1000; i++) {
       arr.push(i);
     }
-    return Ember.A(arr);
+    return emberArray(arr);
   }),
 
   years: computed({
@@ -63,7 +64,6 @@ export default Controller.extend({
     },
 
     scrollTo(chosenYear) {
-      console.log('ScrollTo called...', chosenYear);
       this.set('selectedYear', chosenYear);
       this.set('yearScrollIndex', this.get('years').indexOf(chosenYear) * 13);
     },

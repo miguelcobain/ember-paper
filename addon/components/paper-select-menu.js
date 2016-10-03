@@ -31,7 +31,7 @@ export default PaperMenu.extend({
     let $dropdown = $(dropdown);
     let opts = {
       target: $(trigger),
-      parent: Ember.$('body'),
+      parent: $('body'),
       selectEl: $dropdown.find('md-select-menu'),
       contentEl: $dropdown.find('md-content')
     };

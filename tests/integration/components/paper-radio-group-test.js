@@ -2,6 +2,8 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
+const { run, $: jQuery } = Ember;
+
 moduleForComponent('paper-group-radio', 'Integration | Component | paper radio group', {
   integration: true
 });
@@ -9,7 +11,7 @@ moduleForComponent('paper-group-radio', 'Integration | Component | paper radio g
 function triggerKeydown(domElement, k) {
   let oEvent = document.createEvent('Events');
   oEvent.initEvent('keydown', true, true);
-  Ember.$.extend(oEvent, {
+  jQuery.extend(oEvent, {
     view: window,
     ctrlKey: false,
     altKey: false,
@@ -18,7 +20,7 @@ function triggerKeydown(domElement, k) {
     keyCode: k,
     charCode: k
   });
-  Ember.run(() => {
+  run(() => {
     domElement.dispatchEvent(oEvent);
   });
 }

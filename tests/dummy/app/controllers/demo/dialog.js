@@ -1,7 +1,8 @@
 import Ember from 'ember';
-const { $ } = Ember;
 
-export default Ember.Controller.extend({
+const { Controller, $ } = Ember;
+
+export default Controller.extend({
   actions: {
 
     /* Dialog with parent */
