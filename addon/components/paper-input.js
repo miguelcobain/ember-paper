@@ -155,16 +155,19 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
   },
 
   didRender() {
+    this._super(...arguments);
     this.growTextarea();
     // setValue below ensures that the input value is the same as this.value
     this.setValue(this.get('value'));
   },
 
   willClearRender() {
+    this._super(...arguments);
     this.sendAction('onValidityChange', false);
   },
 
   willDestroyElement() {
+    this._super(...arguments);
     if (this.get('textarea')) {
       $(window).off(`resize.${this.elementId}`);
     }
