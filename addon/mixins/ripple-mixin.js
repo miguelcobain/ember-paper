@@ -279,6 +279,7 @@ export default Mixin.create({
     }
     this.ripples.splice(this.ripples.indexOf(ripple), 1);
     ripple.removeClass('md-ripple-active');
+    ripple.addClass('md-ripple-remove');
     if (this.ripples.length === 0) {
       this._container.css({ backgroundColor: '' });
     }

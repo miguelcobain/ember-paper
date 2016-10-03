@@ -50,7 +50,7 @@ export default Component.extend({
     let shouldSort = this.get('sort');
 
     if (shouldSort) {
-      category = category.sort(function(a, b) {
+      category = category.slice().sort(function(a, b) {
         return a[0] < b[0]
                   ? -1
                   : a[0] > b[0] ? 1 : 0;
