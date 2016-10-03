@@ -26,9 +26,10 @@ test('should render empty dialog when blockless', function(assert) {
     {{paper-dialog}}
   `);
 
-  let dialogContent = this.$().find('md-dialog').html().trim();
+  let dialogContent = this.$().find('md-dialog').html()
+    .replace('<!--', '').replace('-->', '').trim();
 
-  assert.equal(dialogContent, '<!---->', 'has an empty dialog container');
+  assert.equal(dialogContent, '', 'has an empty dialog container');
 });
 
 test('should yield content as a block component', function(assert) {

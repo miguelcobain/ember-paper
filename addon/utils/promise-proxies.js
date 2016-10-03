@@ -2,12 +2,12 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-const { RSVP: { Promise } } = Ember;
+const { RSVP: { Promise }, ArrayProxy, ObjectProxy, PromiseProxyMixin } = Ember;
 
 // See http://emberjs.com/api/data/classes/DS.PromiseArray.html
-export const PromiseArray = Ember.ArrayProxy.extend(Ember.PromiseProxyMixin);
+export const PromiseArray = ArrayProxy.extend(PromiseProxyMixin);
 // See http://emberjs.com/api/data/classes/DS.PromiseObject.html
-export const PromiseObject = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+export const PromiseObject = ObjectProxy.extend(PromiseProxyMixin);
 
 export function promiseObject(promise, label) {
   return PromiseObject.create({

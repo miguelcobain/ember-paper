@@ -2,6 +2,8 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
+const { $: jQuery } = Ember;
+
 moduleForComponent('paper-checkbox', 'Integration | Component | paper checkbox', {
   integration: true
 });
@@ -65,7 +67,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
     this.render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
     assert.equal(this.get('value'), false);
 
-    let e = Ember.$.Event('keypress');
+    let e = jQuery.Event('keypress');
     e.which = keyCode; // # Some key code value
     this.$('md-checkbox').trigger(e);
 
@@ -79,7 +81,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
     this.render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
     assert.equal(this.get('value'), true);
 
-    let e = Ember.$.Event('keypress');
+    let e = jQuery.Event('keypress');
     e.which = keyCode; // # Some key code value
     this.$('md-checkbox').trigger(e);
 

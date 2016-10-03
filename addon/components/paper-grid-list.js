@@ -4,7 +4,7 @@
 import Ember from 'ember';
 import gridLayout from '../utils/grid-layout';
 
-const { Component } = Ember;
+const { Component, inject, computed, A, run, get, isEqual } = Ember;
 
 const UNIT = (units) => {
   return `${ units.share}% - (${ units.gutter } * ${ units.gutterShare})`;
@@ -29,17 +29,17 @@ const MEDIA = (mediaName) => {
 export default Component.extend({
   tagName: 'md-grid-list',
 
-  constants: Ember.inject.service(),
+  constants: inject.service(),
 
   layoutInvalidated: false,
   tilesInvalidated: false,
   lastLayoutProps: {},
-  tiles: Ember.computed(function() {
-    return Ember.A();
+  tiles: computed(function() {
+    return A();
   }),
 
-  _invalidateLayoutListener: Ember.computed(function() {
-    return Ember.run.bind(this, () => {
+  _invalidateLayoutListener: computed(function() {
+    return run.bind(this, () => {
       this.send('invalidateLayout');
     });
   }),
@@ -47,7 +47,7 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
     this._watchMedia();
-    this._watchResponsiveAttributes(['md-cols', 'md-row-height', 'md-gutter'], Ember.run.bind(this, this.layoutIfMediaMatch));
+    this._watchResponsiveAttributes(['md-cols', 'md-row-height', 'md-gutter'], run.bind(this, this.layoutIfMediaMatch));
 
   },
 
@@ -102,18 +102,18 @@ export default Component.extend({
     };
 
     attrNames.forEach((attrName) => {
-      if (Ember.get(this, attrName)) {
-        this.set(`old${attrName}`, Ember.get(this, attrName));
+      if (get(this, attrName)) {
+        this.set(`old${attrName}`, get(this, attrName));
 
-        let customObserver = Ember.run.bind(this, checkObserverValues, this, attrName);
+        let customObserver = run.bind(this, checkObserverValues, this, attrName);
 
         this.addObserver(attrName, customObserver);
       }
 
       for (let mediaName in this.get('constants.MEDIA')) {
         let normalizedName = `${attrName}-${mediaName}`;
-        if (Ember.get(this, normalizedName)) {
-          let customObserverNormalized = Ember.run.bind(this, checkObserverValues, this, normalizedName, mediaName);
+        if (get(this, normalizedName)) {
+          let customObserverNormalized = run.bind(this, checkObserverValues, this, normalizedName, mediaName);
           this.addObserver(normalizedName, customObserverNormalized);
         }
       }
@@ -140,13 +140,13 @@ export default Component.extend({
       }
 
       let normalizedName = `${attrName}-${mediaName}`;
-      if (Ember.get(component, normalizedName)) {
-        return Ember.get(component, normalizedName);
+      if (get(component, normalizedName)) {
+        return get(component, normalizedName);
       }
     }
 
     // fallback on unprefixed
-    return Ember.get(component, attrName);
+    return get(component, attrName);
   },
 
   _getTileStyle(position, spans, colCount, rowCount, gutter, rowMode, rowHeight) {
@@ -297,7 +297,7 @@ export default Component.extend({
       gutter: this._getGutter()
     };
 
-    if (!tilesInvalidated && Ember.isEqual(props, this.get('lastLayoutProps'))) {
+    if (!tilesInvalidated && isEqual(props, this.get('lastLayoutProps'))) {
       return;
     }
 
@@ -337,7 +337,7 @@ export default Component.extend({
         return;
       }
       this.set('layoutInvalidated', true);
-      Ember.run.next(this, this.layout);
+      run.next(this, this.layout);
     }
   }
 });

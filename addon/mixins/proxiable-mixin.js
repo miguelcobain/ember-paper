@@ -4,7 +4,7 @@
 import Ember from 'ember';
 import ProxyMixin from './proxy-mixin';
 
-const { Mixin, computed, get, isEmpty } = Ember;
+const { Mixin, computed, get, isEmpty, run } = Ember;
 
 /**
  * @class ProxiableMixin
@@ -13,7 +13,7 @@ const { Mixin, computed, get, isEmpty } = Ember;
 export default Mixin.create({
   init() {
     this._super(...arguments);
-    Ember.run.next(this, 'registerProxy');
+    run.next(this, 'registerProxy');
   },
 
   registerProxy() {

@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
-const { isBlank, run, get, computed } = Ember;
+const { Component, isBlank, run, get, computed } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: 'md-autocomplete-wrap',
   classNameBindings: ['noLabel:md-whiteframe-z1'],
   // CPs
