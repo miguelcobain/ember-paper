@@ -3,15 +3,15 @@
  */
 import Ember from 'ember';
 
-const { Mixin } = Ember;
+const { Mixin, computed, A } = Ember;
 
 /**
  * @class ProxyMixin
  * @extends Ember.Mixin
  */
 export default Mixin.create({
-  proxiedComponents: Ember.computed(function() {
-    return Ember.A();
+  proxiedComponents: computed(function() {
+    return A();
   }),
   register(component) {
     if (!component.get('skipProxy')) {

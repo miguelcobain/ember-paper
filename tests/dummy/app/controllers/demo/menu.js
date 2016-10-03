@@ -1,10 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+const { Controller, A } = Ember;
 
-  options: Ember.A([1,2,3,4,5]),
+export default Controller.extend({
 
-  items: Ember.A([
+  options: A([1,2,3,4,5]),
+
+  items: A([
     {
       icon: 'access_alarms',
       title: 'Alarm',

@@ -1,10 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+const { Controller, A } = Ember;
+
+export default Controller.extend({
   showSourceCodeFull: false,
   showSourceCodeInset: false,
 
-  messages: Ember.A([{
+  messages: A([{
     face: 'tomster.png',
     who: 'tomster 1',
     what: 'a message for you',

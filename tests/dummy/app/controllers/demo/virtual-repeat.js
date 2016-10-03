@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { computed, Controller, RSVP, run } = Ember;
+const { computed, Controller, RSVP, run, A } = Ember;
 
 export default Controller.extend({
   items: computed(function() {
@@ -8,7 +8,7 @@ export default Controller.extend({
     for (let i = 0; i < 1000; i++) {
       arr.push(i);
     }
-    return Ember.A(arr);
+    return A(arr);
   }),
   deferredItems: [],
   scrollToItems: computed(function() {
@@ -28,7 +28,7 @@ export default Controller.extend({
     this.set('years', years);
     return items;
   }),
-  infiniteItems: Ember.A([]),
+  infiniteItems: A([]),
   loadedPages: {},
   PAGE_SIZE: 50,
   scrollIndex: 0,

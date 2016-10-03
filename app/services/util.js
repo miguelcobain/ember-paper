@@ -1,11 +1,13 @@
 import Ember from 'ember';
 
-let Util = Ember.Service.extend({
+const { Service, $ } = Ember;
+
+let Util = Service.extend({
 
   // Disables scroll around the passed element.
   disableScrollAround(element) {
     let util = this;
-    let $document = Ember.$(window.document);
+    let $document = $(window.document);
 
     util.disableScrollAround._count = util.disableScrollAround._count || 0;
     ++util.disableScrollAround._count;
@@ -28,7 +30,7 @@ let Util = Ember.Service.extend({
     // Creates a virtual scrolling mask to absorb touchmove, keyboard, scrollbar clicking, and wheel events
     function disableElementScroll() {
       let zIndex = 50;
-      let scrollMask = Ember.$(
+      let scrollMask = $(
         `<div class="md-scroll-mask" style="z-index: ${zIndex}">
           <div class="md-scroll-mask-bar"></div>
         </div>`);

@@ -4,7 +4,7 @@
 import Ember from 'ember';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-const { inject, computed, Component, isPresent } = Ember;
+const { inject, computed, Component, isPresent, String: { htmlSafe } } = Ember;
 
 function makeTransform(value) {
   let scale = value / 100;
@@ -73,15 +73,15 @@ export default Component.extend(ColorMixin, {
   },
 
   bar1Style: computed('clampedBufferValue', function() {
-    return Ember.String.htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedBufferValue')]}`);
+    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedBufferValue')]}`);
   }),
 
   bar2Style: computed('clampedValue', 'mode', function() {
     if (this.get('mode') === MODE_QUERY) {
-      return Ember.String.htmlSafe('');
+      return htmlSafe('');
     }
 
-    return Ember.String.htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedValue')]}`);
+    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedValue')]}`);
   }),
 
   clampedValue: computed('value', function() {

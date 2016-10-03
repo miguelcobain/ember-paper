@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import VirtualEachComponent from 'virtual-each/components/virtual-each';
 
-const { computed, run, get, set, Handlebars, RSVP, $ } = Ember;
+const { computed, run, get, set, String: { htmlSafe }, RSVP, $, A, observer } = Ember;
 
 const EXTRA_ROW_PADDING = 3;
 
@@ -16,9 +16,11 @@ export default VirtualEachComponent.extend({
       this.eventHandlers.scroll.call(this, e);
     }
   },
+
   defaultAttrs: {
     scrollTimeout: 30
   },
+
   calculateVisibleItems(positionIndex) {
     run(() => {
       let startAt = get(this, '_startAt');
@@ -30,32 +32,28 @@ export default VirtualEachComponent.extend({
       }
     });
   },
-  _marginTop: computed('_totalHeight', '_startAt', '_visibleItemCount', 'itemHeight', {
-    get() {
-      let itemHeight = this.get('itemHeight');
-      let totalHeight = get(this, '_totalHeight');
-      let margin = get(this, '_startAt') * itemHeight;
-      let visibleItemCount = get(this, '_visibleItemCount');
-      let maxMargin = Math.max(0, totalHeight - ((visibleItemCount - 1) * itemHeight) + (EXTRA_ROW_PADDING * itemHeight));
 
-      return Math.min(maxMargin, margin);
-    }
+  _marginTop: computed('_totalHeight', '_startAt', '_visibleItemCount', 'itemHeight', function() {
+    let itemHeight = this.get('itemHeight');
+    let totalHeight = get(this, '_totalHeight');
+    let margin = get(this, '_startAt') * itemHeight;
+    let visibleItemCount = get(this, '_visibleItemCount');
+    let maxMargin = Math.max(0, totalHeight - ((visibleItemCount - 1) * itemHeight) + (EXTRA_ROW_PADDING * itemHeight));
+
+    return Math.min(maxMargin, margin);
   }).readOnly(),
-  contentStyle: computed('_marginTop', '_totalHeight', {
-    get() {
 
-      let height = Handlebars.Utils.escapeExpression(get(this, '_totalHeight'));
+  contentStyle: computed('_marginTop', '_totalHeight', function() {
+    let height = get(this, '_totalHeight');
 
-      return new Handlebars.SafeString(this.get('horizontal') ? `width: ${height}px;` : `height: ${height}px;`);
-    }
+    return htmlSafe(this.get('horizontal') ? `width: ${height}px;` : `height: ${height}px;`);
   }).readOnly(),
-  _visibleItemCount: computed('height', 'itemHeight', {
-    get() {
-      let height = this.get('height');
 
-      return Math.ceil(this.get('itemHeight') ? height / this.get('itemHeight') : 1) + EXTRA_ROW_PADDING;
-    }
+  _visibleItemCount: computed('height', 'itemHeight', function() {
+    let height = this.get('height');
+    return Math.ceil(this.get('itemHeight') ? height / this.get('itemHeight') : 1) + EXTRA_ROW_PADDING;
   }).readOnly(),
+
   didRender() {
     if (!this.get('itemHeight')) {
       let elem = this.get('containerSelector') ? $(this.get('containerSelector'))[0].firstElementChild : this.$('.md-virtual-repeat-offsetter')[0].firstElementChild;
@@ -66,42 +64,41 @@ export default VirtualEachComponent.extend({
       }
     }
     this.set('height', this.get('horizontal') ? this.$()[0].clientWidth : this.$()[0].clientHeight);
-
   },
-  visibleItems: computed('_startAt', '_visibleItemCount', '_items', {
-    get() {
-      let items = get(this, '_items');
-      let startAt = get(this, '_startAt');
-      let _visibleItemCount = get(this, '_visibleItemCount');
-      let itemsLength = this.get('length') ? this.get('length') : get(items, 'length');
-      let endAt = Math.min(itemsLength, startAt + _visibleItemCount);
-      let onScrollBottomed = this.getAttr('onScrollBottomed');
 
-      if (typeof onScrollBottomed === 'function' && (startAt + _visibleItemCount - EXTRA_ROW_PADDING) >= itemsLength) {
-        onScrollBottomed(startAt, endAt);
-      }
-      let getAtIndex = this.get('getAtIndex');
-      if (getAtIndex) {
-        for (let i = startAt; i < endAt; i++) {
-          if (!items[i]) {
-            items[i] = getAtIndex(i);
-          }
+  visibleItems: computed('_startAt', '_visibleItemCount', '_items', function() {
+    let items = get(this, '_items');
+    let startAt = get(this, '_startAt');
+    let _visibleItemCount = get(this, '_visibleItemCount');
+    let itemsLength = this.get('length') ? this.get('length') : get(items, 'length');
+    let endAt = Math.min(itemsLength, startAt + _visibleItemCount);
+    let onScrollBottomed = this.getAttr('onScrollBottomed');
+
+    if (typeof onScrollBottomed === 'function' && (startAt + _visibleItemCount - EXTRA_ROW_PADDING) >= itemsLength) {
+      onScrollBottomed(startAt, endAt);
+    }
+    let getAtIndex = this.get('getAtIndex');
+    if (getAtIndex) {
+      for (let i = startAt; i < endAt; i++) {
+        if (!items[i]) {
+          items[i] = getAtIndex(i);
         }
       }
-      return items.slice(startAt, endAt).map((item, index) => {
-        return {
-          raw: item,
-          actualIndex: startAt + index,
-          virtualIndex: index
-        };
-      });
     }
+    return items.slice(startAt, endAt).map((item, index) => {
+      return {
+        raw: item,
+        actualIndex: startAt + index,
+        virtualIndex: index
+      };
+    });
   }).readOnly(),
+
   didReceiveAttrs() {
     this._super(...arguments);
 
     RSVP.cast(this.getAttr('items')).then((attrItems) => {
-      let items = Ember.A(attrItems);
+      let items = A(attrItems);
 
       this.setProperties({
         _items: items,
@@ -110,7 +107,8 @@ export default VirtualEachComponent.extend({
       });
     });
   },
-  scrollTo: Ember.observer('_positionIndex', function() {
+
+  scrollTo: observer('_positionIndex', function() {
 
     this.scheduledRender = run.scheduleOnce('afterRender', () => {
       let positionIndex = get(this, '_positionIndex');
@@ -131,7 +129,8 @@ export default VirtualEachComponent.extend({
       }
     });
   }),
-  lengthObserver: Ember.observer('items.length', function() {
+
+  lengthObserver: observer('items.length', function() {
     this.set('_totalHeight', Math.max((this.get('length') ? this.get('length') : this.get('items.length')) * this.get('itemHeight'), 0));
   })
 

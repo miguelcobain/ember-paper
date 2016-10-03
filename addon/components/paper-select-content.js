@@ -66,7 +66,7 @@ export default PaperMenuContent.extend({
     if (MutObserver) {
       this.mutationObserver = new MutObserver((mutations) => {
         // e-b-d incorrectly counts ripples as a mutation, triggering a problematic repositon
-        let addedNodes = Array.from(mutations[0].addedNodes).filter((node) => !$(node).hasClass('md-ripple'));
+        let addedNodes = Array.from(mutations[0].addedNodes).filter((node) => !$(node).hasClass('md-ripple') && (node.nodeName !== '#comment'));
         if (addedNodes.length || mutations[0].removedNodes.length) {
           this.runloopAwareReposition();
         }
