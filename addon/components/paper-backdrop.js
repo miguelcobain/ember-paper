@@ -19,7 +19,7 @@ export default Component.extend(TransitionMixin, {
   attributeBindings: ['backdropStyle:style'],
 
   // TransitionMixin:
-  transitionClass: 'ng',
+  transitionName: 'ng',
   shouldTransition: computed.bool('opaque'),
 
   backdropStyle: computed('fixed', 'translateStyle', function() {
@@ -27,8 +27,8 @@ export default Component.extend(TransitionMixin, {
     return this.get('fixed') ? htmlSafe(`position:fixed; ${style}`) : style;
   }),
 
-  addDestroyedElementClone(parent, index, clone) {
-    parent.append(clone);
+  addDestroyedElementClone(original, clone) {
+    original.parent().append(clone);
   },
 
   click(e) {
