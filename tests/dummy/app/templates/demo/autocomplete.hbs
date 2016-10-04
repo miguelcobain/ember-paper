@@ -103,7 +103,7 @@
       {{! BEGIN-SNIPPET autocomplete.floating-label }}
       {{paper-input label="Name" value=name onChange=(action (mut name)) class="flex"}}
         {{#paper-autocomplete
-          disabled=disabled2
+          disabled=(readonly disabled2)
           triggerClass="flex"
           options=items
           selected=selectedCountry2
@@ -129,7 +129,7 @@
       {{/if}}
     </p>
     {{#paper-checkbox
-      value=firstDisabled2
+      value=disabled2
       onChange=(action (mut disabled2))}}
       Disable input
     {{/paper-checkbox}}
