@@ -31,56 +31,48 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     height: 48
   },
 
-  size: computed('initialSize', 'items.length', 'itemHeight', {
-    get() {
-      let itemSize = this.get('itemHeight');
-      let fullSize = this.get('items.length')  * itemSize;
+  size: computed('initialSize', 'items.length', 'itemHeight', function() {
+    let itemSize = this.get('itemHeight');
+    let fullSize = this.get('items.length')  * itemSize;
 
-      if (fullSize <= itemSize) {
-        return itemSize;
-      }
-      return Math.min(fullSize, this.get('initialSize'));
+    if (fullSize <= itemSize) {
+      return itemSize;
     }
+    return Math.min(fullSize, this.get('initialSize'));
   }).readOnly(),
 
-  height: computed('size', 'horizontal', {
-    get() {
-      if (this.get('horizontal')) {
-        return false;
-      }
-      return this.get('size');
+  height: computed('size', 'horizontal', function() {
+    if (this.get('horizontal')) {
+      return false;
     }
+    return this.get('size');
   }),
 
   // Received coordinates {top, left, right, width} from the dropdown
   // Convert them to style and cache - they usually don't change
-  positionStyle: computed('positionCoordinates', {
-    get() {
-      let coords = this.get('positionCoordinates') || {};
-      let style = '';
+  positionStyle: computed('positionCoordinates', function() {
+    let coords = this.get('positionCoordinates') || {};
+    let style = '';
 
-      // {top, left, right, width}
-      Object.keys(coords).forEach((type) => {
-        if (coords[type]) {
-          style += `${type}: ${coords[type]}; `;
-        }
-      });
+    // {top, left, right, width}
+    Object.keys(coords).forEach((type) => {
+      if (coords[type]) {
+        style += `${type}: ${coords[type]}; `;
+      }
+    });
 
-      return style.trim();
-    }
+    return style.trim();
   }).readOnly(),
 
-  style: computed('height', 'positionStyle', {
-    get() {
-      let height = this.get('height') || null;
-      let style = this.get('positionStyle');
+  style: computed('height', 'positionStyle', function() {
+    let height = this.get('height') || null;
+    let style = this.get('positionStyle');
 
-      if (height !== null && !isNaN(height)) {
-        height = Handlebars.Utils.escapeExpression(height);
-        style += ` height: ${height}px;`;
-      }
-      return htmlSafe(style);
+    if (height !== null && !isNaN(height)) {
+      height = Handlebars.Utils.escapeExpression(height);
+      style += ` height: ${height}px;`;
     }
+    return htmlSafe(style);
   }).readOnly(),
 
   calculateVisibleItems(positionIndex) {
@@ -109,26 +101,20 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     return Math.min(maxMargin, margin);
   }).readOnly(),
 
-  contentStyle: computed('_marginTop', '_totalHeight', {
-    get() {
-      let height = Handlebars.Utils.escapeExpression(get(this, '_totalHeight'));
-      return htmlSafe(this.get('horizontal') ? `width: ${height}px;` : `height: ${height}px;`);
-    }
+  contentStyle: computed('_marginTop', '_totalHeight', function() {
+    let height = Handlebars.Utils.escapeExpression(get(this, '_totalHeight'));
+    return htmlSafe(this.get('horizontal') ? `width: ${height}px;` : `height: ${height}px;`);
   }).readOnly(),
 
-  offsetterStyle: computed('_marginTop', 'horizontal', {
-    get() {
-      let { horizontal, _marginTop } = this.getProperties('_marginTop', 'horizontal');
-      let dir = horizontal ? 'X' : 'Y';
-      return htmlSafe(`transform: translate${dir}(${_marginTop}px);`);
-    }
+  offsetterStyle: computed('_marginTop', 'horizontal', function() {
+    let { horizontal, _marginTop } = this.getProperties('_marginTop', 'horizontal');
+    let dir = horizontal ? 'X' : 'Y';
+    return htmlSafe(`transform: translate${dir}(${_marginTop}px);`);
   }).readOnly(),
 
-  _visibleItemCount: computed('size', 'itemHeight', {
-    get() {
-      let size = this.get('size');
-      return Math.ceil(this.get('itemHeight') ? size / this.get('itemHeight') : 1) + EXTRA_ROW_PADDING;
-    }
+  _visibleItemCount: computed('size', 'itemHeight', function() {
+    let size = this.get('size');
+    return Math.ceil(this.get('itemHeight') ? size / this.get('itemHeight') : 1) + EXTRA_ROW_PADDING;
   }).readOnly(),
 
   didInsertElement() {
@@ -197,43 +183,41 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     });
   },
 
-  endAt: computed('_startAt', '_visibleItemCount', 'items.length', {
-    get() {
-      let { _startAt, _visibleItemCount } = this.getProperties('_startAt' , '_visibleItemCount');
-      let totalItemsCount = get(this, 'items.length');
-
-      return Math.min(totalItemsCount, _startAt + _visibleItemCount);
-    }
+  endAt: computed('_startAt', '_visibleItemCount', 'items.length', function() {
+    let { _startAt, _visibleItemCount } = this.getProperties('_startAt' , '_visibleItemCount');
+    let totalItemsCount = get(this, 'items.length');
+    return Math.min(totalItemsCount, _startAt + _visibleItemCount);
   }).readOnly(),
 
-  visibleItems: computed('_startAt', '_visibleItemCount', '_items', {
-    get() {
-      let items = get(this, '_items');
-      let startAt = get(this, '_startAt');
-      let _visibleItemCount = get(this, '_visibleItemCount');
-      let itemsLength = get(this, 'totalItemsCount') || get(items, 'length');
-      let endAt = Math.min(itemsLength, startAt + _visibleItemCount);
-      let onScrollBottomed = this.getAttr('onScrollBottomed');
+  visibleItems: computed('_startAt', '_visibleItemCount', '_items', function() {
 
-      if (typeof onScrollBottomed === 'function' && (startAt + _visibleItemCount - EXTRA_ROW_PADDING) >= itemsLength) {
-        run.next(this, onScrollBottomed, startAt, endAt);
-      }
-      let getAtIndex = this.get('getAtIndex');
-      if (getAtIndex) {
-        for (let i = startAt; i < endAt; i++) {
-          if (!items[i]) {
-            items[i] = getAtIndex(i);
-          }
+    let items = get(this, '_items');
+    let startAt = get(this, '_startAt');
+    let _visibleItemCount = get(this, '_visibleItemCount');
+    let itemsLength = get(this, 'totalItemsCount') || get(items, 'length');
+    let endAt = Math.min(itemsLength, startAt + _visibleItemCount);
+    let onScrollBottomed = this.getAttr('onScrollBottomed');
+
+    if (typeof onScrollBottomed === 'function' && (startAt + _visibleItemCount - EXTRA_ROW_PADDING) >= itemsLength) {
+      run.next(this, onScrollBottomed, startAt, endAt);
+    }
+
+    let getAtIndex = this.get('getAtIndex');
+    if (getAtIndex) {
+      for (let i = startAt; i < endAt; i++) {
+        if (!items[i]) {
+          items[i] = getAtIndex(i);
         }
       }
+    }
 
-    return items.slice(startAt, endAt).map((item, index) => {
-      return {
+    return items.slice(startAt, endAt).map((item, index) => (
+      {
         raw: item,
         actualIndex: startAt + index,
         virtualIndex: index
-      };
-    });
+      })
+    );
   }).readOnly(),
 
   scrollToVirtualItem(newIndex, toTop=false) {

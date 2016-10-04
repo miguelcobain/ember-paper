@@ -5,7 +5,7 @@ const { Component, isBlank, run, get, computed } = Ember;
 export default Component.extend({
   tagName: 'md-autocomplete-wrap',
   classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
-  // CPs
+
   text: computed('selected', 'extra.labelPath', {
     get() {
       return this.getSelectedAsText();
