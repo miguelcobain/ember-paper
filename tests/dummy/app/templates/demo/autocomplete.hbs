@@ -21,9 +21,13 @@
       loadingMessage="Searching countries..."
       noMatchesMessage="Oops this country doesn't exist. Create a new country?"
       onChange=(action (mut selectedCountry)) as |country select|}}
-        {{country.name}}
+      {{paper-autocomplete-highlight
+        label=country.name
+        searchText=select.searchText
+        flags="i"}}
     {{/paper-autocomplete}}
     {{! END-SNIPPET }}
+
     <p>
       {{#if selectedCountry}}
         Selected country is {{selectedCountry.name}} ({{selectedCountry.code}})
@@ -31,9 +35,21 @@
           Nothing selected...
       {{/if}}
     </p>
-    {{#paper-checkbox value=firstDisabled onChange=(action (mut firstDisabled))}}Disable input{{/paper-checkbox}}
-    {{#paper-checkbox value=simulateQuery onChange=(action (mut simulateQuery))}}Simulate query{{/paper-checkbox}}
-    {{#paper-checkbox value=disableCache onChange=(action (mut disableCache))}}Disable Cache{{/paper-checkbox}}
+    {{#paper-checkbox
+      value=firstDisabled
+      onChange=(action (mut firstDisabled))}}
+      Disable input
+    {{/paper-checkbox}}
+    {{#paper-checkbox
+      value=simulateQuery
+      onChange=(action (mut simulateQuery))}}
+      Simulate query
+    {{/paper-checkbox}}
+    {{#paper-checkbox
+      value=disableCache
+      onChange=(action (mut disableCache))}}
+      Disable Cache
+    {{/paper-checkbox}}
 
     <h3>Template</h3>
     {{code-snippet name="autocomplete.basic-usage.hbs"}}
@@ -55,7 +71,11 @@
       as |item term|}}
       <span class="item-title">
         {{paper-icon "star"}}
-        <span>{{paper-autocomplete-highlight searchText=term.searchText label=item}}</span>
+        <span>
+          {{paper-autocomplete-highlight
+            searchText=term.searchText
+            label=item}}
+        </span>
       </span>
       {{else}}
       Whoops! could not find!
@@ -81,9 +101,9 @@
     <blockquote>The following example demonstrates floating labels being used as a normal form element.</blockquote>
     <div class="layout-row">
       {{! BEGIN-SNIPPET autocomplete.floating-label }}
-        {{paper-input label="Name" value=name onChange=(action (mut name)) class="flex"}}
+      {{paper-input label="Name" value=name onChange=(action (mut name)) class="flex"}}
         {{#paper-autocomplete
-          disabled=disabled2
+          disabled=(readonly disabled2)
           triggerClass="flex"
           options=items
           selected=selectedCountry2
@@ -94,7 +114,10 @@
           loadingMessage="Searching countries..."
           noMatchesMessage="Oops this country doesn't exist."
           onChange=(action (mut selectedCountry2)) as |country select|}}
-          {{country.name}}
+          {{paper-autocomplete-highlight
+            label=country.name
+            searchText=select.searchText
+            flags="i"}}
       {{/paper-autocomplete}}
       {{! END-SNIPPET }}
     </div>
@@ -105,9 +128,21 @@
         Nothing selected...
       {{/if}}
     </p>
-    {{#paper-checkbox value=firstDisabled2 onChange=(action (mut disabled2))}}Disable input{{/paper-checkbox}}
-    {{#paper-checkbox value=simulateQuery2 onChange=(action (mut simulateQuery2))}}Simulate query{{/paper-checkbox}}
-    {{#paper-checkbox value=disableCache2 onChange=(action (mut disableCache2))}}Disable Cache{{/paper-checkbox}}
+    {{#paper-checkbox
+      value=disabled2
+      onChange=(action (mut disabled2))}}
+      Disable input
+    {{/paper-checkbox}}
+    {{#paper-checkbox
+      value=simulateQuery2
+      onChange=(action (mut simulateQuery2))}}
+      Simulate query
+    {{/paper-checkbox}}
+    {{#paper-checkbox
+      value=disableCache2
+      onChange=(action (mut disableCache2))}}
+      Disable Cache
+    {{/paper-checkbox}}
 
     <h3>Template</h3>
     {{code-snippet name="autocomplete.floating-label.hbs"}}

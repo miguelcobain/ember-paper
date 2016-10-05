@@ -19,6 +19,16 @@ export default BasicTrigger.extend({
       return null;
     }
     return tabindex;
-  })
+  }),
 
+  actions: {
+
+    handleMousedown() {
+      let dropdown = this.get('dropdown');
+      if (dropdown.disabled) {
+        return;
+      }
+      this.stopTextSelectionUntilMouseup();
+    }
+  }
 });

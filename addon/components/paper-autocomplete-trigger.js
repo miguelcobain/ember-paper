@@ -4,8 +4,8 @@ const { Component, isBlank, run, get, computed } = Ember;
 
 export default Component.extend({
   tagName: 'md-autocomplete-wrap',
-  classNameBindings: ['noLabel:md-whiteframe-z1'],
-  // CPs
+  classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
+
   text: computed('selected', 'extra.labelPath', {
     get() {
       return this.getSelectedAsText();
@@ -14,6 +14,7 @@ export default Component.extend({
       return v;
     }
   }),
+
   noLabel: computed.not('extra.label'),
 
   // Lifecycle hooks
@@ -46,12 +47,16 @@ export default Component.extend({
     stopPropagation(e) {
       e.stopPropagation();
     },
+
     clear(e) {
       e.stopPropagation();
+      this.set('text', '');
       this.get('select').actions.select(null);
       this.get('onInput')({ target: { value: '' } });
-      this.set('text', '');
+      this.get('onFocus')(e);
+      this.$('input').focus();
     },
+
     handleKeydown(e) {
       let isLetter = e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode === 32; // Keys 0-9, a-z or SPACE
       let isSpecialKeyWhileClosed = !isLetter && !this.get('select.isOpen') && [13, 27, 38, 40].indexOf(e.keyCode) > -1;
