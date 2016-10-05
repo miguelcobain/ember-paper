@@ -55,12 +55,14 @@ export default Controller.extend({
   actions: {
 
     fetchMore() {
-      let arr = this.get('infiniteItems');
-
-      let length = arr.get('length');
+      let infiniteItems = this.get('infiniteItems');
+      let nextSet = [];
+      let length = infiniteItems.get('length');
       for (let i = length; i < length + 50; i++) {
-        arr.pushObject(i);
+        nextSet.push(i);
       }
+
+      infiniteItems.pushObjects(nextSet);
     },
 
     scrollTo(chosenYear) {

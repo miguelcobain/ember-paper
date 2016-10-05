@@ -42,7 +42,6 @@
   {{! END-SNIPPET }}
 </div>
 
-
 <h3>Template</h3>
 {{code-snippet name="virtual-repeat.horizontal.hbs"}}
 
@@ -63,7 +62,6 @@
 </div>
 
 
-
 <h3>Template</h3>
 {{code-snippet name="virtual-repeat.infinite.hbs"}}
 
@@ -72,7 +70,7 @@
 <div layout="column">
   {{! BEGIN-SNIPPET virtual-repeat.scrollto }}
 
-    {{#paper-autocomplete
+    {{#paper-select
       label="Year"
       class="flex-start"
       placeholder="Year"
@@ -80,7 +78,7 @@
       selected=(readonly selectedYear)
       onChange=(action 'scrollTo') as |year|}}
       {{year}}
-    {{/paper-autocomplete}}
+    {{/paper-select}}
     {{#paper-virtual-repeat monthsWithYears
       class="vertical-demo"
       scrollIndex=(readonly yearScrollIndex)
@@ -92,7 +90,6 @@
 
   {{! END-SNIPPET }}
 </div>
-
 
 
 <h3>Template</h3>
