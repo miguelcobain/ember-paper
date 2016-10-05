@@ -51,8 +51,7 @@
   {{#dropdown.content
     class=(readonly concatenatedDropdownClasses)
     select=(readonly publicAPI)
-    to=(readonly destination)
-    as |items|}}
+    to=(readonly destination) as |virtualItems|}}
     {{#if mustShowSearchMessage}}
       {{component searchMessageComponent
         searchMessage=(readonly searchMessage)
@@ -74,13 +73,12 @@
         groupIndex=""
         loadingMessage=(readonly loadingMessage)
         id=(readonly optionsId)
-        options=(readonly publicAPI.results)
+        options=(readonly virtualItems)
         optionsComponent=(readonly optionsComponent)
         select=(readonly publicAPI)
         as |option term|}}
           {{yield option term}}
       {{/component}}
     {{/if}}
-    {{component afterOptionsComponent select=(readonly publicAPI) extra=(readonly extra)}}
   {{/dropdown.content}}
 {{/paper-autocomplete-dropdown}}
