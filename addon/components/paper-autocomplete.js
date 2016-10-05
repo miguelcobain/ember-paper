@@ -24,6 +24,8 @@ export default PowerSelect.extend({
   }),
 
   onchange: computed.alias('onChange'),
+  onfocus: computed.alias('onFocus'),
+  onblur: computed.alias('onBlur'),
 
   // Choose highlighted item on key Tab
   _handleKeyTab(e) {
@@ -39,6 +41,14 @@ export default PowerSelect.extend({
       this.send('activate');
       this.publicAPI.actions.open(event);
       let action = this.get('onfocus');
+      if (action) {
+        action(this.publicAPI, event);
+      }
+    },
+
+    onBlur(event) {
+      this.send('deactivate');
+      let action = this.get('onblur');
       if (action) {
         action(this.publicAPI, event);
       }
