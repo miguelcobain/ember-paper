@@ -17,6 +17,7 @@ export default Component.extend({
     let text = this.get('label');
     let flags = this.get('flags');
     let regex = this.getRegExp(this.get('searchText'), flags);
+
     let html = text.replace(regex, '<span class="highlight">$&</span>');
     return htmlSafe(html);
   }),

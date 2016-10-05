@@ -1,27 +1,13 @@
-<!-- {{#if dropdown.isOpen}}
+{{#if dropdown.isOpen}}
   {{#ember-wormhole to=to renderInPlace=renderInPlace}}
-    {{#paper-virtual-repeat
+    {{paper-backdrop class="md-click-catcher"}}
+    {{#paper-virtual-repeat (readonly select.results)
       id=(readonly dropdownId)
       class=(concat dropdownId " md-autocomplete-suggestions-container" " ember-basic-dropdown-content " (if renderInPlace 'ember-basic-dropdown-content--in-place ') (if hPosition (concat 'ember-basic-dropdown-content--' hPosition ' ')) (if vPosition (concat 'ember-basic-dropdown-content--' vPosition ' ') "md-whiteframe-z1 ") animationClass)
       containerSelector='.md-autocomplete-suggestions'
-      items=select.results as |virtualItems|}}
+      scrollIndex=(readonly select.scrollIndex)
+      positionCoordinates=(readonly positionCoordinates) as |rawItems virtualItems|}}
       {{yield virtualItems}}
     {{/paper-virtual-repeat}}
-  {{/ember-wormhole}}
-{{/if}} -->
-
-{{#if dropdown.isOpen}}
-  {{#ember-wormhole to=to renderInPlace=renderInPlace}}
-    {{paper-backdrop class="md-select-backdrop md-click-catcher"}}
-    <md-virtual-repeat-container
-      id={{readonly dropdownId}}
-      class="md-virtual-repeat-container virtual-each {{concat dropdownId " md-autocomplete-suggestions-container" " ember-basic-dropdown-content " (if renderInPlace 'ember-basic-dropdown-content--in-place ') (if hPosition (concat 'ember-basic-dropdown-content--' hPosition ' ')) (if vPosition (concat 'ember-basic-dropdown-content--' vPosition ' ') "md-whiteframe-z1 ") animationClass}}">
-      <div class="md-virtual-repeat-scroller">
-        <div class="md-virtual-repeat-sizer"></div>
-        <div class="md-virtual-repeat-offsetter">
-          {{yield select.results}}
-        </div>
-      </div>
-    </md-virtual-repeat-container>
   {{/ember-wormhole}}
 {{/if}}

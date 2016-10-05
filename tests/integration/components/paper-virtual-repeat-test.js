@@ -20,13 +20,15 @@ test('should render only enough items to fill the viewport + 3 (vertical)', func
     items.push(i);
   }
   this.set('items', items);
-  this.render(hbs`<div style="height: 300px;">
-    {{#paper-virtual-repeat class="vertical-demo" items=items as |visibleItems|}}
+  this.render(hbs`
+    <div style="height: 300px;">
+    {{#paper-virtual-repeat items class="vertical-demo" as |visibleItems|}}
       {{#each visibleItems as |item|}}
-        <div style="height:30px;">{{item}}</div>
+        <div style="height: 30px;">{{item}}</div>
       {{/each}}
     {{/paper-virtual-repeat}}
     </div>`);
+
   assert.equal(this.$('.md-virtual-repeat-offsetter').children().length, 10 + NUM_EXTRA);
 
 });
@@ -39,7 +41,7 @@ test('should render only enough items to fill the viewport + 3 (horizontal)', fu
   }
   this.set('items', items);
   this.render(hbs`<div style="width: 300px;">
-    {{#paper-virtual-repeat horizontal=true items=items as |visibleItems|}}
+    {{#paper-virtual-repeat items horizontal=true as |visibleItems|}}
       {{#each visibleItems as |item|}}
         <div style="width:30px;">{{item}}</div>
       {{/each}}
@@ -56,7 +58,7 @@ test('should reposition items when scrolled so that there is still only enough i
   }
   this.set('items', items);
   this.render(hbs`<div style="height: 300px;">
-    {{#paper-virtual-repeat class="vertical-demo" items=items as |visibleItems|}}
+    {{#paper-virtual-repeat items class="vertical-demo" as |visibleItems|}}
       {{#each visibleItems as |item|}}
         <div style="height:30px;">{{item}}</div>
       {{/each}}

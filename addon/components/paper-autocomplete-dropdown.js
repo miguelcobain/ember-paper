@@ -10,8 +10,10 @@ export default BasicDropdown.extend({
     if (!this.publicAPI.isOpen) {
       return;
     }
+
     let dropdownElement = $(`.${this.dropdownId}`).get(0);
     let triggerElement = document.getElementById(this.triggerId);
+
     if (!dropdownElement || !triggerElement) {
       return;
     }
@@ -23,6 +25,7 @@ export default BasicDropdown.extend({
       this.performFullReposition(triggerElement, dropdownElement);
     }
   },
+
   performFullReposition(trigger, dropdown) {
     let {
       horizontalPosition, verticalPosition, matchTriggerWidth
@@ -87,4 +90,5 @@ export default BasicDropdown.extend({
     }
     this.applyReposition(trigger, dropdown, { horizontalPosition, verticalPosition, style });
   }
+
 });

@@ -138,7 +138,9 @@
 @import './angular-material/components/dialog/dialog-theme';
 
 @import './angular-material/components/virtualRepeat/virtual-repeater';
+
 // Backports of features from future versions of angular-material-source to this version
 @import './backports/paper-input';
 @import './backports/paper-select';
 @import './backports/ripple';
+@import './backports/paper-autocomplete';
