@@ -30,13 +30,6 @@ export default Component.extend(Translate3dMixin, {
     if ($origin) {
       $origin.focus();
     }
-  },
-
-  click(ev) {
-    if (this.get('clickOutsideToClose')) {
-      ev.stopPropagation();
-      return false;
-    }
   }
 
 });

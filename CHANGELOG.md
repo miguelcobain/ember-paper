@@ -18,6 +18,10 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 
 #### 1.0.0-alpha.4
 - [#466](https://github.com/miguelcobain/ember-paper/pull/466) added autoprefixer configuration option
+- [#472](https://github.com/miguelcobain/ember-paper/pull/472) update ember-css-transitions
+- [#511](https://github.com/miguelcobain/ember-paper/issues/511) allow inner dialog clicks to bubble
+- [5f35cf5](https://github.com/miguelcobain/ember-paper/commit/5f35cf517530b06c850282a757d49096bff9a22b) Glimmer 2 compatible
+- [#506](https://github.com/miguelcobain/ember-paper/pull/506) Add super calls inside paper-input lifecycle hooks (fixes paper-form)
 
 #### 1.0.0-alpha.3
 - [#441](https://github.com/miguelcobain/ember-paper/pull/441) fixed fastboot service check
