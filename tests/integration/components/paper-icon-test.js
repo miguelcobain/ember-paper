@@ -129,3 +129,14 @@ test('it renders the correct ligature when given a dashed or underscored icon na
 
   assert.equal($component.text().trim(), 'aspect_ratio');
 });
+
+test('it renders with md-font-icon attribute', function(assert) {
+  assert.expect(1);
+
+  this.set('iconName', 'check');
+  this.render(hbs`{{paper-icon iconName}}`);
+
+  let $component = this.$('md-icon');
+
+  assert.equal($component.attr('md-font-icon'), 'check');
+});
