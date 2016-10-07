@@ -4,9 +4,7 @@ const { Controller } = Ember;
 
 export default Controller.extend({
 
-  actions: {
-    foo() {
+  selectedFruit: 'Apple',
+  selectedGraphic: 'graphic-1'
 
-    }
-  }
 });

@@ -1,54 +1,73 @@
 {{page-toolbar pageTitle="Radio" isDemo=true}}
+  {{#doc-content}}
+  {{#paper-card class="radio-button-demo"}}
+    {{#paper-card-content}}
+      <h2>Basic Usage</h2>
+      <p>
+        Stand alone
+      </p>
+      <div class="layout-row layout-align-space-around">
+        {{! BEGIN-SNIPPET radio.standalone-usage }}
+        {{#paper-radio toggle=true value="Toggable" groupValue=toggleValue
+          onChange=(action (mut toggleValue))}}
+          Toggable
+        {{/paper-radio}}
+        {{paper-radio label="Blockless"
+          toggle=true
+          value="Blockless"
+          groupValue=blocklessValue
+          onChange=(action (mut blocklessValue))}}
+        {{#paper-radio value=false disabled=true onChange=null}}
+          Disabled
+        {{/paper-radio}}
+        {{! END-SNIPPET }}
+      </div>
+      <h3>Template</h3>
+      {{code-snippet name="radio.standalone-usage.hbs"}}
+      <hr />
 
-{{#doc-content}}
-  <div layout layout-sm="column">
-    {{! BEGIN-SNIPPET radio.basic-usage }}
-    <div flex>{{#paper-radio onChange=(action "foo")}}A radio button{{/paper-radio}}</div>
-    <div flex>{{#paper-radio toggle=true value="123" groupValue=toggleValue onChange=(action (mut toggleValue))}}Toggable radio button{{/paper-radio}}</div>
-    <div flex>{{#paper-radio disabled=true onChange=(action "foo")}}Disabled radio button{{/paper-radio}}</div>
-    {{! END-SNIPPET }}
-  </div>
+      <p>
+        Selected Value: <span class="radio-value">{{selectedFruit}}</span>
+      </p>
+      {{! BEGIN-SNIPPET radio.basic-group-usage}}
+      {{#paper-radio-group
+        groupValue=(readonly selectedFruit)
+        onChange=(action (mut selectedFruit)) as |group|}}
+        {{#group.radio value="Apple" primary=true}} Apple {{/group.radio}}
+        {{#group.radio value="Banana" warn=true}} Banana {{/group.radio}}
+        {{#group.radio value="Mango"}} Mango {{/group.radio}}
+      {{/paper-radio-group}}
+      {{! END-SNIPPET }}
 
-  {{code-snippet name="radio.basic-usage.hbs"}}
+      <h3>Template</h3>
+      {{code-snippet name="radio.basic-group-usage.hbs"}}
+      <hr />
 
-  <h2>Radio Button Group</h2>
-  {{! BEGIN-SNIPPET radio.group }}
-  {{#paper-radio-group groupValue=groupValue onChange=(action (mut groupValue)) as |group|}}
-    {{#group.radio value="1" primary=true}}
-      Radio button 1
-    {{/group.radio}}
-    {{#group.radio value="2" warn=true}}
-      Radio button 2
-    {{/group.radio}}
-    {{#group.radio value="3"}}
-      Radio button 3
-    {{/group.radio}}
-  {{/paper-radio-group}}
+      <p>
+        Graphic radio buttons
+      </p>
+      <p>
+        Selected Value: <span class="radio-value">{{selectedGraphic}}</span>
+      </p>
+      {{! BEGIN-SNIPPET radio.images }}
+      {{#paper-radio-group
+        groupValue=selectedGraphic
+        onChange=(action (mut selectedGraphic)) as |group|}}
+        {{#group.radio value="graphic-1" primary=true}}
+          <img src="http://tinyurl.com/zwvmqz8" />
+        {{/group.radio}}
+        {{#group.radio value="graphic-2" warn=true}}
+          <img src="http://tinyurl.com/jdcepzm">
+        {{/group.radio}}
+        {{#group.radio value="graphic-3"}}
+          <img src="http://tinyurl.com/j55t8cd">
+        {{/group.radio}}
+      {{/paper-radio-group}}
+      {{! END-SNIPPET }}
 
-  <p>Selected value: {{groupValue}}</p>
+      <h3>Template</h3>
+      {{code-snippet name="radio.images.hbs"}}
 
-  <p>{{paper-radio toggle=true label="Blockless version" onChange=(action "foo")}}</p>
-  {{! END-SNIPPET }}
-
-  <h3>Template</h3>
-  {{code-snippet name="radio.group.hbs"}}
-
-  <h3>Radio Button w/ Images</h3>
-  {{! BEGIN-SNIPPET radio.images }}
-  {{#paper-radio-group groupValue=groupValue2 onChange=(action (mut groupValue2)) as |group|}}
-    {{#group.radio value="image1" primary=true}}
-      <img src="http://diagramcenter.org/wp-content/uploads/2016/03/image.png">
-    {{/group.radio}}
-    {{#group.radio value="image2" warn=true}}
-      <img src="http://www.coffeecup.com/images/software/icons/image-mapper_5.0_win_en.png">
-    {{/group.radio}}
-    {{#group.radio value="image3"}}
-      <img src="http://a2.mzstatic.com/us/r30/Purple69/v4/d3/3c/13/d33c13c4-2cdd-0ef7-13f3-e3097607f2da/icon128.png">
-    {{/group.radio}}
-  {{/paper-radio-group}}
-{{! END-SNIPPET }}
-
-  <h3>Template</h3>
-  {{code-snippet name="radio.images.hbs"}}
-
+    {{/paper-card-content}}
+  {{/paper-card}}
 {{/doc-content}}
