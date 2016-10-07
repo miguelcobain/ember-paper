@@ -371,6 +371,23 @@ md-sidenav.site-sidenav {
   }
 }
 
+/************
+ * Radio button demo
+ ************/
+.radio-button-demo {
+  overflow: hidden;
+  hr {
+    margin-left: -20px;
+    opacity: 0.3;
+  }
+  .radio-value {
+    margin-left: 5px;
+    color: #0f9d58;
+    font-weight: bold;
+    padding: 5px;
+  }
+}
+
 .grid-list-demo-dynamicTiles {
   md-icon {
     width: 50%;
