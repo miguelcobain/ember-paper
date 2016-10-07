@@ -1,7 +1,7 @@
 {
   "name": "ember-paper",
   "description": "The Ember approach to Material Design.",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "directories": {
     "doc": "doc",
     "test": "tests"
