@@ -27,6 +27,9 @@ export default PowerSelect.extend({
   onfocus: computed.alias('onFocus'),
   onblur: computed.alias('onBlur'),
 
+  // Don't automatically highlight any option
+  defaultHighlighted: null,
+
   // Choose highlighted item on key Tab
   _handleKeyTab(e) {
     let publicAPI = this.get('publicAPI');
