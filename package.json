@@ -64,7 +64,7 @@
     "ember-css-transitions": "0.1.5",
     "ember-wormhole": "0.4.1",
     "ember-basic-dropdown": "^0.16.0",
-    "ember-power-select": "1.0.0-beta.21",
+    "ember-power-select": "1.0.0-beta.23",
     "virtual-each": "0.3.1"
   },
   "keywords": [
