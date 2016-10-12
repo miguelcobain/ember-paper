@@ -11,7 +11,7 @@ module.exports = {
   name: 'ember-paper',
 
   included: function(app) {
-    this._super.included(app);
+    this._super.included.apply(this, arguments);
 
     if (!process.env.EMBER_CLI_FASTBOOT) {
       app.import(app.bowerDirectory + '/hammer.js/hammer.js')
