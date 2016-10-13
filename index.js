@@ -14,7 +14,7 @@ module.exports = {
     this._super.included.apply(this, arguments);
 
     if (!process.env.EMBER_CLI_FASTBOOT) {
-      app.import(app.bowerDirectory + '/hammer.js/hammer.js')
+      app.import(app.bowerDirectory + '/hammer.js/hammer.js');
       app.import(app.bowerDirectory + '/matchMedia/matchMedia.js');
       app.import('vendor/propagating.js');
     }
@@ -102,7 +102,9 @@ module.exports = {
       'components/backdrop/backdrop-theme.scss',
 
       'components/dialog/dialog.scss',
-      'components/dialog/dialog-theme.scss'
+      'components/dialog/dialog-theme.scss',
+
+      'components/fabSpeedDial/fabSpeedDial.scss'
     ];
 
     /*
@@ -116,7 +118,7 @@ module.exports = {
       tl;dr - We want the non built scss files, and b/c this dep is only provided via
       bower, we use this hack. Please change it if you read this and know a better way.
     */
-    var pathBase = path.resolve(this.nodeModulesPath, 'angular-material-source', 'src')
+    var pathBase = path.resolve(this.nodeModulesPath, 'angular-material-source', 'src');
     var angularScssFiles = new Funnel(pathBase, {
       files: scssFiles,
       destDir: 'angular-material',

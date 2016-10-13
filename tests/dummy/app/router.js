@@ -21,6 +21,7 @@ Router.map(function() {
     this.route('checkbox');
     this.route('dialog');
     this.route('divider');
+    this.route('fab-speed-dial');
     this.route('grid-list');
     this.route('icons', { path: 'icon' });
     this.route('input');
