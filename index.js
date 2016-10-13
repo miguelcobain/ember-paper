@@ -1,6 +1,7 @@
 /* jshint node: true */
 'use strict';
 
+var fs = require('fs');
 var path = require('path');
 var autoprefixer = require('broccoli-autoprefixer');
 var mergeTrees = require('broccoli-merge-trees');
@@ -112,19 +113,7 @@ module.exports = {
       'components/virtualRepeat/virtual-repeater.scss'
     ];
 
-    /*
-      Find the angular-material-source module in a manner that works for npm 2.x
-      and 3.x in both the addon itself and projects that depend on this addon
-
-      This is an edge case b/c angular-material-source does not have a main
-      module we can require.resolve through node itself and similarily ember-cli
-      does not have such a hack for the same reason.
-
-      tl;dr - We want the non built scss files, and b/c this dep is only provided via
-      bower, we use this hack. Please change it if you read this and know a better way.
-    */
-    var pathBase = path.resolve(this.nodeModulesPath, 'angular-material-source', 'src')
-    var angularScssFiles = new Funnel(pathBase, {
+    var angularScssFiles = new Funnel(this.pathBase(), {
       files: scssFiles,
       destDir: 'angular-material',
       annotation: 'AngularScssFunnel'
@@ -135,6 +124,25 @@ module.exports = {
     });
 
     return this._super.treeForStyles(mergeTrees([angularScssFiles, tree], { overwrite: true }));
+  },
+
+  /*
+    Find the angular-material-source module in a manner that works for npm 2.x,
+    3.x, and yarn in both the addon itself and projects that depend on this addon
+
+    This is an edge case b/c angular-material-source does not have a main
+    module we can require.resolve through node itself and similarily ember-cli
+    does not have such a hack for the same reason.
+
+    tl;dr - We want the non built scss files, and b/c this dep is only provided via
+    bower, we use this hack. Please change it if you read this and know a better way.
+  */
+  pathBase: function() {
+    var flat = path.resolve('node_modules', 'angular-material-source', 'src');
+    if (fs.existsSync(flat)) {
+      return flat;
+    }
+    return path.resolve(this.nodeModulesPath, 'angular-material-source', 'src');
   },
 
   postprocessTree: function(type, tree) {
