@@ -4,8 +4,7 @@
     opaque=true
     fixed=(unless parent true)
     class="md-dialog-backdrop"
-    onClick=(action "outsideClicked")
-  }}
+    onClick=(action "outsideClicked")}}
   {{#paper-dialog-container outsideClicked=(action "outsideClicked")}}
     {{#paper-dialog-inner
       origin=origin
@@ -13,9 +12,7 @@
       defaultedOpenFrom=defaultedOpenFrom
       defaultedCloseTo=defaultedCloseTo
       fullscreen=fullscreen
-      clickOutsideToClose=clickOutsideToClose
-      focusOnOpen=focusOnOpen
-    }}
+      focusOnOpen=focusOnOpen}}
       {{yield}}
     {{/paper-dialog-inner}}
   {{/paper-dialog-container}}
