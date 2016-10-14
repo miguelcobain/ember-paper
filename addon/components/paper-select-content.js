@@ -5,7 +5,6 @@ import PaperMenuContent from './paper-menu-content';
 import Ember from 'ember';
 
 const { run, $ } = Ember;
-const MutObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 function waitForAnimations(element, callback) {
   let computedStyle = window.getComputedStyle(element);
@@ -58,24 +57,5 @@ export default PaperMenuContent.extend({
         });
       }
     });
-  },
-  addGlobalEvents() {
-    window.addEventListener('scroll', this.runloopAwareReposition);
-    window.addEventListener('resize', this.runloopAwareReposition);
-    window.addEventListener('orientationchange', this.runloopAwareReposition);
-    if (MutObserver) {
-      this.mutationObserver = new MutObserver((mutations) => {
-        // e-b-d incorrectly counts ripples as a mutation, triggering a problematic repositon
-        // convert NodeList to Array
-        let addedNodes = Array.prototype.slice.call(mutations[0].addedNodes).filter((node) => !$(node).hasClass('md-ripple') && (node.nodeName !== '#comment'));
-        if (addedNodes.length || mutations[0].removedNodes.length) {
-          this.runloopAwareReposition();
-        }
-      });
-      this.mutationObserver.observe(this.dropdownElement, { childList: true, subtree: true });
-    } else {
-      this.dropdownElement.addEventListener('DOMNodeInserted', this.runloopAwareReposition, false);
-      this.dropdownElement.addEventListener('DOMNodeRemoved', this.runloopAwareReposition, false);
-    }
   }
 });

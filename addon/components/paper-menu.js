@@ -160,6 +160,11 @@ export default BasicDropdownComponent.extend({
       transformOrigin
     };
 
+    this.setProperties({
+      transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
+      transformOrigin
+    });
+
     this.didAnimateScale = true;
 
     this.applyReposition(trigger, dropdown, { style });

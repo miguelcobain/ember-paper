@@ -4,7 +4,8 @@
 import Ember from 'ember';
 import ContentComponent from 'ember-basic-dropdown/components/basic-dropdown/content';
 import { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
-const { $ } = Ember;
+const { $, computed, String: { htmlSafe } } = Ember;
+const MutObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 function waitForAnimations(element, callback) {
   let computedStyle = window.getComputedStyle(element);
@@ -30,10 +31,60 @@ function waitForAnimations(element, callback) {
  * @extends ContentComponent
  */
 export default ContentComponent.extend({
+
+  // We need to overwrite this CP because:
+  //   1. we don't want to use the width property
+  //   2. we need additional styles
+  style: computed('top', 'left', 'right', 'transform', 'transformOrigin', function() {
+    let style = '';
+    let { top, left, right, transform, transformOrigin } = this.getProperties('top', 'left', 'right', 'transform', 'transformOrigin');
+    if (top) {
+      style += `top: ${top};`;
+    }
+    if (left) {
+      style += `left: ${left};`;
+    }
+    if (right) {
+      style += `right: ${right};`;
+    }
+    if (transform) {
+      style += `transform: ${transform};`;
+    }
+    if (transformOrigin) {
+      style += `transform-origin: ${transformOrigin};`;
+    }
+    if (style.length > 0) {
+      return htmlSafe(style);
+    }
+  }),
+
+  addGlobalEvents() {
+    window.addEventListener('scroll', this.runloopAwareReposition);
+    window.addEventListener('resize', this.runloopAwareReposition);
+    window.addEventListener('orientationchange', this.runloopAwareReposition);
+    if (MutObserver) {
+      this.mutationObserver = new MutObserver((mutations) => {
+        // e-b-d incorrectly counts ripples as a mutation, triggering a problematic repositon
+        // convert NodeList to Array
+        let addedNodes = Array.prototype.slice.call(mutations[0].addedNodes).filter((node) => !$(node).hasClass('md-ripple') && (node.nodeName !== '#comment'));
+        let removedNodes = Array.prototype.slice.call(mutations[0].removedNodes).filter((node) => !$(node).hasClass('md-ripple') && (node.nodeName !== '#comment'));
+
+        if (addedNodes.length || removedNodes.length) {
+          this.runloopAwareReposition();
+        }
+      });
+      this.mutationObserver.observe(this.dropdownElement, { childList: true, subtree: true });
+    } else {
+      this.dropdownElement.addEventListener('DOMNodeInserted', this.runloopAwareReposition, false);
+      this.dropdownElement.addEventListener('DOMNodeRemoved', this.runloopAwareReposition, false);
+    }
+  },
+
   animateIn() {
+    this.dropdownElement.style.transform = this.get('transform');
     nextTick().then(() => {
       this.set('isActive', true);
-      this.dropdownElement.style.transform = '';
+      this.set('transform', null);
     });
   },
 
