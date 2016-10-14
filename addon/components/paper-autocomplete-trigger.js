@@ -15,10 +15,11 @@ export default Component.extend({
       }
     },
     set(_, v) {
-      if (!this.get('selected')) {
+      if (!this.get('selected') && this.get('searchText')) {
         return this.get('searchText');
+      } else {
+        return v;
       }
-      return v;
     }
   }),
 
@@ -81,7 +82,6 @@ export default Component.extend({
       this.set('text', e.target ? e.target.value : e);
     }
   },
-
   // Methods
   getSelectedAsText() {
     let labelPath = this.get('extra.labelPath');
