@@ -1,0 +1,9 @@
+{{#paper-tabs-wrapper parent=this}}
+  {{yield (hash
+    tab=(component
+      'paper-tab'
+      parent=this)
+  )}}
+{{/paper-tabs-wrapper}}
+
+{{paper-tabs-content-wrapper parent=this}}
