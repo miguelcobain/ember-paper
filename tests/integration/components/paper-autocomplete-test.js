@@ -14,7 +14,7 @@ test('opens on click', function(assert) {
     placeholder="Item"
     options=items
     selected=selectedItem
-    onChange=(action (mut selectedItem))
+    onSelectionChange=(action (mut selectedItem))
     as |item|
   }}
     {{item}}
@@ -40,7 +40,7 @@ test('backdrop removed if select closed', function(assert) {
     placeholder="Item"
     options=items
     selected=selectedItem
-    onChange=(action (mut selectedItem))
+    onSelectionChange=(action (mut selectedItem))
     as |item|
   }}
     {{item}}
@@ -71,7 +71,7 @@ test('should render only enough items to fill the menu + 3', function(assert) {
     placeholder="Item"
     options=items
     selected=selectedItem
-    onChange=(action (mut selectedItem))
+    onSelectionChange=(action (mut selectedItem))
     as |item|
   }}
     {{item}}

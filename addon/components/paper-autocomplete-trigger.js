@@ -6,12 +6,20 @@ export default Component.extend({
   tagName: 'md-autocomplete-wrap',
   classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
 
-  text: computed('selected', 'extra.labelPath', {
+  text: computed('selected', 'extra.labelPath', 'searchText', {
     get() {
-      return this.getSelectedAsText();
+      if (this.get('selected')) {
+        return this.getSelectedAsText();
+      } else {
+        return this.get('searchText');
+      }
     },
     set(_, v) {
-      return v;
+      if (!this.get('selected') && this.get('searchText')) {
+        return this.get('searchText');
+      } else {
+        return v;
+      }
     }
   }),
 
@@ -66,11 +74,14 @@ export default Component.extend({
     },
 
     handleInputLocal(e) {
+      // If something is already selected when the user types, it should clear selection
+      if (this.get('selected')) {
+        this.get('select').actions.select(null);
+      }
       this.get('onInput')(e.target ? e : { target: { value: e } });
       this.set('text', e.target ? e.target.value : e);
     }
   },
-
   // Methods
   getSelectedAsText() {
     let labelPath = this.get('extra.labelPath');

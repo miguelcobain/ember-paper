@@ -13,6 +13,8 @@
       onCreate=(action "addCountry")
       options=items
       allowClear=true
+      searchText=countrySearch
+      onSearchTextChange=(action (mut countrySearch))
       selected=selectedCountry
       search=(if simulateQuery (action "searchCountries"))
       searchField="name"
@@ -20,7 +22,7 @@
       placeholder="Select a Country..."
       loadingMessage="Searching countries..."
       noMatchesMessage="Oops this country doesn't exist. Create a new country?"
-      onChange=(action (mut selectedCountry)) as |country select|}}
+      onSelectionChange=(action (mut selectedCountry)) as |country select|}}
       {{paper-autocomplete-highlight
         label=country.name
         searchText=select.searchText
@@ -34,6 +36,8 @@
       {{else}}
           Nothing selected...
       {{/if}}
+      <br>
+        Search text is {{countrySearch}}
     </p>
     {{#paper-checkbox
       value=firstDisabled
@@ -67,7 +71,7 @@
       placeholder="Type e.g. ember, paper, one, two etc."
       options=arrayOfItems
       selected=selectedItem
-      onChange=(action (mut selectedItem))
+      onSelectionChange=(action (mut selectedItem))
       as |item term|}}
       <span class="item-title">
         {{paper-icon "star"}}
@@ -113,7 +117,7 @@
           label="Select a Country..."
           loadingMessage="Searching countries..."
           noMatchesMessage="Oops this country doesn't exist."
-          onChange=(action (mut selectedCountry2)) as |country select|}}
+          onSelectionChange=(action (mut selectedCountry2)) as |country select|}}
           {{paper-autocomplete-highlight
             label=country.name
             searchText=select.searchText
