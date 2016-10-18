@@ -110,6 +110,8 @@
           disabled=(readonly disabled2)
           triggerClass="flex"
           options=items
+          searchText=country2SearchText
+          onSearchTextChange=(action (mut country2SearchText))
           selected=selectedCountry2
           search=(if simulateQuery2 (action "searchCountries"))
           searchField="name"

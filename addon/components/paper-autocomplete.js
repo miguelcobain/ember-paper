@@ -5,7 +5,7 @@ import Ember from 'ember';
 import PowerSelect from 'ember-power-select/components/power-select';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
 
-const { computed, inject } = Ember;
+const { computed, inject, isNone } = Ember;
 
 /**
  * @class PaperAutocomplete
@@ -44,26 +44,40 @@ export default PowerSelect.extend({
 
     onFocus(event) {
       this.send('activate');
-      this.publicAPI.actions.open(event);
+      let publicAPI = this.get('publicAPI');
+
+      if (isNone(publicAPI.selected)) {
+        publicAPI.actions.open(event);
+      }
+
       let action = this.get('onfocus');
       if (action) {
-        action(this.publicAPI, event);
+        action(publicAPI, event);
       }
     },
 
     onBlur(event) {
       this.send('deactivate');
       let action = this.get('onblur');
+
       if (action) {
-        action(this.publicAPI, event);
+        action(this.get('publicAPI'), event);
       }
+    },
+
+    onInput(event) {
+      let publicAPI = this.get('publicAPI');
+      if (publicAPI.selected && !publicAPI.isOpen) {
+        publicAPI.actions.open(event);
+      }
+      this._super(...arguments);
     },
 
     onCreate(text) {
       if (this.get('onCreate')) {
         this.get('onCreate')(text);
       }
-      this.publicAPI.actions.close();
+      this.get('publicAPI').actions.close();
     },
 
     scrollTo(option /*, e */) {

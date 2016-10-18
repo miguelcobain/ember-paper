@@ -87,33 +87,78 @@ test('should render only enough items to fill the menu + 3', function(assert) {
     });
   });
 });
-//
-// test('should filter list by search term', function(assert) {
-//   assert.expect(3);
-//   this.appRoot = document.querySelector('#ember-testing');
-//   this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
-//   this.render(hbs`{{#paper-autocomplete
-//     placeholder="Item"
-//     options=items
-//     selected=selectedItem
-//     onChange=(action (mut selectedItem))
-//     as |item|
-//   }}
-//     {{item}}
-//   {{/paper-autocomplete}}`);
-//   return wait().then(() => {
-//     $('md-autocomplete-wrap input')[0].focus();
-//
-//     return wait().then(() => {
-//
-//       let selectors = $('.md-autocomplete-suggestions');
-//       assert.ok(selectors.length, 'opened menu');
-//       assert.ok(selectors.children().length === 8, 'only rendered 8 list items');
-//       $('md-autocomplete-wrap input').val('four');
-//       $('md-autocomplete-wrap input').change();
-//       return wait().then(() => {
-//         assert.ok(selectors.children().length === 1, 'only render searched item');
-//       });
-//     });
-//   });
-// });
+
+test('should filter list by search term', function(assert) {
+  assert.expect(3);
+  this.appRoot = document.querySelector('#ember-testing');
+  this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
+  this.render(hbs`{{#paper-autocomplete
+    placeholder="Item"
+    options=items
+    selected=selectedItem
+    onSelectionChange=(action (mut selectedItem))
+    as |item|
+  }}
+    {{item}}
+  {{/paper-autocomplete}}`);
+  return wait().then(() => {
+    $('md-autocomplete-wrap input')[0].focus();
+
+    return wait().then(() => {
+
+      let selectors = $('.md-autocomplete-suggestions');
+      assert.ok(selectors.length, 'opened menu');
+      assert.ok(selectors.children().length === 8, 'only rendered 8 list items');
+      $('md-autocomplete-wrap input').val('four');
+      $('md-autocomplete-wrap input').change();
+      return wait().then(() => {
+        assert.ok(selectors.children().length === 1, 'only render searched item');
+      });
+    });
+  });
+});
+
+test('when has selection and gets focused, the dropdown is not shown', function(assert) {
+  assert.expect(1);
+
+  this.set('items', ['Ember', 'Paper', 'One', 'Two']);
+  this.set('selectedItem', 'Paper');
+  this.render(hbs`{{#paper-autocomplete
+    placeholder="Item"
+    options=items
+    selected=selectedItem
+    onSelectionChange=(action (mut selectedItem))
+    as |item|
+  }}
+    {{item}}
+  {{/paper-autocomplete}}`);
+
+  $('md-autocomplete-wrap input')[0].focus();
+  let suggestions = $('.md-autocomplete-suggestions');
+  assert.ok(!suggestions.length, 'dropdown must be closed when selected & focused in');
+});
+
+test('when has selection and searchText changed, the dropdown is shown with w/o selection', function(assert) {
+  assert.expect(3);
+
+  this.set('items', ['Ember', 'Paper', 'One', 'Two']);
+  this.set('selectedItem', 'Paper');
+  this.render(hbs`{{#paper-autocomplete
+    placeholder="Item"
+    options=items
+    selected=selectedItem
+    onSelectionChange=(action (mut selectedItem))
+    as |item|
+  }}
+    {{item}}
+  {{/paper-autocomplete}}`);
+
+  $('md-autocomplete-wrap input')[0].focus();
+  let suggestions = $('.md-autocomplete-suggestions');
+  assert.ok(!suggestions.length, 'dropdown must be closed when selected & focused in');
+
+  $('md-autocomplete-wrap input').val('Pape').change();
+  suggestions = $('.md-autocomplete-suggestions');
+  assert.ok(suggestions.length, 'dropdown is opened');
+  assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
+});
