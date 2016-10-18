@@ -13,8 +13,8 @@
       onCreate=(action "addCountry")
       options=items
       allowClear=true
-      searchText=countrySearch
-      onSearchTextChange=(action (mut countrySearch))
+      searchText=(readonly countrySearchText)
+      onSearchTextChange=(action (mut countrySearchText))
       selected=selectedCountry
       search=(if simulateQuery (action "searchCountries"))
       searchField="name"
@@ -69,6 +69,8 @@
     {{! BEGIN-SNIPPET autocomplete.block-custom-template }}
     {{#paper-autocomplete
       placeholder="Type e.g. ember, paper, one, two etc."
+      searchText=(readonly templateSeachText)
+      onSearchTextChange=(action (mut templateSeachText))
       options=arrayOfItems
       selected=selectedItem
       onSelectionChange=(action (mut selectedItem))
@@ -110,7 +112,7 @@
           disabled=(readonly disabled2)
           triggerClass="flex"
           options=items
-          searchText=country2SearchText
+          searchText=(readonly country2SearchText)
           onSearchTextChange=(action (mut country2SearchText))
           selected=selectedCountry2
           search=(if simulateQuery2 (action "searchCountries"))

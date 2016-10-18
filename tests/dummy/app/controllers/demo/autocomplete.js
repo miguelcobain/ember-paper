@@ -38,7 +38,7 @@ export default Controller.extend({
     }
   },
 
-  arrayOfItems: ['Ember', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'],
+  arrayOfItems: ['Ember1.0', 'Ember2.0', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'],
 
   /*
    * Array of static Objects.

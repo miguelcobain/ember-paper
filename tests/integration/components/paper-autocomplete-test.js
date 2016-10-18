@@ -1,9 +1,20 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import run from 'ember-runloop';
 import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('paper-autcomplete', 'Integration | Component | paper autocomplete', {
   integration: true
+});
+
+test('the `onSearchTextChange` function is mandatory', function(assert) {
+  assert.expect(1);
+
+  assert.throws(() => {
+    this.render(hbs`
+      {{#paper-autocomplete options=countries selected=selected as |opt|}}{{opt}}{{/paper-autocomplete}}
+      `);
+  }, /requires an `onSearchTextChange` function/);
 });
 
 test('opens on click', function(assert) {
@@ -13,6 +24,8 @@ test('opens on click', function(assert) {
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
     options=items
+    searchText=searchText
+    onSearchTextChange=(action (mut searchText))
     selected=selectedItem
     onSelectionChange=(action (mut selectedItem))
     as |item|
@@ -39,6 +52,8 @@ test('backdrop removed if select closed', function(assert) {
     {{#paper-autocomplete
     placeholder="Item"
     options=items
+    searchText=searchText
+    onSearchTextChange=(action (mut searchText))
     selected=selectedItem
     onSelectionChange=(action (mut selectedItem))
     as |item|
@@ -70,6 +85,8 @@ test('should render only enough items to fill the menu + 3', function(assert) {
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
     options=items
+    searchText=searchText
+    onSearchTextChange=(action (mut searchText))
     selected=selectedItem
     onSelectionChange=(action (mut selectedItem))
     as |item|
@@ -95,6 +112,8 @@ test('should filter list by search term', function(assert) {
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
     options=items
+    searchText=searchText
+    onSearchTextChange=(action (mut searchText))
     selected=selectedItem
     onSelectionChange=(action (mut selectedItem))
     as |item|
@@ -126,6 +145,8 @@ test('when has selection and gets focused, the dropdown is not shown', function(
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
     options=items
+    searchText=searchText
+    onSearchTextChange=(action (mut searchText))
     selected=selectedItem
     onSelectionChange=(action (mut selectedItem))
     as |item|
@@ -135,7 +156,7 @@ test('when has selection and gets focused, the dropdown is not shown', function(
 
   $('md-autocomplete-wrap input')[0].focus();
   let suggestions = $('.md-autocomplete-suggestions');
-  assert.ok(!suggestions.length, 'dropdown must be closed when selected & focused in');
+  assert.ok(!suggestions.length, 'autocomplete-suggestions list must be closed when selected & focused in');
 });
 
 test('when has selection and searchText changed, the dropdown is shown with w/o selection', function(assert) {
@@ -146,6 +167,8 @@ test('when has selection and searchText changed, the dropdown is shown with w/o 
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
     options=items
+    searchText=searchText
+    onSearchTextChange=(action (mut searchText))
     selected=selectedItem
     onSelectionChange=(action (mut selectedItem))
     as |item|
@@ -157,8 +180,19 @@ test('when has selection and searchText changed, the dropdown is shown with w/o 
   let suggestions = $('.md-autocomplete-suggestions');
   assert.ok(!suggestions.length, 'dropdown must be closed when selected & focused in');
 
-  $('md-autocomplete-wrap input').val('Pape').change();
-  suggestions = $('.md-autocomplete-suggestions');
-  assert.ok(suggestions.length, 'dropdown is opened');
-  assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
+  // TODO: refactor this into helper; like e-p-s
+
+  run(() => {
+    let $selector = $($('md-autocomplete-wrap input').get(0)); // Only interact with the first result
+    $selector.val('Pape');
+    let event = document.createEvent('Events');
+    event.initEvent('input', true, true);
+    $selector[0].dispatchEvent(event);
+  });
+
+  return wait().then(() => {
+    suggestions = $('.md-autocomplete-suggestions');
+    assert.ok(suggestions.length, 'autocomplete-suggestions list is opened');
+    assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
+  });
 });

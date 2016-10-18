@@ -5,7 +5,7 @@ import Ember from 'ember';
 import PowerSelect from 'ember-power-select/components/power-select';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
 
-const { computed, inject, isNone } = Ember;
+const { assert, computed, inject, isNone } = Ember;
 
 /**
  * @class PaperAutocomplete
@@ -20,17 +20,22 @@ export default PowerSelect.extend({
   concatenatedDropdownClasses: ['md-autocomplete-suggestions-container md-virtual-repeat-container'],
 
   extra: computed('labelPath', 'label', function() {
-    return { labelPath: this.get('labelPath'), label: this.get('label') };
+    return this.getProperties('label', 'labelPath');
   }),
-
-  onchange: computed.alias('onSelectionChange'),
-  searchText: '',
-  onSearchTextChange: computed.alias('oninput'),
   onfocus: computed.alias('onFocus'),
   onblur: computed.alias('onBlur'),
+  onchange: computed.alias('onSelectionChange'),
+
+  searchText: '',
+  onSearchTextChange: computed.alias('oninput'),
 
   // Don't automatically highlight any option
   defaultHighlighted: null,
+
+  init() {
+    assert('{{paper-autocomplete}} requires an `onSearchTextChange` function', this.get('onSearchTextChange') && typeof this.get('onSearchTextChange') === 'function');
+    this._super(...arguments);
+  },
 
   // Choose highlighted item on key Tab
   _handleKeyTab(e) {
@@ -67,10 +72,11 @@ export default PowerSelect.extend({
 
     onInput(event) {
       let publicAPI = this.get('publicAPI');
-      if (publicAPI.selected && !publicAPI.isOpen) {
+
+      if (!publicAPI.isOpen && event.type !== 'change') {
         publicAPI.actions.open(event);
       }
-      this._super(...arguments);
+      return this._super(...arguments);
     },
 
     onCreate(text) {
@@ -80,7 +86,7 @@ export default PowerSelect.extend({
       this.get('publicAPI').actions.close();
     },
 
-    scrollTo(option /*, e */) {
+    scrollTo(option) {
       if (!self.document || !option) {
         return;
       }
@@ -95,7 +101,6 @@ export default PowerSelect.extend({
       if (index === -1) {
         return;
       }
-
       // Update the scroll index
       this.updateState({ scrollIndex: index });
     }
