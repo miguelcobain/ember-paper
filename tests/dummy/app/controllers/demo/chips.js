@@ -1,17 +1,19 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-  fruitNames: Ember.A(['Apple', 'Banana', 'Orange']),
+const { Controller, computed, A } = Ember;
 
-  customFruitNames: Ember.A(['Apple', 'Banana', 'Orange']),
+export default Controller.extend({
+  fruitNames: A(['Apple', 'Banana', 'Orange']),
 
-  contacts: Ember.A([{
+  customFruitNames: A(['Apple', 'Banana', 'Orange']),
+
+  contacts: A([{
     name: 'James',
     email: 'james@ember.com',
     image: 'tomster.png'
   }]),
 
-  allContacts: Ember.A([{
+  allContacts: A([{
     name: 'James',
     email: 'james@ember.com',
     image: 'tomster.png'
@@ -21,7 +23,7 @@ export default Ember.Controller.extend({
     image: 'tomster.png'
   }]),
 
-  remainingContacts: Ember.computed('allContacts.@each.email', 'contacts.@each.email', function() {
+  remainingContacts: computed('allContacts.@each.email', 'contacts.@each.email', function() {
     return this.get('allContacts').filter((source) => {
       return !this.get('contacts').any(function(myContact) {
         return source.email === myContact.email;
@@ -29,12 +31,12 @@ export default Ember.Controller.extend({
     });
   }),
 
-  vegetables: Ember.A([{
+  vegetables: A([{
     name: 'Broccoli',
     family: 'Brassica'
   }]),
 
-  allVegetables: Ember.A([{
+  allVegetables: A([{
     name: 'Broccoli',
     family: 'Brassica'
   }, {
@@ -51,7 +53,7 @@ export default Ember.Controller.extend({
     family: 'Goosefoot'
   }]),
 
-  remainingVegetables: Ember.computed('allVegetables.@each.name', 'vegetables.@each.name', function() {
+  remainingVegetables: computed('allVegetables.@each.name', 'vegetables.@each.name', function() {
     return this.get('allVegetables').filter((source) => {
       return !this.get('vegetables').any(function(myVegetable) {
         return source.name === myVegetable.name;
@@ -59,11 +61,11 @@ export default Ember.Controller.extend({
     });
   }),
 
-  vegeNames: Ember.A(['Broccoli']),
+  vegeNames: A(['Broccoli']),
 
-  allVegeNames: Ember.A(['Broccoli', 'Cabbage', 'Carrot', 'Lettuce', 'Spinach']),
+  allVegeNames: A(['Broccoli', 'Cabbage', 'Carrot', 'Lettuce', 'Spinach']),
 
-  remainingVegeNames: Ember.computed('vegeNames.length', function() {
+  remainingVegeNames: computed('vegeNames.length', function() {
     return this.get('allVegeNames').filter((source) => {
       return !this.get('vegeNames').any(function(myVegeName) {
         return source === myVegeName;
