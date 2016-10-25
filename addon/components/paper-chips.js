@@ -6,16 +6,25 @@ export default Component.extend({
   tagName: 'md-chips',
   classNames: ['md-default-theme'],
   activeChip: -1,
-  chipsFocused: false,
-  inputFocused: false,
-  isFocused: Ember.computed.or('chipsFocused', 'inputFocused'),
+  focusedElement: 'none',
+  isFocused: Ember.computed('focusedElement', function() {
+    if (this.get('focusedElement') === 'none') {
+      return false;
+    }
 
-  handleFocusChange: Ember.observer('chipsFocused', 'inputFocused', function() {
+    return true;
+  }),
+  resetTimer: null,
+  lastItemChosen: false,
+
+  handleFocusChange: Ember.observer('focusedElement', 'activeChip', function() {
+    let element = this.get('focusedElement');
+
     if (!this.get('isFocused')) {
       this.set('activeChip', -1);
     }
 
-    if (this.get('chipsFocused') || this.get('inputFocused')) {
+    if ((element === 'chips' && (this.get('activeChip') !== -1)) || element === 'input') {
       this.sendAction('focusIn', window.event);
     } else {
       this.sendAction('focusOut', window.event);
@@ -42,7 +51,7 @@ export default Component.extend({
 
         if (isPresent(this.get('autocomplete'))) {
           // We have an autocomplete - reset it once it's closed itself.
-          Ember.run.later(this, this.resetInput, 10);
+          this.queueReset();
         }
       }
     },
@@ -50,7 +59,7 @@ export default Component.extend({
     inputFocus(autocomplete) {
       let input = this.getInput();
 
-      this.set('inputFocused', true);
+      this.set('focusedElement', 'input');
 
       if (!this.get('content').length && !input.is(':focus')) {
         input.focus();
@@ -65,15 +74,32 @@ export default Component.extend({
     },
 
     inputBlur() {
-      this.set('inputFocused', false);
+      if (this.focusMovingTo('.ember-power-select-option')) {
+        // Focus has shifted to an item - don't mess with this event.
+        return true;
+      }
+
+      if (this.get('lastItemChosen')) {
+        // Last item has been chosen; select will be replaced with an input - ignore blur event.
+        this.set('lastItemChosen', false);
+        return true;
+      }
+
+      this.closeAutocomplete();
+
+      if (!this.focusMovingTo('md-chips-wrap')) {
+        this.set('focusedElement', 'none');
+      }
     },
 
     chipsFocus() {
-      this.set('chipsFocused', true);
+      this.set('focusedElement', 'chips');
     },
 
     chipsBlur() {
-      this.set('chipsFocused', false);
+      if (!this.focusMovingTo(this.getInput())) {
+        this.set('focusedElement', 'none');
+      }
     },
 
     autocompleteChange(item) {
@@ -81,7 +107,14 @@ export default Component.extend({
         // Trigger onChange for the new item.
         this.sendAction('addItem', item);
 
-        this.resetInput();
+        this.queueReset();
+
+        // Track selection of last item if no match required.
+        if (this.get('source').length === 1 && !this.get('requireMatch')) {
+          this.set('lastItemChosen', true);
+          this.set('autocomplete', null);
+        }
+
         return true;
       }
     },
@@ -90,12 +123,13 @@ export default Component.extend({
       let [input] = this.getInput();
       if (!this.get('readOnly') && isEmpty(input.value) && isPresent(this.get('content'))) {
         this.keyboardNavigation(event);
-        if (this.get('activeChip') >= 0 && !isEmpty(this.get('autocomplete')) && !isEmpty(this.get('autocomplete').actions)) {
-          this.get('autocomplete').actions.close();
+        if (this.get('activeChip') >= 0) {
+          this.closeAutocomplete();
         }
       } else {
         // Make sure we don't leave a chip focused while typing.
         this.set('activeChip', -1);
+        this.set('focusedElement', 'input');
       }
     },
 
@@ -138,7 +172,7 @@ export default Component.extend({
     } else if (current >= 0 && ['Backspace', 'Delete', 'Del'].includes(key)) {
       this.sendAction('removeItem', chips[current]);
       if (current >= chips.length) {
-        this.resetInput();
+        this.queueReset();
         this.set('activeChip', -1);
       }
     }
@@ -150,7 +184,7 @@ export default Component.extend({
 
     if (input.is('.ember-power-select-typeahead-input') && isPresent(select)) {
       // Reset the underlying ember-power-select so that it's ready for another selection.
-      input.value = '';
+      input.val('');
       select.actions.search('');
 
       // Re-open ember-power-select to trigger it to reposition the dropdown.
@@ -159,9 +193,34 @@ export default Component.extend({
     }
 
     input.focus();
+
+    this.set('focusedElement', 'input');
+    this.set('resetTimer', null);
+  },
+
+  queueReset() {
+    if (this.get('resetTimer')) {
+      Ember.run.cancel(this.get('resetTimer'));
+    }
+
+    this.set('resetTimer', Ember.run.next(this, this.resetInput));
+  },
+
+  closeAutocomplete() {
+    if (!isEmpty(this.get('autocomplete')) && !isEmpty(this.get('autocomplete').actions)) {
+      this.get('autocomplete').actions.close();
+    }
   },
 
   getInput() {
     return this.$('.md-chip-input-container input');
+  },
+
+  focusMovingTo(selector) {
+    if (!isEmpty(event) && !isEmpty(event.relatedTarget) && this.$(event.relatedTarget).is(selector)) {
+      return true;
+    }
+
+    return false;
   }
 });

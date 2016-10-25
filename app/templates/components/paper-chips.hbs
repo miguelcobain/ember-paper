@@ -24,7 +24,7 @@
   {{#unless readOnly}}
     <div class="md-chip-input-container">
       {{#if (or requireMatch source)}}
-        {{#paper-autocomplete closeOnSelect=false onblur=(action 'inputBlur') onChange=(action 'autocompleteChange') onfocus=(action 'inputFocus') onopen=(action 'inputFocus') onCreate=(action 'addItem') placeholder=placeholder options=source searchField=searchField noMatchesMessage=noMatchesMessage as |item|}}
+        {{#paper-autocomplete closeOnSelect=false onBlur=(action 'inputBlur') onSelectionChange=(action 'autocompleteChange') onFocus=(action 'inputFocus') onOpen=(action 'inputFocus') onCreate=(action 'addItem') placeholder=placeholder options=source searchField=searchField noMatchesMessage=noMatchesMessage as |item|}}
           {{#if hasBlock}}
             {{yield item}}
           {{else}}
