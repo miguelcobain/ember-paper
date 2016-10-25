@@ -1,13 +1,13 @@
 import Ember from 'ember';
 
-const { Component, isEmpty, isPresent } = Ember;
+const { Component, isEmpty, isPresent, computed, observer, run } = Ember;
 
 export default Component.extend({
   tagName: 'md-chips',
   classNames: ['md-default-theme'],
   activeChip: -1,
   focusedElement: 'none',
-  isFocused: Ember.computed('focusedElement', function() {
+  isFocused: computed('focusedElement', function() {
     if (this.get('focusedElement') === 'none') {
       return false;
     }
@@ -17,7 +17,7 @@ export default Component.extend({
   resetTimer: null,
   lastItemChosen: false,
 
-  handleFocusChange: Ember.observer('focusedElement', 'activeChip', function() {
+  handleFocusChange: observer('focusedElement', 'activeChip', function() {
     let element = this.get('focusedElement');
 
     if (!this.get('isFocused')) {
@@ -200,10 +200,10 @@ export default Component.extend({
 
   queueReset() {
     if (this.get('resetTimer')) {
-      Ember.run.cancel(this.get('resetTimer'));
+      run.cancel(this.get('resetTimer'));
     }
 
-    this.set('resetTimer', Ember.run.next(this, this.resetInput));
+    this.set('resetTimer', run.next(this, this.resetInput));
   },
 
   closeAutocomplete() {
