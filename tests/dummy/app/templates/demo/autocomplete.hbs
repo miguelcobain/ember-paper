@@ -66,11 +66,11 @@
     <h2>Block Custom template</h2>
     <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results.</blockquote>
 
+    {{!-- searchText=(readonly templateSeachText) --}}
+
     {{! BEGIN-SNIPPET autocomplete.block-custom-template }}
     {{#paper-autocomplete
       placeholder="Type e.g. ember, paper, one, two etc."
-      searchText=(readonly templateSeachText)
-      onSearchTextChange=(action (mut templateSeachText))
       options=arrayOfItems
       selected=selectedItem
       onSelectionChange=(action (mut selectedItem))
@@ -78,9 +78,7 @@
       <span class="item-title">
         {{paper-icon "star"}}
         <span>
-          {{paper-autocomplete-highlight
-            searchText=term.searchText
-            label=item}}
+          {{paper-autocomplete-highlight searchText=term.searchText flags="i" label=item}}
         </span>
       </span>
       {{else}}
@@ -89,11 +87,7 @@
     {{! END-SNIPPET }}
 
     <p>
-      {{#if selectedItem}}
-        Selected thing was: {{selectedItem}}
-      {{else}}
-          Nothing selected...
-      {{/if}}
+      Selected: {{if selectedItem selectedItem "None"}}
     </p>
 
     <h3>Template</h3>
@@ -112,8 +106,6 @@
           disabled=(readonly disabled2)
           triggerClass="flex"
           options=items
-          searchText=(readonly country2SearchText)
-          onSearchTextChange=(action (mut country2SearchText))
           selected=selectedCountry2
           search=(if simulateQuery2 (action "searchCountries"))
           searchField="name"
@@ -133,7 +125,7 @@
       {{#if selectedCountry2}}
         Selected country is {{selectedCountry2.name}} ({{selectedCountry2.code}})
       {{else}}
-        Nothing selected...
+        Nothing is selected.
       {{/if}}
     </p>
     {{#paper-checkbox

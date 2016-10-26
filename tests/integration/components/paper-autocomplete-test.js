@@ -7,14 +7,51 @@ moduleForComponent('paper-autcomplete', 'Integration | Component | paper autocom
   integration: true
 });
 
-test('the `onSearchTextChange` function is mandatory', function(assert) {
-  assert.expect(1);
+test('either `onSearchTextChange` or `onSelectionChange` functions are provided provided', function(assert) {
+  assert.expect(4);
 
   assert.throws(() => {
     this.render(hbs`
-      {{#paper-autocomplete options=countries selected=selected as |opt|}}{{opt}}{{/paper-autocomplete}}
+      {{#paper-autocomplete options=countries selected=selected as |opt|}}
+        {{opt}}
+      {{/paper-autocomplete}}
       `);
-  }, /requires an `onSearchTextChange` function/);
+  }, 'requires at least one of the `onSelectionChange` or `onSearchTextChange` functions to be provided.');
+
+  assert.ok(() => {
+    this.render(hbs`
+      {{#paper-autocomplete
+          options=countries
+          selected=selected
+          onSelectionChange=(action (mut selected)) as |opt|}}
+        {{opt}}
+      {{/paper-autocomplete}}
+      `);
+  }, 'does not throw when on `onSelectionChange` is provided');
+
+  assert.ok(() => {
+    this.render(hbs`
+      {{#paper-autocomplete
+          options=countries
+          searchText=searchText
+          onSearchTextChange=(action (mut searchText)) as |opt|}}
+        {{opt}}
+      {{/paper-autocomplete}}
+      `);
+  }, 'does not throw when on `onSearchTextChange` is provided');
+
+  assert.ok(() => {
+    this.render(hbs`
+      {{#paper-autocomplete
+          options=countries
+          searchText=searchText
+          onSearchTextChange=(action (mut searchText))
+          selected=selected
+          onSelectionChange=(action (mut selected)) as |opt|}}
+        {{opt}}
+      {{/paper-autocomplete}}
+      `);
+  }, 'does not throw when both `onSearchTextChange` and `onSelectionChange` are provided');
 });
 
 test('opens on click', function(assert) {

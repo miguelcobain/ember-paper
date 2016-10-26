@@ -5,7 +5,7 @@ import Ember from 'ember';
 import PowerSelect from 'ember-power-select/components/power-select';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
 
-const { assert, computed, inject, isNone } = Ember;
+const { assert, computed, inject, isNone, defineProperty, K: emberNop } = Ember;
 
 /**
  * @class PaperAutocomplete
@@ -24,23 +24,41 @@ export default PowerSelect.extend({
   }),
   onfocus: computed.alias('onFocus'),
   onblur: computed.alias('onBlur'),
-  onchange: computed.alias('onSelectionChange'),
+  onchange: null,
+  oninput: null,
 
   searchText: '',
-  onSearchTextChange: computed.alias('oninput'),
+  _onChangeNop: emberNop,
 
   // Don't automatically highlight any option
   defaultHighlighted: null,
 
   init() {
-    assert('{{paper-autocomplete}} requires an `onSearchTextChange` function', this.get('onSearchTextChange') && typeof this.get('onSearchTextChange') === 'function');
+    this._initComponent();
     this._super(...arguments);
+  },
+
+  // Init autocomplete component
+  _initComponent() {
+    let {
+      onSearchTextChange,
+      onSelectionChange
+    } = this.getProperties('onSearchTextChange', 'onSelectionChange');
+
+    let hasTextChange = onSearchTextChange && typeof onSearchTextChange === 'function';
+    let hasSelectionChange = onSelectionChange && typeof onSelectionChange === 'function';
+
+    assert('{{paper-autocomplete}} requires at least one of the `onSelectionChange` or `onSearchTextChange` functions to be provided.', hasTextChange || hasSelectionChange);
+
+    let aliasOnChangeDepKey = hasSelectionChange ? 'onSelectionChange' : '_onChangeNop';
+    defineProperty(this, 'oninput', computed.alias('onSearchTextChange'));
+    defineProperty(this, 'onchange', computed.alias(aliasOnChangeDepKey));
   },
 
   // Choose highlighted item on key Tab
   _handleKeyTab(e) {
     let publicAPI = this.get('publicAPI');
-    if (publicAPI.isOpen && publicAPI.highlighted !== undefined) {
+    if (publicAPI.isOpen && !isNone(publicAPI.highlighted)) {
       publicAPI.actions.choose(publicAPI.highlighted, e);
     }
   },
