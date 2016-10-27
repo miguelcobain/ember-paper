@@ -1,0 +1,14 @@
+{
+  "assets": {
+    "assets/dummy.css": "assets/dummy-b742d8b15f6c6f88e95d6b3bad1d0689.css",
+    "assets/dummy.js": "assets/dummy-b1a7485a6feb148543a65dce35dc1ff0.js",
+    "assets/vendor.css": "assets/vendor-75f40878596e268f96dd0e4a24b078bb.css",
+    "assets/vendor.js": "assets/vendor-c2c915349684f2644865bc1e8424467a.js",
+    "ember-logo-original.png": "ember-logo-original-96cc57a28066aa60c12df89c146c07d5.png",
+    "ember-logo-white.png": "ember-logo-white-955db9d87b940bf54a17bd1fa78d0713.png",
+    "ember-logo.png": "ember-logo-f8c3883ec9c9fa6892bd30261fbd007e.png",
+    "tomster.png": "tomster-9918e85a7f1a28c78b484c34cbe88579.png",
+    "washedout.png": "washedout-70b84b894d88b367d49d56a8cd808cca.png"
+  },
+  "prepend": ""
+}
