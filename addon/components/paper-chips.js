@@ -71,6 +71,11 @@ export default Component.extend({
       if (isEmpty(this.get('autocomplete')) && input.is('.ember-power-select-typeahead-input')) {
         this.set('autocomplete', autocomplete);
       }
+
+      // We don't want the autocomplete to open on focus - it'll open when the user starts typing.
+      if (isPresent(autocomplete)) {
+        autocomplete.actions.close();
+      }
     },
 
     inputBlur() {
@@ -116,6 +121,13 @@ export default Component.extend({
         }
 
         return true;
+      }
+    },
+
+    searchTextChange(searchText, select) {
+      // Close dropdown if search text is cleared by the user.
+      if(isEmpty(searchText)) {
+        select.actions.close();
       }
     },
 
@@ -187,12 +199,12 @@ export default Component.extend({
       input.val('');
       select.actions.search('');
 
-      // Re-open ember-power-select to trigger it to reposition the dropdown.
+      // Close the dropdown after focusing the field.
+      input.focus();
       select.actions.close();
-      select.actions.open();
+    } else {
+      input.focus();
     }
-
-    input.focus();
 
     this.set('focusedElement', 'input');
     this.set('resetTimer', null);
