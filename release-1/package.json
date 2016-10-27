@@ -10,7 +10,7 @@
     "appConfig": {
       "modulePrefix": "dummy",
       "environment": "production",
-      "rootURL": "/ember-paper",
+      "rootURL": "/ember-paper/release-1",
       "locationType": "hash",
       "EmberENV": {
         "FEATURES": {}
@@ -18,7 +18,7 @@
       "APP": {
         "rootElement": "body",
         "name": "ember-paper",
-        "version": "v1.0.0-alpha.6",
+        "version": "1.0.0-alpha.6+ee016391",
         "autoboot": false
       },
       "contentSecurityPolicy": {
