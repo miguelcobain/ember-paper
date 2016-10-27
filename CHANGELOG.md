@@ -16,6 +16,13 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - `paper-icon`'s `size` attribute now takes a size in pixels, and `lg` or `sm` values are no longer supported.
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 
+#### 1.0.0-alpha.6
+- [#395](https://github.com/miguelcobain/ember-paper/pull/395) The Great Update of paper-menu et al:
+  - `paper-menu` was updated. It uses  [ember-basic-dropdown](https://github.com/cibernox/ember-basic-dropdown) under the hood and the API is the same
+  - `paper-select` and `paper-autocomplete` were updated. They use  [ember-power-select](https://github.com/cibernox/ember-power-select) under the hood and the API is the same
+  - See the referenced projects and ember-paper's documentation examples to understand the new API
+  - Special thanks to the champions of this update @xomaczar and @ibarrick
+
 #### 1.0.0-alpha.5
 - [#521](https://github.com/miguelcobain/ember-paper/pull/521) Update Angular SCSS import to work with yarn and npm3 flat node_modules
 - [#520](https://github.com/miguelcobain/ember-paper/pull/520) fixes issues with people seeing `regeneratorRuntime is not defined`

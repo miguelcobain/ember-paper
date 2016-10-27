@@ -2,67 +2,67 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import PaperMenuAbstract from './paper-menu-abstract';
+import BasicDropdownComponent from 'ember-basic-dropdown/components/basic-dropdown';
+const { assert, computed } = Ember;
 
-const { computed } = Ember;
+const MENU_EDGE_MARGIN = 8;
 
-let MENU_EDGE_MARGIN = 8;
+function clamp(pos, bounds, containerNode) {
+  pos.top = Math.max(Math.min(pos.top, bounds.bottom - containerNode.offsetHeight), bounds.top);
+  pos.left = Math.max(Math.min(pos.left, bounds.right - containerNode.offsetWidth), bounds.left);
+}
+
+function firstVisibleChild(node) {
+  for (let i = 0; i < node.children.length; ++i) {
+    if (window.getComputedStyle(node.children[i]).display !== 'none') {
+      return node.children[i];
+    }
+  }
+}
 
 /**
  * @class PaperMenu
- * @extends Ember.Component
+ * @extends BasicDropdownComponent
  */
-export default PaperMenuAbstract.extend({
-  tagName: 'md-menu',
+export default BasicDropdownComponent.extend({
+
+  close() {
+    this._super(...arguments);
+    this.didAnimateScale = false;
+  },
 
   position: 'target',
 
+  // If attachment is a single item, duplicate it for our second value.
+  // ie. 'target' -> 'target target'
+  positionMode: computed('position', function() {
+    let position = this.get('position') || 'target';
+    let [left, top] = position.split(' ').map((s) => s.trim());
+    top = top || left;
+
+    return { left, top };
+  }),
+
   offset: '0 0',
 
-  positionMode: computed('position', function() {
-    let attachment = (this.get('position') || 'target').split(' ');
-
-    // If attachment is a single item, duplicate it for our second value.
-    // ie. 'target' -> 'target target'
-    if (attachment.length === 1) {
-      attachment.push(attachment[0]);
-    }
-
-    return {
-      left: attachment[0],
-      top: attachment[1]
-    };
-  }),
-
   offsets: computed('offset', function() {
-    let offsets = (this.get('offset') || '0 0').split(' ').map(parseFloat);
-    if (offsets.length === 2) {
-      return {
-        left: offsets[0],
-        top: offsets[1]
-      };
-    } else if (offsets.length === 1) {
-      return {
-        top: offsets[0],
-        left: offsets[0]
-      };
-    } else {
-      throw Error('Invalid offsets specified. Please follow format <x, y> or <n>');
-    }
+    let offset = this.get('offset') || '0 0';
+    let [left, top] = offset.split(' ').map((s) => s.trim()).map(parseFloat);
+    top = top || left;
+
+    return { left, top };
   }),
 
-  positionMenu(el) {
-    // containerNode = wrapper
-    let containerNode = el.get(0);
-    // md-menu-content / any other child.z
-    let openMenuNode = containerNode.firstElementChild;
+  performFullReposition(trigger, dropdown) {
+    let containerNode = dropdown;
+    let openMenuNode = dropdown.firstElementChild;
     let openMenuNodeRect = openMenuNode.getBoundingClientRect();
-    // body
     let boundryNode = document.body;
     let boundryNodeRect = boundryNode.getBoundingClientRect();
 
-    // icon that opens the menu
-    let originNode = this.$()[0].querySelector('.md-menu-origin');
+    let menuStyle = window.getComputedStyle(openMenuNode);
+
+    let originNode = trigger.querySelector('md-icon') || trigger.querySelector('.md-menu-origin') || trigger;
     let originNodeRect = originNode.getBoundingClientRect();
 
     let bounds = {
@@ -72,23 +72,24 @@ export default PaperMenuAbstract.extend({
       right: boundryNodeRect.right - MENU_EDGE_MARGIN
     };
 
-    let alignTarget, alignTargetRect, existingOffsets;
+    let alignTarget;
+    let alignTargetRect = { top: 0, left: 0, right: 0, bottom: 0 };
+    let existingOffsets = { top: 0, left: 0, right: 0, bottom: 0 };
     let positionMode = this.get('positionMode');
 
     if (positionMode.top === 'target' || positionMode.left === 'target' || positionMode.left === 'target-right') {
-      // TODO: Allow centering on an arbitrary node, for now center on first menu-item's child
-      // Icon INSIDE the wrapper.
-      alignTarget = firstVisibleChild();
-      if (!alignTarget) {
-        throw Error('Error positioning menu. No visible children.');
-      }
-      alignTarget = alignTarget.querySelector('.md-menu-align-target') || alignTarget;
-      alignTargetRect = alignTarget.getBoundingClientRect();
+      alignTarget = firstVisibleChild(openMenuNode);
+      if (alignTarget) {
+        // TODO: Allow centering on an arbitrary node, for now center on first menu-item's child
+        alignTarget = alignTarget.firstElementChild || alignTarget;
+        alignTarget = alignTarget.querySelector('md-icon') || alignTarget.querySelector('.md-menu-align-target') || alignTarget;
+        alignTargetRect = alignTarget.getBoundingClientRect();
 
-      existingOffsets = {
-        top: parseFloat(containerNode.style.top || 0),
-        left: parseFloat(containerNode.style.left || 0)
-      };
+        existingOffsets = {
+          top: parseFloat(containerNode.style.top || 0),
+          left: parseFloat(containerNode.style.left || 0)
+        };
+      }
     }
 
     let position = {};
@@ -98,15 +99,14 @@ export default PaperMenuAbstract.extend({
       case 'target':
         position.top = existingOffsets.top + originNodeRect.top - alignTargetRect.top;
         break;
-      // Support for mdMenuBar
-      case 'top':
-        position.top = originNodeRect.top;
+      case 'cascade':
+        position.top = originNodeRect.top - parseFloat(menuStyle.paddingTop) - originNode.style.top;
         break;
       case 'bottom':
         position.top = originNodeRect.top + originNodeRect.height;
         break;
       default:
-        throw new Error(`Invalid target mode "${positionMode.top}" specified for md-menu on Y axis.`);
+        assert(`Invalid target mode '${positionMode.top}' specified for paper-menu on Y axis.`);
     }
 
     switch (positionMode.left) {
@@ -114,63 +114,59 @@ export default PaperMenuAbstract.extend({
         position.left = existingOffsets.left + originNodeRect.left - alignTargetRect.left;
         transformOrigin += 'left';
         break;
+      case 'target-left':
+        position.left = originNodeRect.left;
+        transformOrigin += 'left';
+        break;
       case 'target-right':
         position.left = originNodeRect.right - openMenuNodeRect.width + (openMenuNodeRect.right - alignTargetRect.right);
         transformOrigin += 'right';
         break;
-      // Support for mdMenuBar
+      case 'cascade':
+        let willFitRight = (originNodeRect.right + openMenuNodeRect.width) < bounds.right;
+        position.left = willFitRight ? originNodeRect.right - originNode.style.left : originNodeRect.left - originNode.style.left - openMenuNodeRect.width;
+        transformOrigin += willFitRight ? 'left' : 'right';
+        break;
+      case 'right':
+        position.left = originNodeRect.right - openMenuNodeRect.width;
+        transformOrigin += 'right';
+        break;
       case 'left':
         position.left = originNodeRect.left;
         transformOrigin += 'left';
         break;
-      case 'right':
-        position.left = originNodeRect.right - containerNode.offsetWidth;
-        transformOrigin += 'right';
-        break;
       default:
-        throw new Error(`Invalid target mode "${positionMode.left}" specified for md-menu on X axis.`);
+        assert(`Invalid target mode '${positionMode.left}' specified for paper-menu on X axis.`);
     }
 
+    // sum offsets
     let offsets = this.get('offsets');
     position.top += offsets.top;
     position.left += offsets.left;
 
-    clamp(position);
+    clamp(position, bounds, containerNode);
 
-    el.css({
-      top: `${position.top}px`,
-      left: `${position.left}px`
+    let dropdownTop = Math.round(position.top);
+    let dropdownLeft = Math.round(position.left);
+
+    let scaleX = Math.round(100 * Math.min(originNodeRect.width / containerNode.offsetWidth, 1.0)) / 100;
+    let scaleY = Math.round(100 * Math.min(originNodeRect.height / containerNode.offsetHeight, 1.0)) / 100;
+
+    let style = {
+      top: `${dropdownTop}px`,
+      left: `${dropdownLeft}px`,
+      // Animate a scale out if we aren't just repositioning
+      transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
+      transformOrigin
+    };
+
+    this.setProperties({
+      transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
+      transformOrigin
     });
 
-    containerNode.style[this.get('constants').get('CSS').TRANSFORM_ORIGIN] = transformOrigin;
+    this.didAnimateScale = true;
 
-    /*if (!this.get('alreadyOpen')) {
-      // Animate a scale out if we aren't just repositioning
-      containerNode.style[this.get('constants').get('CSS').TRANSFORM] = 'scale(' +
-       Math.min(originNodeRect.width / containerNode.offsetWidth, 1.0) + ',' +
-       Math.min(originNodeRect.height / containerNode.offsetHeight, 1.0) +
-       ')';
-    }*/
-    /*
-     * Clamps the repositioning of the menu within the confines of
-     * bounding element (often the screen/body)
-     */
-    function clamp(pos) {
-      pos.top = Math.max(Math.min(pos.top, bounds.bottom - containerNode.offsetHeight), bounds.top);
-      pos.left = Math.max(Math.min(pos.left, bounds.right - containerNode.offsetWidth), bounds.left);
-    }
-
-    /*
-     * Gets the first visible child in the openMenuNode
-     * Necessary incase menu nodes are being dynamically hidden
-     */
-    function firstVisibleChild() {
-      for (let i = 0; i < openMenuNode.children.length; ++i) {
-        if (window.getComputedStyle(openMenuNode.children[i]).display !== 'none') {
-          return openMenuNode.children[i];
-        }
-      }
-    }
+    this.applyReposition(trigger, dropdown, { style });
   }
-
 });

@@ -2,19 +2,22 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import BaseFocusable from './base-focusable';
+import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
+import ParentMixin from 'ember-paper/mixins/parent-mixin';
 
-const { A, computed, inject, assert } = Ember;
+const { Component, computed, inject, assert } = Ember;
 
 /**
  * @class PaperRadioGroup
- * @extends BaseFocusable
+ * @extends Ember.Component
+ * @uses FocusableMixin
+ * @uses ParentMixin
  */
-export default BaseFocusable.extend({
+export default Component.extend(FocusableMixin, ParentMixin, {
   tagName: 'md-radio-group',
   tabindex: 0,
 
-  /* BaseFocusable Overrides */
+  /* FocusableMixin Overrides */
   focusOnlyOnKey: true,
 
   constants: inject.service(),
@@ -25,20 +28,8 @@ export default BaseFocusable.extend({
     assert('{{paper-radio-group}} requires an `onChange` action or null for no action', this.get('onChange') !== undefined);
   },
 
-  childRadios: computed(function() {
-    return A();
-  }),
-
-  enabledChildRadios: computed.filterBy('childRadios', 'disabled', false),
+  enabledChildRadios: computed.filterBy('childComponents', 'disabled', false),
   childValues: computed.mapBy('enabledChildRadios', 'value'),
-
-  register(child) {
-    this.get('childRadios').pushObject(child);
-  },
-
-  unregister(child) {
-    this.get('childRadios').removeObject(child);
-  },
 
   keyDown(ev) {
 

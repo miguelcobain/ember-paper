@@ -1,0 +1,15 @@
+{{#if searchEnabled}}
+  <md-select-header class="ember-power-select-search md-searchbox">
+    <input type="search" autocomplete="off"
+      autocorrect="off" autocapitalize="off"
+      spellcheck="false" role="combobox"
+      class="ember-power-select-search-input md-searchinput"
+      value={{select.searchText}}
+      aria-controls={{listboxId}}
+      placeholder={{searchPlaceholder}}
+      oninput={{onInput}}
+      onfocus={{onFocus}}
+      onblur={{onBlur}}
+      onkeydown={{action "onKeydown"}}>
+  </md-select-header>
+{{/if}}

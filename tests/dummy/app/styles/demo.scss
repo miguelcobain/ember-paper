@@ -28,6 +28,22 @@ table {
   overflow: auto;
 }
 
+
+ md-select-menu md-content md-option:not([disabled]):focus, md-select-menu.md-default-theme md-content md-option:not([disabled]):hover, md-select-menu md-content md-option:not([disabled]):hover {
+    background: rgb(238,238,238);
+}
+
+.header {
+  background-color: #106CC8;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.flex-start {
+  align-self: flex-start;
+}
+
 /***************
  * TYPE DEFAULTS
  ***************/
@@ -361,6 +377,37 @@ md-sidenav.site-sidenav {
   md-grid-tile {
     transition: all 400ms ease-out 50ms;
   }
+}
+
+.horizontal-demo {
+  height: 100px;
+  width: 100%;
+  max-width: 830px;
+  border: solid 1px grey;
+}
+
+.vertical-demo {
+  height: 296px;
+  width: 100%;
+  max-width: 400px;
+  border: solid 1px grey;
+}
+
+.repeated-item {
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+  height: 40px;
+  padding-top: 10px;
+  padding-left: 16px;
+}
+.repeated-item-horiz {
+  border-right: 1px solid #ddd;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 84px;
+  padding-top: 35px;
+  text-align: center;
+  width: 50px;
 }
 
 .card-demo {

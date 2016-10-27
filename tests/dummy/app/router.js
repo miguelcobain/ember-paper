@@ -35,6 +35,7 @@ Router.map(function() {
     this.route('slider');
     this.route('switch');
     this.route('toolbar');
+    this.route('virtual-repeat');
   });
 
   this.route('layout', function() {

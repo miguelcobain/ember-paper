@@ -33,8 +33,8 @@ test('should set scaling using percentage values', function(assert) {
 
   let $el = this.$('md-progress-circular');
   assert.equal(getScale($el.children()[0]), 0.25);
-  assert.equal($el.css('width'), '25px');
-  assert.equal($el.css('height'), '25px');
+  assert.ok(/height:.*25px/.test($el.attr('style')));
+  assert.ok(/width:.*25px/.test($el.attr('style')));
 });
 
 test('should set scaling using pixel values', function(assert) {
@@ -42,6 +42,6 @@ test('should set scaling using pixel values', function(assert) {
 
   let $el = this.$('md-progress-circular');
   assert.equal(getScale($el.children()[0]), 0.37);
-  assert.equal($el.css('width'), '37px');
-  assert.equal($el.css('height'), '37px');
+  assert.ok(/height:.*37px/.test($el.attr('style')));
+  assert.ok(/width:.*37px/.test($el.attr('style')));
 });
