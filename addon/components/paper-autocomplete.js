@@ -5,7 +5,7 @@ import Ember from 'ember';
 import PowerSelect from 'ember-power-select/components/power-select';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
 
-const { computed, inject } = Ember;
+const { assert, computed, inject, isNone, defineProperty, K: emberNop } = Ember;
 
 /**
  * @class PaperAutocomplete
@@ -20,22 +20,45 @@ export default PowerSelect.extend({
   concatenatedDropdownClasses: ['md-autocomplete-suggestions-container md-virtual-repeat-container'],
 
   extra: computed('labelPath', 'label', function() {
-    return { labelPath: this.get('labelPath'), label: this.get('label') };
+    return this.getProperties('label', 'labelPath');
   }),
-
-  onchange: computed.alias('onSelectionChange'),
-  searchText: '',
-  onSearchTextChange: computed.alias('oninput'),
   onfocus: computed.alias('onFocus'),
   onblur: computed.alias('onBlur'),
+  onchange: null,
+  oninput: null,
+
+  searchText: '',
+  _onChangeNop: emberNop,
 
   // Don't automatically highlight any option
   defaultHighlighted: null,
 
+  init() {
+    this._initComponent();
+    this._super(...arguments);
+  },
+
+  // Init autocomplete component
+  _initComponent() {
+    let {
+      onSearchTextChange,
+      onSelectionChange
+    } = this.getProperties('onSearchTextChange', 'onSelectionChange');
+
+    let hasTextChange = onSearchTextChange && typeof onSearchTextChange === 'function';
+    let hasSelectionChange = onSelectionChange && typeof onSelectionChange === 'function';
+
+    assert('{{paper-autocomplete}} requires at least one of the `onSelectionChange` or `onSearchTextChange` functions to be provided.', hasTextChange || hasSelectionChange);
+
+    let aliasOnChangeDepKey = hasSelectionChange ? 'onSelectionChange' : '_onChangeNop';
+    defineProperty(this, 'oninput', computed.alias('onSearchTextChange'));
+    defineProperty(this, 'onchange', computed.alias(aliasOnChangeDepKey));
+  },
+
   // Choose highlighted item on key Tab
   _handleKeyTab(e) {
     let publicAPI = this.get('publicAPI');
-    if (publicAPI.isOpen && publicAPI.highlighted !== undefined) {
+    if (publicAPI.isOpen && !isNone(publicAPI.highlighted)) {
       publicAPI.actions.choose(publicAPI.highlighted, e);
     }
   },
@@ -44,29 +67,44 @@ export default PowerSelect.extend({
 
     onFocus(event) {
       this.send('activate');
-      this.publicAPI.actions.open(event);
+      let publicAPI = this.get('publicAPI');
+
+      if (isNone(publicAPI.selected)) {
+        publicAPI.actions.open(event);
+      }
+
       let action = this.get('onfocus');
       if (action) {
-        action(this.publicAPI, event);
+        action(publicAPI, event);
       }
     },
 
     onBlur(event) {
       this.send('deactivate');
       let action = this.get('onblur');
+
       if (action) {
-        action(this.publicAPI, event);
+        action(this.get('publicAPI'), event);
       }
+    },
+
+    onInput(event) {
+      let publicAPI = this.get('publicAPI');
+
+      if (!publicAPI.isOpen && event.type !== 'change') {
+        publicAPI.actions.open(event);
+      }
+      return this._super(...arguments);
     },
 
     onCreate(text) {
       if (this.get('onCreate')) {
         this.get('onCreate')(text);
       }
-      this.publicAPI.actions.close();
+      this.get('publicAPI').actions.close();
     },
 
-    scrollTo(option /*, e */) {
+    scrollTo(option) {
       if (!self.document || !option) {
         return;
       }
@@ -81,7 +119,6 @@ export default PowerSelect.extend({
       if (index === -1) {
         return;
       }
-
       // Update the scroll index
       this.updateState({ scrollIndex: index });
     }

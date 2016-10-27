@@ -6,24 +6,30 @@ export default Component.extend({
   tagName: 'md-autocomplete-wrap',
   classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
 
-  text: computed('selected', 'extra.labelPath', 'searchText', {
+  noLabel: computed.not('extra.label'),
+  _innerText: computed.oneWay('searchText'),
+
+  text: computed('selected', 'searchText', '_innerText', {
     get() {
-      if (this.get('selected')) {
+      let {
+        selected,
+        searchText,
+        _innerText
+      } = this.getProperties('selected', 'searchText', '_innerText');
+
+      if (selected) {
         return this.getSelectedAsText();
-      } else {
-        return this.get('searchText');
       }
+      return searchText ? searchText : _innerText;
     },
     set(_, v) {
       if (!this.get('selected') && this.get('searchText')) {
         return this.get('searchText');
-      } else {
-        return v;
       }
+      // Overwrite computed.oneWay, searchText is one-way
+      return this.set('_innerText', v);
     }
   }),
-
-  noLabel: computed.not('extra.label'),
 
   // Lifecycle hooks
   didUpdateAttrs({ oldAttrs, newAttrs }) {
