@@ -22,10 +22,10 @@
       placeholder="Select a Country..."
       loadingMessage="Searching countries..."
       noMatchesMessage="Oops this country doesn't exist. Create a new country?"
-      onSelectionChange=(action (mut selectedCountry)) as |country select|}}
+      onSelectionChange=(action (mut selectedCountry)) as |country autocomplete|}}
       {{paper-autocomplete-highlight
         label=country.name
-        searchText=select.searchText
+        searchText=autocomplete.searchText
         flags="i"}}
     {{/paper-autocomplete}}
     {{! END-SNIPPET }}
@@ -36,8 +36,6 @@
       {{else}}
           Nothing selected...
       {{/if}}
-      <br>
-        Search text is {{countrySearch}}
     </p>
     {{#paper-checkbox
       value=firstDisabled
@@ -48,11 +46,6 @@
       value=simulateQuery
       onChange=(action (mut simulateQuery))}}
       Simulate query
-    {{/paper-checkbox}}
-    {{#paper-checkbox
-      value=disableCache
-      onChange=(action (mut disableCache))}}
-      Disable Cache
     {{/paper-checkbox}}
 
     <h3>Template</h3>
@@ -137,11 +130,6 @@
       value=simulateQuery2
       onChange=(action (mut simulateQuery2))}}
       Simulate query
-    {{/paper-checkbox}}
-    {{#paper-checkbox
-      value=disableCache2
-      onChange=(action (mut disableCache2))}}
-      Disable Cache
     {{/paper-checkbox}}
 
     <h3>Template</h3>
