@@ -126,7 +126,7 @@ export default Component.extend({
 
     searchTextChange(searchText, select) {
       // Close dropdown if search text is cleared by the user.
-      if(isEmpty(searchText)) {
+      if (isEmpty(searchText)) {
         select.actions.close();
       }
     },
