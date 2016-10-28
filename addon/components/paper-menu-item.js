@@ -2,20 +2,22 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import PaperMenuAbstract from './paper-menu-abstract';
+import ChildMixin from 'ember-paper/mixins/child-mixin';
 
 const { Component } = Ember;
 
 /**
  * @class PaperMenuItem
  * @extends Ember.Component
+ * @uses ChildMixin
  */
-export default Component.extend({
+export default Component.extend(ChildMixin, {
   tagName: 'md-menu-item',
+  disabled: false,
 
   actions: {
     handleClick(event) {
-      this.nearestOfType(PaperMenuAbstract).send('toggleMenu');
+      this.get('dropdown.actions').close();
       this.sendAction('onClick', event);
     }
   },

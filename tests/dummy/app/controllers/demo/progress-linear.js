@@ -34,7 +34,7 @@ export default Controller.extend({
     this.set('timer2', run.later(this, function() {
       this.set('mode', this.get('mode') === 'query' ? 'determinate' : 'query');
       this.set('determinateValue', 30);
-      Ember.run.later(this, this.setupTimer2);
+      run.later(this, this.setupTimer2);
     }, 7200));
   },
 

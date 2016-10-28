@@ -12,7 +12,7 @@
     {{paper-input flex=true label="Company (disabled)" type="text" value="Google" disabled=true onChange=(action (mut foo))}}
   </div>
 
-  {{paper-input textarea=true block=true label="Biography" maxlength=150 passThru=(hash rows=5)
+  {{paper-input textarea=true block=true label="Biography" maxlength=150 passThru=(hash rows=5 maxRows=5)
     value=biography onChange=(action (mut biography))}}
   <p>Name: {{name}}</p>
   <p>Email: {{email}}</p>

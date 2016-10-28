@@ -4,11 +4,11 @@
 
 #### Migrating from releases prior to 1.0
 
-Version 1.0 introduces many API changes relative to previous releases. In addition to the specific changelog listing below, the follow general changes have been made. Note that during the development of 1.0, the `wip/v1.0.0` branch reflects the most up-to-date version, with a mixture of updated and to-be-updated components.
+Version 1.0 introduces many API changes relative to previous releases. In addition to the specific changelog listing below, the follow general changes have been made. Note that during the development of 1.0, the `master` branch reflects the most up-to-date version, with a mixture of updated and to-be-updated components.
 
-Contributions and pull requests are always welcome. Contributors may often be found on the slack.com #e-paper channel. Building the dummy application by installing `ember-paper` as if it were an application will provide you an up-to-date interactive demo, templates, and code samples.
+Contributions and pull requests are always welcome. Contributors may often be found on the [#e-paper channel on slack](https://embercommunity.slack.com/messages/e-paper/). Building the dummy application by installing `ember-paper` as if it were an application will provide you an up-to-date interactive demo, templates, and code samples.
 
-- Attributes are now `camelCased` rather than `kebob-cased`.
+- Attributes are now `camelCased` rather than `kebab-cased`.
 - Components which accept user input, such as `paper-input`, `paper-checkbox`, `paper-switch` and `paper-select` now receive their input via the one-way `value` attribute and notify of a changed value by the `onChange` actions.
 - When provided by the API, `onChange` actions are required and throw an assertion if not provided.
 - Actions maybe be specified by a string action name (`onChange="updateValue"`) or an action closure (`onChange=(action (mut "myValue"))`). If you need to specify a target or additional parameter, you must use an action closure.
@@ -16,8 +16,24 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - `paper-icon`'s `size` attribute now takes a size in pixels, and `lg` or `sm` values are no longer supported.
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 
+#### 1.0.0-alpha.6
+- [#395](https://github.com/miguelcobain/ember-paper/pull/395) The Great Update of paper-menu et al:
+  - `paper-menu` was updated. It uses  [ember-basic-dropdown](https://github.com/cibernox/ember-basic-dropdown) under the hood and the API is the same
+  - `paper-select` and `paper-autocomplete` were updated. They use  [ember-power-select](https://github.com/cibernox/ember-power-select) under the hood and the API is the same
+  - See the referenced projects and ember-paper's documentation examples to understand the new API
+  - Special thanks to the champions of this update @xomaczar and @ibarrick
+
+#### 1.0.0-alpha.5
+- [#521](https://github.com/miguelcobain/ember-paper/pull/521) Update Angular SCSS import to work with yarn and npm3 flat node_modules
+- [#520](https://github.com/miguelcobain/ember-paper/pull/520) fixes issues with people seeing `regeneratorRuntime is not defined`
+- [#515](https://github.com/miguelcobain/ember-paper/pull/515) paper-icon: set md-font-icon attribute to apply correct width
+
 #### 1.0.0-alpha.4
 - [#466](https://github.com/miguelcobain/ember-paper/pull/466) added autoprefixer configuration option
+- [#472](https://github.com/miguelcobain/ember-paper/pull/472) update ember-css-transitions
+- [#511](https://github.com/miguelcobain/ember-paper/issues/511) allow inner dialog clicks to bubble
+- [5f35cf5](https://github.com/miguelcobain/ember-paper/commit/5f35cf517530b06c850282a757d49096bff9a22b) Glimmer 2 compatible
+- [#506](https://github.com/miguelcobain/ember-paper/pull/506) Add super calls inside paper-input lifecycle hooks (fixes paper-form)
 
 #### 1.0.0-alpha.3
 - [#441](https://github.com/miguelcobain/ember-paper/pull/441) fixed fastboot service check

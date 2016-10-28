@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+const { Controller } = Ember;
 
-  actions: {
-    foo() {
+export default Controller.extend({
 
-    }
-  }
+  selectedFruit: 'Apple',
+  selectedGraphic: 'graphic-1'
+
 });

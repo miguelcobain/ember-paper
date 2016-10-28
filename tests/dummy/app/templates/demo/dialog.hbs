@@ -91,7 +91,7 @@
 {{/if}}
 
 {{#if showDialog}}
-  {{#paper-dialog onClose=(action "closeDialog" "cancel") origin=dialogOrigin}}
+  {{#paper-dialog onClose=(action "closeDialog" "cancel") origin=dialogOrigin clickOutsideToClose=true}}
     {{#paper-toolbar}}
       <div class="md-toolbar-tools">
         <h2>Mango (Fruit)</h2>
@@ -110,6 +110,7 @@
     {{/paper-dialog-content}}
 
     {{#paper-dialog-actions class="layout-row"}}
+      {{#paper-button href="http://en.wikipedia.org/wiki/Mango" target="_blank"}}More on Wikipedia{{/paper-button}}
       <span class="flex"></span>
       {{#paper-button onClick=(action "closeDialog" "cancel")}}Cancel{{/paper-button}}
       {{#paper-button onClick=(action "closeDialog" "ok")}}OK{{/paper-button}}

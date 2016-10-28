@@ -2,110 +2,162 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import PaperMenuAbstract from './paper-menu-abstract';
+import PaperMenu from './paper-menu';
 
-const { Component } = Ember;
+const { $ } = Ember;
 
-let searchStr = '';
-let clearSearchTimeout, optNodes, optText;
-const CLEAR_SEARCH_AFTER = 300;
+const SELECT_EDGE_MARGIN = 8;
+
+function getOffsetRect(node) {
+  return node ? {
+    left: node.offsetLeft,
+    top: node.offsetTop,
+    width: node.offsetWidth,
+    height: node.offsetHeight
+  } : { left: 0, top: 0, width: 0, height: 0 };
+}
+
+function clamp(min, n, max) {
+  return Math.max(min, Math.min(n, max));
+}
 
 /**
  * @class PaperSelectMenu
  * @extends Ember.Component
  */
-export default Component.extend({
-  tagName: 'md-select-menu',
-  classNames: ['md-default-theme'],
+export default PaperMenu.extend({
+  triggerComponent: 'paper-select-menu-trigger',
+  performFullReposition(trigger, dropdown) {
+    let $dropdown = $(dropdown);
+    let opts = {
+      target: $(trigger),
+      parent: $('body'),
+      selectEl: $dropdown.find('md-select-menu'),
+      contentEl: $dropdown.find('md-content')
+    };
 
-  constants: Ember.inject.service(),
+    let containerNode = $dropdown.get(0);
+    let targetNode = opts.target[0].firstElementChild; // target the label
+    let parentNode = opts.parent.get(0);
+    let selectNode = opts.selectEl.get(0);
+    let contentNode = opts.contentEl.get(0);
+    let parentRect = parentNode.getBoundingClientRect();
+    let targetRect = targetNode.getBoundingClientRect();
+    let shouldOpenAroundTarget = false;
+    let bounds = {
+      left: parentRect.left + SELECT_EDGE_MARGIN,
+      top: SELECT_EDGE_MARGIN,
+      bottom: parentRect.height - SELECT_EDGE_MARGIN,
+      right: parentRect.width - SELECT_EDGE_MARGIN - (this.get('floatingScrollbars') ? 16 : 0)
+    };
+    let spaceAvailable = {
+      top: targetRect.top - bounds.top,
+      left: targetRect.left - bounds.left,
+      right: bounds.right - (targetRect.left + targetRect.width),
+      bottom: bounds.bottom - (targetRect.top + targetRect.height)
+    };
+    let maxWidth = parentRect.width - SELECT_EDGE_MARGIN * 2;
+    let isScrollable = contentNode.scrollHeight > contentNode.offsetHeight;
+    let selectedNode = selectNode.querySelector('md-option[selected]');
+    let optionNodes = selectNode.getElementsByTagName('md-option');
+    let optgroupNodes = selectNode.getElementsByTagName('md-optgroup');
 
-  menuAbstract: Ember.computed(function() {
-    let container = this.nearestOfType(PaperMenuAbstract);
-    return container;
-  }),
-
-  keyDown(ev) {
-    let KeyCodes = this.get('constants').KEYCODE;
-    switch (ev.keyCode) {
-      case KeyCodes.get('TAB'):
-      case KeyCodes.get('ESCAPE'):
-        this.get('menuAbstract').send('toggleMenu');
-        break;
-      case KeyCodes.get('UP_ARROW'):
-        this.focusPrevOption();
-        break;
-      case KeyCodes.get('DOWN_ARROW'):
-        this.focusNextOption();
-        break;
-      default:
-        if (ev.keyCode >= 31 && ev.keyCode <= 90) {
-          let optNode = this.optNodeForKeyboardSearch(ev);
-          this.get('menuAbstract').set('focusedNode', optNode || this.get('menuAbstract').get('focusedNode'));
-          if (optNode) {
-            optNode.focus();
-          }
-        }
+    let centeredNode;
+    // If a selected node, center around that
+    if (selectedNode) {
+      centeredNode = selectedNode;
+      // If there are option groups, center around the first option group
+    } else if (optgroupNodes.length) {
+      centeredNode = optgroupNodes[0];
+      // Otherwise, center around the first optionNode
+    } else if (optionNodes.length) {
+      centeredNode = optionNodes[0];
+      // In case there are no options, center on whatever's in there... (eg progress indicator)
+    } else {
+      centeredNode = contentNode.firstElementChild || contentNode;
     }
-  },
 
-  optNodeForKeyboardSearch(e) {
-    if (clearSearchTimeout) {
-      clearTimeout(clearSearchTimeout);
+    if (contentNode.offsetWidth > maxWidth) {
+      contentNode.style['max-width'] = `${maxWidth}px`;
     }
-    clearSearchTimeout = setTimeout(function() {
-      clearSearchTimeout = undefined;
-      searchStr = '';
-      optText = undefined;
-      optNodes = undefined;
-    }, CLEAR_SEARCH_AFTER);
-    searchStr += String.fromCharCode(e.keyCode);
-    let search = new RegExp(`^${searchStr}`, 'i');
-    if (!optNodes) {
-      optNodes = this.$().find('md-option');
-      optText = new Array(optNodes.length);
-      optNodes.each(function(i, el) {
-        optText[i] = el.textContent.trim();
-      });
+    if (shouldOpenAroundTarget) {
+      contentNode.style['min-width'] = `${targetRect.width}px`;
     }
-    for (let i = 0; i < optText.length; ++i) {
-      if (search.test(optText[i])) {
-        return optNodes[i];
+
+    // Remove padding before we compute the position of the menu
+
+    let focusedNode = centeredNode;
+    if ((focusedNode.tagName || '').toUpperCase() === 'MD-OPTGROUP') {
+      focusedNode = optionNodes[0] || contentNode.firstElementChild || contentNode;
+      centeredNode = focusedNode;
+    }
+
+    // Get the selectMenuRect *after* max-width is possibly set above
+    containerNode.style.display = 'block';
+    let selectMenuRect = selectNode.getBoundingClientRect();
+    let centeredRect = getOffsetRect(centeredNode);
+
+    if (centeredNode) {
+      let centeredStyle = window.getComputedStyle(centeredNode);
+      centeredRect.paddingLeft = parseInt(centeredStyle.paddingLeft, 10) || 0;
+      centeredRect.paddingRight = parseInt(centeredStyle.paddingRight, 10) || 0;
+    }
+
+    if (isScrollable) {
+      let scrollBuffer = contentNode.offsetHeight / 2;
+      contentNode.scrollTop = centeredRect.top + centeredRect.height / 2 - scrollBuffer;
+
+      if (spaceAvailable.top < scrollBuffer) {
+        contentNode.scrollTop = Math.min(
+          centeredRect.top,
+          contentNode.scrollTop + scrollBuffer - spaceAvailable.top
+        );
+      } else if (spaceAvailable.bottom < scrollBuffer) {
+        contentNode.scrollTop = Math.max(
+          centeredRect.top + centeredRect.height - selectMenuRect.height,
+          contentNode.scrollTop - scrollBuffer + spaceAvailable.bottom
+        );
       }
     }
-  },
 
-  focusOption(direction) {
-    let optionsArray = this.$().find('md-option').toArray();
-    let index = optionsArray.indexOf(this.get('menuAbstract').get('focusedNode'));
-
-    let newOption;
-
-    do {
-      if (index === -1) {
-        // We lost the previously focused element, reset to first option
-        index = 0;
-      } else if (direction === 'next' && index < optionsArray.length - 1) {
-        index++;
-      } else if (direction === 'prev' && index > 0) {
-        index--;
+    let left, top, transformOrigin;
+    if (shouldOpenAroundTarget) {
+      left = targetRect.left;
+      top = targetRect.top + targetRect.height;
+      transformOrigin = '50% 0';
+      if (top + selectMenuRect.height > bounds.bottom) {
+        top = targetRect.top - selectMenuRect.height;
+        transformOrigin = '50% 100%';
       }
-      newOption = optionsArray[index];
-      if (newOption.hasAttribute('disabled')) {
-        newOption = undefined;
-      }
-    } while (!newOption && index < optionsArray.length - 1 && index > 0);
+    } else {
+      left = (targetRect.left + centeredRect.left - centeredRect.paddingLeft) + 2;
+      top = Math.floor(targetRect.top + targetRect.height / 2 - centeredRect.height / 2 -
+          centeredRect.top + contentNode.scrollTop) + 2;
 
-    if (newOption) {
-      newOption.focus();
+      transformOrigin = `${centeredRect.left + targetRect.width / 2}px
+        ${centeredRect.top + centeredRect.height / 2 - contentNode.scrollTop}px 0px`;
+
+      containerNode.style.minWidth = `${targetRect.width + centeredRect.paddingLeft +
+        centeredRect.paddingRight}px`;
     }
-    this.get('menuAbstract').set('focusedNode', newOption);
-  },
-  focusNextOption() {
-    this.focusOption('next');
-  },
-  focusPrevOption() {
-    this.focusOption('prev');
+
+    let containerRect = containerNode.getBoundingClientRect();
+
+    let dropdownTop = clamp(bounds.top, top, bounds.bottom - containerRect.height);
+    let dropdownLeft = clamp(bounds.left, left, bounds.right - containerRect.width);
+
+    let scaleX = Math.min(targetRect.width / selectMenuRect.width, 1.0);
+    let scaleY = Math.min(targetRect.height / selectMenuRect.height, 1.0);
+    let style = {
+      top: `${dropdownTop}px`,
+      left: `${dropdownLeft}px`,
+      // Animate a scale out if we aren't just repositioning
+      transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
+      transformOrigin
+    };
+
+    this.didAnimateScale = true;
+
+    this.applyReposition(trigger, dropdown, { style });
   }
-
 });

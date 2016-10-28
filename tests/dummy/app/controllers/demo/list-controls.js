@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-  listData: Ember.A([{
+const { Controller, A } = Ember;
+
+export default Controller.extend({
+  listData: A([{
     face: 'tomster.png',
     who: 'tomster 1',
     what: 'a message for you',
@@ -28,7 +30,7 @@ export default Ember.Controller.extend({
     notes: 'this is a message for you about ember'
   }]),
 
-  messageData: Ember.A([{
+  messageData: A([{
     message: 'Message A'
   }, {
     message: 'Message B'

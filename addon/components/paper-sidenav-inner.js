@@ -16,7 +16,7 @@ export default Component.extend(TransitionMixin, {
   tagName: 'md-sidenav',
   attributeBindings: ['tabindex'],
   classNameBindings: ['positionClass'],
-  transitionTriggers: ['isLockedOpen:md-locked-open', 'closed:md-closed'],
+  transitionClassNameBindings: ['isLockedOpen:md-locked-open', 'closed:md-closed'],
 
   constants: inject.service(),
   paperSidenav: inject.service(),
