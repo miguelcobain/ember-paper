@@ -7,7 +7,7 @@ export default Route.extend({
     willTransition() {
       this.controller.set('drawerOpen', false);
     },
-    
+
     alertValue(value) {
       alert(`You clicked Radio button: ${value}`);
     },
