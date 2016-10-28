@@ -1,7 +1,7 @@
 {{page-toolbar pageTitle="Radio" isDemo=true}}
 
 {{#doc-content}}
-  <div layout layout-sm="column">
+  <div class="layout layout-sm-column">
     {{! BEGIN-SNIPPET radio.basic-usage }}
     <div flex>{{#paper-radio onChange=(action "foo")}}A radio button{{/paper-radio}}</div>
     <div flex>{{#paper-radio toggle=true value="123" groupValue=toggleValue onChange=(action (mut toggleValue))}}Toggable radio button{{/paper-radio}}</div>
