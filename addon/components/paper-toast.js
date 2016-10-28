@@ -46,10 +46,11 @@ export default Component.extend(TransitionMixin, {
   }),
 
   didInsertElement() {
-    if (this.get('hide-delay')) {
+    this.$().addClass('ng-enter-active');
+    if (this.get('hideDelay')) {
       run.later(()=> {
         this.sendAction('onClose');
-      }, this.get('hide-delay'));
+      }, this.get('hideDelay'));
     }
 
     let swipeHammer = new Hammer(this.get('element'));

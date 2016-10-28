@@ -10,7 +10,8 @@ export default Component.extend({
 
   actions: {
     toggleToast(type) {
-      this.toggleProperty(`open${type.capitalize()}`);
+      type = type[0].toUpperCase() + type.slice(1);;
+      this.toggleProperty(`open${type}`);
     }
   }
 });

@@ -5,6 +5,6 @@
   <span flex="">{{message}}</span>
 
   {{#if button}}
-    {{#paper-button action="buttonAction"}}{{button}}{{/paper-button}}
+    {{#paper-button onClick=(action 'buttonAction')}}{{button}}{{/paper-button}}
   {{/if}}
 {{/if}}
