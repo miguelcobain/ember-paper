@@ -43,6 +43,42 @@ export default Controller.extend({
 
     alertSomething() {
       alert('Clicked action');
+    },
+
+    saveSomething() {
+      this.send('openGlobalToast', 'Hello You..');
+    },
+
+    toggleBottom(newValue) {
+      if (newValue) {
+        this.set('top', false);
+      }
+
+      this.set('bottom', newValue);
+    },
+
+    toggleTop(newValue) {
+      if (newValue) {
+        this.set('bottom', false);
+      }
+
+      this.set('top', newValue);
+    },
+
+    toggleLeft(newValue) {
+      if (newValue) {
+        this.set('right', false);
+      }
+
+      this.set('left', newValue);
+    },
+
+    toggleRight(newValue) {
+      if (newValue) {
+        this.set('left', false);
+      }
+
+      this.set('right', newValue);
     }
   }
 });
