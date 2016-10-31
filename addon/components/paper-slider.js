@@ -5,8 +5,6 @@ import Ember from 'ember';
 
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-import FlexMixin from 'ember-paper/mixins/flex-mixin';
-
 const { Component, computed, inject, String: { htmlSafe } } = Ember;
 
 /**
@@ -14,9 +12,8 @@ const { Component, computed, inject, String: { htmlSafe } } = Ember;
  * @extends Ember.Component
  * @uses FocusableMixin
  * @uses ColorMixin
- * @uses FlexMixin
  */
-export default Component.extend(FocusableMixin, FlexMixin, ColorMixin, {
+export default Component.extend(FocusableMixin, ColorMixin, {
 
   tagName: 'md-slider',
 
