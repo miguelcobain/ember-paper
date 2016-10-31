@@ -1,0 +1,41 @@
+{{page-toolbar pageTitle="Form" isDemo=true}}
+
+{{#doc-content class="card-demo"}}
+  <h2>Basic Usage</h2>
+  {{! BEGIN-SNIPPET card.basic-usage }}
+
+    {{#paper-form onSubmit=(action 'mySubmitAction') as |form|}}
+      <div class="layout-row">
+        <div class="layout-column flex-50">
+          {{form.input label="First Name" value=firstName onChange=(action (mut firstName)) required=true}}
+          {{form.input label="Last Name" value=lastName onChange=(action (mut lastName))}}
+        </div>
+        <div class="layout-column flex-50">
+          {{form.input label="Middle Initial" value=middleInitial onChange=(action (mut middleInitial)) required=true}}
+          {{form.input type="number" label="Age" value=age onChange=(action (mut age)) min=13 max=65 required=true}}
+        </div>
+      </div>
+      <div class="layout-row layout-align-end">
+        {{#if basicUsageSuccess}}
+          Submitted Successfully!
+        {{else}}
+          {{#paper-button raised=true primary=true onClick=form.onSubmit}}Submit{{/paper-button}}
+        {{/if}}
+      </div>
+    {{/paper-form}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="form.basic-usage.hbs"}}
+
+  <h2>Disabled Submit Button</h2>
+  {{! BEGIN-SNIPPET card.disabled-submit }}
+  <div class="layout-row layout-xs-column">
+    
+  </div>
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="form.disabled-submit.hbs"}}
+
+{{/doc-content}}
