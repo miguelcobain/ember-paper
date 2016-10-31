@@ -4,7 +4,7 @@
 <h2>Basic Usage</h2>
 
 <p>Enter an address</p>
-<div layout="row">
+<div class="layout-row">
   {{! BEGIN-SNIPPET select.basic-usage }}
   {{paper-input label="Street Name" value=street onChange=(action (mut street))}}
   {{paper-input label="City" value=city onChange=(action (mut city))}}
@@ -30,7 +30,7 @@
 <h2>Option groups</h2>
 
 <p>Pick your pizza below</p>
-<div layout="row">
+<div class="layout-row">
   {{! BEGIN-SNIPPET select.option-groups }}
   {{#paper-select options=sizes label="Size" required=true selected=pizzaSize onChange=(action (mut pizzaSize)) as |size|}}
     {{size}}
@@ -46,9 +46,9 @@
 
 <h2>Options with async search</h2>
 
-<div layout="column" layout-align="center center">
+<div class="layout-column layout-align-center-center">
   <p>Select can call an arbitrary function on show. If this function returns a promise, it will display a loading indicator while it is being resolved:</p>
-  <div layout="column" layout-align="center center" style="height: 130px;">
+  <div class="layout-column layout-align-center-center" style="height: 130px;">
     {{! BEGIN-SNIPPET select.async-search }}
   {{#paper-select
     placeholder="Assign to a user"
@@ -75,8 +75,8 @@
 
 <h2>Select Search</h2>
 
-<div layout="column" layout-align="center center">
-  <div layout="column" layout-align="center center" style="height: 130px;">
+<div class="layout-column layout-align-center-center">
+  <div class="layout-column layout-align-center-center" style="height: 130px;">
     {{! BEGIN-SNIPPET select.select-header }}
   {{#paper-select
     placeholder="Vegetable"
