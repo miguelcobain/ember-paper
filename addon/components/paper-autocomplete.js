@@ -3,6 +3,8 @@
  */
 import Ember from 'ember';
 import PowerSelect from 'ember-power-select/components/power-select';
+import ValidationMixin from 'ember-paper/mixins/validation-mixin';
+import ChildMixin from 'ember-paper/mixins/child-mixin';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
 
 const { assert, computed, inject, isNone, defineProperty, K: emberNop } = Ember;
@@ -11,7 +13,7 @@ const { assert, computed, inject, isNone, defineProperty, K: emberNop } = Ember;
  * @class PaperAutocomplete
  * @extends PowerSelectComponent
  */
-export default PowerSelect.extend({
+export default PowerSelect.extend(ValidationMixin, ChildMixin, {
   util: inject.service(),
   constants: inject.service(),
   triggerComponent: 'paper-autocomplete-trigger',
@@ -26,7 +28,13 @@ export default PowerSelect.extend({
   onblur: computed.alias('onBlur'),
   onchange: null,
   oninput: null,
-
+  validationProperty: computed('onSearchTextChange', 'onSelectionChange', function() {
+    if (this.get('onSearchTextChange')) {
+      return 'searchText';
+    } else {
+      return 'selected';
+    }
+  }),
   searchText: '',
   _onChangeNop: emberNop,
 
@@ -86,6 +94,7 @@ export default PowerSelect.extend({
       if (action) {
         action(this.get('publicAPI'), event);
       }
+      this.notifyValidityChange();
     },
 
     onInput(event) {
@@ -94,6 +103,7 @@ export default PowerSelect.extend({
       if (!publicAPI.isOpen && event.type !== 'change') {
         publicAPI.actions.open(event);
       }
+      this.notifyValidityChange();
       return this._super(...arguments);
     },
 
