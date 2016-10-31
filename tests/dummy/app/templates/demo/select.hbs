@@ -47,7 +47,9 @@
 <h2>Options with async search</h2>
 
 <div class="layout-column layout-align-center-center">
-  <p>Select can call an arbitrary function on show. If this function returns a promise, it will display a loading indicator while it is being resolved:</p>
+  <p>
+    Select will correctly resolve any promise you pass to the <code>options</code> property.
+  </p>
   <div class="layout-column layout-align-center-center" style="height: 130px;">
     {{! BEGIN-SNIPPET select.async-search }}
   {{#paper-select
@@ -66,11 +68,6 @@
   </div>
 </div>
 <h3>Template</h3>
-<p>
-    We provide two callbacks to the paper-select component <code class="paper">getItems</code> and <code class="paper">itemLabelCallback</code>.
-    <code class="paper">getItems</code> returns a promise which resolves to the list of items.
-    <code class="paper">itemLabelCallback</code> returns the label for the given item.
-</p>
 {{code-snippet name="select.async-search.hbs"}}
 
 <h2>Select Search</h2>
