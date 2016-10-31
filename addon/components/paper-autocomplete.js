@@ -115,11 +115,11 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     },
 
     scrollTo(option) {
-      if (!self.document || !option) {
+      if (!document || !option) {
         return;
       }
       let publicAPI = this.get('publicAPI');
-      let optionsList = self.document.getElementById(`ember-power-select-options-${publicAPI.uniqueId}`);
+      let optionsList = document.getElementById(`ember-power-select-options-${publicAPI.uniqueId}`);
 
       if (!optionsList) {
         return;
