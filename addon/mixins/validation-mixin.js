@@ -72,7 +72,9 @@ export default Mixin.create({
   init() {
     this._super(...arguments);
     assert('validationProperty must be set', this.get('validationProperty'));
-    this.set('validationErrorMessages', buildComputedValidationMessages(this.get('validationProperty')));
+    if (!this.get('validationErrorMessages')) {
+      this.set('validationErrorMessages', buildComputedValidationMessages(this.get('validationProperty')));
+    }
   },
 
   /**
