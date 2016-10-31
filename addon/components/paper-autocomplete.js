@@ -28,8 +28,13 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
   onblur: computed.alias('onBlur'),
   onchange: null,
   oninput: null,
-  validationProperty: 'searchText',
-
+  validationProperty: computed('onSearchTextChange', 'onSelectionChange', function() {
+    if (this.get('onSearchTextChange')) {
+      return 'searchText';
+    } else {
+      return 'selected';
+    }
+  }),
   searchText: '',
   _onChangeNop: emberNop,
 
