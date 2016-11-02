@@ -1,0 +1,35 @@
+{{page-toolbar pageTitle="Tabs" isDemo=true}}
+
+{{#doc-content}}
+  {{! BEGIN-SNIPPET tabs }}
+    {{#paper-tabs dynamicHeight=true as |tabs|}}
+      {{#tabs.tab label="tab one" as |tab|}}
+        {{#paper-content class="md-padding"}}
+           <h1>Tab One</h1>
+           <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab two" as |tab|}}
+        {{#paper-content class="md-padding"}}
+           <h1>Tab Two</h1>
+           <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab three" as |tab|}}
+        {{#paper-content class="md-padding"}}
+           <h1>Tab Three</h1>
+           <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+    {{/paper-tabs}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="tabs.hbs"}}
+
+  {{paper-api
+    (p-section
+      (p-row "bottom" "boolean" "Align tabs to bottom")
+    )
+  }}
+{{/doc-content}}
