@@ -4,13 +4,13 @@
 
     {{#paper-card}}
       {{#paper-toolbar}}
-        <div class="md-toolbar-tools">
+        {{#paper-toolbar-tools}}
           <h2>Basic Usage</h2>
           <span class="flex"></span>
           {{#paper-button onClick=(action "toggleSourceCode") iconButton=true}}
             {{paper-icon icon="code"}}
           {{/paper-button}}
-        </div>
+        {{/paper-toolbar-tools}}
       {{/paper-toolbar}}
 
       <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
@@ -66,11 +66,11 @@
   {{#paper-dialog onClose=(action "closeDialogWithParent" "cancel") parent="#paper-dialog-demo" origin=dialogOrigin clickOutsideToClose=true}}
     <form>
       {{#paper-toolbar}}
-        <div class="md-toolbar-tools">
+        {{#paper-toolbar-tools}}
           <h2>Mango (Fruit)</h2>
           <span class="flex"></span>
           {{#paper-button iconButton=true onClick=(action "closeDialogWithParent" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
-        </div>
+        {{/paper-toolbar-tools}}
       {{/paper-toolbar}}
 
       {{#paper-dialog-content}}
@@ -93,11 +93,11 @@
 {{#if showDialog}}
   {{#paper-dialog onClose=(action "closeDialog" "cancel") origin=dialogOrigin clickOutsideToClose=true}}
     {{#paper-toolbar}}
-      <div class="md-toolbar-tools">
+      {{#paper-toolbar-tools}}
         <h2>Mango (Fruit)</h2>
         <span class="flex"></span>
         {{#paper-button iconButton=true onClick=(action "closeDialog" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
-      </div>
+      {{/paper-toolbar-tools}}
     {{/paper-toolbar}}
 
     {{#paper-dialog-content}}
