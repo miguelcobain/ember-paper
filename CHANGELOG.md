@@ -19,6 +19,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 #### master
 - [#531](https://github.com/miguelcobain/ember-paper/pull/531) paper-select focus fix - doesn't call focusTarget.focus if there is no focusTarget (which is perfectly possible)
 - [#507](https://github.com/miguelcobain/ember-paper/issues/507) replace all instances of attribute based flex layout and replace with class based ones
+- [#469](https://github.com/miguelcobain/ember-paper/pull/469) Set the value before growing the textarea on render
 
 #### 1.0.0-alpha.6
 - [#395](https://github.com/miguelcobain/ember-paper/pull/395) The Great Update of paper-menu et al:
