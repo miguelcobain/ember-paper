@@ -39,7 +39,7 @@
   {{code-snippet name="form.disabled-submit.hbs"}}
 
   <h2>Custom Components</h2>
-  <p>You can even extend paper-input to make your own custom components (money inputs, phone inputs, etc.) and the form validation will still work out of the box! Just replace <strong>paper-input</strong> with your component's name.</p>
+  <p>In addition to working with {{#link-to "demo.autocomplete"}}Paper Autocomplete{{/link-to}} and {{#link-to "demo.select"}}Paper Select{{/link-to}}, you can also extend paper-input to make your own custom components (money inputs, phone inputs, etc.) and the form validation will still work out of the box! Just replace <strong>paper-input</strong> with your component's name.</p>
   {{! BEGIN-SNIPPET form.custom-components }}
     {{#paper-form onSubmit=(action 'customSubmitAction') as |form|}}
       <div class="layout-row">
