@@ -7,50 +7,50 @@
   </h2>
 
   <div layout>
-    <div flex="10" layout layout-align="center center">
+    <div flex="10" class="layout layout-align-center-center">
       <span>R</span>
     </div>
     {{paper-slider flex=true min='0' max='255' value=color.red}}
-    <div flex="20" layout layout-align="center center">
+    <div flex="20" class="layout layout-align-center-center">
       {{input type="number" value=color.red}}
     </div>
   </div>
 
   <div layout>
-    <div flex="10" layout layout-align="center center">
+    <div flex="10" class="layout layout-align-center-center">
       <span>G</span>
     </div>
     {{paper-slider flex=true min='0' max='255' value=color.green class='md-accent'}}
-    <div flex="20" layout layout-align="center center">
+    <div flex="20" class="layout layout-align-center-center">
       {{input type="number" value=color.green}}
     </div>
   </div>
 
   <div layout>
-    <div flex="10" layout layout-align="center center">
+    <div flex="10" class="layout layout-align-center-center">
       <span>B</span>
     </div>
     {{paper-slider flex=true min='0' max='255' value=color.blue class='md-primary'}}
-    <div flex="20" layout layout-align="center center">
+    <div flex="20" class="layout layout-align-center-center">
       {{input type="number" value=color.blue}}
     </div>
   </div>
 
   <h2>Rating: {{rating}}/5 - demo of theming classes</h2>
   <div layout>
-    <div flex="10" layout layout-align="center center">
+    <div flex="10" class="layout layout-align-center-center">
       <span>default</span>
     </div>
     {{paper-slider flex=true discrete=true value=rating1 step='1' min='1' max='5'}}
   </div>
   <div layout>
-    <div flex="10" layout layout-align="center center">
+    <div flex="10" class="layout layout-align-center-center">
       <span>md-warn</span>
     </div>
     {{paper-slider flex=true warn=true discrete=true value=rating2 step="1" min="1" max="5"}}
   </div>
   <div layout>
-    <div flex="10" layout layout-align="center center">
+    <div flex="10" class="layout layout-align-center-center">
       <span>md-primary</span>
     </div>
     {{paper-slider flex=true primary=true discrete=true value=rating3 step="1" min="1" max="5"}}

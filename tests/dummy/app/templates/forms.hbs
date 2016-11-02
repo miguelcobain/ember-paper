@@ -1,0 +1,140 @@
+{{page-toolbar pageTitle="Forms" isDemo=false}}
+
+{{#doc-content class="card-demo"}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Basic usage</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    {{#paper-card-content}}
+      <p>
+        ember-paper provides a <code>paper-form</code> to help you build forms
+        and keep track of the form's global validity state. This component is tagless,
+        so it shouldn't interfere with your styles.
+        <code>paper-form</code> yields <code>{{#link-to "demo.input"}}paper-input{{/link-to}}</code>,
+        <code>{{#link-to "demo.select"}}paper-select{{/link-to}}</code>
+        and <code>{{#link-to "demo.autocomplete"}}paper-autocomplete{{/link-to}}</code> controls.
+        In the following example you can see how we use the yielded form controls:
+      </p>
+
+      {{! BEGIN-SNIPPET form.basic-usage }}
+        {{#paper-form onSubmit=(action "basicSubmitAction") as |form|}}
+          <div class="layout-row">
+            <div class="layout-column flex-50">
+              {{form.input label="First Name" value=firstName onChange=(action (mut firstName)) required=true}}
+              {{form.input label="Last Name" value=lastName onChange=(action (mut lastName))}}
+            </div>
+            <div class="layout-column flex-50">
+                {{#form.autocomplete
+                  required=true
+                  options=items
+                  selected=selectedCountry
+                  searchField="name"
+                  labelPath="name"
+                  label="Country"
+                  loadingMessage="Searching countries..."
+                  noMatchesMessage="Oops this country doesn't exist."
+                  onSelectionChange=(action (mut selectedCountry)) as |country select|}}
+                  {{paper-autocomplete-highlight
+                    label=country.name
+                    searchText=select.searchText
+                    flags="i"}}
+              {{/form.autocomplete}}
+              {{form.input type="number" label="Age" value=age onChange=(action (mut age)) min=13 max=65 required=true}}
+            </div>
+          </div>
+          <div class="layout-row">
+            {{#form.submit-button raised=true primary=true}}Submit{{/form.submit-button}}
+          </div>
+        {{/paper-form}}
+      {{! END-SNIPPET }}
+
+      <h3>Template</h3>
+      {{code-snippet name="form.basic-usage.hbs"}}
+    {{/paper-card-content}}
+
+  {{/paper-card}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Using the form validity state</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    {{#paper-card-content}}
+
+      <p>
+        A typical use case for the global validity state is to toggle the submit button
+        between a disabled and enabled state. Here is how you would do that with
+        <code>paper-form</code>:
+      </p>
+
+      {{! BEGIN-SNIPPET form.disabled-submit }}
+        {{#paper-form onSubmit=(action "disabledSubmitAction") as |form|}}
+          <div class="layout-row">
+            {{form.input label="Favorite Letter" value=favoriteLetter onChange=(action (mut favoriteLetter)) required=true maxlength=1}}
+          </div>
+          <div class="layout-row">
+            {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+              Submit
+            {{/form.submit-button}}
+          </div>
+        {{/paper-form}}
+      {{! END-SNIPPET }}
+
+      <h3>Template</h3>
+      {{code-snippet name="form.disabled-submit.hbs"}}
+    {{/paper-card-content}}
+
+  {{/paper-card}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Advanced usage</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    {{#paper-card-content}}
+
+      <p>
+        If you prefer, you can trigger the submit action without using a submit button.
+        <code>paper-form</code> also yields an <code>onSubmit</code> action you
+        can use wherever you like, e.g: <br>
+        <pre>
+          &lt;button onclick=\{{action form.onSubmit}}&gt;
+            Submit
+          &lt;/button&gt;
+        </pre>
+      </p>
+
+      <p>
+        You can also extend paper-input to make your own custom components
+        (money inputs, phone inputs, etc.) and the form validation will still
+        work out of the box!
+        Just replace <strong>paper-input</strong> with your component's name.
+      </p>
+
+      {{! BEGIN-SNIPPET form.custom-components }}
+        {{#paper-form onSubmit=(action "customSubmitAction") as |form|}}
+          <div class="layout-row">
+            {{paper-input label="Favorite Number" value=favoriteNumber onChange=(action (mut favoriteNumber)) required=true min=1 max=10}}
+          </div>
+          <div class="layout-row">
+            {{#form.submit-button raised=true primary=true}}Submit{{/form.submit-button}}
+          </div>
+        {{/paper-form}}
+      {{! END-SNIPPET }}
+
+      <h3>Template</h3>
+      {{code-snippet name="form.custom-components.hbs"}}
+
+    {{/paper-card-content}}
+
+  {{/paper-card}}
+
+{{/doc-content}}

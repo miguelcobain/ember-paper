@@ -1,10 +1,10 @@
-{{page-toolbar pageTitle="Select" isDemo=true isWIP=true}}
+{{page-toolbar pageTitle="Select" isDemo=true}}
 
 {{#doc-content}}
 <h2>Basic Usage</h2>
 
 <p>Enter an address</p>
-<div layout="row">
+<div class="layout-row">
   {{! BEGIN-SNIPPET select.basic-usage }}
   {{paper-input label="Street Name" value=street onChange=(action (mut street))}}
   {{paper-input label="City" value=city onChange=(action (mut city))}}
@@ -30,7 +30,7 @@
 <h2>Option groups</h2>
 
 <p>Pick your pizza below</p>
-<div layout="row">
+<div class="layout-row">
   {{! BEGIN-SNIPPET select.option-groups }}
   {{#paper-select options=sizes label="Size" required=true selected=pizzaSize onChange=(action (mut pizzaSize)) as |size|}}
     {{size}}
@@ -46,9 +46,11 @@
 
 <h2>Options with async search</h2>
 
-<div layout="column" layout-align="center center">
-  <p>Select can call an arbitrary function on show. If this function returns a promise, it will display a loading indicator while it is being resolved:</p>
-  <div layout="column" layout-align="center center" style="height: 130px;">
+<div class="layout-column layout-align-center-center">
+  <p>
+    Select will correctly resolve any promise you pass to the <code>options</code> property.
+  </p>
+  <div class="layout-column layout-align-center-center" style="height: 130px;">
     {{! BEGIN-SNIPPET select.async-search }}
   {{#paper-select
     placeholder="Assign to a user"
@@ -66,17 +68,14 @@
   </div>
 </div>
 <h3>Template</h3>
-<p>
-    We provide two callbacks to the paper-select component <code class="paper">getItems</code> and <code class="paper">itemLabelCallback</code>.
-    <code class="paper">getItems</code> returns a promise which resolves to the list of items.
-    <code class="paper">itemLabelCallback</code> returns the label for the given item.
-</p>
 {{code-snippet name="select.async-search.hbs"}}
+
+{{!--
 
 <h2>Select Search</h2>
 
-<div layout="column" layout-align="center center">
-  <div layout="column" layout-align="center center" style="height: 130px;">
+<div class="layout-column layout-align-center-center">
+  <div class="layout-column layout-align-center-center" style="height: 130px;">
     {{! BEGIN-SNIPPET select.select-header }}
   {{#paper-select
     placeholder="Vegetable"
@@ -101,5 +100,5 @@
 <h3>Template</h3>
 
 {{code-snippet name="select.select-header.hbs"}}
-
+--}}
 {{/doc-content}}
