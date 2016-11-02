@@ -4,7 +4,6 @@
 import Ember from 'ember';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-import FlexMixin from 'ember-paper/mixins/flex-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 
@@ -18,10 +17,9 @@ const {
  * @uses FocusableMixin
  * @uses ChildMixin
  * @uses ColorMixin
- * @uses FlexMixin
  * @uses ValidationMixin
  */
-export default Component.extend(FocusableMixin, ColorMixin, FlexMixin, ChildMixin, ValidationMixin, {
+export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, ValidationMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
   classNameBindings: [
@@ -74,9 +72,9 @@ export default Component.extend(FocusableMixin, ColorMixin, FlexMixin, ChildMixi
 
   didRender() {
     this._super(...arguments);
-    this.growTextarea();
     // setValue below ensures that the input value is the same as this.value
     this.setValue(this.get('value'));
+    this.growTextarea();
   },
 
   willClearRender() {

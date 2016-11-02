@@ -141,3 +141,31 @@ test('works without using contextual components', function(assert) {
   assert.equal(this.$('.invalid-div').length, 1);
   assert.equal(this.$('.valid-div').length, 0);
 });
+
+test('form submit button renders', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`
+    {{#paper-form as |form|}}
+      {{#form.submit-button}}Submit{{/form.submit-button}}
+    {{/paper-form}}
+  `);
+
+  assert.equal(this.$('button').length, 1);
+});
+
+test('form submit button calls form onSubmit action', function(assert) {
+  assert.expect(1);
+
+  this.set('onSubmit', () => {
+    assert.ok(true);
+  });
+
+  this.render(hbs`
+    {{#paper-form onSubmit=(action onSubmit) as |form|}}
+      {{#form.submit-button}}Submit{{/form.submit-button}}
+    {{/paper-form}}
+  `);
+
+  this.$('button').click();
+});

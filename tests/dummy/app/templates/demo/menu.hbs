@@ -5,9 +5,9 @@
 
 {{#paper-card}}
   {{#paper-toolbar}}
-    <div class="md-toolbar-tools">
+    {{#paper-toolbar-tools}}
       <h2>Basic Usage</h2>
-    </div>
+    {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
   {{#paper-card-content}}
     <h2>Simple dropdown menu</h2>
@@ -17,7 +17,7 @@
       and <code class="paper">md-menu-align-target</code>attributes ensure that the menu elements align.
     </p>
 
-  <div layout-align="center center" layout="column">
+  <div class="layout-column layout-align-center-center">
   {{! BEGIN-SNIPPET menu.simple-dropdown }}
   {{#paper-menu as |menu|}}
     {{#menu.trigger}}
@@ -63,8 +63,9 @@
 <p>The <code class="paper">position</code> attribute can be used to specify the positioning along the
     <code class="paper">x</code> and <code class="paper">y</code> axis.</p>
 
-<div layout-align="center center" layout="column">
+<div class="layout-column layout-align-center-center">
   {{! BEGIN-SNIPPET menu.position-modes }}
+
   <div class="menus layout-fill layout-wrap layout-row layout-align-space-between-center">
     <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
       <p>Target Mode Positioning (default)</p>
@@ -86,6 +87,7 @@
 
       {{/paper-menu}}
     </div>
+
     <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
       <p>Target mode with <code class="paper">offset</code></p>
       {{#paper-menu isOpen=menuThreeIsOpen offset="0 -5" as |menu|}}
@@ -105,6 +107,7 @@
         {{/menu.content}}
       {{/paper-menu}}
     </div>
+
     <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
       <p><code class="paper">position="target-right target"</code></p>
       {{#paper-menu isOpen=menuFourIsOpen position="target-right target" as |menu|}}
@@ -150,8 +153,9 @@ classes to specify where it should position itself in respect to origin and alig
     <a href="http://www.google.com/design/spec/components/menus.html#menus-specs">official spec</a>.
 </p>
 
-<div layout-align="center center" layout="column">
+<div class="layout-column layout-align-center-center">
   {{! BEGIN-SNIPPET menu.different-widths }}
+
   <div class="menus layout-fill layout-wrap layout-row layout-align-space-between-center">
     <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
       <p>Wide menu (<code class="paper">width=6</code>)</p>
@@ -171,6 +175,7 @@ classes to specify where it should position itself in respect to origin and alig
         {{/menu.content}}
       {{/paper-menu}}
     </div>
+
     <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
       <p>Medium menu (<code class="paper">width=4</code>)</p>
       {{#paper-menu as |menu|}}
@@ -189,6 +194,7 @@ classes to specify where it should position itself in respect to origin and alig
         {{/menu.content}}
       {{/paper-menu}}
     </div>
+
     <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
       <p>Small menu (<code class="paper">width=2</code>)</p>
       {{#paper-menu as |menu|}}

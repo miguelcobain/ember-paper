@@ -5,6 +5,17 @@
     parentComponent=this
     onValidityChange=(action "onValidityChange")
   )
+  submit-button=(component "paper-button"
+    onClick=(action "onSubmit")
+  )
+  select=(component "paper-select"
+  	parentComponent=this
+  	onValidityChange=(action "onValidityChange")
+  )
+  autocomplete=(component "paper-autocomplete"
+  	parentComponent=this 
+  	onValidityChange=(action "onValidityChange")
+  )
   onSubmit=(action "onSubmit")
 )}}
 
