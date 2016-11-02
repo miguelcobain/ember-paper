@@ -1,0 +1,56 @@
+{{page-toolbar pageTitle="Form" isDemo=true}}
+
+{{#doc-content class="card-demo"}}
+  <h2>Basic Usage</h2>
+  {{! BEGIN-SNIPPET form.basic-usage }}
+    {{#paper-form onSubmit=(action 'basicSubmitAction') as |form|}}
+      <div class="layout-row">
+        <div class="layout-column flex-50">
+          {{form.input label="First Name" value=firstName onChange=(action (mut firstName)) required=true}}
+          {{form.input label="Last Name" value=lastName onChange=(action (mut lastName))}}
+        </div>
+        <div class="layout-column flex-50">
+          {{form.input label="Middle Initial" value=middleInitial onChange=(action (mut middleInitial)) required=true}}
+          {{form.input type="number" label="Age" value=age onChange=(action (mut age)) min=13 max=65 required=true}}
+        </div>
+      </div>
+      <div class="layout-row">
+        {{#paper-button raised=true primary=true onClick=form.onSubmit}}Submit{{/paper-button}}
+      </div>
+    {{/paper-form}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="form.basic-usage.hbs"}}
+
+  <h2>Disabled Submit Button</h2>
+  {{! BEGIN-SNIPPET form.disabled-submit }}
+    {{#paper-form onSubmit=(action 'disabledSubmitAction') as |form|}}
+      <div class="layout-row">
+        {{form.input label="Favorite Letter" value=favoriteLetter onChange=(action (mut favoriteLetter)) required=true maxlength=1}}
+      </div>
+      <div class="layout-row">
+        {{#paper-button raised=true primary=true disabled=form.isInvalid onClick=form.onSubmit}}Submit{{/paper-button}}
+      </div>
+    {{/paper-form}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="form.disabled-submit.hbs"}}
+
+  <h2>Custom Components</h2>
+  <p>In addition to working with {{#link-to "demo.autocomplete"}}Paper Autocomplete{{/link-to}} and {{#link-to "demo.select"}}Paper Select{{/link-to}}, you can also extend paper-input to make your own custom components (money inputs, phone inputs, etc.) and the form validation will still work out of the box! Just replace <strong>paper-input</strong> with your component's name.</p>
+  {{! BEGIN-SNIPPET form.custom-components }}
+    {{#paper-form onSubmit=(action 'customSubmitAction') as |form|}}
+      <div class="layout-row">
+        {{paper-input label="Favorite Number" value=favoriteNumber onChange=(action (mut favoriteNumber)) required=true min=1 max=10}}
+      </div>
+      <div class="layout-row">
+        {{#paper-button raised=true primary=true onClick=form.onSubmit}}Submit{{/paper-button}}
+      </div>
+    {{/paper-form}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="form.custom-components.hbs"}}
+{{/doc-content}}

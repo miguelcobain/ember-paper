@@ -10,6 +10,7 @@ const Router = ERouter.extend({
 
 Router.map(function() {
   this.route('introduction');
+  this.route('forms');
   this.route('typography');
   this.route('theme');
   this.route('cookbook');
