@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="layout-row">
-        {{#paper-button raised=true primary=true onClick=form.onSubmit}}Submit{{/paper-button}}
+        {{#form.submit-button raised=true primary=true}}Submit{{/form.submit-button}}
       </div>
     {{/paper-form}}
   {{! END-SNIPPET }}
@@ -30,7 +30,7 @@
         {{form.input label="Favorite Letter" value=favoriteLetter onChange=(action (mut favoriteLetter)) required=true maxlength=1}}
       </div>
       <div class="layout-row">
-        {{#paper-button raised=true primary=true disabled=form.isInvalid onClick=form.onSubmit}}Submit{{/paper-button}}
+        {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}Submit{{/form.submit-button}}
       </div>
     {{/paper-form}}
   {{! END-SNIPPET }}
@@ -46,7 +46,7 @@
         {{paper-input label="Favorite Number" value=favoriteNumber onChange=(action (mut favoriteNumber)) required=true min=1 max=10}}
       </div>
       <div class="layout-row">
-        {{#paper-button raised=true primary=true onClick=form.onSubmit}}Submit{{/paper-button}}
+        {{#form.submit-button raised=true primary=true}}Submit{{/form.submit-button}}
       </div>
     {{/paper-form}}
   {{! END-SNIPPET }}
