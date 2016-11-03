@@ -1,13 +1,10 @@
 {
   "name": "ember-paper",
   "dependencies": {
-    "ember": "beta",
     "ember-cli-shims": "0.1.1",
     "hammer.js": "^2.0.8",
     "matchMedia": "0.2.0",
-    "prism": "*"
-  },
-  "resolutions": {
-    "ember": "beta"
+    "prism": "*",
+    "ember": "^2.9.0"
   }
 }

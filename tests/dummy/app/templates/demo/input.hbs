@@ -2,12 +2,12 @@
 
 {{#doc-content}}
   {{! BEGIN-SNIPPET input.basic-usage}}
-  <div layout="" layout-sm="column">
+  <div class="layout layout-sm-column">
     {{paper-input flex=30 label="Name" value=name onChange=(action (mut name))}}
     {{paper-input flex=30 label="E-mail" type="email" value=email onChange=(action (mut email))}}
     {{paper-input flex=40 label="Password" type="password" value=password onChange=(action (mut password))}}
   </div>
-  <div layout="" layout-sm="column">
+  <div class="layout layout-sm-column">
     {{paper-input flex=true label="Submission date" type="date" value=date onChange=(action (mut date))}}
     {{paper-input flex=true label="Company (disabled)" type="text" value="Google" disabled=true onChange=(action (mut foo))}}
   </div>
@@ -239,7 +239,7 @@
   {{! BEGIN-SNIPPET input.external-validations }}
   {{#paper-card as |card|}}
     {{#card.content}}
-      <div layout="" layout-sm="row">
+      <div class="layout layout-sm-row">
         {{paper-input
           flex=50
           label="User name"
@@ -248,7 +248,7 @@
           errors=model.validations.attrs.username.messages
         }}
       </div>
-      <div layout="" layout-sm="row">
+      <div class="layout layout-sm-row">
         {{paper-input
           label="Password"
           flex=34
@@ -287,28 +287,5 @@
     which indentifies the type of error for possible theming or other use.
     The latter format is compatible with errors from <code>ember-data</code>.
   </p>
-
-  <h2>paper-form</h2>
-  <p>
-    <code>paper-form</code> is a tagless component that will help you keep track of
-    the global state of a group of inputs.
-    Notice in the below example how the button only becomes enabled when all of the
-    form's inputs become valid.
-  </p>
-
-  {{! BEGIN-SNIPPET input.paper-form }}
-  {{#paper-form as |form|}}
-    {{form.input
-      label="E-mail" type="email"
-      customValidations=emailValidation
-      value=validEmail onChange=(action (mut validEmail))}}
-    {{#paper-button disabled=form.isInvalid onClick=(action form.onSubmit)}}
-      Submit
-    {{/paper-button}}
-  {{/paper-form}}
-  {{! END-SNIPPET }}
-
-  <h3>Template</h3>
-  {{code-snippet name="input.paper-form.hbs"}}
 
 {{/doc-content}}

@@ -29,8 +29,7 @@ export default Controller.extend({
    * Fake promise to fetch data, here you would use ember-data, jQuery.ajax or whatever you want.
    */
   users: computed(function() {
-    let _self = this;
-    return new RSVP.Promise(function(resolve) {
+    return new RSVP.Promise((resolve) => {
       // Just wait for 800ms to 2 seconds for a fake progress, so it feels like a query.
       let waitMS = Math.floor(Math.random() * 2000) + 800;
 
@@ -42,7 +41,7 @@ export default Controller.extend({
         { id: 5, name: 'Velma Dinkley' }
       ]);
 
-      run.later(_self, function() {
+      run.later(() => {
         /*
          * Two arguments to the resolve:
          * - data from the server
