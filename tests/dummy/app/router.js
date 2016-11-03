@@ -20,6 +20,7 @@ Router.map(function() {
     this.route('button');
     this.route('card');
     this.route('checkbox');
+    this.route('chips');
     this.route('dialog');
     this.route('divider');
     this.route('grid-list');

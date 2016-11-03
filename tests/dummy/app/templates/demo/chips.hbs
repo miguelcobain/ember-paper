@@ -1,0 +1,35 @@
+{{page-toolbar pageTitle="Chips" isDemo=true}}
+
+{{#doc-content}}
+
+  {{! BEGIN-SNIPPET chips.example }}
+  <h2>Default Template</h2>
+  {{paper-chips content=fruitNames readOnly=readOnly removeItem=(action 'removeItem') addItem=(action 'addItem') placeholder="Add a tag"}}
+
+  <h2>Custom Template</h2>
+  {{#paper-chips readOnly=readOnly removeItem=(action 'removeCustomItem') addItem=(action 'addCustomItem') placeholder="Add a tag" content=customFruitNames as |item|}}
+    <strong>{{item}}</strong>
+    <em>(fruit)</em>
+  {{/paper-chips}}
+
+  <h2>Chips with Autocomplete</h2>
+  {{#paper-chips readOnly=readOnly removeItem=(action 'removeVegetable') addItem=(action 'addVegetable') placeholder="Add a vegetable" content=vegetables source=remainingVegetables searchField="name" noMatchesMessage="Not found.  Click to add." as |item|}}
+    <strong>{{item.name}}</strong>
+    {{#if item.family}}
+      <em>{{item.family}}</em>
+    {{/if}}
+  {{/paper-chips}}
+
+  <h2>Chips with Autocomplete (requires match)</h2>
+  {{paper-chips readOnly=readOnly removeItem=(action 'removeVegeName') addItem=(action 'addVegeName') placeholder="Add a vegetable" content=vegeNames source=remainingVegeNames requireMatch=true}}
+
+  <h2>Contact Chips</h2>
+  {{paper-contact-chips class="md-contact-chips" readOnly=readOnly removeItem=(action 'removeContact') addItem=(action 'addContact') placeholder="Add a contact" content=contacts source=remainingContacts}}
+
+  {{#paper-checkbox value=readOnly onChange=(action (mut readOnly))}}Read Only{{/paper-checkbox}}
+  {{! END-SNIPPET }}
+
+  <h3>Template</h3>
+  {{code-snippet name="chips.example.hbs"}}
+
+{{/doc-content}}
