@@ -1,7 +1,7 @@
-<md-chips class="md-chips md-contact-chips {{if (and (not readOnly) isFocused) 'md-focused'}}">
-  <md-chips-wrap class="md-chips md-contact-chips {{if (and (not readOnly) isFocused) 'md-focused'}}" tabindex="-1" onkeydown={{action 'keyDown'}} onfocus={{action 'chipsFocus'}} onblur={{action 'chipsBlur'}}>
+<md-chips class="md-chips md-contact-chips {{if (and (not readOnly) isFocused) "md-focused"}}">
+  <md-chips-wrap class="md-chips md-contact-chips {{if (and (not readOnly) isFocused) "md-focused"}}" tabindex="-1" onkeydown={{action "keyDown"}} onfocus={{action "chipsFocus"}} onblur={{action "chipsBlur"}}>
     {{#each content as |item index|}}
-      <md-chip class="md-chip md-default-theme  {{if readOnly 'md-readonly'}} {{if (eq activeChip index) 'md-focused'}}">
+      <md-chip class="md-chip md-default-theme {{if readOnly "md-readonly"}} {{if (eq activeChip index) "md-focused"}}">
         <div class="md-chip-content" tabindex="-1" aria-hidden="true">
           <div class="md-contact-avatar">
             <img src={{item.image}}>
@@ -23,10 +23,9 @@
     {{/each}}
     {{#unless readOnly}}
       <div class="md-chip-input-container">
-        {{#paper-autocomplete closeOnSelect=true onBlur=(action 'inputBlur') onSelectionChange=(action 'autocompleteChange') onSearchTextChange=(action 'searchTextChange') onFocus=(action 'inputFocus') onOpen=(action 'inputFocus') placeholder=placeholder options=source searchField="email" as |item select|}}
+        {{#paper-autocomplete closeOnSelect=true onBlur=(action "inputBlur") onSelectionChange=(action "autocompleteChange") onSearchTextChange=(action "searchTextChange") onFocus=(action "inputFocus") onOpen=(action "inputFocus") placeholder=placeholder options=options searchField="email" as |item select|}}
           <div class="md-contact-suggestion">
             <img src={{item.image}} alt={{item.name}} class="md-contact-avatar">
-
             <span class="md-contact-name">{{item.name}}</span>
             <span class="md-contact-email">{{item.email}}</span>
           </div>

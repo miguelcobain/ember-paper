@@ -1,5 +1,4 @@
 import Ember from 'ember';
-
 const { Controller, computed, A } = Ember;
 
 export default Controller.extend({
@@ -7,27 +6,34 @@ export default Controller.extend({
 
   customFruitNames: A(['Apple', 'Banana', 'Orange']),
 
-  contacts: A([{
-    name: 'James',
-    email: 'james@ember.com',
-    image: 'tomster.png'
-  }]),
+  names: [
+    'Marina Augustine',
+    'Oddr Sarno',
+    'Nick Giannopoulos',
+    'Narayana Garner',
+    'Anita Gros',
+    'Megan Smith',
+    'Tsvetko Metzger',
+    'Hector Simek',
+    'Some-guy withalongalastaname'
+  ],
 
-  allContacts: A([{
-    name: 'James',
-    email: 'james@ember.com',
-    image: 'tomster.png'
-  }, {
-    name: 'Chris',
-    email: 'chris@ember.com',
-    image: 'tomster.png'
-  }]),
+  contacts: computed.map('names', function(c, index) {
+    let [firstName, lastName] = c.split(' ');
+    return {
+      name: c,
+      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
+      image: `http://lorempixel.com/50/50/people?${index}`
+    };
+  }),
 
-  remainingContacts: computed('allContacts.@each.email', 'contacts.@each.email', function() {
-    return this.get('allContacts').filter((source) => {
-      return !this.get('contacts').any(function(myContact) {
-        return source.email === myContact.email;
-      });
+  selectedContacts: computed.filter('contacts', function(c) {
+    return c.name.startsWith('N');
+  }),
+
+  remainingContacts: computed('contacts.[]', 'selectedContacts.[]', function() {
+    return this.get('contacts').filter((c) => {
+      return this.get('selectedContacts').indexOf(c) === -1;
     });
   }),
 
@@ -107,11 +113,11 @@ export default Controller.extend({
     },
 
     addContact(item) {
-      this.get('contacts').pushObject(item);
+      this.get('selectedContacts').pushObject(item);
     },
 
     removeContact(item) {
-      this.get('contacts').removeObject(item);
+      this.get('selectedContacts').removeObject(item);
     }
   }
 });
