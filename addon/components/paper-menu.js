@@ -153,8 +153,8 @@ export default BasicDropdownComponent.extend({
     let scaleY = Math.round(100 * Math.min(originNodeRect.height / containerNode.offsetHeight, 1.0)) / 100;
 
     let style = {
-      top: `${dropdownTop}px`,
-      left: `${dropdownLeft}px`,
+      top: dropdownTop,
+      left: dropdownLeft,
       // Animate a scale out if we aren't just repositioning
       transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
       transformOrigin
