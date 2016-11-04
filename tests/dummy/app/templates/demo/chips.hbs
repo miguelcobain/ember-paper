@@ -26,6 +26,9 @@
   <h2>Contact Chips</h2>
   {{paper-contact-chips class="md-contact-chips" readOnly=readOnly removeItem=(action "removeContact") addItem=(action "addContact") placeholder="Add a contact" content=selectedContacts options=remainingContacts}}
 
+  <blockquote><code>\{{paper-contact-chips}}</code> expects the name, email address and image to be supplied as <code>name</code>, <code>email</code> and <code>image</code> respectively.  If your field names differ from these, specify them using the <code>nameField</code>, <code>emailField</code> and <code>imageField</code> parameters, and specify <code>searchField</code> to configure which field the autocomplete should search against:</blockquote>
+  {{paper-contact-chips class="md-contact-chips" readOnly=readOnly removeItem=(action "removeAltContact") addItem=(action "addAltContact") placeholder="Add a contact" content=selectedAltContacts options=remainingAltContacts nameField="shortName" emailField="emailAddress" imageField="profileImage" searchField="emailAddress"}}
+
   {{#paper-checkbox value=readOnly onChange=(action (mut readOnly))}}
     Read Only
   {{/paper-checkbox}}
