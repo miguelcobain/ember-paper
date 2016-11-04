@@ -4,9 +4,9 @@
       <md-chip class="md-chip md-default-theme {{if readOnly "md-readonly"}} {{if (eq activeChip index) "md-focused"}}">
         <div class="md-chip-content" tabindex="-1" aria-hidden="true">
           <div class="md-contact-avatar">
-            <img src={{item.image}}>
+            <img src={{get item imageField}}>
           </div>
-          <span class="md-contact-name">{{item.name}}</span>
+          <span class="md-contact-name">{{get item nameField}}</span>
         </div>
         <div class="md-chip-remove-container">
           {{#unless readOnly}}
@@ -23,11 +23,11 @@
     {{/each}}
     {{#unless readOnly}}
       <div class="md-chip-input-container">
-        {{#paper-autocomplete closeOnSelect=true onBlur=(action "inputBlur") onSelectionChange=(action "autocompleteChange") onSearchTextChange=(action "searchTextChange") onFocus=(action "inputFocus") onOpen=(action "inputFocus") placeholder=placeholder options=options searchField="email" as |item select|}}
+        {{#paper-autocomplete closeOnSelect=true onBlur=(action "inputBlur") onSelectionChange=(action "autocompleteChange") onSearchTextChange=(action "searchTextChange") onFocus=(action "inputFocus") onOpen=(action "inputFocus") placeholder=placeholder options=options searchField=searchField as |item select|}}
           <div class="md-contact-suggestion">
-            <img src={{item.image}} alt={{item.name}} class="md-contact-avatar">
-            <span class="md-contact-name">{{item.name}}</span>
-            <span class="md-contact-email">{{item.email}}</span>
+            <img src={{get item imageField}} alt={{get item nameField}} class="md-contact-avatar">
+            <span class="md-contact-name">{{get item nameField}}</span>
+            <span class="md-contact-email">{{get item emailField}}</span>
           </div>
         {{/paper-autocomplete}}
       </div>
