@@ -115,7 +115,7 @@ export default Component.extend({
         this.queueReset();
 
         // Track selection of last item if no match required.
-        if (this.get('source').length === 1 && !this.get('requireMatch')) {
+        if (this.get('options').length === 1 && !this.get('requireMatch')) {
           this.set('lastItemChosen', true);
           this.set('autocomplete', null);
         }
