@@ -30,7 +30,8 @@ export default Component.extend(FocusableMixin, RippleMixin, ProxiableMixin, Col
   attributeBindings: [
     'type',
     'href',
-    'target'
+    'target',
+    'title'
   ],
   classNameBindings: [
     'raised:md-raised',
