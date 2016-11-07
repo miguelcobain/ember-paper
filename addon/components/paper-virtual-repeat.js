@@ -194,6 +194,10 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
 
   }).readOnly(),
 
+  visibleItemsVirtual: computed.map('_items', function(item, index) {
+    return { raw: item, virtualIndex: index };
+  }).readOnly(),
+
   visibleItems: computed('_startAt', '_visibleItemCount', '_items', function() {
 
     let items = get(this, '_items');
@@ -214,15 +218,10 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
           items[i] = getAtIndex(i);
         }
       }
+      this.notifyPropertyChange('_items');
     }
 
-    return items.slice(startAt, endAt).map((item, index) => (
-      {
-        raw: item,
-        actualIndex: startAt + index,
-        virtualIndex: index
-      })
-    );
+    return this.get('visibleItemsVirtual').slice(startAt, endAt);
   }).readOnly(),
 
   scrollToVirtualItem(newIndex, toTop=false) {
