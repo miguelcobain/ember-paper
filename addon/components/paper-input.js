@@ -132,7 +132,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   },
 
   setValue(value) {
-    if (this.$('input, textarea').val() !== value) {
+    if (this.$('input, textarea') && this.$('input, textarea').val() !== value) {
       this.$('input, textarea').val(value);
     }
   },
