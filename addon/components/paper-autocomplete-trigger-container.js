@@ -20,6 +20,7 @@ export default BasicTrigger.extend({
     }
     return tabindex;
   }),
+
   addMandatoryHandlers() {
     if (this.get('isTouchDevice')) {
       this.element.addEventListener('touchstart', () => {
@@ -32,6 +33,7 @@ export default BasicTrigger.extend({
     this.element.addEventListener('mousedown', (e) => this.send('handleMousedown', e));
     this.element.addEventListener('keydown', (e) => this.send('handleKeydown', e));
   },
+
   actions: {
 
     handleMousedown() {
