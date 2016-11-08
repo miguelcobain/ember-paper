@@ -17,7 +17,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 ### master
 - [#542](https://github.com/miguelcobain/ember-paper/pull/542) paper-form now yields a submit button
 - [#549](https://github.com/miguelcobain/ember-paper/pull/549) Allow `title` attribute in paper-button
-- [#551](https://github.com/miguelcobain/ember-paper/pull/551) avoids calling setValue when the component is destroyed
+- [#551](https://github.com/miguelcobain/ember-paper/pull/551) avoids calling setValue when `paper-input` is destroyed
 
 ### 1.0.0-alpha.7 (November 2, 2016)
 - [#531](https://github.com/miguelcobain/ember-paper/pull/531) paper-select focus fix - doesn't call focusTarget.focus if there is no focusTarget (which is perfectly possible)
