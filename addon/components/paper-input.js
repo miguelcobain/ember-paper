@@ -132,7 +132,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   },
 
   setValue(value) {
-    if (this.$('input, textarea') && this.$('input, textarea').val() !== value) {
+    if (this.$('input, textarea').val() !== value) {
       this.$('input, textarea').val(value);
     }
   },
@@ -142,6 +142,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
       this.sendAction('onChange', e.target.value);
       // setValue below ensures that the input value is the same as this.value
       run.next(() => {
+        if (this.isDestroyed) { return; }
         this.setValue(this.get('value'));
       });
       this.growTextarea();
