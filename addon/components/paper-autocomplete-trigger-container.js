@@ -23,7 +23,7 @@ export default BasicTrigger.extend({
   addMandatoryHandlers() {
     if (this.get('isTouchDevice')) {
       this.element.addEventListener('touchstart', () => {
-        self.document.body.addEventListener('touchmove', this._touchMoveHandler);
+        document.body.addEventListener('touchmove', this._touchMoveHandler);
       });
       this.element.addEventListener('touchend', (e) => {
         this.send('handleTouchEnd', e);
