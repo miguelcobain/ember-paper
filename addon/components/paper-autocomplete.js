@@ -103,6 +103,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
       if (!publicAPI.isOpen && event.type !== 'change') {
         publicAPI.actions.open(event);
       }
+
       this.notifyValidityChange();
       return this._super(...arguments);
     },
