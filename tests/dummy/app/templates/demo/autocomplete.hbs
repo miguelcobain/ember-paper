@@ -104,6 +104,7 @@
           searchField="name"
           labelPath="name"
           label="Select a Country..."
+          allowClear=(readonly allowClearWithLabel)
           loadingMessage="Searching countries..."
           noMatchesMessage="Oops this country doesn't exist."
           onSelectionChange=(action (mut selectedCountry2)) as |country select|}}
@@ -122,14 +123,19 @@
       {{/if}}
     </p>
     {{#paper-checkbox
-      value=disabled2
+      value=(readonly disabled2)
       onChange=(action (mut disabled2))}}
       Disable input
     {{/paper-checkbox}}
     {{#paper-checkbox
-      value=simulateQuery2
+      value=(readonly simulateQuery2)
       onChange=(action (mut simulateQuery2))}}
       Simulate query
+    {{/paper-checkbox}}
+    {{#paper-checkbox
+      value=(readonly allowClearWithLabel)
+      onChange=(action (mut allowClearWithLabel))}}
+      Allow Clear
     {{/paper-checkbox}}
 
     <h3>Template</h3>

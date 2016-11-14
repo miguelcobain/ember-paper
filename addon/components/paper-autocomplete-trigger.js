@@ -4,6 +4,7 @@ const { Component, isPresent, isBlank, run, get, computed } = Ember;
 
 export default Component.extend({
   tagName: 'md-autocomplete-wrap',
+  classNames: ['md-show-clear-button'],
   classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
 
   noLabel: computed.not('extra.label'),
