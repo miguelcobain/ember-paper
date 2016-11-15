@@ -4,13 +4,13 @@
 
 {{#paper-card}}
   {{#paper-toolbar}}
-    <div class="md-toolbar-tools">
+    {{#paper-toolbar-tools}}
       <h2>Basic Usage</h2>
       <span class="flex"></span>
       {{#paper-button onClick=(action "toggleSourceCode") iconButton=true}}
         {{paper-icon icon="code"}}
       {{/paper-button}}
-    </div>
+    {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
 
   <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
@@ -21,9 +21,9 @@
     {{! BEGIN-SNIPPET sidenav }}
     {{#paper-sidenav-container class="inner-sidenav"}}
 
-      {{#paper-sidenav 
+      {{#paper-sidenav
         class="md-whiteframe-z2"
-        name="left" 
+        name="left"
         open=leftSideBarOpen
         onToggle=(action (mut leftSideBarOpen))
       }}
@@ -44,8 +44,8 @@
             Left sidenav is {{if leftSideBarOpen "opened" "closed"}}
           </p>
 
-          {{#paper-sidenav-toggle name="left" class="hide-gt-sm" as |toggleAction|}}
-            {{#paper-button raised=true onClick=(action toggleAction)}}
+          {{#paper-sidenav-toggle name="left" as |toggleAction|}}
+            {{#paper-button raised=true classNames="hide-gt-sm" onClick=(action toggleAction)}}
               Toggle
             {{/paper-button}}
           {{/paper-sidenav-toggle}}

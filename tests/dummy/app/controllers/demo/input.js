@@ -34,6 +34,8 @@ export default Controller.extend({
   }],
   // END-SNIPPET
 
+  user: {},
+
   eventName: '',
   actions: {
     focusReceived() {

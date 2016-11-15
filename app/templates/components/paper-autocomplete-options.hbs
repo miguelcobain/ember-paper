@@ -1,0 +1,12 @@
+{{#each options as |opt|}}
+  <li class="ember-power-select-option {{if (eq opt.raw select.highlighted) 'selected'}}"
+    aria-selected="{{ember-power-select-is-selected opt.raw select.selected}}"
+    aria-disabled={{ember-power-select-true-string-if-present opt.disabled}}
+    aria-current="{{eq opt.raw select.highlighted}}"
+    data-option-index="{{groupIndex}}{{opt.virtualIndex}}"
+    data-option-actual-index="{{groupIndex}}{{opt.actualIndex}}"
+    role="option"
+    tabindex="0">
+    {{yield opt.raw select}}
+  </li>
+{{/each}}

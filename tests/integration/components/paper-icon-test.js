@@ -65,24 +65,24 @@ test('it renders with size styles', function(assert) {
 
   let $component = this.$('md-icon');
 
-  assert.equal($component.css('font-size'), '12px');
-  assert.equal($component.css('height'), '12px');
+  assert.ok(/font-size:.*12px/.test($component.attr('style')));
+  assert.ok(/height:.*12px/.test($component.attr('style')));
 
   this.set('size', 18);
-  assert.equal($component.css('font-size'), '18px');
-  assert.equal($component.css('height'), '18px');
+  assert.ok(/font-size:.*18px/.test($component.attr('style')));
+  assert.ok(/height:.*18px/.test($component.attr('style')));
 
   this.set('size', 24);
-  assert.equal($component.css('font-size'), '24px');
-  assert.equal($component.css('height'), '24px');
+  assert.ok(/font-size:.*24px/.test($component.attr('style')));
+  assert.ok(/height:.*24px/.test($component.attr('style')));
 
   this.set('size', 36);
-  assert.equal($component.css('font-size'), '36px');
-  assert.equal($component.css('height'), '36px');
+  assert.ok(/font-size:.*36px/.test($component.attr('style')));
+  assert.ok(/height:.*36px/.test($component.attr('style')));
 
   this.set('size', 48);
-  assert.equal($component.css('font-size'), '48px');
-  assert.equal($component.css('height'), '48px');
+  assert.ok(/font-size:.*48px/.test($component.attr('style')));
+  assert.ok(/height:.*48px/.test($component.attr('style')));
 });
 
 test('it renders with a default aria-label of the icon', function(assert) {
@@ -128,4 +128,15 @@ test('it renders the correct ligature when given a dashed or underscored icon na
   this.set('iconName', 'aspect_ratio');
 
   assert.equal($component.text().trim(), 'aspect_ratio');
+});
+
+test('it renders with md-font-icon attribute', function(assert) {
+  assert.expect(1);
+
+  this.set('iconName', 'check');
+  this.render(hbs`{{paper-icon iconName}}`);
+
+  let $component = this.$('md-icon');
+
+  assert.equal($component.attr('md-font-icon'), 'check');
 });

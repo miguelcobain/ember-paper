@@ -1,12 +1,16 @@
 import Ember from 'ember';
 import config from './config/environment';
 
-const Router = Ember.Router.extend({
-  location: config.locationType
+const { Router: ERouter } = Ember;
+
+const Router = ERouter.extend({
+  location: config.locationType,
+  rootURL: config.rootURL
 });
 
 Router.map(function() {
   this.route('introduction');
+  this.route('forms');
   this.route('typography');
   this.route('theme');
   this.route('cookbook');
@@ -32,6 +36,7 @@ Router.map(function() {
     this.route('slider');
     this.route('switch');
     this.route('toolbar');
+    this.route('virtual-repeat');
   });
 
   this.route('layout', function() {

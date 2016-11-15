@@ -28,6 +28,22 @@ table {
   overflow: auto;
 }
 
+
+ md-select-menu md-content md-option:not([disabled]):focus, md-select-menu.md-default-theme md-content md-option:not([disabled]):hover, md-select-menu md-content md-option:not([disabled]):hover {
+    background: rgb(238,238,238);
+}
+
+.header {
+  background-color: #106CC8;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.flex-start {
+  align-self: flex-start;
+}
+
 /***************
  * TYPE DEFAULTS
  ***************/
@@ -167,11 +183,12 @@ md-toolbar.md-default-theme.page-main-toolbar {
 
 
 .demo-header-searchbox {
-    border: none;
-    outline: none;
-    height: 100%;
-    width: 100%;
-    padding: 0; }
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+}
 .demo-select-header {
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
   padding-left: 10.667px;
@@ -180,23 +197,25 @@ md-toolbar.md-default-theme.page-main-toolbar {
   position: relative;
   display: flex;
   align-items: center;
-  width: auto; }
+  width: auto;
+}
 
 /************
  * DOCS MENU
  ************/
 
 *::-webkit-scrollbar {
-   width: 5px;
- }
+  width: 5px;
+  height: 5px;
+}
 
 *::-webkit-scrollbar-track {
-   background: color($color-grey, '200');
- }
+  background: rgba(0,0,0,0);
+}
 
 *::-webkit-scrollbar-thumb {
-   background: color($color-grey, '500');
- }
+  background: color($color-grey, '500');
+}
 
 .site-sidenav,
 .site-sidenav.md-locked-open-add-active,
@@ -360,11 +379,59 @@ md-sidenav.site-sidenav {
   }
 }
 
+.horizontal-demo {
+  height: 100px;
+  width: 100%;
+  max-width: 830px;
+  border: solid 1px grey;
+}
+
+.vertical-demo {
+  height: 296px;
+  width: 100%;
+  max-width: 400px;
+  border: solid 1px grey;
+}
+
+.repeated-item {
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+  height: 40px;
+  padding-top: 10px;
+  padding-left: 16px;
+}
+.repeated-item-horiz {
+  border-right: 1px solid #ddd;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 84px;
+  padding-top: 35px;
+  text-align: center;
+  width: 50px;
+}
+
 .card-demo {
   .card-media {
     background-color: #999999;
     height: 100%;
     width: 100%;
+  }
+}
+
+/************
+ * Radio button demo
+ ************/
+.radio-button-demo {
+  overflow: hidden;
+  hr {
+    margin-left: -20px;
+    opacity: 0.3;
+  }
+  .radio-value {
+    margin-left: 5px;
+    color: #0f9d58;
+    font-weight: bold;
+    padding: 5px;
   }
 }
 

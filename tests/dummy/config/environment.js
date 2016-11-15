@@ -1,13 +1,12 @@
-// app/config/environment.js
+/* jshint node: true */
 
 module.exports = function(environment) {
-  // jshint node: true
   // jscs:disable requireEnhancedObjectLiterals, validateQuoteMarks, disallowEmptyBlocks, disallowVar
 
   var ENV = {
     modulePrefix: 'dummy',
     environment: environment,
-    baseURL: '/',
+    rootURL: '/',
     locationType: 'hash',
     EmberENV: {
       FEATURES: {
@@ -33,31 +32,27 @@ module.exports = function(environment) {
     }
   };
 
-  switch (environment) {
-    case 'development': {
-      // ENV.APP.LOG_RESOLVER = true;
-      // ENV.APP.LOG_ACTIVE_GENERATION = true;
-      // ENV.APP.LOG_TRANSITIONS = true;
-      // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-      // ENV.APP.LOG_VIEW_LOOKUPS = true;
-      break;
-    }
-    case 'test': {
-      // Testem prefers this...
-      ENV.baseURL = '/';
-      ENV.locationType = 'none';
+  if (environment === 'development') {
+    // ENV.APP.LOG_RESOLVER = true;
+    // ENV.APP.LOG_ACTIVE_GENERATION = true;
+    // ENV.APP.LOG_TRANSITIONS = true;
+    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+  }
 
-      // keep test console output quieter
-      ENV.APP.LOG_ACTIVE_GENERATION = false;
-      ENV.APP.LOG_VIEW_LOOKUPS = false;
+  if (environment === 'test') {
+    // Testem prefers this...
+    ENV.locationType = 'none';
 
-      ENV.APP.rootElement = '#ember-testing';
-      break;
-    }
-    case 'production': {
-      ENV.baseURL = '/ember-paper';
-      break;
-    }
+    // keep test console output quieter
+    ENV.APP.LOG_ACTIVE_GENERATION = false;
+    ENV.APP.LOG_VIEW_LOOKUPS = false;
+
+    ENV.APP.rootElement = '#ember-testing';
+  }
+
+  if (environment === 'production') {
+    ENV.rootURL = '/ember-paper/release-1';
   }
 
   return ENV;

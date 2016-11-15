@@ -2,27 +2,24 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import BaseFocusable from './base-focusable';
+import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-import FlexMixin from 'ember-paper/mixins/flex-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
+import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 
-import requiredValidator from 'ember-paper/validators/required';
-import minValidator from 'ember-paper/validators/min';
-import maxValidator from 'ember-paper/validators/max';
-import minlengthValidator from 'ember-paper/validators/minlength';
-import maxlengthValidator from 'ember-paper/validators/maxlength';
-
-const { $, computed, isArray, isEmpty, Logger, A, run, assert, get } = Ember;
+const {
+  Component, $, computed, isEmpty, run, assert
+} = Ember;
 
 /**
  * @class PaperInput
- * @extends BaseFocusable
+ * @extends Ember.Component
+ * @uses FocusableMixin
  * @uses ChildMixin
  * @uses ColorMixin
- * @uses FlexMixin
+ * @uses ValidationMixin
  */
-export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
+export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, ValidationMixin, {
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
   classNameBindings: [
@@ -38,8 +35,7 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
   tabindex: null,
   hideAllMessages: false,
   isTouched: false,
-  lastIsInvalid: undefined,
-
+  isInvalid: computed.or('validationErrorMessages.length', 'isNativeInvalid'),
   hasValue: computed('value', 'isNativeInvalid', function() {
     let value = this.get('value');
     let isNativeInvalid = this.get('isNativeInvalid');
@@ -50,95 +46,15 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
     return `input-${this.get('elementId')}`;
   }),
 
-  /**
-   * The result of isInvalid is appropriate for controlling the display of
-   * validation error messages. It also may be used to distinguish whether
-   * the input would be considered valid after it is touched.
-   *
-   * @public
-   *
-   * @return {boolean} Whether the input is or would be invalid.
-   *    false: input is valid (touched or not), or is no longer rendered
-   *    true: input has been touched and is invalid.
-   */
-  isInvalid: computed.or('validationErrorMessages.length', 'isNativeInvalid'),
-  isValid: computed.not('isInvalid'),
-
-  isInvalidAndTouched: computed.and('isInvalid', 'isTouched'),
-
   renderCharCount: computed('value', function() {
     let currentLength = this.get('value') ? this.get('value').length : 0;
     return `${currentLength}/${this.get('maxlength')}`;
   }),
 
   eitherIcon: computed.or('icon', 'iconRight'),
+  isInvalidAndTouched: computed.and('isInvalid', 'isTouched'),
 
-  /**
-   * Return the built-in validations.
-   *
-   * May be overridden to provide additional built-in validations. Be sure to
-   * call this._super() to retrieve the standard validations.
-   *
-   * @public
-   */
-  validations() {
-    return [
-      requiredValidator,
-      minValidator,
-      maxValidator,
-      minlengthValidator,
-      maxlengthValidator
-    ];
-  },
-
-  customValidations: [],
-  errors: [],
-
-  /**
-   * Computed property that validate the input and return an array of error
-   * objects, each with an ng-message code and an error message.
-   *
-   * @public
-   */
-  validationErrorMessages: computed('value', 'errors.[]', 'customValidations.[]', function() {
-    let validations = A();
-    let messages = A();
-
-    // built-in validations
-    validations.pushObjects(this.validations());
-
-    // custom validations
-    let customValidations = this.get('customValidations');
-    assert('`customValidations` must be an array', isArray(customValidations));
-    validations.pushObjects(customValidations);
-
-    // execute validations
-    let currentValue = this.get('value');
-    validations.forEach((validation) => {
-      assert('validation must include an `validate(value)` function', validation && validation.validate && typeof validation.validate === 'function');
-      try {
-        let valParam = get(validation, 'param');
-        let paramValue = valParam ? this.get(valParam) : undefined;
-        if (!validation.validate(currentValue, paramValue)) {
-          let message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
-          messages.pushObject({
-            message: Ember.String.loc(message.string || message, paramValue, currentValue)
-          });
-        }
-      } catch (error) {
-        Logger.error('Exception with validation: ', validation, error);
-      }
-    });
-
-    // error messages array
-    let errors = this.get('errors') || [];
-    assert('`errors` must be an array', isArray(errors));
-    messages.pushObjects(errors.map((e) => {
-      return get(e, 'message') ? e : { message: e };
-    }));
-
-    return messages;
-  }),
+  validationProperty: 'value', // property that validations should be run on
 
   // Lifecycle hooks
   didReceiveAttrs() {
@@ -155,16 +71,19 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
   },
 
   didRender() {
-    this.growTextarea();
+    this._super(...arguments);
     // setValue below ensures that the input value is the same as this.value
     this.setValue(this.get('value'));
+    this.growTextarea();
   },
 
   willClearRender() {
+    this._super(...arguments);
     this.sendAction('onValidityChange', false);
   },
 
   willDestroyElement() {
+    this._super(...arguments);
     if (this.get('textarea')) {
       $(window).off(`resize.${this.elementId}`);
     }
@@ -176,21 +95,23 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
       inputElement.addClass('md-no-flex').attr('rows', 1);
 
       let minRows = this.get('passThru.rows');
-
+      let height = this.getHeight(inputElement);
       if (minRows) {
         if (!this.lineHeight) {
           inputElement.get(0).style.minHeight = 0;
           this.lineHeight = inputElement.get(0).clientHeight;
           inputElement.get(0).style.minHeight = null;
         }
-
-        let newRows = Math.round(Math.round(this.getHeight(inputElement) / this.lineHeight));
-        let rowsToSet = Math.min(newRows, minRows);
-
+        if (this.lineHeight) {
+          height = Math.max(height, this.lineHeight * minRows);
+        }
+        let proposedHeight = Math.round(height / this.lineHeight);
+        let maxRows = this.get('passThru.maxRows') || Number.MAX_VALUE;
+        let rowsToSet = Math.min(proposedHeight, maxRows);
         inputElement
           .css('height', `${this.lineHeight * rowsToSet}px`)
           .attr('rows', rowsToSet)
-          .toggleClass('md-textarea-scrollable', newRows >= minRows);
+          .toggleClass('md-textarea-scrollable', proposedHeight >= maxRows);
       } else {
         inputElement.css('height', 'auto');
         inputElement.get(0).scrollTop = 0;
@@ -210,15 +131,6 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
     return offsetHeight + (line > 0 ? line : 0);
   },
 
-  notifyValidityChange() {
-    let isValid = this.get('isValid');
-    let lastIsValid = this.get('lastIsValid');
-    if (lastIsValid !== isValid) {
-      this.sendAction('onValidityChange', isValid);
-      this.set('lastIsValid', isValid);
-    }
-  },
-
   setValue(value) {
     if (this.$('input, textarea').val() !== value) {
       this.$('input, textarea').val(value);
@@ -230,6 +142,9 @@ export default BaseFocusable.extend(ColorMixin, FlexMixin, ChildMixin, {
       this.sendAction('onChange', e.target.value);
       // setValue below ensures that the input value is the same as this.value
       run.next(() => {
+        if (this.isDestroyed) {
+          return;
+        }
         this.setValue(this.get('value'));
       });
       this.growTextarea();

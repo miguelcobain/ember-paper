@@ -1,10 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Service.extend({
+const { Service, inject, computed, Object: EObject } = Ember;
 
-  sniffer: Ember.inject.service('sniffer'),
+export default Service.extend({
 
-  webkit: Ember.computed(function() {
+  sniffer: inject.service('sniffer'),
+
+  webkit: computed(function() {
     return /webkit/i.test(this.get('sniffer.vendorPrefix'));
   }),
 
@@ -13,7 +15,7 @@ export default Ember.Service.extend({
     return this.get('webkit') ? `-webkit-${name.charAt(0)}${name.substring(1)}` : name;
   },
 
-  CSS: Ember.computed('webkit', function() {
+  CSS: computed('webkit', function() {
     let webkit = this.get('webkit');
     return {
       /* Constants */
@@ -32,7 +34,7 @@ export default Ember.Service.extend({
     };
   }),
 
-  KEYCODE: Ember.Object.create({
+  KEYCODE: EObject.create({
     ENTER:          13,
     ESCAPE:         27,
     SPACE:          32,

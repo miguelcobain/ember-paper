@@ -1,0 +1,14 @@
+{{#paper-virtual-repeat-scroller onScroll=(action 'onScroll')}}
+  <div class="md-virtual-repeat-sizer" style={{contentStyle}}></div>
+  {{#if ignoreOffsetter}}
+  	<div class="md-virtual-repeat-offsetter"></div>
+
+  {{else}}
+  	<div class="md-virtual-repeat-offsetter" style={{offsetterStyle}}>
+    	{{yield rawVisibleItems visibleItems}}
+  	</div>
+  {{/if}}
+{{/paper-virtual-repeat-scroller}}
+{{#if ignoreOffsetter}}
+	{{yield rawVisibleItems visibleItems}}
+{{/if}}
