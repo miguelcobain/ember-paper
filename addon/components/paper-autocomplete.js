@@ -63,12 +63,14 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     defineProperty(this, 'onchange', computed.alias(aliasOnChangeDepKey));
   },
 
-  // Choose highlighted item on key Tab
+  // Choose highlighted item on key tab
   _handleKeyTab(e) {
     let publicAPI = this.get('publicAPI');
     if (publicAPI.isOpen && !isNone(publicAPI.highlighted)) {
       publicAPI.actions.choose(publicAPI.highlighted, e);
     }
+    // e-p-s will close
+    this._super(...arguments);
   },
 
   actions: {
