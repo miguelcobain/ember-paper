@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Component, isPresent, isBlank, run, get, computed } = Ember;
+const { Component, isPresent, isBlank, run, get, computed, ObjectProxy } = Ember;
 
 export default Component.extend({
   tagName: 'md-autocomplete-wrap',
@@ -17,9 +17,12 @@ export default Component.extend({
         _innerText
       } = this.getProperties('selected', 'searchText', '_innerText');
 
-      if (selected) {
+      // Support ObjectProxy
+      let selectedValue = (selected instanceof ObjectProxy) ? get(selected, 'content') : selected;
+      if (selectedValue) {
         return this.getSelectedAsText();
       }
+
       return searchText ? searchText : _innerText;
     },
     set(_, v) {
