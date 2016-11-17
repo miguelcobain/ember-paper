@@ -17,12 +17,10 @@ export default Component.extend({
         _innerText
       } = this.getProperties('selected', 'searchText', '_innerText');
 
-      // Support ObjectProxy
       let selectedValue = (selected instanceof ObjectProxy) ? get(selected, 'content') : selected;
       if (selectedValue) {
         return this.getSelectedAsText();
       }
-
       return searchText ? searchText : _innerText;
     },
     set(_, v) {
