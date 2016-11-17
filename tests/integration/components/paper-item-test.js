@@ -176,3 +176,32 @@ test('Item checkbox with secondary action and primary action dont bubble primary
     assert.notOk(this.get('secondaryValue'));
   });
 });
+
+test('An Item that is removed from the view should not cause errors in the runLater loop', function(assert) {
+  assert.expect(0);
+
+  this.set('items', [1]);
+  this.set('deleteItem', () => {
+    this.set('items', []);
+  });
+
+  this.render(hbs`
+    {{#paper-list}}
+      {{#each items as |item|}}
+        {{#paper-item}}
+          {{item}}
+          {{#paper-button class="md-secondary" iconButton=true onClick=(action deleteItem)}}
+            {{paper-icon "message"}}
+          {{/paper-button}}
+        {{/paper-item}}
+      {{/each}}
+    {{/paper-list}}
+  `);
+
+  let button = this.$('.md-secondary');
+
+  wait().then(() => {
+    button.click();
+    button.trigger('mousedown');
+  });
+});
