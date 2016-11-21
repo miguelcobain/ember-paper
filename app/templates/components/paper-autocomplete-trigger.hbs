@@ -3,6 +3,8 @@
     label=extra.label
     value=text
     flex=true
+    required=(readonly required)
+    passThru=(readonly passThru)
     validationErrorMessages=(readonly validationErrorMessages)
     disabled=(readonly disabled)
     onChange=(action "handleInputLocal")
@@ -20,7 +22,23 @@
     onblur={{action onBlur}}
     onkeydown={{action "handleKeydown"}}
     disabled={{readonly disabled}}
-    onmousedown={{action "stopPropagation"}}>
+    onmousedown={{action "stopPropagation"}}
+
+    accept={{passThru.accept}}
+    autocomplete={{passThru.autocomplete}}
+    autosave={{passThru.autosave}}
+    form={{passThru.form}}
+    formaction={{passThru.formaction}}
+    formenctype={{passThru.formenctype}}
+    formmethod={{passThru.formmethod}}
+    formnovalidate={{passThru.formnovalidate}}
+    formtarget={{passThru.formtarget}}
+    inputmode={{passThru.inputmode}}
+    pattern={{passThru.pattern}}
+    readonly={{passThru.readonly}}
+    selectionDirection={{passThru.selectionDirection}}
+    spellcheck={{passThru.spellcheck}}
+    step={{passThru.step}}>
 {{/if}}
 {{#if (and select.loading select.isActive)}}
   {{paper-progress-linear classNameBindings="extra.label:md-inline"}}
