@@ -97,6 +97,7 @@
       {{paper-input label="Name" value=name onChange=(action (mut name)) class="flex"}}
         {{#paper-autocomplete
           disabled=(readonly disabled2)
+          required=(readonly isRequired)
           triggerClass="flex"
           options=items
           selected=selectedCountry2
@@ -112,6 +113,7 @@
             searchText=select.searchText
             flags="i"}}
       {{/paper-autocomplete}}
+
       {{! END-SNIPPET }}
     </div>
     <p>
@@ -130,6 +132,11 @@
       value=simulateQuery2
       onChange=(action (mut simulateQuery2))}}
       Simulate query
+    {{/paper-checkbox}}
+    {{#paper-checkbox
+      value=isRequired
+      onChange=(action (mut isRequired))}}
+      Is required
     {{/paper-checkbox}}
 
     <h3>Template</h3>
