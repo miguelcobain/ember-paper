@@ -29,6 +29,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [#507](https://github.com/miguelcobain/ember-paper/issues/507) replace all instances of attribute based flex layout and replace with class based ones
 - [#469](https://github.com/miguelcobain/ember-paper/pull/469) Set the value before growing the textarea on render
 - [#541](https://github.com/miguelcobain/ember-paper/pull/541) allow touch devices to interact with autocomplete
+- [#527](https://github.com/miguelcobain/ember-paper/pull/527) Add paper-chips & paper-contact-chips
 
 ### 1.0.0-alpha.6 (October 27, 2016)
 - [#395](https://github.com/miguelcobain/ember-paper/pull/395) The Great Update of paper-menu et al:

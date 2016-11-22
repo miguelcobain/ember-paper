@@ -1,0 +1,118 @@
+{{page-toolbar pageTitle="Chips" isDemo=true}}
+
+{{#doc-content}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Basic Usage</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-card-content class="flex"}}
+      {{! BEGIN-SNIPPET chips.example }}
+      <h2>Default Template</h2>
+      {{paper-chips
+        content=fruitNames
+        readOnly=readOnly
+        removeItem=(action "removeItem")
+        addItem=(action "addItem")
+        placeholder="Add a tag"}}
+
+      <h2>Custom Template</h2>
+      {{#paper-chips
+        readOnly=readOnly
+        removeItem=(action "removeCustomItem")
+        addItem=(action "addCustomItem")
+        placeholder="Add a tag"
+        content=customFruitNames as |item|}}
+        <strong>{{item}}</strong>
+        <em>(fruit)</em>
+      {{/paper-chips}}
+
+      <h2>Chips with Autocomplete</h2>
+      {{#paper-chips
+        readOnly=readOnly
+        removeItem=(action "removeVegetable")
+        addItem=(action "addVegetable")
+        placeholder="Add a vegetable"
+        content=vegetables
+        options=remainingVegetables
+        searchField="name"
+        noMatchesMessage="Not found. Click to add." as |item|}}
+        <strong>{{item.name}}</strong>
+        {{#if item.family}}
+          <em>{{item.family}}</em>
+        {{/if}}
+      {{/paper-chips}}
+
+      <h2>Chips with Autocomplete (requires match)</h2>
+      {{paper-chips
+        readOnly=readOnly
+        removeItem=(action "removeVegeName")
+        addItem=(action "addVegeName")
+        placeholder="Add a vegetable"
+        content=vegeNames
+        options=remainingVegeNames
+        requireMatch=true}}
+      {{! END-SNIPPET }}
+
+      <h3>Template</h3>
+      {{code-snippet name="chips.example.hbs"}}
+
+    {{/paper-card-content}}
+  {{/paper-card}}
+
+
+  {{#paper-card class="chipsdemoContactChips"}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Contact chips</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-card-content class="flex"}}
+
+      {{! BEGIN-SNIPPET chips.contacts-example }}
+      <h2>Contact Chips</h2>
+      {{paper-contact-chips
+        readOnly=readOnly
+        removeItem=(action "removeContact")
+        addItem=(action "addContact")
+        placeholder="Add a contact"
+        content=selectedContacts
+        options=remainingContacts}}
+
+      <blockquote>
+        <code>paper-contact-chips</code> expects the name, email address and image
+        to be supplied as <code>name</code>, <code>email</code> and <code>image</code>
+        respectively. If your field names differ from these, specify them using the
+        <code>nameField</code>, <code>emailField</code> and <code>imageField</code>
+        parameters, and specify <code>searchField</code> to configure which field the
+        autocomplete should search against:
+      </blockquote>
+
+      {{paper-contact-chips
+        readOnly=readOnly
+        removeItem=(action "removeAltContact")
+        addItem=(action "addAltContact")
+        placeholder="Add a contact"
+        content=selectedAltContacts
+        options=remainingAltContacts
+        nameField="shortName"
+        emailField="emailAddress"
+        imageField="profileImage"
+        searchField="emailAddress"}}
+
+      {{#paper-checkbox
+        value=readOnly
+        onChange=(action (mut readOnly))}}
+        Read Only
+      {{/paper-checkbox}}
+      {{! END-SNIPPET }}
+
+      <h3>Template</h3>
+      {{code-snippet name="chips.contacts-example.hbs"}}
+
+    {{/paper-card-content}}
+  {{/paper-card}}
+
+{{/doc-content}}
