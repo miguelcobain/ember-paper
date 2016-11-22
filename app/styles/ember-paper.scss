@@ -110,7 +110,8 @@
 @import './angular-material/components/subheader/subheader';
 @import './angular-material/components/subheader/subheader-theme';
 
-@import './angular-material/components/autocomplete/autocomplete';
+// Overwriting below with the latest style
+// @import './angular-material/components/autocomplete/autocomplete';
 @import './angular-material/components/autocomplete/autocomplete-theme';
 
 @import './angular-material/components/progressLinear/progress-linear';
