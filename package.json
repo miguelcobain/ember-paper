@@ -26,7 +26,6 @@
     "ember-ajax": "^2.0.1",
     "ember-cli": "2.8.0",
     "ember-cli-app-version": "^1.0.0",
-    "ember-cli-content-security-policy": "0.4.0",
     "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-fastboot": "1.0.0-beta.9",
     "ember-cli-github-pages": "^0.1.2",
