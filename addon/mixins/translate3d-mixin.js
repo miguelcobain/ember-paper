@@ -10,8 +10,7 @@ const {
   RSVP: { Promise },
   computed,
   inject,
-  run,
-  K
+  run
 } = Ember;
 
 /**
@@ -47,8 +46,8 @@ export default Mixin.create({
     this.TRANSITIONEND = this.get('constants').get('CSS').TRANSITIONEND;
   },
 
-  onTranslateFromEnd: K,
-  onTranslateToEnd: K,
+  onTranslateFromEnd() {},
+  onTranslateToEnd() {},
 
   didInsertElement() {
     this._super(...arguments);
