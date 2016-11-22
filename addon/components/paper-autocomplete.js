@@ -7,7 +7,7 @@ import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
 
-const { assert, computed, inject, isNone, defineProperty, K: emberNop } = Ember;
+const { assert, computed, inject, isNone, defineProperty } = Ember;
 
 /**
  * @class PaperAutocomplete
@@ -36,7 +36,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     }
   }),
   searchText: '',
-  _onChangeNop: emberNop,
+  _onChangeNop() { },
 
   // Don't automatically highlight any option
   defaultHighlighted: null,
