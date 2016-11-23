@@ -132,7 +132,7 @@ export default Component.extend({
     },
 
     keyDown(event) {
-      let [input] = this.getInput();
+      let input = this.getInput().get(0);
       if (!this.get('readOnly') && isEmpty(input.value) && isPresent(this.get('content'))) {
         this.keyboardNavigation(event);
         if (this.get('activeChip') >= 0) {
