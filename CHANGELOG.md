@@ -15,16 +15,18 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 
 ### master
-- [#542](https://github.com/miguelcobain/ember-paper/pull/542) paper-form now yields a submit button
-- [#549](https://github.com/miguelcobain/ember-paper/pull/549) Allow `title` attribute in paper-button
-- [#551](https://github.com/miguelcobain/ember-paper/pull/551) avoids calling setValue when `paper-input` is destroyed
-- [#552](https://github.com/miguelcobain/ember-paper/pull/552) `paper-autocomplete` searchText is now reseted properly
 - [#562](https://github.com/miguelcobain/ember-paper/pull/562) Close autocomplete autocomplete's dropdown on tabKey
 - [#563](https://github.com/miguelcobain/ember-paper/pull/563) Make autocomplete more similar to paper-input (required star and passThru hash)
 - [a4acae4](https://github.com/miguelcobain/ember-paper/commit/a4acae4bb014a476506603e2e82e5d6467f30efe) Remove usage of `Ember.K`
 - [#560](https://github.com/miguelcobain/ember-paper/pull/560) `paper-autocomplete` works with `allowClear` + floating label
 - [#567](https://github.com/miguelcobain/ember-paper/pull/567) `paper-autocomplete-highlight` now highlights non-string labels
 - [#571](https://github.com/miguelcobain/ember-paper/pull/571) Allow css class on paper dialog and its container
+
+### 1.0.0-alpha.8 (November 10, 2016)
+- [#542](https://github.com/miguelcobain/ember-paper/pull/542) paper-form now yields a submit button
+- [#549](https://github.com/miguelcobain/ember-paper/pull/549) Allow `title` attribute in paper-button
+- [#551](https://github.com/miguelcobain/ember-paper/pull/551) avoids calling setValue when `paper-input` is destroyed
+- [#552](https://github.com/miguelcobain/ember-paper/pull/552) `paper-autocomplete` searchText is now reseted properly
 
 ### 1.0.0-alpha.7 (November 2, 2016)
 - [#531](https://github.com/miguelcobain/ember-paper/pull/531) paper-select focus fix - doesn't call focusTarget.focus if there is no focusTarget (which is perfectly possible)
