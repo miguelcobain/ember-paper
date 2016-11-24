@@ -52,12 +52,17 @@
       </div>
 
       <h2>Disabled</h2>
-      {{paper-slider value=disabled1 disabled=true}}
+      <div class="layout layout-align-center-center slider-container">
+        {{paper-icon icon="brightness-low"}}
+        {{paper-slider class="flex" value=disabled1 disabled=isSliderDisabled}}
+        {{paper-input type="number" value=disabled1 onChange=(action (mut disabled1))}}
+      </div>
+      {{paper-checkbox value=isSliderDisabled onChange=(action (mut isSliderDisabled))}}
       {{paper-slider value=disabled2 disabled=true}}
 
       <h2>Disabled, Discrete</h2>
-      {{paper-slider value=disabled1 disabled=true step="3" discrete=true min="0" max="10"}}
-      {{paper-slider value=disabled2 disabled=true step="10" discrete=true}}
+      {{paper-slider value=discreteDisabled1 disabled=true step="3" discrete=true min="0" max="10"}}
+      {{paper-slider value=discreteDisabled2 disabled=true step="10" discrete=true}}
       {{! END-SNIPPET }}
 
       <h3>Template</h3>
