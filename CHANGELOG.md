@@ -14,12 +14,13 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - `paper-icon`'s `size` attribute now takes a size in pixels, and `lg` or `sm` values are no longer supported.
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 
-### master
+### 1.0.0-alpha.9 (November 24, 2016)
 - [#562](https://github.com/miguelcobain/ember-paper/pull/562) Close autocomplete autocomplete's dropdown on tabKey
 - [#563](https://github.com/miguelcobain/ember-paper/pull/563) Make autocomplete more similar to paper-input (required star and passThru hash)
 - [a4acae4](https://github.com/miguelcobain/ember-paper/commit/a4acae4bb014a476506603e2e82e5d6467f30efe) Remove usage of `Ember.K`
 - [#560](https://github.com/miguelcobain/ember-paper/pull/560) `paper-autocomplete` works with `allowClear` + floating label
 - [#567](https://github.com/miguelcobain/ember-paper/pull/567) `paper-autocomplete-highlight` now highlights non-string labels
+- [#527](https://github.com/miguelcobain/ember-paper/pull/527) Add paper-chips & paper-contact-chips
 - [#571](https://github.com/miguelcobain/ember-paper/pull/571) Allow css class on paper dialog and its container
 
 ### 1.0.0-alpha.8 (November 10, 2016)
@@ -33,7 +34,6 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [#507](https://github.com/miguelcobain/ember-paper/issues/507) replace all instances of attribute based flex layout and replace with class based ones
 - [#469](https://github.com/miguelcobain/ember-paper/pull/469) Set the value before growing the textarea on render
 - [#541](https://github.com/miguelcobain/ember-paper/pull/541) allow touch devices to interact with autocomplete
-- [#527](https://github.com/miguelcobain/ember-paper/pull/527) Add paper-chips & paper-contact-chips
 
 ### 1.0.0-alpha.6 (October 27, 2016)
 - [#395](https://github.com/miguelcobain/ember-paper/pull/395) The Great Update of paper-menu et al:
