@@ -14,6 +14,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - `paper-icon`'s `size` attribute now takes a size in pixels, and `lg` or `sm` values are no longer supported.
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 
+### 1.0.0-alpha.10 (November 24, 2016)
+- [82c53e4](https://github.com/miguelcobain/ember-paper/commit/82c53e4f91bf271d44bf719835cc2530a1913c91) Bugfix for for npm module resolution
+
 ### 1.0.0-alpha.9 (November 24, 2016)
 - [#562](https://github.com/miguelcobain/ember-paper/pull/562) Close autocomplete autocomplete's dropdown on tabKey
 - [#563](https://github.com/miguelcobain/ember-paper/pull/563) Make autocomplete more similar to paper-input (required star and passThru hash)
