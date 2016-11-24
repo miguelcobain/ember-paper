@@ -59,11 +59,12 @@
     "broccoli-filter": "^1.2.3",
     "broccoli-funnel": "^1.0.1",
     "broccoli-merge-trees": "^1.1.0",
+    "ember-basic-dropdown": "^0.16.0",
     "ember-cli-babel": "^5.1.6",
     "ember-css-transitions": "0.1.6",
-    "ember-wormhole": "0.4.1",
-    "ember-basic-dropdown": "^0.16.0",
     "ember-power-select": "1.0.0-beta.23",
+    "ember-wormhole": "0.4.1",
+    "resolve": "^1.1.7",
     "virtual-each": "0.3.1"
   },
   "keywords": [
