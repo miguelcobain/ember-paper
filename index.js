@@ -142,7 +142,7 @@ module.exports = {
     bower, we use this hack. Please change it if you read this and know a better way.
   */
   pathBase: function() {
-    return path.dirname(resolve.sync('angular-material-source/package.json', { basedir: this.parent.root })) + '/src';
+    return path.dirname(resolve.sync('angular-material-source/package.json', { basedir: __dirname })) + '/src';
   },
 
   postprocessTree: function(type, tree) {
