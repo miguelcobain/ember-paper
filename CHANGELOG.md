@@ -14,6 +14,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - `paper-icon`'s `size` attribute now takes a size in pixels, and `lg` or `sm` values are no longer supported.
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 
+### master
+- [e923c51](https://github.com/miguelcobain/ember-paper/commit/e923c517ae10cfb23a86e28207c8496f9a74f377) fix sidenav opening glitch
+
 ### 1.0.0-alpha.10 (November 24, 2016)
 - [82c53e4](https://github.com/miguelcobain/ember-paper/commit/82c53e4f91bf271d44bf719835cc2530a1913c91) Bugfix for for npm module resolution
 
