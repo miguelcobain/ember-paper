@@ -67,7 +67,7 @@ export default Component.extend(TransitionMixin, {
       isLockedOpen = window.matchMedia(mediaQuery).matches;
     }
 
-    if (this.get('isLockedOpen') !== isLockedOpen) {
+    if (!!this.get('isLockedOpen') !== isLockedOpen) {
       this.set('isLockedOpen', isLockedOpen);
 
       // if sidenav is open and we enter lockedOpen,
