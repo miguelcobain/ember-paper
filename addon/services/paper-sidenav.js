@@ -30,7 +30,7 @@ export default Service.extend({
   unregister(name, sidenav) {
     assert(`You tried to unregister a sidenav named '${name}' but no such sidenav is registered`, this._sidenavs[name] && this._sidenavs[name].length);
     let sidenavs = this._sidenavs[name] || [];
-    this._sidenavs[name] = sidenavs.filter((s) => s !== sidenav);
+    this._sidenavs[name] = sidenavs.filter((s) => s.sidenav !== sidenav);
   },
 
   open(name = 'default') {
