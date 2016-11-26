@@ -11,6 +11,7 @@
     {{#paper-content}}
       {{! BEGIN-SNIPPET list }}
       {{#paper-list}}
+        {{#paper-subheader}}3 line item{{/paper-subheader}}
         {{#each listData as |item|}}
           {{#paper-item class="md-3-line"}}
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
@@ -24,6 +25,7 @@
 
         {{paper-divider}}
 
+        {{#paper-subheader}}2 line item{{/paper-subheader}}
         {{#each listData as |item|}}
           {{#paper-item class="md-2-line"}}
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
@@ -36,6 +38,7 @@
 
         {{paper-divider}}
 
+        {{#paper-subheader}}3 line item, long paragraph{{/paper-subheader}}
         {{#each listData as |item|}}
           {{#paper-item class="md-3-line md-long-text"}}
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
@@ -52,6 +55,7 @@
 
         {{paper-divider}}
 
+        {{#paper-subheader}}Icons{{/paper-subheader}}
         {{#each phoneNumbers as |phone|}}
           {{#paper-item class="md-2-line"}}
             {{paper-icon "phone" class="md-avatar-icon"}}
