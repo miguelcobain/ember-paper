@@ -1,78 +1,74 @@
 {{page-toolbar pageTitle="List" isDemo=true isWIP=true}}
 
 {{#doc-content}}
-  <h2>Basic Usage</h2>
-  {{! BEGIN-SNIPPET list }}
-  {{#paper-content class="md-whiteframe-z1 list-demo"}}
-    {{#paper-list}}
-      {{#each listData as |item|}}
-        {{#paper-item class="md-3-line"}}
-            <img src={{item.face}} alt={{item.who}} class="md-avatar">
-            <div class="md-list-item-text">
 
-                <h3>{{item.what}}</h3>
-                <h4>{{item.who}}</h4>
-                <p>
-                  {{item.notes}}
-                </p>
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Basic Usage</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-content}}
+      {{! BEGIN-SNIPPET list }}
+      {{#paper-list}}
+        {{#each listData as |item|}}
+          {{#paper-item class="md-3-line"}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
+            <div class="md-list-item-text">
+              <h3>{{item.name}}</h3>
+              <h4>{{item.email}}</h4>
+              <p>Some longer notes here could be here. But they aren't.</p>
             </div>
-        {{/paper-item}}
-      {{/each}}
-    {{/paper-list}}
-  {{/paper-content}}
-  {{! END-SNIPPET }}
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#each listData as |item|}}
+          {{#paper-item class="md-2-line"}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
+            <div class="md-list-item-text">
+              <h3>{{item.name}}</h3>
+              <p>{{item.email}}</p>
+            </div>
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#each listData as |item|}}
+          {{#paper-item class="md-3-line md-long-text"}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
+            <div class="md-list-item-text">
+              <h3>{{item.name}}</h3>
+              <p>
+                Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
+                Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
+                velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+              </p>
+            </div>
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#each phoneNumbers as |phone|}}
+          {{#paper-item class="md-2-line"}}
+            {{paper-icon "phone" class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{phone.number}}</h3>
+              <p>{{phone.type}}</p>
+            </div>
+          {{/paper-item}}
+        {{/each}}
+
+      {{/paper-list}}
+      {{! END-SNIPPET }}
+    {{/paper-content}}
+  {{/paper-card}}
 
   <h3>Template</h3>
   {{code-snippet name="list.hbs"}}
-
-  <h2>Full Width Dividers</h2>
-  {{! BEGIN-SNIPPET list.normal-divider }}
-  {{#paper-content class="md-whiteframe-z1 list-demo"}}
-    {{#paper-list}}
-      {{#each listData as |item|}}
-        {{#paper-item class="md-3-line"}}
-          <img src={{item.face}} alt={{item.who}} class="md-avatar">
-          <div class="md-list-item-text">
-            <h3>{{item.what}}</h3>
-            <h4>{{item.who}}</h4>
-            <p>
-              {{item.notes}}
-            </p>
-          </div>
-        {{/paper-item}}
-        {{paper-divider}}
-      {{/each}}
-    {{/paper-list}}
-  {{/paper-content}}
-  {{! END-SNIPPET }}
-
-  <h3>Template</h3>
-  {{code-snippet name="list.normal-divider.hbs"}}
-
-  <h2>Inset dividers</h2>
-
-  {{! BEGIN-SNIPPET list.inset-divider }}
-  {{#paper-content class="md-whiteframe-z1 list-demo"}}
-    {{#paper-list}}
-      {{#each listData as |item|}}
-        {{#paper-item class="md-3-line"}}
-          <img src={{item.face}} alt={{item.who}} class="md-avatar">
-          <div class="md-list-item-text">
-            <h3>{{item.what}}</h3>
-            <h4>{{item.who}}</h4>
-            <p>
-              {{item.notes}}
-            </p>
-          </div>
-        {{/paper-item}}
-        {{paper-divider inset=true}}
-      {{/each}}
-    {{/paper-list}}
-  {{/paper-content}}
-  {{! END-SNIPPET }}
-
-  <h3>Template</h3>
-  {{code-snippet name="list.inset-divider.hbs"}}
 
 {{/doc-content}}
 
