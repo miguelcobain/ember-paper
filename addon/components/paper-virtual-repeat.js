@@ -24,6 +24,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
   actions: {
     onScroll(e) {
       this.eventHandlers.scroll.call(this, e);
+      this.sendAction('onScrolled', this.get('visibleItems'));
     }
   },
 
