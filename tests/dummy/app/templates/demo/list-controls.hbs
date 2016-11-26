@@ -1,93 +1,109 @@
 {{page-toolbar pageTitle="List Controls" isDemo=true isWIP=true}}
 
 {{#doc-content}}
-  <h2>Basic Usage</h2>
-  {{! BEGIN-SNIPPET list-controls }}
-  {{#paper-content class="md-whiteframe-z1 list-demo list-controls-demo"}}
-    {{#paper-list}}
-      {{#paper-subheader class="md-no-sticky"}}Single Action Checkboxes{{/paper-subheader}}
 
-      {{#paper-item}}
-        <p>Checkbox 1</p>
-        {{paper-checkbox class="md-secondary" value=checkboxEnabled1 onChange=(action (mut checkboxEnabled1))}}
-      {{/paper-item}}
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Basic Usage</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-content}}
+      {{! BEGIN-SNIPPET list-controls }}
+      {{#paper-list}}
 
-      {{#paper-item}}
-        <p>Checkbox 2</p>
-        {{paper-checkbox class="md-secondary" value=checkboxEnabled2 onChange=(action (mut checkboxEnabled2))}}
-      {{/paper-item}}
+        {{#paper-subheader}}Single Action Checkboxes{{/paper-subheader}}
+        {{#each toppings as |topping|}}
+          {{#paper-item as |controls|}}
+            <p>{{topping.name}}</p>
+            {{controls.checkbox
+              value=topping.enabled
+              onChange=(action (mut topping.enabled))}}
+          {{/paper-item}}
+        {{/each}}
 
-      {{paper-divider}}
+        {{paper-divider}}
 
-      {{#paper-subheader class="md-no-sticky"}}Clickable Items with Secondary Controls{{/paper-subheader}}
-
-      {{#paper-item onClick="transitionToWifiMenu"}}
-        {{paper-icon "network_wifi"}}
-        <p>Wi-Fi</p>
-        {{paper-switch class="md-secondary" value=wifiEnabled onChange=(action (mut wifiEnabled))}}
-      {{/paper-item}}
-
-      {{#paper-item onClick="transitionToBluetoothMenu"}}
-        {{paper-icon "bluetooth"}}
-        <p>Bluetooth</p>
-        {{paper-switch class="md-secondary" value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
-      {{/paper-item}}
-
-      {{#paper-item onClick="transitionToDataUsage"}}
-        {{paper-icon "data_usage"}}
-        <p>Data Usage</p>
-      {{/paper-item}}
-
-      {{paper-divider}}
-
-      {{#paper-subheader class="md-no-sticky"}}Checkbox with Secondary Action{{/paper-subheader}}
-
-      {{#each messageData as |item|}}
-        {{#paper-item}}
-          {{#paper-checkbox value=item.checked onChange=(action (mut item.checked))}}{{/paper-checkbox}}
-          <p>{{item.message}}</p>
-          {{#paper-button class="md-secondary" iconButton=true onClick=(action "secondaryMessageClick" item)}}
-            {{paper-icon "message"}}
-          {{/paper-button}}
+        {{#paper-subheader}}Secondary Buttons{{/paper-subheader}}
+        {{#paper-item as |controls|}}
+          <p>Clicking the button to the right will fire the secondary action</p>
+          {{#controls.button onClick=(action "transitionToWifiMenu")}}
+            More Info
+          {{/controls.button}}
         {{/paper-item}}
-      {{/each}}
-
-      {{#paper-divider}}{{/paper-divider}}
-
-      {{#paper-subheader class="md-no-sticky"}}Clickable Avatars{{/paper-subheader}}
-
-      {{#each listData as |item|}}
-        {{#paper-item class="md-3-line" onClick=(action "goToPerson" item)}}
-            <img src={{item.face}} alt={{item.who}} class="md-avatar">
-            <div class="md-list-item-text">
-              <h3>{{item.what}}</h3>
-              <h4>{{item.who}}</h4>
-              <p>{{item.notes}}</p>
-            </div>
+        {{#paper-item as |controls|}}
+          <p>Click anywhere to fire the primary action, or the button to fire the secondary</p>
+          {{#controls.button onClick=(action "transitionToWifiMenu")}}
+            More Info
+          {{/controls.button}}
         {{/paper-item}}
-      {{/each}}
 
-      {{paper-divider}}
+        {{paper-divider}}
 
-      {{#paper-subheader class="md-no-sticky"}}Avatar with Secondary Action Icon{{/paper-subheader}}
+        {{#paper-subheader}}Clickable Items with Secondary Controls{{/paper-subheader}}
+        {{#paper-item onClick=(action "transitionToWifiMenu") as |controls|}}
+          {{paper-icon "network-wifi"}}
+          <p>Wi-Fi</p>
+          {{controls.switch value=wifiEnabled onChange=(action (mut wifiEnabled))}}
+        {{/paper-item}}
+        {{#paper-item onClick=(action "transitionToBluetoothMenu") as |controls|}}
+          {{paper-icon "bluetooth"}}
+          <p>Bluetooth</p>
+          {{controls.switch value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
+        {{/paper-item}}
+        {{#paper-item onClick=(action "transitionToDataUsage")}}
+          {{paper-icon "data-usage"}}
+          <p>Data Usage</p>
+        {{/paper-item}}
 
-      {{#each listData as |item|}}
-        {{#paper-item class="md-3-line" onClick=(action "goToPerson" item)}}
-            <img src={{item.face}} alt={{item.who}} class="md-avatar">
+        {{paper-divider}}
+
+        {{#paper-subheader class="md-no-sticky"}}Checkbox with Secondary Action{{/paper-subheader}}
+        {{#each messageData as |item|}}
+          {{#paper-item as |controls|}}
+            {{paper-checkbox value=item.checked onChange=(action (mut item.checked))}}
+            <p>{{item.message}}</p>
+            {{#controls.button iconButton=true onClick=(action "secondaryMessageClick" item)}}
+              {{paper-icon "message"}}
+            {{/controls.button}}
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#paper-subheader}}Clickable Avatars{{/paper-subheader}}
+        {{#each listData as |item|}}
+          {{#paper-item class="md-3-line" onClick=(action "goToPerson" item)}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <div class="md-list-item-text">
-              <h3>{{item.what}}</h3>
-              <h4>{{item.who}}</h4>
-              <p>{{item.notes}}</p>
+              <h3>{{item.name}}</h3>
+              <h4>{{item.email}}</h4>
+              <p>Some notes here.</p>
             </div>
-            {{#paper-button iconButton=true class="md-secondary" onClick=(action "secondaryPersonClick" item)}}
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#paper-subheader}}Avatar with Secondary Action Icon{{/paper-subheader}}
+        {{#each listData as |item|}}
+          {{#paper-item class="md-3-line" onClick=(action "goToPerson" item) as |controls|}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
+            <div class="md-list-item-text">
+              <h3>{{item.name}}</h3>
+              <h4>{{item.email}}</h4>
+              <p>Some notes here.</p>
+            </div>
+            {{#controls.button iconButton=true onClick=(action "secondaryPersonClick" item)}}
               {{paper-icon "phone"}}
-            {{/paper-button}}
-        {{/paper-item}}
-      {{/each}}
+            {{/controls.button}}
+          {{/paper-item}}
+        {{/each}}
 
-    {{/paper-list}}
-  {{/paper-content}}
-  {{! END-SNIPPET }}
+      {{/paper-list}}
+      {{! END-SNIPPET }}
+    {{/paper-content}}
+  {{/paper-card}}
 
   <h3>Template</h3>
   {{code-snippet name="list-controls.hbs"}}

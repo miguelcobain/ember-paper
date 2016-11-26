@@ -1,42 +1,47 @@
 import Ember from 'ember';
 
-const { Controller, A } = Ember;
+const { Controller, computed } = Ember;
 
 export default Controller.extend({
-  listData: A([{
-    face: 'tomster.png',
-    who: 'tomster 1',
-    what: 'a message for you',
-    notes: 'this is a message for you about ember'
-  }, {
-    face: 'tomster.png',
-    who: 'tomster 2',
-    what: 'a message for you',
-    notes: 'this is a message for you about ember'
-  }, {
-    face: 'tomster.png',
-    who: 'tomster 3',
-    what: 'a message for you',
-    notes: 'this is a message for you about ember'
-  }, {
-    face: 'tomster.png',
-    who: 'tomster 4',
-    what: 'a message for you',
-    notes: 'this is a message for you about ember'
-  }, {
-    face: 'tomster.png',
-    who: 'tomster 5',
-    what: 'a message for you',
-    notes: 'this is a message for you about ember'
-  }]),
 
-  messageData: A([{
+  toppings: [
+    {
+      name: 'Pepperoni',
+      enabled: false
+    }, {
+      name: 'Sausage',
+      enabled: false
+    }, {
+      name: 'Black Olives',
+      enabled: true
+    }, {
+      name: 'Green Peppers',
+      enabled: false
+    }
+  ],
+
+  messageData: [{
     message: 'Message A'
   }, {
     message: 'Message B'
   }, {
     message: 'Message C'
-  }]),
+  }],
+
+  names: [
+    'Marina Augustine',
+    'Oddr Sarno',
+    'Nick Giannopoulos'
+  ],
+
+  listData: computed.map('names', function(c, index) {
+    let [firstName, lastName] = c.split(' ');
+    return {
+      name: c,
+      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
+      img: `http://lorempixel.com/50/50/people?${index}`
+    };
+  }),
 
   actions: {
     transitionToWifiMenu() {
@@ -49,10 +54,10 @@ export default Controller.extend({
       alert('Secondary actions can be used for one click actions.');
     },
     goToPerson(person) {
-      alert(`Imagine you transition to the person full view for '${person.who}' here.`);
+      alert(`Imagine you transition to the person full view for '${person.name}' here.`);
     },
     secondaryPersonClick(person) {
-      alert(`'${person.who}'. Secondary actions can be used for one click actions.`);
+      alert(`'${person.name}'. Secondary actions can be used for one click actions.`);
     },
     transitionToDataUsage() {
       alert('Imagine you would be taken to data-usage.');

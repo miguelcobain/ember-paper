@@ -1,3 +1,7 @@
 <div class="md-no-style md-list-item-inner">
-{{yield}}
+  {{yield (hash
+    checkbox=(component "paper-checkbox" class="md-secondary")
+    button=(component "paper-button" class="md-secondary")
+    switch=(component "paper-switch" class="md-secondary")
+  )}}
 </div>
