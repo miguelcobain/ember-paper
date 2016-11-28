@@ -3,123 +3,57 @@
  */
 import Ember from 'ember';
 import RippleMixin from '../mixins/ripple-mixin';
-import ProxyMixin from 'ember-paper/mixins/proxy-mixin';
+import { ParentMixin } from 'ember-composability-tools';
 
-const {
-  get,
-  set,
-  isEmpty,
-  computed,
-  run,
-  Component
-} = Ember;
+const { Component, computed } = Ember;
 
 /**
  * @class PaperItem
  * @extends Ember.Component
- * @uses ProxyMixin
+ * @uses ParentMixin
  * @uses RippleMixin
  */
-export default Component.extend(RippleMixin, ProxyMixin, {
+export default Component.extend(RippleMixin, ParentMixin, {
   tagName: 'md-list-item',
 
   // Ripple Overrides
   rippleContainerSelector: '.md-no-style',
+  noink: computed.not('shouldBeClickable'),
+
   center: false,
   dimBackground: true,
   outline: false,
 
-  classNameBindings: ['shouldBeClickable:md-clickable', 'hasProxiedComponent:md-proxy-focus'],
+  classNameBindings: [
+    'hasProxiedComponent:md-proxy-focus', 'shouldBeClickable:md-clickable',
+    'focused:md-focused'
+  ],
   attributeBindings: ['role', 'tabindex'],
   role: 'listitem',
   tabindex: '-1',
 
+  proxiedComponents: computed.filter('childComponents', function(c) {
+    return !c.get('skipProxy');
+  }),
+
   hasProxiedComponent: computed.bool('proxiedComponents.length'),
+  shouldBeClickable: computed.or('hasProxiedComponent', 'onClick'),
 
   hasPrimaryAction: computed.notEmpty('onClick'),
 
-  hasSecondaryAction: computed('secondaryItem', 'onClick', function() {
-    let secondaryItem = get(this, 'secondaryItem');
-    if (!isEmpty(secondaryItem)) {
-      let hasClickAction = get(secondaryItem, 'onClick');
-      let hasChangeAction = get(secondaryItem, 'onChange');
-      return hasClickAction || hasChangeAction;
-    } else {
-      return false;
-    }
+  noProxy: computed('hasPrimaryAction', 'hasProxiedComponent', function() {
+    return !this.get('hasPrimaryAction') && !this.get('hasProxiedComponent');
   }),
 
   secondaryItem: computed('proxiedComponents.[]', function() {
-    let proxiedComponents = get(this, 'proxiedComponents');
-    return proxiedComponents.find((component)=> {
-      return get(component, 'isSecondary');
-    });
+    let proxiedComponents = this.get('proxiedComponents');
+    return proxiedComponents.objectAt(0);
   }),
 
-  shouldBeClickable: computed.or('proxiedComponents.length', 'onClick'),
-
-  click(ev) {
-    this.get('proxiedComponents').forEach((component)=> {
-      if (component.processProxy && !get(component, 'disabled') && (get(component, 'bubbles') | !get(this, 'hasPrimaryAction'))) {
+  click() {
+    this.get('proxiedComponents').forEach((component) => {
+      if (component.processProxy && !component.get('disabled') && (component.get('bubbles') | !this.get('hasPrimaryAction'))) {
         component.processProxy();
-      }
-    });
-    this.sendAction('onClick', ev);
-  },
-
-  setupProxiedComponent() {
-    let tEl = this.$();
-    let proxiedComponents = get(this, 'proxiedComponents');
-    proxiedComponents.forEach((component)=> {
-      let isProxyHandlerSet = get(component, 'isProxyHandlerSet');
-      // we run init only once for each component.
-      if (!isProxyHandlerSet) {
-        // Allow proxied component to propagate ripple hammer event
-        if (!get(component, 'onClick') && !get(component, 'propagateRipple')) {
-          set(component, 'propagateRipple', true);
-        }
-        // ripple
-        let el = component.$();
-        set(this, 'mouseActive', false);
-        el.on('mousedown', ()=> {
-          set(this, 'mouseActive', true);
-          run.later(()=> {
-            set(this, 'mouseActive', false);
-          }, 100);
-        });
-        el.on('focus', ()=> {
-          if (!get(this, 'mouseActive')) {
-            tEl.addClass('md-focused');
-          }
-          el.on('blur', function proxyOnBlur() {
-            tEl.removeClass('md-focused');
-            el.off('blur', proxyOnBlur);
-          });
-        });
-        // If we don't have primary action then
-        // no need to bubble
-        if (!get(this, 'hasPrimaryAction')) {
-          let bubbles = get(component, 'bubbles');
-          if (isEmpty(bubbles)) {
-            set(component, 'bubbles', false);
-          }
-        } else if (get(proxiedComponents, 'length')) {
-          // primary action exists. Make sure child
-          // that has separate action won't bubble.
-          proxiedComponents.forEach((component)=> {
-            let hasClickAction = get(component, 'onClick');
-            let hasChangeAction = get(component, 'onChange');
-            if (hasClickAction || hasChangeAction) {
-              let bubbles = get(component, 'bubbles');
-              if (isEmpty(bubbles)) {
-                set(component, 'bubbles', false);
-              }
-            }
-          });
-        }
-        // Init complete. We don't want it to run again
-        // for that particular component.
-        set(component, 'isProxyHandlerSet', true);
       }
     });
   }

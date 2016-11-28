@@ -74,7 +74,7 @@ test('Item checkbox with secondary action and no primary action is toggled by ch
   this.render(hbs`
     {{#paper-list}}
       {{#paper-item as |controls|}}
-        {{paper-checkbox value=checked onChange=(action (mut checked))}}
+        {{controls.checkbox value=checked onChange=(action (mut checked))}}
         <p>Item with checkbox and secondary action</p>
         {{#controls.button iconButton=true onClick=(action (mut secondaryValue))}}
           {{paper-icon "message"}}
@@ -98,7 +98,7 @@ test('Item checkbox with secondary action and no primary action is toggled by pr
   this.render(hbs`
     {{#paper-list}}
       {{#paper-item as |controls|}}
-        {{paper-checkbox value=checked onChange=(action (mut checked))}}
+        {{controls.checkbox value=checked onChange=(action (mut checked))}}
         <p>Item with checkbox and secondary action</p>
         {{#controls.button iconButton=true onClick=(action (mut secondaryValue))}}
           {{paper-icon "message"}}
@@ -126,16 +126,16 @@ test('Item checkbox with secondary action and primary action dont bubble seconda
   this.render(hbs`
     {{#paper-list}}
       {{#paper-item onClick=(action primaryAction) as |controls|}}
-        {{paper-checkbox value=checked onChange=(action (mut checked))}}
+        {{controls.checkbox value=checked onChange=(action (mut checked))}}
         <p>Item with checkbox and secondary action</p>
-        {{#controls.button iconButton=true onClick=(action (mut secondaryValue))}}
+        {{#controls.button secondary=true iconButton=true onClick=(action (mut secondaryValue))}}
           {{paper-icon "message"}}
         {{/controls.button}}
       {{/paper-item}}
     {{/paper-list}}
   `);
   return wait().then(() => {
-    let secondaryButton = this.$('button');
+    let secondaryButton = this.$('button.md-secondary');
     secondaryButton.click();
     assert.ok(this.get('secondaryValue'));
     assert.notOk(this.get('primaryValue'));
@@ -155,7 +155,7 @@ test('Item checkbox with secondary action and primary action dont bubble primary
   this.render(hbs`
     {{#paper-list}}
       {{#paper-item onClick=(action primaryAction) as |controls|}}
-        {{#paper-checkbox value=checked onChange=(action (mut checked))}}{{/paper-checkbox}}
+        {{controls.checkbox value=checked onChange=(action (mut checked))}}
         <p>Item with checkbox and secondary action</p>
         {{#controls.button iconButton=true onClick=(action (mut secondaryValue))}}
           {{paper-icon "message"}}
