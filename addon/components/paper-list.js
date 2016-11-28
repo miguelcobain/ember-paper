@@ -11,5 +11,5 @@ const { Component } = Ember;
  */
 export default Component.extend({
   tagName: 'md-list',
-  classNames: ['paper-list', 'md-default-theme']
+  classNames: ['md-default-theme']
 });

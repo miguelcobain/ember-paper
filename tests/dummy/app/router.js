@@ -27,7 +27,6 @@ Router.map(function() {
     this.route('icons', { path: 'icon' });
     this.route('input');
     this.route('list');
-    this.route('list-controls');
     this.route('menu');
     this.route('progress-circular');
     this.route('progress-linear');
