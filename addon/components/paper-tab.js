@@ -52,22 +52,15 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   }),
 
   isActive: computed('index', 'selected', function() {
-    if (this.get('index') === this.get('selected')) {
-      return true;
-    }
-    return false;
+    return this.get('index') === this.get('selected');
   }),
 
   isLeft: computed('selected', 'index', function() {
-    if (this.get('index') < this.get('selected')) {
-      return true;
-    }
+    return this.get('index') < this.get('selected');
   }),
 
   isRight: computed('selected', 'index', function() {
-    if (this.get('index') > this.get('selected')) {
-      return true;
-    }
+    return this.get('index') > this.get('selected');
   }),
 
   setActive: observer('active', function() {
