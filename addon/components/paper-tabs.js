@@ -1,7 +1,7 @@
 import Ember from 'ember';
-const { computed, observer, $ } = Ember;
+const { computed, observer, $, Component, run, A } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: 'md-tabs',
 
   /* Settings */
@@ -109,10 +109,10 @@ export default Ember.Component.extend({
 
   didRender() {
     let context = this;
-    Ember.run.scheduleOnce('afterRender', function() {
+    run.scheduleOnce('afterRender', function() {
       context.set('loaded', true);
       context.set('canvasWidth', context.$().outerWidth());
-      $(window).on('resize', Ember.run.bind(context, function() {
+      $(window).on('resize', run.bind(context, function() {
         this.set('canvasWidth', this.$().outerWidth());
       }));
     });
@@ -121,14 +121,14 @@ export default Ember.Component.extend({
   /* Tabs Instance */
 
   tabs: computed(function() {
-    return Ember.A();
+    return A();
   }),
 
   lastTab: computed.alias('tabs.lastObject'),
 
   selected: computed('tabs.[]', function() {
-    let tabs = Ember.A(this.get('tabs').filterBy('disabled', false));
-    let active = Ember.A(tabs.filterBy('active'));
+    let tabs = A(this.get('tabs').filterBy('disabled', false));
+    let active = A(tabs.filterBy('active'));
     if (active.get(length)) {
       return this.getTabIndex(active.get('firstObject'));
     } else if (tabs.get('length')) {
@@ -138,8 +138,8 @@ export default Ember.Component.extend({
 
   initialSelection: observer('selected', 'tabs.[]', function() {
     if (!this.get('selected') && this.get('selected') !== 0) {
-      let tabs = Ember.A(this.get('tabs').filterBy('disabled', false));
-      let active = Ember.A(tabs.filterBy('active'));
+      let tabs = A(this.get('tabs').filterBy('disabled', false));
+      let active = A(tabs.filterBy('active'));
       if (active.get(length)) {
         this.set('selected', this.getTabIndex(active.get('firstObject')));
       } else if (tabs.get('length')) {

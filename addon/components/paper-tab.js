@@ -2,9 +2,9 @@ import Ember from 'ember';
 import RippleMixin from '../mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-const { computed, observer } = Ember;
+const { computed, observer, Component, run, Object: EmberObject } = Ember;
 
-export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
+export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   tagName: 'md-tab-item',
 
@@ -100,7 +100,7 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   didInsertElement() {
     let context = this;
-    Ember.run.scheduleOnce('afterRender', function() {
+    run.scheduleOnce('afterRender', function() {
       context.get('self').set('id', context.elementId);
       context.get('parent.tabs').pushObject(context.get('self'));
     });
@@ -117,7 +117,7 @@ export default Ember.Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   }),
 
   self: computed(function() {
-    return Ember.Object.create({
+    return EmberObject.create({
       disabled: false,
       offsetLeft: 0,
       offsetWidth: 0

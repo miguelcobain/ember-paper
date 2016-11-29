@@ -1,7 +1,7 @@
 import Ember from 'ember';
-const { computed } = Ember;
+const { computed, Component, Object: EmberObject } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   init() {
     this._super();
   },
@@ -9,7 +9,7 @@ export default Ember.Component.extend({
   tagName: 'md-tabs-wrapper',
 
   self: computed(function() {
-    return Ember.Object.create({
+    return EmberObject.create({
       id: this.elementId
     });
   }),
