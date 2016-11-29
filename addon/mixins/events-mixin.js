@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { Mixin, K } = Ember;
+const { Mixin } = Ember;
 
 /**
  * @class EventsMixin
@@ -28,9 +28,9 @@ export default Mixin.create({
   mouseLeave(e) {
     return this.up(e);
   },
-  up: K,
-  down: K,
-  contextMenu: K,
+  up() {},
+  down() {},
+  contextMenu() {},
 
   /*
    * Move events
@@ -48,5 +48,5 @@ export default Mixin.create({
     return this.move(e);
   },
 
-  move: K
+  move() {}
 });

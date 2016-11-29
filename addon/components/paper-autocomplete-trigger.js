@@ -1,9 +1,10 @@
 import Ember from 'ember';
 
-const { Component, isBlank, run, get, computed } = Ember;
+const { Component, isPresent, isBlank, run, get, computed } = Ember;
 
 export default Component.extend({
   tagName: 'md-autocomplete-wrap',
+  classNames: ['md-show-clear-button'],
   classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
 
   noLabel: computed.not('extra.label'),
@@ -23,11 +24,15 @@ export default Component.extend({
       return searchText ? searchText : _innerText;
     },
     set(_, v) {
-      if (!this.get('selected') && this.get('searchText')) {
-        return this.get('searchText');
+      let { selected, searchText } = this.getProperties('selected', 'searchText');
+      this.set('_innerText', v);
+
+      // searchText should always win
+      if (!selected && isPresent(searchText)) {
+        return searchText;
       }
-      // Overwrite computed.oneWay, searchText is one-way
-      return this.set('_innerText', v);
+
+      return v;
     }
   }),
 

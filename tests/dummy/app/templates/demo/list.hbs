@@ -1,78 +1,185 @@
-{{page-toolbar pageTitle="List" isDemo=true isWIP=true}}
+{{page-toolbar pageTitle="List" isDemo=true}}
 
 {{#doc-content}}
-  <h2>Basic Usage</h2>
-  {{! BEGIN-SNIPPET list }}
-  {{#paper-content class="md-whiteframe-z1 list-demo"}}
-    {{#paper-list}}
-      {{#each listData as |item|}}
-        {{#paper-item class="md-3-line"}}
-            <img src={{item.face}} alt={{item.who}} class="md-avatar">
-            <div class="md-list-item-text">
 
-                <h3>{{item.what}}</h3>
-                <h4>{{item.who}}</h4>
-                <p>
-                  {{item.notes}}
-                </p>
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Basic Usage</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-content}}
+      {{! BEGIN-SNIPPET list }}
+      {{#paper-list}}
+        {{#paper-subheader}}3 line item{{/paper-subheader}}
+        {{#each listData as |item|}}
+          {{#paper-item class="md-3-line"}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
+            <div class="md-list-item-text">
+              <h3>{{item.name}}</h3>
+              <h4>{{item.email}}</h4>
+              <p>Some longer notes here could be here. But they aren't.</p>
             </div>
-        {{/paper-item}}
-      {{/each}}
-    {{/paper-list}}
-  {{/paper-content}}
-  {{! END-SNIPPET }}
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#paper-subheader}}2 line item{{/paper-subheader}}
+        {{#each listData as |item|}}
+          {{#paper-item class="md-2-line"}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
+            <div class="md-list-item-text">
+              <h3>{{item.name}}</h3>
+              <p>{{item.email}}</p>
+            </div>
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#paper-subheader}}3 line item, long paragraph{{/paper-subheader}}
+        {{#each listData as |item|}}
+          {{#paper-item class="md-3-line md-long-text"}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
+            <div class="md-list-item-text">
+              <h3>{{item.name}}</h3>
+              <p>
+                Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
+                Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
+                velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+              </p>
+            </div>
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#paper-subheader}}Icons{{/paper-subheader}}
+        {{#each phoneNumbers as |phone|}}
+          {{#paper-item class="md-2-line"}}
+            {{paper-icon "phone" class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{phone.number}}</h3>
+              <p>{{phone.type}}</p>
+            </div>
+          {{/paper-item}}
+        {{/each}}
+
+      {{/paper-list}}
+      {{! END-SNIPPET }}
+    {{/paper-content}}
+  {{/paper-card}}
 
   <h3>Template</h3>
   {{code-snippet name="list.hbs"}}
 
-  <h2>Full Width Dividers</h2>
-  {{! BEGIN-SNIPPET list.normal-divider }}
-  {{#paper-content class="md-whiteframe-z1 list-demo"}}
-    {{#paper-list}}
-      {{#each listData as |item|}}
-        {{#paper-item class="md-3-line"}}
-          <img src={{item.face}} alt={{item.who}} class="md-avatar">
-          <div class="md-list-item-text">
-            <h3>{{item.what}}</h3>
-            <h4>{{item.who}}</h4>
-            <p>
-              {{item.notes}}
-            </p>
-          </div>
-        {{/paper-item}}
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>List Controls</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-content}}
+      {{! BEGIN-SNIPPET list-controls }}
+      {{#paper-list}}
+
+        {{#paper-subheader}}Single Action Checkboxes{{/paper-subheader}}
+        {{#each toppings as |topping|}}
+          {{#paper-item as |controls|}}
+            <p>{{topping.name}}</p>
+            {{controls.checkbox
+              value=topping.enabled
+              secondary=true
+              onChange=(action (mut topping.enabled))}}
+          {{/paper-item}}
+        {{/each}}
+
         {{paper-divider}}
-      {{/each}}
-    {{/paper-list}}
-  {{/paper-content}}
-  {{! END-SNIPPET }}
 
-  <h3>Template</h3>
-  {{code-snippet name="list.normal-divider.hbs"}}
-
-  <h2>Inset dividers</h2>
-
-  {{! BEGIN-SNIPPET list.inset-divider }}
-  {{#paper-content class="md-whiteframe-z1 list-demo"}}
-    {{#paper-list}}
-      {{#each listData as |item|}}
-        {{#paper-item class="md-3-line"}}
-          <img src={{item.face}} alt={{item.who}} class="md-avatar">
-          <div class="md-list-item-text">
-            <h3>{{item.what}}</h3>
-            <h4>{{item.who}}</h4>
-            <p>
-              {{item.notes}}
-            </p>
-          </div>
+        {{#paper-subheader}}Secondary Buttons{{/paper-subheader}}
+        {{#paper-item as |controls|}}
+          <p>Clicking the button to the right will fire the secondary action</p>
+          {{#controls.button secondary=true onClick=(action "transitionTo" "more info")}}
+            More Info
+          {{/controls.button}}
         {{/paper-item}}
-        {{paper-divider inset=true}}
-      {{/each}}
-    {{/paper-list}}
-  {{/paper-content}}
-  {{! END-SNIPPET }}
+        {{#paper-item onClick=(action "transitionTo" "primary action") as |controls|}}
+          <p>Click anywhere to fire the primary action, or the button to fire the secondary</p>
+          {{#controls.button secondary=true onClick=(action "transitionTo" "secondary action")}}
+            More Info
+          {{/controls.button}}
+        {{/paper-item}}
+
+        {{paper-divider}}
+
+        {{#paper-subheader}}Clickable Items with Secondary Controls{{/paper-subheader}}
+        {{#paper-item onClick=(action "transitionToWifiMenu") as |controls|}}
+          {{paper-icon "network-wifi"}}
+          <p>Wi-Fi</p>
+          {{controls.switch secondary=true value=wifiEnabled onChange=(action (mut wifiEnabled))}}
+        {{/paper-item}}
+        {{#paper-item onClick=(action "transitionToBluetoothMenu") as |controls|}}
+          {{paper-icon "bluetooth"}}
+          <p>Bluetooth</p>
+          {{controls.switch secondary=true value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
+        {{/paper-item}}
+        {{#paper-item onClick=(action "transitionToDataUsage")}}
+          {{paper-icon "data-usage"}}
+          <p>Data Usage</p>
+        {{/paper-item}}
+
+        {{paper-divider}}
+
+        {{#paper-subheader class="md-no-sticky"}}Checkbox with Secondary Action{{/paper-subheader}}
+        {{#each messageData as |item|}}
+          {{#paper-item as |controls|}}
+            {{controls.checkbox value=item.checked onChange=(action (mut item.checked))}}
+            <p>{{item.message}}</p>
+            {{#controls.button secondary=true iconButton=true onClick=(action "secondaryMessageClick" item)}}
+              {{paper-icon "message"}}
+            {{/controls.button}}
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#paper-subheader}}Clickable Avatars{{/paper-subheader}}
+        {{#each listData as |item|}}
+          {{#paper-item class="md-3-line" onClick=(action "goToPerson" item)}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
+            <div class="md-list-item-text">
+              <h3>{{item.name}}</h3>
+              <h4>{{item.email}}</h4>
+              <p>Some notes here.</p>
+            </div>
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#paper-subheader}}Avatar with Secondary Action Icon{{/paper-subheader}}
+        {{#each listData as |item|}}
+          {{#paper-item class="md-3-line" onClick=(action "goToPerson" item) as |controls|}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
+            <div class="md-list-item-text">
+              <h3>{{item.name}}</h3>
+              <h4>{{item.email}}</h4>
+              <p>Some notes here.</p>
+            </div>
+            {{#controls.button secondary=true iconButton=true onClick=(action "secondaryPersonClick" item)}}
+              {{paper-icon "phone"}}
+            {{/controls.button}}
+          {{/paper-item}}
+        {{/each}}
+
+      {{/paper-list}}
+      {{! END-SNIPPET }}
+    {{/paper-content}}
+  {{/paper-card}}
 
   <h3>Template</h3>
-  {{code-snippet name="list.inset-divider.hbs"}}
+  {{code-snippet name="list-controls.hbs"}}
 
 {{/doc-content}}
 

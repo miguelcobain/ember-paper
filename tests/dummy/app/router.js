@@ -20,13 +20,13 @@ Router.map(function() {
     this.route('button');
     this.route('card');
     this.route('checkbox');
+    this.route('chips');
     this.route('dialog');
     this.route('divider');
     this.route('grid-list');
     this.route('icons', { path: 'icon' });
     this.route('input');
     this.route('list');
-    this.route('list-controls');
     this.route('menu');
     this.route('progress-circular');
     this.route('progress-linear');

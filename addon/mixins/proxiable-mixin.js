@@ -2,37 +2,54 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import ProxyMixin from './proxy-mixin';
+import { ChildMixin } from 'ember-composability-tools';
 
-const { Mixin, computed, get, isEmpty, run } = Ember;
+const { Mixin, run, computed } = Ember;
 
 /**
  * @class ProxiableMixin
+ * @uses ChildMixin
  * @extends Ember.Mixin
  */
-export default Mixin.create({
-  init() {
+export default Mixin.create(ChildMixin, {
+
+  classNameBindings: ['secondary:md-secondary'],
+
+  shouldRegister: false,
+
+  registerWithParent() {
+    run.next(this, this._super);
+  },
+
+  mouseDown() {
     this._super(...arguments);
-    run.next(this, 'registerProxy');
-  },
-
-  registerProxy() {
-    let proxy = this.nearestOfType(ProxyMixin);
-    if (proxy) {
-      proxy.register(this);
+    let parentComponent = this.get('parentComponent');
+    if (parentComponent) {
+      parentComponent.set('mouseActive', true);
+      run.later(() => {
+        if (parentComponent.isDestroyed) {
+          return;
+        }
+        parentComponent.set('mouseActive', false);
+      }, 100);
     }
   },
 
-  processProxy: null,
+  hasAction: computed.or('onClick', 'onChange'),
 
-  // Paper item secondary container class
-  isSecondary: computed('class', function() {
-    let cls = get(this, 'class');
-    if (!isEmpty(cls)) {
-      return cls.indexOf('md-secondary') !== -1;
-    } else {
-      return false;
+  focusIn() {
+    this._super(...arguments);
+    let parentComponent = this.get('parentComponent');
+    if (parentComponent && !parentComponent.get('mouseActive')) {
+      parentComponent.set('focused', true);
     }
-  }),
-  isProxyHandlerSet: false
+  },
+
+  focusOut() {
+    this._super(...arguments);
+    let parentComponent = this.get('parentComponent');
+    if (parentComponent) {
+      parentComponent.set('focused', false);
+    }
+  }
 });

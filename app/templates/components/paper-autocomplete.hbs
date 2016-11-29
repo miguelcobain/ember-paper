@@ -26,6 +26,8 @@
     label=label}}
     {{#component triggerComponent
       allowClear=(readonly allowClear)
+      required=(readonly required)
+      passThru=(readonly passThru)
       class="layout-row"
       flex=(readonly flex)
       disabled=disabled
@@ -83,4 +85,5 @@
       {{/component}}
     {{/if}}
   {{/dropdown.content}}
+
 {{/paper-autocomplete-dropdown}}

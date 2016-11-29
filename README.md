@@ -49,7 +49,7 @@ Version 0.2 is a good choice if you need to use `ember-paper` now in your applic
 
 The master branch contains significant API changes relative to version 0.2 and earlier. Modern Ember coding style and naming conventions are used. These changes are detailed in the [change log](CHANGELOG.md).
 
-The master branch is a good choice if your project's timetable jibes with the components which have been migrated from 0.2 or which are expected to be before your project's completion. The master branch has more features, and the components which have been completed are more robust, better-designed, and in accordance with today's Ember best practices, such as "Data Down, Actions Up".
+The master branch is a good choice if your project's timetable jibes with the components which have been migrated from 0.2 or which are expected to be before your project's completion. The master branch has more features, and the components which have been completed are more robust, better-designed, and in accordance with today's Ember best practices, such as "Data Down, Actions Up". Please note that 1.0 is only compatible with Ember 2.3.x and above.
 
 If you encounter difficulties with the master branch, the work you do to diagnose and fix bugs will accelerate the availability version 1.0. In addition, the team is motivated to help you help the project with your improvements.
 

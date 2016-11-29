@@ -7,7 +7,7 @@ import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
 
-const { assert, computed, inject, isNone, defineProperty, K: emberNop } = Ember;
+const { assert, computed, inject, isNone, defineProperty } = Ember;
 
 /**
  * @class PaperAutocomplete
@@ -36,7 +36,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     }
   }),
   searchText: '',
-  _onChangeNop: emberNop,
+  _onChangeNop() { },
 
   // Don't automatically highlight any option
   defaultHighlighted: null,
@@ -63,12 +63,14 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     defineProperty(this, 'onchange', computed.alias(aliasOnChangeDepKey));
   },
 
-  // Choose highlighted item on key Tab
+  // Choose highlighted item on key tab
   _handleKeyTab(e) {
     let publicAPI = this.get('publicAPI');
     if (publicAPI.isOpen && !isNone(publicAPI.highlighted)) {
       publicAPI.actions.choose(publicAPI.highlighted, e);
     }
+    // e-p-s will close
+    this._super(...arguments);
   },
 
   actions: {
@@ -103,6 +105,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
       if (!publicAPI.isOpen && event.type !== 'change') {
         publicAPI.actions.open(event);
       }
+
       this.notifyValidityChange();
       return this._super(...arguments);
     },

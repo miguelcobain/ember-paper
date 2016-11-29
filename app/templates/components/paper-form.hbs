@@ -7,13 +7,14 @@
   )
   submit-button=(component "paper-button"
     onClick=(action "onSubmit")
+    type="submit"
   )
   select=(component "paper-select"
   	parentComponent=this
   	onValidityChange=(action "onValidityChange")
   )
   autocomplete=(component "paper-autocomplete"
-  	parentComponent=this 
+  	parentComponent=this
   	onValidityChange=(action "onValidityChange")
   )
   onSubmit=(action "onSubmit")

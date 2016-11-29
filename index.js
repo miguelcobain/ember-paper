@@ -3,6 +3,7 @@
 
 var fs = require('fs');
 var path = require('path');
+var resolve = require('resolve');
 var autoprefixer = require('broccoli-autoprefixer');
 var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
@@ -109,7 +110,10 @@ module.exports = {
       'components/dialog/dialog.scss',
       'components/dialog/dialog-theme.scss',
 
-      'components/virtualRepeat/virtual-repeater.scss'
+      'components/virtualRepeat/virtual-repeater.scss',
+
+      'components/chips/chips.scss',
+      'components/chips/chips-theme.scss'
     ];
 
     var angularScssFiles = new Funnel(this.pathBase(), {
@@ -126,8 +130,9 @@ module.exports = {
   },
 
   /*
-    Find the angular-material-source module in a manner that works for npm 2.x,
-    3.x, and yarn in both the addon itself and projects that depend on this addon
+    Rely on the `resolve` package to mimic node's resolve algorithm.
+    It finds the angular-material-source module in a manner that works for npm 2.x,
+    3.x, and yarn in both the addon itself and projects that depend on this addon.
 
     This is an edge case b/c angular-material-source does not have a main
     module we can require.resolve through node itself and similarily ember-cli
@@ -137,11 +142,7 @@ module.exports = {
     bower, we use this hack. Please change it if you read this and know a better way.
   */
   pathBase: function() {
-    var flat = path.resolve('node_modules', 'angular-material-source', 'src');
-    if (fs.existsSync(flat)) {
-      return flat;
-    }
-    return path.resolve(this.nodeModulesPath, 'angular-material-source', 'src');
+    return path.dirname(resolve.sync('angular-material-source/package.json', { basedir: __dirname })) + '/src';
   },
 
   postprocessTree: function(type, tree) {

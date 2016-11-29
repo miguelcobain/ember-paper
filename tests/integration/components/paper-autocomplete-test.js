@@ -233,3 +233,40 @@ test('when has selection and searchText changed, the dropdown is shown with w/o 
     assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
   });
 });
+
+test('we can highlight search results for properties that aren\'t text', function(assert) {
+  assert.expect(2);
+
+  this.set('items', [1, 2, 3, 4]);
+  this.set('selectedItem', 1);
+  this.render(hbs`{{#paper-autocomplete
+    placeholder="Item"
+    options=items
+    searchText=searchText
+    onSearchTextChange=(action (mut searchText))
+    selected=selectedItem
+    onSelectionChange=(action (mut selectedItem))
+    as |item autocomplete|
+  }}
+    {{paper-autocomplete-highlight
+        label=item
+        searchText=autocomplete.searchText
+        flags="i"}}
+  {{/paper-autocomplete}}`);
+
+  let suggestions = $('.md-autocomplete-suggestions');
+
+  run(() => {
+    let $selector = $($('md-autocomplete-wrap input').get(0)); // Only interact with the first result
+    $selector.val('1');
+    let event = document.createEvent('Events');
+    event.initEvent('input', true, true);
+    $selector[0].dispatchEvent(event);
+  });
+
+  return wait().then(() => {
+    suggestions = $('.md-autocomplete-suggestions');
+    assert.ok(suggestions.length, 'autocomplete-suggestions list is opened');
+    assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
+  });
+});

@@ -11,9 +11,9 @@ test('single action checkboxes should react to checkbox clicks', function(assert
   this.set('checkboxEnabled', false);
   this.render(hbs`
     {{#paper-list}}
-      {{#paper-item}}
+      {{#paper-item as |controls|}}
         <p>Checkbox 1</p>
-        {{paper-checkbox class="md-secondary" value=checkboxEnabled onChange=(action (mut checkboxEnabled))}}
+        {{controls.checkbox value=checkboxEnabled onChange=(action (mut checkboxEnabled))}}
       {{/paper-item}}
     {{/paper-list}}
   `);
@@ -29,9 +29,9 @@ test('single action checkboxes should not react to item clicks when disabled', f
   this.set('checkboxEnabled', false);
   this.render(hbs`
     {{#paper-list}}
-      {{#paper-item}}
+      {{#paper-item as |controls|}}
         <p>Checkbox 1</p>
-        {{paper-checkbox class="md-secondary" disabled=true value=checkboxEnabled onChange=(action (mut checkboxEnabled))}}
+        {{controls.checkbox disabled=true value=checkboxEnabled onChange=(action (mut checkboxEnabled))}}
       {{/paper-item}}
     {{/paper-list}}
   `);
@@ -47,9 +47,9 @@ test('single action checkboxes should react to item clicks', function(assert) {
   this.set('checkboxEnabled', false);
   this.render(hbs`
     {{#paper-list}}
-      {{#paper-item}}
+      {{#paper-item as |controls|}}
         <p>Checkbox 1</p>
-        {{paper-checkbox class="md-secondary" value=checkboxEnabled onChange=(action (mut checkboxEnabled))}}
+        {{controls.checkbox value=checkboxEnabled onChange=(action (mut checkboxEnabled))}}
       {{/paper-item}}
     {{/paper-list}}
   `);
@@ -73,12 +73,12 @@ test('Item checkbox with secondary action and no primary action is toggled by ch
 
   this.render(hbs`
     {{#paper-list}}
-      {{#paper-item}}
-        {{#paper-checkbox value=checked onChange=(action (mut checked))}}{{/paper-checkbox}}
+      {{#paper-item as |controls|}}
+        {{controls.checkbox value=checked onChange=(action (mut checked))}}
         <p>Item with checkbox and secondary action</p>
-        {{#paper-button class="md-secondary" iconButton=true onClick=(action (mut secondaryValue))}}
+        {{#controls.button iconButton=true onClick=(action (mut secondaryValue))}}
           {{paper-icon "message"}}
-        {{/paper-button}}
+        {{/controls.button}}
       {{/paper-item}}
     {{/paper-list}}
   `);
@@ -97,12 +97,12 @@ test('Item checkbox with secondary action and no primary action is toggled by pr
 
   this.render(hbs`
     {{#paper-list}}
-      {{#paper-item}}
-        {{#paper-checkbox value=checked onChange=(action (mut checked))}}{{/paper-checkbox}}
+      {{#paper-item as |controls|}}
+        {{controls.checkbox value=checked onChange=(action (mut checked))}}
         <p>Item with checkbox and secondary action</p>
-        {{#paper-button class="md-secondary" iconButton=true onClick=(action (mut secondaryValue))}}
+        {{#controls.button iconButton=true onClick=(action (mut secondaryValue))}}
           {{paper-icon "message"}}
-        {{/paper-button}}
+        {{/controls.button}}
       {{/paper-item}}
     {{/paper-list}}
   `);
@@ -125,17 +125,17 @@ test('Item checkbox with secondary action and primary action dont bubble seconda
 
   this.render(hbs`
     {{#paper-list}}
-      {{#paper-item onClick=(action primaryAction)}}
-        {{#paper-checkbox value=checked onChange=(action (mut checked))}}{{/paper-checkbox}}
+      {{#paper-item onClick=(action primaryAction) as |controls|}}
+        {{controls.checkbox value=checked onChange=(action (mut checked))}}
         <p>Item with checkbox and secondary action</p>
-        {{#paper-button class="md-secondary" iconButton=true onClick=(action (mut secondaryValue))}}
+        {{#controls.button secondary=true iconButton=true onClick=(action (mut secondaryValue))}}
           {{paper-icon "message"}}
-        {{/paper-button}}
+        {{/controls.button}}
       {{/paper-item}}
     {{/paper-list}}
   `);
   return wait().then(() => {
-    let secondaryButton = this.$('button');
+    let secondaryButton = this.$('button.md-secondary');
     secondaryButton.click();
     assert.ok(this.get('secondaryValue'));
     assert.notOk(this.get('primaryValue'));
@@ -154,12 +154,12 @@ test('Item checkbox with secondary action and primary action dont bubble primary
 
   this.render(hbs`
     {{#paper-list}}
-      {{#paper-item onClick=(action primaryAction)}}
-        {{#paper-checkbox value=checked onChange=(action (mut checked))}}{{/paper-checkbox}}
+      {{#paper-item onClick=(action primaryAction) as |controls|}}
+        {{controls.checkbox value=checked onChange=(action (mut checked))}}
         <p>Item with checkbox and secondary action</p>
-        {{#paper-button class="md-secondary" iconButton=true onClick=(action (mut secondaryValue))}}
+        {{#controls.button iconButton=true onClick=(action (mut secondaryValue))}}
           {{paper-icon "message"}}
-        {{/paper-button}}
+        {{/controls.button}}
       {{/paper-item}}
     {{/paper-list}}
   `);

@@ -14,7 +14,7 @@ export default Component.extend({
   flags: '',
 
   highlight: computed('searchText', 'label', 'flags', function() {
-    let text = this.get('label');
+    let text = `${this.get('label')}`;
     let flags = this.get('flags');
     let regex = this.getRegExp(this.get('searchText'), flags);
 

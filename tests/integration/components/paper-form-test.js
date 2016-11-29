@@ -169,3 +169,16 @@ test('form submit button calls form onSubmit action', function(assert) {
 
   this.$('button').click();
 });
+
+test('form submit button is of type submit', function(assert) {
+  this.set('onSubmit', () => {
+  });
+
+  this.render(hbs`
+    {{#paper-form onSubmit=(action onSubmit) as |form|}}
+      {{#form.submit-button}}Submit{{/form.submit-button}}
+    {{/paper-form}}
+  `);
+
+  assert.equal(this.$('button').attr('type'), 'submit');
+});

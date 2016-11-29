@@ -1,10 +1,9 @@
 {{#unless closed}}
   {{paper-backdrop
-    locked-open=isLockedOpen
+    isLockedOpen=isLockedOpen
     opaque=true
     class="md-sidenav-backdrop"
-    onClick=(action "onBackdropTap")
-  }}
+    onClick=(action "onBackdropTap")}}
 {{/unless}}
 
 {{#paper-sidenav-inner
@@ -12,6 +11,7 @@
   name=name
   position=position
   lockedOpen=lockedOpen
+  isLockedOpen=isLockedOpen
   closed=closed
   closeOnClick=closeOnClick
   onToggle=(action "onToggle")}}

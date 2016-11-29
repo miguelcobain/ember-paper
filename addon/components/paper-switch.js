@@ -4,8 +4,8 @@
 import Ember from 'ember';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
-import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 
 const {
   Component, assert, computed, get, run, String: { htmlSafe }, inject
@@ -16,11 +16,11 @@ const {
  * @class PaperSwitch
  * @extends Ember.Component
  * @uses FocusableMixin
+ * @uses RippleMixin
  * @uses ColorMixin
  * @uses ProxiableMixin
- * @uses RippleMixin
  */
-export default Component.extend(FocusableMixin, RippleMixin, ProxiableMixin, ColorMixin, {
+export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['value:md-checked', 'dragging:md-dragging'],

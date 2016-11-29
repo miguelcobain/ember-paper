@@ -110,7 +110,8 @@
 @import './angular-material/components/subheader/subheader';
 @import './angular-material/components/subheader/subheader-theme';
 
-@import './angular-material/components/autocomplete/autocomplete';
+// Overwriting below with the latest style
+// @import './angular-material/components/autocomplete/autocomplete';
 @import './angular-material/components/autocomplete/autocomplete-theme';
 
 @import './angular-material/components/progressLinear/progress-linear';
@@ -137,6 +138,9 @@
 @import './angular-material/components/dialog/dialog-theme';
 
 @import './angular-material/components/virtualRepeat/virtual-repeater';
+
+@import './angular-material/components/chips/chips';
+@import './angular-material/components/chips/chips-theme';
 
 // Backports of features from future versions of angular-material-source to this version
 @import './backports/paper-input';
