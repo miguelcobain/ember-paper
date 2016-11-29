@@ -1,6 +1,7 @@
 import Ember from 'ember';
-const { computed } = Ember;
-export default Ember.Component.extend({
+const { computed, Component } = Ember;
+
+export default Component.extend({
   tagName: '',
 
   wormhole: computed.readOnly('parent.wormhole'),

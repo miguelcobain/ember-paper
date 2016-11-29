@@ -1,7 +1,7 @@
 import Ember from 'ember';
-const { computed } = Ember;
+const { computed, Component, Object: EmberObject, run } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: 'md-tab-content',
 
   /* Inherited */
@@ -20,7 +20,7 @@ export default Ember.Component.extend({
   ],
 
   self: computed(function() {
-    return Ember.Object.create({
+    return EmberObject.create({
       id: this.elementId
     });
   }),
@@ -33,7 +33,7 @@ export default Ember.Component.extend({
     self.set('height', height);
     element.removeAttr('style');
 
-    Ember.run.scheduleOnce('afterRender', this, function() {
+    run.scheduleOnce('afterRender', this, function() {
       let height = this.$()[0].scrollHeight;
       this.set('self.height', height);
     });
