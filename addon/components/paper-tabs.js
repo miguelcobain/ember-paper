@@ -13,8 +13,8 @@ export default Ember.Component.extend({
   stretchTabs: 'auto', // todo: find the best default
   autoSelect: false,
 
-  classNames: ['md-primary'],
   classNameBindings: [
+    'primary:md-primary',
     'dynamicHeight:md-dynamic-height',
     'shouldStretchTabs:md-stretch-tabs'
   ],
