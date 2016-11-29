@@ -71,7 +71,6 @@ export default Ember.Component.extend({
     }
     let canvasWidth = this.get('canvasWidth');
     let pagingWidth = this.get('pagingWidth');
-    console.log('canvasWidth');
     return ((canvasWidth - pagingWidth) < 0) ? true : false;
   }),
   pagingWidth: computed('tabs.[].id', 'shouldStretchTabs', function() {
