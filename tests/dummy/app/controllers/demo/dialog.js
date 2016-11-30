@@ -44,6 +44,15 @@ export default Controller.extend({
 
     toggleSourceCode() {
       this.toggleProperty('showSourceCode');
+    },
+
+    /* Animated dialog */
+    openAnimatedDialog() {
+      this.set('showAnimatedDialog', true);
+    },
+
+    closeAnimatedDialog() {
+      this.set('showAnimatedDialog', false);
     }
 
   }
