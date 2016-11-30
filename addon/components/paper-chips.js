@@ -68,7 +68,7 @@ export default Component.extend({
       }
 
       // Keep track of the autocomplete, so we can force it to close when navigating to chips.
-      if (isEmpty(this.get('autocomplete')) && input.is('.ember-power-select-typeahead-input')) {
+      if (isEmpty(this.get('autocomplete')) && input.is('.ember-paper-autocomplete-search-input')) {
         this.set('autocomplete', autocomplete);
       }
 
@@ -194,7 +194,7 @@ export default Component.extend({
     let select = this.get('autocomplete');
     let input = this.getInput();
 
-    if (input.is('.ember-power-select-typeahead-input') && isPresent(select)) {
+    if (input.is('.ember-paper-autocomplete-search-input') && isPresent(select)) {
       // Reset the underlying ember-power-select so that it's ready for another selection.
       input.val('');
       select.actions.search('');
