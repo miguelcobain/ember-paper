@@ -2,16 +2,9 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import { nextTick, computeTimeout } from 'ember-css-transitions/mixins/transition-mixin';
 
-const {
-  $,
-  Mixin,
-  String: { htmlSafe },
-  RSVP: { Promise },
-  computed,
-  inject,
-  run
-} = Ember;
+const { $, Mixin, String: { htmlSafe }, computed, inject, run } = Ember;
 
 /**
  * @class Translate3dMixin
@@ -41,11 +34,6 @@ export default Mixin.create({
     }
   }),
 
-  init() {
-    this._super(...arguments);
-    this.TRANSITIONEND = this.get('constants').get('CSS').TRANSITIONEND;
-  },
-
   onTranslateFromEnd() {},
   onTranslateToEnd() {},
 
@@ -57,12 +45,15 @@ export default Mixin.create({
       this.set('transformStyleApply', 'from');
       // Wait while CSS takes affect
       // Set the `main` styles and run the transition-in styles
-      run.next(() => {
-        this.waitTransitionEnd($(this.element)).then(() => {
+      nextTick().then(() => {
+        if (this.isDestroyed) {
+          return;
+        }
+        run.later(() => {
           if (!this.get('isDestroying') && !this.get('isDestroyed')) {
             this.onTranslateFromEnd();
           }
-        });
+        }, computeTimeout(this.element));
         if (!this.get('isDestroying') && !this.get('isDestroyed')) {
           this.set('transformStyleApply', 'main');
           this.set('transformIn', true);
@@ -81,45 +72,20 @@ export default Mixin.create({
 
     let containerClone = this.$().parent().clone();
     let dialogClone = containerClone.find('md-dialog');
+    $(this.get('defaultedParent')).parent().append(containerClone);
 
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
 
-    run.schedule('afterRender', () => {
-      $(this.get('defaultedParent')).parent().append(containerClone);
-      run.next(() => {
-        dialogClone.removeClass('md-transition-in');
-        dialogClone.addClass('md-transition-out');
-        dialogClone.attr('style', toStyle);
-        window.requestAnimationFrame(() => {
-          this.waitTransitionEnd(dialogClone).then(() => {
-            containerClone.remove();
-            this.onTranslateToEnd($(this.get('origin')));
-          });
-        });
+    nextTick().then(() => {
+      dialogClone.removeClass('md-transition-in');
+      dialogClone.addClass('md-transition-out');
+      dialogClone.attr('style', toStyle);
+      nextTick().then(() => {
+        run.later(() => {
+          containerClone.remove();
+          this.onTranslateToEnd($(this.get('origin')));
+        }, computeTimeout(dialogClone.get(0)));
       });
-
-    });
-  },
-
-  /**
-   * Listen for transitionEnd event (with optional timeout)
-   * Announce completion or failure via promise handlers
-   *
-   * @public
-   */
-  waitTransitionEnd($element) {
-
-    // fallback is 3 secs
-    return new Promise((resolve/*, reject*/) => {
-
-      // Upon timeout or transitionEnd, reject or resolve (respectively) this promise.
-      // NOTE: Make sure this transitionEnd didn't bubble up from a child
-      $element.one(this.TRANSITIONEND, function(ev) {
-        if (ev) {
-          run(resolve);
-        }
-      });
-
     });
   },
 
