@@ -2,7 +2,7 @@ import Ember from 'ember';
 import RippleMixin from '../mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-const { computed, observer, Component, run, Object: EmberObject } = Ember;
+const { computed, observer, Component, run, Object: EmberObject, String: { htmlSafe } } = Ember;
 
 export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
@@ -19,7 +19,7 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   /* Attributes Bindings */
   styleAttr: computed('widthStyle', function() {
-    return `${this.get('widthStyle')}`;
+    return htmlSafe(`${this.get('widthStyle')}`);
   }),
 
   /* Style Bindings */

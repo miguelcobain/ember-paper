@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { computed, observer, $, Component, run, A } = Ember;
+const { computed, observer, $, Component, run, A, String: { htmlSafe } } = Ember;
 
 export default Component.extend({
   tagName: 'md-tabs',
@@ -32,7 +32,7 @@ export default Component.extend({
     return this.get('borderBottom') ? 'md-border-bottom' : null;
   }),
   styleAttr: computed('heightStyle', function() {
-    return `${this.get('heightStyle')} ${this.get('transitionStyle')}`;
+    return htmlSafe(`${this.get('heightStyle')} ${this.get('transitionStyle')}`);
   }),
 
   /* Style Bindings */
