@@ -36,8 +36,8 @@ export default Component.extend({
     run.scheduleOnce('afterRender', this, function() {
       let height = this.$()[0].scrollHeight;
       this.set('self.height', height);
+      this.get('parent').send('identifyTabContent', this.get('self'));
     });
-    this.get('parent').send('identifyTabContent', this.get('self'));
   },
 
   actions: {
