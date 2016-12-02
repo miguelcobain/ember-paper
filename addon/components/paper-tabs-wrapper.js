@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { computed, Component, Object: EmberObject } = Ember;
+const { computed, Component, Object: EmberObject, String: EmberString } = Ember;
 
 export default Component.extend({
   init() {
@@ -29,6 +29,10 @@ export default Component.extend({
   offsetLeft: computed.reads('parent.offsetLeft'),
   shouldCenterTabs: computed.reads('parent.shouldCenterTabs'),
   shouldStretchTabs: computed.reads('parent.shouldStretchTabs'),
+
+  canvasClass: computed('shouldPaginate', function() {
+    return EmberString.htmlSafe(this.get('shouldPaginate') ? '' : 'md-paginated');
+  }),
 
   didInsertElement() {
     let self = this.get('self');
