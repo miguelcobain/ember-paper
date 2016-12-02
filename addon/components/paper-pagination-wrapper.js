@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { computed, Component } = Ember;
+const { computed, Component, String: { htmlSafe } } = Ember;
 
 export default Component.extend({
   tagName: 'md-pagination-wrapper',
@@ -30,7 +30,7 @@ export default Component.extend({
   classNameBindings: ['centerTabs:md-center-tabs'],
   attributeBindings: ['styleAttr:style'],
   styleAttr: computed('widthStyle', 'offsetStyle', function() {
-    return `${this.get('widthStyle')}${this.get('offsetStyle')}`;
+    return htmlSafe(`${this.get('widthStyle')}${this.get('offsetStyle')}`);
   }),
 
   /* Style Bindings */
