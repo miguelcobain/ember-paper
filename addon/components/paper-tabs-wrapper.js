@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { computed, Component, Object: EmberObject, String: EmberString, run } = Ember;
+const { computed, Component, Object: EmberObject, String: { htmlSafe}, run } = Ember;
 
 export default Component.extend({
   init() {
@@ -31,7 +31,7 @@ export default Component.extend({
   shouldStretchTabs: computed.reads('parent.shouldStretchTabs'),
 
   canvasClass: computed('shouldPaginate', function() {
-    return EmberString.htmlSafe(this.get('shouldPaginate') ? '' : 'md-paginated');
+    return htmlSafe(this.get('shouldPaginate') ? '' : 'md-paginated');
   }),
 
   didInsertElement() {
