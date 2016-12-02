@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { computed, Component, Object: EmberObject, String: EmberString } = Ember;
+const { computed, Component, Object: EmberObject, String: EmberString, run } = Ember;
 
 export default Component.extend({
   init() {
@@ -38,7 +38,9 @@ export default Component.extend({
     let self = this.get('self');
     self.set('height', this.$().outerHeight());
     self.set('offset', this.$().offset().left);
-    this.get('parent').identifyTabsWrapper(self);
+    run.scheduleOnce('afterRender', function() {
+      this.get('parent').identifyTabsWrapper(self);
+    }.bind(this));
   },
 
   actions: {
