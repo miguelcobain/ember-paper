@@ -1,15 +1,20 @@
 import Ember from 'ember';
-const { computed, Component } = Ember;
+const { computed, Component, String: EmberString } = Ember;
 
 export default Component.extend({
   tagName: '',
 
-  left: computed.equal('direction', 'left'),
-  right: computed.equal('direction', 'right'),
+  barClass: computed('direction', function() {
+    const direction = this.get('direction');
+    if (direction) {
+      return EmberString.htmlSafe(`md-${direction}`);
+    }
+  }),
 
   style: computed('leftPosition', 'rightPosition', function() {
     let left = parseInt(this.get('leftPosition'));
     let right = parseInt(this.get('rightPosition'));
-    return `left: ${left}px; right: ${right}px;`;
+    return EmberString.htmlSafe(`left: ${left}px; right: ${right}px;`);
   })
+
 });
