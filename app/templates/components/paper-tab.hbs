@@ -1,5 +1,5 @@
 {{#if label}}
-  {{#paper-tab-label}}{{label}}{{/paper-tab-label}}
+  {{#paper-tab-label parent=this}}{{label}}{{/paper-tab-label}}
   {{#paper-tab-body parent=this}}
     {{yield}}
   {{/paper-tab-body}}
