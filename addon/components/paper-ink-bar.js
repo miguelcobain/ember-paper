@@ -7,7 +7,7 @@ export default Component.extend({
   barClass: computed('direction', function() {
     const direction = this.get('direction');
     if (direction) {
-      return htmlSafe(`md-${direction}`);
+      return `md-${direction}`;
     }
   }),
 
