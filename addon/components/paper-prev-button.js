@@ -1,15 +1,19 @@
 import Ember from 'ember';
-const { computed, Component } = Ember;
+const { computed: { not }, Component } = Ember;
 
 export default Component.extend({
   tagName: 'md-prev-button',
 
-  classNameBindings: ['canPageBack::md-disabled'],
+  classNameBindings: [
+    'disabled:md-disabled'
+  ],
 
   /* Inherited from `{{paper-tabs-wrapper}}` */
-  canPageBack: computed.reads('parent.canPageBack'),
+  disabled: not('parent.canPageBack'),
 
   click() {
-    this.get('parent').send('previousPage');
+    if (!this.get('disabled')) {
+      this.get('parent').send('previousPage');
+    }
   }
 });
