@@ -1,47 +1,52 @@
 import Ember from 'ember';
-const { computed, Component, String: { htmlSafe } } = Ember;
+const { computed, computed: { reads, empty, or }, Component, String: { htmlSafe } } = Ember;
 
 export default Component.extend({
   tagName: 'md-pagination-wrapper',
 
+  classNameBindings: [
+    'centerTabs:md-center-tabs'
+  ],
+
+  attributeBindings: [
+    'styleAttr:style'
+  ],
+
   /* Inherited from {{paper-tabs-wrapper}} */
-  tabs: computed.reads('parent.tabs'),
-  centerTabs: computed.reads('parent.centerTabs'),
-  selected: computed.reads('parent.selected'),
-  lastSelectedIndex: computed.reads('parent.lastSelectedIndex'),
-  selectedTab: computed.reads('parent.selectedTab'),
-  noInkBar: computed.reads('parent.noInkBar'),
-  canvasWidth: computed.reads('parent.canvasWidth'),
-  pagingWidth: computed.reads('parent.pagingWidth'),
-  offsetLeft: computed.reads('parent.offsetLeft'),
-  shouldCenterTabs: computed.reads('parent.shouldCenterTabs'),
-  shouldStretchTabs: computed.reads('parent.shouldStretchTabs'),
-  showInkBar: computed('noInkBar', 'tabs.[]', function() {
-    if (!this.get('noInkBar') && (this.get('tabs.length') > 0)) {
-      return true;
-    }
-    return false;
-  }),
+  tabs: reads('parent.tabs'),
+  noInkBar: reads('parent.noInkBar'),
+  lastSelectedIndex: reads('parent.lastSelectedIndex'),
+  centerTabs: reads('parent.centerTabs'),
+  selected: reads('parent.selected'),
+  selectedTab: reads('parent.selectedTab'),
+  canvasWidth: reads('parent.canvasWidth'),
+  pagingWidth: reads('parent.pagingWidth'),
+  offsetLeft: reads('parent.offsetLeft'),
+  shouldCenterTabs: reads('parent.shouldCenterTabs'),
+  shouldStretchTabs: reads('parent.shouldStretchTabs'),
+
+  isEmpty: empty('tabs'),
+
+  hideInkBar: or('isEmpty', 'noInkBar'),
 
   inkBarDirection: computed('lastSelectedIndex', 'selected', function() {
     return (this.get('lastSelectedIndex') > this.get('selected')) ? 'left' : 'right';
   }),
 
-  classNameBindings: ['centerTabs:md-center-tabs'],
-  attributeBindings: ['styleAttr:style'],
   styleAttr: computed('widthStyle', 'offsetStyle', function() {
     return htmlSafe(`${this.get('widthStyle')}${this.get('offsetStyle')}`);
   }),
 
   /* Style Bindings */
-  widthStyle: computed('pagingWidth', function() {
+  widthStyle: computed('pagingWidth', 'shouldStretchTabs', function() {
     if (this.get('shouldStretchTabs')) {
       return '';
     } else {
-      let width = this.get('pagingWidth');
-      return (width) ? `width: ${width}px;` : 'width: 0px';
+      const width = this.get('pagingWidth') || 0;
+      return `width: ${width}px;`;
     }
   }),
+
   offsetStyle: computed('offsetLeft', 'shouldCenterTabs', function() {
     if (this.get('shouldCenterTabs')) {
       return '';
@@ -51,13 +56,10 @@ export default Component.extend({
   }),
 
   inkBarLeftPosition: computed('selectedTab.offsetLeft', 'offsetLeft', function() {
-    let leftOffset = this.get('offsetLeft');
-    return this.get('selectedTab.offsetLeft') - leftOffset;
+    return this.get('selectedTab.offsetLeft') - this.get('offsetLeft');
   }),
-  inkBarRightPosition: computed('inkBarLeftPosition', 'selectedTab.offsetWidth', 'pagingWidth', 'offsetLeft', function() {
-    let position = this.get('pagingWidth');// - this.get('selectedTab.left');
-    position -= this.get('inkBarLeftPosition');
-    position -= this.get('selectedTab.offsetWidth');
-    return position;
+
+  inkBarRightPosition: computed('pagingWidth', 'inkBarLeftPosition', 'selectedTab.offsetWidth', function() {
+    return this.get('pagingWidth') - this.get('inkBarLeftPosition') - this.get('selectedTab.offsetWidth');
   })
 });
