@@ -1,7 +1,7 @@
 {{yield}}
-{{#if showInkBar}}
+{{#unless hideInkBar}}
   {{paper-ink-bar
     direction=inkBarDirection
     leftPosition=inkBarLeftPosition
     rightPosition=inkBarRightPosition}}
-{{/if}}
+{{/unless}}
