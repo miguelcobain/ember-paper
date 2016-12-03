@@ -1,15 +1,19 @@
 import Ember from 'ember';
-const { computed, Component } = Ember;
+const { computed: { not }, Component } = Ember;
 
 export default Component.extend({
   tagName: 'md-next-button',
 
-  classNameBindings: ['canPageForward:ok:md-disabled'],
+  classNameBindings: [
+    'disabled:md-disabled'
+  ],
 
   /* Inherited from `{{paper-tabs-wrapper}}` */
-  canPageForward: computed.reads('parent.canPageForward'),
+  disabled: not('parent.canPageForward'),
 
   click() {
-    this.get('parent').send('nextPage');
+    if (!this.get('disabled')) {
+      this.get('parent').send('nextPage');
+    }
   }
 });
