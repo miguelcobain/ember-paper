@@ -46,8 +46,9 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   rippleContainerSelector: null,
 
   index: computed('tabs.[]', 'self', function() {
-    let index = this.get('tabs').indexOf(this.get('self'));
-    this.get('self').set('index', index);
+    const { self, tabs } = this.getProperties('self', 'tabs');
+    const index = tabs.indexOf(self);
+    self.set('index', index); // FIXME computed props should not have such side effects
     return index;
   }),
 
