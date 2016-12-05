@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { computed, computed: { reads, empty, or }, Component, String: { htmlSafe } } = Ember;
+const { computed, Component, String: { htmlSafe } } = Ember;
 
 export default Component.extend({
   tagName: 'md-pagination-wrapper',
@@ -13,21 +13,21 @@ export default Component.extend({
   ],
 
   /* Inherited from {{paper-tabs-wrapper}} */
-  tabs: reads('parent.tabs'),
-  noInkBar: reads('parent.noInkBar'),
-  lastSelectedIndex: reads('parent.lastSelectedIndex'),
-  centerTabs: reads('parent.centerTabs'),
-  selected: reads('parent.selected'),
-  selectedTab: reads('parent.selectedTab'),
-  canvasWidth: reads('parent.canvasWidth'),
-  pagingWidth: reads('parent.pagingWidth'),
-  offsetLeft: reads('parent.offsetLeft'),
-  shouldCenterTabs: reads('parent.shouldCenterTabs'),
-  shouldStretchTabs: reads('parent.shouldStretchTabs'),
+  tabs: computed.reads('parent.tabs'),
+  noInkBar: computed.reads('parent.noInkBar'),
+  lastSelectedIndex: computed.reads('parent.lastSelectedIndex'),
+  centerTabs: computed.reads('parent.centerTabs'),
+  selected: computed.reads('parent.selected'),
+  selectedTab: computed.reads('parent.selectedTab'),
+  canvasWidth: computed.reads('parent.canvasWidth'),
+  pagingWidth: computed.reads('parent.pagingWidth'),
+  offsetLeft: computed.reads('parent.offsetLeft'),
+  shouldCenterTabs: computed.reads('parent.shouldCenterTabs'),
+  shouldStretchTabs: computed.reads('parent.shouldStretchTabs'),
 
-  isEmpty: empty('tabs'),
+  isEmpty: computed.empty('tabs'),
 
-  hideInkBar: or('isEmpty', 'noInkBar'),
+  hideInkBar: computed.or('isEmpty', 'noInkBar'),
 
   inkBarDirection: computed('lastSelectedIndex', 'selected', function() {
     return (this.get('lastSelectedIndex') > this.get('selected')) ? 'left' : 'right';
