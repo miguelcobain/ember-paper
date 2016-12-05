@@ -303,7 +303,7 @@ test('tab should use its contents as the body if there is a label attribute', fu
     {{/paper-tabs}}
   `);
   assert.ok(this.$('md-tab-item').length);
-  assert.equal(this.$('md-tab-item span').text(), 'test');
+  assert.equal(this.$('md-tab-item span').text().trim(), 'test');
   assert.equal(this.$('md-tab-content').text().trim(), 'content');
 });
 
@@ -316,7 +316,7 @@ test('tab should convert a label attribute to a label tag', function(assert) {
     {{/paper-tabs}}
   `);
   assert.ok(this.$('md-tab-item').length);
-  assert.equal(this.$('md-tab-item span').text(), 'test');
+  assert.equal(this.$('md-tab-item span').text().trim(), 'test');
   assert.equal(this.$('md-tab-content').text().trim(), 'content');
 });
 
