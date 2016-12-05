@@ -62,7 +62,7 @@ export default BasicDropdownComponent.extend({
 
     let menuStyle = window.getComputedStyle(openMenuNode);
 
-    let originNode = trigger.querySelector('md-icon') || trigger.querySelector('.md-menu-origin') || trigger;
+    let originNode = trigger.querySelector('.md-menu-origin') || trigger.querySelector('md-icon') || trigger;
     let originNodeRect = originNode.getBoundingClientRect();
 
     let bounds = {
