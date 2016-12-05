@@ -1,10 +1,7 @@
 import Ember from 'ember';
-const { computed, Component, Object: EmberObject, String: { htmlSafe}, run } = Ember;
+const { computed, computed: { reads }, Component, Object: EmberObject, run } = Ember;
 
 export default Component.extend({
-  init() {
-    this._super();
-  },
 
   tagName: 'md-tabs-wrapper',
 
@@ -15,23 +12,23 @@ export default Component.extend({
   }),
 
   /* Inherited from {{paper-tabs}} */
-  centerTabs: computed.reads('parent.centerTabs'),
-  tabs: computed.reads('parent.tabs'),
-  noInkBar: computed.reads('parent.noInkBar'),
-  selected: computed.reads('parent.selected'),
-  lastSelectedIndex: computed.reads('parent.lastSelectedIndex'),
-  selectedTab: computed.reads('parent.selectedTab'),
-  canvasWidth: computed.reads('parent.canvasWidth'),
-  pagingWidth: computed.reads('parent.pagingWidth'),
-  shouldPaginate: computed.reads('parent.shouldPaginate'),
-  canPageBack: computed.reads('parent.canPageBack'),
-  canPageForward: computed.reads('parent.canPageForward'),
-  offsetLeft: computed.reads('parent.offsetLeft'),
-  shouldCenterTabs: computed.reads('parent.shouldCenterTabs'),
-  shouldStretchTabs: computed.reads('parent.shouldStretchTabs'),
+  centerTabs: reads('parent.centerTabs'),
+  tabs: reads('parent.tabs'),
+  noInkBar: reads('parent.noInkBar'),
+  selected: reads('parent.selected'),
+  lastSelectedIndex: reads('parent.lastSelectedIndex'),
+  selectedTab: reads('parent.selectedTab'),
+  canvasWidth: reads('parent.canvasWidth'),
+  pagingWidth: reads('parent.pagingWidth'),
+  shouldPaginate: reads('parent.shouldPaginate'),
+  canPageBack: reads('parent.canPageBack'),
+  canPageForward: reads('parent.canPageForward'),
+  offsetLeft: reads('parent.offsetLeft'),
+  shouldCenterTabs: reads('parent.shouldCenterTabs'),
+  shouldStretchTabs: reads('parent.shouldStretchTabs'),
 
   canvasClass: computed('shouldPaginate', function() {
-    return htmlSafe(this.get('shouldPaginate') ? '' : 'md-paginated');
+    return this.get('shouldPaginate') ? 'md-paginated' : '';
   }),
 
   didInsertElement() {
