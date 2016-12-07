@@ -11,7 +11,6 @@ export default Service.extend({
   }),
 
   vendorProperty(name) {
-    let prefix = this.get('sniffer.vendorPrefix').toLowerCase();
     return this.get('webkit') ? `-webkit-${name.charAt(0)}${name.substring(1)}` : name;
   },
 
