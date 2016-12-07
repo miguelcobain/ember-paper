@@ -25,7 +25,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['value:md-checked', 'dragging:md-dragging'],
   toggle: true,
-  constants: inject.service(),
+  paperConstants: inject.service(),
 
   /* Ripple Overrides */
   rippleContainerSelector: '.md-thumb',
@@ -141,7 +141,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   },
 
   keyPress(ev) {
-    if (ev.which === this.get('constants.KEYCODE.SPACE') || ev.which === this.get('constants.KEYCODE.ENTER')) {
+    if (ev.which === this.get('paperConstants.KEYCODE.SPACE') || ev.which === this.get('paperConstants.KEYCODE.ENTER')) {
       ev.preventDefault();
       this._dragEnd();
     }

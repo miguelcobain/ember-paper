@@ -31,7 +31,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   /* FocusableMixin Overrides */
   focusOnlyOnKey: true,
 
-  constants: inject.service(),
+  paperConstants: inject.service(),
 
   value: false,
 
@@ -49,7 +49,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   },
 
   keyPress(ev) {
-    if (ev.which === this.get('constants.KEYCODE.SPACE') || ev.which === this.get('constants.KEYCODE.ENTER')) {
+    if (ev.which === this.get('paperConstants.KEYCODE.SPACE') || ev.which === this.get('paperConstants.KEYCODE.ENTER')) {
       ev.preventDefault();
       this.click();
     }

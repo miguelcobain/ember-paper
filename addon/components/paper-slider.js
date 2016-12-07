@@ -22,7 +22,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   classNames: ['md-default-theme'],
   classNameBindings: ['isMinimum:md-min', 'active', 'dragging'],
 
-  constants: inject.service(),
+  paperConstants: inject.service(),
 
   min: 0,
   max: 100,
@@ -133,9 +133,9 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
     let changeAmount, newValue;
 
-    if (event.keyCode === this.get('constants.KEYCODE.LEFT_ARROW')) {
+    if (event.keyCode === this.get('paperConstants.KEYCODE.LEFT_ARROW')) {
       changeAmount = parseInt(this.get('step')) * -1;
-    } else if (event.keyCode === this.get('constants.KEYCODE.RIGHT_ARROW')) {
+    } else if (event.keyCode === this.get('paperConstants.KEYCODE.RIGHT_ARROW')) {
       changeAmount = parseInt(this.get('step'));
     }
 

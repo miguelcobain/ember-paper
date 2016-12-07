@@ -29,7 +29,7 @@ const MEDIA = (mediaName) => {
 export default Component.extend({
   tagName: 'md-grid-list',
 
-  constants: inject.service(),
+  paperConstants: inject.service(),
 
   layoutInvalidated: false,
   tilesInvalidated: false,
@@ -84,8 +84,8 @@ export default Component.extend({
 
     let invalidateLayoutListener = this.get('_invalidateLayoutListener');
 
-    for (let mediaName in this.get('constants.MEDIA')) {
-      let query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
+    for (let mediaName in this.get('paperConstants.MEDIA')) {
+      let query = this.get('paperConstants.MEDIA')[mediaName] || MEDIA(mediaName);
       window.matchMedia(query).addListener(invalidateLayoutListener);
     }
   },
@@ -110,7 +110,7 @@ export default Component.extend({
         this.addObserver(attrName, customObserver);
       }
 
-      for (let mediaName in this.get('constants.MEDIA')) {
+      for (let mediaName in this.get('paperConstants.MEDIA')) {
         let normalizedName = `${attrName}-${mediaName}`;
         if (get(this, normalizedName)) {
           let customObserverNormalized = run.bind(this, checkObserverValues, this, normalizedName, mediaName);
@@ -123,17 +123,17 @@ export default Component.extend({
 
   _unwatchMedia() {
     let invalidateLayoutListener = this.get('_invalidateLayoutListener');
-    for (let mediaName in this.get('constants.MEDIA')) {
-      let query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
+    for (let mediaName in this.get('paperConstants.MEDIA')) {
+      let query = this.get('paperConstants.MEDIA')[mediaName] || MEDIA(mediaName);
       window.matchMedia(query).removeListener(invalidateLayoutListener);
     }
   },
 
   _getResponsiveAttribute(component, attrName) {
-    let mediaPriorities = this.get('constants.MEDIA_PRIORITY');
+    let mediaPriorities = this.get('paperConstants.MEDIA_PRIORITY');
     for (let i = 0; i < mediaPriorities.length; i++) {
       let mediaName = mediaPriorities[i];
-      let query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
+      let query = this.get('paperConstants.MEDIA')[mediaName] || MEDIA(mediaName);
 
       if (!window.matchMedia(query).matches) {
         continue;

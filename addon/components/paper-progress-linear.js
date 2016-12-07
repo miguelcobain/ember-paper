@@ -28,7 +28,7 @@ export default Component.extend(ColorMixin, {
   attributeBindings: ['mode:md-mode', 'bufferValue:md-buffer-value'],
   classNames: ['md-default-theme'],
 
-  constants: inject.service(),
+  paperConstants: inject.service(),
 
   init() {
     this._super(...arguments);
@@ -73,7 +73,7 @@ export default Component.extend(ColorMixin, {
   },
 
   bar1Style: computed('clampedBufferValue', function() {
-    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedBufferValue')]}`);
+    return htmlSafe(`${this.get('paperConstants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedBufferValue')]}`);
   }),
 
   bar2Style: computed('clampedValue', 'mode', function() {
@@ -81,7 +81,7 @@ export default Component.extend(ColorMixin, {
       return htmlSafe('');
     }
 
-    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedValue')]}`);
+    return htmlSafe(`${this.get('paperConstants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedValue')]}`);
   }),
 
   clampedValue: computed('value', function() {

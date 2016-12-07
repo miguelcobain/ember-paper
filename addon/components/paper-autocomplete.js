@@ -15,7 +15,7 @@ const { assert, computed, inject, isNone, defineProperty } = Ember;
  */
 export default PowerSelect.extend(ValidationMixin, ChildMixin, {
   util: inject.service(),
-  constants: inject.service(),
+  paperConstants: inject.service(),
   triggerComponent: 'paper-autocomplete-trigger',
   contentComponent: 'paper-autocomplete-content',
   optionsComponent: 'paper-autocomplete-options',

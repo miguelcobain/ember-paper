@@ -45,13 +45,13 @@ export default Component.extend({
     }
   }),
 
-  constants: inject.service(),
+  paperConstants: inject.service(),
 
   didInsertElement() {
     this._super(...arguments);
     if (this.get('escapeToClose')) {
       $(this.get('defaultedParent')).on(`keydown.${this.elementId}`, (e) => {
-        if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.get('onClose')) {
+        if (e.keyCode === this.get('paperConstants.KEYCODE.ESCAPE') && this.get('onClose')) {
           this.sendAction('onClose');
         }
       });

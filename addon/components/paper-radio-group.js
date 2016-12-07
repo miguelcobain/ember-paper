@@ -20,7 +20,7 @@ export default Component.extend(FocusableMixin, ParentMixin, {
   /* FocusableMixin Overrides */
   focusOnlyOnKey: true,
 
-  constants: inject.service(),
+  paperConstants: inject.service(),
 
   // Lifecycle hooks
   init() {
@@ -34,13 +34,13 @@ export default Component.extend(FocusableMixin, ParentMixin, {
   keyDown(ev) {
 
     switch (ev.which) {
-      case this.get('constants.KEYCODE.LEFT_ARROW'):
-      case this.get('constants.KEYCODE.UP_ARROW'):
+      case this.get('paperConstants.KEYCODE.LEFT_ARROW'):
+      case this.get('paperConstants.KEYCODE.UP_ARROW'):
         ev.preventDefault();
         this.select(-1);
         break;
-      case this.get('constants.KEYCODE.RIGHT_ARROW'):
-      case this.get('constants.KEYCODE.DOWN_ARROW'):
+      case this.get('paperConstants.KEYCODE.RIGHT_ARROW'):
+      case this.get('paperConstants.KEYCODE.DOWN_ARROW'):
         ev.preventDefault();
         this.select(1);
         break;

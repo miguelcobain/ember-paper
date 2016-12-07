@@ -23,7 +23,7 @@ export default Component.extend(ColorMixin, {
   classNames: ['md-default-theme'],
   attributeBindings: ['value', 'mode:md-mode', 'circleStyle:style'],
 
-  constants: inject.service(),
+  paperConstants: inject.service(),
 
   mode: computed('value', function() {
     let value = this.get('value');
@@ -52,7 +52,7 @@ export default Component.extend(ColorMixin, {
   scaleWrapperStyle: computed('diameterRatio', function() {
     let diameterRatio = this.get('diameterRatio');
 
-    let transform = `${this.get('constants.CSS.TRANSFORM')}: translate(-50%, -50%) scale(${diameterRatio})`;
+    let transform = `${this.get('paperConstants.CSS.TRANSFORM')}: translate(-50%, -50%) scale(${diameterRatio})`;
 
     return htmlSafe(transform);
   }),
@@ -76,7 +76,7 @@ export default Component.extend(ColorMixin, {
 
     let value = this.get('clampedValue');
     let borderBottomColor = (value <= 50) ? 'border-bottom-color: transparent !important' : null;
-    let transition = (value <= 50) ? null : `${this.get('constants.CSS.TRANSITION')}: borderBottomColor 0.1s linear`;
+    let transition = (value <= 50) ? null : `${this.get('paperConstants.CSS.TRANSITION')}: borderBottomColor 0.1s linear`;
 
     return htmlSafe([borderBottomColor, transition].filter((i) => !!i).join(';'));
   }),
@@ -87,8 +87,8 @@ export default Component.extend(ColorMixin, {
     }
 
     let value = this.get('clampedValue');
-    let transition = (value <= 50) ? `${this.get('constants.CSS.TRANSITION')}: transform 0.1s linear` : '';
-    let transform = `${this.get('constants.CSS.TRANSFORM')}: rotate(${value <= 50 ? 135 : (((value - 50) / 50 * 180) + 135)}deg)`;
+    let transition = (value <= 50) ? `${this.get('paperConstants.CSS.TRANSITION')}: transform 0.1s linear` : '';
+    let transform = `${this.get('paperConstants.CSS.TRANSFORM')}: rotate(${value <= 50 ? 135 : (((value - 50) / 50 * 180) + 135)}deg)`;
 
     return htmlSafe([transition, transform].filter((i) => !!i).join(';'));
   }),
@@ -99,8 +99,8 @@ export default Component.extend(ColorMixin, {
     }
 
     let value = this.get('clampedValue');
-    let transition = (value >= 50) ? `${this.get('constants.CSS.TRANSITION')}: transform 0.1s linear` : '';
-    let transform = `${this.get('constants.CSS.TRANSFORM')}: rotate(${value >= 50 ? 45 : (value / 50 * 180 - 135)}deg)`;
+    let transition = (value >= 50) ? `${this.get('paperConstants.CSS.TRANSITION')}: transform 0.1s linear` : '';
+    let transform = `${this.get('paperConstants.CSS.TRANSFORM')}: rotate(${value >= 50 ? 45 : (value / 50 * 180 - 135)}deg)`;
 
     return htmlSafe([transition, transform].filter((i) => !!i).join(';'));
   })

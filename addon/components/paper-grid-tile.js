@@ -13,7 +13,7 @@ const { Component, computed, inject, get } = Ember;
 export default Component.extend({
   tagName: 'md-grid-tile',
 
-  constants: inject.service(),
+  paperConstants: inject.service(),
 
   didInsertElement() {
     this._super(...arguments);
@@ -54,7 +54,7 @@ export default Component.extend({
         this.addObserver(attrName, checkObserverValues);
       }
 
-      for (let mediaName in this.get('constants.MEDIA')) {
+      for (let mediaName in this.get('paperConstants.MEDIA')) {
         let normalizedName = `${attrName}-${mediaName}`;
         if (get(this, normalizedName)) {
           this.set(`old${normalizedName}`, get(this, normalizedName));

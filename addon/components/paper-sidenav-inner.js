@@ -18,7 +18,7 @@ export default Component.extend(TransitionMixin, {
   classNameBindings: ['positionClass'],
   transitionClassNameBindings: ['isLockedOpen:md-locked-open', 'closed:md-closed'],
 
-  constants: inject.service(),
+  paperConstants: inject.service(),
   paperSidenav: inject.service(),
 
   name: 'default',
@@ -63,7 +63,7 @@ export default Component.extend(TransitionMixin, {
     if (typeof lockedOpen === 'boolean') {
       isLockedOpen = lockedOpen;
     } else {
-      let mediaQuery = this.get('constants').MEDIA[lockedOpen] || lockedOpen;
+      let mediaQuery = this.get('paperConstants').MEDIA[lockedOpen] || lockedOpen;
       isLockedOpen = window.matchMedia(mediaQuery).matches;
     }
 
