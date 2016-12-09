@@ -77,6 +77,9 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
   active: false,
   dragging: false,
+  enabled: computed('disabled', function() {
+    return !this.get('disabled');
+  }),
 
   sliderDimensions: computed(function() {
     return this.get('trackContainer')[0].getBoundingClientRect();
@@ -90,10 +93,15 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     this.set('value', closestVal);
   },
 
-  down(event) {
+  dragStart(event) {
     if (this.get('disabled')) {
       return;
     }
+
+    let dragIcon = document.createElement('img');
+    dragIcon.setAttribute('style', 'width:1px;height:1px;border:none;display:block');
+    dragIcon.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+    event.dataTransfer.setDragImage(dragIcon, 0, 0);
 
     this.set('active', true);
     this.set('dragging', true);
@@ -104,7 +112,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     this.setValueFromEvent(event);
   },
 
-  up(event) {
+  dragEnd(event) {
     if (this.get('disabled')) {
       return;
     }
@@ -117,13 +125,12 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     this.endPropertyChanges();
   },
 
-  move(event) {
+  drag(event) {
     if (this.get('disabled') || !this.get('dragging')) {
       return;
     }
 
     this.setValueFromEvent(event);
-
   },
 
   keyDown(event) {
