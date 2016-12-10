@@ -77,9 +77,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
   active: false,
   dragging: false,
-  enabled: computed('disabled', function() {
-    return !this.get('disabled');
-  }),
+  enabled: computed.not('disabled'),
 
   sliderDimensions: computed(function() {
     return this.get('trackContainer')[0].getBoundingClientRect();
