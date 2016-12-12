@@ -53,7 +53,7 @@ export default Mixin.create({
           if (!this.get('isDestroying') && !this.get('isDestroyed')) {
             this.onTranslateFromEnd();
           }
-        }, computeTimeout(this.element));
+        }, computeTimeout(this.element) || 0);
         if (!this.get('isDestroying') && !this.get('isDestroyed')) {
           this.set('transformStyleApply', 'main');
           this.set('transformIn', true);
@@ -84,7 +84,7 @@ export default Mixin.create({
         run.later(() => {
           containerClone.remove();
           this.onTranslateToEnd($(this.get('origin')));
-        }, computeTimeout(dialogClone.get(0)));
+        }, computeTimeout(dialogClone.get(0)) || 0);
       });
     });
   },

@@ -13,7 +13,7 @@
   },
   "repository": "https://github.com/miguelcobain/ember-paper",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 0.12.0"
   },
   "author": "Miguel Andrade <jmandrade0@gmail.com>",
   "license": "MIT",
@@ -21,19 +21,19 @@
     "url": "https://github.com/miguelcobain/ember-paper/issues"
   },
   "devDependencies": {
-    "broccoli-asset-rev": "^2.4.2",
+    "broccoli-asset-rev": "^2.4.5",
     "broccoli-static-compiler": "~0.2.1",
-    "ember-ajax": "^2.0.1",
-    "ember-cli": "2.8.0",
-    "ember-cli-app-version": "^1.0.0",
-    "ember-cli-dependency-checker": "^1.2.0",
+    "ember-ajax": "^2.4.1",
+    "ember-cli": "^2.10.0",
+    "ember-cli-app-version": "^2.0.0",
+    "ember-cli-dependency-checker": "^1.3.0",
     "ember-cli-fastboot": "1.0.0-beta.9",
     "ember-cli-github-pages": "^0.1.2",
-    "ember-cli-htmlbars": "^1.0.3",
-    "ember-cli-htmlbars-inline-precompile": "^0.3.1",
-    "ember-cli-inject-live-reload": "^1.4.0",
-    "ember-cli-jshint": "^1.0.0",
-    "ember-cli-qunit": "^2.1.0",
+    "ember-cli-htmlbars": "^1.0.10",
+    "ember-cli-htmlbars-inline-precompile": "^0.3.3",
+    "ember-cli-inject-live-reload": "^1.4.1",
+    "ember-cli-jshint": "^2.0.1",
+    "ember-cli-qunit": "^3.0.1",
     "ember-cli-release": "^0.2.9",
     "ember-cli-sass": "^5.2.1",
     "ember-cli-sri": "^2.1.0",
@@ -41,8 +41,8 @@
     "ember-cli-uglify": "^1.2.0",
     "ember-code-snippet": "1.3.0",
     "ember-cp-validations": "3.0.1",
+    "ember-data": "^2.10.0",
     "ember-deferred-content": "0.2.0",
-    "ember-data": "^2.8.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
     "ember-inflector": "1.9.4",
@@ -51,7 +51,7 @@
     "ember-suave": "4.0.1",
     "ember-transition-helper": "0.0.6",
     "liquid-fire": "0.26.4",
-    "loader.js": "^4.0.1"
+    "loader.js": "^4.0.10"
   },
   "dependencies": {
     "angular-material-source": "angular/material#v1.0.6",
@@ -60,7 +60,7 @@
     "broccoli-funnel": "^1.0.1",
     "broccoli-merge-trees": "^1.1.0",
     "ember-basic-dropdown": "^0.16.0",
-    "ember-cli-babel": "^5.1.6",
+    "ember-cli-babel": "^5.1.7",
     "ember-composability-tools": "0.0.5",
     "ember-css-transitions": "0.1.8",
     "ember-power-select": "1.0.0-beta.23",
