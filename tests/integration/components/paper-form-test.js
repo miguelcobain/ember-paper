@@ -61,10 +61,7 @@ test('form `onSubmit` action is invoked', function(assert) {
 test('form `onValidityChange` action is invoked', function(assert) {
   // paper-input triggers `onValidityChange` on render
   // so we expect two runs: one on render and another on validity change
-
-  // on ember 2.4, it isn't running on destroy
-  // check if we need to notify validity change on destroy
-  // assert.expect(3);
+  assert.expect(2);
 
   this.set('onValidityChange', () => {
     assert.ok(true);
