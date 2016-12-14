@@ -8,7 +8,7 @@
     <blockquote>Use <code>\{{paper-autocomplete}}</code> to search for matches from local or remote data sources.</blockquote>
 
     {{! BEGIN-SNIPPET autocomplete.basic-usage }}
-    {{#paper-autocomplete
+    {{paper-autocomplete
       disabled=firstDisabled
       onCreate=(action "addCountry")
       options=items
@@ -22,12 +22,7 @@
       placeholder="Select a Country..."
       loadingMessage="Searching countries..."
       noMatchesMessage="Oops this country doesn't exist. Create a new country?"
-      onSelectionChange=(action (mut selectedCountry)) as |country autocomplete|}}
-      {{paper-autocomplete-highlight
-        label=country.name
-        searchText=autocomplete.searchText
-        flags="i"}}
-    {{/paper-autocomplete}}
+      onSelectionChange=(action (mut selectedCountry))}}
     {{! END-SNIPPET }}
 
     <p>
