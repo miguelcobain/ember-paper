@@ -71,16 +71,20 @@
     to=(readonly destination)
     searchEnabled=searchEnabled
     dropdown=publicAPI as |content|}}
-    {{component beforeOptionsComponent
-      extra=(readonly extra)
-      listboxId=(readonly optionsId)
-      onInput=(action "onInput")
-      onKeydown=(action "onKeydown")
-      searchEnabled=(readonly searchEnabled)
-      onFocus=(action "onFocus")
-      onBlur=(action "deactivate")
-      searchPlaceholder=(readonly searchPlaceholder)
-      select=(readonly publicAPI)}}
+    {{#if searchEnabled}}
+      {{component beforeOptionsComponent
+        extra=(readonly extra)
+        listboxId=(readonly optionsId)
+        onInput=(action "onInput")
+        onKeydown=(action "onKeydown")
+        searchEnabled=(readonly searchEnabled)
+        onFocus=(action "onFocus")
+        onBlur=(action "deactivate")
+        searchPlaceholder=(readonly searchPlaceholder)
+        select=(readonly publicAPI)
+      }}
+    {{/if}}
+
     {{#if mustShowSearchMessage}}
       {{component searchMessageComponent
         searchMessage=(readonly searchMessage)
