@@ -16,9 +16,15 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/release-1/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
 ### master
+- [4134ccd](https://github.com/miguelcobain/ember-paper/commit/4134ccdcdf5e18c79d26a26079c2df79a3ef3a7f) remove `onValidityChange` call on component destroy
+- [a463108](https://github.com/miguelcobain/ember-paper/commit/a463108b8324fa101d0557783262549a1c1b6273) remove leftover auto-generated `app.scss` that was causing some errors
+
+### 1.0.0-alpha.11 (December 2, 2016)
 - [e923c51](https://github.com/miguelcobain/ember-paper/commit/e923c517ae10cfb23a86e28207c8496f9a74f377) fix sidenav opening glitch
 - [741e03e](https://github.com/miguelcobain/ember-paper/commit/741e03ed5cbd5b75306ac9bbad948482b888027f) fix bug on sidenav unregistration
 - [6c980fb](https://github.com/miguelcobain/ember-paper/commit/6c980fbd28c79383a13dfca3cf190012fefa91e9) `paper-item` now yields `checkbox`, `switch` and `button` controls. These controls get proxied by `paper-item` clicks.
+- [#577](https://github.com/miguelcobain/ember-paper/pull/577) `paper-list` update. Specify `seconday=true` when you want controls to be placed on the right side of `paper-item`.
+- [350a2c7](https://github.com/miguelcobain/ember-paper/commit/350a2c7418c5422d5daef4d1cad9acfc22cf8c37) Use timeouts to delete dialog clones after transition. Fixes bug where dialog clones were not removed.
 
 ### 1.0.0-alpha.10 (November 24, 2016)
 - [82c53e4](https://github.com/miguelcobain/ember-paper/commit/82c53e4f91bf271d44bf719835cc2530a1913c91) Bugfix for for npm module resolution

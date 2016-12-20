@@ -77,11 +77,6 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
     this.growTextarea();
   },
 
-  willClearRender() {
-    this._super(...arguments);
-    this.sendAction('onValidityChange', false);
-  },
-
   willDestroyElement() {
     this._super(...arguments);
     if (this.get('textarea')) {

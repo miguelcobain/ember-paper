@@ -25,8 +25,7 @@
         class="md-whiteframe-z2"
         name="left"
         open=leftSideBarOpen
-        onToggle=(action (mut leftSideBarOpen))
-      }}
+        onToggle=(action (mut leftSideBarOpen))}}
         {{#paper-toolbar as |toolbar|}}
           {{#paper-toolbar-tools}}Left Sidenav{{/paper-toolbar-tools}}
         {{/paper-toolbar}}
@@ -39,19 +38,45 @@
         <div class="layout-fill layout-align-start-center layout-column" style="height: 500px">
           <p>
             The left sidenav will "lock open" on a medium (>=960px wide) device.
+            The right sidenav never "locks open" because we set <code>lockedOpen=false</code>. 
           </p>
           <p>
-            Left sidenav is {{if leftSideBarOpen "opened" "closed"}}
+            Left sidenav is <strong>{{if leftSideBarOpen "opened" "closed"}}</strong>.
+          </p>
+          <p>
+            Right sidenav is <strong>{{if rightSideBarOpen "opened" "closed"}}</strong>.
           </p>
 
           {{#paper-sidenav-toggle name="left" as |toggleAction|}}
             {{#paper-button raised=true classNames="hide-gt-sm" onClick=(action toggleAction)}}
-              Toggle
+              Toggle left sidenav
+            {{/paper-button}}
+          {{/paper-sidenav-toggle}}
+
+          {{#paper-sidenav-toggle name="right" as |toggleAction|}}
+            {{#paper-button raised=true onClick=(action toggleAction)}}
+              Toggle right sidenav
             {{/paper-button}}
           {{/paper-sidenav-toggle}}
 
         </div>
       {{/paper-card-content}}
+
+      {{#paper-sidenav
+        class="md-whiteframe-z2"
+        name="right"
+        position="right"
+        open=rightSideBarOpen
+        lockedOpen=false
+        onToggle=(action (mut rightSideBarOpen))}}
+        {{#paper-toolbar as |toolbar|}}
+          {{#paper-toolbar-tools}}Right Sidenav{{/paper-toolbar-tools}}
+        {{/paper-toolbar}}
+        {{#paper-content padding=true}}
+          Çup? I'm on the right side.
+        {{/paper-content}}
+      {{/paper-sidenav}}
+
     {{/paper-sidenav-container}}
     {{! END-SNIPPET sidenav }}
   </div>

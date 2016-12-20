@@ -60,8 +60,8 @@ test('form `onSubmit` action is invoked', function(assert) {
 
 test('form `onValidityChange` action is invoked', function(assert) {
   // paper-input triggers `onValidityChange` on render
-  // so we expect three runs: one for each input on render and another on validity change
-  assert.expect(3);
+  // so we expect two runs: one on render and another on validity change
+  assert.expect(2);
 
   this.set('onValidityChange', () => {
     assert.ok(true);

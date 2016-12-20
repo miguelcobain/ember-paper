@@ -34,13 +34,12 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, FocusableMixin, {
   attributeBindings: ['parentTabindex:tabindex'],
   shouldShowLabel: computed.and('label', 'selected'),
   focusedAndSelected: computed.and('focused', 'selected'),
+
   didReceiveAttrs() {
     this._super(...arguments);
     this.notifyValidityChange();
   },
-  willClearRender() {
-    this.sendAction('onValidityChange', false);
-  },
+
   concatenatedTriggerClasses: computed('triggerClass', 'publicAPI.isActive', function() {
     let classes = ['ember-power-select-trigger'];
     if (this.get('isInvalid')) {

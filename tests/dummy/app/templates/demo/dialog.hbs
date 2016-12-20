@@ -32,6 +32,9 @@
             {{#paper-button raised=true primary=true onClick=(action "openPromptDialog")}}
               Prompt dialog
             {{/paper-button}}
+            {{#paper-button raised=true primary=true onClick=(action "openAnimatedDialog")}}
+              Animated dialog
+            {{/paper-button}}
           </div>
 
           {{#if result}}
@@ -43,8 +46,9 @@
               (p-row "parent" "jQuery object, element or selector" "Existing element where the modal and backdrop will be rendered")
               (p-row "origin" "jQuery object, element, or selector" "If present, the dialog will use it as openFrom and closeTo. Also, focus will be returned to this element once the dialog closes.")
               (p-row "closeTo" "jQuery object, element or selector" "Target for closing the dialog with a transition.")
+              (p-row "openFrom" "jQuery object, element or selector" "Source for opening the dialog with a transition.")
               (p-row "fullscreen" "boolean" "Causes the dialog to become fullscreen at smaller breakpoints.")
-              (p-row "clickOutsideToClose" "boolean" "Causes clicking on the backdrop to trigger the `onClose` handler.")
+              (p-row "clickOutsideToClose" "boolean" "Causes clicking on the backdrop to trigger the `onClose` handler. Defaults to `false`.")
               (p-row "focusOnOpen" "boolean" "Causes the initial focus to be on an inner element with the autofocus attribute, rather than the last button inside `{{paper-dialog-actions}}`. Defaults to `true`.")
               (p-row "escapeToClose" "boolean" "Causes pressing escape to close the dialog. Defaults to `true`.")
             )
@@ -58,6 +62,8 @@
       </div>
 
     {{/paper-card}}
+
+    <span id="bottom-of-card"></span>
 
 {{/doc-content}}
 
@@ -130,6 +136,22 @@
       <span class="flex"></span>
       {{#paper-button primary=true onClick=(action "closePromptDialog" "cancel")}}I'm a cat person{{/paper-button}}
       {{#paper-button primary=true onClick=(action "closePromptDialog" "ok" dogName)}}Okay!{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
+
+{{#if showAnimatedDialog}}
+  {{#paper-dialog fullscreen=fullscreen onClose=(action "closeAnimatedDialog") openFrom="#paper-dialog-demo" closeTo="#bottom-of-card"}}
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">This dialog is animated!</h2>
+      <p>It opened from above, but it will close to below.</p>
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row"}}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closeAnimatedDialog")}}Okay!{{/paper-button}}
     {{/paper-dialog-actions}}
 
   {{/paper-dialog}}
