@@ -84,9 +84,9 @@ export default BasicDropdown.extend({
       }
       return offset;
     }
-    let style = { top: `${dropdownTop}px`, left: `${dropdownLeft}px` };
+    let style = { top: dropdownTop, left: dropdownLeft };
     if (matchTriggerWidth) {
-      style.width = `${dropdownWidth}px`;
+      style.width = dropdownWidth;
     }
     this.applyReposition(trigger, dropdown, { horizontalPosition, verticalPosition, style });
   }
