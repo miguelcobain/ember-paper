@@ -40,9 +40,8 @@ module.exports = {
   },
 
   treeForVendor: function(tree) {
-    var trees = [
-      tree
-    ];
+    var trees = [];
+
     if (!process.env.EMBER_CLI_FASTBOOT) {
       var hammerJs = new Funnel(this.pathBase('hammerjs'), {
         files: [
@@ -63,6 +62,10 @@ module.exports = {
         destDir: 'propagating-hammerjs'
       });
       trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs]);
+    }
+
+    if (tree) {
+      trees.push(tree);
     }
 
     return mergeTrees(trees);
