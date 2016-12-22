@@ -12,7 +12,7 @@ test('it renders the block content', function(assert) {
     {{/paper-next-button}}
   `);
 
-  assert.equal(this.$().text().trim(), 'content');
+  assert.equal(this.$().text().trim(), 'chevron_left');
 });
 
 test('it has md-next-button tagName', function(assert) {
