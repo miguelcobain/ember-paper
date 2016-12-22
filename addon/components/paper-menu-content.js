@@ -58,10 +58,7 @@ export default ContentComponent.extend({
     }
   }),
 
-  addGlobalEvents() {
-    window.addEventListener('scroll', this.runloopAwareReposition);
-    window.addEventListener('resize', this.runloopAwareReposition);
-    window.addEventListener('orientationchange', this.runloopAwareReposition);
+  startObservingDomMutations() {
     if (MutObserver) {
       this.mutationObserver = new MutObserver((mutations) => {
         // e-b-d incorrectly counts ripples as a mutation, triggering a problematic repositon
