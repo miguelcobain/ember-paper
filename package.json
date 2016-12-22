@@ -65,6 +65,9 @@
     "ember-css-transitions": "0.1.8",
     "ember-power-select": "1.0.0-beta.23",
     "ember-wormhole": "0.4.1",
+    "hammerjs": "^2.0.8",
+    "matchmedia-polyfill": "^0.3.0",
+    "propagating-hammerjs": "^1.4.6",
     "resolve": "^1.1.7",
     "virtual-each": "0.3.1"
   },
