@@ -149,8 +149,8 @@ export default PaperMenu.extend({
     let scaleX = Math.min(targetRect.width / selectMenuRect.width, 1.0);
     let scaleY = Math.min(targetRect.height / selectMenuRect.height, 1.0);
     let style = {
-      top: `${dropdownTop}px`,
-      left: `${dropdownLeft}px`,
+      top: dropdownTop,
+      left: dropdownLeft,
       // Animate a scale out if we aren't just repositioning
       transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
       transformOrigin
