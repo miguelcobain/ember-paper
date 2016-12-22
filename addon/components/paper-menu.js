@@ -53,7 +53,11 @@ export default BasicDropdownComponent.extend({
     return { left, top };
   }),
 
-  performFullReposition(trigger, dropdown) {
+  calculatePosition: computed(function() {
+    return this.calculatePositionAux.bind(this);
+  }),
+
+  calculatePositionAux(trigger, dropdown) {
     let containerNode = dropdown;
     let openMenuNode = dropdown.firstElementChild;
     let openMenuNodeRect = openMenuNode.getBoundingClientRect();
@@ -167,6 +171,6 @@ export default BasicDropdownComponent.extend({
 
     this.didAnimateScale = true;
 
-    this.applyReposition(trigger, dropdown, { style });
+    return { style, horizontalPosition: '', verticalPosition: '' };
   }
 });

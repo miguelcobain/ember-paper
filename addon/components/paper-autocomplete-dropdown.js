@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import BasicDropdown from 'ember-basic-dropdown/components/basic-dropdown';
 
-const { $ } = Ember;
+const { $, computed } = Ember;
 
 export default BasicDropdown.extend({
   triggerComponent: 'paper-autocomplete-trigger-container',
@@ -18,15 +18,17 @@ export default BasicDropdown.extend({
       return;
     }
 
-    let renderInPlace = this.get('renderInPlace');
-    if (renderInPlace) {
-      this.performNaiveReposition(triggerElement, dropdownElement);
-    } else {
-      this.performFullReposition(triggerElement, dropdownElement);
-    }
+    let calculatePosition = this.get(this.get('renderInPlace') ? 'calculateInPlacePosition' : 'calculatePosition');
+    let options = this.getProperties('horizontalPosition', 'verticalPosition', 'matchTriggerWidth', 'previousHorizontalPosition', 'previousVerticalPosition');
+    let positionData = calculatePosition(triggerElement, dropdownElement, options);
+    return this.applyReposition(triggerElement, dropdownElement, positionData);
   },
 
-  performFullReposition(trigger, dropdown) {
+  calculatePosition: computed(function() {
+    return this.calculatePositionAux.bind(this);
+  }),
+
+  calculatePositionAux(trigger, dropdown) {
     let {
       horizontalPosition, verticalPosition, matchTriggerWidth
     } = this.getProperties('horizontalPosition', 'verticalPosition', 'matchTriggerWidth');
@@ -88,7 +90,8 @@ export default BasicDropdown.extend({
     if (matchTriggerWidth) {
       style.width = dropdownWidth;
     }
-    this.applyReposition(trigger, dropdown, { horizontalPosition, verticalPosition, style });
+
+    return { style, horizontalPosition: '', verticalPosition: '' };
   }
 
 });

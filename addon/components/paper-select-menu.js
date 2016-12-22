@@ -4,7 +4,7 @@
 import Ember from 'ember';
 import PaperMenu from './paper-menu';
 
-const { $ } = Ember;
+const { $, computed } = Ember;
 
 const SELECT_EDGE_MARGIN = 8;
 
@@ -27,7 +27,12 @@ function clamp(min, n, max) {
  */
 export default PaperMenu.extend({
   triggerComponent: 'paper-select-menu-trigger',
-  performFullReposition(trigger, dropdown) {
+
+  calculatePosition: computed(function() {
+    return this.calculatePositionAux.bind(this);
+  }),
+
+  calculatePositionAux(trigger, dropdown) {
     let $dropdown = $(dropdown);
     let opts = {
       target: $(trigger),
@@ -158,6 +163,6 @@ export default PaperMenu.extend({
 
     this.didAnimateScale = true;
 
-    this.applyReposition(trigger, dropdown, { style });
+    return { style, horizontalPosition: '', verticalPosition: '' };
   }
 });
