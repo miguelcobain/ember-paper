@@ -7,33 +7,29 @@ export default BasicDropdown.extend({
   triggerComponent: 'paper-autocomplete-trigger-container',
 
   reposition() {
-    if (!this.publicAPI.isOpen) {
+    if (!this.get('publicAPI.isOpen')) {
       return;
     }
-
     let dropdownElement = $(`.${this.dropdownId}`).get(0);
     let triggerElement = document.getElementById(this.triggerId);
-
     if (!dropdownElement || !triggerElement) {
       return;
     }
 
-    let renderInPlace = this.get('renderInPlace');
-    if (renderInPlace) {
-      this.performNaiveReposition(triggerElement, dropdownElement);
-    } else {
-      this.performFullReposition(triggerElement, dropdownElement);
-    }
+    let calculatePosition = this.get(this.get('renderInPlace') ? 'calculateInPlacePosition' : 'calculatePosition');
+    let options = this.getProperties('horizontalPosition', 'verticalPosition', 'matchTriggerWidth', 'previousHorizontalPosition', 'previousVerticalPosition');
+    options.dropdown = this;
+    let positionData = calculatePosition(triggerElement, dropdownElement, options);
+    return this.applyReposition(triggerElement, dropdownElement, positionData);
   },
 
-  performFullReposition(trigger, dropdown) {
-    let {
-      horizontalPosition, verticalPosition, matchTriggerWidth
-    } = this.getProperties('horizontalPosition', 'verticalPosition', 'matchTriggerWidth');
+  // EBD passes `dropdown` as options
+  // that var is `this` component itself
+  calculatePosition(trigger, dropdownEl, { horizontalPosition, verticalPosition, matchTriggerWidth, dropdown }) {
     let $window = $(window);
     let scroll = { left: $window.scrollLeft(), top: $window.scrollTop() };
     let { left: triggerLeft, top: triggerTop, width: triggerWidth, height: triggerHeight } = trigger.getBoundingClientRect();
-    let { height: dropdownHeight, width: dropdownWidth } = dropdown.getBoundingClientRect();
+    let { height: dropdownHeight, width: dropdownWidth } = dropdownEl.getBoundingClientRect();
     let dropdownLeft = triggerLeft;
     let dropdownTop;
     dropdownWidth = matchTriggerWidth ? triggerWidth : dropdownWidth;
@@ -59,14 +55,14 @@ export default BasicDropdown.extend({
       let enoughRoomBelow = triggerTopWithScroll + triggerHeight + dropdownHeight < viewportBottom;
       let enoughRoomAbove = triggerTop > dropdownHeight;
 
-      if (this.previousVerticalPosition === 'below' && !enoughRoomBelow && enoughRoomAbove) {
+      if (dropdown.previousVerticalPosition === 'below' && !enoughRoomBelow && enoughRoomAbove) {
         verticalPosition = 'above';
-      } else if (this.previousVerticalPosition === 'above' && !enoughRoomAbove && enoughRoomBelow) {
+      } else if (dropdown.previousVerticalPosition === 'above' && !enoughRoomAbove && enoughRoomBelow) {
         verticalPosition = 'below';
-      } else if (!this.previousVerticalPosition) {
+      } else if (!dropdown.previousVerticalPosition) {
         verticalPosition = enoughRoomBelow ? 'below' : 'above';
       } else {
-        verticalPosition = this.previousVerticalPosition;
+        verticalPosition = dropdown.previousVerticalPosition;
       }
 
       dropdownTop = triggerTopWithScroll + (verticalPosition === 'below' ? triggerHeight : -dropdownHeight) - (verticalPosition === 'below' ? getVerticalOffset() : 0);
@@ -88,7 +84,8 @@ export default BasicDropdown.extend({
     if (matchTriggerWidth) {
       style.width = dropdownWidth;
     }
-    this.applyReposition(trigger, dropdown, { horizontalPosition, verticalPosition, style });
+
+    return { style, horizontalPosition: '', verticalPosition: '' };
   }
 
 });

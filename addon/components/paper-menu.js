@@ -53,9 +53,11 @@ export default BasicDropdownComponent.extend({
     return { left, top };
   }),
 
-  performFullReposition(trigger, dropdown) {
-    let containerNode = dropdown;
-    let openMenuNode = dropdown.firstElementChild;
+  // EBD passes `dropdown` as options
+  // that var is `this` component itself
+  calculatePosition(trigger, dropdownEl, { dropdown }) {
+    let containerNode = dropdownEl;
+    let openMenuNode = dropdownEl.firstElementChild;
     let openMenuNodeRect = openMenuNode.getBoundingClientRect();
     let boundryNode = document.body;
     let boundryNodeRect = boundryNode.getBoundingClientRect();
@@ -75,7 +77,7 @@ export default BasicDropdownComponent.extend({
     let alignTarget;
     let alignTargetRect = { top: 0, left: 0, right: 0, bottom: 0 };
     let existingOffsets = { top: 0, left: 0, right: 0, bottom: 0 };
-    let positionMode = this.get('positionMode');
+    let positionMode = dropdown.get('positionMode');
 
     if (positionMode.top === 'target' || positionMode.left === 'target' || positionMode.left === 'target-right') {
       alignTarget = firstVisibleChild(openMenuNode);
@@ -140,7 +142,7 @@ export default BasicDropdownComponent.extend({
     }
 
     // sum offsets
-    let offsets = this.get('offsets');
+    let offsets = dropdown.get('offsets');
     position.top += offsets.top;
     position.left += offsets.left;
 
@@ -156,17 +158,17 @@ export default BasicDropdownComponent.extend({
       top: dropdownTop,
       left: dropdownLeft,
       // Animate a scale out if we aren't just repositioning
-      transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
+      transform: !dropdown.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
       transformOrigin
     };
 
-    this.setProperties({
-      transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
+    dropdown.setProperties({
+      transform: !dropdown.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
       transformOrigin
     });
 
-    this.didAnimateScale = true;
+    dropdown.didAnimateScale = true;
 
-    this.applyReposition(trigger, dropdown, { style });
+    return { style, horizontalPosition: '', verticalPosition: '' };
   }
 });

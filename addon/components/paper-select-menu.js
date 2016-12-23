@@ -27,8 +27,11 @@ function clamp(min, n, max) {
  */
 export default PaperMenu.extend({
   triggerComponent: 'paper-select-menu-trigger',
-  performFullReposition(trigger, dropdown) {
-    let $dropdown = $(dropdown);
+
+  // EBD passes `dropdown` as options
+  // that var is `this` component itself
+  calculatePosition(trigger, dropdownEl, { dropdown }) {
+    let $dropdown = $(dropdownEl);
     let opts = {
       target: $(trigger),
       parent: $('body'),
@@ -48,7 +51,7 @@ export default PaperMenu.extend({
       left: parentRect.left + SELECT_EDGE_MARGIN,
       top: SELECT_EDGE_MARGIN,
       bottom: parentRect.height - SELECT_EDGE_MARGIN,
-      right: parentRect.width - SELECT_EDGE_MARGIN - (this.get('floatingScrollbars') ? 16 : 0)
+      right: parentRect.width - SELECT_EDGE_MARGIN - (dropdown.get('floatingScrollbars') ? 16 : 0)
     };
     let spaceAvailable = {
       top: targetRect.top - bounds.top,
@@ -152,12 +155,12 @@ export default PaperMenu.extend({
       top: dropdownTop,
       left: dropdownLeft,
       // Animate a scale out if we aren't just repositioning
-      transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
+      transform: !dropdown.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
       transformOrigin
     };
 
-    this.didAnimateScale = true;
+    dropdown.didAnimateScale = true;
 
-    this.applyReposition(trigger, dropdown, { style });
+    return { style, horizontalPosition: '', verticalPosition: '' };
   }
 });
