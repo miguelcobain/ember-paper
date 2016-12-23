@@ -319,6 +319,35 @@ test('tab should convert a label attribute to a label tag', function(assert) {
   assert.equal(this.$('md-tab-content').text().trim(), 'content');
 });
 
+test('tabs should able to be dynamically generated and updated from an array', function(assert) {
+  this.set('tabsConfigs', [{
+    label: 'test 1',
+    content: 'test 1 content'
+  }]);
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#each tabsConfigs as |tabsConfig|}}
+      {{#tabs.tab label=tabsConfig.label}}
+        {{tabsConfig.content}}
+      {{/tabs.tab}}
+      {{/each}}
+    {{/paper-tabs}}
+  `);
+  assert.ok(this.$('md-tab-item').length);
+  assert.equal(this.$('md-tab-item span').text().trim(), 'test 1');
+  assert.equal(this.$('md-tab-content').last().text().trim(), 'test 1 content');
+  this.set('tabsConfigs', [{
+    label: 'test 1',
+    content: 'test 1 content'
+  }, {
+    label: 'test 2',
+    content: 'test 2 content'
+  }]);
+  assert.ok(this.$('md-tab-item').length);
+  assert.equal(this.$('md-tab-item span').last().text().trim(), 'test 2');
+  assert.equal(this.$('md-tab-content').last().text().trim(), 'test 2 content');
+});
+
 test('tab should not insert a body if there is no content', function(assert) {
   this.render(hbs`
     {{#paper-tabs as |tabs|}}
