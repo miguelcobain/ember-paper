@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { Mixin, computed, A, assert, isArray, Logger, get, String: { loc } } = Ember;
+const { Mixin, computed, A, assert, isArray, Logger, get, run: { schedule }, String: { loc } } = Ember;
 
 import requiredValidator from 'ember-paper/validators/required';
 import minValidator from 'ember-paper/validators/min';
@@ -113,7 +113,9 @@ export default Mixin.create({
     let isValid = this.get('isValid');
     let lastIsValid = this.get('lastIsValid');
     if (lastIsValid !== isValid) {
-      this.sendAction('onValidityChange', isValid);
+      schedule('afterRender', () => {
+        this.sendAction('onValidityChange', isValid);
+      });
       this.set('lastIsValid', isValid);
     }
   },
