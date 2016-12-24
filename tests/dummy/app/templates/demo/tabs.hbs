@@ -23,6 +23,14 @@
           <h1>Tab One</h1>
           <p>Lorem ipsum dolor sit amet.</p>
           <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
         {{/paper-content}}
       {{/tabs.tab}}
       {{#tabs.tab label="tab two" as |tab|}}
@@ -67,6 +75,14 @@
           <h1>Tab One</h1>
           <p>Lorem ipsum dolor sit amet.</p>
           <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
         {{/paper-content}}
       {{/tabs.tab}}
       {{#tabs.tab label="tab two" as |tab|}}
@@ -108,7 +124,6 @@
         {{#paper-content class="md-padding"}}
           <h1>Tab One</h1>
           <p>Lorem ipsum dolor sit amet.</p>
-          <p>Lorem ipsum dolor sit amet.</p>
         {{/paper-content}}
       {{/tabs.tab}}
       {{#tabs.tab label="tab two" as |tab|}}
@@ -120,8 +135,6 @@
       {{#tabs.tab label="tab three" as |tab|}}
         {{#paper-content class="md-padding"}}
           <h1>Tab Three</h1>
-          <p>Lorem ipsum dolor sit amet.</p>
-          <p>Lorem ipsum dolor sit amet.</p>
           <p>Lorem ipsum dolor sit amet.</p>
         {{/paper-content}}
       {{/tabs.tab}}
@@ -145,11 +158,72 @@
     </div>
 
     {{! BEGIN-SNIPPET tabs-paginated }}
-    {{#paper-tabs alignTabs="bottom" dynamicHeight=true as |tabs|}}
+    {{#paper-tabs dynamicHeight=true as |tabs|}}
       {{#each paginatedTabs as |label|}}
         {{#tabs.tab label=label as |tab|}}
         {{/tabs.tab}}
       {{/each}}
+    {{/paper-tabs}}
+  {{! END-SNIPPET }}
+  {{/paper-card}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Nested tabs</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode" "tabsNested") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showTabsNested 'is-visible'}}">
+      {{code-snippet name="tabs-nested.hbs"}}
+    </div>
+
+    {{! BEGIN-SNIPPET tabs-nested }}
+    {{#paper-tabs dynamicHeight=true as |tabs|}}
+      {{#tabs.tab label="tab one" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          {{#paper-tabs dynamicHeight=true as |tabs|}}
+            {{#tabs.tab label="tab A" as |tab|}}
+              {{#paper-content class="md-padding"}}
+                <h1>Tab A</h1>
+              {{/paper-content}}
+            {{/tabs.tab}}
+            {{#tabs.tab label="tab B" as |tab|}}
+              {{#paper-content class="md-padding"}}
+                <h1>Tab B</h1>
+              {{/paper-content}}
+            {{/tabs.tab}}
+          {{/paper-tabs}}
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab two" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          {{#paper-tabs dynamicHeight=true as |tabs|}}
+            {{#tabs.tab label="tab C" as |tab|}}
+              {{#paper-content class="md-padding"}}
+                <h1>Tab C</h1>
+              {{/paper-content}}
+            {{/tabs.tab}}
+            {{#tabs.tab label="tab D" as |tab|}}
+              {{#paper-content class="md-padding"}}
+                <h1>Tab D</h1>
+              {{/paper-content}}
+            {{/tabs.tab}}
+          {{/paper-tabs}}
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab three" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          <h1>Tab Three</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
     {{/paper-tabs}}
   {{! END-SNIPPET }}
   {{/paper-card}}
