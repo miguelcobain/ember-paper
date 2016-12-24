@@ -106,15 +106,36 @@ export default Component.extend({
   /* sets the initial value as a computed property */
   canvasWidth: 0,
 
-  didRender() {
-    let context = this;
-    run.scheduleOnce('afterRender', function() {
-      context.set('loaded', true);
-      context.set('canvasWidth', context.$().outerWidth());
-      $(window).on('resize', run.bind(context, function() {
-        this.set('canvasWidth', this.$().outerWidth());
-      }));
+  updateCanvasWidth() {
+    if (!this.isDestroying && !this.isDestroyed) {
+      this.set('canvasWidth', this.$().outerWidth());
+    }
+  },
+
+  onResize() {
+    run.debounce(this, this.updateCanvasWidth, 250);
+  },
+
+  didInsertElement() {
+    this._super(...arguments);
+    this.bindEvents();
+    run.scheduleOnce('afterRender', this, function() {
+      this.set('loaded', true);
+      this.updateCanvasWidth();
     });
+  },
+
+  willDestroyElement() {
+    this.unbindEvents();
+    this._super(...arguments);
+  },
+
+  bindEvents() {
+    $(window).on(`resize.${this.get('elementId')}`, this.onResize.bind(this));
+  },
+
+  unbindEvents() {
+    $(window).off(`resize.${this.get('elementId')}`);
   },
 
   /* Tabs Instance */
