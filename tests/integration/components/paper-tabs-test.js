@@ -196,7 +196,6 @@ test('should support content inside inline label type', function(assert) {
   assert.equal(contentText, 'content that!');
 });
 
-/*
 test('should support content inside block label type', function(assert) {
   this.render(hbs`
     {{#paper-tabs as |tabs|}}
@@ -213,7 +212,7 @@ test('should support content inside block label type', function(assert) {
   assert.equal(labelText, 'label that!', labelText);
   assert.equal(contentText, 'content that!');
 });
-*/
+
 test('should allow cases where no tabs are selected', function(assert) {
   this.render(hbs`
     {{#paper-tabs selected=selectedIndex as |tabs|}}
@@ -320,7 +319,6 @@ test('tab should convert a label attribute to a label tag', function(assert) {
   assert.equal(this.$('md-tab-content').text().trim(), 'content');
 });
 
-/*
 test('tab should not insert a body if there is no content', function(assert) {
   this.render(hbs`
     {{#paper-tabs as |tabs|}}
@@ -330,7 +328,7 @@ test('tab should not insert a body if there is no content', function(assert) {
     {{/paper-tabs}}
   `);
   assert.ok(this.$('md-tab-item'));
-  assert.equal(this.$('md-tab-item span').text(), 'test');
+  assert.equal(this.$('md-tab-item span').text().trim(), 'test');
   assert.notOk(this.$('md-tab-content').length);
 });
-*/
+
