@@ -318,7 +318,9 @@ export default Component.extend({
       }
     },
     destroyTab(object) {
-      this.get('tabs').removeObject(object);
+      run.scheduleOnce('afterRender', () => {
+        this.get('tabs').removeObject(object);
+      });
     },
     selectTab(object) {
       this.set('lastSelectedIndex', this.get('selected'));
