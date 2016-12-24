@@ -129,6 +129,31 @@
   {{! END-SNIPPET }}
   {{/paper-card}}
 
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Paginated tabs</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode" "tabsPaginated") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showTabsPaginated 'is-visible'}}">
+      {{code-snippet name="tabs-paginated.hbs"}}
+    </div>
+
+    {{! BEGIN-SNIPPET tabs-paginated }}
+    {{#paper-tabs alignTabs="bottom" dynamicHeight=true as |tabs|}}
+      {{#each paginatedTabs as |label|}}
+        {{#tabs.tab label=label as |tab|}}
+        {{/tabs.tab}}
+      {{/each}}
+    {{/paper-tabs}}
+  {{! END-SNIPPET }}
+  {{/paper-card}}
+
   {{paper-api
     (p-section
       (p-row "dynamicHeight" "boolean" "Sets the paper-tabs height to the active tab's height. Defaults to 'false'.")
