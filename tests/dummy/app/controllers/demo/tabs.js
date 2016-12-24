@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 const { Controller, String: { camelize } } = Ember;
 
 export default Controller.extend({
@@ -15,7 +15,7 @@ export default Controller.extend({
     onDeselect(name) {
       alert(`you deselected tab ${name}`);
     },
-    
+
     toggleSourceCode(name) {
       this.toggleProperty(camelize(`show-${name}`));
     }
