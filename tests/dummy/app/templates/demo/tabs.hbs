@@ -49,6 +49,12 @@
       {{/tabs.tab}}
       {{#tabs.tab label="Disabled tab" disabled=true as |tab|}}
       {{/tabs.tab}}
+      {{#tabs.tab label="Callback tab" onSelect=(action 'onSelect' 'Callback tab')
+        onDeselect=(action 'onDeselect' 'Callback tab') as |tab|}}
+          {{#paper-content class="md-padding"}}
+            <h1>Callback tab</h1>
+          {{/paper-content}}
+      {{/tabs.tab}}
     {{/paper-tabs}}
     {{! END-SNIPPET }}
   {{/paper-card}}
