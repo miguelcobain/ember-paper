@@ -35,9 +35,9 @@ test('styleAttr is htmlSafe of widthStyle', function(assert) {
 });
 
 test('index is the position of self in tabs array', function(assert) {
-  const self = EmberObject.create({ id: 42 });
+  let self = EmberObject.create({ id: 42 });
 
-  const subject = this.subject({
+  let subject = this.subject({
     parent: {
       tabs: A([{ id: 1 }, { id: 2 }, self])
     },

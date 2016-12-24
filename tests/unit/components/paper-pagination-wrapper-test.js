@@ -86,7 +86,7 @@ test('widthStyle is pagingWidth if shouldStretchTabs is false and pagingWidth is
 });
 
 test('widthStyle reacts to updates', function(assert) {
-  const subject = this.subject({
+  let subject = this.subject({
     parent: {
       shouldStretchTabs: false,
       pagingWidth: 120
@@ -123,7 +123,7 @@ test('offsetStyle is translation of offsetLeft if shouldCenterTabs is false', fu
 });
 
 test('offsetStyle reacts to updates', function(assert) {
-  const subject = this.subject({
+  let subject = this.subject({
     parent: {
       shouldCenterTabs: false,
       offsetLeft: 120
@@ -149,7 +149,7 @@ test('styleAttr concat widthStyle and offsetStyle in a safeHtml object', functio
 });
 
 test('inkBarLeftPosition is selectedTab.offsetLeft subtracted by offsetLeft', function(assert) {
-  const subject = this.subject({
+  let subject = this.subject({
     parent: {
       selectedTab: { offsetLeft: 100 },
       offsetLeft: 50
@@ -164,7 +164,7 @@ test('inkBarLeftPosition is selectedTab.offsetLeft subtracted by offsetLeft', fu
 });
 
 test('inkBarRightPosition is paging width - leftPosition - offset', function(assert) {
-  const subject = this.subject({
+  let subject = this.subject({
     parent: {
       selectedTab: { offsetLeft: 100, offsetWidth: 50 },
       offsetLeft: 50,
