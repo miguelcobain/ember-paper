@@ -1,13 +1,10 @@
 import Ember from 'ember';
-const { Controller } = Ember;
+const { Controller, String: { camelize } } = Ember;
 
 export default Controller.extend({
   actions: {
-    leaveTab() {
-      alert('onDeselect handler happens here!');
-    },
-    enterTab() {
-      alert('onSelect handler happens here!');
+    toggleSourceCode(name) {
+      this.toggleProperty(camelize(`show-${name}`));
     }
   }
 });
