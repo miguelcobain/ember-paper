@@ -68,7 +68,7 @@
       {{code-snippet name="tabs-dynamic.hbs"}}
     </div>
 
-    {{! BEGIN-SNIPPET tabs-bottom }}
+    {{! BEGIN-SNIPPET tabs-dynamic }}
     {{#paper-tabs dynamicHeight=true as |tabs|}}
       {{#tabs.tab label="tab one" as |tab|}}
         {{#paper-content class="md-padding"}}
@@ -119,7 +119,7 @@
     </div>
 
     {{! BEGIN-SNIPPET tabs-bottom }}
-    {{#paper-tabs alignTabs="bottom" dynamicHeight=true as |tabs|}}
+    {{#paper-tabs alignTabs="bottom" noInkBar=true dynamicHeight=true as |tabs|}}
       {{#tabs.tab label="tab one" as |tab|}}
         {{#paper-content class="md-padding"}}
           <h1>Tab One</h1>
