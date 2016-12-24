@@ -40,9 +40,6 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   shouldPaginate: computed.readOnly('parent.shouldPaginate'),
   offsetLeft: computed.reads('parent.offsetLeft'),
 
-  /* Settings */
-  noInk: computed.reads('parent.noInk'),  // todo: noink to noInk support
-
   rippleContainerSelector: null,
 
   index: computed('tabs.[]', 'self', function() {
