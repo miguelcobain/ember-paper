@@ -112,7 +112,7 @@
   {{#paper-card}}
     {{#paper-toolbar}}
       {{#paper-toolbar-tools}}
-        <h2>Bottom aligned tabs</h2>
+        <h2>Bottom centered tabs</h2>
         <span class="flex"></span>
         {{#paper-button onClick=(action "toggleSourceCode" "tabsBottom") iconButton=true}}
           {{paper-icon icon="code"}}
@@ -125,7 +125,7 @@
     </div>
 
     {{! BEGIN-SNIPPET tabs-bottom }}
-    {{#paper-tabs alignTabs="bottom" noInkBar=true dynamicHeight=true as |tabs|}}
+    {{#paper-tabs centerTabs=true alignTabs="bottom" noInkBar=true dynamicHeight=true as |tabs|}}
       {{#tabs.tab label="tab one" as |tab|}}
         {{#paper-content class="md-padding"}}
           <h1>Tab One</h1>
