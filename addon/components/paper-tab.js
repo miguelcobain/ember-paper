@@ -79,8 +79,8 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   didInsertElement() {
     this._super(...arguments);
-    this.get('self').set('id', this.get('elementId'));
     run.scheduleOnce('afterRender', this, function() {
+      this.get('self').set('id', this.get('elementId'));
       this.get('parent').send('createTab', this.get('self'));
     });
   },
