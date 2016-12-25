@@ -34,6 +34,7 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   selected: computed.reads('parent.selected'),
   lastSelectedIndex: computed.reads('parent.lastSelectedIndex'),
   tabs: computed.readOnly('parent.tabs'),
+  noink: computed.readOnly('parent.noInk'),
   wormhole: computed.readOnly('parent.wormhole'),
   shouldPaginate: computed.readOnly('parent.shouldPaginate'),
   offsetLeft: computed.reads('parent.offsetLeft'),

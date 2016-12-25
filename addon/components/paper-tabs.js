@@ -7,6 +7,7 @@ export default Component.extend({
   /* Settings */
   dynamicHeight: false,
   alignTabs: 'top',
+  noInk: false,
   noInkBar: false,
   centerTabs: false,
   stretchTabs: 'auto', // todo: find the best default
