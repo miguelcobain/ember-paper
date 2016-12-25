@@ -9,7 +9,11 @@ moduleForComponent('paper-tab', 'Integration | Component | paper tab', {
   beforeEach() {
     this.set('parent', EmberObject.create({
       tabs: A([]),
-      send() {}
+      send(command, arg) {
+        if (command === 'createTab') {
+          this.get('tabs').pushObject(arg);
+        }
+      }
     }));
   }
 });

@@ -31,8 +31,6 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   }),
 
   /* Inherited from `{{paper-tabs}}` */
-  disabled: computed.alias('self.disabled'),
-  active: computed.alias('self.active'),
   selected: computed.reads('parent.selected'),
   lastSelectedIndex: computed.reads('parent.lastSelectedIndex'),
   tabs: computed.readOnly('parent.tabs'),
@@ -40,13 +38,12 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   shouldPaginate: computed.readOnly('parent.shouldPaginate'),
   offsetLeft: computed.reads('parent.offsetLeft'),
 
+  disabled: computed.alias('self.disabled'),
+
   rippleContainerSelector: null,
 
   index: computed('tabs.[]', 'self', function() {
-    let { self, tabs } = this.getProperties('self', 'tabs');
-    let index = tabs.indexOf(self);
-    self.set('index', index); // FIXME computed props should not have such side effects
-    return index;
+    return this.get('tabs').indexOf(this.get('self'));
   }),
 
   isActive: computed('index', 'selected', function() {
@@ -59,12 +56,6 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   isRight: computed('selected', 'index', function() {
     return this.get('index') > this.get('selected');
-  }),
-
-  setActive: observer('active', function() {
-    if (this.get('active')) {
-      this.send('selectTab');
-    }
   }),
 
   didDeselect: observer('lastSelectedIndex', function() {
@@ -87,10 +78,10 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   },
 
   didInsertElement() {
-    let context = this;
-    run.scheduleOnce('afterRender', function() {
-      context.get('self').set('id', context.elementId);
-      context.get('parent.tabs').pushObject(context.get('self'));
+    this._super(...arguments);
+    this.get('self').set('id', this.get('elementId'));
+    run.scheduleOnce('afterRender', this, function() {
+      this.get('parent').send('createTab', this.get('self'));
     });
   },
 

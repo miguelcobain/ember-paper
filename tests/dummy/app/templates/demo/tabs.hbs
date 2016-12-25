@@ -75,7 +75,7 @@
     </div>
 
     {{! BEGIN-SNIPPET tabs-dynamic }}
-    {{#paper-tabs dynamicHeight=true as |tabs|}}
+    {{#paper-tabs selected=1 dynamicHeight=true as |tabs|}}
       {{#tabs.tab label="tab one" as |tab|}}
         {{#paper-content class="md-padding"}}
           <h1>Tab One</h1>
@@ -91,7 +91,7 @@
           <p>Lorem ipsum dolor sit amet.</p>
         {{/paper-content}}
       {{/tabs.tab}}
-      {{#tabs.tab active=true label="Active by default" as |tab|}}
+      {{#tabs.tab label="Active by default" as |tab|}}
         {{#paper-content class="md-padding"}}
           <h1>Tab Two</h1>
           <p>Lorem ipsum dolor sit amet.</p>

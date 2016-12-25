@@ -144,29 +144,13 @@ export default Component.extend({
 
   lastTab: computed.alias('tabs.lastObject'),
 
-  selected: computed('tabs.[]', function() {
-    let tabs = A(this.get('tabs').filterBy('disabled', false));
-    let active = A(tabs.filterBy('active'));
-    if (active.get(length)) {
-      return this.getTabIndex(active.get('firstObject'));
-    } else if (tabs.get('length')) {
-      return this.getTabIndex(tabs.get('firstObject'));
-    }
+  selected: computed(function() {
+    return null;
   }),
 
-  initialSelection: observer('selected', 'tabs.[]', function() {
-    if (!this.get('selected') && this.get('selected') !== 0) {
-      let tabs = A(this.get('tabs').filterBy('disabled', false));
-      let active = A(tabs.filterBy('active'));
-      if (active.get(length)) {
-        this.set('selected', this.getTabIndex(active.get('firstObject')));
-      } else if (tabs.get('length')) {
-        this.set('selected', this.getTabIndex(tabs.get('firstObject')));
-      }
-    }
+  lastSelectedIndex: computed(function() {
+    return null;
   }),
-
-  lastSelectedIndex: null,
 
   selectedTab: computed('selected', 'tabs.[]', function() {
     return this.getTabByIndex(this.get('selected'));
@@ -311,7 +295,7 @@ export default Component.extend({
     },
     createTab(object) {
       this.get('tabs').pushObject(object);
-      if (this.get('autoSelect')) {
+      if (this.get('selected') === undefined || this.get('selected') === null || this.get('autoSelect')) {
         this.set('selected', this.getTabIndex(object));
       }
     },
