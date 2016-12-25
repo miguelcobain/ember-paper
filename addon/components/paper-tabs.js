@@ -237,7 +237,7 @@ export default Component.extend({
     if (!this.get('tabs.length') || !this.get('shouldPaginate')) {
       return 0;
     }
-    let lastTab = this.get('tabs')[this.get('tabs.length') - 1];
+    let lastTab = this.get('lastTab');
     let lastTabElement = document.getElementById(lastTab.id);
     let totalWidth = lastTabElement.offsetLeft + lastTab.offsetWidth;
     let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
