@@ -89,7 +89,7 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     let context = this;
     if (context.$().length) {
       let left = context.$()[0].offsetLeft + context.get('offsetLeft');
-      let width = context.$()[0].clientWidth;
+      let width = context.$()[0].offsetWidth;
       context.set('self.offsetLeft', left);
       context.set('self.offsetWidth', width);
     }
