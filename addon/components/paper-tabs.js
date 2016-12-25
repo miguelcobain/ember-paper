@@ -83,8 +83,6 @@ export default Component.extend({
     return Math.ceil(width);
   }),
 
-  hasContent: computed('', function() {}), // todo
-  maxTabWidth: computed('', function() {}), // todo
   canPageBack: computed.gt('offsetLeft', 0),
   canPageForward: computed(
     'lastTab.offsetLeft',
