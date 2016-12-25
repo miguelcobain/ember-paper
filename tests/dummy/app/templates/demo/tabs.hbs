@@ -176,7 +176,7 @@
   {{#paper-card}}
     {{#paper-toolbar}}
       {{#paper-toolbar-tools}}
-        <h2>Nested tabs</h2>
+        <h2>Nested stretched tabs</h2>
         <span class="flex"></span>
         {{#paper-button onClick=(action "toggleSourceCode" "tabsNested") iconButton=true}}
           {{paper-icon icon="code"}}
@@ -189,7 +189,7 @@
     </div>
 
     {{! BEGIN-SNIPPET tabs-nested }}
-    {{#paper-tabs dynamicHeight=true as |tabs|}}
+    {{#paper-tabs stretchTabs="always" dynamicHeight=true as |tabs|}}
       {{#tabs.tab label="tab one" as |tab|}}
         {{#paper-content class="md-padding"}}
           {{#paper-tabs dynamicHeight=true as |tabs|}}
