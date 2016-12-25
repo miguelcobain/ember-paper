@@ -5,7 +5,7 @@ export default Component.extend({
   tagName: '',
 
   barClass: computed('direction', function() {
-    const direction = this.get('direction');
+    let direction = this.get('direction');
     if (direction) {
       return `md-${direction}`;
     }
