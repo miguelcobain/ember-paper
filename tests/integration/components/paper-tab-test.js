@@ -32,7 +32,7 @@ test('it renders with md-active class if isActive is true', function(assert) {
   assert.notOk(this.$('md-tab-item').hasClass('md-active'));
 });
 
-test('it renders with md-active class if isActive is true', function(assert) {
+test('it renders with md-disabled class if disabled is true', function(assert) {
   this.set('disabled', true);
 
   this.render(hbs`{{paper-tab parent=parent disabled=disabled}}`);
