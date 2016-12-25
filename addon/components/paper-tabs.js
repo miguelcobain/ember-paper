@@ -160,7 +160,9 @@ export default Component.extend({
 
   disabledSelectedTab: observer('selectedTab.disabled', function() {
     if (this.get('selectedTab.disabled')) {
-      this.set('selected', this.getNearestSafeIndex(this.get('selected')));
+      run.scheduleOnce('afterRender', this, function() {
+        this.set('selected', this.getNearestSafeIndex(this.get('selected')));
+      });
     }
   }),
 

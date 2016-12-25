@@ -138,7 +138,7 @@ test('should bind to selected', function(assert) {
   assert.equal(this.get('current'), 2);
 });
 
-/*test('disabling active tab', function(assert) {
+test('disabling active tab', function(assert) {
   assert.expect(3);
 
   this.render(hbs`
@@ -157,7 +157,7 @@ test('should bind to selected', function(assert) {
 
   this.setProperties({ 'disabled0': false, 'disabled1': true });
   assert.activeTab(tabItems.eq(0));
-});*/
+});
 
 test('should support inline label type', function(assert) {
   this.render(hbs`
