@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-const { Object: EmberObject, A } = Ember;
+const { Object: EmberObject, A, run } = Ember;
 
 moduleForComponent('paper-tab', 'Integration | Component | paper tab', {
   integration: true,
@@ -42,4 +42,33 @@ test('it renders with md-disabled class if disabled is true', function(assert) {
   this.set('disabled', false);
 
   assert.notOk(this.$('md-tab-item').hasClass('md-disabled'));
+});
+
+test('it calls onSelect on click action with self', function(assert) {
+  assert.expect(1);
+
+  this.set('onSelect', function({ id }) {
+    assert.equal(id, 42, 'onSelect is called with self');
+  });
+
+  this.render(hbs`{{paper-tab id=42 parent=parent onSelect=(action onSelect)}}`);
+
+  this.$('md-tab-item').click();
+});
+
+test('it calls onDeselect with self when another tab is opened', function(assert) {
+  assert.expect(1);
+
+  this.set('onDeselect', function({ id }) {
+    assert.equal(id, 42, 'onDeselect is called with self');
+  });
+
+  this.render(hbs`{{paper-tab id=42 parent=parent onDeselect=(action onDeselect)}}`);
+
+  run(this, function() {
+    this.get('parent').setProperties({
+      selected: 1,
+      lastSelectedIndex: 0
+    });
+  });
 });

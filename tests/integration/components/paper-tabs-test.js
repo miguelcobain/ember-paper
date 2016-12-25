@@ -332,3 +332,20 @@ test('tab should not insert a body if there is no content', function(assert) {
   assert.notOk(this.$('md-tab-content').length);
 });
 
+test('tab onDeselect callback is called when another tab is selected', function(assert) {
+  assert.expect(1);
+
+  this.set('onDeselect', function() {
+    assert.ok(true, 'expect onDeselect to be called');
+  });
+
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab onDeselect=(action onDeselect) label="a" as |tab|}}tab content{{/tabs.tab}}
+      {{#tabs.tab label="b" as |tab|}}tab content{{/tabs.tab}}
+    {{/paper-tabs}}
+  `);
+
+  this.$('md-tab-item:nth(1)').click();
+});
+

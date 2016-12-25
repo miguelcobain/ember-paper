@@ -34,7 +34,7 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
   disabled: computed.alias('self.disabled'),
   active: computed.alias('self.active'),
   selected: computed.reads('parent.selected'),
-  previous: computed.reads('parent.previous'),
+  lastSelectedIndex: computed.reads('parent.lastSelectedIndex'),
   tabs: computed.readOnly('parent.tabs'),
   wormhole: computed.readOnly('parent.wormhole'),
   shouldPaginate: computed.readOnly('parent.shouldPaginate'),
@@ -67,12 +67,9 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
     }
   }),
 
-  didDeselect: observer('previous', 'isActive', function() {
-    if ((this.get('index') !== this.get('previous')) || this.get('isActive')) {
-      return;
-    }
-    if (this.get('onDeselect')) {
-      return this.get('onDeselect')();
+  didDeselect: observer('lastSelectedIndex', function() {
+    if (this.get('lastSelectedIndex') === this.get('index') && this.get('onDeselect')) {
+      this.get('onDeselect')(this.get('self'));
     }
   }),
 
@@ -137,10 +134,11 @@ export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
       this.set('self.height', value);
     },
     selectTab() {
+      let self = this.get('self');
       if (this.get('onSelect')) {
-        this.get('onSelect')();
+        this.get('onSelect')(self);
       }
-      this.get('parent').send('selectTab', this.get('self'));
+      this.get('parent').send('selectTab', self);
     },
     identifyTabContent(object) {
       this.get('self').set('content', object);
