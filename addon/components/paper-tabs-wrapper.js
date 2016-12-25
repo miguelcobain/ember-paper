@@ -32,6 +32,7 @@ export default Component.extend({
   }),
 
   didInsertElement() {
+    this._super(...arguments);
     let self = this.get('self');
     self.set('height', this.$().outerHeight());
     self.set('offset', this.$().offset().left);
