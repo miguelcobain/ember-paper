@@ -166,14 +166,6 @@ export default Component.extend({
     }
   }),
 
-  /*focusIndexChanged: observer('focusIndex', function() {
-    this.adjustOffset(this.get('focusIndex'));
-  }),
-
-  selectedChanged: observer('selected', function() {
-    this.adjustOffset(this.get('selected'));
-  }),*/
-
   focusTab: computed('tabs.[]', 'focusIndex', function() {
     return this.getTabByIndex(this.get('focusIndex'));
   }),
