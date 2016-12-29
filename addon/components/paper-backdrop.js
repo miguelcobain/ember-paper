@@ -31,9 +31,19 @@ export default Component.extend(TransitionMixin, {
     original.parent().append(clone);
   },
 
-  click(e) {
+  sendClickAction(e) {
     e.preventDefault();
     this.sendAction('onClick', e);
-  }
+  },
 
+  click(e) {
+    this.sendClickAction(e);
+  },
+
+  // needed for iOS
+  // iOS doesn't trigger a click event on normal divs
+  // unless we use `cursor: pointer` css
+  touchEnd(e) {
+    this.sendClickAction(e);
+  }
 });
