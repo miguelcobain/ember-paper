@@ -15,11 +15,10 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/release-1/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
-### master
+### 1.0.0-alpha.13 (December 29, 2016)
 - [57d6b40](https://github.com/miguelcobain/ember-paper/commit/57d6b40c43211fef92533f84eb6e17794a2ce947) bump eps (1.0.0), ebd and wormhole
 - [695650](https://github.com/miguelcobain/ember-paper/commit/695650fc8964bcd6bd1ce02f2737cf4e429899ab) Make backdrops work in iOS
 - [#600](https://github.com/miguelcobain/ember-paper/pull/600) fix unwanted repositions in async paper-select
-
 
 ### 1.0.0-alpha.12 (December 14, 2016)
 - [4134ccd](https://github.com/miguelcobain/ember-paper/commit/4134ccdcdf5e18c79d26a26079c2df79a3ef3a7f) remove `onValidityChange` call on component destroy
