@@ -34,6 +34,10 @@ export default Component.extend(TransitionMixin, {
   click(e) {
     e.preventDefault();
     this.sendAction('onClick', e);
+  },
+
+  touchEnd(e) {
+    this.click(e);
   }
 
 });
