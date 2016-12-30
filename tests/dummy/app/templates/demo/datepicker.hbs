@@ -1,0 +1,34 @@
+{{page-toolbar pageTitle="Datepicker" isDemo=true}}
+
+{{#doc-content}}
+  <h2>Inline calendar</h2>
+
+  <div layout="row">
+    {{! BEGIN-SNIPPET inline-calendar }}
+    <div class="layout-column">
+      {{paper-calendar selectedDate=selectedDate onChange=(action (mut selectedDate))}}
+      <p>Selected date: {{selectedDate}}</p>
+    </div>
+    {{! END-SNIPPET }}
+  </div>
+
+  <h3>Template</h3>
+  {{code-snippet name="inline-calendar.hbs"}}
+
+  <h2>Custom weekdays header</h2>
+
+  <p>You can change the weekdays headers (e.g. for i18n support) by providing
+    an additional <code>header</code> option.</p>
+
+  <div layout="row">
+    {{! BEGIN-SNIPPET custom-headers }}
+    <div class="layout-column">
+      {{paper-calendar selectedDate=selectedDate onChange=(action (mut selectedDate)) header=(array 'D' 'S' 'T' 'Q' 'Q' 'S' 'S')}}
+      <p>Selected date: {{selectedDate}}</p>
+    </div>
+    {{! END-SNIPPET }}
+  </div>
+
+  <h3>Template</h3>
+  {{code-snippet name="custom-headers.hbs"}}
+{{/doc-content}}
