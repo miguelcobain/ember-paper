@@ -1,0 +1,31 @@
+<table aria-hidden="true" class="md-calendar-day-header">
+  <thead>
+    <tr>
+      {{#each header as |weekday|}}
+        <th>{{weekday}}</th>
+      {{/each}}
+    </tr>
+  </thead>
+</table>
+<div class="md-calendar-scroll-mask">
+  {{#paper-virtual-repeat months
+    class="md-calendar-scroll-container"
+    totalItemsCount=itemCount
+    itemHeight=265
+    size=309
+    scrollIndex=1000
+    scrollTop=true
+    getAtIndex=(action 'getAtIndex') as |visibleMonths|}}
+    <table class="md-calendar">
+      {{#each visibleMonths as |item|}}
+        {{paper-calendar-month-inner
+          year=item.year
+          month=item.month
+          selectedDate=selectedDate
+          minDate=minDate
+          maxDate=maxDate
+          onChange=onChange}}
+      {{/each}}
+    </table>
+  {{/paper-virtual-repeat}}
+</div>

@@ -142,6 +142,11 @@
 @import './angular-material/components/chips/chips';
 @import './angular-material/components/chips/chips-theme';
 
+@import './angular-material/components/datepicker/calendar';
+@import './angular-material/components/datepicker/calendar-theme';
+@import './angular-material/components/datepicker/datePicker';
+@import './angular-material/components/datepicker/datePicker-theme';
+
 // Backports of features from future versions of angular-material-source to this version
 @import './backports/paper-input';
 @import './backports/paper-select';
