@@ -39,6 +39,15 @@ export default Component.extend({
   month: null,
 
   /**
+   * @property today
+   * @type Date
+   * @private
+   */
+  today: computed(function() {
+    return new Date();
+  }),
+
+  /**
    * @property firstDateOfMonth
    * @type Date
    * @private
@@ -129,7 +138,9 @@ export default Component.extend({
 
   actions: {
     onCellClicked(date) {
-      if (!moment(date).isSame(this.get('selectedDate'))) {
+      let selectedDate = this.get('selectedDate');
+
+      if (!selectedDate || !moment(date).isSame(selectedDate)) {
         this.sendAction('onChange', date);
       }
     }

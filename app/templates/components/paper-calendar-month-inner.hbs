@@ -11,7 +11,7 @@
     {{#each week as |day columnIndex|}}
       {{#unless (and (not monthLabelInSingleLine) (lt columnIndex 2) (eq weekIndex 0))}}
         {{#if day}}
-          <td class="md-calendar-date {{if (is-same selectedDate day.date precision='day') 'md-calendar-selected-date'}}" {{action 'onCellClicked' day.date}}>
+          <td class="md-calendar-date {{if (and selectedDate (is-same selectedDate day.date precision='day')) 'md-calendar-selected-date'}} {{if (is-same today day.date precision='day') 'md-calendar-date-today'}}" {{action 'onCellClicked' day.date}}>
             <span class="md-calendar-date-selection-indicator">{{day.day}}</span>
           </td>
         {{else}}
