@@ -1,6 +1,19 @@
 {{page-toolbar pageTitle="Datepicker" isDemo=true}}
 
 {{#doc-content}}
+  <h2>Basic datepicker</h2>
+
+  <div layout="row">
+    {{! BEGIN-SNIPPET basic-datepicker }}
+    <div class="layout-column">
+      {{paper-datepicker selectedDate=selectedDate onChange=(action (mut selectedDate))}}
+      <p>Selected date: {{selectedDate}}</p>
+    </div>
+    {{! END-SNIPPET }}
+  </div>
+
+  <h3>Template</h3>
+  {{code-snippet name="basic-datepicker.hbs"}}
   <h2>Inline calendar</h2>
 
   <div layout="row">

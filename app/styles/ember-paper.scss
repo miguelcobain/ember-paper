@@ -30,6 +30,11 @@
   padding-right: 5px;
 }
 
+// Seems to be required to work properly with ember-wormhole
+.md-datepicker-calendar-pane {
+  border-color: rgb(224,224,224);
+}
+
 // Icon spinners (not part of angular-material)
 .md-spin {
    animation: md-spin 1.5s infinite linear;
