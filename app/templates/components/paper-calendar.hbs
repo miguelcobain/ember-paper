@@ -1,1 +1,6 @@
-{{paper-calendar-month selectedDate=selectedDate onChange=onChange header=header}}
+{{paper-calendar-month
+  selectedDate=(readonly selectedDate)
+  onChange=onChange
+  header=(readonly header)
+  minDate=(readonly minDate)
+  maxDate=(readonly maxDate)}}

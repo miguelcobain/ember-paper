@@ -19,11 +19,11 @@
     <table class="md-calendar">
       {{#each visibleMonths as |item|}}
         {{paper-calendar-month-inner
-          year=item.year
-          month=item.month
-          selectedDate=selectedDate
-          minDate=minDate
-          maxDate=maxDate
+          year=(readonly item.year)
+          month=(readonly item.month)
+          selectedDate=(readonly selectedDate)
+          minDate=(readonly minDate)
+          maxDate=(readonly maxDate)
           onChange=onChange}}
       {{/each}}
     </table>

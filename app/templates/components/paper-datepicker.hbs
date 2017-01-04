@@ -6,18 +6,18 @@
   contentComponent=(readonly contentComponent)
   as |dropdown|}}
 
-  {{dropdown.trigger}}
+  {{dropdown.trigger
+    selectedDate=(readonly selectedDate)}}
 
   {{#dropdown.content
     class=(readonly concatenatedDropdownClasses)
-    select=(readonly publicAPI)
     to=(readonly destination)}}
 
     {{paper-calendar
-      selectedDate=selectedDate
+      selectedDate=(readonly selectedDate)
       onChange=onChange
-      minDate=minDate
-      maxDate=maxDate}}
+      minDate=(readonly minDate)
+      maxDate=(readonly maxDate)}}
 
   {{/dropdown.content}}
 {{/paper-datepicker-dropdown}}

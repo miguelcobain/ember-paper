@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import PowerSelect from 'ember-power-select/components/power-select';
-//import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 
 const { computed } = Ember;
