@@ -99,7 +99,7 @@
           disabled=(readonly disabled2)
           required=(readonly isRequired)
           triggerClass="flex"
-          options=items
+          options=(if simulateQuery2 null items)
           selected=selectedCountry2
           search=(if simulateQuery2 (action "searchCountries"))
           searchField="name"
