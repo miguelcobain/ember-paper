@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import ParentMixin from 'ember-paper/mixins/parent-mixin';
+import { ParentMixin } from 'ember-composability-tools';
 
 const { Component, computed, inject, assert } = Ember;
 

@@ -5,7 +5,7 @@ import Ember from 'ember';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-import ChildMixin from 'ember-paper/mixins/child-mixin';
+import { ChildMixin } from 'ember-composability-tools';
 
 const { Component, computed, assert } = Ember;
 
@@ -34,6 +34,9 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ChildMi
 
   /* FocusableMixin Overrides */
   focusOnlyOnKey: true,
+
+  /* ChildMixin Overrides */
+  shouldRegister: false,
 
   // Lifecycle hooks
   init() {
