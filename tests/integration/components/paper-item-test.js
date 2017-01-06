@@ -60,6 +60,38 @@ test('single action checkboxes should react to item clicks', function(assert) {
   });
 });
 
+test('single action radios should react to item clicks', function(assert) {
+  assert.expect(2);
+
+  this.set('selectedValue', null);
+  this.render(hbs`
+    {{#paper-list}}
+      {{#paper-item as |controls|}}
+        <p>Checkbox 1</p>
+        {{controls.radio
+          groupValue=selectedValue
+          value="some value 1"
+          onChange=(action (mut selectedValue))}}
+      {{/paper-item}}
+      {{#paper-item as |controls|}}
+        <p>Checkbox 2</p>
+        {{controls.radio
+          groupValue=selectedValue
+          value="some value 2"
+          onChange=(action (mut selectedValue))}}
+      {{/paper-item}}
+    {{/paper-list}}
+  `);
+  return wait().then(() => {
+    let firstItem = this.$('.md-list-item-inner').eq(0);
+    firstItem.click();
+    assert.equal(this.get('selectedValue'), 'some value 1');
+    let secondItem = this.$('.md-list-item-inner').eq(1);
+    secondItem.click();
+    assert.equal(this.get('selectedValue'), 'some value 2');
+  });
+});
+
 test('Clickable Items with Secondary Controls must not bubble main item action', function(assert) {
   // the switch test is tricky as it involves passing hammer
   // tap event.

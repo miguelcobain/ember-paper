@@ -173,6 +173,18 @@
           {{/paper-item}}
         {{/each}}
 
+        {{#paper-subheader}}Single Action Radios{{/paper-subheader}}
+        {{#each toppings as |topping|}}
+          {{#paper-item as |controls|}}
+            <p>{{topping.name}}</p>
+            {{controls.radio
+              groupValue=radioSelectedTopping
+              value=topping
+              secondary=true
+              onChange=(action (mut radioSelectedTopping))}}
+          {{/paper-item}}
+        {{/each}}
+
       {{/paper-list}}
       {{! END-SNIPPET }}
     {{/paper-content}}
