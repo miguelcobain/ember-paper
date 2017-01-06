@@ -2,14 +2,13 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-input';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 
-const {
-  Component, $, computed, isEmpty, run, assert
-} = Ember;
+const { Component, $, computed, isEmpty, run, assert } = Ember;
 
 /**
  * @class PaperInput
@@ -20,6 +19,7 @@ const {
  * @uses ValidationMixin
  */
 export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, ValidationMixin, {
+  layout,
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
   classNameBindings: [

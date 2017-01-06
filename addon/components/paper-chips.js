@@ -1,8 +1,10 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-chips';
 
 const { Component, isEmpty, isPresent, computed, observer, run } = Ember;
 
 export default Component.extend({
+  layout,
   tagName: 'md-chips',
   classNames: ['md-default-theme'],
   activeChip: -1,

@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-item';
 import RippleMixin from '../mixins/ripple-mixin';
 import { ParentMixin } from 'ember-composability-tools';
 
@@ -14,6 +15,7 @@ const { Component, computed } = Ember;
  * @uses RippleMixin
  */
 export default Component.extend(RippleMixin, ParentMixin, {
+  layout,
   tagName: 'md-list-item',
 
   // Ripple Overrides

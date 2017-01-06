@@ -61,6 +61,7 @@
     "broccoli-merge-trees": "^1.1.0",
     "ember-basic-dropdown": "^0.19.2",
     "ember-cli-babel": "^5.1.7",
+    "ember-cli-htmlbars": "^1.0.10",
     "ember-composability-tools": "0.0.7",
     "ember-css-transitions": "0.1.9",
     "ember-power-select": "1.0.3",

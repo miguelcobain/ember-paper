@@ -1,9 +1,11 @@
 import Ember from 'ember';
 import BasicDropdown from 'ember-basic-dropdown/components/basic-dropdown';
+import layout from '../templates/components/paper-autocomplete-dropdown';
 
 const { $ } = Ember;
 
 export default BasicDropdown.extend({
+  layout,
   triggerComponent: 'paper-autocomplete-trigger-container',
 
   reposition() {

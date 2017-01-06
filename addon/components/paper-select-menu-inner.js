@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-select-menu-inner';
 import PaperMenuContentInner from './paper-menu-content-inner';
 import { indexOfOption, optionAtIndex, countOptions } from 'ember-power-select/utils/group-utils';
 const { computed, run } = Ember;
@@ -16,6 +17,7 @@ function advanceSelectableOption(options, currentOption, step) {
 }
 
 export default PaperMenuContentInner.extend({
+  layout,
   tagName: 'md-select-menu',
   classNames: ['md-default-theme'],
   classNameBindings: ['searchEnabled:md-overflow'],

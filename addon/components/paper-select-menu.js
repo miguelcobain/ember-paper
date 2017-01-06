@@ -3,6 +3,7 @@
  */
 import Ember from 'ember';
 import PaperMenu from './paper-menu';
+import layout from '../templates/components/paper-select-menu';
 
 const { $ } = Ember;
 
@@ -26,6 +27,8 @@ function clamp(min, n, max) {
  * @extends Ember.Component
  */
 export default PaperMenu.extend({
+  layout,
+
   triggerComponent: 'paper-select-menu-trigger',
 
   // EBD passes `dropdown` as options
