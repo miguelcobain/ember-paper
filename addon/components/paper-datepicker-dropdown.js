@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import BasicDropdown from 'ember-basic-dropdown/components/basic-dropdown';
+import layout from '../templates/components/paper-datepicker-dropdown';
 
 const { $ } = Ember;
 
@@ -24,6 +25,8 @@ const CALENDAR_PANE_HEIGHT = 368;
 const CALENDAR_PANE_WIDTH = 360;
 
 export default BasicDropdown.extend({
+  layout,
+
   calculatePosition(trigger, calendarPane) {
     let $window = $(window);
     let elementRect = $(trigger).find('.md-datepicker-input-container').get(0).getBoundingClientRect();

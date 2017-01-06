@@ -1,8 +1,10 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-calendar-years';
 
 const { Component, computed } = Ember;
 
 export default Component.extend({
+  layout,
   classNames: ['paper-calendar-years'],
 
   years: computed('minDate', 'maxDate', 'center', function() {
