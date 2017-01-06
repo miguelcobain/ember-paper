@@ -50,7 +50,7 @@
     "ember-resolver": "^2.0.3",
     "ember-suave": "4.0.1",
     "ember-transition-helper": "0.0.6",
-    "liquid-fire": "0.26.4",
+    "liquid-fire": "0.27.0",
     "loader.js": "^4.0.10"
   },
   "dependencies": {
