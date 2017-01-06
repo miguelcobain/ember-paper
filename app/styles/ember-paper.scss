@@ -157,3 +157,6 @@
 @import './backports/paper-select';
 @import './backports/ripple';
 @import './backports/paper-autocomplete';
+
+// Customs components that do not exist in angular-material
+@import './components/paper-datepicker';

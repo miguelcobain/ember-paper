@@ -1,0 +1,185 @@
+$outer-padding: 10px;
+$cell-size: 46px;
+
+/* Reset browser styles */
+.ember-power-calendar-weekday,
+.ember-power-calendar-day,
+.ember-power-calendar-nav-control,
+.paper-datepicker-header-year,
+.paper-calendar-year {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: inherit;
+}
+
+/* Weeks and days */
+.ember-power-calendar {
+  position: relative;
+  width: $cell-size * 7;
+  background-color: $base-background-color;
+  font-size: 12px;
+  line-height: 1.42857;
+
+  &, * {
+    box-sizing: border-box;
+  }
+
+  .ember-power-calendar-week:first-child {
+    @for $i from 1 through 6 {
+      &[data-missing-days="#{$i}"] {
+        padding-left: $cell-size * $i;
+      }
+    }
+  }
+  .ember-power-calendar-week:last-child {
+    @for $i from 1 through 6 {
+      &[data-missing-days="#{$i}"] {
+        padding-right: $cell-size * $i;
+      }
+    }
+  }
+  .ember-power-calendar-day, .ember-power-calendar-weekday {
+    max-width: $cell-size;
+    max-height: $cell-size;
+  }
+  .ember-power-calendar-weekdays, .ember-power-calendar-week {
+    height: $cell-size;
+  }
+}
+
+.ember-power-calendar-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ember-power-calendar-day {
+  flex: 1 1 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: color($foreground, '1');
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color, color $swift-ease-out-duration $swift-ease-out-timing-function;
+}
+
+.ember-power-calendar-weekdays {
+  color: color($foreground, '2');
+
+  .ember-power-calendar-weekday {
+    flex: 1 1 100%;
+    padding: 0;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.ember-power-calendar-day--today {
+  font-weight: bold;
+  color: color($primary);
+}
+
+.ember-power-calendar-day--focused {
+  background-color: color($primary, '100');
+  outline: none;
+}
+
+.ember-power-calendar-day--selected {
+  font-weight: 500;
+  background-color: color($primary);
+  color: color($primary, 'contrast');
+}
+
+/* Years */
+.paper-calendar-years {
+  width: $cell-size * 7;
+}
+
+.paper-calendar-year {
+  display: block;
+  width: $cell-size * 7;
+  line-height: $cell-size;
+  text-align: center;
+  color: color($foreground, '1');
+}
+
+.paper-calendar-year--selected {
+  font-weight: 500;
+  color: color($primary);
+}
+
+
+/* Navigation */
+.ember-power-calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  line-height: 2;
+
+  .ember-power-calendar-nav-control {
+    line-height: 1;
+    font-size: 150%;
+    color: #0078c9;
+    max-width: $cell-size;
+  }
+
+  .ember-power-calendar-nav-title {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+
+
+/* Material styles */
+.paper-datepicker {
+  display: inline-block;
+  border-radius: 3px;
+}
+
+.paper-datepicker-header {
+  padding: 22px 24px;
+  background-color: color($primary);
+  color: color($primary, 'contrast');
+  opacity: 0.8;
+
+  .paper-datepicker-header-year,
+  .paper-datepicker-header-date {
+    color: color($primary, 'contrast');
+    opacity: 0.87;
+  }
+
+  .paper-datepicker-header-year {
+    font-size: 14px;
+    padding: 0;
+  }
+
+  .paper-datepicker-header-date {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .paper-datepicker-header-date--active,
+  .paper-datepicker-header-year--active {
+    opacity: 1;
+  }
+}
+
+.paper-datepicker-content {
+  padding: $outer-padding;
+
+  // Inside the datepicker, the calendar needs to have the same height for all months
+  .ember-power-calendar-day-grid {
+    height: $cell-size * 6;
+  }
+  .paper-calendar-years {
+    height: 28px + $cell-size * 7; // calendar nav + 6 weeks + weekdays
+  }
+}
+
+.paper-datepicker-footer {
+  padding: $outer-padding;
+}

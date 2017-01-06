@@ -1,0 +1,27 @@
+<div class="paper-datepicker-header">
+  <button class="paper-datepicker-header-year {{if isYearView 'paper-datepicker-header-year--active'}}" onclick={{action (mut isYearView (not isYearView))}}>
+    {{moment-format selected 'YYYY'}}
+  </button>
+  <div class="paper-datepicker-header-date {{unless isYearView 'paper-datepicker-header-date--active'}}">{{moment-format selected 'ddd, MMM D'}}</div>
+</div>
+<div class="paper-datepicker-content">
+  {{#if isYearView}}
+    {{paper-calendar-years
+      minDate=minDate
+      maxDate=maxDate
+      center=center
+      selected=selected}}
+  {{else}}
+    {{#paper-calendar
+      minDate=minDate
+      maxDate=maxDate
+      center=center
+      onCenterChange=(action (mut center) value="date")
+      selected=selected
+      onSelect=(action (mut selected) value="moment")
+      as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.days showDaysAround=false}}
+    {{/paper-calendar}}
+  {{/if}}
+</div>
