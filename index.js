@@ -113,7 +113,12 @@ module.exports = {
       'components/virtualRepeat/virtual-repeater.scss',
 
       'components/chips/chips.scss',
-      'components/chips/chips-theme.scss'
+      'components/chips/chips-theme.scss',
+
+      'components/datepicker/calendar.scss',
+      'components/datepicker/calendar-theme.scss',
+      'components/datepicker/datePicker.scss',
+      'components/datepicker/datePicker-theme.scss'
     ];
 
     var angularScssFiles = new Funnel(this.pathBase(), {

@@ -1,0 +1,4 @@
+{{yield (assign publicAPI (hash
+  nav=(component navComponent calendar=(readonly publicAPI) onCenterChange=(readonly onCenterChange))
+  days=(component daysComponent calendar=(readonly publicAPI) onSelect=(readonly onSelect))
+))}}

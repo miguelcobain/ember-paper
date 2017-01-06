@@ -1,0 +1,14 @@
+{{page-toolbar pageTitle="Datepicker" isDemo=true}}
+
+{{#doc-content}}
+  <h2>Inline calendar</h2>
+  <div layout="row">
+    {{! BEGIN-SNIPPET inline-calendar }}
+    {{paper-datepicker-vertical selected=selectedDate onSelect=(action (mut selectedDate))}}
+    <p>Selected date: {{moment-format selectedDate}}</p>
+    {{! END-SNIPPET }}
+  </div>
+
+  <h3>Template</h3>
+  {{code-snippet name="inline-calendar.hbs"}}
+{{/doc-content}}

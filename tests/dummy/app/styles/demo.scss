@@ -14,7 +14,7 @@ body {
   font-size: 1.6rem;
 }
 
-table {
+table:not(.md-calendar-day-header):not(.md-calendar) {
   margin-bottom: 8px;
   max-width: 100%;
   width: 100%;
@@ -109,38 +109,40 @@ strong {
   font-weight: 500;
 }
 
-td, th {
-  padding: 12px 16px;
-  text-align: left;
-}
+table:not(.md-calendar-day-header):not(.md-calendar) {
+  td, th {
+    padding: 12px 16px;
+    text-align: left;
+  }
 
-td {
-  vertical-align: top;
-}
+  td {
+    vertical-align: top;
+  }
 
-td.description *:first-child {
-  margin-top: 0;
-}
+  td.description *:first-child {
+    margin-top: 0;
+  }
 
-td.description *:last-child {
-  margin-bottom: 0;
-}
+  td.description *:last-child {
+    margin-bottom: 0;
+  }
 
-tr:nth-child(odd) td {
-  background-color: lighten(color($primary, '50'), 2);
-}
+  tr:nth-child(odd) td {
+    background-color: lighten(color($primary, '50'), 2);
+  }
 
-tr:nth-child(even) td {
-  background-color: lighten(color($primary, '50'), 4);
-}
+  tr:nth-child(even) td {
+    background-color: lighten(color($primary, '50'), 4);
+  }
 
-th {
-  background-color: color($primary, '400');
-  color: white;
-}
+  th {
+    background-color: color($primary, '400');
+    color: white;
+  }
 
-tr.subheading td {
-  background-color: color($primary, '100');
+  tr.subheading td {
+    background-color: color($primary, '100');
+  }
 }
 
 blockquote {

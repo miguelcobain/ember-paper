@@ -1,0 +1,13 @@
+{{#if dropdown.isOpen}}
+  {{#ember-wormhole to=to renderInPlace=renderInPlace}}
+    {{paper-backdrop class="md-click-catcher"}}
+    <div class="md-datepicker-calendar-pane md-whiteframe-z1 md-default-theme" id={{dropdownId}}>
+      <div class="md-datepicker-input-mask">
+        <div class="md-datepicker-input-mask-opaque"></div>
+      </div>
+      <div class="md-datepicker-calendar">
+        {{yield}}
+      </div>
+    </div>
+  {{/ember-wormhole}}
+{{/if}}

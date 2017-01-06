@@ -1,0 +1,23 @@
+{{#paper-datepicker-dropdown
+  horizontalPosition=(readonly horizontalPosition)
+  verticalPosition=(readonly verticalPosition)
+  initiallyOpened=(readonly initiallyOpened)
+  triggerComponent=(readonly triggerComponent)
+  contentComponent=(readonly contentComponent)
+  as |dropdown|}}
+
+  {{dropdown.trigger
+    selectedDate=(readonly selectedDate)}}
+
+  {{#dropdown.content
+    class=(readonly concatenatedDropdownClasses)
+    to=(readonly destination)}}
+
+    {{paper-calendar
+      selectedDate=(readonly selectedDate)
+      onChange=onChange
+      minDate=(readonly minDate)
+      maxDate=(readonly maxDate)}}
+
+  {{/dropdown.content}}
+{{/paper-datepicker-dropdown}}

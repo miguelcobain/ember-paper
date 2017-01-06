@@ -1,0 +1,20 @@
+{{#paper-virtual-repeat years
+  height=350
+  itemHeight=20
+  as |visibleYears|}}
+  {{#each visibleYears as |year|}}
+    <button type="button"
+      data-year="{{year}}"
+      class="paper-calendar-year {{if onSelect 'paper-calendar-year--interactive'}} {{if year.isSelected 'paper-calendar-year--selected'}} {{if year.isFocused 'paper-calendar-year--focused'}}"
+      onclick={{action 'onSelect' year}}
+      onfocus={{action 'onFocusYear' year}}
+      onblur={{action 'onBlurYear' year}}
+      disabled={{day.isDisabled}}>
+      {{#if hasBlock}}
+        {{yield year publicAPI}}
+      {{else}}
+        {{year}}
+      {{/if}}
+    </button>
+  {{/each}}
+{{/paper-virtual-repeat}}

@@ -30,6 +30,11 @@
   padding-right: 5px;
 }
 
+// Seems to be required to work properly with ember-wormhole
+.md-datepicker-calendar-pane {
+  border-color: rgb(224,224,224);
+}
+
 // Icon spinners (not part of angular-material)
 .md-spin {
    animation: md-spin 1.5s infinite linear;
@@ -142,8 +147,16 @@
 @import './angular-material/components/chips/chips';
 @import './angular-material/components/chips/chips-theme';
 
+@import './angular-material/components/datepicker/calendar';
+@import './angular-material/components/datepicker/calendar-theme';
+@import './angular-material/components/datepicker/datePicker';
+@import './angular-material/components/datepicker/datePicker-theme';
+
 // Backports of features from future versions of angular-material-source to this version
 @import './backports/paper-input';
 @import './backports/paper-select';
 @import './backports/ripple';
 @import './backports/paper-autocomplete';
+
+// Customs components that do not exist in angular-material
+@import './components/paper-datepicker';
