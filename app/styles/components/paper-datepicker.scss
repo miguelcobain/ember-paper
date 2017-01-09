@@ -93,24 +93,6 @@ $cell-size: 46px;
   color: color($primary, 'contrast');
 }
 
-/* Years */
-.paper-calendar-years {
-  width: $cell-size * 7;
-}
-
-.paper-calendar-year {
-  display: block;
-  width: $cell-size * 7;
-  line-height: $cell-size;
-  text-align: center;
-  color: color($foreground, '1');
-}
-
-.paper-calendar-year--selected {
-  font-weight: 500;
-  color: color($primary);
-}
-
 
 /* Navigation */
 .ember-power-calendar-nav {
@@ -134,52 +116,11 @@ $cell-size: 46px;
 }
 
 
-/* Material styles */
-.paper-datepicker {
-  display: inline-block;
-  border-radius: 3px;
-}
-
-.paper-datepicker-header {
-  padding: 22px 24px;
-  background-color: color($primary);
-  color: color($primary, 'contrast');
-  opacity: 0.8;
-
-  .paper-datepicker-header-year,
-  .paper-datepicker-header-date {
-    color: color($primary, 'contrast');
-    opacity: 0.87;
-  }
-
-  .paper-datepicker-header-year {
-    font-size: 14px;
-    padding: 0;
-  }
-
-  .paper-datepicker-header-date {
-    font-size: 30px;
-    font-weight: bold;
-  }
-
-  .paper-datepicker-header-date--active,
-  .paper-datepicker-header-year--active {
-    opacity: 1;
-  }
-}
-
-.paper-datepicker-content {
+.md-datepicker-calendar {
   padding: $outer-padding;
 
   // Inside the datepicker, the calendar needs to have the same height for all months
   .ember-power-calendar-day-grid {
     height: $cell-size * 6;
   }
-  .paper-calendar-years {
-    height: 28px + $cell-size * 7; // calendar nav + 6 weeks + weekdays
-  }
-}
-
-.paper-datepicker-footer {
-  padding: $outer-padding;
 }
