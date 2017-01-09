@@ -1,22 +1,40 @@
 import Ember from 'ember';
-import PowerSelect from 'ember-power-select/components/power-select';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import layout from '../templates/components/paper-datepicker';
 
-const { computed } = Ember;
+const { Component } = Ember;
 
 /**
  * @class PaperDatepicker
- * @extends PowerSelectComponent
+ * @extends Ember.Component
  */
-export default PowerSelect.extend(ChildMixin, {
+export default Component.extend(ChildMixin, {
   layout,
+  tagName: '',
+
+  /**
+   * Set if the datepicker should automatically close after a date is selected.
+   *
+   * @property closeOnSelect
+   * @type boolean
+   * @public
+   */
+  closeAfterSelect: true,
 
   triggerComponent: 'paper-datepicker-trigger',
   contentComponent: 'paper-datepicker-content',
 
-  onfocus: computed.alias('onFocus'),
-  onblur: computed.alias('onBlur'),
-  onchange: computed.alias('onChange'),
-  oninput: computed.alias('onInput')
+  actions: {
+    registerAPI(publicAPI) {
+      this.set('publicAPI', publicAPI);
+    },
+
+    onDateSelected(moment, event) {
+      this.sendAction('onSelect', moment);
+
+      if (this.get('closeAfterSelect')) {
+        this.get('publicAPI.actions').close(event);
+      }
+    }
+  }
 });
