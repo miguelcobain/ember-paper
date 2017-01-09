@@ -5,7 +5,8 @@ import Ember from 'ember';
 import layout from '../templates/components/paper-slider';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-const { Component, computed, inject, String: { htmlSafe } } = Ember;
+const { Component, computed, inject, run, String: { htmlSafe } } = Ember;
+/* global Hammer */
 
 /**
  * @class PaperSlider
@@ -28,6 +29,24 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   max: 100,
   step: 1,
   tabindex: 0,
+
+  didInsertElement() {
+    this._super(...arguments);
+
+    this._setupSlider();
+  },
+
+  _setupSlider() {
+    let thumbContainer = this.$('.md-thumb-container').get(0);
+    let sliderHammer = new Hammer(thumbContainer);
+    this._thumbContainerHammer = sliderHammer;
+
+    // Enable dragging the slider
+    sliderHammer.get('pan').set({ threshold: 1 });
+    sliderHammer.on('panstart', run.bind(this, this._dragStart))
+      .on('panmove', run.bind(this, this._drag))
+      .on('panend', run.bind(this, this._dragEnd));
+  },
 
   trackContainer: computed(function() {
     return this.$('.md-track-container');
@@ -77,6 +96,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
   active: false,
   dragging: false,
+  enabled: computed.not('disabled'),
 
   sliderDimensions: computed(function() {
     return this.get('trackContainer')[0].getBoundingClientRect();
@@ -84,13 +104,13 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
   setValueFromEvent(event) {
     // let exactVal = this.percentToValue(this.positionToPercent(event.deltaX || event.clientX));
-    let exactVal = this.percentToValue(this.positionToPercent(event.clientX || event.originalEvent.touches[0].clientX));
+    let exactVal = this.percentToValue(this.positionToPercent(event.clientX || event.srcEvent.clientX));
     let closestVal = this.minMaxValidator(this.stepValidator(exactVal));
 
     this.set('value', closestVal);
   },
 
-  down(event) {
+  _dragStart(event) {
     if (this.get('disabled')) {
       return;
     }
@@ -104,12 +124,10 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     this.setValueFromEvent(event);
   },
 
-  up(event) {
+  _dragEnd() {
     if (this.get('disabled')) {
       return;
     }
-
-    event.stopPropagation();
 
     this.beginPropertyChanges();
     this.set('active', false);
@@ -117,13 +135,12 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     this.endPropertyChanges();
   },
 
-  move(event) {
+  _drag(event) {
     if (this.get('disabled') || !this.get('dragging')) {
       return;
     }
 
     this.setValueFromEvent(event);
-
   },
 
   keyDown(event) {
