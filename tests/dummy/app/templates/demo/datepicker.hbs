@@ -1,14 +1,20 @@
 {{page-toolbar pageTitle="Datepicker" isDemo=true}}
 
 {{#doc-content}}
-  <h2>Inline calendar</h2>
+  <h2>Basic datepicker</h2>
   <div layout="row">
-    {{! BEGIN-SNIPPET inline-calendar }}
-    {{paper-datepicker-vertical selected=selectedDate onSelect=(action (mut selectedDate))}}
+    {{! BEGIN-SNIPPET basic-datepicker }}
+    {{paper-datepicker
+      selected=selectedDate
+      onSelect=(action (mut selectedDate))
+      closeAfterSelect=closeAfterSelect}}
+
     <p>Selected date: {{moment-format selectedDate}}</p>
     {{! END-SNIPPET }}
+
+    {{paper-checkbox label="Close after select" value=closeAfterSelect onChange=(action (mut closeAfterSelect))}}
   </div>
 
   <h3>Template</h3>
-  {{code-snippet name="inline-calendar.hbs"}}
+  {{code-snippet name="basic-datepicker.hbs"}}
 {{/doc-content}}

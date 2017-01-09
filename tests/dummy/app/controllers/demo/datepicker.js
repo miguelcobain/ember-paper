@@ -1,7 +1,11 @@
 import Ember from 'ember';
 
-const { Controller } = Ember;
+const { Controller, computed } = Ember;
 
 export default Controller.extend({
-  selectedDate: new Date()
+  selectedDate: computed(function() {
+    return new Date();
+  }),
+
+  closeOnSelect: false
 });
