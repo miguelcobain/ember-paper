@@ -13,13 +13,13 @@ export default BasicTrigger.extend({
 
   displayFormat: 'L',
 
-  formattedDate: computed('selectedDate', 'displayFormat', function() {
-    let { selectedDate, displayFormat } = this.getProperties('selectedDate', 'displayFormat');
+  formattedDate: computed('selected', 'displayFormat', function() {
+    let { selected, displayFormat } = this.getProperties('selected', 'displayFormat');
 
-    if (!selectedDate) {
+    if (!selected) {
       return null;
     }
 
-    return moment(selectedDate).format(displayFormat);
+    return moment(selected).format(displayFormat);
   }).readOnly()
 });

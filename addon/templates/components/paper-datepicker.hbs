@@ -7,17 +7,24 @@
   as |dropdown|}}
 
   {{dropdown.trigger
-    selectedDate=(readonly selectedDate)}}
+    label=(readonly label)
+    selected=(readonly selected)}}
 
   {{#dropdown.content
     class=(readonly concatenatedDropdownClasses)
     to=(readonly destination)}}
 
-    {{paper-calendar
-      selectedDate=(readonly selectedDate)
-      onChange=onChange
+    {{#paper-calendar
       minDate=(readonly minDate)
-      maxDate=(readonly maxDate)}}
+      maxDate=(readonly maxDate)
+      center=(readonly center)
+      onCenterChange=(action (mut center) value="date")
+      selected=(readonly selected)
+      onSelect=(action "onDateSelected" value="moment")
+      as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.days showDaysAround=false}}
+    {{/paper-calendar}}
 
   {{/dropdown.content}}
 {{/paper-datepicker-dropdown}}
