@@ -5,6 +5,7 @@
   <div layout="row">
     {{! BEGIN-SNIPPET basic-datepicker }}
     {{paper-datepicker
+      label="Select a date"
       selected=selectedDate
       onSelect=(action (mut selectedDate))
       closeAfterSelect=closeAfterSelect}}
