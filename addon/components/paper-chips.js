@@ -33,6 +33,10 @@ export default Component.extend({
     }
   }),
 
+  click() {
+    this.getInput().focus();
+  },
+
   actions: {
     addItem(newItem) {
       if (this.get('requireMatch')) {
@@ -55,6 +59,16 @@ export default Component.extend({
           // We have an autocomplete - reset it once it's closed itself.
           this.queueReset();
         }
+      }
+    },
+
+    removeItem(item) {
+      this.sendAction('removeItem', item);
+      let current = this.get('activeChip');
+
+      if (current === -1 || current >= this.get('content').length) {
+        this.queueReset();
+        this.set('activeChip', -1);
       }
     },
 
@@ -104,6 +118,22 @@ export default Component.extend({
     chipsBlur(event) {
       if (!this.focusMovingTo(this.getInput(), event)) {
         this.set('focusedElement', 'none');
+        this.set('activeChip', -1);
+      }
+    },
+
+    chipClick(index, event) {
+      // Prevent click from bubbling up to the chips element.
+      event.stopPropagation();
+
+      // If we have a valid chip index, make it active.
+      if (!isEmpty(index)) {
+        // Shift actual focus to wrap so that subsequent blur events work as expected.
+        this.$('md-chips-wrap').focus();
+
+        // Update state to reflect the clicked chip being active.
+        this.set('focusedElement', 'chips');
+        this.set('activeChip', index);
       }
     },
 
@@ -229,7 +259,7 @@ export default Component.extend({
   },
 
   focusMovingTo(selector, event) {
-    if (!isEmpty(event) && !isEmpty(event.relatedTarget) && this.$(event.relatedTarget).is(selector)) {
+    if (!isEmpty(event) && !isEmpty(event.relatedTarget) && this.$().find(event.relatedTarget).is(selector)) {
       return true;
     }
 
