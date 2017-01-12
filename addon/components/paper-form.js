@@ -20,6 +20,9 @@ export default Component.extend(ParentMixin, {
     return this.get('childComponents').isAny('isInvalid');
   }),
   actions: {
+    setAllChilds(property, value) {
+      this.get('childComponents').setEach(property, value);
+    },
     onValidityChange() {
       if (this.get('lastIsValid') !== this.get('isValid')) {
         this.sendAction('onValidityChange', this.get('isValid'));
