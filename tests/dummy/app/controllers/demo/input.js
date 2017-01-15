@@ -3,8 +3,8 @@ const { Controller } = Ember;
 
 export default Controller.extend({
   validationApi: [
-    ['errorMessage', 'string', 'The text you want to display to the user when there is an error.'],
-    ['isError', 'function', "Validator that returns a truthy value when the validation message should be displayed. The function received one argument, which is an array containing the input's value."]
+    ['message', 'string', 'The text you want to display to the user when there is an error.'],
+    ['validate', 'function', "A validator that returns a falsy value when the validation message should be displayed. The function receives one argument: the input's value."]
   ],
 
   // BEGIN-SNIPPET input.controller.multiple-constraints
