@@ -12,7 +12,7 @@ var AngularScssFilter = require('./lib/angular-scss-filter');
 module.exports = {
   name: 'ember-paper',
 
-  included: function(target) {
+  included: function() {
     this._super.included.apply(this, arguments);
 
     var app;
