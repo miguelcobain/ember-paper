@@ -31,11 +31,6 @@ module.exports = {
     }
 
     if (!process.env.EMBER_CLI_FASTBOOT) {
-      // Fix for loading it in addons/engines
-      if (typeof app.import !== 'function' && app.app) {
-        app = app.app;
-      }
-
       app.import('vendor/hammerjs/hammer.js');
       app.import('vendor/matchmedia-polyfill/matchMedia.js');
       app.import('vendor/propagating-hammerjs/propagating.js');
