@@ -1,0 +1,17 @@
+<div class="md-container">
+  <div class="md-off"></div>
+  <div class="md-on"></div>
+</div>
+{{#if hasBlock}}
+  <div class="md-label">
+    <span>
+      {{yield}}
+    </span>
+  </div>
+{{else}}
+  <div class="md-label">
+    <span>
+      {{label}}
+    </span>
+  </div>
+{{/if}}

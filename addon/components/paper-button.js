@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-button';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
@@ -18,6 +19,7 @@ const { Component, computed } = Ember;
  * @uses ProxiableMixin
  */
 export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
+  layout,
   tagName: 'button',
   classNames: ['md-default-theme', 'md-button'],
   raised: false,

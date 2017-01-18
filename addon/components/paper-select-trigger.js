@@ -3,6 +3,7 @@
  */
 import Ember from 'ember';
 import TriggerComponent from 'ember-power-select/components/power-select/trigger';
+import layout from '../templates/components/paper-select-trigger';
 
 const { computed } = Ember;
 
@@ -11,6 +12,7 @@ const { computed } = Ember;
  * @extends Ember.Component
  */
 export default TriggerComponent.extend({
+  layout,
   tagName: 'md-select-value',
   classNames: ['md-select-value'],
   classNameBindings: ['isPlaceholder:md-select-placeholder'],

@@ -1,8 +1,10 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-autocomplete-trigger';
 
 const { Component, isPresent, isBlank, run, get, computed } = Ember;
 
 export default Component.extend({
+  layout,
   tagName: 'md-autocomplete-wrap',
   classNames: ['md-show-clear-button'],
   classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],

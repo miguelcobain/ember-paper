@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-menu-item';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 
 const { Component } = Ember;
@@ -12,6 +13,7 @@ const { Component } = Ember;
  * @uses ChildMixin
  */
 export default Component.extend(ChildMixin, {
+  layout,
   tagName: 'md-menu-item',
   disabled: false,
 

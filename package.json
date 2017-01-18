@@ -1,7 +1,7 @@
 {
   "name": "ember-paper",
   "description": "The Ember approach to Material Design.",
-  "version": "1.0.0-alpha.12",
+  "version": "1.0.0-alpha.14",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -34,7 +34,7 @@
     "ember-cli-jshint": "^2.0.1",
     "ember-cli-qunit": "^3.0.1",
     "ember-cli-release": "^0.2.9",
-    "ember-cli-sass": "^5.2.1",
+    "ember-cli-sass": "^6.0.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-test-loader": "^1.1.0",
     "ember-cli-uglify": "^1.2.0",
@@ -49,7 +49,7 @@
     "ember-resolver": "^2.0.3",
     "ember-suave": "4.0.1",
     "ember-transition-helper": "0.0.6",
-    "liquid-fire": "0.26.4",
+    "liquid-fire": "0.27.0",
     "loader.js": "^4.0.10"
   },
   "dependencies": {
@@ -58,12 +58,12 @@
     "broccoli-filter": "^1.2.3",
     "broccoli-funnel": "^1.0.1",
     "broccoli-merge-trees": "^1.1.0",
-    "ember-basic-dropdown": "^0.17.1",
+    "ember-basic-dropdown": "^0.19.2",
     "ember-cli-babel": "^5.1.7",
     "ember-cli-htmlbars": "^1.0.10",
-    "ember-composability-tools": "0.0.5",
-    "ember-css-transitions": "0.1.8",
-    "ember-power-select": "1.0.0-beta.23",
+    "ember-composability-tools": "0.0.7",
+    "ember-css-transitions": "0.1.9",
+    "ember-power-select": "1.0.3",
     "ember-wormhole": "0.4.1",
     "hammerjs": "^2.0.8",
     "matchmedia-polyfill": "^0.3.0",

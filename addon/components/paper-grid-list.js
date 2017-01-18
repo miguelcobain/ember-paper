@@ -60,7 +60,7 @@ export default Component.extend({
     this.get('tiles').addObject(gridTile);
   },
 
-  layout() {
+  doLayout() {
     try {
       let tilesInvalidated = this.get('tilesInvalidated');
       this._layoutDelegate(tilesInvalidated);
@@ -337,7 +337,7 @@ export default Component.extend({
         return;
       }
       this.set('layoutInvalidated', true);
-      run.next(this, this.layout);
+      run.next(this, this.doLayout);
     }
   }
 });

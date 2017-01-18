@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-sidenav-toggle';
 
 const { Component, inject } = Ember;
 
@@ -10,7 +11,7 @@ const { Component, inject } = Ember;
  * @extends Ember.Component
  */
 export default Component.extend({
-
+  layout,
   tagName: '',
 
   name: 'default',

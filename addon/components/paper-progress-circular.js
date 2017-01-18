@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-progress-circular';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 const { Component, computed, isPresent, inject, String: { htmlSafe } } = Ember;
@@ -18,7 +19,7 @@ const MODE_INDETERMINATE = 'indeterminate';
  * @uses ColorMixin
  */
 export default Component.extend(ColorMixin, {
-
+  layout,
   tagName: 'md-progress-circular',
   classNames: ['md-default-theme'],
   attributeBindings: ['value', 'mode:md-mode', 'circleStyle:style'],

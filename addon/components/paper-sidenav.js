@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-sidenav';
 
 const { Component, computed } = Ember;
 
@@ -10,6 +11,7 @@ const { Component, computed } = Ember;
  * @extends Ember.Component
  */
 export default Component.extend({
+  layout,
   tagName: '',
 
   name: 'default',

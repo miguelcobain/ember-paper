@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-grid-tile';
 import PaperGridList from './paper-grid-list';
 
 const { Component, computed, inject, get } = Ember;
@@ -11,6 +12,7 @@ const { Component, computed, inject, get } = Ember;
  * @extends Ember.Component
  */
 export default Component.extend({
+  layout,
   tagName: 'md-grid-tile',
 
   constants: inject.service(),

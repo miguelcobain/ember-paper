@@ -1,8 +1,9 @@
 {{yield (hash
-    radio=(component "paper-radio"
+  radio=(component "paper-radio"
     toggle=toggle
     disabled=disabled
     groupValue=groupValue
     onChange=(action "onChange")
-    parentComponent=this)
+    parentComponent=this
+    shouldRegister=true)
 )}}

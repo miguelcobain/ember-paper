@@ -1,3 +1,1 @@
-import PaperRadio from 'ember-paper/components/paper-radio';
-
-export default PaperRadio;
+export { default } from 'ember-paper/components/paper-radio';

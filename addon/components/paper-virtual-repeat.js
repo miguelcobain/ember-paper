@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import VirtualEachComponent from 'virtual-each/components/virtual-each/component';
+import layout from '../templates/components/paper-virtual-repeat';
 
 const {
   computed,
@@ -15,6 +16,7 @@ const {
 const EXTRA_ROW_PADDING = 3;
 
 const VirtualRepeatComponent = VirtualEachComponent.extend({
+  layout,
   tagName: 'md-virtual-repeat-container',
   classNames: ['md-virtual-repeat-container'],
   classNameBindings: ['horizontal:md-orient-horizontal'],

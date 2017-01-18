@@ -17,6 +17,11 @@ export default Controller.extend({
   rating2: 2,
   rating3: 4,
 
-  disabled1: 0,
-  disabled2: 70
+  disabled1: 22,
+  disabled2: 70,
+
+  descreteDisabled1: 2,
+  discreteDisabled2: 6,
+
+  isSliderDisabled: true
 });

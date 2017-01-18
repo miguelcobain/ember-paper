@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-form';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
 
 const { Component, computed } = Ember;
@@ -12,6 +13,7 @@ const { Component, computed } = Ember;
  * @uses ParentMixin
  */
 export default Component.extend(ParentMixin, {
+  layout,
   tagName: '',
   isValid: computed.not('isInvalid'),
   isInvalid: computed('childComponents.@each.isInvalid', function() {
