@@ -63,7 +63,6 @@
     "ember-cli-htmlbars": "^1.0.10",
     "ember-composability-tools": "0.0.7",
     "ember-css-transitions": "0.1.9",
-    "ember-wormhole": "0.4.1",
     "hammerjs": "^2.0.8",
     "matchmedia-polyfill": "^0.3.0",
     "propagating-hammerjs": "^1.4.6",
