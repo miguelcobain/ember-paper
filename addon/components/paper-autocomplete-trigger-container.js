@@ -31,7 +31,7 @@ export default BasicTrigger.extend({
       });
     }
     this.element.addEventListener('mousedown', (e) => this.send('handleMousedown', e));
-    this.element.addEventListener('keydown', (e) => this.send('handleKeydown', e));
+    this.element.addEventListener('keydown', (e) => this.send('handleKeyDown', e));
   },
 
   actions: {
