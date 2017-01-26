@@ -31,9 +31,9 @@ module.exports = {
     }
 
     if (!process.env.EMBER_CLI_FASTBOOT) {
-      app.import(app.bowerDirectory + '/hammer.js/hammer.js')
-      app.import(app.bowerDirectory + '/matchMedia/matchMedia.js');
-      app.import('vendor/propagating.js');
+      app.import('vendor/hammerjs/hammer.js');
+      app.import('vendor/matchmedia-polyfill/matchMedia.js');
+      app.import('vendor/propagating-hammerjs/propagating.js');
     }
   },
 
@@ -47,6 +47,38 @@ module.exports = {
       })[0];
       return emberPowerSelect.contentFor(type, config);
     }
+  },
+
+  treeForVendor: function(tree) {
+    var trees = [];
+
+    if (!process.env.EMBER_CLI_FASTBOOT) {
+      var hammerJs = new Funnel(this.pathBase('hammerjs'), {
+        files: [
+          'hammer.js'
+        ],
+        destDir: 'hammerjs'
+      });
+      var matchMediaPolyfill = new Funnel(this.pathBase('matchmedia-polyfill'), {
+        files: [
+          'matchMedia.js'
+        ],
+        destDir: 'matchmedia-polyfill'
+      });
+      var propagatingHammerJs = new Funnel(this.pathBase('propagating-hammerjs'), {
+        files: [
+          'propagating.js'
+        ],
+        destDir: 'propagating-hammerjs'
+      });
+      trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs]);
+    }
+
+    if (tree) {
+      trees.push(tree);
+    }
+
+    return mergeTrees(trees);
   },
 
   treeForStyles: function(tree) {
@@ -131,8 +163,9 @@ module.exports = {
       'components/chips/chips-theme.scss'
     ];
 
-    var angularScssFiles = new Funnel(this.pathBase(), {
+    var angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {
       files: scssFiles,
+      srcDir: '/src',
       destDir: 'angular-material',
       annotation: 'AngularScssFunnel'
     });
@@ -156,8 +189,8 @@ module.exports = {
     tl;dr - We want the non built scss files, and b/c this dep is only provided via
     bower, we use this hack. Please change it if you read this and know a better way.
   */
-  pathBase: function() {
-    return path.dirname(resolve.sync('angular-material-source/package.json', { basedir: __dirname })) + '/src';
+  pathBase: function(packageName) {
+    return path.dirname(resolve.sync(packageName + '/package.json', { basedir: __dirname }));
   },
 
   postprocessTree: function(type, tree) {
