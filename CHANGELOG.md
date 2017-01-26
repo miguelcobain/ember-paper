@@ -21,6 +21,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [#629](https://github.com/miguelcobain/ember-paper/pull/629) ember-paper is now able to retrieve the parent application while being used from another addon
 - [1465662](https://github.com/miguelcobain/ember-paper/commit/14656624caf016270f90a8fd2abc4d445cb66088) update eps and ebd
 - [#594](https://github.com/miguelcobain/ember-paper/pull/594) ember-paper is now compatible with ember-engines. As a side effect, we're no longer importing `hammerjs`, `matchmedia-polyfill` and `propagating-hammerjs` from bower. Feel free to delete them from your app's bower.json. ember-paper will keep track of its dependencies now.
+- [e3a2f6b](https://github.com/miguelcobain/ember-paper/commit/e3a2f6bed29b0eff438b079c6fe3fe3c84b56d09) update ember and ember-cli
 
 ### 1.0.0-alpha.14 (January 6, 2017)
 - [9c4b874](https://github.com/miguelcobain/ember-paper/commit/9c4b8741281c302b601cf7f428b94ae8af84aeb6) paper-item now proxies radio buttons
