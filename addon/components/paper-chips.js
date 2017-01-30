@@ -92,8 +92,6 @@ export default Component.extend({
         return true;
       }
 
-      this.closeAutocomplete();
-
       if (!this.focusMovingTo('md-chips-wrap', event)) {
         this.set('focusedElement', 'none');
       }
