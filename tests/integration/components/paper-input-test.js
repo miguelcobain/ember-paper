@@ -522,3 +522,14 @@ test('hasValue works when `value` updated programatically', function(assert) {
     'should have md-input-has-value class if input has value'
   );
 });
+
+test('can render other stuff using paper-input block', function(assert) {
+  this.foo = '';
+  this.render(hbs`
+    {{#paper-input value=foo onChange=(action (mut foo))}}
+      <div class="other-stuff"></div>
+    {{/paper-input}}
+  `);
+
+  assert.equal(this.$('.other-stuff').length, 1);
+});

@@ -91,6 +91,15 @@
   {{/if}}
 {{/unless}}
 
+{{yield (hash
+  charCount=currentLength
+  isInvalid=isInvalid
+  isTouched=isTouched
+  isInvalidAndTouched=isInvalidAndTouched
+  hasValue=hasValue
+  validationErrorMessages=validationErrorMessages
+)}}
+
 {{#if iconRight}}
   {{paper-icon iconRight}}
 {{/if}}
