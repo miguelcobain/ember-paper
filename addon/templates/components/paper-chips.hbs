@@ -31,7 +31,7 @@
       {{#if (or requireMatch options)}}
         {{#paper-autocomplete
           options=options
-          closeOnSelect=true
+          closeOnSelect=keepDropdownClosed
           placeholder=placeholder
           searchField=searchField
           noMatchesMessage=noMatchesMessage

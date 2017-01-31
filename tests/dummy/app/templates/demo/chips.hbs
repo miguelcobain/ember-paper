@@ -54,6 +54,17 @@
         content=vegeNames
         options=remainingVegeNames
         requireMatch=true}}
+
+      <h2>Chips with Autocomplete and open dropdown</h2>
+      {{paper-chips
+        readOnly=readOnly
+        removeItem=(action "removeVegeName")
+        addItem=(action "addVegeName")
+        placeholder="Add a vegetable"
+        content=vegeNames
+        options=remainingVegeNames
+        keepDropdownClosed=false
+        noMatchesMessage="Not found. Click to add."}}
       {{! END-SNIPPET }}
 
       <h3>Template</h3>

@@ -18,6 +18,7 @@ export default Component.extend({
   }),
   resetTimer: null,
   lastItemChosen: false,
+  keepDropdownClosed: true,
 
   handleFocusChange: observer('focusedElement', 'activeChip', function() {
     let element = this.get('focusedElement');
@@ -75,7 +76,7 @@ export default Component.extend({
       }
 
       // We don't want the autocomplete to open on focus - it'll open when the user starts typing.
-      if (isPresent(autocomplete)) {
+      if (isPresent(autocomplete) && this.get('keepDropdownClosed')) {
         autocomplete.actions.close();
       }
     },
@@ -91,8 +92,6 @@ export default Component.extend({
         this.set('lastItemChosen', false);
         return true;
       }
-
-      this.closeAutocomplete();
 
       if (!this.focusMovingTo('md-chips-wrap')) {
         this.set('focusedElement', 'none');
@@ -128,7 +127,7 @@ export default Component.extend({
 
     searchTextChange(searchText, select) {
       // Close dropdown if search text is cleared by the user.
-      if (isEmpty(searchText)) {
+      if (isEmpty(searchText) && this.get('keepDropdownClosed')) {
         select.actions.close();
       }
     },
@@ -203,7 +202,9 @@ export default Component.extend({
 
       // Close the dropdown after focusing the field.
       input.focus();
-      select.actions.close();
+      if (this.get('keepDropdownClosed')) {
+        select.actions.close();
+      }
     } else {
       input.focus();
     }
