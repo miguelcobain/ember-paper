@@ -6,6 +6,7 @@ Version 1.0 introduces many API changes relative to previous releases. In additi
 
 Contributions and pull requests are always welcome. Contributors may often be found on the [#e-paper channel on slack](https://embercommunity.slack.com/messages/e-paper/). Building the dummy application by installing `ember-paper` as if it were an application will provide you an up-to-date interactive demo, templates, and code samples.
 
+- Consuming apps can now specify `ENV['ember-paper'].insertFontLinks` to prevent the insertion of fonts.googleapi links in the head tag
 - Attributes are now `camelCased` rather than `kebab-cased`.
 - Components which accept user input, such as `paper-input`, `paper-checkbox`, `paper-switch` and `paper-select` now receive their input via the one-way `value` attribute and notify of a changed value by the `onChange` actions.
 - When provided by the API, `onChange` actions are required and throw an assertion if not provided.
