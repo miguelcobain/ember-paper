@@ -4,7 +4,7 @@
 import Ember from 'ember';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
-const { Component, computed, String: { htmlSafe } } = Ember;
+const { Component, computed } = Ember;
 
 /**
  * @class PaperBackdrop
@@ -22,9 +22,8 @@ export default Component.extend(TransitionMixin, {
   transitionName: 'ng',
   shouldTransition: computed.bool('opaque'),
 
-  backdropStyle: computed('fixed', 'translateStyle', function() {
-    let style = this.get('translateStyle');
-    return this.get('fixed') ? htmlSafe(`position:fixed; ${style}`) : style;
+  backdropStyle: computed('fixed', function() {
+    return this.get('fixed') ? 'position:fixed;' : null;
   }),
 
   addDestroyedElementClone(original, clone) {
