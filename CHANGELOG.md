@@ -6,7 +6,6 @@ Version 1.0 introduces many API changes relative to previous releases. In additi
 
 Contributions and pull requests are always welcome. Contributors may often be found on the [#e-paper channel on slack](https://embercommunity.slack.com/messages/e-paper/). Building the dummy application by installing `ember-paper` as if it were an application will provide you an up-to-date interactive demo, templates, and code samples.
 
-- Consuming apps can now specify `ENV['ember-paper'].insertFontLinks` to prevent the insertion of fonts.googleapi links in the head tag
 - Attributes are now `camelCased` rather than `kebab-cased`.
 - Components which accept user input, such as `paper-input`, `paper-checkbox`, `paper-switch` and `paper-select` now receive their input via the one-way `value` attribute and notify of a changed value by the `onChange` actions.
 - When provided by the API, `onChange` actions are required and throw an assertion if not provided.
@@ -17,6 +16,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/release-1/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
 ### 1.0.0-alpha.15 (January 26, 2017)
+- [#636](https://github.com/miguelcobain/ember-paper/pull/636) Consuming apps can now specify `ENV['ember-paper'].insertFontLinks` to prevent the insertion of fonts.googleapi links in the head tag
 - [#572](https://github.com/miguelcobain/ember-paper/pull/572) updated paper-slider. Smoother sliding and you can slide without having the cursor above the slider, like normal sliding.
 - [#626](https://github.com/miguelcobain/ember-paper/pull/626) Add autocorrect and autocapitalize to paper-input passThru attributes
 - [#629](https://github.com/miguelcobain/ember-paper/pull/629) ember-paper is now able to retrieve the parent application while being used from another addon
