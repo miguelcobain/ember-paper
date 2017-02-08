@@ -15,8 +15,10 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/release-1/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
+### master
+- [#636](https://github.com/miguelcobain/ember-paper/pull/636) Consuming apps can now specify `ENV['ember-paper'].insertFontLinks` to prevent the insertion of google fonts links in the head tag. This is especially useful if you want to include your own fonts.
+
 ### 1.0.0-alpha.15 (January 26, 2017)
-- [#636](https://github.com/miguelcobain/ember-paper/pull/636) Consuming apps can now specify `ENV['ember-paper'].insertFontLinks` to prevent the insertion of fonts.googleapi links in the head tag
 - [#572](https://github.com/miguelcobain/ember-paper/pull/572) updated paper-slider. Smoother sliding and you can slide without having the cursor above the slider, like normal sliding.
 - [#626](https://github.com/miguelcobain/ember-paper/pull/626) Add autocorrect and autocapitalize to paper-input passThru attributes
 - [#629](https://github.com/miguelcobain/ember-paper/pull/629) ember-paper is now able to retrieve the parent application while being used from another addon
