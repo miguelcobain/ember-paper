@@ -37,10 +37,16 @@ module.exports = {
     }
   },
 
+  config(env, baseConfig) {
+    return { 'ember-paper': { insertFontLinks: true } };
+  },
+
   contentFor: function(type, config) {
     if (type === 'head') {
-      return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">' +
-        '<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">';
+      if (config['ember-paper'].insertFontLinks) {
+        return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">' +
+          '<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">';
+      }
     } else if (type === 'body-footer') {
       var emberPowerSelect = this.addons.filter(function(addon) {
         return addon.name === 'ember-power-select';
@@ -54,21 +60,15 @@ module.exports = {
 
     if (!process.env.EMBER_CLI_FASTBOOT) {
       var hammerJs = new Funnel(this.pathBase('hammerjs'), {
-        files: [
-          'hammer.js'
-        ],
+        files: [ 'hammer.js' ],
         destDir: 'hammerjs'
       });
       var matchMediaPolyfill = new Funnel(this.pathBase('matchmedia-polyfill'), {
-        files: [
-          'matchMedia.js'
-        ],
+        files: [ 'matchMedia.js' ],
         destDir: 'matchmedia-polyfill'
       });
       var propagatingHammerJs = new Funnel(this.pathBase('propagating-hammerjs'), {
-        files: [
-          'propagating.js'
-        ],
+        files: [ 'propagating.js' ],
         destDir: 'propagating-hammerjs'
       });
       trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs]);
@@ -199,10 +199,5 @@ module.exports = {
           this.app.options.autoprefixer || { browsers: ['last 2 versions'] });
     }
     return tree;
-  },
-
-  // TODO: Remove once ember-paper is stable.
-  isDevelopingAddon: function() {
-    return true;
   }
 };
