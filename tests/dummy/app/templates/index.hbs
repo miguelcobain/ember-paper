@@ -41,6 +41,23 @@
 
   <p>You can find out more information on the CSP addon page <a href="https://github.com/rwjblue/ember-cli-content-security-policy#ember-cli-content-security-policy">here</a>. We also need to allow <code>data:</code> in <code>img-src</code> because of a <a href="https://github.com/miguelcobain/ember-paper/blob/master/app%2Fstyles%2Fpaper-button.scss">current hack</a> in paper-button.</p>
 
+  <h2 class="md-headline">Options</h2>
+
+  <p>Ember-paper supports the following options, specified in your <code>ember-cli-build.js</code> file:</p>
+
+  <dl>
+    <dt><code>ENV['autoprefixer']</code> (defaults to <code>{ browsers: ['last 2 versions'] }</code>)</dt>
+    <dd>
+      By default ember-paper will run <a href="https://github.com/postcss/autoprefixer">autoprefixer</a> on your styles.
+      This option allows you to override the default autoprefixer target.
+    </dd>
+    <dt><code>ENV['ember-paper'].insertFontLinks</code> (defaults to <code>true</code>)</dt>
+    <dd>
+      Consuming apps can specify this option to prevent the insertion of google fonts links
+      inside the head tag. This is especially useful if you want to include your own fonts.
+    </dd>
+  </dl>
+
   <h2 class="md-headline">Contribution</h2>
   <p>This is a very ambitious project. Google's design specs are extensive, and non-trivial to implement. If you can port or fix a component or two, please drop a pull request or issue on GitHub or join us on slack. See README.md for more resources.</p>
   <p>With everyone's help, we can bring this amazing design spec to Ember in a modular and elegant way. The Ember way.</p>
