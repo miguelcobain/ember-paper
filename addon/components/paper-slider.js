@@ -48,10 +48,6 @@ export default Component.extend(FocusableMixin, ColorMixin, {
       .on('panend', run.bind(this, this._dragEnd));
   },
 
-  trackContainer: computed(function() {
-    return this.$('.md-track-container');
-  }),
-
   activeTrackStyle: computed('percent', function() {
     let percent = this.get('percent') || 0;
     return htmlSafe(`width: ${percent * 100}%`);
@@ -74,7 +70,8 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   }),
 
   positionToPercent(x) {
-    return Math.max(0, Math.min(1, (x - this.get('sliderDimensions.left')) / this.get('sliderDimensions.width')));
+    let { left, width } = this.sliderDimensions();
+    return Math.max(0, Math.min(1, (x - left) / width));
   },
 
   percentToValue(x) {
@@ -98,16 +95,19 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   dragging: false,
   enabled: computed.not('disabled'),
 
-  sliderDimensions: computed(function() {
-    return this.get('trackContainer')[0].getBoundingClientRect();
-  }),
+  sliderDimensions() {
+    return this.$('.md-track-container').get(0).getBoundingClientRect();
+  },
+
+  click(event) {
+    this.setValueFromEvent(event);
+  },
 
   setValueFromEvent(event) {
-    // let exactVal = this.percentToValue(this.positionToPercent(event.deltaX || event.clientX));
     let exactVal = this.percentToValue(this.positionToPercent(event.clientX || event.srcEvent.clientX));
     let closestVal = this.minMaxValidator(this.stepValidator(exactVal));
 
-    this.set('value', closestVal);
+    this.sendAction('onChange', closestVal);
   },
 
   _dragStart(event) {
@@ -118,8 +118,6 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     this.set('active', true);
     this.set('dragging', true);
     this.$().focus();
-
-    this.get('sliderDimensions');
 
     this.setValueFromEvent(event);
   },
@@ -163,7 +161,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
       newValue = this.get('value') + changeAmount;
 
-      this.set('value', this.minMaxValidator(newValue));
+      this.sendAction('onChange', this.minMaxValidator(newValue))
 
       event.preventDefault();
       event.stopPropagation();
