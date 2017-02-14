@@ -161,7 +161,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
       newValue = this.get('value') + changeAmount;
 
-      this.sendAction('onChange', this.minMaxValidator(newValue))
+      this.sendAction('onChange', this.minMaxValidator(newValue));
 
       event.preventDefault();
       event.stopPropagation();
