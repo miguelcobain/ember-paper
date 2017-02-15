@@ -155,7 +155,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
     },
 
     handleKeyPress(e) {
-      if(e.keyCode === 13) {
+      if (e.keyCode === 13) {
         this.sendAction('onInputSubmit');
       }
     }

@@ -28,7 +28,7 @@ export default Component.extend(ParentMixin, {
       }
     },
     onInputSubmit() {
-      if(this.get('enterToSubmit')) {
+      if (this.get('enterToSubmit')) {
         this.send('onSubmit');
       }
     },
