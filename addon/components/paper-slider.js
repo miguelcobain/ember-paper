@@ -103,7 +103,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     if (this.get('disabled')) {
       return;
     }
-    
+
     this.setValueFromEvent(event);
   },
 
