@@ -100,6 +100,10 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   },
 
   click(event) {
+    if (this.get('disabled')) {
+      return;
+    }
+    
     this.setValueFromEvent(event);
   },
 
