@@ -30,24 +30,6 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   step: 1,
   tabindex: 0,
 
-  didInsertElement() {
-    this._super(...arguments);
-
-    this._setupSlider();
-  },
-
-  _setupSlider() {
-    let thumbContainer = this.$('.md-thumb-container').get(0);
-    let sliderHammer = new Hammer(thumbContainer);
-    this._thumbContainerHammer = sliderHammer;
-
-    // Enable dragging the slider
-    sliderHammer.get('pan').set({ threshold: 1 });
-    sliderHammer.on('panstart', run.bind(this, this._dragStart))
-      .on('panmove', run.bind(this, this._drag))
-      .on('panend', run.bind(this, this._dragEnd));
-  },
-
   activeTrackStyle: computed('percent', function() {
     let percent = this.get('percent') || 0;
     return htmlSafe(`width: ${percent * 100}%`);
@@ -68,6 +50,52 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
     return (this.get('value') - min) / (max - min);
   }),
+
+  didInsertElement() {
+    this._super(...arguments);
+    if (!this.get('disabled')) {
+      this._setupHammer();
+    }
+  },
+
+  didUpdateAttrs() {
+    this._super(...arguments);
+
+    if (!this.get('disabled') && !this._hammer) {
+      // if it is enabled and we didn't init hammer yet
+      this._setupHammer();
+    } else if (this.get('disabled') && this._hammer) {
+      // if it is disabled and we did init hammer already
+      this._teardownHammer();
+    }
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    if (this._hammer) {
+      this._teardownHammer();
+    }
+  },
+
+  _setupHammer() {
+    let thumbContainer = this.$('.md-thumb-container').get(0);
+
+    // Enable dragging the slider
+    let containerManager = new Hammer.Manager(thumbContainer);
+    let pan = new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL, threshold: 10 });
+    containerManager.add(pan);
+
+    containerManager.on('panstart', run.bind(this, this.dragStart))
+      .on('panmove', run.bind(this, this.drag))
+      .on('panend', run.bind(this, this.dragEnd));
+
+    this._hammer = containerManager;
+  },
+
+  _teardownHammer() {
+    this._hammer.destroy();
+    delete this._hammer;
+  },
 
   positionToPercent(x) {
     let { left, width } = this.sliderDimensions();
@@ -114,7 +142,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     this.sendAction('onChange', closestVal);
   },
 
-  _dragStart(event) {
+  dragStart(event) {
     if (this.get('disabled')) {
       return;
     }
@@ -126,23 +154,23 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     this.setValueFromEvent(event);
   },
 
-  _dragEnd() {
-    if (this.get('disabled')) {
-      return;
-    }
-
-    this.beginPropertyChanges();
-    this.set('active', false);
-    this.set('dragging', false);
-    this.endPropertyChanges();
-  },
-
-  _drag(event) {
+  drag(event) {
     if (this.get('disabled') || !this.get('dragging')) {
       return;
     }
 
     this.setValueFromEvent(event);
+  },
+
+  dragEnd() {
+    if (this.get('disabled')) {
+      return;
+    }
+
+    this.setProperties({
+      active: false,
+      dragging: false
+    });
   },
 
   keyDown(event) {
