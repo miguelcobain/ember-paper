@@ -50,12 +50,12 @@ test('form `onSubmit` action is invoked', function(assert) {
       {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
       {{form.input value=bar onChange=(action (mut bar)) label="Bar"}}
 
-      <button onclick={{action form.onSubmit}}>Submit</button>
+      <a {{action form.onSubmit}}>Submit</a>
 
     {{/paper-form}}
   `);
 
-  this.$('button').click();
+  this.$('a').click();
 });
 
 test('form `onValidityChange` action is invoked', function(assert) {
