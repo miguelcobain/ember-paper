@@ -127,6 +127,11 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     return this.$('.md-track-container').get(0).getBoundingClientRect();
   },
 
+  // fix to remove content selection highlight on safari
+  mouseDown(event) {
+    event.preventDefault();
+  },
+
   click(event) {
     if (this.get('disabled')) {
       return;
