@@ -17,7 +17,7 @@ export default Component.extend(ParentMixin, {
   attributeBindings: ['width'],
   classNameBindings: ['dense:md-dense'],
 
-  constants: inject.service(),
+  paperConstants: inject.service(),
   enabledMenuItems: computed.filterBy('childComponents', 'disabled', false),
 
   didInsertElement() {
@@ -34,16 +34,16 @@ export default Component.extend(ParentMixin, {
 
   keyDown(ev) {
     switch (ev.which) {
-      case this.get('constants.KEYCODE.ESCAPE'):
+      case this.get('paperConstants.KEYCODE.ESCAPE'):
         this.dropdown.actions.close();
         break;
-      case this.get('constants.KEYCODE.LEFT_ARROW'):
-      case this.get('constants.KEYCODE.UP_ARROW'):
+      case this.get('paperConstants.KEYCODE.LEFT_ARROW'):
+      case this.get('paperConstants.KEYCODE.UP_ARROW'):
         ev.preventDefault();
         this.focusMenuItem(ev, -1);
         break;
-      case this.get('constants.KEYCODE.RIGHT_ARROW'):
-      case this.get('constants.KEYCODE.DOWN_ARROW'):
+      case this.get('paperConstants.KEYCODE.RIGHT_ARROW'):
+      case this.get('paperConstants.KEYCODE.DOWN_ARROW'):
         ev.preventDefault();
         this.focusMenuItem(ev, 1);
         break;

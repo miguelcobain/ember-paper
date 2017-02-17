@@ -11,7 +11,7 @@ const { $, Mixin, String: { htmlSafe }, computed, inject, run } = Ember;
  * @extends Ember.Mixin
  */
 export default Mixin.create({
-  constants: inject.service(),
+  paperConstants: inject.service(),
 
   attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],
@@ -130,7 +130,7 @@ export default Mixin.create({
    */
   toTransformCss(transform, addTransition) {
     let styles = '';
-    this.get('constants').get('CSS').TRANSFORM.split(' ').forEach((key) => {
+    this.get('paperConstants').get('CSS').TRANSFORM.split(' ').forEach((key) => {
       styles += `${key}:${transform};`;
     });
 
