@@ -182,3 +182,23 @@ test('form submit button is of type submit', function(assert) {
 
   assert.equal(this.$('button').attr('type'), 'submit');
 });
+
+test('form `onSubmit` action is invoked when form element is submitted', function(assert) {
+  assert.expect(1);
+
+  this.set('onSubmit', () => {
+    assert.ok(true);
+  });
+
+  this.render(hbs`
+    {{#paper-form onSubmit=(action onSubmit) as |form|}}
+      {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
+      {{form.input value=bar onChange=(action (mut bar)) label="Bar"}}
+
+      <input type="submit" value="Submit">
+
+    {{/paper-form}}
+  `);
+
+  this.$('input').click();
+});
