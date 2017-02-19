@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import run from 'ember-runloop';
 import wait from 'ember-test-helpers/wait';
+import $ from 'jquery';
 
 moduleForComponent('paper-autcomplete', 'Integration | Component | paper autocomplete', {
   integration: true
@@ -57,7 +58,7 @@ test('either `onSearchTextChange` or `onSelectionChange` functions are provided 
 test('opens on click', function(assert) {
   assert.expect(1);
   this.appRoot = document.querySelector('#ember-testing');
-  this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
+  this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
     options=items
@@ -83,7 +84,7 @@ test('opens on click', function(assert) {
 test('backdrop removed if select closed', function(assert) {
   assert.expect(2);
   this.appRoot = document.querySelector('#ember-testing');
-  this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
+  this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
   this.render(hbs`
     <div id="other-div"></div>
     {{#paper-autocomplete
@@ -118,7 +119,7 @@ test('backdrop removed if select closed', function(assert) {
 test('should render only enough items to fill the menu + 3', function(assert) {
   assert.expect(2);
   this.appRoot = document.querySelector('#ember-testing');
-  this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
+  this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
     options=items
@@ -145,7 +146,7 @@ test('should render only enough items to fill the menu + 3', function(assert) {
 test('should filter list by search term', function(assert) {
   assert.expect(3);
   this.appRoot = document.querySelector('#ember-testing');
-  this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
+  this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
     options=items

@@ -6,19 +6,19 @@ import gridLayout from '../utils/grid-layout';
 
 const { Component, inject, computed, A, run, get, isEqual } = Ember;
 
-const UNIT = (units) => {
-  return `${ units.share}% - (${ units.gutter } * ${ units.gutterShare})`;
+const unitCSS = (units) => {
+  return `${units.share}% - (${units.gutter} * ${units.gutterShare})`;
 };
 
-const POSITION = (positions) => {
-  return `calc((${positions.unit} + ${positions.gutter }) * ${positions.offset})`;
+const positionCSS = (positions) => {
+  return `calc((${positions.unit} + ${positions.gutter}) * ${positions.offset})`;
 };
 
-const DIMENSION = (dimensions) => {
-  return `calc((${dimensions.unit}) * ${dimensions.span} + (${dimensions.span} - 1) * ${dimensions.gutter })`;
+const dimensionCSS = (dimensions) => {
+  return `calc((${dimensions.unit}) * ${dimensions.span} + (${dimensions.span} - 1) * ${dimensions.gutter})`;
 };
 
-const MEDIA = (mediaName) => {
+const media = (mediaName) => {
   return ((mediaName.charAt(0) !== '(') ? (`(${mediaName})`) : mediaName);
 };
 
@@ -85,7 +85,7 @@ export default Component.extend({
     let invalidateLayoutListener = this.get('_invalidateLayoutListener');
 
     for (let mediaName in this.get('constants.MEDIA')) {
-      let query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
+      let query = this.get('constants.MEDIA')[mediaName] || media(mediaName);
       window.matchMedia(query).addListener(invalidateLayoutListener);
     }
   },
@@ -124,7 +124,7 @@ export default Component.extend({
   _unwatchMedia() {
     let invalidateLayoutListener = this.get('_invalidateLayoutListener');
     for (let mediaName in this.get('constants.MEDIA')) {
-      let query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
+      let query = this.get('constants.MEDIA')[mediaName] || media(mediaName);
       window.matchMedia(query).removeListener(invalidateLayoutListener);
     }
   },
@@ -133,7 +133,7 @@ export default Component.extend({
     let mediaPriorities = this.get('constants.MEDIA_PRIORITY');
     for (let i = 0; i < mediaPriorities.length; i++) {
       let mediaName = mediaPriorities[i];
-      let query = this.get('constants.MEDIA')[mediaName] || MEDIA(mediaName);
+      let query = this.get('constants.MEDIA')[mediaName] || media(mediaName);
 
       if (!window.matchMedia(query).matches) {
         continue;
@@ -158,13 +158,13 @@ export default Component.extend({
     let hGutterShare = (colCount - 1) / colCount;
 
     // Base horizontal size of a column.
-    let hUnit = UNIT({ share: hShare, gutterShare: hGutterShare, gutter });
+    let hUnit = unitCSS({ share: hShare, gutterShare: hGutterShare, gutter });
 
     // The width and horizontal position of each tile is always calculated the same way, but the
     // height and vertical position depends on the rowMode.
     let style = {
-      left: POSITION({ unit: hUnit, offset: position.col, gutter }),
-      width: DIMENSION({ unit: hUnit, span: spans.col, gutter }),
+      left: positionCSS({ unit: hUnit, offset: position.col, gutter }),
+      width: dimensionCSS({ unit: hUnit, span: spans.col, gutter }),
       // resets
       paddingTop: '',
       marginTop: '',
@@ -172,32 +172,31 @@ export default Component.extend({
       height: ''
     };
 
-    let vShare;
-    let vUnit;
+    let vShare, vUnit;
 
     switch (rowMode) {
-      case 'fixed':
+      case 'fixed': {
         // In fixed mode, simply use the given rowHeight.
-        style.top = POSITION({ unit: rowHeight, offset: position.row, gutter });
-        style.height = DIMENSION({ unit: rowHeight, span: spans.row, gutter });
+        style.top = positionCSS({ unit: rowHeight, offset: position.row, gutter });
+        style.height = dimensionCSS({ unit: rowHeight, span: spans.row, gutter });
         break;
-
-      case 'ratio':
+      }
+      case 'ratio': {
         // Percent of the available vertical space that one row takes up. Here, rowHeight holds
         // the ratio value. For example, if the width:height ratio is 4:3, rowHeight = 1.333.
         vShare = hShare / rowHeight;
 
         // Base veritcal size of a row.
-        vUnit = UNIT({ share: vShare, gutterShare: hGutterShare, gutter });
+        vUnit = unitCSS({ share: vShare, gutterShare: hGutterShare, gutter });
 
         // padidngTop and marginTop are used to maintain the given aspect ratio, as
         // a percentage-based value for these properties is applied to the *width* of the
         // containing block. See http://www.w3.org/TR/CSS2/box.html#margin-properties
-        style.paddingTop = DIMENSION({ unit: vUnit, span: spans.row, gutter });
-        style.marginTop = POSITION({ unit: vUnit, offset: position.row, gutter });
+        style.paddingTop = dimensionCSS({ unit: vUnit, span: spans.row, gutter });
+        style.marginTop = positionCSS({ unit: vUnit, offset: position.row, gutter });
         break;
-
-      case 'fit':
+      }
+      case 'fit': {
         // Fraction of the gutter size that each column takes up.
         let vGutterShare = (rowCount - 1) / rowCount;
 
@@ -205,11 +204,12 @@ export default Component.extend({
         vShare = (1 / rowCount) * 100;
 
         // Base vertical size of a row.
-        vUnit = UNIT({ share: vShare, gutterShare: vGutterShare, gutter });
+        vUnit = unitCSS({ share: vShare, gutterShare: vGutterShare, gutter });
 
-        style.top = POSITION({ unit: vUnit, offset: position.row, gutter });
-        style.height = DIMENSION({ unit: vUnit, span: spans.row, gutter });
+        style.top = positionCSS({ unit: vUnit, offset: position.row, gutter });
+        style.height = dimensionCSS({ unit: vUnit, span: spans.row, gutter });
         break;
+      }
     }
 
     return style;
@@ -220,23 +220,26 @@ export default Component.extend({
     let style = {};
 
     switch (rowMode) {
-      case 'fixed':
-        style.height = DIMENSION({ unit: rowHeight, span: rowCount, gutter });
+      case 'fixed': {
+        style.height = dimensionCSS({ unit: rowHeight, span: rowCount, gutter });
         style.paddingBottom = '';
         break;
-      case 'ratio':
+      }
+      case 'ratio': {
         // rowHeight is width / height
         let hGutterShare = colCount === 1 ? 0 : (colCount - 1) / colCount;
         let hShare = (1 / colCount) * 100;
         let vShare = hShare * (1 / rowHeight);
-        let vUnit = UNIT({ share: vShare, gutterShare: hGutterShare, gutter });
+        let vUnit = unitCSS({ share: vShare, gutterShare: hGutterShare, gutter });
 
         style.height = '';
-        style.paddingBottom = DIMENSION({ unit: vUnit, span: rowCount, gutter });
+        style.paddingBottom = dimensionCSS({ unit: vUnit, span: rowCount, gutter });
         break;
-      case 'fit':
+      }
+      case 'fit': {
         // noop, as the height is user set
         break;
+      }
     }
 
     return style;
@@ -266,13 +269,16 @@ export default Component.extend({
   _getRowHeight() {
     let rowHeight = this._getResponsiveAttribute(this, 'md-row-height');
     switch (this._getRowMode()) {
-      case 'fixed':
+      case 'fixed': {
         return this._applyDefaultUnit(rowHeight);
-      case 'ratio':
+      }
+      case 'ratio': {
         let whRatio = rowHeight.split(':');
         return parseFloat(whRatio[0]) / parseFloat(whRatio[1]);
-      case 'fit':
+      }
+      case 'fit': {
         return 0;
+      }
     }
   },
 

@@ -48,7 +48,7 @@ function buildComputedValidationMessages(property, validations = [], customValid
             message: loc(message.string || message, paramValue, currentValue)
           });
         }
-      } catch (error) {
+      } catch(error) {
         Logger.error('Exception with validation: ', validation, error);
       }
     });

@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import run from 'ember-runloop';
+import $ from 'jquery';
 
 moduleForComponent('paper-menu', 'Integration | Component | paper menu', {
   integration: true
@@ -170,7 +171,7 @@ test('keydown changes focused element', function(assert) {
 
       let selectors = $('md-menu-item');
       assert.ok($(selectors[0].firstElementChild).hasClass('md-focused'), 'first menu item given focus');
-      let e = $.Event('keydown');
+      let e = new $.Event('keydown');
       let menu = $('md-menu-content');
       e.which = 40;
       e.target = menu[0].firstElementChild;
@@ -181,7 +182,7 @@ test('keydown changes focused element', function(assert) {
         let first = $(selectors[0].firstElementChild);
         let second = $(selectors[1].firstElementChild);
         assert.ok(second.hasClass('md-focused') && !first.hasClass('md-focused'), 'focus has changed to second item');
-        let e = $.Event('keydown');
+        let e = new $.Event('keydown');
         e.which = 38;
         e.target = selectors[1];
         $(selectors[1]).trigger(e);

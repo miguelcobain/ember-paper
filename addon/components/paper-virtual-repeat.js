@@ -129,7 +129,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
 
   didReceiveAttrs(changes) {
     this._super(...arguments);
-    let { newAttrs, oldAttrs={} } = changes;
+    let { newAttrs, oldAttrs = {} } = changes;
 
     RSVP.cast(this.getAttr('items')).then((attrItems) => {
       let items = emberArray(attrItems);
@@ -190,7 +190,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
   },
 
   endAt: computed('_startAt', '_visibleItemCount', 'items.length', function() {
-    let { _startAt, _visibleItemCount } = this.getProperties('_startAt' , '_visibleItemCount');
+    let { _startAt, _visibleItemCount } = this.getProperties('_startAt', '_visibleItemCount');
     let totalItemsCount = get(this, 'items.length');
     return Math.min(totalItemsCount, _startAt + _visibleItemCount);
 
@@ -227,7 +227,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     );
   }).readOnly(),
 
-  scrollToVirtualItem(newIndex, toTop=false) {
+  scrollToVirtualItem(newIndex, toTop = false) {
     let { _startAt, endAt } = this.getProperties('_startAt', 'endAt');
 
     if (newIndex < _startAt || newIndex > endAt) {

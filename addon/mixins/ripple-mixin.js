@@ -199,8 +199,8 @@ export default Mixin.create({
           return false;
         }
       }
-
-    } while (element = element.parentNode);
+      element = element.parentNode;
+    } while (element);
 
     return true;
   },

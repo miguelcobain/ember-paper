@@ -104,7 +104,7 @@ function calculateGridfor(colCount, tileSpans) {
         position: reserveSpace(spans, i)
       };
     }),
-    rowCount: curRow + Math.max.apply(Math, spaceTracker)
+    rowCount: curRow + Math.max(...spaceTracker)
   };
 
   function reserveSpace(spans, i) {

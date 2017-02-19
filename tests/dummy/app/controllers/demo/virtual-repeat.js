@@ -31,25 +31,21 @@ export default Controller.extend({
     return emberArray(arr);
   }),
 
-  years: computed({
-    get() {
-      let currentYear = new Date().getFullYear();
-      return Array.apply(null, { length: 20 }).map((_, i) => currentYear - i);
-    }
+  years: computed(function() {
+    let currentYear = new Date().getFullYear();
+    return new Array(20).map((_, i) => currentYear - i);
   }).readOnly(),
 
-  monthsWithYears: computed('years', {
-    get() {
-      let results = [];
-      this.get('years').forEach((year) => {
-        results.push({ year, text: year, header: true });
-        let monthsInYear =  Array.apply(null, { length: 12 }).map((_, i) => {
-          return { year, month: i, text: months[i] };
-        });
-        results.push(...monthsInYear);
+  monthsWithYears: computed('years', function() {
+    let results = [];
+    this.get('years').forEach((year) => {
+      results.push({ year, text: year, header: true });
+      let monthsInYear = new Array(12).map((_, i) => {
+        return { year, month: i, text: months[i] };
       });
-      return results;
-    }
+      results.push(...monthsInYear);
+    });
+    return results;
   }).readOnly(),
 
   actions: {

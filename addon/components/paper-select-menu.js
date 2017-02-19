@@ -68,7 +68,8 @@ export default PaperMenu.extend({
     let optionNodes = selectNode.getElementsByTagName('md-option');
     let optgroupNodes = selectNode.getElementsByTagName('md-optgroup');
 
-    let centeredNode;
+    let centeredNode, left, top, transformOrigin;
+
     // If a selected node, center around that
     if (selectedNode) {
       centeredNode = selectedNode;
@@ -126,7 +127,6 @@ export default PaperMenu.extend({
       }
     }
 
-    let left, top, transformOrigin;
     if (shouldOpenAroundTarget) {
       left = targetRect.left;
       top = targetRect.top + targetRect.height;
@@ -137,14 +137,14 @@ export default PaperMenu.extend({
       }
     } else {
       left = (targetRect.left + centeredRect.left - centeredRect.paddingLeft) + 2;
-      top = Math.floor(targetRect.top + targetRect.height / 2 - centeredRect.height / 2 -
-          centeredRect.top + contentNode.scrollTop) + 2;
+      top = Math.floor(targetRect.top + targetRect.height / 2 - centeredRect.height / 2
+        - centeredRect.top + contentNode.scrollTop) + 2;
 
       transformOrigin = `${centeredRect.left + targetRect.width / 2}px
         ${centeredRect.top + centeredRect.height / 2 - contentNode.scrollTop}px 0px`;
 
-      containerNode.style.minWidth = `${targetRect.width + centeredRect.paddingLeft +
-        centeredRect.paddingRight}px`;
+      containerNode.style.minWidth = `${targetRect.width + centeredRect.paddingLeft
+        + centeredRect.paddingRight}px`;
     }
 
     let containerRect = containerNode.getBoundingClientRect();
