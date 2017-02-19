@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+import $ from 'jquery';
 
 moduleForComponent('paper-dialog', 'Integration | Component | paper dialog', {
   integration: true

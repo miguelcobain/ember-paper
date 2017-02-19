@@ -40,29 +40,33 @@ export default PaperMenuContentInner.extend({
 
   keyDown(ev) {
     switch (ev.which) {
-      case this.get('constants.KEYCODE.ESCAPE'):
+      case this.get('constants.KEYCODE.ESCAPE'): {
         this.dropdown.actions.close();
         break;
+      }
       case this.get('constants.KEYCODE.LEFT_ARROW'):
-      case this.get('constants.KEYCODE.UP_ARROW'):
+      case this.get('constants.KEYCODE.UP_ARROW'): {
         ev.preventDefault();
         this.focusOption(ev, -1);
         let newHighlighted = advanceSelectableOption(this.dropdown.results, this.dropdown.highlighted, -1);
         this.dropdown.actions.highlight(newHighlighted, ev);
         this.dropdown.actions.scrollTo(newHighlighted);
         break;
+      }
       case this.get('constants.KEYCODE.RIGHT_ARROW'):
-      case this.get('constants.KEYCODE.DOWN_ARROW'):
+      case this.get('constants.KEYCODE.DOWN_ARROW'): {
         ev.preventDefault();
         this.focusOption(ev, 1);
         let newHighlighted2 = advanceSelectableOption(this.dropdown.results, this.dropdown.highlighted, 1);
         this.dropdown.actions.highlight(newHighlighted2, ev);
         this.dropdown.actions.scrollTo(newHighlighted2);
         break;
-      case this.get('constants.KEYCODE.ENTER'):
+      }
+      case this.get('constants.KEYCODE.ENTER'): {
         ev.preventDefault();
         this.dropdown.actions.choose(this.dropdown.highlighted);
         break;
+      }
     }
   },
 

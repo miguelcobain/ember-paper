@@ -4,7 +4,7 @@ const { computed } = Ember;
 
 export default BasicTrigger.extend({
   tagName: 'md-autocomplete',
-  attributeBindings: ['label:md-floating-label','disabled:disabled'],
+  attributeBindings: ['label:md-floating-label', 'disabled:disabled'],
   disabled: computed('disabledProxy', function() {
     return this.get('disabledProxy') ? this.get('disabledProxy') : undefined;
   }),

@@ -114,33 +114,40 @@ export default BasicDropdownComponent.extend({
     }
 
     switch (positionMode.left) {
-      case 'target':
+      case 'target': {
         position.left = existingOffsets.left + originNodeRect.left - alignTargetRect.left;
         transformOrigin += 'left';
         break;
-      case 'target-left':
+      }
+      case 'target-left': {
         position.left = originNodeRect.left;
         transformOrigin += 'left';
         break;
-      case 'target-right':
+      }
+      case 'target-right': {
         position.left = originNodeRect.right - openMenuNodeRect.width + (openMenuNodeRect.right - alignTargetRect.right);
         transformOrigin += 'right';
         break;
-      case 'cascade':
+      }
+      case 'cascade': {
         let willFitRight = (originNodeRect.right + openMenuNodeRect.width) < bounds.right;
         position.left = willFitRight ? originNodeRect.right - originNode.style.left : originNodeRect.left - originNode.style.left - openMenuNodeRect.width;
         transformOrigin += willFitRight ? 'left' : 'right';
         break;
-      case 'right':
+      }
+      case 'right': {
         position.left = originNodeRect.right - openMenuNodeRect.width;
         transformOrigin += 'right';
         break;
-      case 'left':
+      }
+      case 'left': {
         position.left = originNodeRect.left;
         transformOrigin += 'left';
         break;
-      default:
+      }
+      default: {
         assert(`Invalid target mode '${positionMode.left}' specified for paper-menu on X axis.`);
+      }
     }
 
     // sum offsets

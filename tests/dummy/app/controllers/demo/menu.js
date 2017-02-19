@@ -4,7 +4,7 @@ const { Controller, A } = Ember;
 
 export default Controller.extend({
 
-  options: A([1,2,3,4,5]),
+  options: A([1, 2, 3, 4, 5]),
 
   items: A([
     {

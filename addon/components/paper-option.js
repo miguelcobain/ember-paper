@@ -16,7 +16,7 @@ const { computed } = Ember;
 export default PaperMenuItem.extend(RippleMixin, {
   layout,
   tagName: 'md-option',
-  attributeBindings: ['aria-selected','aria-disabled','aria-current','data-option-index','role','selected','tabindex'],
+  attributeBindings: ['aria-selected', 'aria-disabled', 'aria-current', 'data-option-index', 'role', 'selected', 'tabindex'],
   rippleContainerSelector: null,
   tabindex: '0',
   fitRipple: computed.readOnly('isIconButton'),

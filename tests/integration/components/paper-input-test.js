@@ -347,6 +347,52 @@ test('custom validations work', function(assert) {
   assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
 });
 
+test('changing param in built-in validations works', function(assert) {
+  assert.expect(3);
+
+  this.value = '';
+  this.required = false;
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      required=required}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 0, 'no errors');
+
+  this.set('required', true);
+
+  assert.equal(this.$('.paper-input-error').length, 1, 'renders one error');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'This is required.');
+});
+
+test('changing param in custom validations works', function(assert) {
+  assert.expect(6);
+
+  this.value = 'aaabbbccc';
+  this.notinclude = 'cc';
+  this.customValidations = [{
+    param: 'notinclude',
+    message: 'You can\'t include the substring %@.',
+    validate: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) === -1
+  }];
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      maxlength=8 customValidations=customValidations notinclude=notinclude}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
+
+  this.set('notinclude', 'bb');
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring bb.');
+});
+
 test('custom validations without param work', function(assert) {
   assert.expect(3);
 
