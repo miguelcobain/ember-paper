@@ -48,6 +48,13 @@ export default Component.extend(TransitionMixin, {
     this.updateLockedOpen();
   },
 
+  didReceiveAttrs() {
+    this._super(...arguments);
+    if (typeof FastBoot === 'undefined') {
+      this.updateLockedOpen();
+    }
+  },
+
   willDestroyElement() {
     this._super(...arguments);
     $(window).off(`resize.${this.elementId}`);
@@ -71,6 +78,7 @@ export default Component.extend(TransitionMixin, {
 
     if (coercedIsLockedOpen !== isLockedOpen) {
       this.set('isLockedOpen', isLockedOpen);
+
 
       // if sidenav is open and we enter lockedOpen,
       // make the sidenav enter the "closed" state

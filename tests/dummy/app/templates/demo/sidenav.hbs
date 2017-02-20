@@ -7,7 +7,7 @@
     {{#paper-toolbar-tools}}
       <h2>Basic Usage</h2>
       <span class="flex"></span>
-      {{#paper-button onClick=(action "toggleSourceCode") iconButton=true}}
+      {{#paper-button onClick=(action "toggle" "showSourceCode") iconButton=true}}
         {{paper-icon icon="code"}}
       {{/paper-button}}
     {{/paper-toolbar-tools}}
@@ -38,7 +38,7 @@
         <div class="layout-fill layout-align-start-center layout-column" style="height: 500px">
           <p>
             The left sidenav will "lock open" on a medium (>=960px wide) device.
-            The right sidenav never "locks open" because we set <code>lockedOpen=false</code>. 
+            The right sidenav never "locks open" because we set <code>lockedOpen=false</code>.
           </p>
           <p>
             Left sidenav is <strong>{{if leftSideBarOpen "opened" "closed"}}</strong>.
@@ -76,6 +76,62 @@
           Çup? I'm on the right side.
         {{/paper-content}}
       {{/paper-sidenav}}
+
+    {{/paper-sidenav-container}}
+    {{! END-SNIPPET sidenav }}
+  </div>
+
+{{/paper-card}}
+
+{{#paper-card}}
+  {{#paper-toolbar}}
+    {{#paper-toolbar-tools}}
+      <h2>Persistent Sidenav</h2>
+      <span class="flex"></span>
+      {{#paper-button onClick=(action "toggle" "persistentCode") iconButton=true}}
+        {{paper-icon "code"}}
+      {{/paper-button}}
+    {{/paper-toolbar-tools}}
+  {{/paper-toolbar}}
+
+  <div class="doc-code-example {{if persistentCode 'is-visible'}}">
+    {{code-snippet name="sidenav.hbs"}}
+  </div>
+
+  <div class="doc-content-example">
+    {{! BEGIN-SNIPPET sidenav }}
+    {{#paper-sidenav-container class="inner-sidenav"}}
+
+      {{#paper-sidenav
+        class="md-whiteframe-z2"
+        name="left2"
+        open=leftSideBarOpen2
+        lockedOpen=leftSideBarLockedOpen
+        onToggle=(action (mut leftSideBarOpen2))}}
+        {{#paper-toolbar as |toolbar|}}
+          {{#paper-toolbar-tools}}Left Sidenav{{/paper-toolbar-tools}}
+        {{/paper-toolbar}}
+        {{#paper-content padding=true}}
+          Çup?
+        {{/paper-content}}
+      {{/paper-sidenav}}
+
+      {{#paper-card-content class="flex"}}
+        <div class="layout-fill layout-align-start-center layout-column" style="height: 500px">
+          <p>
+            Another way of using the sidenav is to toggle the <code>lockedOpen</code> state.
+            This corresponds to the "persistent sidenav" pattern in the material spec.
+          </p>
+          <p>
+            Left sidenav is <strong>{{if leftSideBarLockedOpen "locked" "unlocked"}}</strong>.
+          </p>
+
+          {{#paper-button raised=true onClick=(action "toggle" "leftSideBarLockedOpen")}}
+            {{if leftSideBarLockedOpen "Unlock" "Lock"}} left sidenav
+          {{/paper-button}}
+
+        </div>
+      {{/paper-card-content}}
 
     {{/paper-sidenav-container}}
     {{! END-SNIPPET sidenav }}
