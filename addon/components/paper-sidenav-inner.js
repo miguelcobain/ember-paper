@@ -79,7 +79,6 @@ export default Component.extend(TransitionMixin, {
     if (coercedIsLockedOpen !== isLockedOpen) {
       this.set('isLockedOpen', isLockedOpen);
 
-
       // if sidenav is open and we enter lockedOpen,
       // make the sidenav enter the "closed" state
       if (!this.get('closed') && isLockedOpen) {
