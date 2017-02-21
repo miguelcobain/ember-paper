@@ -1,59 +1,43 @@
 {
-  "name": "ember-paper",
-  "description": "The Ember approach to Material Design.",
-  "version": "0.1.2",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
-  "scripts": {
-    "start": "ember server",
-    "build": "ember build",
-    "test": "ember try:testall"
-  },
-  "repository": "https://github.com/miguelcobain/ember-paper",
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "author": "Miguel Andrade <jmandrade0@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/miguelcobain/ember-paper/issues"
-  },
-  "devDependencies": {
-    "broccoli-asset-rev": "^2.0.2",
-    "broccoli-merge-trees": "~0.2.1",
-    "broccoli-static-compiler": "~0.2.1",
-    "ember-cli": "0.2.7",
-    "ember-cli-app-version": "0.3.3",
-    "ember-cli-content-security-policy": "0.4.0",
-    "ember-cli-dependency-checker": "^1.0.0",
-    "ember-cli-github-pages": "0.0.4",
-    "ember-cli-htmlbars": "0.7.6",
-    "ember-cli-ic-ajax": "0.1.1",
-    "ember-cli-inject-live-reload": "^1.3.0",
-    "ember-cli-qunit": "0.3.13",
-    "ember-cli-sass": "4.0.0-beta.5",
-    "ember-cli-uglify": "^1.0.1",
-    "ember-disable-prototype-extensions": "^1.0.0",
-    "ember-disable-proxy-controllers": "^1.0.0",
-    "ember-export-application-global": "^1.0.2",
-    "ember-prism": "0.0.4",
-    "ember-try": "0.0.6"
-  },
-  "dependencies": {
-    "broccoli-autoprefixer": "^3.0.0",
-    "ember-cli-babel": "^5.0.0"
-  },
-  "keywords": [
-    "ember-addon",
-    "material",
-    "design",
-    "ember",
-    "paper"
-  ],
-  "ember-addon": {
-    "configPath": "tests/dummy/config",
-    "demoURL": "https://miguelcobain.github.io/ember-paper"
+  "dependencies": {},
+  "fastboot": {
+    "moduleWhitelist": [],
+    "manifest": {
+      "appFile": "fastboot/dummy-91f2040263cd5282309479c3bd011b8a.js",
+      "vendorFile": "fastboot/vendor-ff80bf963c39652638199efce9949df6.js",
+      "htmlFile": "index.html"
+    },
+    "appConfig": {
+      "modulePrefix": "dummy",
+      "environment": "production",
+      "rootURL": "/ember-paper/release-1",
+      "locationType": "hash",
+      "EmberENV": {
+        "FEATURES": {},
+        "EXTEND_PROTOTYPES": {
+          "Date": false
+        }
+      },
+      "APP": {
+        "rootElement": "body",
+        "name": "ember-paper",
+        "version": "1.0.0-alpha.16+a2b4b70d",
+        "autoboot": false
+      },
+      "contentSecurityPolicy": {
+        "default-src": "'none'",
+        "script-src": "'self' 'unsafe-inline' 'unsafe-eval' https://buttons.github.io https://api.github.com",
+        "font-src": "'self' https://fonts.gstatic.com",
+        "style-src": "'self' 'unsafe-inline' https://buttons.github.io https://fonts.googleapis.com",
+        "connect-src": "'self'",
+        "img-src": "'self' data:",
+        "media-src": "'self'",
+        "child-src": "'self' https://buttons.github.io"
+      },
+      "ember-paper": {
+        "insertFontLinks": true
+      },
+      "exportApplicationGlobal": false
+    }
   }
 }
