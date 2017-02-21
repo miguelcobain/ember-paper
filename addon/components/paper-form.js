@@ -14,11 +14,17 @@ const { Component, computed } = Ember;
  */
 export default Component.extend(ParentMixin, {
   layout,
-  tagName: '',
+  tagName: 'form',
   isValid: computed.not('isInvalid'),
   isInvalid: computed('childComponents.@each.isInvalid', function() {
     return this.get('childComponents').isAny('isInvalid');
   }),
+
+  submit() {
+    this.send('onSubmit');
+    return false;
+  },
+
   actions: {
     onValidityChange() {
       if (this.get('lastIsValid') !== this.get('isValid')) {
