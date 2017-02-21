@@ -3,8 +3,8 @@
   "fastboot": {
     "moduleWhitelist": [],
     "manifest": {
-      "appFile": "fastboot/dummy-91f2040263cd5282309479c3bd011b8a.js",
-      "vendorFile": "fastboot/vendor-ff80bf963c39652638199efce9949df6.js",
+      "appFile": "fastboot/dummy-b1a7485a6feb148543a65dce35dc1ff0.js",
+      "vendorFile": "fastboot/vendor-c2c915349684f2644865bc1e8424467a.js",
       "htmlFile": "index.html"
     },
     "appConfig": {
@@ -13,15 +13,12 @@
       "rootURL": "/ember-paper/release-1",
       "locationType": "hash",
       "EmberENV": {
-        "FEATURES": {},
-        "EXTEND_PROTOTYPES": {
-          "Date": false
-        }
+        "FEATURES": {}
       },
       "APP": {
         "rootElement": "body",
         "name": "ember-paper",
-        "version": "1.0.0-alpha.16+a2b4b70d",
+        "version": "1.0.0-alpha.6+ee016391",
         "autoboot": false
       },
       "contentSecurityPolicy": {
@@ -34,9 +31,7 @@
         "media-src": "'self'",
         "child-src": "'self' https://buttons.github.io"
       },
-      "ember-paper": {
-        "insertFontLinks": true
-      },
+      "contentSecurityPolicyHeader": "Content-Security-Policy-Report-Only",
       "exportApplicationGlobal": false
     }
   }
