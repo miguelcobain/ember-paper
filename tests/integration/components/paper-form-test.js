@@ -50,12 +50,12 @@ test('form `onSubmit` action is invoked', function(assert) {
       {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
       {{form.input value=bar onChange=(action (mut bar)) label="Bar"}}
 
-      <a {{action form.onSubmit}}>Submit</a>
+      <button type="button" onclick={{action form.onSubmit}}>Submit</button>
 
     {{/paper-form}}
   `);
 
-  this.$('a').click();
+  this.$('button').click();
 });
 
 test('form `onValidityChange` action is invoked', function(assert) {
@@ -171,11 +171,10 @@ test('form submit button calls form onSubmit action', function(assert) {
 });
 
 test('form submit button is of type submit', function(assert) {
-  this.set('onSubmit', () => {
-  });
+  assert.expect(1);
 
   this.render(hbs`
-    {{#paper-form onSubmit=(action onSubmit) as |form|}}
+    {{#paper-form as |form|}}
       {{#form.submit-button}}Submit{{/form.submit-button}}
     {{/paper-form}}
   `);
@@ -200,5 +199,5 @@ test('form `onSubmit` action is invoked when form element is submitted', functio
     {{/paper-form}}
   `);
 
-  this.$('input').click();
+  this.$('input').last().click();
 });
