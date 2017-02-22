@@ -8,7 +8,7 @@ import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 
-const { Component, inject, assert } = Ember;
+const { Component, inject, assert, computed } = Ember;
 
 /**
  * @class PaperCheckbox
@@ -22,7 +22,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   layout,
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
-  classNameBindings: ['value:md-checked'],
+  classNameBindings: ['isChecked:md-checked', 'indeterminate:md-indeterminate'],
 
   /* RippleMixin Overrides */
   rippleContainerSelector: '.md-container',
@@ -36,6 +36,9 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   constants: inject.service(),
 
   value: false,
+
+  notIndeterminate: computed.not('indeterminate'),
+  isChecked: computed.and('notIndeterminate', 'value'),
 
   init() {
     this._super(...arguments);
