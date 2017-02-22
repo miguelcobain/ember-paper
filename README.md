@@ -63,7 +63,7 @@ If you need a component for your project which has not yet been migrated to vers
 
 - The team coordinates who is working on what component(s) with a [shared canvas document](https://usecanvas.com/emberpaper/backlog/5lluHTIZAI8G2797TdEcsD).
 
-- The [Angular Material demo site](https://material.angularjs.org/1.0.7/) provides examples of what we are trying to accomplish. Use version 1.0.7.
+- The [Angular Material demo site](https://material.angularjs.org/1.0.8/) provides examples of what we are trying to accomplish. Use version 1.0.8.
 
 - Building the `ember-paper` demo application will give you your own up-to-date reference. This can be accomplished by installing ember-paper as if it were an application and running `ember server`.
 
