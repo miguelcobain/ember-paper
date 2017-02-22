@@ -54,7 +54,7 @@
     "loader.js": "^4.0.10"
   },
   "dependencies": {
-    "angular-material-source": "angular/material#v1.0.6",
+    "angular-material-source": "angular/material#v1.0.7",
     "broccoli-autoprefixer": "^3.0.0",
     "broccoli-filter": "^1.2.3",
     "broccoli-funnel": "^1.0.1",
@@ -64,11 +64,11 @@
     "ember-cli-htmlbars": "^1.1.1",
     "ember-composability-tools": "0.0.7",
     "ember-css-transitions": "0.1.9",
+    "ember-power-select": "1.2.0",
+    "ember-wormhole": "0.5.1",
     "hammerjs": "^2.0.8",
     "matchmedia-polyfill": "^0.3.0",
     "propagating-hammerjs": "^1.4.6",
-    "ember-power-select": "1.2.0",
-    "ember-wormhole": "0.5.1",
     "resolve": "^1.1.7",
     "virtual-each": "0.3.1"
   },
