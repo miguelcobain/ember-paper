@@ -24,6 +24,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [9c09fd0](https://github.com/miguelcobain/ember-paper/commit/9c09fd0f0dfca7ca1d93fb48d07770b9036b1758) update angular material to `v1.0.7`
 - [948db82](https://github.com/miguelcobain/ember-paper/commit/948db825f9814d2d1b4a259ac6e523a00bc32c7d) update angular material to `v1.0.8`
 - [f407257](https://github.com/miguelcobain/ember-paper/commit/f4072573d324b0df9fd8383859ba8f02d9e8de39) checkboxes now have an optional indeterminate mode. If `indeterminate` is true it will always take precedence over `value`.
+- [8a5e370](https://github.com/miguelcobain/ember-paper/commit/8a5e370fe18829db5dae7e89f7744848dca186cf) update angular material to `v1.0.9`
 
 ### 1.0.0-alpha.16 (February 14, 2017) <--- forever alone
 - [#636](https://github.com/miguelcobain/ember-paper/pull/636) Consuming apps can now specify `ENV['ember-paper'].insertFontLinks` to prevent the insertion of google fonts links in the head tag. This is especially useful if you want to include your own fonts.
