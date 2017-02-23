@@ -22,6 +22,8 @@ export default Component.extend(FocusableMixin, ParentMixin, {
   /* FocusableMixin Overrides */
   focusOnlyOnKey: true,
 
+  radioComponent: 'paper-radio',
+
   constants: inject.service(),
 
   // Lifecycle hooks

@@ -35,6 +35,9 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   tabindex: null,
   hideAllMessages: false,
   isTouched: false,
+
+  iconComponent: 'paper-icon',
+
   isInvalid: computed.or('validationErrorMessages.length', 'isNativeInvalid'),
   hasValue: computed('value', 'isNativeInvalid', function() {
     let value = this.get('value');

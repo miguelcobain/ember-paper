@@ -15,6 +15,12 @@ const { Component, computed } = Ember;
 export default Component.extend(ParentMixin, {
   layout,
   tagName: 'form',
+
+  inputComponent: 'paper-input',
+  submitButtonComponent: 'paper-button',
+  selectComponent: 'paper-select',
+  autocompleteComponent: 'paper-autocomplete',
+
   isValid: computed.not('isInvalid'),
   isInvalid: computed('childComponents.@each.isInvalid', function() {
     return this.get('childComponents').isAny('isInvalid');
