@@ -132,16 +132,23 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     event.preventDefault();
   },
 
+  // needed for iOS
+  // iOS doesn't trigger a click event on normal divs
+  // unless we use `cursor: pointer` css
+  touchEnd(e) {
+    this.click(e);
+  },
+
   click(event) {
     if (this.get('disabled')) {
       return;
     }
 
-    this.setValueFromEvent(event);
+    this.setValueFromEvent(event.pageX || event.clientX);
   },
 
-  setValueFromEvent(event) {
-    let exactVal = this.percentToValue(this.positionToPercent(event.clientX || event.srcEvent.clientX));
+  setValueFromEvent(value) {
+    let exactVal = this.percentToValue(this.positionToPercent(value));
     let closestVal = this.minMaxValidator(this.stepValidator(exactVal));
 
     this.sendAction('onChange', closestVal);
@@ -156,7 +163,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     this.set('dragging', true);
     this.$().focus();
 
-    this.setValueFromEvent(event);
+    this.setValueFromEvent(event.center.x);
   },
 
   drag(event) {
@@ -164,10 +171,10 @@ export default Component.extend(FocusableMixin, ColorMixin, {
       return;
     }
 
-    this.setValueFromEvent(event);
+    this.setValueFromEvent(event.center.x);
   },
 
-  dragEnd() {
+  dragEnd(event) {
     if (this.get('disabled')) {
       return;
     }
