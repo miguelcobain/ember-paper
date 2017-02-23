@@ -26,6 +26,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [f407257](https://github.com/miguelcobain/ember-paper/commit/f4072573d324b0df9fd8383859ba8f02d9e8de39) checkboxes now have an optional indeterminate mode. If `indeterminate` is true it will always take precedence over `value`.
 - [8a5e370](https://github.com/miguelcobain/ember-paper/commit/8a5e370fe18829db5dae7e89f7744848dca186cf) update angular material to `v1.0.9`
 - [10fddd9](https://github.com/miguelcobain/ember-paper/commit/10fddd9027f28c1bdfdab903d067377211536d76) Enhance customizability paper-{form, input, radio-group}
+- [a86bb64](https://github.com/miguelcobain/ember-paper/commit/a86bb6422d5f6f458dbc6b1eda123fcf136f9f0a) fix paper-slider on iOS devices
 
 ### 1.0.0-alpha.16 (February 14, 2017) <--- forever alone
 - [#636](https://github.com/miguelcobain/ember-paper/pull/636) Consuming apps can now specify `ENV['ember-paper'].insertFontLinks` to prevent the insertion of google fonts links in the head tag. This is especially useful if you want to include your own fonts.
