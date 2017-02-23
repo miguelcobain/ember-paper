@@ -1,6 +1,9 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+
+const { Component } = Ember;
 
 moduleForComponent('paper-input', 'Integration | Component | paper input', {
   integration: true,
@@ -34,6 +37,32 @@ test('renders with right icon', function(assert) {
   assert.ok(this.$('md-input-container md-icon').length);
   assert.ok(this.$('md-input-container').hasClass('md-has-icon'));
   assert.ok(this.$('md-input-container').hasClass('md-icon-right'));
+});
+
+test('renders with a custom icon component when `iconComponent` is specified', function(assert) {
+  assert.expect(2);
+
+  this.register('component:custom-icon', Component.extend({
+    classNames: ['custom-icon']
+  }));
+
+  this.render(hbs`{{paper-input iconComponent="custom-icon" icon="person" onChange=dummyOnChange}}`);
+
+  assert.equal(this.$('md-input-container md-icon').length, 0, 'default icon component is not rendered');
+  assert.equal(this.$('md-input-container .custom-icon').length, 1, 'custom icon component rendered');
+});
+
+test('renders with a custom icon component when `iconComponent` is specified and icon should be displayed on the right', function(assert) {
+  assert.expect(2);
+
+  this.register('component:custom-icon', Component.extend({
+    classNames: ['custom-icon']
+  }));
+
+  this.render(hbs`{{paper-input iconComponent="custom-icon" iconRight="person" onChange=dummyOnChange}}`);
+
+  assert.equal(this.$('md-input-container md-icon').length, 0, 'default icon component is not rendered');
+  assert.equal(this.$('md-input-container .custom-icon').length, 1, 'custom icon component rendered');
 });
 
 test('renders input with id', function(assert) {
