@@ -39,9 +39,10 @@ export default Component.extend(ParentMixin, {
 
   actions: {
     onValidityChange() {
-      if (this.get('lastIsValid') !== this.get('isValid')) {
+      if (this.get('lastIsValid') !== this.get('isValid') || this.get('lastIsTouched') !== this.get('isTouched')) {
         this.sendAction('onValidityChange', this.get('isValid'), this.get('isTouched'), this.get('isInvalidAndTouched'));
         this.set('lastIsValid', this.get('isValid'));
+        this.set('lastIsTouched', this.get('isTouched'));
       }
     },
     onSubmit() {

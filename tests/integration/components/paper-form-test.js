@@ -64,7 +64,7 @@ test('form `onSubmit` action is invoked', function(assert) {
 test('form `onValidityChange` action is invoked', function(assert) {
   // paper-input triggers `onValidityChange` on render
   // so we expect two runs: one on render and another on validity change
-  assert.expect(6);
+  assert.expect(9);
 
   this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
     assert.ok(isValid);
@@ -80,12 +80,18 @@ test('form `onValidityChange` action is invoked', function(assert) {
   `);
 
   this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
+    assert.ok(isValid);
+    assert.ok(isTouched);
+    assert.notOk(isInvalidAndTouched);
+  });
+
+  this.$('input:first').trigger('blur');
+
+  this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
     assert.notOk(isValid);
     assert.ok(isTouched);
     assert.ok(isInvalidAndTouched);
   });
-
-  this.$('input:first').trigger('blur');
 
   this.set('errors', [{
     message: 'foo should be a number.',
