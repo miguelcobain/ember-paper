@@ -64,10 +64,12 @@ test('form `onSubmit` action is invoked', function(assert) {
 test('form `onValidityChange` action is invoked', function(assert) {
   // paper-input triggers `onValidityChange` on render
   // so we expect two runs: one on render and another on validity change
-  assert.expect(2);
+  assert.expect(6);
 
-  this.set('onValidityChange', () => {
-    assert.ok(true);
+  this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
+    assert.ok(isValid);
+    assert.notOk(isTouched);
+    assert.notOk(isInvalidAndTouched);
   });
 
   this.render(hbs`
@@ -77,6 +79,14 @@ test('form `onValidityChange` action is invoked', function(assert) {
     {{/paper-form}}
   `);
 
+  this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
+    assert.notOk(isValid);
+    assert.ok(isTouched);
+    assert.ok(isInvalidAndTouched);
+  });
+
+  this.$('input:first').trigger('blur');
+
   this.set('errors', [{
     message: 'foo should be a number.',
     attribute: 'foo'
@@ -84,6 +94,7 @@ test('form `onValidityChange` action is invoked', function(assert) {
     message: 'foo should be smaller than 12.',
     attribute: 'foo'
   }]);
+
 });
 
 test('form is reset after submit action is invoked', function(assert) {

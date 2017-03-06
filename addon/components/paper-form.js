@@ -26,6 +26,10 @@ export default Component.extend(ParentMixin, {
     return this.get('childComponents').isAny('isInvalid');
   }),
 
+  isTouched: computed('childComponents.@each.isTouched', function() {
+    return this.get('childComponents').isAny('isTouched');
+  }),
+
   submit() {
     this.send('onSubmit');
     return false;
@@ -34,7 +38,7 @@ export default Component.extend(ParentMixin, {
   actions: {
     onValidityChange() {
       if (this.get('lastIsValid') !== this.get('isValid')) {
-        this.sendAction('onValidityChange', this.get('isValid'));
+        this.sendAction('onValidityChange', this.get('isValid'), this.get('isTouched'), this.get('isInvalid') && this.get('isTouched'));
         this.set('lastIsValid', this.get('isValid'));
       }
     },
