@@ -1,6 +1,8 @@
 {{yield (hash
   isValid=isValid
   isInvalid=isInvalid
+  isTouched=isTouched
+  isInvalidAndTouched=isInvalidAndTouched
   input=(component inputComponent
     parentComponent=this
     onValidityChange=(action "onValidityChange")

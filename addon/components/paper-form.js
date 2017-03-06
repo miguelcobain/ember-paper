@@ -30,6 +30,8 @@ export default Component.extend(ParentMixin, {
     return this.get('childComponents').isAny('isTouched');
   }),
 
+  isInvalidAndTouched: computed.and('isInvalid', 'isTouched'),
+
   submit() {
     this.send('onSubmit');
     return false;
@@ -38,7 +40,7 @@ export default Component.extend(ParentMixin, {
   actions: {
     onValidityChange() {
       if (this.get('lastIsValid') !== this.get('isValid')) {
-        this.sendAction('onValidityChange', this.get('isValid'), this.get('isTouched'), this.get('isInvalid') && this.get('isTouched'));
+        this.sendAction('onValidityChange', this.get('isValid'), this.get('isTouched'), this.get('isInvalidAndTouched'));
         this.set('lastIsValid', this.get('isValid'));
       }
     },
