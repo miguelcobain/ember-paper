@@ -32,6 +32,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 ### 1.0.0-alpha.16 (February 14, 2017) <--- forever alone
 - [#636](https://github.com/miguelcobain/ember-paper/pull/636) Consuming apps can now specify `ENV['ember-paper'].insertFontLinks` to prevent the insertion of google fonts links in the head tag. This is especially useful if you want to include your own fonts.
 - [4d363ff](https://github.com/miguelcobain/ember-paper/commit/4d363ff0cf810ecd38c8c5a9d9d12d5f6f7f912f) `paper-slider` is now a DDAU component. It will trigger an `onChange` action with the new value. It is up to you to update the value yourself (like `paper-input`, `paper-checkbox`, `paper-switch`, etc).
+- [a03eccf](https://github.com/miguelcobain/ember-paper/commit/a03eccf7e096b5a39b8a053a2679d3b366cc04b6) paper-form's `onValidityChange` now sends `isValid`, `isTouched` and `isInvalidAndTouched`
 
 ### 1.0.0-alpha.15 (January 26, 2017)
 - [#572](https://github.com/miguelcobain/ember-paper/pull/572) updated paper-slider. Smoother sliding and you can slide without having the cursor above the slider, like normal sliding.
