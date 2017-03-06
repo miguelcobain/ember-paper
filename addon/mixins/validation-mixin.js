@@ -121,9 +121,12 @@ export default Mixin.create({
   notifyValidityChange() {
     let isValid = this.get('isValid');
     let lastIsValid = this.get('lastIsValid');
-    if (lastIsValid !== isValid) {
+    let isTouched = this.get('isTouched');
+    let lastIsTouched = this.get('lastIsTouched');
+    if (lastIsValid !== isValid || lastIsTouched !== isTouched) {
       this.sendAction('onValidityChange', isValid);
       this.set('lastIsValid', isValid);
+      this.set('lastIsTouched', isTouched);
     }
   },
   customValidations: [],
