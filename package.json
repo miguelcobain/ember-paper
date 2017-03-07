@@ -62,7 +62,7 @@
     "ember-basic-dropdown": "0.20.0",
     "ember-cli-babel": "^5.1.7",
     "ember-cli-htmlbars": "^1.1.1",
-    "ember-composability-tools": "0.0.7",
+    "ember-composability-tools": "0.0.8",
     "ember-css-transitions": "0.1.9",
     "ember-power-select": "1.2.0",
     "ember-wormhole": "0.5.1",
