@@ -15,6 +15,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/release-1/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
+### master
+- [56b84cf](https://github.com/miguelcobain/ember-paper/commit/56b84cf6b30e01dcf64961c4f75e101d0899593c) fix sliders on android browsers
+
 ### 1.0.0-alpha.18 (March 7, 2017)
 - [5c66511](https://github.com/miguelcobain/ember-paper/commit/5c665118a9acc9976f6e9b0030dd220fdc8f0ef8) bump ember-composability-tools to `0.0.8`
 - [78b6efb](https://github.com/miguelcobain/ember-paper/commit/78b6efb9791aea365f57fd186f0a6e2aead2cb66) and [7cb32b0](https://github.com/miguelcobain/ember-paper/commit/7cb32b0c61f740cb2dd0740077f71c168da8ac3a) paper-form: trigger onValidityChange when global isTouched changes
