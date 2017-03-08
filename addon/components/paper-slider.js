@@ -144,7 +144,10 @@ export default Component.extend(FocusableMixin, ColorMixin, {
       return;
     }
 
-    this.setValueFromEvent(event.pageX || event.clientX);
+    let x = event.pageX || event.clientX;
+    if (x !== undefined) {
+      this.setValueFromEvent(x);
+    }
   },
 
   setValueFromEvent(value) {
