@@ -21,7 +21,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   attributeBindings: ['min', 'max', 'step', 'discrete:md-discrete', 'tabindex'],
 
   classNames: ['md-default-theme'],
-  classNameBindings: ['isMinimum:md-min', 'active', 'dragging'],
+  classNameBindings: ['isMinimum:md-min', 'active', 'dragging:md-dragging'],
 
   constants: inject.service(),
 
@@ -78,10 +78,8 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   },
 
   _setupHammer() {
-    let thumbContainer = this.$('.md-thumb-container').get(0);
-
     // Enable dragging the slider
-    let containerManager = new Hammer.Manager(thumbContainer);
+    let containerManager = new Hammer.Manager(this.element);
     let pan = new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL, threshold: 10 });
     containerManager.add(pan);
 
