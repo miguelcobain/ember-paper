@@ -3,8 +3,12 @@ import { module, test } from 'qunit';
 
 module('Unit | Utility | clamp');
 
-// Replace this with your real tests.
-test('it works', function(assert) {
-  let result = clamp();
-  assert.ok(result);
+test('it clamps a number to minimum value', function(assert) {
+  let result = clamp(-10, 10, 20);
+  assert.equal(result, 10);
+});
+
+test('it clamps a number to maximum value', function(assert) {
+  let result = clamp(999999, 10, 20);
+  assert.equal(result, 20);
 });
