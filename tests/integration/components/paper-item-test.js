@@ -36,7 +36,7 @@ test('single action checkboxes should not react to item clicks when disabled', f
     {{/paper-list}}
   `);
   return wait().then(() => {
-    let item = this.$('.md-list-item-inner');
+    let item = this.$('._md-list-item-inner');
     item.click();
     assert.notOk(this.get('checkboxEnabled'));
   });
@@ -54,7 +54,7 @@ test('single action checkboxes should react to item clicks', function(assert) {
     {{/paper-list}}
   `);
   return wait().then(() => {
-    let item = this.$('.md-list-item-inner');
+    let item = this.$('._md-list-item-inner');
     item.click();
     assert.ok(this.get('checkboxEnabled'));
   });
@@ -83,10 +83,10 @@ test('single action radios should react to item clicks', function(assert) {
     {{/paper-list}}
   `);
   return wait().then(() => {
-    let firstItem = this.$('.md-list-item-inner').eq(0);
+    let firstItem = this.$('._md-list-item-inner').eq(0);
     firstItem.click();
     assert.equal(this.get('selectedValue'), 'some value 1');
-    let secondItem = this.$('.md-list-item-inner').eq(1);
+    let secondItem = this.$('._md-list-item-inner').eq(1);
     secondItem.click();
     assert.equal(this.get('selectedValue'), 'some value 2');
   });
@@ -138,7 +138,7 @@ test('Item checkbox with secondary action and no primary action is toggled by pr
       {{/paper-item}}
     {{/paper-list}}
   `);
-  let item = this.$('.md-list-item-inner');
+  let item = this.$('._md-list-item-inner');
   return wait().then(() => {
     item.click();
     assert.ok(this.get('checked'));
@@ -195,7 +195,7 @@ test('Item checkbox with secondary action and primary action dont bubble primary
       {{/paper-item}}
     {{/paper-list}}
   `);
-  let item = this.$('.md-list-item-inner');
+  let item = this.$('._md-list-item-inner');
   let mdCheckbox = this.$('md-checkbox');
   return wait().then(() => {
     mdCheckbox.click();

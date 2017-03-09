@@ -22,7 +22,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   attributeBindings: ['min', 'max', 'step', 'discrete:md-discrete', 'tabindex'],
 
   classNames: ['md-default-theme'],
-  classNameBindings: ['isMinimum:md-min', 'active', 'dragging:md-dragging'],
+  classNameBindings: ['isMinimum:_md-min', 'active:_md-active', 'dragging:_md-dragging'],
 
   constants: inject.service(),
 
@@ -126,7 +126,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   enabled: computed.not('disabled'),
 
   sliderDimensions() {
-    return this.$('.md-track-container').get(0).getBoundingClientRect();
+    return this.$('._md-track-container').get(0).getBoundingClientRect();
   },
 
   setValueFromEvent(value) {

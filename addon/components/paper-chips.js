@@ -227,7 +227,7 @@ export default Component.extend({
   },
 
   getInput() {
-    return this.$('.md-chip-input-container input');
+    return this.$('._md-chip-input-container input');
   },
 
   focusMovingTo(selector) {

@@ -44,7 +44,7 @@ test('sidenav starts open when `open=true`', function(assert) {
 
   this.render(hbs`{{paper-sidenav open=true lockedOpen=false}}`);
 
-  assert.notOk(this.$('md-sidenav').hasClass('md-closed'));
+  assert.notOk(this.$('md-sidenav').hasClass('_md-closed'));
 });
 
 test('sidenav starts closed when `open=true`', function(assert) {
@@ -52,7 +52,7 @@ test('sidenav starts closed when `open=true`', function(assert) {
 
   this.render(hbs`{{paper-sidenav open=false lockedOpen=false}}`);
 
-  assert.ok(this.$('md-sidenav').hasClass('md-closed'));
+  assert.ok(this.$('md-sidenav').hasClass('_md-closed'));
 });
 
 test('should trigger an action when clicking on backdrop', function(assert) {
@@ -78,12 +78,12 @@ test('sidenav opens when `open` is changed to `true`', function(assert) {
 
   this.render(hbs`{{paper-sidenav open=isOpen lockedOpen=false}}`);
 
-  assert.ok(this.$('md-sidenav').hasClass('md-closed'));
+  assert.ok(this.$('md-sidenav').hasClass('_md-closed'));
 
   this.set('isOpen', true);
 
   return wait().then(() => {
-    assert.notOk(this.$('md-sidenav').hasClass('md-closed'));
+    assert.notOk(this.$('md-sidenav').hasClass('_md-closed'));
   });
 });
 
@@ -94,12 +94,12 @@ test('sidenav closes when `open` is changed to `false`', function(assert) {
 
   this.render(hbs`{{paper-sidenav open=isOpen lockedOpen=false}}`);
 
-  assert.notOk(this.$('md-sidenav').hasClass('md-closed'));
+  assert.notOk(this.$('md-sidenav').hasClass('_md-closed'));
 
   this.set('isOpen', false);
 
   return wait().then(() => {
-    assert.ok(this.$('md-sidenav').hasClass('md-closed'));
+    assert.ok(this.$('md-sidenav').hasClass('_md-closed'));
   });
 });
 
@@ -144,7 +144,7 @@ test('sidenav "locks open" when specified matchMedia test passes', function(asse
 
   this.render(hbs`{{paper-sidenav}}`);
 
-  assert.ok(this.$('md-sidenav').hasClass('md-locked-open'));
+  assert.ok(this.$('md-sidenav').hasClass('_md-locked-open'));
 });
 
 test('sidenav does not "lock open" when specified matchMedia test does not pass', function(assert) {
@@ -156,7 +156,7 @@ test('sidenav does not "lock open" when specified matchMedia test does not pass'
 
   this.render(hbs`{{paper-sidenav}}`);
 
-  assert.notOk(this.$('md-sidenav').hasClass('md-locked-open'));
+  assert.notOk(this.$('md-sidenav').hasClass('_md-locked-open'));
 });
 
 test('sidenav "locks open" if a resize happens and the test passes', function(assert) {
@@ -168,14 +168,14 @@ test('sidenav "locks open" if a resize happens and the test passes', function(as
 
   this.render(hbs`{{paper-sidenav}}`);
 
-  assert.notOk(this.$('md-sidenav').hasClass('md-locked-open'));
+  assert.notOk(this.$('md-sidenav').hasClass('_md-locked-open'));
 
   window.matchMedia = function() {
     return { matches: true };
   };
   window.dispatchEvent(new window.Event('resize'));
 
-  assert.ok(this.$('md-sidenav').hasClass('md-locked-open'));
+  assert.ok(this.$('md-sidenav').hasClass('_md-locked-open'));
 });
 
 test('sidenav ceases to "lock open" if a resize happens and the test does not pass', function(assert) {
@@ -187,7 +187,7 @@ test('sidenav ceases to "lock open" if a resize happens and the test does not pa
 
   this.render(hbs`{{paper-sidenav}}`);
 
-  assert.ok(this.$('md-sidenav').hasClass('md-locked-open'));
+  assert.ok(this.$('md-sidenav').hasClass('_md-locked-open'));
 
   window.matchMedia = function() {
     return { matches: false };
@@ -195,7 +195,7 @@ test('sidenav ceases to "lock open" if a resize happens and the test does not pa
   window.dispatchEvent(new window.Event('resize'));
 
   return wait().then(() => {
-    assert.notOk(this.$('md-sidenav').hasClass('md-locked-open'));
+    assert.notOk(this.$('md-sidenav').hasClass('_md-locked-open'));
   });
 });
 

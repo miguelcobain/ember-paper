@@ -14,7 +14,7 @@ export default Mixin.create({
   constants: inject.service(),
 
   attributeBindings: ['translateStyle:style'],
-  classNameBindings: ['transformIn:md-transition-in'],
+  classNameBindings: ['transformIn:_md-transition-in'],
 
   fromStyle: computed('defaultedOpenFrom', function() {
     return this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedOpenFrom')));
@@ -77,8 +77,8 @@ export default Mixin.create({
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
 
     nextTick().then(() => {
-      dialogClone.removeClass('md-transition-in');
-      dialogClone.addClass('md-transition-out');
+      dialogClone.removeClass('_md-transition-in');
+      dialogClone.addClass('_md-transition-out');
       dialogClone.attr('style', toStyle);
       nextTick().then(() => {
         run.later(() => {
@@ -93,7 +93,7 @@ export default Mixin.create({
    * Calculate the zoom transform from dialog to origin.
    *
    * We use this to set the dialog position immediately;
-   * then the md-transition-in actually translates back to
+   * then the _md-transition-in actually translates back to
    * `translate3d(0,0,0) scale(1.0)`...
    *
    * NOTE: all values are rounded to the nearest integer

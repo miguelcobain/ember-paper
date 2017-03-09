@@ -25,7 +25,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   classNameBindings: ['isChecked:md-checked', 'indeterminate:md-indeterminate'],
 
   /* RippleMixin Overrides */
-  rippleContainerSelector: '.md-container',
+  rippleContainerSelector: '._md-container',
   center: true,
   dimBackground: false,
   fitRipple: true,

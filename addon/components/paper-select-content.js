@@ -53,9 +53,9 @@ export default PaperMenuContent.extend({
     window.requestAnimationFrame(() => {
       if (!this.get('isDestroyed')) {
         this.set('isActive', false);
-        $clone.addClass('md-leave');
+        $clone.addClass('_md-leave');
         waitForAnimations(clone, function() {
-          $clone.removeClass('md-active');
+          $clone.removeClass('_md-active');
           parentElement.removeChild(clone);
         });
       }

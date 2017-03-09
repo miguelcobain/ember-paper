@@ -25,7 +25,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   layout,
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
-  classNameBindings: ['value:md-checked', 'dragging:md-dragging'],
+  classNameBindings: ['value:md-checked', 'dragging:_md-dragging'],
   toggle: true,
   constants: inject.service(),
 
