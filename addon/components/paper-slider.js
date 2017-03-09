@@ -5,6 +5,7 @@ import Ember from 'ember';
 import layout from '../templates/components/paper-slider';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+import clamp from 'ember-paper/utils/clamp';
 const { Component, computed, inject, run, String: { htmlSafe } } = Ember;
 /* global Hammer */
 
@@ -48,7 +49,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     let min = parseInt(this.get('min'), 10);
     let max = parseInt(this.get('max'), 10);
 
-    return (this.get('value') - min) / (max - min);
+    return clamp((this.get('value') - min) / (max - min), 0, 1);
   }),
 
   didInsertElement() {
@@ -82,10 +83,13 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     let containerManager = new Hammer.Manager(this.element);
     let pan = new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL, threshold: 10 });
     containerManager.add(pan);
+    let tap = new Hammer.Tap();
+    containerManager.add(tap);
 
     containerManager.on('panstart', run.bind(this, this.dragStart))
       .on('panmove', run.bind(this, this.drag))
-      .on('panend', run.bind(this, this.dragEnd));
+      .on('panend', run.bind(this, this.dragEnd))
+      .on('tap', run.bind(this, this.tap));
 
     this._hammer = containerManager;
   },
@@ -125,34 +129,19 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     return this.$('.md-track-container').get(0).getBoundingClientRect();
   },
 
-  // fix to remove content selection highlight on safari
-  mouseDown(event) {
-    event.preventDefault();
-  },
-
-  // needed for iOS
-  // iOS doesn't trigger a click event on normal divs
-  // unless we use `cursor: pointer` css
-  touchEnd(e) {
-    this.click(e);
-  },
-
-  click(event) {
-    if (this.get('disabled')) {
-      return;
-    }
-
-    let x = event.pageX || event.clientX;
-    if (x !== undefined) {
-      this.setValueFromEvent(x);
-    }
-  },
-
   setValueFromEvent(value) {
     let exactVal = this.percentToValue(this.positionToPercent(value));
     let closestVal = this.minMaxValidator(this.stepValidator(exactVal));
 
     this.sendAction('onChange', closestVal);
+  },
+
+  tap(event) {
+    if (this.get('disabled')) {
+      return;
+    }
+
+    this.setValueFromEvent(event.center.x);
   },
 
   dragStart(event) {
