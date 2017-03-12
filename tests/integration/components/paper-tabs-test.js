@@ -2,12 +2,14 @@ import QUnit from 'qunit';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-/*const KEY_CODE = {
+/*
+const KEY_CODE = {
   LEFT_ARROW: 37,
   RIGHT_ARROW: 39,
   ENTER: 13,
   SPACE: 32
-};*/
+};
+*/
 
 moduleForComponent('paper-tabs', 'Integration | Component | paper tabs', {
   integration: true
@@ -51,7 +53,8 @@ test('should select & focus tab on click', function(assert) {
   assert.activeTab(tabs.eq(0));
 });
 
-/*test('should focus tab on arrow if tab is enabled', function(assert) {
+/*
+test('should focus tab on arrow if tab is enabled', function(assert) {
   assert.expect(7);
 
   this.render(hbs`
@@ -89,9 +92,11 @@ test('should select & focus tab on click', function(assert) {
   tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.LEFT_ARROW });
   tabsCanvas.trigger({ type: 'keydown', which: KEY_CODE.ENTER });
   assert.activeTab(tabItems.eq(0));
-});*/
+});
+*/
 
-/*test('should select tab on space or enter', function(assert) {
+/*
+test('should select tab on space or enter', function(assert) {
   assert.expect(2);
 
   this.render(hbs`
@@ -248,7 +253,8 @@ test('should allow cases where no tabs are selected', function(assert) {
   // assert: md-tabs-content-wrapper is empty
 });
 
-/*test('should properly nest tabs', function(assert) {
+/*
+test('should properly nest tabs', function(assert) {
   this.render(hbs`
     {{#paper-tabs as |tabs|}}
       {{#tabs.tab label="one"}}
@@ -265,7 +271,8 @@ test('should allow cases where no tabs are selected', function(assert) {
   assert.equal(this.$('md-tab-item').eq(0).text(), 'one');
   // first item in nested tabs should be 'a'
   assert.equal(this.$('md-tabs md-tab-item').eq(0).text(), 'a');
-});*/
+});
+*/
 
 test('pagination wrapper should have inline width if md-stretch-tabs="never"', function(assert) {
   this.render(hbs`
@@ -276,7 +283,7 @@ test('pagination wrapper should have inline width if md-stretch-tabs="never"', f
   assert.ok(this.$('md-pagination-wrapper').prop('style').width);
 });
 
-test(`pagination wrapper should not have inline width if stretchTabs="always"`, function(assert) {
+test('pagination wrapper should not have inline width if stretchTabs="always"', function(assert) {
   this.render(hbs`
     {{#paper-tabs stretchTabs="always" as |tabs|}}
       {{#tabs.tab label="label!"}}content!{{/tabs.tab}}
@@ -377,4 +384,3 @@ test('tab onDeselect callback is called when another tab is selected', function(
 
   this.$('md-tab-item:nth(1)').click();
 });
-
