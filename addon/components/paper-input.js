@@ -38,8 +38,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
 
   iconComponent: 'paper-icon',
 
-  hasErrorMessages: computed.bool('validationErrorMessages.length'),
-
+  // override validation mixin `isInvalid` to account for the native input validity
   isInvalid: computed.or('hasErrorMessages', 'isNativeInvalid'),
 
   hasValue: computed('value', 'isNativeInvalid', function() {
