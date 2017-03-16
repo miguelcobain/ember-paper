@@ -208,9 +208,8 @@
       value=emailValue
       onChange=(action (mut emailValue))
       label="Email"
-      type="email"
-      as |textHelper|}}
-        {{#unless textHelper.hasValue}}
+      type="email" as |input|}}
+        {{#unless input.hasValue}}
           <div class="hint">How can we reach you?</div>
         {{/unless}}
       {{/paper-input}}
