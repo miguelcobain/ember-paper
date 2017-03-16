@@ -99,7 +99,7 @@ export default Mixin.create({
    *    false: input is valid (touched or not), or is no longer rendered
    *    true: input has been touched and is invalid.
    */
-  isInvalid: computed.or('hasErrorMessages'),
+  isInvalid: computed.reads('hasErrorMessages'),
   isValid: computed.not('isInvalid'),
 
   /**
