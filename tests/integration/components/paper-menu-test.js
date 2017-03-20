@@ -196,3 +196,25 @@ test('keydown changes focused element', function(assert) {
     });
   });
 });
+
+test('md-menu doesn\'t have a tabindex attribute', function(assert) {
+  this.render(hbs`
+    {{#paper-menu as |menu|}}
+      {{#menu.trigger}}
+        {{#paper-button iconButton=true}}
+          {{paper-icon "local_phone"}}
+        {{/paper-button}}
+      {{/menu.trigger}}
+      {{#menu.content width=4 as |content|}}
+          {{#content.menu-item onClick="openSomething"}}
+            <span id="menu-item">Test</span>
+          {{/content.menu-item}}
+          {{#content.menu-item onClick="openSomething"}}
+            <span id="menu-item2">Test 2</span>
+          {{/content.menu-item}}
+      {{/menu.content}}
+    {{/paper-menu}}
+  `);
+
+  assert.equal(this.$('md-menu').attr('tabindex'), '-1', 'no tabindex present');
+});
