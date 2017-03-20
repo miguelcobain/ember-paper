@@ -3,13 +3,13 @@
 {{#doc-content}}
   {{! BEGIN-SNIPPET input.basic-usage}}
   <div class="layout layout-sm-column">
-    {{paper-input flex=30 label="Name" value=name onChange=(action (mut name))}}
-    {{paper-input flex=30 label="E-mail" type="email" value=email onChange=(action (mut email))}}
-    {{paper-input flex=40 label="Password" type="password" value=password onChange=(action (mut password))}}
+    {{paper-input class="flex-30" label="Name" value=name onChange=(action (mut name))}}
+    {{paper-input class="flex-30" label="E-mail" type="email" value=email onChange=(action (mut email))}}
+    {{paper-input class="flex-40" label="Password" type="password" value=password onChange=(action (mut password))}}
   </div>
   <div class="layout layout-sm-column">
-    {{paper-input flex=true label="Submission date" type="date" value=date onChange=(action (mut date))}}
-    {{paper-input flex=true label="Company (disabled)" type="text" value="Google" disabled=true onChange=(action (mut foo))}}
+    {{paper-input class="flex" label="Submission date" type="date" value=date onChange=(action (mut date))}}
+    {{paper-input class="flex" label="Company (disabled)" type="text" value="Google" disabled=true onChange=(action (mut foo))}}
   </div>
 
   {{paper-input textarea=true block=true label="Biography" maxlength=150 passThru=(hash rows=5 maxRows=5)
@@ -271,7 +271,7 @@
     {{#card.content}}
       <div class="layout layout-sm-row">
         {{paper-input
-          flex=50
+          class="flex-50"
           label="User name"
           value=model.username
           onChange=(action (mut model.username))
@@ -281,7 +281,7 @@
       <div class="layout layout-sm-row">
         {{paper-input
           label="Password"
-          flex=34
+          class="flex-34"
           type="password"
           value=model.password
           onChange=(action (mut model.password))
@@ -289,7 +289,7 @@
         }}
         {{paper-input
           label="E-mail"
-          flex=33
+          class="flex-33"
           type="email"
           value=model.email
           onChange=(action (mut model.email))
@@ -297,7 +297,7 @@
         }}
         {{paper-input
           label="Retype your e-mail"
-          flex=33
+          class="flex-33"
           type="email"
           value=model.emailConfirmation
           onChange=(action (mut model.emailConfirmation))
