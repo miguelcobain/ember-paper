@@ -18,6 +18,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 ### master
 - [56b84cf](https://github.com/miguelcobain/ember-paper/commit/56b84cf6b30e01dcf64961c4f75e101d0899593c) fix sliders on android browsers
 - [77274a0](https://github.com/miguelcobain/ember-paper/commit/77274a0a60e19b19a571176d3035c1e99df09dde) set md-dragging class correctly. attach recognizers to the whole slider. big usability improvement.
+- [#670](https://github.com/miguelcobain/ember-paper/pull/670) paper-form yielded values had the length of validation messages. Now they are correctly coalesced to booleans.
 
 ### 1.0.0-alpha.18 (March 7, 2017)
 - [5c66511](https://github.com/miguelcobain/ember-paper/commit/5c665118a9acc9976f6e9b0030dd220fdc8f0ef8) bump ember-composability-tools to `0.0.8`
