@@ -15,6 +15,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/release-1/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
+### master
+- [#679](https://github.com/miguelcobain/ember-paper/issues/679) fix outline on paper-menu
+
 ### 1.0.0-alpha.19 (March 20, 2017)
 - [56b84cf](https://github.com/miguelcobain/ember-paper/commit/56b84cf6b30e01dcf64961c4f75e101d0899593c) fix sliders on android browsers
 - [77274a0](https://github.com/miguelcobain/ember-paper/commit/77274a0a60e19b19a571176d3035c1e99df09dde) set md-dragging class correctly. attach recognizers to the whole slider. big usability improvement.
