@@ -90,6 +90,8 @@ module.exports = {
       'core/style/variables.scss',
       'core/style/structure.scss',
       'core/style/layout.scss',
+      'core/services/layout/layout.scss',
+
       //component styles
       'components/content/content.scss',
       'components/content/content-theme.scss',
