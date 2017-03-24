@@ -12,25 +12,25 @@ export default Component.extend({
   noLabel: computed.not('extra.label'),
   _innerText: computed.oneWay('searchText'),
 
-  text: computed('selected', 'searchText', '_innerText', {
+  text: computed('select', 'searchText', '_innerText', {
     get() {
       let {
-        selected,
+        select,
         searchText,
         _innerText
-      } = this.getProperties('selected', 'searchText', '_innerText');
+      } = this.getProperties('select', 'searchText', '_innerText');
 
-      if (selected) {
+      if (select && select.selected) {
         return this.getSelectedAsText();
       }
       return searchText ? searchText : _innerText;
     },
     set(_, v) {
-      let { selected, searchText } = this.getProperties('selected', 'searchText');
+      let { select, searchText } = this.getProperties('select', 'searchText');
       this.set('_innerText', v);
 
       // searchText should always win
-      if (!selected && isPresent(searchText)) {
+      if (!(select && select.selected) && isPresent(searchText)) {
         return searchText;
       }
 
@@ -88,7 +88,7 @@ export default Component.extend({
 
     handleInputLocal(e) {
       // If something is already selected when the user types, it should clear selection
-      if (this.get('selected')) {
+      if (this.get('select.selected')) {
         this.get('select').actions.select(null);
       }
       this.get('onInput')(e.target ? e : { target: { value: e } });
@@ -99,9 +99,9 @@ export default Component.extend({
   getSelectedAsText() {
     let labelPath = this.get('extra.labelPath');
     if (labelPath) {
-      return this.get(`selected.${labelPath}`);
+      return this.get(`select.selected.${labelPath}`);
     } else {
-      return this.get('selected');
+      return this.get('select.selected');
     }
   }
 });
