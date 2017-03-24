@@ -86,6 +86,8 @@ export default Mixin.create({
     }
   },
 
+  hasErrorMessages: computed.bool('validationErrorMessages.length'),
+
   /**
    * The result of isInvalid is appropriate for controlling the display of
    * validation error messages. It also may be used to distinguish whether
@@ -97,7 +99,7 @@ export default Mixin.create({
    *    false: input is valid (touched or not), or is no longer rendered
    *    true: input has been touched and is invalid.
    */
-  isInvalid: computed.or('validationErrorMessages.length'),
+  isInvalid: computed.reads('hasErrorMessages'),
   isValid: computed.not('isInvalid'),
 
   /**
