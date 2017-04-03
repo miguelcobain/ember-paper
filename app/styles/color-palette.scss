@@ -376,7 +376,6 @@ $color-brown: (
 // Grey
 // ----------------------------
 $color-grey: (
-  '0': #ffffff,
   '50': #fafafa,
   '100': #f5f5f5,
   '200': #eeeeee,
@@ -387,10 +386,9 @@ $color-grey: (
   '700': #616161,
   '800': #424242,
   '900': #212121,
-  '1000': #000000,
   'A100': #ffffff,
-  'A200': #eeeeee,
-  'A400': #bdbdbd,
+  'A200': #000000,
+  'A400': #303030,
   'A700': #616161,
   'contrast': $dark-contrast-color
 ) !default;

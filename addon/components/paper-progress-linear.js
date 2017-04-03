@@ -60,7 +60,7 @@ export default Component.extend(ColorMixin, {
       case MODE_BUFFER:
       case MODE_DETERMINATE:
       case MODE_INDETERMINATE:
-        return `_md-mode-${mode}`;
+        return `md-mode-${mode}`;
       default:
         return '';
     }

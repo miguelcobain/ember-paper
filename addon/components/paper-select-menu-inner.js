@@ -20,7 +20,7 @@ export default PaperMenuContentInner.extend({
   layout,
   tagName: 'md-select-menu',
   classNames: ['md-default-theme'],
-  classNameBindings: ['searchEnabled:_md-overflow'],
+  classNameBindings: ['searchEnabled:md-overflow'],
   enabledOptions: computed.filterBy('childComponents', 'disabled', false),
   didInsertElement() {
     run.next(() => {

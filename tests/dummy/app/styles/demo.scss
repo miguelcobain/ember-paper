@@ -218,8 +218,8 @@ md-toolbar.md-default-theme.page-main-toolbar {
 }
 
 .site-sidenav,
-.site-sidenav._md-locked-open-add-active,
-.site-sidenav._md-locked-open {
+.site-sidenav.md-locked-open-add-active,
+.site-sidenav.md-locked-open {
   width:     272px;
   min-width: 272px;
   max-width: 272px;
@@ -281,7 +281,7 @@ md-sidenav.site-sidenav {
   }
 
   .submenu-item {
-    ._md-list-item-inner {
+    .md-list-item-inner {
       padding-left: 36px;
     }
   }
@@ -293,7 +293,7 @@ md-sidenav.site-sidenav {
       background-color: rgba(#fff, .1);
     }
 
-    ._md-list-item-inner {
+    .md-list-item-inner {
       min-height: 40px;
 
       md-icon {

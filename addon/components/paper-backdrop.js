@@ -15,7 +15,7 @@ export default Component.extend(TransitionMixin, {
 
   tagName: 'md-backdrop',
   classNames: ['md-default-theme'],
-  classNameBindings: ['opaque:md-opaque', 'isLockedOpen:_md-locked-open'],
+  classNameBindings: ['opaque:md-opaque', 'isLockedOpen:md-locked-open'],
   attributeBindings: ['backdropStyle:style'],
 
   // TransitionMixin:

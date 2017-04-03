@@ -54,7 +54,7 @@
     "loader.js": "^4.0.10"
   },
   "dependencies": {
-    "angular-material-source": "github:angular/material#v1.1.0-rc1",
+    "angular-material-source": "github:angular/material#v1.1.0",
     "broccoli-autoprefixer": "^3.0.0",
     "broccoli-filter": "^1.2.3",
     "broccoli-funnel": "^1.0.1",

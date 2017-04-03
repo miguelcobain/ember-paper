@@ -25,7 +25,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   layout,
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
-  classNameBindings: ['value:md-checked', 'dragging:_md-dragging'],
+  classNameBindings: ['value:md-checked', 'dragging:md-dragging'],
   toggle: true,
   constants: inject.service(),
 
@@ -81,9 +81,9 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   },
 
   _setupSwitch() {
-    this.set('switchWidth', this.$('._md-thumb-container').innerWidth());
+    this.set('switchWidth', this.$('.md-thumb-container').innerWidth());
 
-    let switchContainer = this.$('._md-container').get(0);
+    let switchContainer = this.$('.md-container').get(0);
     let switchHammer = new Hammer(switchContainer);
     this._switchContainerHammer = switchHammer;
 

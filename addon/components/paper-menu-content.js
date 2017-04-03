@@ -96,9 +96,9 @@ export default ContentComponent.extend({
     nextTick().then(() => {
       if (!this.get('isDestroyed')) {
         this.set('isActive', false);
-        $clone.addClass('_md-leave');
+        $clone.addClass('md-leave');
         waitForAnimations(clone, function() {
-          $clone.removeClass('_md-active');
+          $clone.removeClass('md-active');
           parentElement.removeChild(clone);
         });
       } else {

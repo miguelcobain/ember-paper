@@ -14,8 +14,8 @@ const { computed } = Ember;
 export default TriggerComponent.extend({
   layout,
   tagName: 'md-select-value',
-  classNames: ['_md-select-value'],
-  classNameBindings: ['isPlaceholder:_md-select-placeholder'],
+  classNames: ['md-select-value'],
+  classNameBindings: ['isPlaceholder:md-select-placeholder'],
   isPlaceholder: computed('placeholder', 'label', 'select.selected', function() {
     return (this.get('placeholder') || this.get('label')) && !this.get('select.selected');
   })

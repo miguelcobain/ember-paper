@@ -19,7 +19,7 @@ export default Component.extend(RippleMixin, ParentMixin, {
   tagName: 'md-list-item',
 
   // Ripple Overrides
-  rippleContainerSelector: '._md-no-style',
+  rippleContainerSelector: '.md-no-style',
   noink: computed.not('shouldBeClickable'),
 
   center: false,
@@ -27,7 +27,7 @@ export default Component.extend(RippleMixin, ParentMixin, {
   outline: false,
 
   classNameBindings: [
-    'hasProxiedComponent:_md-proxy-focus', 'shouldBeClickable:_md-clickable',
+    'hasProxiedComponent:md-proxy-focus', 'shouldBeClickable:md-clickable',
     'focused:md-focused'
   ],
   attributeBindings: ['role', 'tabindex'],

@@ -27,7 +27,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, {
   toggle: false,
 
   /* Ripple Overrides */
-  rippleContainerSelector: '._md-container',
+  rippleContainerSelector: '.md-container',
   center: true,
   dimBackground: false,
   fitRipple: true,

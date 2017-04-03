@@ -72,7 +72,7 @@ test('opens on click', function(assert) {
     clickTrigger();
 
     return wait().then(() => {
-      let selectors = $('._md-open-menu-container');
+      let selectors = $('.md-open-menu-container');
       assert.ok(selectors.length, 'opened menu');
       return wait().then(() => {
 
@@ -102,7 +102,7 @@ test('backdrop removed if menu closed', function(assert) {
 
     return wait().then(() => {
 
-      let selectors = $('._md-open-menu-container');
+      let selectors = $('.md-open-menu-container');
       assert.ok(selectors.length, 'opened menu');
       clickTrigger();
       return wait().then(() => {
@@ -134,7 +134,7 @@ test('backdrop removed if backdrop clicked', function(assert) {
 
     return wait().then(() => {
 
-      let selectors = $('._md-open-menu-container');
+      let selectors = $('.md-open-menu-container');
       assert.ok(selectors.length, 'opened menu');
       $('md-backdrop').click();
       return wait().then(() => {

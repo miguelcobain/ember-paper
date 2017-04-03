@@ -80,7 +80,7 @@ test('blockless version should set label inside', function(assert) {
 
   this.render(hbs`{{paper-radio value="1" onChange=(action (mut value)) label="çup?"}}`);
 
-  assert.equal(this.$('._md-label > span').text().trim(), 'çup?');
+  assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
 
 test('block version should set label inside', function(assert) {
@@ -92,7 +92,7 @@ test('block version should set label inside', function(assert) {
     {{/paper-radio}}
   `);
 
-  assert.equal(this.$('._md-label > span').text().trim(), 'çup?');
+  assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
 
 /* test('the `onChange` action is mandatory for paper-radio', function(assert) {
