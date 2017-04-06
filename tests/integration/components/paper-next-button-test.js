@@ -5,14 +5,10 @@ moduleForComponent('paper-next-button', 'Integration | Component | paper next bu
   integration: true
 });
 
-test('it renders the block content', function(assert) {
-  this.render(hbs`
-    {{#paper-next-button}}
-      content
-    {{/paper-next-button}}
-  `);
+test('it renders the keyboard-arrow-left icon', function(assert) {
+  this.render(hbs`{{paper-next-button}}`);
 
-  assert.equal(this.$().text().trim(), 'content');
+  assert.equal(this.$().text().trim(), 'keyboard_arrow_left');
 });
 
 test('it has md-next-button tagName', function(assert) {

@@ -5,14 +5,10 @@ moduleForComponent('paper-prev-button', 'Integration | Component | paper prev bu
   integration: true
 });
 
-test('it renders the block content', function(assert) {
-  this.render(hbs`
-    {{#paper-prev-button}}
-      content
-    {{/paper-prev-button}}
-  `);
+test('it renders the keyboard-arrow-left icon', function(assert) {
+  this.render(hbs`{{paper-prev-button}}`);
 
-  assert.equal(this.$().text().trim(), 'content');
+  assert.equal(this.$().text().trim(), 'keyboard_arrow_left');
 });
 
 test('it has md-prev-button tagName', function(assert) {
