@@ -1,35 +1,217 @@
 {{page-toolbar pageTitle="Tabs" isDemo=true}}
 
 {{#doc-content}}
-  {{! BEGIN-SNIPPET tabs }}
+
+  <p>The Dynamic Height demo shows how tabs can be used to display content with varying heights.</p>
+
+  {{#paper-card as |card|}}
+    {{#paper-toolbar as |toolbar|}}
+      {{#toolbar.tools}}
+        <h2>Dynamic Height</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode" "dynamic-height") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/toolbar.tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showDynamicHeight 'is-visible'}}">
+      {{code-snippet name="dynamic-height.hbs"}}
+    </div>
+
+    {{! BEGIN-SNIPPET dynamic-height }}
     {{#paper-tabs dynamicHeight=true as |tabs|}}
-      {{#tabs.tab label="tab one" as |tab|}}
-        {{#paper-content class="md-padding"}}
-           <h1>Tab One</h1>
-           <p>Lorem ipsum dolor sit amet.</p>
-        {{/paper-content}}
+      {{#tabs.tab label="ONE" as |tab|}}
+        {{#card.content class="md-padding"}}
+          <h1 class="md-display-2">Tab One</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+        {{/card.content}}
       {{/tabs.tab}}
-      {{#tabs.tab label="tab two" as |tab|}}
-        {{#paper-content class="md-padding"}}
-           <h1>Tab Two</h1>
-           <p>Lorem ipsum dolor sit amet.</p>
-        {{/paper-content}}
+      {{#tabs.tab label="TWO" as |tab|}}
+        {{#card.content class="md-padding"}}
+          <h1 class="md-display-2">Tab Two</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
+          <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+          <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+        {{/card.content}}
       {{/tabs.tab}}
-      {{#tabs.tab label="tab three" as |tab|}}
-        {{#paper-content class="md-padding"}}
-           <h1>Tab Three</h1>
-           <p>Lorem ipsum dolor sit amet.</p>
-        {{/paper-content}}
+      {{#tabs.tab label="THREE" as |tab|}}
+        {{#card.content class="md-padding"}}
+          <h1 class="md-display-2">Tab Three</h1>
+          <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+        {{/card.content}}
       {{/tabs.tab}}
     {{/paper-tabs}}
   {{! END-SNIPPET }}
+  {{/paper-card}}
 
-  <h3>Template</h3>
-  {{code-snippet name="tabs.hbs"}}
+  <p>The Dynamic Tabs demo shows how internal tab views can be easily used.</p>
+
+  {{#paper-card as |card|}}
+    {{#paper-toolbar as |toolbar|}}
+      {{#toolbar.tools}}
+        <h2>Dynamic Tabs</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode" "dynamicTabs") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/toolbar.tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showDynamicTabs 'is-visible'}}">
+      {{code-snippet name="dynamic-tabs.hbs"}}
+    </div>
+
+    {{#card.content class="md-padding"}}
+      {{! BEGIN-SNIPPET dynamic-tabs }}
+        {{#paper-tabs class="md-whiteframe-2dp" as |tabs|}}
+          {{#each tabItems as |item|}}
+            {{#tabs.tab label=item.label as |tab|}}
+              <div class="md-padding" style="text-align:center">
+                <p>{{item.content}}</p>
+                <p>
+                  {{#paper-button raised=true accent=true onClick=(action "removeTabItem" item)}}
+                    Remove tab
+                  {{/paper-button}}
+                </p>
+              </div>
+            {{/tabs.tab}}
+          {{/each}}
+        {{/paper-tabs}}
+
+        <div class="layout-row">
+          {{paper-input
+            label="Label"
+            value=newTabLabel
+            onChange=(action (mut newTabLabel))
+          }}
+
+          {{paper-input
+            label="Content"
+            value=newTabContent
+            onChange=(action (mut newTabContent))
+          }}
+
+          {{#paper-button raised=true accent=true onClick=(action "addTabItem" newTabLabel newTabContent)}}
+            Add tab
+          {{/paper-button}}
+        </div>
+
+      {{! END-SNIPPET }}
+    {{/card.content}}
+  {{/paper-card}}
+
+  <p>The Static Tabs demo shows how to disable center or bottom-align tabs:</p>
+
+  {{#paper-card as |card|}}
+    {{#paper-toolbar as |toolbar|}}
+      {{#toolbar.tools}}
+        <h2>Static Tabs</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode" "staticTabs") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/toolbar.tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showStaticStabs 'is-visible'}}">
+      {{code-snippet name="static-tabs.hbs"}}
+    </div>
+
+    {{#card.content class="md-padding"}}
+    {{! BEGIN-SNIPPET static-tabs }}
+      {{#paper-tabs alignTabs=(if alignTabsTop "top" "bottom") stretchTabs=stretchTabs noInk=noInk noInkBar=noInkBar centerTabs=centerTabs class="md-whiteframe-2dp" as |tabs|}}
+          {{#tabs.tab label="ITEM ONE" as |tab|}}
+            <div class="md-padding" style="text-align:center">Item ONE</div>
+          {{/tabs.tab}}
+          {{#tabs.tab disabled=itemTwoDisabled label="ITEM TWO" as |tab|}}
+            <div class="md-padding" style="text-align:center">Item TWO</div>
+          {{/tabs.tab}}
+          {{#tabs.tab label="ITEM THREE" as |tab|}}
+            <div class="md-padding" style="text-align:center">Item THREE</div>
+          {{/tabs.tab}}
+          {{#tabs.tab as |tab|}}
+            {{#tab.label}}
+              {{paper-icon "phone"}}
+            {{/tab.label}}
+            {{#tab.body}}
+              <div class="md-padding" style="text-align:center">Item FOUR</div>
+            {{/tab.body}}
+          {{/tabs.tab}}
+      {{/paper-tabs}}
+
+      <div class="md-padding">
+        <div class="layout-row">
+          <div class="layout-column flex">
+            <ul>
+              <li>
+                {{#paper-checkbox value=itemTwoDisabled onChange=(action (mut itemTwoDisabled))}}
+                  Item TWO disabled: {{itemTwoDisabled}}
+                {{/paper-checkbox}}
+              </li>
+              <li>
+                {{#paper-checkbox value=alignTabsTop onChange=(action (mut alignTabsTop))}}
+                  alignTabs: {{if alignTabsTop "top" "bottom"}}
+                {{/paper-checkbox}}
+              </li>
+              <li>
+                {{#paper-checkbox value=centerTabs onChange=(action (mut centerTabs))}}
+                  centerTabs: {{centerTabs}}
+                {{/paper-checkbox}}
+              </li>
+            </ul>
+          </div>
+          <div class="layout-column flex">
+            <ul>
+              <li>
+                {{#paper-checkbox value=noInk onChange=(action (mut noInk))}}
+                  noInk: {{noInk}}
+                {{/paper-checkbox}}
+              </li>
+              <li>
+                {{#paper-checkbox value=noInkBar onChange=(action (mut noInkBar))}}
+                  noInkBar: {{noInkBar}}
+                {{/paper-checkbox}}
+              </li>
+              <li>
+                {{#paper-select
+                  label="stretchTabs"
+                  options=stretchTabsOptions
+                  selected=stretchTabs
+                  onChange=(action (mut stretchTabs))
+                as |opt|}}
+                  {{opt}}
+                {{/paper-select}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    {{! END-SNIPPET }}
+    {{/card.content}}
+  {{/paper-card}}
 
   {{paper-api
     (p-section
-      (p-row "bottom" "boolean" "Align tabs to bottom")
+      (p-row "dynamicHeight" "boolean" "Sets the paper-tabs height to the active tab's height. Defaults to 'false'.")
+      (p-row "alignTabs" "`top` | `bottom`" "Sets tabs position. Defaults to 'top'.")
+      (p-row "noInk" "boolean" "Disables ripple effects upon click. Defaults to 'false'.")
+      (p-row "noInkBar" "boolean" "Displays a bar underneath active tabs. Defaults to 'false'.")
+      (p-row "centerTabs" "boolean" "Defaults to 'false'.")
+      (p-row "stretchTabs" "`always` | `never` | `auto`" "Defaults to 'auto'.")
+      (p-row "autoSelect" "boolean" "Automatically open newly added tab. Defaults to 'false'.")
     )
+    title="Usage paper-tabs"
   }}
+
+  {{paper-api
+    (p-section
+      (p-row "disabled" "boolean" "Defaults to 'false'.")
+      (p-row "onSelect" "function" "Called when tab is selected.")
+      (p-row "onDeselect" "function" "Called when tab is deselected.")
+    )
+    title="Usage paper-tab"
+  }}
+
 {{/doc-content}}
