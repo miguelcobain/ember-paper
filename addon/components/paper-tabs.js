@@ -94,15 +94,15 @@ export default Component.extend({
     'selectedTab.offsetWidth',
     'canvasWidth',
     'offsetLeft', function() {
-    if (this.get('lastTab')) {
-      let context = this;
-      let lastTabObject = context.$(`#${context.get('lastTab.id')}`);
-      let [lastTab] = lastTabObject;
-      let pagingWidth = lastTab.offsetLeft + lastTab.clientWidth;
-      let offset = context.$('md-tabs-canvas')[0].clientWidth + context.get('offsetLeft');
-      return (pagingWidth > offset);
-    }
-  }),
+      if (this.get('lastTab')) {
+        let context = this;
+        let lastTabObject = context.$(`#${context.get('lastTab.id')}`);
+        let [lastTab] = lastTabObject;
+        let pagingWidth = lastTab.offsetLeft + lastTab.clientWidth;
+        let offset = context.$('md-tabs-canvas')[0].clientWidth + context.get('offsetLeft');
+        return (pagingWidth > offset);
+      }
+    }),
 
   /* sets the initial value as a computed property */
   canvasWidth: 0,
@@ -161,14 +161,6 @@ export default Component.extend({
       this.set('selected', this.getNearestSafeIndex(this.get('selected')));
     }
   }),
-
-  /*focusIndexChanged: observer('focusIndex', function() {
-    this.adjustOffset(this.get('focusIndex'));
-  }),
-
-  selectedChanged: observer('selected', function() {
-    this.adjustOffset(this.get('selected'));
-  }),*/
 
   focusTab: computed('tabs.[]', 'focusIndex', function() {
     return this.getTabByIndex(this.get('focusIndex'));
@@ -252,8 +244,7 @@ export default Component.extend({
       return -1;
     }
     let maxOffset = Math.max(this.get('tabs').length - newIndex, newIndex);
-    let i;
-    let tab;
+    let i, tab;
 
     for (i = 0; i <= maxOffset; i++) {
       tab = this.getTabByIndex(newIndex + i);

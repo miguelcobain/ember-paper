@@ -42,7 +42,7 @@ export default Component.extend({
     if (this.get('shouldStretchTabs')) {
       return '';
     } else {
-      const width = this.get('pagingWidth') || 0;
+      let width = this.get('pagingWidth') || 0;
       return `width: ${width}px;`;
     }
   }),

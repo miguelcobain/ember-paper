@@ -2,7 +2,7 @@ import QUnit from 'qunit';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-/*const KEY_CODE = {
+/* const KEY_CODE = {
   LEFT_ARROW: 37,
   RIGHT_ARROW: 39,
   ENTER: 13,
@@ -51,7 +51,7 @@ test('should select & focus tab on click', function(assert) {
   assert.activeTab(tabs.eq(0));
 });
 
-/*test('should focus tab on arrow if tab is enabled', function(assert) {
+/* test('should focus tab on arrow if tab is enabled', function(assert) {
   assert.expect(7);
 
   this.render(hbs`
@@ -91,7 +91,7 @@ test('should select & focus tab on click', function(assert) {
   assert.activeTab(tabItems.eq(0));
 });*/
 
-/*test('should select tab on space or enter', function(assert) {
+/* test('should select tab on space or enter', function(assert) {
   assert.expect(2);
 
   this.render(hbs`
@@ -138,7 +138,7 @@ test('should bind to selected', function(assert) {
   assert.equal(this.get('current'), 2);
 });
 
-/*test('disabling active tab', function(assert) {
+/* test('disabling active tab', function(assert) {
   assert.expect(3);
 
   this.render(hbs`
@@ -249,7 +249,7 @@ test('should allow cases where no tabs are selected', function(assert) {
   // assert: md-tabs-content-wrapper is empty
 });
 
-/*test('should properly nest tabs', function(assert) {
+/* test('should properly nest tabs', function(assert) {
   this.render(hbs`
     {{#paper-tabs as |tabs|}}
       {{#tabs.tab label="one"}}
