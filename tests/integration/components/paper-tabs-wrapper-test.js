@@ -47,7 +47,6 @@ test('it renders block content in a canvas inside a pagination wrapper', functio
      block content
   {{/paper-tabs-wrapper}}`);
 
-
   assert.ok(this.$('md-tabs-canvas').length === 1, 'a canvas is displayed');
   assert.ok(this.$('md-tabs-canvas md-pagination-wrapper').length === 1, 'a pagination wrapper is rendered in the canvas');
   assert.equal(this.$('md-tabs-canvas md-pagination-wrapper').text().trim(), 'block content', 'content is rendered in the wrapper');

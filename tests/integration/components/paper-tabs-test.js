@@ -277,7 +277,7 @@ test('pagination wrapper should have inline width if md-stretch-tabs="never"', f
   assert.ok(this.$('md-pagination-wrapper').prop('style').width);
 });
 
-test(`pagination wrapper should not have inline width if stretchTabs="always"`, function(assert) {
+test('pagination wrapper should not have inline width if stretchTabs="always"', function(assert) {
   this.render(hbs`
     {{#paper-tabs stretchTabs="always" as |tabs|}}
       {{#tabs.tab label="label!"}}content!{{/tabs.tab}}
