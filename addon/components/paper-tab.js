@@ -1,158 +1,91 @@
-import Ember from 'ember';
-import RippleMixin from '../mixins/ripple-mixin';
-import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
+/**
+ * @module ember-paper
+ */
+import Component from 'ember-component';
+import computed from 'ember-computed';
+import observer from 'ember-metal/observer';
+import injectService from 'ember-service/inject';
+import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+import { ChildMixin } from 'ember-composability-tools';
 import layout from '../templates/components/paper-tab';
 
-const { computed, observer, Component, run, Object: EmberObject, String: { htmlSafe } } = Ember;
-
-export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
+/**
+ * @class PaperTab
+ * @extends Component
+ * @uses RippleMixin
+ * @uses ColorMixin
+ * @uses ChildMixin
+ */
+export default Component.extend(RippleMixin, ColorMixin, ChildMixin, {
 
   tagName: 'md-tab-item',
+
   layout,
 
-  classNames: ['md-tab'],
+  constants: injectService(),
+
+  classNames: [
+    'md-tab'
+  ],
+
   classNameBindings: [
     'isActive:md-active',
     'disabled:md-disabled'
   ],
-  attributeBindings: [
-    'styleAttr:style'
-  ],
-
-  /* Attributes Bindings */
-  styleAttr: computed('widthStyle', function() {
-    return htmlSafe(`${this.get('widthStyle')}`);
-  }),
-
-  /* Style Bindings */
-  widthStyle: computed('self.offsetWidth', function() {
-    if (this.get('self.offsetWidth') > 0) {
-      return `width: ${this.get('self.offsetWidth')}px`;
-    }
-    return '';
-  }),
 
   /* Inherited from `{{paper-tabs}}` */
-  disabled: computed.alias('self.disabled'),
-  active: computed.alias('self.active'),
-  selected: computed.reads('parent.selected'),
-  previous: computed.reads('parent.previous'),
-  tabs: computed.readOnly('parent.tabs'),
-  wormhole: computed.readOnly('parent.wormhole'),
-  shouldPaginate: computed.readOnly('parent.shouldPaginate'),
-  offsetLeft: computed.reads('parent.offsetLeft'),
-
-  /* Settings */
-  noInk: computed.reads('parent.noInk'),  // todo: noink to noInk support
+  selected: computed.readOnly('parentComponent.selected'),
+  previous: computed.readOnly('parentComponent.previous'),
+  tabs: computed.readOnly('parentComponent.tabs'),
+  wormhole: computed.readOnly('parentComponent.wormhole'),
+  noink: computed.readOnly('parentComponent.noInk'),
 
   rippleContainerSelector: null,
 
-  index: computed('tabs.[]', 'self', function() {
-    let { self, tabs } = this.getProperties('self', 'tabs');
-    let index = tabs.indexOf(self);
-    self.set('index', index); // FIXME computed props should not have such side effects
-    return index;
+  index: computed('tabs.[]', function() {
+    return this.get('tabs') ? this.get('tabs').indexOf(this) : -1;
   }),
 
   isActive: computed('index', 'selected', function() {
-    return this.get('index') === this.get('selected');
+    return this.get('index') !== -1 && this.get('index') === this.get('selected');
   }),
 
   isLeft: computed('selected', 'index', function() {
-    return this.get('index') < this.get('selected');
+    return this.get('index') !== -1 && this.get('index') < this.get('selected');
   }),
 
   isRight: computed('selected', 'index', function() {
-    return this.get('index') > this.get('selected');
+    return this.get('index') !== -1 && this.get('index') > this.get('selected');
   }),
 
-  setActive: observer('active', function() {
-    if (this.get('active')) {
-      this.send('selectTab');
-    }
-  }),
-
-  didDeselect: observer('previous', 'isActive', function() {
-    if ((this.get('index') !== this.get('previous')) || this.get('isActive')) {
-      return;
-    }
-    if (this.get('onDeselect')) {
+  // TODO would it be cleaner a tryInvoke(tab, 'onDeselect') by paper-tabs ?
+  didDeselect: observer('isActive', function() {
+    if (this.get('onDeselect')
+      && this.get('index') !== -1 && this.get('index') === this.get('previous') && !this.get('isActive')) {
       return this.get('onDeselect')();
     }
   }),
 
-  hasBlockTags: computed.or('self.label', 'self.content'),
-  contentAsLabel: computed.not('hasBlockTags'),
-
-  willDestroyElement() {
-    this._super();
-    this.get('parent').send('destroyTab', this.get('self'));
-  },
-
-  setTargetTabHeight() {
-    let height = this.$(`#${this.get('self.content')}`).height();
-    this.set('self.height', height);
-  },
-
-  didInsertElement() {
-    let context = this;
-    run.scheduleOnce('afterRender', function() {
-      context.get('self').set('id', context.elementId);
-      context.get('parent.tabs').pushObject(context.get('self'));
-    });
-  },
-
-  updateBounds: observer('tabs.[]', 'shouldPaginate', 'offsetLeft', function() {
-    let context = this;
-    if (context.$().length) {
-      let left = context.$()[0].offsetLeft + context.get('offsetLeft');
-      let width = context.$()[0].clientWidth;
-      context.set('self.offsetLeft', left);
-      context.set('self.offsetWidth', width);
+  selectTab() {
+    // TODO would it be cleaner a tryInvoke(tab, 'onSelect') by paper-tabs ?
+    if (!this.get('disabled')) {
+      if (this.get('onSelect')) {
+        this.get('onSelect')();
+      }
+      this.get('parentComponent').send('selectTab', this);
     }
-  }),
-
-  self: computed(function() {
-    return EmberObject.create({
-      disabled: false,
-      offsetLeft: 0,
-      offsetWidth: 0
-    });
-  }),
+  },
 
   /* Events */
 
   keyDown(ev) {
-    if ((ev.which === 13 || 32) && !this.get('disabled')) {
-      this.send('selectTab');
+    if (ev.which === this.get('constants.KEYCODE.ENTER') || ev.which === this.get('constants.KEYCODE.SPACE')) {
+      this.selectTab();
     }
   },
 
   click() {
-    if (!this.get('disabled')) {
-      this.send('selectTab');
-    }
-  },
-
-  actions: {
-    setContent(id) {
-      this.set('self.content', id);
-    },
-    setHeight(value) {
-      this.set('self.height', value);
-    },
-    selectTab() {
-      if (this.get('onSelect')) {
-        this.get('onSelect')();
-      }
-      this.get('parent').send('selectTab', this.get('self'));
-    },
-    identifyTabContent(object) {
-      this.get('self').set('content', object);
-    },
-    identifyTabLabel(id) {
-      this.get('self').set('label', id);
-    }
+    this.selectTab();
   }
 });

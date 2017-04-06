@@ -64,7 +64,7 @@
 
     {{#card.content class="md-padding"}}
       {{! BEGIN-SNIPPET dynamic-tabs }}
-        {{#paper-tabs class="md-whiteframe-2dp" as |tabs|}}
+        {{#paper-tabs autoSelect=true class="md-whiteframe-2dp" borderBottom=true as |tabs|}}
           {{#each tabItems as |item|}}
             {{#tabs.tab label=item.label as |tab|}}
               <div class="md-padding" style="text-align:center">
@@ -196,6 +196,7 @@
     (p-section
       (p-row "dynamicHeight" "boolean" "Sets the paper-tabs height to the active tab's height. Defaults to 'false'.")
       (p-row "alignTabs" "`top` | `bottom`" "Sets tabs position. Defaults to 'top'.")
+      (p-row "borderBottom" "boolean" "Displays a border underneath the tabs. Defaults to 'false'.")
       (p-row "noInk" "boolean" "Disables ripple effects upon click. Defaults to 'false'.")
       (p-row "noInkBar" "boolean" "Displays a bar underneath active tabs. Defaults to 'false'.")
       (p-row "centerTabs" "boolean" "Defaults to 'false'.")

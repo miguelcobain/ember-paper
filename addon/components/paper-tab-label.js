@@ -1,16 +1,17 @@
-import Ember from 'ember';
+/**
+ * @module ember-paper
+ */
+import Component from 'ember-component';
 import layout from '../templates/components/paper-tab-label';
 
-const { Component } = Ember;
-
+/**
+ * @class PaperTabLabel
+ * @extends Component
+ */
 export default Component.extend({
 
   tagName: 'span',
-  layout,
 
-  didInsertElement() {
-    if (this.get('parent')) {
-      this.get('parent').send('identifyTabLabel', this.elementId);
-    }
-  }
+  layout
+
 });

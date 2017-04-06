@@ -1,20 +1,20 @@
-import Ember from 'ember';
+/**
+ * @module ember-paper
+ */
+import Component from 'ember-component';
+import computed from 'ember-computed';
+import run from 'ember-runloop';
 import layout from '../templates/components/paper-tab-content';
 
-const { computed, Component, Object: EmberObject, run } = Ember;
-
+/**
+ * @class PaperTabContent
+ * @extends Component
+ */
 export default Component.extend({
-  tagName: 'md-tab-content',
-  layout,
 
-  /* Inherited */
-  wormhole: computed.readOnly('parent.wormhole'),
-  activeState: computed.readOnly('parent.activeState'),
-  selected: computed.readOnly('parent.selected'),
-  index: computed.readOnly('parent.index'),
-  isActive: computed.reads('parent.isActive'),
-  isLeft: computed.reads('parent.isLeft'),
-  isRight: computed.reads('parent.isRight'),
+  tagName: 'md-tab-content',
+
+  layout,
 
   classNameBindings: [
     'isActive:md-active',
@@ -22,30 +22,17 @@ export default Component.extend({
     'isRight:md-right'
   ],
 
-  self: computed(function() {
-    return EmberObject.create({
-      id: this.elementId
-    });
-  }),
+  /* Inherited from `{{paper-tab}}` */
+  isActive: computed.readOnly('parentComponent.isActive'),
+  isLeft: computed.readOnly('parentComponent.isLeft'),
+  isRight: computed.readOnly('parentComponent.isRight'),
 
+  // necessary for paper-tabs to know when the tab's content is actually rendered
   didInsertElement() {
-    this._super();
-    let self = this.get('self');
-    let element = this.$();
-    let height = element.css('position', 'relative').outerHeight(true);
-    self.set('height', height);
-    element.removeAttr('style');
-
-    run.scheduleOnce('afterRender', this, function() {
-      let height = this.$()[0].scrollHeight;
-      this.set('self.height', height);
-      this.get('parent').send('identifyTabContent', this.get('self'));
+    this._super(...arguments);
+    run.schedule('afterRender', this, function() {
+      this.get('parentComponent').trigger('onRendered');
     });
-  },
-
-  actions: {
-    setcontent(id) {
-      this.set('content', id);
-    }
   }
+
 });

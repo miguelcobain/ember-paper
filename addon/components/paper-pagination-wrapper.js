@@ -1,68 +1,61 @@
-import Ember from 'ember';
+/**
+ * @module ember-paper
+ */
+import Component from 'ember-component';
+import computed from 'ember-computed';
+import { htmlSafe } from 'ember-string';
 import layout from '../templates/components/paper-pagination-wrapper';
 
-const { computed, Component, String: { htmlSafe } } = Ember;
-
+/**
+ * @class PaperPaginationWrapper
+ * @extends Component
+ */
 export default Component.extend({
+
   tagName: 'md-pagination-wrapper',
+
   layout,
 
   classNameBindings: [
-    'centerTabs:md-center-tabs'
+    'shouldCenterTabs:md-center-tabs'
   ],
 
   attributeBindings: [
     'styleAttr:style'
   ],
 
-  /* Inherited from {{paper-tabs-wrapper}} */
-  tabs: computed.reads('parent.tabs'),
-  noInkBar: computed.reads('parent.noInkBar'),
-  lastSelectedIndex: computed.reads('parent.lastSelectedIndex'),
-  centerTabs: computed.reads('parent.centerTabs'),
-  selected: computed.reads('parent.selected'),
-  selectedTab: computed.reads('parent.selectedTab'),
-  canvasWidth: computed.reads('parent.canvasWidth'),
-  pagingWidth: computed.reads('parent.pagingWidth'),
-  offsetLeft: computed.reads('parent.offsetLeft'),
-  shouldCenterTabs: computed.reads('parent.shouldCenterTabs'),
-  shouldStretchTabs: computed.reads('parent.shouldStretchTabs'),
+  /* Inherited from {{paper-tabs}} */
+  tabs: computed.readOnly('parentComponent.tabs'),
+  noInkBar: computed.readOnly('parentComponent.noInkBar'),
+  lastSelectedIndex: computed.readOnly('parentComponent.lastSelectedIndex'),
+  selected: computed.readOnly('parentComponent.selected'),
+  selectedTab: computed.readOnly('parentComponent.selectedTab'),
+  canvasWidth: computed.readOnly('parentComponent.canvasWidth'),
+  pagingWidth: computed.readOnly('parentComponent.pagingWidth'),
+  offsetLeft: computed.readOnly('parentComponent.offsetLeft'),
+  shouldCenterTabs: computed.readOnly('parentComponent.shouldCenterTabs'),
+  shouldStretchTabs: computed.readOnly('parentComponent.shouldStretchTabs'),
+  shouldPaginate: computed.readOnly('parentComponent.shouldPaginate'),
+  selectedTabOffsetLeft: computed.readOnly('parentComponent.selectedTabOffsetLeft'),
+  selectedTabWidth: computed.readOnly('parentComponent.selectedTabWidth'),
 
-  isEmpty: computed.empty('tabs'),
+  noTabSelected: computed.empty('selectedTab'),
 
-  hideInkBar: computed.or('isEmpty', 'noInkBar'),
+  hideInkBar: computed.or('noTabSelected', 'noInkBar'),
+
+  styleAttr: computed('shouldPaginate', 'offsetLeft', function() {
+    if (this.get('shouldPaginate')) {
+      return htmlSafe(`transform: translate3d(-${this.get('offsetLeft')}px, 0px, 0px);`);
+    }
+  }),
 
   inkBarDirection: computed('lastSelectedIndex', 'selected', function() {
     return (this.get('lastSelectedIndex') > this.get('selected')) ? 'left' : 'right';
   }),
 
-  styleAttr: computed('widthStyle', 'offsetStyle', function() {
-    return htmlSafe(`${this.get('widthStyle')}${this.get('offsetStyle')}`);
-  }),
+  inkBarLeftPosition: computed.readOnly('selectedTabOffsetLeft'),
 
-  /* Style Bindings */
-  widthStyle: computed('pagingWidth', 'shouldStretchTabs', function() {
-    if (this.get('shouldStretchTabs')) {
-      return '';
-    } else {
-      let width = this.get('pagingWidth') || 0;
-      return `width: ${width}px;`;
-    }
-  }),
-
-  offsetStyle: computed('offsetLeft', 'shouldCenterTabs', function() {
-    if (this.get('shouldCenterTabs')) {
-      return '';
-    } else {
-      return `transform: translate3d(-${this.get('offsetLeft')}px, 0px, 0px);`;
-    }
-  }),
-
-  inkBarLeftPosition: computed('selectedTab.offsetLeft', 'offsetLeft', function() {
-    return this.get('selectedTab.offsetLeft') - this.get('offsetLeft');
-  }),
-
-  inkBarRightPosition: computed('pagingWidth', 'inkBarLeftPosition', 'selectedTab.offsetWidth', function() {
-    return this.get('pagingWidth') - this.get('inkBarLeftPosition') - this.get('selectedTab.offsetWidth');
+  inkBarRightPosition: computed('pagingWidth', 'inkBarLeftPosition', 'selectedTabWidth', function() {
+    return this.get('pagingWidth') - this.get('inkBarLeftPosition') - this.get('selectedTabWidth');
   })
 });

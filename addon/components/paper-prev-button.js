@@ -1,22 +1,21 @@
-import Ember from 'ember';
+/**
+ * @module ember-paper
+ */
+import Component from 'ember-component';
 import layout from '../templates/components/paper-prev-button';
 
-const { computed: { not }, Component } = Ember;
-
+/**
+ * @class PaperPrevButton
+ * @extends Component
+ */
 export default Component.extend({
+
   tagName: 'md-prev-button',
+
   layout,
 
   classNameBindings: [
     'disabled:md-disabled'
-  ],
+  ]
 
-  /* Inherited from `{{paper-tabs-wrapper}}` */
-  disabled: not('parent.canPageBack'),
-
-  click() {
-    if (!this.get('disabled')) {
-      this.get('parent').send('previousPage');
-    }
-  }
 });

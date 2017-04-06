@@ -1,54 +1,54 @@
-import Ember from 'ember';
+/**
+ * @module ember-paper
+ */
+import Component from 'ember-component';
+import computed from 'ember-computed';
+import { ChildMixin } from 'ember-composability-tools';
 import layout from '../templates/components/paper-tabs-wrapper';
 
-const { computed, Component, Object: EmberObject, run } = Ember;
-
-export default Component.extend({
+/**
+ * @class PaperTabsWrapper
+ * @extends Component
+ * @uses ChildMixin
+ */
+export default Component.extend(ChildMixin, {
 
   tagName: 'md-tabs-wrapper',
+
   layout,
 
-  self: computed(function() {
-    return EmberObject.create({
-      id: this.elementId
-    });
-  }),
+  classNameBindings: [
+    'shouldStretchTabs:md-stretch-tabs'
+  ],
 
   /* Inherited from {{paper-tabs}} */
-  centerTabs: computed.reads('parent.centerTabs'),
-  tabs: computed.reads('parent.tabs'),
-  noInkBar: computed.reads('parent.noInkBar'),
-  selected: computed.reads('parent.selected'),
-  lastSelectedIndex: computed.reads('parent.lastSelectedIndex'),
-  selectedTab: computed.reads('parent.selectedTab'),
-  canvasWidth: computed.reads('parent.canvasWidth'),
-  pagingWidth: computed.reads('parent.pagingWidth'),
-  shouldPaginate: computed.reads('parent.shouldPaginate'),
-  canPageBack: computed.reads('parent.canPageBack'),
-  canPageForward: computed.reads('parent.canPageForward'),
-  offsetLeft: computed.reads('parent.offsetLeft'),
-  shouldCenterTabs: computed.reads('parent.shouldCenterTabs'),
-  shouldStretchTabs: computed.reads('parent.shouldStretchTabs'),
+  shouldStretchTabs: computed.readOnly('parentComponent.shouldStretchTabs'),
+  shouldPaginate: computed.readOnly('parentComponent.shouldPaginate'),
+  shouldCenterTabs: computed.readOnly('parentComponent.shouldCenterTabs'),
+  canPageBack: computed.readOnly('parentComponent.canPageBack'),
+  canPageForward: computed.readOnly('parentComponent.canPageForward'),
 
-  canvasClass: computed('shouldPaginate', function() {
-    return this.get('shouldPaginate') ? 'md-paginated' : '';
+  canvasClass: computed('shouldPaginate', 'shouldCenterTabs', function() {
+    let classes = [];
+    if (this.get('shouldPaginate')) {
+      classes.push('md-paginated');
+    }
+    if (this.get('shouldCenterTabs')) {
+      classes.push('md-center-tabs');
+    }
+    return classes.join(' ');
   }),
-
-  didInsertElement() {
-    let self = this.get('self');
-    self.set('height', this.$().outerHeight());
-    self.set('offset', this.$().offset().left);
-    run.scheduleOnce('afterRender', function() {
-      this.get('parent').identifyTabsWrapper(self);
-    }.bind(this));
-  },
 
   actions: {
     nextPage() {
-      this.get('parent').send('nextPage');
+      if (this.get('canPageForward')) {
+        this.get('parentComponent').send('nextPage');
+      }
     },
     previousPage() {
-      this.get('parent').send('previousPage');
+      if (this.get('canPageBack')) {
+        this.get('parentComponent').send('previousPage');
+      }
     }
   }
 });

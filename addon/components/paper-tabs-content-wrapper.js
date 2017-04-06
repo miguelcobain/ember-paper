@@ -1,14 +1,19 @@
-import Ember from 'ember';
+/**
+ * @module ember-paper
+ */
+import Component from 'ember-component';
+import { ChildMixin } from 'ember-composability-tools';
 import layout from '../templates/components/paper-tabs-content-wrapper';
 
-const { Component, run } = Ember;
+/**
+ * @class PaperTabsContentWrapper
+ * @extends Component
+ * @uses ChildMixin
+ */
+export default Component.extend(ChildMixin, {
 
-export default Component.extend({
   tagName: 'md-tabs-content-wrapper',
-  layout,
 
-  didInsertElement() {
-    this._super(...arguments);
-    run.scheduleOnce('afterRender', () => this.get('parent').send('setWormhole', this.elementId));
-  }
+  layout
+
 });

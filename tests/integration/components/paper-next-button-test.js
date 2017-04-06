@@ -17,48 +17,24 @@ test('it has md-next-button tagName', function(assert) {
   assert.ok(this.$('md-next-button').length === 1);
 });
 
-test('it has md-disabled css class if parent.canPageForward is false', function(assert) {
-  this.set('parent', {
-    canPageForward: false
-  });
-
-  this.render(hbs`{{paper-next-button parent=parent}}`);
+test('it has md-disabled css class if disabled is true', function(assert) {
+  this.render(hbs`{{paper-next-button disabled=true}}`);
 
   assert.ok(this.$('md-next-button').hasClass('md-disabled'));
 });
 
-test('it does not have md-disabled css class if parent.canPageForward is true', function(assert) {
-  this.set('parent', {
-    canPageForward: true
-  });
-
-  this.render(hbs`{{paper-next-button parent=parent}}`);
+test('it does not have md-disabled css class if disabled is false', function(assert) {
+  this.render(hbs`{{paper-next-button disabled=false}}`);
 
   assert.notOk(this.$('md-next-button').hasClass('md-disabled'));
 });
 
-test('it calls send with nextPage on parent when clicked', function(assert) {
+test('it calls action when clicked', function(assert) {
   assert.expect(1);
 
-  this.set('parent', {
-    canPageForward: true,
-    send: (action) => assert.equal(action, 'nextPage')
-  });
+  this.set('onClick', () => assert.ok(true, 'onClick called'));
 
-  this.render(hbs`{{paper-next-button parent=parent}}`);
-
-  this.$('md-next-button').click();
-});
-
-test('it does call send with nextPage on parent when clicked', function(assert) {
-  assert.expect(0);
-
-  this.set('parent', {
-    canPageForward: false,
-    send: () => assert.ok(false, 'send should not be called')
-  });
-
-  this.render(hbs`{{paper-next-button parent=parent}}`);
+  this.render(hbs`{{paper-next-button click=(action onClick)}}`);
 
   this.$('md-next-button').click();
 });

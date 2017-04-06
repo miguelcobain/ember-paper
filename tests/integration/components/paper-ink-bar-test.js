@@ -23,13 +23,13 @@ test('it binds the style attribute', function(assert) {
 
   this.render(hbs`{{paper-ink-bar leftPosition=leftPosition rightPosition=rightPosition}}`);
 
-  assert.equal(this.$('md-ink-bar').attr('style'), 'left: 0px; right: 0px;');
+  assert.equal(this.$('md-ink-bar').attr('style'), 'left:0px;right:0px;');
 
   this.set('rightPosition', 23.5);
 
-  assert.equal(this.$('md-ink-bar').attr('style'), 'left: 0px; right: 23px;');
+  assert.equal(this.$('md-ink-bar').attr('style'), 'left:0px;right:23px;');
 
   this.set('leftPosition', -12);
 
-  assert.equal(this.$('md-ink-bar').attr('style'), 'left: -12px; right: 23px;');
+  assert.equal(this.$('md-ink-bar').attr('style'), 'left:-12px;right:23px;');
 });

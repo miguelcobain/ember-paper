@@ -1,11 +1,24 @@
-import Ember from 'ember';
+/**
+ * @module ember-paper
+ */
+import Component from 'ember-component';
+import computed from 'ember-computed';
+import { htmlSafe } from 'ember-string';
 import layout from '../templates/components/paper-ink-bar';
 
-const { computed, Component, String: { htmlSafe } } = Ember;
-
+/**
+ * @class PaperInkBar
+ * @extends Component
+ */
 export default Component.extend({
-  tagName: '',
+
+  tagName: 'md-ink-bar',
+
   layout,
+
+  classNameBindings: ['barClass'],
+
+  attributeBindings: ['barStyle:style'],
 
   barClass: computed('direction', function() {
     let direction = this.get('direction');
@@ -14,10 +27,10 @@ export default Component.extend({
     }
   }),
 
-  style: computed('leftPosition', 'rightPosition', function() {
+  barStyle: computed('leftPosition', 'rightPosition', function() {
     let left = parseInt(this.get('leftPosition'));
     let right = parseInt(this.get('rightPosition'));
-    return htmlSafe(`left: ${left}px; right: ${right}px;`);
+    return htmlSafe(`left:${left}px;right:${right}px;`);
   })
 
 });

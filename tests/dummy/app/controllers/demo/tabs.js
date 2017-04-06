@@ -24,6 +24,10 @@ export default Controller.extend({
 
     addTabItem(label, content) {
       this.get('tabItems').pushObject({ label, content });
+      this.setProperties({
+        newTabContent: '',
+        newTabLabel: ''
+      });
     },
 
     removeTabItem(item) {

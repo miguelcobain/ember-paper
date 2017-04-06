@@ -1,22 +1,21 @@
-import Ember from 'ember';
+/**
+ * @module ember-paper
+ */
+import Component from 'ember-component';
 import layout from '../templates/components/paper-next-button';
 
-const { computed: { not }, Component } = Ember;
-
+/**
+ * @class PaperNextButton
+ * @extends Component
+ */
 export default Component.extend({
+
   tagName: 'md-next-button',
+
   layout,
 
   classNameBindings: [
     'disabled:md-disabled'
-  ],
+  ]
 
-  /* Inherited from `{{paper-tabs-wrapper}}` */
-  disabled: not('parent.canPageForward'),
-
-  click() {
-    if (!this.get('disabled')) {
-      this.get('parent').send('nextPage');
-    }
-  }
 });

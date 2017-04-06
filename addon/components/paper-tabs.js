@@ -1,11 +1,33 @@
-import Ember from 'ember';
+/**
+ * @module ember-paper
+ */
+import Component from 'ember-component';
+import computed from 'ember-computed';
+import run from 'ember-runloop';
+import injectService from 'ember-service/inject';
+import observer from 'ember-metal/observer';
+import { A } from 'ember-array/utils';
+import { htmlSafe } from 'ember-string';
 import layout from '../templates/components/paper-tabs';
+import ColorMixin from 'ember-paper/mixins/color-mixin';
+import { ParentMixin } from 'ember-composability-tools';
+import $ from 'jquery';
 
-const { computed, observer, $, Component, run, A, String: { htmlSafe } } = Ember;
+const offsetRight = ($dom) => $dom.prop('offsetLeft') + $dom.prop('clientWidth');
 
-export default Component.extend({
+/**
+ * @class PaperTabs
+ * @extends Component
+ * @uses ColorMixin
+ * @uses ParentMixin
+ */
+export default Component.extend(ColorMixin, ParentMixin, {
+
   tagName: 'md-tabs',
+
   layout,
+
+  constants: injectService(),
 
   /* Settings */
   dynamicHeight: false,
@@ -13,290 +35,307 @@ export default Component.extend({
   noInk: false,
   noInkBar: false,
   centerTabs: false,
-  stretchTabs: 'auto', // todo: find the best default
+  stretchTabs: 'auto',
   autoSelect: false,
+  borderBottom: false,
 
   classNameBindings: [
-    'primary:md-primary',
-    'dynamicHeight:md-dynamic-height',
-    'shouldStretchTabs:md-stretch-tabs'
+    'dynamicHeight:md-dynamic-height'
   ],
+
   attributeBindings: [
     'alignTabsAttr:md-align-tabs',
     'borderBottomAttr:md-border-bottom',
     'styleAttr:style'
   ],
 
-  /* Attributes Bindings */
   alignTabsAttr: computed('alignTabs', function() {
-    return this.get('alignTabs'); // todo safestring
+    return htmlSafe(this.get('alignTabs'));
   }),
+
   borderBottomAttr: computed('borderBottom', function() {
     return this.get('borderBottom') ? 'md-border-bottom' : null;
   }),
-  styleAttr: computed('heightStyle', function() {
-    return htmlSafe(`${this.get('heightStyle')} ${this.get('transitionStyle')}`);
+
+  styleAttr: computed('heightStyle', 'transitionStyle', function() {
+    return htmlSafe(`${this.get('transitionStyle')} ${this.get('heightStyle')}`);
   }),
 
-  /* Style Bindings */
-  heightStyle: computed('dynamicHeight', 'selectedTab.content.height', 'tabs.[]', 'tabsWrapper.height', function() {
-    if (this.get('dynamicHeight')) {
-      let tabsHeight = this.get('tabsWrapper.height');
-      let selectedTab = this.get('selectedTab');
-      if (selectedTab && (selectedTab.get('content.height') > 0)) {
-        return `height: ${tabsHeight + selectedTab.get('content.height')}px;`;
-      } else {
-        return `height: ${tabsHeight}px;`;
-      }
+  // FIXME this is a workaround, tabs should not have a height and use ember-css-transitions instead
+  transitionStyle: 'transition: all 0.5s cubic-bezier(0.35, 0, 0.25, 1);',
+
+  heightStyle: computed('dynamicHeight', 'height', function() {
+    if (this.get('dynamicHeight') && this.get('height')) {
+      return `height: ${this.get('height')}px`;
     }
     return '';
   }),
-  transitionStyle: 'transition: all 0.5s cubic-bezier(0.35, 0, 0.25, 1);',
 
-  /* Logic Bindings */
-  loaded: false, // set after render
-  shouldStretchTabs: computed('stretchTabs', 'canvasWidth', function() {
+  shouldStretchTabs: computed('stretchTabs', 'isMobile', 'shouldPaginate', function() {
     switch (this.get('stretchTabs')) {
       case 'always':
         return true;
+      case 'auto':
+        return this.get('isMobile') && !this.get('shouldPaginate');
       case 'never':
-        return false;
       default:
-        return (!this.get('shouldPaginate') && (this.get('canvasWidth') <= 600));
+        return false;
     }
   }),
+
+  shouldPaginate: computed('canvasWidth', 'pagingWidth', function() {
+    return this.get('pagingWidth') > this.get('canvasWidth');
+  }),
+
   shouldCenterTabs: computed('centerTabs', 'shouldPaginate', function() {
     return this.get('centerTabs') && !this.get('shouldPaginate');
   }),
-  shouldPaginate: computed('loaded', 'noPagination', 'canvasWidth', 'pagingWidth', function() {
-    if (this.get('noPagination') || !this.get('loaded')) {
-      return false;
-    }
-    let canvasWidth = this.get('canvasWidth');
-    let pagingWidth = this.get('pagingWidth');
-    return (canvasWidth - pagingWidth) < 0;
-  }),
-  pagingWidth: computed('tabs.@each.id', 'shouldStretchTabs', function() {
-    let width = 0;
-    this.get('tabs').forEach(function(tab) {
-      if (tab.id) {
-        let element = document.getElementById(tab.id);
-        width += Math.max(element.offsetWidth, element.getBoundingClientRect().width);
-      }
-    });
-    return Math.ceil(width);
-  }),
 
-  hasContent: computed('', function() {}), // todo
-  maxTabWidth: computed('', function() {}), // todo
   canPageBack: computed.gt('offsetLeft', 0),
-  canPageForward: computed(
-    'lastTab.offsetLeft',
-    'lastTab.offsetWidth',
-    'selectedTab.offsetLeft',
-    'selectedTab.offsetWidth',
-    'canvasWidth',
-    'offsetLeft', function() {
-      if (this.get('lastTab')) {
-        let context = this;
-        let lastTabObject = context.$(`#${context.get('lastTab.id')}`);
-        let [lastTab] = lastTabObject;
-        let pagingWidth = lastTab.offsetLeft + lastTab.clientWidth;
-        let offset = context.$('md-tabs-canvas')[0].clientWidth + context.get('offsetLeft');
-        return (pagingWidth > offset);
-      }
-    }),
 
-  /* sets the initial value as a computed property */
-  canvasWidth: 0,
-
-  didRender() {
-    let context = this;
-    run.scheduleOnce('afterRender', function() {
-      context.set('loaded', true);
-      context.set('canvasWidth', context.$().outerWidth());
-      $(window).on('resize', run.bind(context, function() {
-        this.set('canvasWidth', this.$().outerWidth());
-      }));
-    });
-  },
-
-  /* Tabs Instance */
-
-  tabs: computed(function() {
-    return A();
-  }),
-
-  lastTab: computed.alias('tabs.lastObject'),
-
-  selected: computed('tabs.[]', function() {
-    let tabs = A(this.get('tabs').filterBy('disabled', false));
-    let active = A(tabs.filterBy('active'));
-    if (active.get(length)) {
-      return this.getTabIndex(active.get('firstObject'));
-    } else if (tabs.get('length')) {
-      return this.getTabIndex(tabs.get('firstObject'));
+  canPageForward: computed('offsetLeft', 'lastTab', 'canvasWidth', function() {
+    let lastTab = this.get('lastTab');
+    if (lastTab) {
+      let totalWidth = this.get('offsetLeft') + this.get('canvasWidth') - 64; /* lr paddings */
+      return offsetRight(lastTab.$()) > totalWidth;
     }
-  }),
-
-  initialSelection: observer('selected', 'tabs.[]', function() {
-    if (!this.get('selected') && this.get('selected') !== 0) {
-      let tabs = A(this.get('tabs').filterBy('disabled', false));
-      let active = A(tabs.filterBy('active'));
-      if (active.get(length)) {
-        this.set('selected', this.getTabIndex(active.get('firstObject')));
-      } else if (tabs.get('length')) {
-        this.set('selected', this.getTabIndex(tabs.get('firstObject')));
-      }
-    }
-  }),
-
-  lastSelectedIndex: null,
-
-  selectedTab: computed('selected', 'tabs.[]', function() {
-    return this.getTabByIndex(this.get('selected'));
-  }),
-
-  focusIndex: computed.reads('selected'), // initial value
-
-  disabledSelectedTab: observer('selectedTab.disabled', function() {
-    if (this.get('selectedTab.disabled')) {
-      this.set('selected', this.getNearestSafeIndex(this.get('selected')));
-    }
-  }),
-
-  focusTab: computed('tabs.[]', 'focusIndex', function() {
-    return this.getTabByIndex(this.get('focusIndex'));
-  }),
-
-  adjustOffset: observer('focusIndex', 'selected', function() {
-    let index = this.get('focusIndex') || this.get('selected');
-    if (!this.getTabByIndex(index) || this.get('shouldCenterTabs')) {
-      return 0;
-    }
-    let tab = this.getTabByIndex(index);
-    let left = $(`#${tab.get('id')}`)[0].offsetLeft;
-    let right = $(`#${tab.get('id')}`)[0].clientWidth + left;
-    let offsetLeft = this.get('offsetLeft');
-    let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
-    let newOffset = Math.max(offsetLeft, this.fixOffset(right - canvasWidth + 32 * 2));
-    newOffset = Math.min(newOffset, this.fixOffset(left));
-    this.set('offsetLeft', newOffset);
-  }),
-
-  nextPage() {
-    let canvasWidth = this.get('canvasWidth');
-    let totalWidth = canvasWidth + this.get('offsetLeft');
-    let i, tab;
-
-    for (i = 0; i < this.get('tabs.length'); i++) {
-      tab = document.getElementById(this.get('tabs')[i].id);
-      if (tab.offsetLeft + tab.clientWidth > totalWidth) {
-        break;
-      }
-    }
-    this.set('offsetLeft', this.fixOffset(tab.offsetLeft));
-  },
-
-  previousPage() {
-    let i, tab;
-    for (i = 0; i < this.get('tabs.length'); i++) {
-      tab = document.getElementById(this.get('tabs')[i].id);
-      if (tab.offsetLeft + tab.offsetWidth >= this.get('offsetLeft')) {
-        break;
-      }
-    }
-    let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
-    this.set('offsetLeft', this.fixOffset(tab.offsetLeft + tab.offsetWidth - canvasWidth));
-  },
-
-  fixOffset(value) {
-    if (!this.get('tabs.length') || !this.get('shouldPaginate')) {
-      return 0;
-    }
-    let lastTab = this.get('tabs')[this.get('tabs.length') - 1];
-    let lastTabElement = document.getElementById(lastTab.id);
-    let totalWidth = lastTabElement.offsetLeft + lastTab.offsetWidth;
-    let canvasWidth = this.$('md-tabs-canvas')[0].clientWidth;
-    value = Math.max(0, value);
-    value = Math.min(totalWidth - canvasWidth, value);
-    return value;
-  },
-
-  setOffsetLeft: observer('focusIndex', 'selected', 'tabs.[]', 'shouldPaginate', function() {
-    let focused = this.get('focusIndex');
-    let selected = this.get('selected');
-    let index = (focused === selected) ? selected : focused;
-    return this.adjustOffset(index) + 32;
   }),
 
   offsetLeft: 0,
 
-  /* Methods */
+  tabs: A([]),
 
-  getTabIndex(object) {
-    return this.get('tabs').indexOf(object);
-  },
+  lastTab: computed.readOnly('tabs.lastObject'),
 
-  getTabByIndex(index) {
-    return this.get('tabs')[index];
-  },
+  wormhole: computed.readOnly('tabsContentWrapper.elementId'),
 
-  getNearestSafeIndex(newIndex) {
-    if (newIndex === -1) {
-      return -1;
+  selectedTab: computed('selected', 'tabs.[]', function() {
+    return this.get('tabs')[this.get('selected')];
+  }),
+
+  focusIndex: computed.reads('selected'), // initial value
+
+  updateOffsetLeft: observer('focusIndex', 'selected', 'tabs.[]', 'canvasWidth', 'shouldPaginate', 'shouldCenterTabs', function() {
+    if (!this.get('shouldPaginate') || this.get('shouldCenterTabs')) {
+      return this.set('offsetLeft', 0);
     }
-    let maxOffset = Math.max(this.get('tabs').length - newIndex, newIndex);
-    let i, tab;
 
-    for (i = 0; i <= maxOffset; i++) {
-      tab = this.getTabByIndex(newIndex + i);
-      if (tab && (tab.get('disabled') !== true)) {
-        return this.getTabIndex(tab);
-      }
-      tab = this.getTabByIndex(newIndex - i);
-      if (tab && (tab.get('disabled') !== true)) {
-        return this.getTabIndex(tab);
+    let focused = this.get('focusIndex');
+    let selected = this.get('selected');
+    let index = (focused === selected) ? selected : focused;
+
+    let selectedTab = this.get('tabs')[index];
+    if (!selectedTab || !selectedTab.$()) {
+      return;
+    }
+
+    let canvasWidth = this.get('canvasWidth');
+    let currentOffset = this.get('offsetLeft');
+    let selectedTabOffset = selectedTab.$().prop('offsetLeft');
+    let selectedTabWidth = selectedTab.$().prop('clientWidth');
+
+    let newOffset = Math.max(currentOffset, (selectedTabOffset + selectedTabWidth) - canvasWidth + 64 /* lr paddings */);
+    newOffset = Math.min(newOffset, selectedTabOffset);
+
+    this.set('offsetLeft', newOffset);
+  }),
+
+  recomputeSizes: observer('shouldStretchTabs', function() {
+    run.scheduleOnce('afterRender', this, function() {
+      this.updatePagingSize();
+      this.updateSelectedTabSizes();
+      this.updateTabsHeight();
+    });
+  }),
+
+  onSelectedTabDisabled: observer('selectedTab.disabled', function() {
+    if (this.get('selectedTab.disabled')) {
+      let closestValidTab = this.findClosestValidTab();
+      if (closestValidTab) {
+        this.send('selectTab', closestValidTab);
       }
     }
-    return newIndex;
+  }),
+
+  didInsertElement() {
+    this._super(...arguments);
+
+    let tabsWrapper = this.get('childComponents').find((child) => child.get('tagName') === 'md-tabs-wrapper');
+    let tabsContentWrapper = this.get('childComponents').find((child) => child.get('tagName') === 'md-tabs-content-wrapper');
+    let tabs = this.get('childComponents').filterBy('tagName', 'md-tab-item');
+
+    let selected = this.get('selected');
+    if (selected === undefined) {
+      let enabledTabs = tabs.filter((tab) => tab.get('disabled') !== true);
+      if (enabledTabs.length > 0) {
+        selected = tabs.indexOf(enabledTabs[0]);
+      }
+    }
+
+    let selectedTab;
+    if (selected >= 0) {
+      selectedTab = tabs[selected];
+    } else {
+      selected = null;
+    }
+
+    this.setProperties({
+      tabs: A(tabs),
+      tabsWrapper,
+      tabsContentWrapper,
+      selected,
+      loaded: true,
+      lastSelectedIndex: null
+    });
+
+    if (selectedTab) {
+      selectedTab.one('onRendered', function() {
+        this.updateTabsHeight();
+        this.updateSelectedTabSizes();
+      }.bind(this));
+    }
+
+    run.scheduleOnce('afterRender', this, function() {
+      this.updateCanvasSize();
+      this.updatePagingSize();
+      this.updateIsMobile();
+    });
+
+    $(window).on(`resize.${this.elementId}`, function() {
+      run.scheduleOnce('afterRender', this, function() {
+        this.updateCanvasSize();
+        this.updateIsMobile();
+      });
+    }.bind(this));
   },
 
-  identifyTabsWrapper(object) {
-    this.set('tabsWrapper', object);
+  registerChild(child) {
+    this._super(...arguments);
+    if (this.get('loaded') && child.get('tagName') === 'md-tab-item') {
+      this.get('tabs').pushObject(child);
+      run.scheduleOnce('afterRender', this, function() {
+        this.updatePagingSize();
+      });
+      if (this.get('autoSelect')) {
+        this.send('selectTab', child);
+      }
+    }
   },
 
-  /* Events */
+  unregisterChild(child) {
+    this._super(...arguments);
+    if (this.get('loaded') && child.get('tagName') === 'md-tab-item') {
+      this.get('tabs').removeObject(child);
+      run.scheduleOnce('afterRender', this, function() {
+        this.updatePagingSize();
+        let closestTab = this.findClosestValidTab();
+        if (closestTab) {
+          this.send('selectTab', closestTab);
+        }
+      });
+    }
+  },
 
-  keyDown() {
+  willDestroyElement() {
+    $(window).off(`resize.${this.elementId}`);
+    this._super(...arguments);
+  },
+
+  findClosestValidTab() {
+    let currentIdx = this.get('selected');
+    if (currentIdx === -1) {
+      return null;
+    }
+
+    let tabs = this.get('tabs');
+    let maxOffset = Math.max(tabs.length - currentIdx, currentIdx);
+    let ensureValid = (tab) => tab && tab.get('disabled') !== true ? tab : undefined;
+
+    for (let i = 0; i <= maxOffset; i++) {
+      let tab = ensureValid(tabs[currentIdx + i]) || ensureValid(tabs[currentIdx - i]);
+      if (tab) {
+        return tab;
+      }
+    }
+  },
+
+  updateTabsHeight() {
+    if (this.get('dynamicHeight')) {
+      let $tab = this.get('tabsContentWrapper').$('md-tab-content.md-active');
+      let tabsHeight = this.get('tabsWrapper').$().prop('scrollHeight');
+      let activeTabHeight = $tab ? $tab.prop('scrollHeight') : null;
+      if (tabsHeight && activeTabHeight) {
+        this.set('height', tabsHeight + activeTabHeight);
+      }
+    }
+  },
+
+  updateSelectedTabSizes() {
+    let selectedTab = this.get('selectedTab');
+    if (selectedTab) {
+      this.setProperties({
+        selectedTabOffsetLeft: selectedTab.$().prop('offsetLeft'),
+        selectedTabWidth: selectedTab.$().prop('clientWidth')
+      });
+    } else {
+      this.setProperties({
+        selectedTabOffsetLeft: null,
+        selectedTabWidth: null
+      });
+    }
+  },
+
+  updatePagingSize() {
+    let pagingWidth = 0;
+    if (this.get('shouldStretchTabs')) {
+      pagingWidth = this.get('canvasWidth');
+    } else {
+      let $items = this.get('tabsWrapper').$('md-tab-item');
+      if ($items) {
+        $items.each((_, tab) => pagingWidth += tab.clientWidth);
+      }
+    }
+    this.set('pagingWidth', pagingWidth);
+  },
+
+  updateCanvasSize() {
+    this.set('canvasWidth', this.get('tabsWrapper').$('md-tabs-canvas').prop('clientWidth'));
+  },
+
+  updateIsMobile() {
+    this.set('isMobile', window.matchMedia(this.get('constants.MEDIA.xs')).matches);
   },
 
   actions: {
     nextPage() {
-      if (this.get('canPageForward')) {
-        this.nextPage();
+      let totalWidth = this.get('canvasWidth') + this.get('offsetLeft');
+      let lastVisibleTab = this.get('tabs').find((tab) => offsetRight(tab.$()) > totalWidth);
+      if (lastVisibleTab) {
+        this.set('focusIndex', lastVisibleTab.get('index'));
       }
     },
+
     previousPage() {
-      if (this.get('canPageBack')) {
-        this.previousPage();
+      let offsetLeft = this.get('offsetLeft');
+      let firstVisibleTab = this.get('tabs').find((tab)  => offsetRight(tab.$()) >= offsetLeft);
+      if (firstVisibleTab) {
+        this.set('focusIndex', firstVisibleTab.get('index'));
       }
     },
-    setWormhole(id) {
-      this.set('wormhole', id);
-    },
-    createTab(object) {
-      this.get('tabs').pushObject(object);
-      if (this.get('autoSelect')) {
-        this.set('selected', this.getTabIndex(object));
-      }
-    },
-    destroyTab(object) {
-      this.get('tabs').removeObject(object);
-    },
-    selectTab(object) {
-      this.set('lastSelectedIndex', this.get('selected'));
-      this.set('selected', this.getTabIndex(object));
+
+    selectTab(tab) {
+      let newSelected = this.get('tabs').indexOf(tab);
+
+      this.setProperties({
+        lastSelectedIndex: this.get('selected'),
+        selected: newSelected,
+        focusIndex: newSelected
+      });
+
+      run.scheduleOnce('afterRender', this, function() {
+        this.updateTabsHeight();
+        this.updateSelectedTabSizes();
+      });
     }
   }
 });
