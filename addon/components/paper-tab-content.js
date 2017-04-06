@@ -1,8 +1,11 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-tab-content';
+
 const { computed, Component, Object: EmberObject, run } = Ember;
 
 export default Component.extend({
   tagName: 'md-tab-content',
+  layout,
 
   /* Inherited */
   wormhole: computed.readOnly('parent.wormhole'),

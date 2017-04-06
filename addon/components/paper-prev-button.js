@@ -1,8 +1,11 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-prev-button';
+
 const { computed: { not }, Component } = Ember;
 
 export default Component.extend({
   tagName: 'md-prev-button',
+  layout,
 
   classNameBindings: [
     'disabled:md-disabled'

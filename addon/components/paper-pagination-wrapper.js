@@ -1,8 +1,11 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-pagination-wrapper';
+
 const { computed, Component, String: { htmlSafe } } = Ember;
 
 export default Component.extend({
   tagName: 'md-pagination-wrapper',
+  layout,
 
   classNameBindings: [
     'centerTabs:md-center-tabs'

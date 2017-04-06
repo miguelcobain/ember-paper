@@ -1,8 +1,11 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-tabs';
+
 const { computed, observer, $, Component, run, A, String: { htmlSafe } } = Ember;
 
 export default Component.extend({
   tagName: 'md-tabs',
+  layout,
 
   /* Settings */
   dynamicHeight: false,

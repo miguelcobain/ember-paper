@@ -2,11 +2,14 @@ import Ember from 'ember';
 import RippleMixin from '../mixins/ripple-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+import layout from '../templates/components/paper-tab';
+
 const { computed, observer, Component, run, Object: EmberObject, String: { htmlSafe } } = Ember;
 
 export default Component.extend(RippleMixin, ProxiableMixin, ColorMixin, {
 
   tagName: 'md-tab-item',
+  layout,
 
   classNames: ['md-tab'],
   classNameBindings: [

@@ -1,9 +1,12 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-tabs-wrapper';
+
 const { computed, Component, Object: EmberObject, run } = Ember;
 
 export default Component.extend({
 
   tagName: 'md-tabs-wrapper',
+  layout,
 
   self: computed(function() {
     return EmberObject.create({

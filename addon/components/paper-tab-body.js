@@ -1,8 +1,11 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-tab-body';
+
 const { computed, Component } = Ember;
 
 export default Component.extend({
   tagName: '',
+  layout,
 
   wormhole: computed.readOnly('parent.wormhole'),
   isActive: computed.reads('parent.isActive'),

@@ -1,8 +1,11 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-ink-bar';
+
 const { computed, Component, String: { htmlSafe } } = Ember;
 
 export default Component.extend({
   tagName: '',
+  layout,
 
   barClass: computed('direction', function() {
     let direction = this.get('direction');
