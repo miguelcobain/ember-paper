@@ -1,16 +1,29 @@
-<div class="md-container">
-  <div class="md-icon"></div>
-</div>
-{{#if hasBlock}}
-  <div class="md-label">
-    <span>
-      {{yield}}
-    </span>
-  </div>
-{{else}}
-  <div class="md-label">
-    <span>
-      {{label}}
-    </span>
-  </div>
-{{/if}}
+{{#paper-checkbox-main
+  value=value
+  primary=primary
+  accent=accent
+  warn=warn
+  noink=noink
+  isChecked=isChecked
+  indeterminate=indeterminate
+  disabled=disabled
+  onChange=onChange
+}}
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
+    {{label}}
+  {{/if}}
+{{/paper-checkbox-main}}
+
+{{#unless hideAllMessages}}
+  {{#if isInvalidAndTouched}}
+    {{#each displayErrorMessages as |message|}}
+      <div class="md-input-messages-animation md-auto-hide" ng-messages>
+        <div class="paper-input-error ng-enter ng-enter-active" ng-message>
+          {{message}}
+        </div>
+      </div>
+    {{/each}}
+  {{/if}}
+{{/unless}}
