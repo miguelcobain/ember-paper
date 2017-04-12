@@ -17,8 +17,9 @@
         (For example, pressing the enter key from within one of the form's
         inputs will submit the form.)
         <code>paper-form</code> yields <code>{{#link-to "demo.input"}}paper-input{{/link-to}}</code>,
-        <code>{{#link-to "demo.select"}}paper-select{{/link-to}}</code>
-        and <code>{{#link-to "demo.autocomplete"}}paper-autocomplete{{/link-to}}</code> controls.
+        <code>{{#link-to "demo.select"}}paper-select{{/link-to}}</code>,
+        <code>{{#link-to "demo.autocomplete"}}paper-autocomplete{{/link-to}}</code>,
+        and <code>{{#link-to "demo.checkbox"}}paper-checkbox{{/link-to}}</code> controls.
         In the following example you can see how we use the yielded form controls:
       </p>
 
@@ -46,6 +47,11 @@
                     flags="i"}}
               {{/form.autocomplete}}
               {{form.input type="number" label="Age" value=age onChange=(action (mut age)) min=13 max=65 required=true}}
+            </div>
+          </div>
+          <div class="layout-row">
+            <div class="layout-column flex-100">
+              {{form.checkbox label="I agree" value=checkboxAgree onChange=(action (mut checkboxAgree)) required=true}}
             </div>
           </div>
           <div class="layout-row">
