@@ -35,4 +35,11 @@ export default Component.extend(ChildMixin, {
     this._super(...arguments);
     assert('{{paper-checkbox}} requires an `onChange` action or null for no action.', this.get('onChange') !== undefined);
   },
+
+  actions: {
+    onChange(value) {
+      this.sendAction('onChange', value);
+      this.sendAction('onValidityChange');
+    }
+  }
 });
