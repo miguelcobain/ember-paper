@@ -12,7 +12,7 @@
       </div>
     {{/paper-button}}
   {{else}}
-    <div class="md-no-style md-list-item-inner" onmouseenter={{action onMouseEnter}} onmouseleave={{action onMouseLeave}}>
+    <div class="md-no-style md-list-item-inner" onmouseenter={{if onMouseEnter (action onMouseEnter)}} onmouseleave={{if onMouseLeave (action onMouseLeave)}}>
       {{yield controls}}
     </div>
   {{/if}}
