@@ -60,11 +60,11 @@ export default Component.extend(RippleMixin, ParentMixin, {
     });
   },
 
-  mouseEnter() {
+  mouseEnter(ev) {
     this.sendAction('onMouseEnter', ev);
   },
 
-  mouseLeave() {
+  mouseLeave(ev) {
     this.sendAction('onMouseLeave', ev);
   }
 });
