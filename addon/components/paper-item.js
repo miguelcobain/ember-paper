@@ -58,5 +58,13 @@ export default Component.extend(RippleMixin, ParentMixin, {
         component.processProxy();
       }
     });
+  },
+
+  mouseEnter() {
+    this.sendAction('onMouseEnter', ev);
+  },
+
+  mouseLeave() {
+    this.sendAction('onMouseLeave', ev);
   }
 });
