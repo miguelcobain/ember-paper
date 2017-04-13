@@ -418,6 +418,9 @@ $shades: (
   'white': #FFFFFF
 ) !default;
 
+$background-light: map-merge($color-grey, (
+  'default': 'A100',
+)) !default;
 
 $colors: () !default;
 
@@ -443,13 +446,23 @@ $colors: map-merge($colors,(
   'grey': $color-grey,
   'shades': $shades,
   'foreground-light': $foreground-light,
-  'foreground-dark': $foreground-dark
+  'foreground-dark': $foreground-dark,
+  'background-light': $background-light,
 ));
 
 $default-color: '500' !default;
-@function color($color, $type: $default-color) {
+@function color($color, $type: null) {
   @if map-has-key($colors, $color) {
     $curr_color: map-get($colors, $color);
+
+    @if ($type == null) {
+      @if map-has-key($curr_color, 'default') {
+        $type: map-get($curr_color, 'default');
+      } @else {
+        $type: $default-color;
+      }
+    }
+
     @if map-has-key($curr_color, $type) {
       @return map-get($curr_color, $type);
     }
