@@ -51,7 +51,8 @@
     "ember-transition-helper": "0.0.6",
     "eslint-plugin-ember-suave": "^1.0.0",
     "liquid-fire": "0.27.0",
-    "loader.js": "^4.0.10"
+    "loader.js": "^4.0.10",
+    "qunitjs": "2.2.1"
   },
   "dependencies": {
     "angular-material-source": "angular/material#v1.0.9",
