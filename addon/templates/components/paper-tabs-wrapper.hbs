@@ -2,8 +2,8 @@
   {{paper-prev-button disabled=(not canPageBack) click=(action "previousPage")}}
   {{paper-next-button disabled=(not canPageForward) click=(action "nextPage")}}
 {{/if}}
-<md-tabs-canvas class={{canvasClass}}>
+{{#paper-tabs-canvas parentComponent=parentComponent}}
   {{#paper-pagination-wrapper parentComponent=parentComponent}}
     {{yield}}
   {{/paper-pagination-wrapper}}
-</md-tabs-canvas>
+{{/paper-tabs-canvas}}

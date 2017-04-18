@@ -28,17 +28,6 @@ export default Component.extend(ChildMixin, {
   canPageBack: computed.readOnly('parentComponent.canPageBack'),
   canPageForward: computed.readOnly('parentComponent.canPageForward'),
 
-  canvasClass: computed('shouldPaginate', 'shouldCenterTabs', function() {
-    let classes = [];
-    if (this.get('shouldPaginate')) {
-      classes.push('md-paginated');
-    }
-    if (this.get('shouldCenterTabs')) {
-      classes.push('md-center-tabs');
-    }
-    return classes.join(' ');
-  }),
-
   actions: {
     nextPage() {
       if (this.get('canPageForward')) {
