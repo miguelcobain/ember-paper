@@ -7,7 +7,7 @@ import layout from '../templates/components/paper-sidenav';
 const { Component, computed } = Ember;
 
 /**
- * @class
+ * @class PaperSidenav
  * @extends Ember.Component
  */
 export default Component.extend({
