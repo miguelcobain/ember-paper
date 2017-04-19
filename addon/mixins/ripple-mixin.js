@@ -215,7 +215,7 @@ export default Mixin.create({
     let height = this.rippleElement.prop('clientHeight');
     let x = Math.max(Math.abs(width - left), left) * 2;
     let y = Math.max(Math.abs(height - top), top) * 2;
-    let size = getSize(this.get('fitRipple'), x, y);
+    let size = getSize(this.get('fitRipple'), x + 30, y + 30);
     let color = this.calculateColor();
 
     ripple.css({
