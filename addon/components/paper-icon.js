@@ -42,7 +42,7 @@ let PaperIconComponent = Component.extend(ColorMixin, {
     let size = this.get('size');
 
     if (size) {
-      return Str.htmlSafe(`height: ${size}px; font-size: ${size}px;`);
+      return Str.htmlSafe(`height: ${size}px; width: ${size}px; font-size: ${size}px;`);
     }
   })
 });
