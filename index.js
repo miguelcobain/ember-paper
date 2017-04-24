@@ -195,7 +195,7 @@ module.exports = {
   },
 
   postprocessTree: function(type, tree) {
-    if (type === 'all' || type === 'styles') {
+    if (type === 'css') {
       tree = autoprefixer(tree,
           this.app.options.autoprefixer || { browsers: ['last 2 versions'] });
     }
