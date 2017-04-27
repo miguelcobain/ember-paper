@@ -17,6 +17,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 
 ### master
 - [#679](https://github.com/miguelcobain/ember-paper/issues/679) fix outline on paper-menu
+- [#699](https://github.com/miguelcobain/ember-paper/issues/699) Removed paper-wormhole initializer in favor of the `contentFor` hook. This makes ember-paper more acceptance test friendly.
 
 ### 1.0.0-alpha.19 (March 20, 2017)
 - [56b84cf](https://github.com/miguelcobain/ember-paper/commit/56b84cf6b30e01dcf64961c4f75e101d0899593c) fix sliders on android browsers
