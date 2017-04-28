@@ -92,7 +92,7 @@ test('blockless version should set label inside', function(assert) {
 
   this.render(hbs`{{paper-checkbox value=value onChange=(action (mut value)) label="çup?"}}`);
 
-  assert.equal(this.$('. > span').text().trim(), 'çup?');
+  assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
 
 test('block version should set label inside', function(assert) {
@@ -104,7 +104,7 @@ test('block version should set label inside', function(assert) {
     {{/paper-checkbox}}
   `);
 
-  assert.equal(this.$('. > span').text().trim(), 'çup?');
+  assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
 
 /* test('the `onChange` action is mandatory', function(assert) {

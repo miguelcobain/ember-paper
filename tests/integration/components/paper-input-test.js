@@ -26,16 +26,15 @@ test('renders with left icon', function(assert) {
   this.render(hbs`{{paper-input icon="person" onChange=dummyOnChange}}`);
 
   assert.ok(this.$('md-input-container md-icon').length);
-  assert.ok(this.$('md-input-container').hasClass('md-has-icon'));
+  assert.ok(this.$('md-input-container').hasClass('md-icon-left'));
 });
 
 test('renders with right icon', function(assert) {
-  assert.expect(3);
+  assert.expect(2);
 
   this.render(hbs`{{paper-input label="name" iconRight="person" onChange=dummyOnChange}}`);
 
   assert.ok(this.$('md-input-container md-icon').length);
-  assert.ok(this.$('md-input-container').hasClass('md-has-icon'));
   assert.ok(this.$('md-input-container').hasClass('md-icon-right'));
 });
 
