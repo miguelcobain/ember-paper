@@ -8,7 +8,7 @@ export default Component.extend({
   tagName: 'md-autocomplete-wrap',
   classNames: ['md-show-clear-button'],
   classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
-
+  searchText: computed.oneWay('select.searchText'),
   noLabel: computed.not('extra.label'),
   _innerText: computed.oneWay('searchText'),
 
@@ -23,7 +23,7 @@ export default Component.extend({
       if (selected) {
         return this.getSelectedAsText();
       }
-      return this.get('attrs').searchText !== undefined ? searchText : _innerText;
+      return this.get('searchText') !== undefined ? searchText : _innerText;
     },
     set(_, v) {
       let { selected, searchText } = this.getProperties('selected', 'searchText');
