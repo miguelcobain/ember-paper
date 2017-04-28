@@ -23,7 +23,7 @@ export default Component.extend({
       if (selected) {
         return this.getSelectedAsText();
       }
-      return attrs.searchText !== undefined ? searchText : _innerText;
+      return this.get('attrs').searchText !== undefined ? searchText : _innerText;
     },
     set(_, v) {
       let { selected, searchText } = this.getProperties('selected', 'searchText');
