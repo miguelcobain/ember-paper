@@ -70,6 +70,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     let aliasOnChangeDepKey = hasSelectionChange ? 'onSelectionChange' : '_onChangeNop';
     defineProperty(this, 'oninput', computed.alias('onSearchTextChange'));
     defineProperty(this, 'onchange', computed.alias(aliasOnChangeDepKey));
+    this.set('publicAPI.searchText', "");
   },
 
   // Choose highlighted item on key tab
