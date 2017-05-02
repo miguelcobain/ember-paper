@@ -37,7 +37,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
       return 'selected';
     }
   }),
-  searchText: computed.alias('publicAPI.searchText'),
+  searchText: '',
   savedSearchText: '',
   _onChangeNop() { },
 
