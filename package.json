@@ -43,7 +43,7 @@
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
-    "ember-source": "~2.13.0",
+    "ember-source": "~2.12.0",
     "ember-transition-helper": "0.0.6",
     "eslint-plugin-ember-suave": "^1.0.0",
     "liquid-fire": "0.27.3",
