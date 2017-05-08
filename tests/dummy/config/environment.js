@@ -1,11 +1,10 @@
 /* eslint-env node */
 
 module.exports = function(environment) {
-  // jscs:disable requireEnhancedObjectLiterals, validateQuoteMarks, disallowEmptyBlocks, disallowVar
 
-  let ENV = {
+  var ENV = {
     modulePrefix: 'dummy',
-    environment,
+    environment: environment,
     rootURL: '/',
     locationType: 'hash',
     EmberENV: {

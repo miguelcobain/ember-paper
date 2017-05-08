@@ -7,7 +7,7 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
 import clamp from 'ember-paper/utils/clamp';
 import { rAF, cAF } from 'ember-css-transitions/mixins/transition-mixin';
 
-const { Component, computed, isPresent, inject, String: { htmlSafe } } = Ember;
+const { Component, computed, isPresent, String: { htmlSafe } } = Ember;
 
 const MODE_DETERMINATE = 'determinate';
 const MODE_INDETERMINATE = 'indeterminate';
@@ -163,8 +163,10 @@ export default Component.extend(ColorMixin, {
     let rotation = -90 * iterationCount;
 
     let renderFrame = (value, diameter, strokeWidth, dashLimit) => {
-      this.$('path').attr('stroke-dashoffset', this.getDashLength(diameter, strokeWidth, value, dashLimit));
-      this.$('path').attr('transform', `rotate(${rotation} ${diameter / 2} ${diameter / 2})`);
+      if (!this.isDestroyed && !this.isDestroying) {
+        this.$('path').attr('stroke-dashoffset', this.getDashLength(diameter, strokeWidth, value, dashLimit));
+        this.$('path').attr('transform', `rotate(${rotation} ${diameter / 2} ${diameter / 2})`);
+      }
     };
 
     // No need to animate it if the values are the same
@@ -225,48 +227,5 @@ export default Component.extend(ColorMixin, {
    */
   getDashLength(diameter, strokeWidth, value, limit) {
     return (diameter - strokeWidth) * Math.PI * ((3 * (limit || 100) / 100) - (value / 100));
-  },
-
-  constants: inject.service(),
-
-  clampedValue: computed('value', function() {
-    return clamp(this.get('value'), 0, 100);
-  }),
-
-  gapStyle: computed('mode', 'clampedValue', function() {
-    if (this.get('mode') !== MODE_DETERMINATE) {
-      return htmlSafe('');
-    }
-
-    let value = this.get('clampedValue');
-    let borderBottomColor = (value <= 50) ? 'border-bottom-color: transparent !important' : null;
-    let transition = (value <= 50) ? null : `${this.get('constants.CSS.TRANSITION')}: borderBottomColor 0.1s linear`;
-
-    return htmlSafe([borderBottomColor, transition].filter((i) => !!i).join(';'));
-  }),
-
-  leftStyle: computed('mode', 'clampedValue', function() {
-    if (this.get('mode') !== MODE_DETERMINATE) {
-      return htmlSafe('');
-    }
-
-    let value = this.get('clampedValue');
-    let transition = (value <= 50) ? `${this.get('constants.CSS.TRANSITION')}: transform 0.1s linear` : '';
-    let transform = `${this.get('constants.CSS.TRANSFORM')}: rotate(${value <= 50 ? 135 : (((value - 50) / 50 * 180) + 135)}deg)`;
-
-    return htmlSafe([transition, transform].filter((i) => !!i).join(';'));
-  }),
-
-  rightStyle: computed('mode', 'clampedValue', function() {
-    if (this.get('mode') !== MODE_DETERMINATE) {
-      return htmlSafe('');
-    }
-
-    let value = this.get('clampedValue');
-    let transition = (value >= 50) ? `${this.get('constants.CSS.TRANSITION')}: transform 0.1s linear` : '';
-    let transform = `${this.get('constants.CSS.TRANSFORM')}: rotate(${value >= 50 ? 45 : (value / 50 * 180 - 135)}deg)`;
-
-    return htmlSafe([transition, transform].filter((i) => !!i).join(';'));
-  })
-
+  }
 });
