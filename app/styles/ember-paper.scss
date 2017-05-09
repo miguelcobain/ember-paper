@@ -111,8 +111,7 @@
 @import './angular-material/components/subheader/subheader';
 @import './angular-material/components/subheader/subheader-theme';
 
-// Overwriting below with the latest style
-// @import './angular-material/components/autocomplete/autocomplete';
+@import './angular-material/components/autocomplete/autocomplete';
 @import './angular-material/components/autocomplete/autocomplete-theme';
 
 @import './angular-material/components/progressLinear/progress-linear';
@@ -143,7 +142,5 @@
 @import './angular-material/components/chips/chips';
 @import './angular-material/components/chips/chips-theme';
 
-// Backports of features from future versions of angular-material-source to this version
-@import './backports/paper-select';
-@import './backports/paper-autocomplete';
-@import './backports/paper-slider';
+// some overrides that are needed for ember-paper (avoid if possible)
+@import './overrides/paper-autocomplete';

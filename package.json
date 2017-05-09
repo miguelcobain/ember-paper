@@ -51,7 +51,7 @@
     "qunitjs": "2.2.1"
   },
   "dependencies": {
-    "angular-material-source": "github:angular/material#v1.1.0",
+    "angular-material-source": "github:angular/material#v1.1.4",
     "broccoli-autoprefixer": "^4.1.0",
     "broccoli-filter": "^1.2.3",
     "broccoli-funnel": "^1.2.0",
