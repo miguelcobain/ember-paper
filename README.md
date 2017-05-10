@@ -21,6 +21,7 @@ Navigate through the docs to understand how to use each component.
 
 ### Content Security Policy
 
+This is no longer used in newer ember-cli apps. However, here are the instructions if you need them.
 Ember Paper uses fonts from Google Fonts, so the URL to them has to be white listed.  You can set this by adding to the Content Security Policy defined in `config/environment.js` like so:
 
 ```js
@@ -35,7 +36,7 @@ ENV.contentSecurityPolicy = {
 }
 ```
 
-We also need to allow `data:` in `img-src` because of a [current hack](https://github.com/miguelcobain/ember-paper/blob/master/app%2Fstyles%2Fpaper-button.scss) in paper-button.
+We also need to allow `data:` in `img-src` because of a [current hack](https://github.com/angular/material/blob/v1.1.4/src/components/button/button.scss#L123) in paper-button styles.
 
 You can find out more information on the CSP addon page [here](https://github.com/rwjblue/ember-cli-content-security-policy#ember-cli-content-security-policy).
 
