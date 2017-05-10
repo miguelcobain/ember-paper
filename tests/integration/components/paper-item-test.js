@@ -195,7 +195,7 @@ test('Item checkbox with secondary action and primary action dont bubble primary
       {{/paper-item}}
     {{/paper-list}}
   `);
-  let item = this.$('.md-list-item-inner');
+  let item = this.$('.md-button.md-no-style');
   let mdCheckbox = this.$('md-checkbox');
   return wait().then(() => {
     mdCheckbox.click();

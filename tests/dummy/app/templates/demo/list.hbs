@@ -141,12 +141,31 @@
 
         {{paper-divider}}
 
-        {{#paper-subheader class="md-no-sticky"}}Checkbox with Secondary Action{{/paper-subheader}}
+        {{#paper-subheader}}Checkbox with Secondary Action{{/paper-subheader}}
         {{#each messageData as |item|}}
           {{#paper-item as |controls|}}
             {{controls.checkbox value=item.checked onChange=(action (mut item.checked))}}
             <p>{{item.message}}</p>
             <div class="md-secondary-container">
+              {{#controls.button secondary=true iconButton=true onClick=(action "secondaryMessageClick" item)}}
+                {{paper-icon "message"}}
+              {{/controls.button}}
+            </div>
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#paper-subheader}}Avatar with Secondary Action Icon{{/paper-subheader}}
+        {{#each listData as |item|}}
+          {{#paper-item onClick=(action "goToPerson" item) as |controls|}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
+            <p>{{item.name}}</p>
+            <div class="md-secondary-container">
+              {{controls.checkbox value=item.checked onChange=(action (mut item.checked))}}
+              {{#controls.button secondary=true iconButton=true onClick=(action "secondaryMessageClick" item)}}
+                {{paper-icon "email"}}
+              {{/controls.button}}
               {{#controls.button secondary=true iconButton=true onClick=(action "secondaryMessageClick" item)}}
                 {{paper-icon "message"}}
               {{/controls.button}}
