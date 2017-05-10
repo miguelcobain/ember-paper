@@ -7,7 +7,7 @@ $strong-light-contrast-color: rgb(255, 255, 255) !default;
 $foreground-light: (
   '1': rgba(255, 255, 255, 1.0),
   '2': rgba(255, 255, 255, 0.7),
-  '3': rgba(255, 255, 255, 0.3),
+  '3': rgba(255, 255, 255, 0.5),
   '4': rgba(255, 255, 255, 0.12),
   'shadow': '1px 1px 0px rgba(0, 0, 0, 0.4), -1px -1px 0px rgba(0, 0, 0, 0.4)'
 ) !default;
@@ -15,7 +15,7 @@ $foreground-light: (
 $foreground-dark: (
   '1': rgba(0, 0, 0, 0.87),
   '2': rgba(0, 0, 0, 0.54),
-  '3': rgba(0, 0, 0, 0.26),
+  '3': rgba(0, 0, 0, 0.38),
   '4': rgba(0, 0, 0, 0.12),
   'shadow': none
 ) !default;
