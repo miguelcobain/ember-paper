@@ -192,6 +192,42 @@
     {{/card.content}}
   {{/paper-card}}
 
+  <p>The Navigation tabs demo shows how to use tabs without content for custom navigation:</p>
+
+  {{#paper-card as |card|}}
+    {{#paper-toolbar as |toolbar|}}
+      {{#toolbar.tools}}
+        <h2>Navigation Tabs</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode" "navigationTabs") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/toolbar.tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showNavigationTabs 'is-visible'}}">
+      {{code-snippet name="navigation-tabs.hbs"}}
+    </div>
+
+    {{#card.content class="md-padding"}}
+    {{! BEGIN-SNIPPET navigation-tabs }}
+      {{#paper-tabs as |tabs|}}
+        {{tabs.tab label="ITEM ONE" onSelect=(action (mut selectedTab) "ITEM ONE")}}
+        {{tabs.tab label="ITEM TWO" onSelect=(action (mut selectedTab) "ITEM TWO")}}
+        {{tabs.tab label="ITEM THREE" onSelect=(action (mut selectedTab) "ITEM THREE")}}
+        {{tabs.tab label="ITEM FOUR" onSelect=(action (mut selectedTab) "ITEM FOUR")}}
+      {{/paper-tabs}}
+
+      {{#if selectedTab}}
+        <div class="md-padding">
+          Selected tab: {{selectedTab}}
+        </div>
+      {{/if}}
+
+    {{! END-SNIPPET }}
+    {{/card.content}}
+  {{/paper-card}}
+
   {{paper-api
     (p-section
       (p-row "dynamicHeight" "boolean" "Sets the paper-tabs height to the active tab's height. Defaults to 'false'.")

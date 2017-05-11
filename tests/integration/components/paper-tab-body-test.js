@@ -5,6 +5,8 @@ moduleForComponent('paper-tab-body', 'Integration | Component | paper tab body',
   integration: true,
   beforeEach() {
     this.set('parentComponent', {
+      registerChild() {},
+      unregisterChild() {},
       trigger() {}
     });
   }

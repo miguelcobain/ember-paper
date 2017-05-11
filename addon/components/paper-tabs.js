@@ -40,7 +40,8 @@ export default Component.extend(ColorMixin, ParentMixin, {
   borderBottom: false,
 
   classNameBindings: [
-    'dynamicHeight:md-dynamic-height'
+    'dynamicHeight:md-dynamic-height',
+    'hasTabWithContent::md-no-tab-content'
   ],
 
   attributeBindings: [
@@ -108,6 +109,10 @@ export default Component.extend(ColorMixin, ParentMixin, {
   lastTab: computed.readOnly('tabs.lastObject'),
 
   wormhole: computed.readOnly('tabsContentWrapper.elementId'),
+
+  hasTabWithContent: computed('tabs.@each.hasContent', function() {
+    return this.get('tabs').filterBy('hasContent', true).length > 0;
+  }),
 
   selectedTab: computed('selected', 'tabs.[]', function() {
     return this.get('tabs')[this.get('selected')];

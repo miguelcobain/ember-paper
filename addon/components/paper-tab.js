@@ -7,7 +7,7 @@ import observer from 'ember-metal/observer';
 import injectService from 'ember-service/inject';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-import { ChildMixin } from 'ember-composability-tools';
+import { ChildMixin, ParentMixin } from 'ember-composability-tools';
 import layout from '../templates/components/paper-tab';
 
 /**
@@ -17,7 +17,7 @@ import layout from '../templates/components/paper-tab';
  * @uses ColorMixin
  * @uses ChildMixin
  */
-export default Component.extend(RippleMixin, ColorMixin, ChildMixin, {
+export default Component.extend(RippleMixin, ColorMixin, ChildMixin, ParentMixin, {
 
   tagName: 'md-tab-item',
 
@@ -57,6 +57,10 @@ export default Component.extend(RippleMixin, ColorMixin, ChildMixin, {
 
   isRight: computed('selected', 'index', function() {
     return this.get('index') !== -1 && this.get('index') > this.get('selected');
+  }),
+
+  hasContent: computed('childComponents.[]', function() {
+    return this.get('childComponents.length') > 0; // only body register, not label
   }),
 
   // TODO would it be cleaner a tryInvoke(tab, 'onDeselect') by paper-tabs ?

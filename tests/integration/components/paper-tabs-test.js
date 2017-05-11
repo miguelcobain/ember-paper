@@ -404,3 +404,18 @@ test('it can add a tab', function(assert) {
   assert.ok(this.$('md-tab-content').length === 3);
   assert.equal(this.$('md-tab-content.md-active').text().trim(), 'THIRD content');
 });
+
+test('it can render tabs without content', function(assert) {
+  this.set('items', A(['FIRST', 'SECOND']));
+
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+       {{#each items as |item|}}
+         {{tabs.tab label=item}}
+       {{/each}}
+    {{/paper-tabs}}
+  `);
+
+  assert.ok(this.$('md-tabs').hasClass('md-no-tab-content'));
+  assert.ok(this.$('md-tab-content').length === 0);
+});
