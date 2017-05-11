@@ -26,13 +26,13 @@ export default Component.extend({
   didInsertElement() {
     // content overflow might change depending on load of images inside dialog.
     let images = this.$().find('img');
-    
+
     let imageLoadHandler = run.bind(this, this.imagesLoaded);
     this.set('imageLoadHandler', imageLoadHandler);
-    
+
     images.on('load', imageLoadHandler);
   },
-  
+
   willDestroyElement() {
     this._super(...arguments);
     let images = this.$().find('img');
