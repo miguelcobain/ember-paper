@@ -290,7 +290,10 @@ export default Component.extend(ColorMixin, ParentMixin, {
     if (this.get('shouldStretchTabs')) {
       pagingWidth = this.get('canvasWidth');
     } else {
-      pagingWidth = this.get('tabsWrapper').$('md-pagination-wrapper').prop('clientWidth');
+      let $wrapper = this.get('tabsWrapper').$('md-pagination-wrapper');
+      if ($wrapper) {
+        pagingWidth = $wrapper.prop('clientWidth');
+      }
     }
     this.set('pagingWidth', pagingWidth);
   },
