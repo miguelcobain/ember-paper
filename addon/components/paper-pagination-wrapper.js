@@ -49,13 +49,20 @@ export default Component.extend({
     }
   }),
 
+  wrapperWidth: computed('shouldStretchTabs', 'shouldCenterTabs', 'canvasWidth', 'pagingWidth', function() {
+    if (this.get('shouldCenterTabs') || this.get('shouldStretchTabs')) {
+      return this.get('canvasWidth');
+    }
+    return this.get('pagingWidth');
+  }),
+
   inkBarDirection: computed('lastSelectedIndex', 'selected', function() {
     return (this.get('lastSelectedIndex') > this.get('selected')) ? 'left' : 'right';
   }),
 
   inkBarLeftPosition: computed.readOnly('selectedTabOffsetLeft'),
 
-  inkBarRightPosition: computed('pagingWidth', 'inkBarLeftPosition', 'selectedTabWidth', function() {
-    return this.get('pagingWidth') - this.get('inkBarLeftPosition') - this.get('selectedTabWidth');
+  inkBarRightPosition: computed('wrapperWidth', 'inkBarLeftPosition', 'selectedTabWidth', function() {
+    return this.get('wrapperWidth') - this.get('inkBarLeftPosition') - this.get('selectedTabWidth');
   })
 });

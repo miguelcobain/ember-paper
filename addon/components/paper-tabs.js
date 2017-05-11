@@ -73,11 +73,15 @@ export default Component.extend(ColorMixin, ParentMixin, {
   }),
 
   shouldStretchTabs: computed('stretchTabs', 'isMobile', 'shouldPaginate', function() {
+    if (this.get('shouldPaginate')) {
+      return false;
+    }
+
     switch (this.get('stretchTabs')) {
       case 'always':
         return true;
       case 'auto':
-        return this.get('isMobile') && !this.get('shouldPaginate');
+        return this.get('isMobile');
       case 'never':
       default:
         return false;
@@ -88,8 +92,8 @@ export default Component.extend(ColorMixin, ParentMixin, {
     return this.get('pagingWidth') > this.get('canvasWidth');
   }),
 
-  shouldCenterTabs: computed('centerTabs', 'shouldPaginate', function() {
-    return this.get('centerTabs') && !this.get('shouldPaginate');
+  shouldCenterTabs: computed('centerTabs', 'shouldPaginate', 'shouldStretchTabs', function() {
+    return this.get('centerTabs') && !this.get('shouldPaginate') && !this.get('shouldStretchTabs');
   }),
 
   canPageBack: computed.gt('offsetLeft', 0),
@@ -145,7 +149,7 @@ export default Component.extend(ColorMixin, ParentMixin, {
     this.set('offsetLeft', newOffset);
   }),
 
-  recomputeSizes: observer('shouldStretchTabs', function() {
+  recomputeSizes: observer('shouldStretchTabs', 'shouldCenterTabs', function() {
     run.scheduleOnce('afterRender', this, function() {
       this.updatePagingSize();
       this.updateSelectedTabSizes();
@@ -291,16 +295,8 @@ export default Component.extend(ColorMixin, ParentMixin, {
   },
 
   updatePagingSize() {
-    let pagingWidth = 0;
-    if (this.get('shouldStretchTabs')) {
-      pagingWidth = this.get('canvasWidth');
-    } else {
-      let $wrapper = this.get('tabsWrapper').$('md-pagination-wrapper');
-      if ($wrapper) {
-        pagingWidth = $wrapper.prop('clientWidth');
-      }
-    }
-    this.set('pagingWidth', pagingWidth);
+    let $wrapper = this.get('tabsWrapper').$('md-pagination-wrapper');
+    this.set('pagingWidth', $wrapper ? $wrapper.prop('clientWidth') : null);
   },
 
   updateCanvasSize() {
