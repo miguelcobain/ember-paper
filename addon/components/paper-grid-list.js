@@ -61,6 +61,9 @@ export default Component.extend({
   },
 
   doLayout() {
+    if (this.isDestroyed) {
+      return;
+    }
     try {
       let tilesInvalidated = this.get('tilesInvalidated');
       this._layoutDelegate(tilesInvalidated);
