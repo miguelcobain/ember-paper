@@ -23,7 +23,7 @@
       </p>
 
       {{! BEGIN-SNIPPET form.basic-usage }}
-        {{#paper-form onSubmit=(action "basicSubmitAction") as |form|}}
+        {{#paper-form submit=(action "basicSubmitAction") as |form|}}
           <div class="layout-row">
             <div class="layout-column flex-50">
               {{form.input label="First Name" value=firstName onChange=(action (mut firstName)) required=true}}
