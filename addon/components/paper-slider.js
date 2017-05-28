@@ -126,7 +126,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   enabled: computed.not('disabled'),
 
   sliderDimensions() {
-    return this.$('.md-track-container').get(0).getBoundingClientRect();
+    return this.element.querySelector('.md-track-container').getBoundingClientRect();
   },
 
   setValueFromEvent(value) {
@@ -151,7 +151,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
     this.set('active', true);
     this.set('dragging', true);
-    this.$().focus();
+    this.element.focus();
 
     this.setValueFromEvent(event.center.x);
   },
