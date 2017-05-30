@@ -141,7 +141,9 @@ export default Component.extend(FocusableMixin, ColorMixin, {
       return;
     }
 
-    this.setValueFromEvent(event.center.x);
+    if (event && event.center) {
+      this.setValueFromEvent(event.center.x);
+    }
   },
 
   dragStart(event) {
@@ -153,7 +155,9 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     this.set('dragging', true);
     this.element.focus();
 
-    this.setValueFromEvent(event.center.x);
+    if (event && event.center) {
+      this.setValueFromEvent(event.center.x);
+    }
   },
 
   drag(event) {
@@ -161,7 +165,9 @@ export default Component.extend(FocusableMixin, ColorMixin, {
       return;
     }
 
-    this.setValueFromEvent(event.center.x);
+    if (event && event.center) {
+      this.setValueFromEvent(event.center.x);
+    }
   },
 
   dragEnd() {
