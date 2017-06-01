@@ -16,6 +16,7 @@ export default Component.extend({
 
   escapeToClose: true,
   focusOnOpen: true,
+  opaque: true,
 
   // Calculate a default that is always valid for the parent of the backdrop.
   wormholeSelector: '#paper-wormhole',

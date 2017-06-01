@@ -24,6 +24,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
   - no more backporting styles needed!
 - [#707](https://github.com/miguelcobain/ember-paper/pull/707) paper-dialog-inner's image load events are now properly cleaned up
 - [51a6250](https://github.com/miguelcobain/ember-paper/commit/51a6250bebf1200e2b38d21c5655333540543bb8) icons are now absolutely sized (line-height, min-height, font-size, etc), from the `size` property
+- [#720](https://github.com/miguelcobain/ember-paper/issues/720) add `opaque` option to `paper-dialog` component (defaults to `true`).
 
 ### 1.0.0-alpha.19 (March 20, 2017)
 - [56b84cf](https://github.com/miguelcobain/ember-paper/commit/56b84cf6b30e01dcf64961c4f75e101d0899593c) fix sliders on android browsers
