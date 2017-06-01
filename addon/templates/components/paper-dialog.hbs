@@ -1,7 +1,7 @@
 {{#ember-wormhole to=destinationId}}
   {{paper-backdrop
     locked-open=isLockedOpen
-    opaque=true
+    opaque=opaque
     fixed=(unless parent true)
     class="md-dialog-backdrop"
     onClick=(action "outsideClicked")}}
