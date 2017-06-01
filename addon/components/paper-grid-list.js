@@ -57,7 +57,13 @@ export default Component.extend({
   },
 
   registerGridTile(gridTile) {
-    this.get('tiles').addObject(gridTile);
+    let tiles = this.get('tiles');
+    tiles.forEach((tile) => {
+      if (tile._state === 'destroying') {
+        tiles.removeObject(tile);
+      }
+    });
+    tiles.addObject(gridTile);
   },
 
   doLayout() {
