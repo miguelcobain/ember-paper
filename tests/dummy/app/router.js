@@ -34,6 +34,7 @@ Router.map(function() {
     this.route('select');
     this.route('sidenav');
     this.route('slider');
+    this.route('snackbar');
     this.route('switch');
     this.route('toolbar');
     this.route('virtual-repeat');

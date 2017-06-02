@@ -1,0 +1,111 @@
+{{page-toolbar pageTitle="Snackbar" isDemo=true}}
+
+{{#doc-content}}
+
+    {{#paper-card}}
+      {{#paper-toolbar}}
+        {{#paper-toolbar-tools}}
+          <h2>Basic Usage</h2>
+          <span class="flex"></span>
+          {{#paper-button onClick=(action "toggleSourceCode") iconButton=true}}
+            {{paper-icon icon="code"}}
+          {{/paper-button}}
+        {{/paper-toolbar-tools}}
+      {{/paper-toolbar}}
+
+      <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
+        {{code-snippet name="snackbar.hbs"}}
+      </div>
+
+      <div class="doc-content-example">
+        <div id="paper-dialog-demo"></div>
+        {{#paper-card-content}}
+          <p>Open a snackbar over the app's content. Press escape, swipe or timeout to close the snackbar.</p>
+
+          <div class="layout-row layout-wrap">
+            {{#paper-button raised=true primary=true onClick=(action "openSnackbar")}}
+              Open Snackbar with accent button
+            {{/paper-button}}
+            {{#paper-button raised=true primary=true onClick=(action "openSnackbarWithout")}}
+              Open Snackbar
+            {{/paper-button}}
+          </div>
+          <h3>Options</h3>
+          <div class="layout-row layout-wrap layout-xs-column layout-sm-column">
+            <div class="flex">
+              {{#paper-checkbox value=left  onChange=(action (mut left))}}
+                left
+              {{/paper-checkbox}}
+            </div>
+            <div class="flex">
+              {{#paper-checkbox value=right flex=true onChange=(action (mut right))}}
+                right
+              {{/paper-checkbox}}
+            </div>
+          <div class="flex">
+            {{#paper-checkbox value=top  flex=true onChange=(action (mut top))}}
+              top
+            {{/paper-checkbox}}
+          </div>
+          <div class="flex">
+          {{#paper-checkbox value=bottom  flex=true onChange=(action (mut bottom))}}
+            bottom
+          {{/paper-checkbox}}
+          </div>
+          <div class="flex">
+            {{#paper-checkbox value=capsule  flex=true onChange=(action (mut capsule))}}
+              capsule
+            {{/paper-checkbox}}
+          </div>
+          <div class="flex">
+            {{#paper-checkbox value=swipeToClose  flex=true onChange=(action (mut swipeToClose))}}
+              swipeToClose
+            {{/paper-checkbox}}
+          </div>
+        </div>
+        <h3>hideDelay</h3>
+        <div class="layout layout-align-center-center slider-container">
+        {{paper-icon icon="watch later"}}
+        {{paper-slider class="flex" value=hideDelay max=6000 onChange=(action (mut hideDelay))}}
+        {{paper-input type="number" value=hideDelay onChange=(action (mut hideDelay))}}
+        </div>
+          {{paper-api
+            (p-section
+              (p-row "parent" "jQuery object, element or selector" "Existing element where the modal and backdrop will be rendered")
+              (p-row "origin" "jQuery object, element, or selector" "If present, the dialog will use it as openFrom and closeTo. Also, focus will be returned to this element once the dialog closes.")
+              (p-row "closeTo" "jQuery object, element or selector" "Target for closing the dialog with a transition.")
+              (p-row "openFrom" "jQuery object, element or selector" "Source for opening the dialog with a transition.")
+              (p-row "swipeToClose" "boolean" "Causes swiping to trigger the `onClose` handler. Defaults to `false`.")
+              (p-row "hideDelay" "number or `false`" "Timeout in milliseconds, set to false to disable timeout. Defaults to `3000`")
+              (p-row "escapeToClose" "boolean" "Causes pressing escape to close the dialog. Defaults to `true`.")
+              (p-row "left,right,top,bottom" "boolean" "Positioning.")
+              (p-row "capsule" "boolean" "Controls whether the capsule class is added to the snackbar.Defaults to `false`")
+            )
+            (p-section
+              "Actions"
+              (p-row "onClose" "action" "An action to be executed when the snackbar is closed, e.g. by pressing escape, swiping or timeout.")
+            )
+          }}
+
+        {{/paper-card-content}}
+      </div>
+
+    {{/paper-card}}
+
+    <span id="bottom-of-card"></span>
+
+{{/doc-content}}
+
+{{! BEGIN-SNIPPET snackbar }}
+{{#if showSnackbar}}
+{{#paper-snackbar hideDelay=hideDelay left=left right=right top=top bottom=bottom capsule=capsule swipeToClose=swipeToClose onClose=(action "closeSnackbar") as |p|}}
+  {{#p.text}}Hello{{/p.text}}
+  {{#paper-button accent=true onClick=(action "buttonAction")}}UNDO{{/paper-button}}
+{{/paper-snackbar}}
+{{/if}}
+{{#if showSnackbarWithout}}
+{{#paper-snackbar hideDelay=hideDelay left=left right=right top=top bottom=bottom capsule=capsule swipeToClose=swipeToClose onClose=(action "closeSnackbarWithout") as |p|}}
+  {{#p.text}}Hello{{/p.text}}
+{{/paper-snackbar}}
+{{/if}}
+{{! END-SNIPPET }}
