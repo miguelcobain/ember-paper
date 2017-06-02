@@ -5,7 +5,7 @@ import Ember from 'ember';
 const { Component } = Ember;
 
 /**
- * @class PaperDialogComponent
+ * @class PaperToastText
  * @extends Ember.Component
  */
 export default Component.extend({

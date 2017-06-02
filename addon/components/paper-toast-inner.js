@@ -2,12 +2,12 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import layout from '../templates/components/paper-snackbar-inner';
+import layout from '../templates/components/paper-toast-inner';
 import GestureMixin from '../mixins/gesture-mixin';
 const { Component } = Ember;
 
 /**
- * @class PaperSnackbarInner
+ * @class PaperToastInner
  * @extends Ember.Component
  */
 export default Component.extend(GestureMixin, {

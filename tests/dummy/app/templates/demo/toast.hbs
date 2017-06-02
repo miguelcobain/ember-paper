@@ -1,4 +1,4 @@
-{{page-toolbar pageTitle="Snackbar" isDemo=true}}
+{{page-toolbar pageTitle="Toast" isDemo=true}}
 
 {{#doc-content}}
 
@@ -14,20 +14,20 @@
       {{/paper-toolbar}}
 
       <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
-        {{code-snippet name="snackbar.hbs"}}
+        {{code-snippet name="toast.hbs"}}
       </div>
 
       <div class="doc-content-example">
         <div id="paper-dialog-demo"></div>
         {{#paper-card-content}}
-          <p>Open a snackbar over the app's content. Press escape, swipe or timeout to close the snackbar.</p>
+          <p>Open a toast over the app's content. Press escape, swipe or timeout to close the toast.</p>
 
           <div class="layout-row layout-wrap">
-            {{#paper-button raised=true primary=true onClick=(action "openSnackbar")}}
-              Open Snackbar with accent button
+            {{#paper-button raised=true primary=true onClick=(action "openToast")}}
+              Open toast with accent button
             {{/paper-button}}
-            {{#paper-button raised=true primary=true onClick=(action "openSnackbarWithout")}}
-              Open Snackbar
+            {{#paper-button raised=true primary=true onClick=(action "openToastWithout")}}
+              Open toast
             {{/paper-button}}
           </div>
           <h3>Options</h3>
@@ -79,11 +79,11 @@
               (p-row "hideDelay" "number or `false`" "Timeout in milliseconds, set to false to disable timeout. Defaults to `3000`")
               (p-row "escapeToClose" "boolean" "Causes pressing escape to close the dialog. Defaults to `true`.")
               (p-row "left,right,top,bottom" "boolean" "Positioning.")
-              (p-row "capsule" "boolean" "Controls whether the capsule class is added to the snackbar.Defaults to `false`")
+              (p-row "capsule" "boolean" "Controls whether the capsule class is added to the toast.Defaults to `false`")
             )
             (p-section
               "Actions"
-              (p-row "onClose" "action" "An action to be executed when the snackbar is closed, e.g. by pressing escape, swiping or timeout.")
+              (p-row "onClose" "action" "An action to be executed when the toast is closed, e.g. by pressing escape, swiping or timeout.")
             )
           }}
 
@@ -96,16 +96,16 @@
 
 {{/doc-content}}
 
-{{! BEGIN-SNIPPET snackbar }}
-{{#if showSnackbar}}
-{{#paper-snackbar hideDelay=hideDelay left=left right=right top=top bottom=bottom capsule=capsule swipeToClose=swipeToClose onClose=(action "closeSnackbar") as |p|}}
+{{! BEGIN-SNIPPET toast }}
+{{#if showToast}}
+{{#paper-toast hideDelay=hideDelay left=left right=right top=top bottom=bottom capsule=capsule swipeToClose=swipeToClose onClose=(action "closeToast") as |p|}}
   {{#p.text}}Hello{{/p.text}}
-  {{#paper-button accent=true onClick=(action "buttonAction")}}UNDO{{/paper-button}}
-{{/paper-snackbar}}
+  {{#paper-button  accent=true onClick=(action "buttonAction")}}UNDO{{/paper-button}}
+{{/paper-toast}}
 {{/if}}
-{{#if showSnackbarWithout}}
-{{#paper-snackbar hideDelay=hideDelay left=left right=right top=top bottom=bottom capsule=capsule swipeToClose=swipeToClose onClose=(action "closeSnackbarWithout") as |p|}}
+{{#if showToastWithout}}
+{{#paper-toast hideDelay=hideDelay left=left right=right top=top bottom=bottom capsule=capsule swipeToClose=swipeToClose onClose=(action "closeToastWithout") as |p|}}
   {{#p.text}}Hello{{/p.text}}
-{{/paper-snackbar}}
+{{/paper-toast}}
 {{/if}}
 {{! END-SNIPPET }}

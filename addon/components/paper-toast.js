@@ -2,11 +2,11 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-import layout from '../templates/components/paper-snackbar';
+import layout from '../templates/components/paper-toast';
 
 const { $, Component, computed, inject, testing, run } = Ember;
 /**
- * @class PaperSnackbar
+ * @class PaperToast
  * @extends Ember.Component
  */
 export default Component.extend({

@@ -5,18 +5,18 @@ const { Controller } = Ember;
 export default Controller.extend({
   hideDelay: 3000,
   actions: {
-    /* Snackbar */
-    openSnackbar() {
-      this.set('showSnackbar', true);
+    /* Toast */
+    openToast() {
+      this.set('showToast', true);
     },
-    openSnackbarWithout() {
-      this.set('showSnackbarWithout', true);
+    openToastWithout() {
+      this.set('showToastWithout', true);
     },
-    closeSnackbar() {
-      this.set('showSnackbar', false);
+    closeToast() {
+      this.set('showToast', false);
     },
-    closeSnackbarWithout() {
-      this.set('showSnackbarWithout', false);
+    closeToastWithout() {
+      this.set('showToastWithout', false);
     },
     toggleSourceCode() {
       this.toggleProperty('showSourceCode');
