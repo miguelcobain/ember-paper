@@ -1,0 +1,249 @@
+{{page-toolbar pageTitle="Tabs" isDemo=true}}
+
+{{#doc-content}}
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Basic Usage</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode" "tabs-basic") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showTabsBasic 'is-visible'}}">
+      {{code-snippet name="tabs-basic.hbs"}}
+    </div>
+
+    {{! BEGIN-SNIPPET tabs-basic }}
+    {{#paper-tabs as |tabs|}}
+      {{#tabs.tab label="tab one" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          <h1>Tab One</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab two" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          <h1>Tab Two</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab three" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          <h1>Tab Three</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="Disabled tab" disabled=true as |tab|}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="Callback tab" onSelect=(action 'onSelect' 'Callback tab')
+        onDeselect=(action 'onDeselect' 'Callback tab') as |tab|}}
+          {{#paper-content class="md-padding"}}
+            <h1>Callback tab</h1>
+          {{/paper-content}}
+      {{/tabs.tab}}
+    {{/paper-tabs}}
+    {{! END-SNIPPET }}
+  {{/paper-card}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Tabs with dynamic height</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode" "tabsDynamic") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showTabsDynamic 'is-visible'}}">
+      {{code-snippet name="tabs-dynamic.hbs"}}
+    </div>
+
+    {{! BEGIN-SNIPPET tabs-dynamic }}
+    {{#paper-tabs selected=1 dynamicHeight=true as |tabs|}}
+      {{#tabs.tab label="tab one" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          <h1>Tab One</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="Active by default" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          <h1>Tab Two</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab three" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          <h1>Tab Three</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+    {{/paper-tabs}}
+  {{! END-SNIPPET }}
+  {{/paper-card}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Bottom centered tabs</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode" "tabsBottom") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showTabsBottom 'is-visible'}}">
+      {{code-snippet name="tabs-bottom.hbs"}}
+    </div>
+
+    {{! BEGIN-SNIPPET tabs-bottom }}
+    {{#paper-tabs centerTabs=true alignTabs="bottom" noInk=true noInkBar=true dynamicHeight=true as |tabs|}}
+      {{#tabs.tab label="tab one" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          <h1>Tab One</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab two" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          <h1>Tab Two</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab three" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          <h1>Tab Three</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+    {{/paper-tabs}}
+  {{! END-SNIPPET }}
+  {{/paper-card}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Paginated tabs</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode" "tabsPaginated") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showTabsPaginated 'is-visible'}}">
+      {{code-snippet name="tabs-paginated.hbs"}}
+    </div>
+
+    {{! BEGIN-SNIPPET tabs-paginated }}
+    {{#paper-tabs dynamicHeight=true as |tabs|}}
+      {{#each paginatedTabs as |label|}}
+        {{#tabs.tab label=label as |tab|}}
+        {{/tabs.tab}}
+      {{/each}}
+    {{/paper-tabs}}
+  {{! END-SNIPPET }}
+  {{/paper-card}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Nested stretched tabs</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode" "tabsNested") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showTabsNested 'is-visible'}}">
+      {{code-snippet name="tabs-nested.hbs"}}
+    </div>
+
+    {{! BEGIN-SNIPPET tabs-nested }}
+    {{#paper-tabs stretchTabs="always" dynamicHeight=true as |tabs|}}
+      {{#tabs.tab label="tab one" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          {{#paper-tabs dynamicHeight=true as |tabs|}}
+            {{#tabs.tab label="tab A" as |tab|}}
+              {{#paper-content class="md-padding"}}
+                <h1>Tab A</h1>
+              {{/paper-content}}
+            {{/tabs.tab}}
+            {{#tabs.tab label="tab B" as |tab|}}
+              {{#paper-content class="md-padding"}}
+                <h1>Tab B</h1>
+              {{/paper-content}}
+            {{/tabs.tab}}
+          {{/paper-tabs}}
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab two" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          {{#paper-tabs dynamicHeight=true as |tabs|}}
+            {{#tabs.tab label="tab C" as |tab|}}
+              {{#paper-content class="md-padding"}}
+                <h1>Tab C</h1>
+              {{/paper-content}}
+            {{/tabs.tab}}
+            {{#tabs.tab label="tab D" as |tab|}}
+              {{#paper-content class="md-padding"}}
+                <h1>Tab D</h1>
+              {{/paper-content}}
+            {{/tabs.tab}}
+          {{/paper-tabs}}
+        {{/paper-content}}
+      {{/tabs.tab}}
+      {{#tabs.tab label="tab three" as |tab|}}
+        {{#paper-content class="md-padding"}}
+          <h1>Tab Three</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+        {{/paper-content}}
+      {{/tabs.tab}}
+    {{/paper-tabs}}
+  {{! END-SNIPPET }}
+  {{/paper-card}}
+
+  {{paper-api
+    (p-section
+      (p-row "dynamicHeight" "boolean" "Sets the paper-tabs height to the active tab's height. Defaults to 'false'.")
+      (p-row "alignTabs" "`top` | `bottom`" "Sets tabs position. Defaults to 'top'.")
+      (p-row "noInk" "boolean" "Disables ripple effects upon click. Defaults to 'false'.")
+      (p-row "noInkBar" "boolean" "Displays a bar underneath active tabs. Defaults to 'false'.")
+      (p-row "centerTabs" "boolean" "Defaults to 'false'.")
+      (p-row "stretchTabs" "`always` | `never` | `auto`" "Defaults to 'auto'.")
+      (p-row "autoSelect" "boolean" "Automatically open newly added tab. Defaults to 'false'.")
+    )
+  }}
+
+{{/doc-content}}

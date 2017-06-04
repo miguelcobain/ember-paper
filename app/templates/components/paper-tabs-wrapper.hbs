@@ -1,0 +1,9 @@
+{{#if shouldPaginate}}
+  {{paper-prev-button parent=this}}
+  {{paper-next-button parent=this}}
+{{/if}}
+<md-tabs-canvas class={{canvasClass}}>
+  {{#paper-pagination-wrapper parent=this}}
+    {{yield}}
+  {{/paper-pagination-wrapper}}
+</md-tabs-canvas>

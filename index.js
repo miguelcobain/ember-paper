@@ -165,6 +165,9 @@ module.exports = {
       'components/dialog/dialog.scss',
       'components/dialog/dialog-theme.scss',
 
+      'components/tabs/tabs.scss',
+      'components/tabs/tabs-theme.scss',
+
       'components/virtualRepeat/virtual-repeater.scss',
 
       'components/chips/chips.scss',
