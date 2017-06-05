@@ -16,9 +16,40 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/release-1/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
 ### master
+- [#679](https://github.com/miguelcobain/ember-paper/issues/679) fix outline on paper-menu
+- [#699](https://github.com/miguelcobain/ember-paper/issues/699) Removed paper-wormhole initializer in favor of the `contentFor` hook. This makes ember-paper more acceptance test friendly.
+- updated Angular Material to 1.1.4 version
+  - paper-item secondary controls now need to be wrapped in a `<div class="md-secondary-container">` to get the proper padding and positioning.
+  - paper-progress-circular was rewritten using svg. No longer supports `"25%"` like strings for diameter. Has some new interesting customization features.
+  - no more backporting styles needed!
+- [#707](https://github.com/miguelcobain/ember-paper/pull/707) paper-dialog-inner's image load events are now properly cleaned up
+- [51a6250](https://github.com/miguelcobain/ember-paper/commit/51a6250bebf1200e2b38d21c5655333540543bb8) icons are now absolutely sized (line-height, min-height, font-size, etc), from the `size` property
+- [#720](https://github.com/miguelcobain/ember-paper/issues/720) add `opaque` option to `paper-dialog` component (defaults to `true`).
+
+### 1.0.0-alpha.19 (March 20, 2017)
+- [56b84cf](https://github.com/miguelcobain/ember-paper/commit/56b84cf6b30e01dcf64961c4f75e101d0899593c) fix sliders on android browsers
+- [77274a0](https://github.com/miguelcobain/ember-paper/commit/77274a0a60e19b19a571176d3035c1e99df09dde) set md-dragging class correctly. attach recognizers to the whole slider. big usability improvement.
+- [#670](https://github.com/miguelcobain/ember-paper/pull/670) paper-form yielded values had the length of validation messages. Now they are correctly coalesced to booleans.
+
+### 1.0.0-alpha.18 (March 7, 2017)
+- [5c66511](https://github.com/miguelcobain/ember-paper/commit/5c665118a9acc9976f6e9b0030dd220fdc8f0ef8) bump ember-composability-tools to `0.0.8`
+- [78b6efb](https://github.com/miguelcobain/ember-paper/commit/78b6efb9791aea365f57fd186f0a6e2aead2cb66) and [7cb32b0](https://github.com/miguelcobain/ember-paper/commit/7cb32b0c61f740cb2dd0740077f71c168da8ac3a) paper-form: trigger onValidityChange when global isTouched changes
+- [4b168ec](https://github.com/miguelcobain/ember-paper/commit/4b168ecfcebd3a68551de587d78e315f7268fcef) yield isTouched and isInvalidAndTouched
+
+### 1.0.0-alpha.17 (March 6, 2017)
 - [9f3da49](https://github.com/miguelcobain/ember-paper/commit/9f3da4974b02c2d5f8bffa36fbf6141a7fceb9f1) Fixes bug in slider dragging.
-- [7ec7a7b](https://github.com/miguelcobain/ember-paper/commit/7ec7a7beb4e8f3df2de3c8e7618e6a39b318b73d) Removes accidental text selection while dragging slider on Safari. 
+- [7ec7a7b](https://github.com/miguelcobain/ember-paper/commit/7ec7a7beb4e8f3df2de3c8e7618e6a39b318b73d) Removes accidental text selection while dragging slider on Safari.
 - [94c8ad9](https://github.com/miguelcobain/ember-paper/commit/94c8ad9eb16a6c6501592b6bfae62d4d1158fc0f) Validation params can now change and the correct validation messages will appear (e.g change required from `true` to `false` after render).
+- [3cec77c](https://github.com/miguelcobain/ember-paper/commit/3cec77ce136f9c9f7142e0d8795afb26571af9b5) Allow sidenav's `lockedOpen` to be toggled.
+- [#649](https://github.com/miguelcobain/ember-paper/pull/649) `paper-form` now renders a `<form>` html tag. This is for the greater good. If you want to keep it tagless, please use `{{#paper-form tagName=""}}`.
+- [9c09fd0](https://github.com/miguelcobain/ember-paper/commit/9c09fd0f0dfca7ca1d93fb48d07770b9036b1758) update angular material to `v1.0.7`
+- [948db82](https://github.com/miguelcobain/ember-paper/commit/948db825f9814d2d1b4a259ac6e523a00bc32c7d) update angular material to `v1.0.8`
+- [f407257](https://github.com/miguelcobain/ember-paper/commit/f4072573d324b0df9fd8383859ba8f02d9e8de39) checkboxes now have an optional indeterminate mode. If `indeterminate` is true it will always take precedence over `value`.
+- [8a5e370](https://github.com/miguelcobain/ember-paper/commit/8a5e370fe18829db5dae7e89f7744848dca186cf) update angular material to `v1.0.9`
+- [10fddd9](https://github.com/miguelcobain/ember-paper/commit/10fddd9027f28c1bdfdab903d067377211536d76) Enhance customizability paper-{form, input, radio-group}
+- [a86bb64](https://github.com/miguelcobain/ember-paper/commit/a86bb6422d5f6f458dbc6b1eda123fcf136f9f0a) fix paper-slider on iOS devices
+- [#663](https://github.com/miguelcobain/ember-paper/pull/663) Fix binding style attribute warning in paper-backdrop
+- [a03eccf](https://github.com/miguelcobain/ember-paper/commit/a03eccf7e096b5a39b8a053a2679d3b366cc04b6) paper-form's `onValidityChange` now sends `isValid`, `isTouched` and `isInvalidAndTouched`
 
 ### 1.0.0-alpha.16 (February 14, 2017) <--- forever alone
 - [#636](https://github.com/miguelcobain/ember-paper/pull/636) Consuming apps can now specify `ENV['ember-paper'].insertFontLinks` to prevent the insertion of google fonts links in the head tag. This is especially useful if you want to include your own fonts.

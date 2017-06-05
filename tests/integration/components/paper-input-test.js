@@ -1,6 +1,9 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+
+const { Component } = Ember;
 
 moduleForComponent('paper-input', 'Integration | Component | paper input', {
   integration: true,
@@ -23,17 +26,42 @@ test('renders with left icon', function(assert) {
   this.render(hbs`{{paper-input icon="person" onChange=dummyOnChange}}`);
 
   assert.ok(this.$('md-input-container md-icon').length);
-  assert.ok(this.$('md-input-container').hasClass('md-has-icon'));
+  assert.ok(this.$('md-input-container').hasClass('md-icon-left'));
 });
 
 test('renders with right icon', function(assert) {
-  assert.expect(3);
+  assert.expect(2);
 
   this.render(hbs`{{paper-input label="name" iconRight="person" onChange=dummyOnChange}}`);
 
   assert.ok(this.$('md-input-container md-icon').length);
-  assert.ok(this.$('md-input-container').hasClass('md-has-icon'));
   assert.ok(this.$('md-input-container').hasClass('md-icon-right'));
+});
+
+test('renders with a custom icon component when `iconComponent` is specified', function(assert) {
+  assert.expect(2);
+
+  this.register('component:custom-icon', Component.extend({
+    classNames: ['custom-icon']
+  }));
+
+  this.render(hbs`{{paper-input iconComponent="custom-icon" icon="person" onChange=dummyOnChange}}`);
+
+  assert.equal(this.$('md-input-container md-icon').length, 0, 'default icon component is not rendered');
+  assert.equal(this.$('md-input-container .custom-icon').length, 1, 'custom icon component rendered');
+});
+
+test('renders with a custom icon component when `iconComponent` is specified and icon should be displayed on the right', function(assert) {
+  assert.expect(2);
+
+  this.register('component:custom-icon', Component.extend({
+    classNames: ['custom-icon']
+  }));
+
+  this.render(hbs`{{paper-input iconComponent="custom-icon" iconRight="person" onChange=dummyOnChange}}`);
+
+  assert.equal(this.$('md-input-container md-icon').length, 0, 'default icon component is not rendered');
+  assert.equal(this.$('md-input-container .custom-icon').length, 1, 'custom icon component rendered');
 });
 
 test('renders input with id', function(assert) {
@@ -469,7 +497,7 @@ test('renders error messages from an external `errors` string array', function(a
   assert.equal(this.$('.paper-input-error').last().text().trim(), 'foo should be smaller than 12.');
 });
 
-test('the `onChange` action is mandatory for paper-input', function(assert) {
+/* test('the `onChange` action is mandatory for paper-input', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
@@ -477,7 +505,7 @@ test('the `onChange` action is mandatory for paper-input', function(assert) {
       {{paper-input value="asd"}}
     `);
   }, /`onChange` action/);
-});
+});*/
 
 test('displayed input value matches actual input value', function(assert) {
   assert.expect(4);

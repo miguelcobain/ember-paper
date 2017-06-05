@@ -5,6 +5,7 @@ import Ember from 'ember';
 import layout from '../templates/components/paper-slider';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
+import clamp from 'ember-paper/utils/clamp';
 const { Component, computed, inject, run, String: { htmlSafe } } = Ember;
 /* global Hammer */
 
@@ -21,7 +22,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   attributeBindings: ['min', 'max', 'step', 'discrete:md-discrete', 'tabindex'],
 
   classNames: ['md-default-theme'],
-  classNameBindings: ['isMinimum:md-min', 'active', 'dragging'],
+  classNameBindings: ['isMinimum:md-min', 'active:md-active', 'dragging:md-dragging'],
 
   constants: inject.service(),
 
@@ -45,10 +46,10 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   }),
 
   percent: computed('value', 'min', 'max', function() {
-    let min = parseInt(this.get('min'), 10);
-    let max = parseInt(this.get('max'), 10);
+    let min = parseFloat(this.get('min'), 10);
+    let max = parseFloat(this.get('max'), 10);
 
-    return (this.get('value') - min) / (max - min);
+    return clamp((this.get('value') - min) / (max - min), 0, 1);
   }),
 
   didInsertElement() {
@@ -78,16 +79,17 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   },
 
   _setupHammer() {
-    let thumbContainer = this.$('.md-thumb-container').get(0);
-
     // Enable dragging the slider
-    let containerManager = new Hammer.Manager(thumbContainer);
+    let containerManager = new Hammer.Manager(this.element);
     let pan = new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL, threshold: 10 });
     containerManager.add(pan);
+    let tap = new Hammer.Tap();
+    containerManager.add(tap);
 
     containerManager.on('panstart', run.bind(this, this.dragStart))
       .on('panmove', run.bind(this, this.drag))
-      .on('panend', run.bind(this, this.dragEnd));
+      .on('panend', run.bind(this, this.dragEnd))
+      .on('tap', run.bind(this, this.tap));
 
     this._hammer = containerManager;
   },
@@ -103,19 +105,19 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   },
 
   percentToValue(x) {
-    let min = parseInt(this.get('min'), 10);
-    let max = parseInt(this.get('max'), 10);
+    let min = parseFloat(this.get('min'), 10);
+    let max = parseFloat(this.get('max'), 10);
     return (min + x * (max - min));
   },
 
   minMaxValidator(value) {
-    let min = parseInt(this.get('min'), 10);
-    let max = parseInt(this.get('max'), 10);
+    let min = parseFloat(this.get('min'), 10);
+    let max = parseFloat(this.get('max'), 10);
     return Math.max(min, Math.min(max, value));
   },
 
   stepValidator(value) {
-    let step = parseInt(this.get('step'), 10);
+    let step = parseFloat(this.get('step'), 10);
     return Math.round(value / step) * step;
   },
 
@@ -124,27 +126,22 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   enabled: computed.not('disabled'),
 
   sliderDimensions() {
-    return this.$('.md-track-container').get(0).getBoundingClientRect();
+    return this.element.querySelector('.md-track-container').getBoundingClientRect();
   },
 
-  // fix to remove content selection highlight on safari
-  mouseDown(event) {
-    event.preventDefault();
+  setValueFromEvent(value) {
+    let exactVal = this.percentToValue(this.positionToPercent(value));
+    let closestVal = this.minMaxValidator(this.stepValidator(exactVal));
+
+    this.sendAction('onChange', closestVal);
   },
 
-  click(event) {
+  tap(event) {
     if (this.get('disabled')) {
       return;
     }
 
-    this.setValueFromEvent(event);
-  },
-
-  setValueFromEvent(event) {
-    let exactVal = this.percentToValue(this.positionToPercent(event.clientX || event.srcEvent.clientX));
-    let closestVal = this.minMaxValidator(this.stepValidator(exactVal));
-
-    this.sendAction('onChange', closestVal);
+    this.setValueFromEvent(event.center.x);
   },
 
   dragStart(event) {
@@ -154,9 +151,9 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
     this.set('active', true);
     this.set('dragging', true);
-    this.$().focus();
+    this.element.focus();
 
-    this.setValueFromEvent(event);
+    this.setValueFromEvent(event.center.x);
   },
 
   drag(event) {
@@ -164,7 +161,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
       return;
     }
 
-    this.setValueFromEvent(event);
+    this.setValueFromEvent(event.center.x);
   },
 
   dragEnd() {
@@ -186,9 +183,9 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     let changeAmount, newValue;
 
     if (event.keyCode === this.get('constants.KEYCODE.LEFT_ARROW')) {
-      changeAmount = parseInt(this.get('step')) * -1;
+      changeAmount = parseFloat(this.get('step')) * -1;
     } else if (event.keyCode === this.get('constants.KEYCODE.RIGHT_ARROW')) {
-      changeAmount = parseInt(this.get('step'));
+      changeAmount = parseFloat(this.get('step'));
     }
 
     if (changeAmount) {

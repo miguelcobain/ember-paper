@@ -1,6 +1,6 @@
 {{page-toolbar pageTitle="Introduction" isDemo=false}}
 
-{{#paper-content flex=true scroll-y=true class="layout-padding"}}
+{{#paper-content scroll-y=true class="layout-padding flex"}}
 <div class="doc-content">
 
   {{#paper-card as |card|}}
@@ -35,11 +35,18 @@
 
   <h2 class="md-headline">Content Security Policy</h2>
 
-  <p>Ember Paper uses fonts from Google Fonts, so the URL to them has to be white listed.  You can set this by adding to the Content Security Policy defined in <code>config/environment.js</code> like so:</p>
+  <p>
+    This is no longer used in newer ember-cli apps. However, here are the instructions if you need them.
+    Ember Paper uses fonts from Google Fonts, so the URL to them has to be white listed.
+    You can set this by adding to the Content Security Policy defined in <code>config/environment.js</code> like so:
+  </p>
 
   {{code-snippet name="content-security-policy.js"}}
 
-  <p>You can find out more information on the CSP addon page <a href="https://github.com/rwjblue/ember-cli-content-security-policy#ember-cli-content-security-policy">here</a>. We also need to allow <code>data:</code> in <code>img-src</code> because of a <a href="https://github.com/miguelcobain/ember-paper/blob/master/app%2Fstyles%2Fpaper-button.scss">current hack</a> in paper-button.</p>
+  <p>
+    You can find out more information on the CSP addon page <a href="https://github.com/rwjblue/ember-cli-content-security-policy#ember-cli-content-security-policy">here</a>.
+    We also need to allow <code>data:</code> in <code>img-src</code> because of a <a href="https://github.com/angular/material/blob/v1.1.4/src/components/button/button.scss#L123">current hack</a> in paper-button styles.
+  </p>
 
   <h2 class="md-headline">Options</h2>
 

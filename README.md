@@ -21,6 +21,7 @@ Navigate through the docs to understand how to use each component.
 
 ### Content Security Policy
 
+This is no longer used in newer ember-cli apps. However, here are the instructions if you need them.
 Ember Paper uses fonts from Google Fonts, so the URL to them has to be white listed.  You can set this by adding to the Content Security Policy defined in `config/environment.js` like so:
 
 ```js
@@ -35,7 +36,7 @@ ENV.contentSecurityPolicy = {
 }
 ```
 
-We also need to allow `data:` in `img-src` because of a [current hack](https://github.com/miguelcobain/ember-paper/blob/master/app%2Fstyles%2Fpaper-button.scss) in paper-button.
+We also need to allow `data:` in `img-src` because of a [current hack](https://github.com/angular/material/blob/v1.1.4/src/components/button/button.scss#L123) in paper-button styles.
 
 You can find out more information on the CSP addon page [here](https://github.com/rwjblue/ember-cli-content-security-policy#ember-cli-content-security-policy).
 
@@ -63,7 +64,7 @@ If you need a component for your project which has not yet been migrated to vers
 
 - The team coordinates who is working on what component(s) with a [shared canvas document](https://usecanvas.com/emberpaper/backlog/5lluHTIZAI8G2797TdEcsD).
 
-- The [Angular Material demo site](https://material.angularjs.org/1.0.6/) provides examples of what we are trying to accomplish. Use version 1.0.6.
+- The [Angular Material demo site](https://material.angularjs.org/1.0.9/) provides examples of what we are trying to accomplish. Use version 1.0.9.
 
 - Building the `ember-paper` demo application will give you your own up-to-date reference. This can be accomplished by installing ember-paper as if it were an application and running `ember server`.
 

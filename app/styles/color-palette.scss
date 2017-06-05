@@ -7,7 +7,7 @@ $strong-light-contrast-color: rgb(255, 255, 255) !default;
 $foreground-light: (
   '1': rgba(255, 255, 255, 1.0),
   '2': rgba(255, 255, 255, 0.7),
-  '3': rgba(255, 255, 255, 0.3),
+  '3': rgba(255, 255, 255, 0.5),
   '4': rgba(255, 255, 255, 0.12),
   'shadow': '1px 1px 0px rgba(0, 0, 0, 0.4), -1px -1px 0px rgba(0, 0, 0, 0.4)'
 ) !default;
@@ -15,7 +15,7 @@ $foreground-light: (
 $foreground-dark: (
   '1': rgba(0, 0, 0, 0.87),
   '2': rgba(0, 0, 0, 0.54),
-  '3': rgba(0, 0, 0, 0.26),
+  '3': rgba(0, 0, 0, 0.38),
   '4': rgba(0, 0, 0, 0.12),
   'shadow': none
 ) !default;
@@ -376,7 +376,6 @@ $color-brown: (
 // Grey
 // ----------------------------
 $color-grey: (
-  '0': #ffffff,
   '50': #fafafa,
   '100': #f5f5f5,
   '200': #eeeeee,
@@ -387,10 +386,9 @@ $color-grey: (
   '700': #616161,
   '800': #424242,
   '900': #212121,
-  '1000': #000000,
   'A100': #ffffff,
-  'A200': #eeeeee,
-  'A400': #bdbdbd,
+  'A200': #000000,
+  'A400': #303030,
   'A700': #616161,
   'contrast': $dark-contrast-color
 ) !default;
@@ -420,6 +418,9 @@ $shades: (
   'white': #FFFFFF
 ) !default;
 
+$background-light: map-merge($color-grey, (
+  'default': 'A100',
+)) !default;
 
 $colors: () !default;
 
@@ -445,13 +446,23 @@ $colors: map-merge($colors,(
   'grey': $color-grey,
   'shades': $shades,
   'foreground-light': $foreground-light,
-  'foreground-dark': $foreground-dark
+  'foreground-dark': $foreground-dark,
+  'background-light': $background-light,
 ));
 
 $default-color: '500' !default;
-@function color($color, $type: $default-color) {
+@function color($color, $type: null) {
   @if map-has-key($colors, $color) {
     $curr_color: map-get($colors, $color);
+
+    @if ($type == null) {
+      @if map-has-key($curr_color, 'default') {
+        $type: map-get($curr_color, 'default');
+      } @else {
+        $type: $default-color;
+      }
+    }
+
     @if map-has-key($curr_color, $type) {
       @return map-get($curr_color, $type);
     }

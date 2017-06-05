@@ -12,8 +12,10 @@
     {{#paper-card-content}}
       <p>
         ember-paper provides a <code>paper-form</code> to help you build forms
-        and keep track of the form's global validity state. This component is tagless,
-        so it shouldn't interfere with your styles.
+        and keep track of the form's global validity state. This component uses
+        the html form tag by default, so expected form behavior will occur.
+        (For example, pressing the enter key from within one of the form's
+        inputs will submit the form.)
         <code>paper-form</code> yields <code>{{#link-to "demo.input"}}paper-input{{/link-to}}</code>,
         <code>{{#link-to "demo.select"}}paper-select{{/link-to}}</code>
         and <code>{{#link-to "demo.autocomplete"}}paper-autocomplete{{/link-to}}</code> controls.

@@ -3,7 +3,7 @@
 {{/if}}
 
 {{#if icon}}
-  {{paper-icon icon}}
+  {{component iconComponent icon}}
 {{/if}}
 
 {{#if textarea}}
@@ -80,10 +80,11 @@
     {{/if}}
   </div>
   {{#if isInvalidAndTouched}}
-    <div class="md-input-messages-animation md-auto-hide" ng-messages>
+    <div class="md-input-messages-animation md-auto-hide">
       {{#each validationErrorMessages as |error index|}}
         <div id="error-{{inputElementId}}-{{index}}"
-        class="paper-input-error ng-enter ng-enter-active" ng-message>
+        class="paper-input-error ng-enter ng-enter-active md-input-message-animation"
+        style="opacity: 1; margin-top: 0">
           {{error.message}}
         </div>
       {{/each}}
@@ -101,5 +102,5 @@
 )}}
 
 {{#if iconRight}}
-  {{paper-icon iconRight}}
+  {{component iconComponent iconRight}}
 {{/if}}

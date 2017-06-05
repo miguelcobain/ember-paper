@@ -48,6 +48,13 @@ export default Component.extend(TransitionMixin, {
     this.updateLockedOpen();
   },
 
+  didReceiveAttrs() {
+    this._super(...arguments);
+    if (typeof FastBoot === 'undefined') {
+      this.updateLockedOpen();
+    }
+  },
+
   willDestroyElement() {
     this._super(...arguments);
     $(window).off(`resize.${this.elementId}`);

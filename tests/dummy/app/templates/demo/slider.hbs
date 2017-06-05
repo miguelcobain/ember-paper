@@ -16,36 +16,36 @@
       <div class="layout layout-align-center-center slider-container">
         <span>R</span>
         {{paper-slider class="flex" min=0 max=255 value=color.red onChange=(action (mut color.red))}}
-        {{paper-input type="number" value=color.red onChange=null}}
+        {{paper-input type="number" value=color.red onChange=(action (mut color.red))}}
       </div>
 
       <div class="layout layout-align-center-center slider-container">
         <span>G</span>
         {{paper-slider class="flex md-accent" min=0 max=255 value=color.green onChange=(action (mut color.green))}}
-        {{paper-input type="number" value=color.green onChange=null}}
+        {{paper-input type="number" value=color.green  onChange=(action (mut color.green))}}
       </div>
 
       <div class="layout layout-align-center-center slider-container">
         <span>B</span>
         {{paper-slider class="flex md-primary" min=0 max=255 value=color.blue onChange=(action (mut color.blue))}}
-        {{paper-input type="number" value=color.blue onChange=null}}
+        {{paper-input type="number" value=color.blue onChange=(action (mut color.blue))}}
       </div>
 
       <h2>Rating: {{rating}}/5 - demo of theming classes</h2>
       <div class="layout layout-align-center-center slider-container">
-        <div flex=10 class="layout flex-10 layout-align-center-center">
+        <div class="layout flex-10 layout-align-center-center">
           <span>default</span>
         </div>
         {{paper-slider class="flex" discrete=true value=rating1 step=1 min=1 max=5 onChange=(action (mut rating1))}}
       </div>
       <div class="layout layout-align-center-center slider-container">
-        <div flex=10 class="layout flex-10 layout-align-center-center">
+        <div class="layout flex-10 layout-align-center-center">
           <span>md-warn</span>
         </div>
         {{paper-slider class="flex" warn=true discrete=true value=rating2 step=1 min=1 max=5 onChange=(action (mut rating2))}}
       </div>
       <div class="layout layout-align-center-center slider-container">
-        <div flex=10 class="layout flex-10 layout-align-center-center">
+        <div class="layout flex-10 layout-align-center-center">
           <span>md-primary</span>
         </div>
         {{paper-slider class="flex" primary=true discrete=true value=rating3 step=1 min=1 max=5 onChange=(action (mut rating3))}}

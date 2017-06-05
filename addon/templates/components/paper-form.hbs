@@ -1,22 +1,22 @@
 {{yield (hash
   isValid=isValid
   isInvalid=isInvalid
-  input=(component "paper-input"
+  isTouched=isTouched
+  isInvalidAndTouched=isInvalidAndTouched
+  input=(component inputComponent
     parentComponent=this
     onValidityChange=(action "onValidityChange")
   )
-  submit-button=(component "paper-button"
-    onClick=(action "onSubmit")
+  submit-button=(component submitButtonComponent
     type="submit"
   )
-  select=(component "paper-select"
+  select=(component selectComponent
   	parentComponent=this
   	onValidityChange=(action "onValidityChange")
   )
-  autocomplete=(component "paper-autocomplete"
+  autocomplete=(component autocompleteComponent
   	parentComponent=this
   	onValidityChange=(action "onValidityChange")
   )
   onSubmit=(action "onSubmit")
 )}}
-

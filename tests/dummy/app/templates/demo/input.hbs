@@ -3,13 +3,13 @@
 {{#doc-content}}
   {{! BEGIN-SNIPPET input.basic-usage}}
   <div class="layout layout-sm-column">
-    {{paper-input flex=30 label="Name" value=name onChange=(action (mut name))}}
-    {{paper-input flex=30 label="E-mail" type="email" value=email onChange=(action (mut email))}}
-    {{paper-input flex=40 label="Password" type="password" value=password onChange=(action (mut password))}}
+    {{paper-input class="flex-30" label="Name" value=name onChange=(action (mut name))}}
+    {{paper-input class="flex-30" label="E-mail" type="email" value=email onChange=(action (mut email))}}
+    {{paper-input class="flex-40" label="Password" type="password" value=password onChange=(action (mut password))}}
   </div>
   <div class="layout layout-sm-column">
-    {{paper-input flex=true label="Submission date" type="date" value=date onChange=(action (mut date))}}
-    {{paper-input flex=true label="Company (disabled)" type="text" value="Google" disabled=true onChange=(action (mut foo))}}
+    {{paper-input class="flex" label="Submission date" type="date" value=date onChange=(action (mut date))}}
+    {{paper-input class="flex" label="Company (disabled)" type="text" value="Google" disabled=true onChange=(action (mut foo))}}
   </div>
 
   {{paper-input textarea=true block=true label="Biography" maxlength=150 passThru=(hash rows=5 maxRows=5)
@@ -188,14 +188,44 @@
     {{code-snippet name="input.actions.hbs"}}
   </p>
 
+  {{#paper-api
+    (p-section
+      (p-row "charCount" "integer" "Length of the current input's value.")
+      (p-row "isInvalid" "boolean" "`true` if input is in error.")
+      (p-row "isTouched" "boolean" "`true` is the user interacted with it.")
+      (p-row "isInvalidAndTouched" "boolean" "`true` if input is in error and the user interacted with it.")
+      (p-row "hasValue" "boolean" "`true` if the input is filled.")
+      (p-row "validationErrorMessages" "array" "List of input's errors.")
+
+    )
+      title="Input Text Helpers"
+  }}
+    <p>You can pass in a helper text to the paper-input's block. Some useful properties are yieled to the block to help you
+    conditionally render the text.</p>
+    <div>
+    {{! BEGIN-SNIPPET input.textHelper }}
+    {{#paper-input
+      value=emailValue
+      onChange=(action (mut emailValue))
+      label="Email"
+      type="email" as |input|}}
+        {{#unless input.hasValue}}
+          <div class="hint">How can we reach you?</div>
+        {{/unless}}
+      {{/paper-input}}
+      {{! END-SNIPPET }}
+      {{code-snippet name="input.textHelper.hbs"}}
+    </div>
+    {{/paper-api}}
+
   {{#paper-api validationApi title="Custom Validations"}}
     <p>
       In addition to <code>required</code>,
       <code>min</code>, <code>max</code>,
       and <code>maxlength</code>, you may define your own
       custom validations. Custom validations are defined by an object with two
-      attributes, <code>errorMessage</code> and
-      <code>isError</code>. You may bind a single validation
+      attributes, <code>message</code> and
+      <code>validate</code>. You may bind a single validation
       object, or an array of validation objects.
     </p>
   {{/paper-api}}
@@ -241,7 +271,7 @@
     {{#card.content}}
       <div class="layout layout-sm-row">
         {{paper-input
-          flex=50
+          class="flex-50"
           label="User name"
           value=model.username
           onChange=(action (mut model.username))
@@ -251,7 +281,7 @@
       <div class="layout layout-sm-row">
         {{paper-input
           label="Password"
-          flex=34
+          class="flex-34"
           type="password"
           value=model.password
           onChange=(action (mut model.password))
@@ -259,7 +289,7 @@
         }}
         {{paper-input
           label="E-mail"
-          flex=33
+          class="flex-33"
           type="email"
           value=model.email
           onChange=(action (mut model.email))
@@ -267,7 +297,7 @@
         }}
         {{paper-input
           label="Retype your e-mail"
-          flex=33
+          class="flex-33"
           type="email"
           value=model.emailConfirmation
           onChange=(action (mut model.emailConfirmation))

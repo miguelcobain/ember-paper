@@ -72,8 +72,12 @@ export default Component.extend({
     clear(e) {
       e.stopPropagation();
       this.set('text', '');
-      this.get('select').actions.select(null);
-      this.get('onInput')({ target: { value: '' } });
+      if (this.get('onClear')) {
+        this.get('onClear')();
+      } else {
+        this.get('select').actions.select(null);
+        this.get('onInput')({ target: { value: '' } });
+      }
       this.get('onFocus')(e);
       this.$('input').focus();
     },

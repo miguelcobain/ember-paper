@@ -107,10 +107,25 @@ test('block version should set label inside', function(assert) {
   assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
 
-test('the `onChange` action is mandatory', function(assert) {
+/* test('the `onChange` action is mandatory', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
     this.render(hbs`{{paper-checkbox value=true}}`);
   }, /requires an `onChange` action/);
+});*/
+
+test('if `indeterminate` is true, set md-indeterminate class', function(assert) {
+  assert.expect(3);
+
+  this.set('value', true);
+  this.render(hbs`
+    {{paper-checkbox value=value indeterminate=indeterminate
+      label="Blue" onChange=(action (mut value))}}
+  `);
+  assert.ok(this.$('md-checkbox').hasClass('md-checked'));
+
+  this.set('indeterminate', true);
+  assert.ok(!this.$('md-checkbox').hasClass('md-checked'));
+  assert.ok(this.$('md-checkbox').hasClass('md-indeterminate'));
 });
