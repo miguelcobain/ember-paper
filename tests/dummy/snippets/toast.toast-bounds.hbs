@@ -1,0 +1,6 @@
+{{#paper-toast-bounds}}
+  {{#paper-button class="md-fab md-fab-top-right"}}FAB{{/paper-button}}
+  {{#if isOpenBasic}}
+    {{paper-toast onClose="closeBasic" onButton="closeBasic" button="Close this" right=true top=true message=basicMessage}}
+  {{/if}}
+{{/paper-toast-bounds}}

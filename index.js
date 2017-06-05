@@ -159,6 +159,9 @@ module.exports = {
       'components/sidenav/sidenav.scss',
       'components/sidenav/sidenav-theme.scss',
 
+      'components/toast/toast.scss',
+      'components/toast/toast-theme.scss',
+
       'components/backdrop/backdrop.scss',
       'components/backdrop/backdrop-theme.scss',
 

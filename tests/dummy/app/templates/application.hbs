@@ -1,3 +1,14 @@
+{{#if isOpenGlobalToast}}
+  {{paper-toast
+    hideDelay=3000
+    onClose="closeGlobalToast"
+    onButton="closeGlobalToast"
+    button="Close"
+    message=globalToastMessage
+    bottom=true right=true
+  }}
+{{/if}}
+
 {{#paper-sidenav-container class="site-nav-container"}}
   {{#paper-sidenav class="md-whiteframe-z2 site-sidenav" lockedOpen="gt-sm"
     open=isSidenavOpen onToggle=(action (mut isSidenavOpen))}}
@@ -36,6 +47,7 @@
             {{#submenu-item active=(is-active "demo.sidenav" currentRouteName) onClick=(transition-to "demo.sidenav")}}Sidenav{{/submenu-item}}
             {{#submenu-item active=(is-active "demo.slider" currentRouteName) onClick=(transition-to "demo.slider")}}Slider{{/submenu-item}}
             {{#submenu-item active=(is-active "demo.switch" currentRouteName) onClick=(transition-to "demo.switch")}}Switch{{/submenu-item}}
+            {{#submenu-item active=(is-active "demo.toast" currentRouteName) onClick=(transition-to "demo.toast")}}Toast{{/submenu-item}}
             {{#submenu-item active=(is-active "demo.toolbar" currentRouteName) onClick=(transition-to "demo.toolbar")}}Toolbar{{/submenu-item}}
              {{#submenu-item active=(is-active "demo.virtual-repeat" currentRouteName) onClick=(transition-to "demo.virtual-repeat")}}Virtual Repeat{{/submenu-item}}
           {{/liquid-if}}

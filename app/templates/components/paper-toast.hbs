@@ -1,0 +1,11 @@
+<div class="md-toast-content">
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
+    <span flex="">{{message}}</span>
+
+    {{#if button}}
+      {{#paper-button onClick=(action 'buttonAction')}}{{button}}{{/paper-button}}
+    {{/if}}
+  {{/if}}
+</div>
