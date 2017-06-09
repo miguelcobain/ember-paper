@@ -3,14 +3,18 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperCardImage
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   tagName: 'img',
   classNames: ['md-card-image'],
   attributeBindings: ['src', 'title', 'alt']
 });
+
+PaperComponent[NAME_KEY] = 'paper-card-image';
+
+export default PaperComponent;

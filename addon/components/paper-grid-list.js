@@ -4,7 +4,7 @@
 import Ember from 'ember';
 import gridLayout from '../utils/grid-layout';
 
-const { Component, inject, computed, A, run, get, isEqual } = Ember;
+const { NAME_KEY, Component, inject, computed, A, run, get, isEqual } = Ember;
 
 const unitCSS = (units) => {
   return `${units.share}% - (${units.gutter} * ${units.gutterShare})`;
@@ -26,7 +26,7 @@ const media = (mediaName) => {
  * @class PaperGridList
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   tagName: 'md-grid-list',
 
   constants: inject.service(),
@@ -350,3 +350,7 @@ export default Component.extend({
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-grid-list';
+
+export default PaperComponent;

@@ -8,13 +8,13 @@ import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
 
-const { assert, computed, inject, isNone, defineProperty } = Ember;
+const { NAME_KEY, assert, computed, inject, isNone, defineProperty } = Ember;
 
 /**
  * @class PaperAutocomplete
  * @extends PowerSelectComponent
  */
-export default PowerSelect.extend(ValidationMixin, ChildMixin, {
+const PaperComponent = PowerSelect.extend(ValidationMixin, ChildMixin, {
   layout,
   util: inject.service(),
   constants: inject.service(),
@@ -139,3 +139,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-autocomplete';
+
+export default PaperComponent;

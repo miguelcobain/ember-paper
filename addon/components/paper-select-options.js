@@ -2,9 +2,9 @@ import Ember from 'ember';
 import PowerOptions from 'ember-power-select/components/power-select/options';
 import layout from '../templates/components/paper-select-options';
 
-const { $ } = Ember;
+const { NAME_KEY, $ } = Ember;
 
-export default PowerOptions.extend({
+const PaperComponent = PowerOptions.extend({
   layout,
   tagName: 'md-content',
   init() {
@@ -42,3 +42,7 @@ export default PowerOptions.extend({
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-select-options';
+
+export default PaperComponent;

@@ -3,12 +3,16 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperSelectHeader
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   tagName: 'md-select-header'
 });
+
+PaperComponent[NAME_KEY] = 'paper-select-header';
+
+export default PaperComponent;

@@ -3,13 +3,13 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperDialogContainer
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   classNames: ['md-dialog-container'],
 
   mouseDown(ev) {
@@ -24,3 +24,7 @@ export default Component.extend({
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-dialog-container';
+
+export default PaperComponent;

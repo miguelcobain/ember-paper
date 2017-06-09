@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-chips';
 
-const { Component, isEmpty, isPresent, computed, observer, run } = Ember;
+const { NAME_KEY, Component, isEmpty, isPresent, computed, observer, run } = Ember;
 
-export default Component.extend({
+const PaperComponent = Component.extend({
   layout,
   tagName: 'md-chips',
   classNames: ['md-default-theme'],
@@ -238,3 +238,7 @@ export default Component.extend({
     return false;
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-chips';
+
+export default PaperComponent;

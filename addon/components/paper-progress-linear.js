@@ -5,7 +5,7 @@ import Ember from 'ember';
 import layout from '../templates/components/paper-progress-linear';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-const { inject, computed, Component, isPresent, String: { htmlSafe } } = Ember;
+const { NAME_KEY, inject, computed, Component, isPresent, String: { htmlSafe } } = Ember;
 
 function makeTransform(value) {
   let scale = value / 100;
@@ -23,7 +23,7 @@ const MODE_QUERY = 'query';
  * @extends Ember.Component
  * @uses ColorMixin
  */
-export default Component.extend(ColorMixin, {
+const PaperComponent = Component.extend(ColorMixin, {
   layout,
   tagName: 'md-progress-linear',
 
@@ -97,3 +97,7 @@ export default Component.extend(ColorMixin, {
   })
 
 });
+
+PaperComponent[NAME_KEY] = 'paper-progress-linear';
+
+export default PaperComponent;

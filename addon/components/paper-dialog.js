@@ -4,13 +4,13 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-dialog';
 
-const { $, Component, computed, inject, testing } = Ember;
+const { NAME_KEY, $, Component, computed, inject, testing } = Ember;
 
 /**
  * @class PaperDialog
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   layout,
   tagName: '',
 
@@ -79,3 +79,7 @@ export default Component.extend({
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-dialog';
+
+export default PaperComponent;

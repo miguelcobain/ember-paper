@@ -3,12 +3,16 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperToolbarTools
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   classNames: ['md-toolbar-tools']
 });
+
+PaperComponent[NAME_KEY] = 'paper-toolbar-tools';
+
+export default PaperComponent;

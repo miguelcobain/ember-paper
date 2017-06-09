@@ -3,12 +3,16 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperDialogActions
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   tagName: 'md-dialog-actions'
 });
+
+PaperComponent[NAME_KEY] = 'paper-dialog-actions';
+
+export default PaperComponent;

@@ -4,14 +4,14 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-menu-content-inner';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
-const { Component, inject, computed, run } = Ember;
+const { NAME_KEY, Component, inject, computed, run } = Ember;
 
 /**
  * @class PaperMenuContentInner
  * @extends Ember.Component
  * @uses ParentMixin
  */
-export default Component.extend(ParentMixin, {
+const PaperComponent = Component.extend(ParentMixin, {
   layout,
   tagName: 'md-menu-content',
   attributeBindings: ['width'],
@@ -80,3 +80,7 @@ export default Component.extend(ParentMixin, {
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-menu-content-inner';
+
+export default PaperComponent;

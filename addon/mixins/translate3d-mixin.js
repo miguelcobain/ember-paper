@@ -4,13 +4,13 @@
 import Ember from 'ember';
 import { nextTick, computeTimeout } from 'ember-css-transitions/mixins/transition-mixin';
 
-const { $, Mixin, String: { htmlSafe }, computed, inject, run } = Ember;
+const { $, Mixin, NAME_KEY, String: { htmlSafe }, computed, inject, run } = Ember;
 
 /**
  * @class Translate3dMixin
  * @extends Ember.Mixin
  */
-export default Mixin.create({
+const PaperMixin = Mixin.create({
   constants: inject.service(),
 
   attributeBindings: ['translateStyle:style'],
@@ -188,3 +188,7 @@ export default Mixin.create({
   }
 
 });
+
+PaperMixin[NAME_KEY] = 'paper-translate3d-mixin';
+
+export default PaperMixin;

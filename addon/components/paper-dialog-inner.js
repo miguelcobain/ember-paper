@@ -4,14 +4,14 @@
 import Ember from 'ember';
 import Translate3dMixin from '../mixins/translate3d-mixin';
 
-const { Component, run } = Ember;
+const { NAME_KEY, Component, run } = Ember;
 
 /**
  * @class PaperDialogInner
  * @extends Ember.Component
  * @uses Translate3dMixin
  */
-export default Component.extend(Translate3dMixin, {
+const PaperComponent = Component.extend(Translate3dMixin, {
   tagName: 'md-dialog',
   classNames: ['md-default-theme'],
   classNameBindings: ['contentOverflow:md-content-overflow', 'fullscreen:md-dialog-fullscreen'],
@@ -50,3 +50,7 @@ export default Component.extend(Translate3dMixin, {
     images.off(`load.${this.elementId}`);
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-dialog-inner';
+
+export default PaperComponent;

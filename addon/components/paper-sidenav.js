@@ -4,13 +4,13 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-sidenav';
 
-const { Component, computed } = Ember;
+const { NAME_KEY, Component, computed } = Ember;
 
 /**
  * @class
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   layout,
   tagName: '',
 
@@ -30,3 +30,7 @@ export default Component.extend({
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-sidenav';
+
+export default PaperComponent;

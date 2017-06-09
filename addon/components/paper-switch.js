@@ -9,7 +9,7 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 
 const {
-  Component, assert, computed, get, run, String: { htmlSafe }, inject
+  NAME_KEY, Component, assert, computed, get, run, String: { htmlSafe }, inject
 } = Ember;
 /* global Hammer */
 
@@ -21,7 +21,7 @@ const {
  * @uses ColorMixin
  * @uses ProxiableMixin
  */
-export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
+const PaperComponent = Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
   layout,
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
@@ -154,3 +154,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   }
 
 });
+
+PaperComponent[NAME_KEY] = 'paper-switch';
+
+export default PaperComponent;

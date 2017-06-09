@@ -5,7 +5,7 @@ import Ember from 'ember';
 import layout from '../templates/components/paper-icon';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-const { Component, computed, String: Str } = Ember;
+const { NAME_KEY, Component, computed, String: Str } = Ember;
 
 /**
  * @class PaperIcon
@@ -50,5 +50,7 @@ let PaperIconComponent = Component.extend(ColorMixin, {
 PaperIconComponent.reopenClass({
   positionalParams: ['positionalIcon']
 });
+
+PaperIconComponent[NAME_KEY] = 'paper-icon';
 
 export default PaperIconComponent;

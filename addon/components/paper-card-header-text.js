@@ -4,13 +4,17 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-card-header-text';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperCardheaderText
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   layout,
   tagName: 'md-card-header-text'
 });
+
+PaperComponent[NAME_KEY] = 'paper-card-header-text';
+
+export default PaperComponent;

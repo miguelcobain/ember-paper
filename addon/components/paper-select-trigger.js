@@ -5,13 +5,13 @@ import Ember from 'ember';
 import TriggerComponent from 'ember-power-select/components/power-select/trigger';
 import layout from '../templates/components/paper-select-trigger';
 
-const { computed } = Ember;
+const { NAME_KEY, computed } = Ember;
 
 /**
  * @class PaperSelectTrigger
  * @extends Ember.Component
  */
-export default TriggerComponent.extend({
+const PaperComponent = TriggerComponent.extend({
   layout,
   tagName: 'md-select-value',
   classNames: ['md-select-value'],
@@ -20,3 +20,7 @@ export default TriggerComponent.extend({
     return (this.get('placeholder') || this.get('label')) && !this.get('select.selected');
   })
 });
+
+PaperComponent[NAME_KEY] = 'paper-select-trigger';
+
+export default PaperComponent;

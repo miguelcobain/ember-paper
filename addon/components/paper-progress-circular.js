@@ -7,7 +7,7 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
 import clamp from 'ember-paper/utils/clamp';
 import { rAF, cAF } from 'ember-css-transitions/mixins/transition-mixin';
 
-const { Component, computed, isPresent, String: { htmlSafe } } = Ember;
+const { NAME_KEY, Component, computed, isPresent, String: { htmlSafe } } = Ember;
 
 const MODE_DETERMINATE = 'determinate';
 const MODE_INDETERMINATE = 'indeterminate';
@@ -31,7 +31,7 @@ function materialEase(t, b, c, d) {
  * @extends Ember.Component
  * @uses ColorMixin
  */
-export default Component.extend(ColorMixin, {
+const PaperComponent = Component.extend(ColorMixin, {
   layout,
   tagName: 'md-progress-circular',
   classNames: ['md-default-theme'],
@@ -229,3 +229,7 @@ export default Component.extend(ColorMixin, {
     return (diameter - strokeWidth) * Math.PI * ((3 * (limit || 100) / 100) - (value / 100));
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-progress-circular';
+
+export default PaperComponent;

@@ -5,14 +5,14 @@
 import Ember from 'ember';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
-const { Component, inject, computed, $, run } = Ember;
+const { NAME_KEY, Component, inject, computed, $, run } = Ember;
 
 /**
  * @class PaperSidenavInner
  * @extends Ember.Component
  * @uses TransitionMixin
  */
-export default Component.extend(TransitionMixin, {
+const PaperComponent = Component.extend(TransitionMixin, {
   tagName: 'md-sidenav',
   attributeBindings: ['tabindex'],
   classNameBindings: ['positionClass'],
@@ -111,3 +111,7 @@ export default Component.extend(TransitionMixin, {
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-sidenav-inner';
+
+export default PaperComponent;

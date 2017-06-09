@@ -7,7 +7,7 @@ import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-const { Component, computed, assert } = Ember;
+const { NAME_KEY, Component, computed, assert } = Ember;
 
 /**
  * @class PaperRadio
@@ -16,7 +16,7 @@ const { Component, computed, assert } = Ember;
  * @uses ColorMixin
  * @uses RippleMixin
  */
-export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, {
+const PaperComponent = Component.extend(FocusableMixin, RippleMixin, ColorMixin, {
   layout,
   tagName: 'md-radio-button',
   classNames: ['md-default-theme'],
@@ -57,3 +57,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, {
     return this.get('bubbles');
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-radio-base';
+
+export default PaperComponent;

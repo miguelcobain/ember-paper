@@ -2,9 +2,9 @@ import Ember from 'ember';
 import PowerOptions from 'ember-power-select/components/power-select/options';
 import layout from '../templates/components/paper-autocomplete-options';
 
-const { get } = Ember;
+const { NAME_KEY, get } = Ember;
 
-export default PowerOptions.extend({
+const PaperComponent = PowerOptions.extend({
   layout,
 
   _optionFromIndex(index) {
@@ -17,3 +17,7 @@ export default PowerOptions.extend({
     return option !== undefined ? get(option, 'raw') : option;
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-autocomplete-options';
+
+export default PaperComponent;

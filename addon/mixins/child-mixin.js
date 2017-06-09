@@ -4,13 +4,13 @@
 import Ember from 'ember';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
 
-const { Mixin, computed } = Ember;
+const { Mixin, NAME_KEY, computed } = Ember;
 
 /**
  * @class ChildMixin
  * @extends Ember.Mixin
  */
-export default Mixin.create({
+const PaperMixin = Mixin.create({
 
   // override to look for a specific parent class
   parentClass: ParentMixin,
@@ -34,3 +34,7 @@ export default Mixin.create({
     }
   }
 });
+
+PaperMixin[NAME_KEY] = 'paper-child-mixin';
+
+export default PaperMixin;

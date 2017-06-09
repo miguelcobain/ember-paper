@@ -3,13 +3,13 @@
  */
 import Ember from 'ember';
 
-const { Mixin } = Ember;
+const { Mixin, NAME_KEY } = Ember;
 
 /**
  * @class EventsMixin
  * @extends Ember.Mixin
  */
-export default Mixin.create({
+const PaperMixin = Mixin.create({
   touchStart(e) {
     return this.down(e);
   },
@@ -50,3 +50,7 @@ export default Mixin.create({
 
   move() {}
 });
+
+PaperMixin[NAME_KEY] = 'paper-events-mixin';
+
+export default PaperMixin;

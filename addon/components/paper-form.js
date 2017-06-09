@@ -5,14 +5,14 @@ import Ember from 'ember';
 import layout from '../templates/components/paper-form';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
 
-const { Component, computed } = Ember;
+const { NAME_KEY, Component, computed } = Ember;
 
 /**
  * @class PaperForm
  * @extends Ember.Component
  * @uses ParentMixin
  */
-export default Component.extend(ParentMixin, {
+const PaperComponent = Component.extend(ParentMixin, {
   layout,
   tagName: 'form',
 
@@ -55,3 +55,7 @@ export default Component.extend(ParentMixin, {
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-form';
+
+export default PaperComponent;

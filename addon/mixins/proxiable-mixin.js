@@ -4,14 +4,14 @@
 import Ember from 'ember';
 import { ChildMixin } from 'ember-composability-tools';
 
-const { Mixin, run } = Ember;
+const { Mixin, NAME_KEY, run } = Ember;
 
 /**
  * @class ProxiableMixin
  * @uses ChildMixin
  * @extends Ember.Mixin
  */
-export default Mixin.create(ChildMixin, {
+const PaperMixin = Mixin.create(ChildMixin, {
 
   classNameBindings: ['secondary:md-secondary'],
 
@@ -51,3 +51,7 @@ export default Mixin.create(ChildMixin, {
     }
   }
 });
+
+PaperMixin[NAME_KEY] = 'paper-proxiable-mixin';
+
+export default PaperMixin;

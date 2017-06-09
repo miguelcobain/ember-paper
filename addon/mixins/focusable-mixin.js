@@ -4,14 +4,14 @@
 import Ember from 'ember';
 import EventsMixin from './events-mixin';
 
-const { Mixin, computed } = Ember;
+const { Mixin, NAME_KEY, computed } = Ember;
 
 /**
  * @class FocusableMixin
  * @extends Ember.Mixin
  * @uses EventsMixin
  */
-export default Mixin.create(EventsMixin, {
+const PaperMixin = Mixin.create(EventsMixin, {
 
   disabled: false,
   pressed: false,
@@ -80,3 +80,7 @@ export default Mixin.create(EventsMixin, {
     }
   }
 });
+
+PaperMixin[NAME_KEY] = 'paper-focusable-mixin';
+
+export default PaperMixin;
