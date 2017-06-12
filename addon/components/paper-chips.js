@@ -9,6 +9,7 @@ export default Component.extend({
   classNames: ['md-default-theme'],
   activeChip: -1,
   focusedElement: 'none',
+  keyProp: null,
   isFocused: computed('focusedElement', function() {
     if (this.get('focusedElement') === 'none') {
       return false;
