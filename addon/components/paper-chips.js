@@ -48,8 +48,8 @@ export default Component.extend({
           item[this.get('searchField')] = newItem;
         }
 
-        this.sendAction('addItem', item);
         this.set('newChipValue', '');
+        this.sendAction('addItem', item);
 
         if (isPresent(this.get('autocomplete'))) {
           // We have an autocomplete - reset it once it's closed itself.
