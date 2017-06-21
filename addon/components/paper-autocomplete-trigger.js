@@ -39,28 +39,50 @@ export default Component.extend({
   }),
 
   // Lifecycle hooks
-  didUpdateAttrs({ oldAttrs, newAttrs }) {
+  init() {
     this._super(...arguments);
+    this.set('oldSelect', this.get('select'));
+    this.set('oldLoading', this.get('loading'));
+    this.set('oldLastSearchedText', this.get('lastSearchedText'));
+  },
+
+  didUpdateAttrs() {
+    this._super(...arguments);
+
+    let oldSelect = this.get('oldSelect');
+    let oldLoading = this.get('oldLoading');
+    let oldLastSearchedText = this.get('oldLastSearchedText');
+
+    let select = this.get('select');
+    let loading = this.get('loading');
+    let searchText = this.get('searchText');
+    let lastSearchedText = this.get('lastSearchedText');
+    let options = this.get('options');
+
     /*
      * We need to update the input field with value of the selected option whenever we're closing
      * the select box. But we also close the select box when we're loading search results and when
      * we remove input text -- so protect against this
      */
-    if (oldAttrs.select.isOpen && !newAttrs.select.isOpen && !newAttrs.loading && newAttrs.searchText) {
+    if (oldSelect.isOpen && !select.isOpen && !loading && searchText) {
       this.set('text', this.getSelectedAsText());
     }
 
-    if (newAttrs.lastSearchedText !== oldAttrs.lastSearchedText) {
-      if (isBlank(newAttrs.lastSearchedText)) {
-        run.schedule('actions', null, newAttrs.select.actions.close, null, true);
+    if (lastSearchedText !== oldLastSearchedText) {
+      if (isBlank(lastSearchedText)) {
+        run.schedule('actions', null, select.actions.close, null, true);
       } else {
-        run.schedule('actions', null, newAttrs.select.actions.open);
+        run.schedule('actions', null, select.actions.open);
       }
-    } else if (!isBlank(newAttrs.lastSearchedText) && get(this, 'options.length') === 0 && this.get('loading')) {
-      run.schedule('actions', null, newAttrs.select.actions.close, null, true);
-    } else if (oldAttrs.loading && !newAttrs.loading && newAttrs.options.length > 0) {
-      run.schedule('actions', null, newAttrs.select.actions.open);
+    } else if (!isBlank(lastSearchedText) && get(this, 'options.length') === 0 && this.get('loading')) {
+      run.schedule('actions', null, select.actions.close, null, true);
+    } else if (oldLoading && !loading && options.length > 0) {
+      run.schedule('actions', null, select.actions.open);
     }
+
+    this.set('oldSelect', select);
+    this.set('oldLoading', loading);
+    this.set('oldLastSearchedText', lastSearchedText);
   },
 
   // Actions

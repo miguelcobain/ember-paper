@@ -117,6 +117,11 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     return Math.ceil(this.get('itemHeight') ? size / this.get('itemHeight') : 1) + EXTRA_ROW_PADDING;
   }).readOnly(),
 
+  init() {
+    this._super(...arguments);
+    this.set('oldScrollIndex', this.get('scrollIndex'));
+  },
+
   didInsertElement() {
     this._super(...arguments);
 
@@ -127,9 +132,15 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     });
   },
 
-  didReceiveAttrs(changes) {
+  didReceiveAttrs() {
     this._super(...arguments);
-    let { newAttrs, oldAttrs = {} } = changes;
+
+    let height = this.get('height');
+    let width = this.get('width');
+    let scrollIndex = this.get('scrollIndex');
+    let scrollTop = this.get('scrollTop');
+
+    let oldScrollIndex = this.get('oldScrollIndex');
 
     RSVP.cast(this.getAttr('items')).then((attrItems) => {
       let items = emberArray(attrItems);
@@ -141,17 +152,19 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
       });
 
       // Set size explicitly
-      if (newAttrs.height) {
-        this.set('size', newAttrs.height);
-      } else if (newAttrs.width) {
-        this.set('size', newAttrs.width);
+      if (height) {
+        this.set('size', height);
+      } else if (width) {
+        this.set('size', width);
       }
 
       // Scroll index has changed, load more data & scroll
-      if (oldAttrs.scrollIndex !== newAttrs.scrollIndex) {
-        this.scrollToVirtualItem(newAttrs.scrollIndex, newAttrs.scrollTop);
+      if (oldScrollIndex !== scrollIndex) {
+        this.scrollToVirtualItem(scrollIndex, scrollTop);
       }
     });
+
+    this.set('oldScrollIndex', scrollIndex);
   },
 
   didRender() {
