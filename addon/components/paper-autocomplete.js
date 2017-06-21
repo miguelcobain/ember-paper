@@ -38,6 +38,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     }
   }),
   searchText: '',
+  savedSearchText: '',
   _onChangeNop() { },
 
   // Don't automatically highlight any option
@@ -47,7 +48,13 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     this._initComponent();
     this._super(...arguments);
   },
-
+  // Listen for changes in searchText and trigger vanilla power-select's search
+  didUpdateAttrs() {
+    if (this.get('searchText') !== this.get('savedSearchText')) {
+      this.get('publicAPI').actions.search(this.get('searchText'));
+      this.set('savedSearchText', this.get('searchText'));
+    }
+  },
   // Init autocomplete component
   _initComponent() {
     let {
@@ -63,6 +70,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     let aliasOnChangeDepKey = hasSelectionChange ? 'onSelectionChange' : '_onChangeNop';
     defineProperty(this, 'oninput', computed.alias('onSearchTextChange'));
     defineProperty(this, 'onchange', computed.alias(aliasOnChangeDepKey));
+    this.set('publicAPI.searchText', "");
   },
 
   // Choose highlighted item on key tab
