@@ -14,6 +14,7 @@ Router.map(function() {
   this.route('typography');
   this.route('theme');
   this.route('cookbook');
+  this.route('addons');
 
   this.route('demo', { path: 'components' }, function() {
     this.route('autocomplete');
