@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { inject, computed, Mixin, run, $ } = Ember;
+const { inject, computed, Mixin, NAME_KEY, run, $ } = Ember;
 /* global window */
 
 const DURATION = 400;
@@ -12,7 +12,7 @@ const DURATION = 400;
  * @class RippleMixin
  * @extends Ember.Mixin
  */
-export default Mixin.create({
+const PaperMixin = Mixin.create({
   util: inject.service(),
   rippleContainerSelector: '.md-container',
 
@@ -294,3 +294,7 @@ export default Mixin.create({
     this.lastRipple = null;
   }
 });
+
+PaperMixin[NAME_KEY] = 'paper-ripple-mixin';
+
+export default PaperMixin;

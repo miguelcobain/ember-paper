@@ -3,12 +3,16 @@
  */
 import Ember from 'ember';
 
-const { Mixin } = Ember;
+const { Mixin, NAME_KEY } = Ember;
 
 /**
  * @class ColorMixin
  * @extends Ember.Mixin;
  */
-export default Mixin.create({
+const PaperMixin = Mixin.create({
   classNameBindings: ['warn:md-warn', 'accent:md-accent', 'primary:md-primary']
 });
+
+PaperMixin[NAME_KEY] = 'paper-color-mixin';
+
+export default PaperMixin;

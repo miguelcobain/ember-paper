@@ -3,6 +3,7 @@ import VirtualEachComponent from 'virtual-each/components/virtual-each/component
 import layout from '../templates/components/paper-virtual-repeat';
 
 const {
+  NAME_KEY,
   computed,
   run,
   get,
@@ -263,5 +264,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
 VirtualRepeatComponent.reopenClass({
   positionalParams: ['items']
 });
+
+VirtualRepeatComponent[NAME_KEY] = 'paper-virtual-repeat';
 
 export default VirtualRepeatComponent;

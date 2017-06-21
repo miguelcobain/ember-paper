@@ -4,13 +4,13 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-autocomplete-highlight';
 
-const { Component, computed, String: { htmlSafe } } = Ember;
+const { NAME_KEY, Component, computed, String: { htmlSafe } } = Ember;
 
 /**
  * @class PaperAutocompleteHighlight
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   layout,
   tagName: 'span',
 
@@ -45,3 +45,7 @@ export default Component.extend({
   }
 
 });
+
+PaperComponent[NAME_KEY] = 'paper-autocomplete-highlight';
+
+export default PaperComponent;

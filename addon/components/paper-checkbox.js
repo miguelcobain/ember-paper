@@ -8,7 +8,7 @@ import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 
-const { Component, inject, assert, computed } = Ember;
+const { NAME_KEY, Component, inject, assert, computed } = Ember;
 
 /**
  * @class PaperCheckbox
@@ -18,7 +18,7 @@ const { Component, inject, assert, computed } = Ember;
  * @uses ColorMixin
  * @uses ProxiableMixin
  */
-export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
+const PaperComponent = Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
   layout,
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
@@ -64,3 +64,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
     this.sendAction('onChange', !this.get('value'));
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-checkbox';
+
+export default PaperComponent;

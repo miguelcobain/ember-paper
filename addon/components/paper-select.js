@@ -8,7 +8,7 @@ import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 
-const { computed } = Ember;
+const { NAME_KEY, computed } = Ember;
 
 function concatWithProperty(strings, property) {
   if (property) {
@@ -21,7 +21,7 @@ function concatWithProperty(strings, property) {
  * @class PaperSelect
  * @extends PaperInput
  */
-export default PowerSelect.extend(ValidationMixin, ChildMixin, FocusableMixin, {
+const PaperComponent = PowerSelect.extend(ValidationMixin, ChildMixin, FocusableMixin, {
   layout,
   tagName: 'md-input-container',
   onchange: computed.alias('onChange'),
@@ -67,3 +67,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, FocusableMixin, {
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-select';
+
+export default PaperComponent;

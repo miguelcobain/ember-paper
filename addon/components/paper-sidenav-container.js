@@ -3,14 +3,18 @@
  */
 import Ember from 'ember';
 
-const { Component, String: { htmlSafe } } = Ember;
+const { NAME_KEY, Component, String: { htmlSafe } } = Ember;
 
 /**
  * @class PaperSidenavContainer
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   classNames: ['flex', 'layout-row'],
   attributeBindings: ['style'],
   style: htmlSafe('overflow: hidden')
 });
+
+PaperComponent[NAME_KEY] = 'paper-sidenav-container';
+
+export default PaperComponent;

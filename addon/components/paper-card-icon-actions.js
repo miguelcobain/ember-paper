@@ -3,12 +3,16 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperCardIconActions
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   tagName: 'md-card-icon-actions'
 });
+
+PaperComponent[NAME_KEY] = 'paper-card-icon-actions';
+
+export default PaperComponent;

@@ -4,13 +4,13 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-card-actions';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperCardActions
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   layout,
   tagName: 'md-card-actions',
   classNameBindings: ['defaultClasses'],
@@ -27,3 +27,7 @@ export default Component.extend({
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-card-actions';
+
+export default PaperComponent;

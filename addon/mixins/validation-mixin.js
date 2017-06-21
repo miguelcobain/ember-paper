@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { Mixin, computed, A, assert, isArray, Logger, get, String: { loc }, isBlank } = Ember;
+const { Mixin, NAME_KEY, computed, A, assert, isArray, Logger, get, String: { loc }, isBlank } = Ember;
 
 import requiredValidator from 'ember-paper/validators/required';
 import minValidator from 'ember-paper/validators/min';
@@ -68,7 +68,7 @@ function buildComputedValidationMessages(property, validations = [], customValid
  * @class ValidationMixin
  * @extends Ember.Mixin
  */
-export default Mixin.create({
+const PaperMixin = Mixin.create({
   validationErrorMessages: null,
   lastIsInvalid: undefined,
   validationProperty: null, // property that validation should be based on
@@ -134,3 +134,7 @@ export default Mixin.create({
   customValidations: [],
   errors: []
 });
+
+PaperMixin[NAME_KEY] = 'paper-validation-mixin';
+
+export default PaperMixin;

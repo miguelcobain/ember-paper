@@ -1,7 +1,10 @@
+import Ember from 'ember';
 import PaperChips from 'ember-paper/components/paper-chips';
 import layout from '../templates/components/paper-contact-chips';
 
-export default PaperChips.extend({
+const { NAME_KEY } = Ember;
+
+const PaperComponent = PaperChips.extend({
   layout,
   tagName: 'md-contact-chips',
   classNames: ['md-default-theme'],
@@ -11,3 +14,7 @@ export default PaperChips.extend({
   nameField: 'name',
   imageField: 'image'
 });
+
+PaperComponent[NAME_KEY] = 'paper-contact-chips';
+
+export default PaperComponent;

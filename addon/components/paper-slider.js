@@ -6,7 +6,7 @@ import layout from '../templates/components/paper-slider';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import clamp from 'ember-paper/utils/clamp';
-const { Component, computed, inject, run, String: { htmlSafe } } = Ember;
+const { NAME_KEY, Component, computed, inject, run, String: { htmlSafe } } = Ember;
 /* global Hammer */
 
 /**
@@ -15,7 +15,7 @@ const { Component, computed, inject, run, String: { htmlSafe } } = Ember;
  * @uses FocusableMixin
  * @uses ColorMixin
  */
-export default Component.extend(FocusableMixin, ColorMixin, {
+const PaperComponent = Component.extend(FocusableMixin, ColorMixin, {
   layout,
   tagName: 'md-slider',
 
@@ -203,3 +203,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   }
 
 });
+
+PaperComponent[NAME_KEY] = 'paper-slider';
+
+export default PaperComponent;

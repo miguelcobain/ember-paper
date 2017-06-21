@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import BasicTrigger from 'ember-basic-dropdown/components/basic-dropdown/trigger';
-const { computed } = Ember;
+const { NAME_KEY, computed } = Ember;
 
-export default BasicTrigger.extend({
+const PaperComponent = BasicTrigger.extend({
   tagName: 'md-autocomplete',
   attributeBindings: ['label:md-floating-label', 'disabled:disabled'],
   disabled: computed('disabledProxy', function() {
@@ -45,3 +45,7 @@ export default BasicTrigger.extend({
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-autocomplete-trigger-container';
+
+export default PaperComponent;

@@ -3,13 +3,17 @@
  */
 import Ember from 'ember';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperCardHeaderTitle
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   tagName: 'span',
   classNames: ['md-title']
 });
+
+PaperComponent[NAME_KEY] = 'paper-card-header-title';
+
+export default PaperComponent;

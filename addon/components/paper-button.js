@@ -8,7 +8,7 @@ import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 
-const { Component, computed } = Ember;
+const { NAME_KEY, Component, computed } = Ember;
 
 /**
  * @class PaperButton
@@ -18,7 +18,7 @@ const { Component, computed } = Ember;
  * @uses ColorMixin
  * @uses ProxiableMixin
  */
-export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
+const PaperComponent = Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
   layout,
   tagName: 'button',
   classNames: ['md-default-theme', 'md-button'],
@@ -64,3 +64,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
     return this.get('bubbles');
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-button';
+
+export default PaperComponent;

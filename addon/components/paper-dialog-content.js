@@ -2,13 +2,17 @@
  * @module ember-paper
  */
 import Ember from 'ember';
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperDialogComponent
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   tagName: 'md-dialog-content',
   classNames: ['md-dialog-content']
 });
+
+PaperComponent[NAME_KEY] = 'paper-dialog-content';
+
+export default PaperComponent;

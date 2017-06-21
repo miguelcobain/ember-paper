@@ -5,7 +5,7 @@ import Ember from 'ember';
 import PaperMenuContent from './paper-menu-content';
 import layout from '../templates/components/paper-select-content';
 
-const { run, $ } = Ember;
+const { NAME_KEY, run, $ } = Ember;
 
 function waitForAnimations(element, callback) {
   let computedStyle = window.getComputedStyle(element);
@@ -30,7 +30,7 @@ function waitForAnimations(element, callback) {
  * @class PaperSelectContent
  * @extends PaperMenuContent
  */
-export default PaperMenuContent.extend({
+const PaperComponent = PaperMenuContent.extend({
   layout,
 
   animateIn() {
@@ -62,3 +62,7 @@ export default PaperMenuContent.extend({
     });
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-select-content';
+
+export default PaperComponent;

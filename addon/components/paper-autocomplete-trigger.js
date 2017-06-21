@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-autocomplete-trigger';
 
-const { Component, isPresent, isBlank, run, get, computed } = Ember;
+const { NAME_KEY, Component, isPresent, isBlank, run, get, computed } = Ember;
 
-export default Component.extend({
+const PaperComponent = Component.extend({
   layout,
   tagName: 'md-autocomplete-wrap',
   classNames: ['md-show-clear-button'],
@@ -109,3 +109,7 @@ export default Component.extend({
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-autocomplete-trigger';
+
+export default PaperComponent;

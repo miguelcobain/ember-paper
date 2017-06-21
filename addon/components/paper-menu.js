@@ -4,7 +4,7 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-menu';
 import BasicDropdownComponent from 'ember-basic-dropdown/components/basic-dropdown';
-const { assert, computed } = Ember;
+const { NAME_KEY, assert, computed } = Ember;
 
 const MENU_EDGE_MARGIN = 8;
 
@@ -25,7 +25,7 @@ function firstVisibleChild(node) {
  * @class PaperMenu
  * @extends BasicDropdownComponent
  */
-export default BasicDropdownComponent.extend({
+const PaperComponent = BasicDropdownComponent.extend({
   layout,
 
   close() {
@@ -181,3 +181,7 @@ export default BasicDropdownComponent.extend({
     return { style, horizontalPosition: '', verticalPosition: '' };
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-menu';
+
+export default PaperComponent;

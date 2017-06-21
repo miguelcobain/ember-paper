@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-virtual-repeat-scroller';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
-export default Component.extend({
+const PaperComponent = Component.extend({
   layout,
   classNames: ['md-virtual-repeat-scroller'],
 
@@ -19,3 +19,7 @@ export default Component.extend({
     this.$().off('scroll');
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-virtual-repeat-scroller';
+
+export default PaperComponent;

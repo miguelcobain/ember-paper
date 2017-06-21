@@ -6,14 +6,14 @@ import layout from '../templates/components/paper-option';
 import PaperMenuItem from './paper-menu-item';
 import RippleMixin from '../mixins/ripple-mixin';
 
-const { computed } = Ember;
+const { NAME_KEY, computed } = Ember;
 
 /**
  * @class PaperOption
  * @extends PaperMenuItem
  * @uses RippleMixin
  */
-export default PaperMenuItem.extend(RippleMixin, {
+const PaperComponent = PaperMenuItem.extend(RippleMixin, {
   layout,
   tagName: 'md-option',
   attributeBindings: ['aria-selected', 'aria-disabled', 'aria-current', 'data-option-index', 'role', 'selected', 'tabindex'],
@@ -23,3 +23,7 @@ export default PaperMenuItem.extend(RippleMixin, {
   center: computed.readOnly('isIconButton'),
   dimBackground: computed.not('isIconButton')
 });
+
+PaperComponent[NAME_KEY] = 'paper-option';
+
+export default PaperComponent;

@@ -3,13 +3,13 @@
  */
 import Ember from 'ember';
 
-const { Component, computed } = Ember;
+const { NAME_KEY, Component, computed } = Ember;
 
 /**
  * @class PaperDivider
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   tagName: 'md-divider',
   attributeBindings: ['insetAttr:md-inset'],
   inset: false,
@@ -23,3 +23,7 @@ export default Component.extend({
     return this.get('inset') ? 'md-inset' : null;
   })
 });
+
+PaperComponent[NAME_KEY] = 'paper-divider';
+
+export default PaperComponent;

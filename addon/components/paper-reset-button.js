@@ -1,7 +1,10 @@
+import Ember from 'ember';
 import Component from 'ember-component';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
-export default Component.extend(TransitionMixin, {
+const { NAME_KEY } = Ember;
+
+const PaperComponent = Component.extend(TransitionMixin, {
   tagName: 'button',
   attributeBindings: ['tabindex'],
   transitionClass: 'ng',
@@ -16,3 +19,7 @@ export default Component.extend(TransitionMixin, {
   }
 
 });
+
+PaperComponent[NAME_KEY] = 'paper-reset-button';
+
+export default PaperComponent;

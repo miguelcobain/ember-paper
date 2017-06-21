@@ -5,7 +5,7 @@ import Ember from 'ember';
 import PaperMenu from './paper-menu';
 import layout from '../templates/components/paper-select-menu';
 
-const { $ } = Ember;
+const { NAME_KEY, $ } = Ember;
 
 const SELECT_EDGE_MARGIN = 8;
 
@@ -26,7 +26,7 @@ function clamp(min, n, max) {
  * @class PaperSelectMenu
  * @extends Ember.Component
  */
-export default PaperMenu.extend({
+const PaperComponent = PaperMenu.extend({
   layout,
 
   triggerComponent: 'paper-select-menu-trigger',
@@ -167,3 +167,7 @@ export default PaperMenu.extend({
     return { style, horizontalPosition: '', verticalPosition: '' };
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-select-menu';
+
+export default PaperComponent;

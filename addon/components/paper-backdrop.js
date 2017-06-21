@@ -4,14 +4,14 @@
 import Ember from 'ember';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
-const { Component, computed, String: { htmlSafe } } = Ember;
+const { NAME_KEY, Component, computed, String: { htmlSafe } } = Ember;
 
 /**
  * @class PaperBackdrop
  * @extends Ember.Component
  * @uses TransitionMixin
  */
-export default Component.extend(TransitionMixin, {
+const PaperComponent = Component.extend(TransitionMixin, {
 
   tagName: 'md-backdrop',
   classNames: ['md-default-theme'],
@@ -46,3 +46,7 @@ export default Component.extend(TransitionMixin, {
     this.sendClickAction(e);
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-backdrop';
+
+export default PaperComponent;

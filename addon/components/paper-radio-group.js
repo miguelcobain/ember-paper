@@ -6,7 +6,7 @@ import layout from '../templates/components/paper-radio-group';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import { ParentMixin } from 'ember-composability-tools';
 
-const { Component, computed, inject, assert } = Ember;
+const { NAME_KEY, Component, computed, inject, assert } = Ember;
 
 /**
  * @class PaperRadioGroup
@@ -14,7 +14,7 @@ const { Component, computed, inject, assert } = Ember;
  * @uses FocusableMixin
  * @uses ParentMixin
  */
-export default Component.extend(FocusableMixin, ParentMixin, {
+const PaperComponent = Component.extend(FocusableMixin, ParentMixin, {
   layout,
   tagName: 'md-radio-group',
   tabindex: 0,
@@ -73,3 +73,7 @@ export default Component.extend(FocusableMixin, ParentMixin, {
     }
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-radio-group';
+
+export default PaperComponent;

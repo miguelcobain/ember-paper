@@ -5,14 +5,14 @@ import Ember from 'ember';
 import layout from '../templates/components/paper-menu-item';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperMenuItem
  * @extends Ember.Component
  * @uses ChildMixin
  */
-export default Component.extend(ChildMixin, {
+const PaperComponent = Component.extend(ChildMixin, {
   layout,
   tagName: 'md-menu-item',
   disabled: false,
@@ -30,3 +30,7 @@ export default Component.extend(ChildMixin, {
   }
 
 });
+
+PaperComponent[NAME_KEY] = 'paper-menu-item';
+
+export default PaperComponent;

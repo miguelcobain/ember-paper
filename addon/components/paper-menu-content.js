@@ -5,7 +5,7 @@ import Ember from 'ember';
 import layout from '../templates/components/paper-menu-content';
 import ContentComponent from 'ember-basic-dropdown/components/basic-dropdown/content';
 import { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
-const { $, computed, String: { htmlSafe } } = Ember;
+const { NAME_KEY, $, computed, String: { htmlSafe } } = Ember;
 const MutObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 function waitForAnimations(element, callback) {
@@ -31,7 +31,7 @@ function waitForAnimations(element, callback) {
  * @class PaperMenuContent
  * @extends ContentComponent
  */
-export default ContentComponent.extend({
+const PaperComponent = ContentComponent.extend({
   layout,
 
   // We need to overwrite this CP because:
@@ -107,3 +107,7 @@ export default ContentComponent.extend({
     });
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-menu-content';
+
+export default PaperComponent;

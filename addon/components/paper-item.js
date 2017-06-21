@@ -6,7 +6,7 @@ import layout from '../templates/components/paper-item';
 import RippleMixin from '../mixins/ripple-mixin';
 import { ParentMixin } from 'ember-composability-tools';
 
-const { Component, computed } = Ember;
+const { NAME_KEY, Component, computed } = Ember;
 
 /**
  * @class PaperItem
@@ -14,7 +14,7 @@ const { Component, computed } = Ember;
  * @uses ParentMixin
  * @uses RippleMixin
  */
-export default Component.extend(RippleMixin, ParentMixin, {
+const PaperComponent = Component.extend(RippleMixin, ParentMixin, {
   layout,
   tagName: 'md-list-item',
 
@@ -71,3 +71,7 @@ export default Component.extend(RippleMixin, ParentMixin, {
     this.sendAction('onMouseLeave', ev);
   }
 });
+
+PaperComponent[NAME_KEY] = 'paper-item';
+
+export default PaperComponent;

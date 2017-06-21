@@ -4,14 +4,18 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-card-media';
 
-const { Component } = Ember;
+const { NAME_KEY, Component } = Ember;
 
 /**
  * @class PaperCardMedia
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   layout,
   tagName: '',
   size: 'md'
 });
+
+PaperComponent[NAME_KEY] = 'paper-card-media';
+
+export default PaperComponent;

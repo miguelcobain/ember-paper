@@ -5,13 +5,13 @@ import Ember from 'ember';
 import layout from '../templates/components/paper-grid-tile';
 import PaperGridList from './paper-grid-list';
 
-const { Component, computed, inject, get } = Ember;
+const { NAME_KEY, Component, computed, inject, get } = Ember;
 
 /**
  * @class PaperGridTile
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   layout,
   tagName: 'md-grid-tile',
 
@@ -69,3 +69,7 @@ export default Component.extend({
   }
 
 });
+
+PaperComponent[NAME_KEY] = 'paper-grid-tile';
+
+export default PaperComponent;

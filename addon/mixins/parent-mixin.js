@@ -3,13 +3,13 @@
  */
 import Ember from 'ember';
 
-const { Mixin, computed, A } = Ember;
+const { Mixin, NAME_KEY, computed, A } = Ember;
 
 /**
  * @class ParentMixin
  * @extends Ember.Mixin
  */
-export default Mixin.create({
+const PaperMixin = Mixin.create({
   childComponents: computed(function() {
     return A();
   }),
@@ -22,3 +22,7 @@ export default Mixin.create({
     this.get('childComponents').removeObject(child);
   }
 });
+
+PaperMixin[NAME_KEY] = 'paper-parent-mixin';
+
+export default PaperMixin;

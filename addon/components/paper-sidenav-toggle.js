@@ -4,13 +4,13 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-sidenav-toggle';
 
-const { Component, inject } = Ember;
+const { NAME_KEY, Component, inject } = Ember;
 
 /**
  * @class PaperSidenavToggle
  * @extends Ember.Component
  */
-export default Component.extend({
+const PaperComponent = Component.extend({
   layout,
   tagName: '',
 
@@ -23,3 +23,7 @@ export default Component.extend({
   }
 
 });
+
+PaperComponent[NAME_KEY] = 'paper-sidenav-toggle';
+
+export default PaperComponent;
