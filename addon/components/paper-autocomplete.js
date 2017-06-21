@@ -7,8 +7,14 @@ import layout from '../templates/components/paper-autocomplete';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
+import { task } from 'ember-concurrency';
+import { countOptions } from 'ember-power-select/utils/group-utils';
 
 const { assert, computed, inject, isNone, defineProperty } = Ember;
+
+function toPlainArray(collection) {
+  return collection.toArray ? collection.toArray() : collection;
+}
 
 /**
  * @class PaperAutocomplete
@@ -81,7 +87,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
       this.send('activate');
       let publicAPI = this.get('publicAPI');
 
-      if (isNone(publicAPI.selected)) {
+      if (isNone(publicAPI.selected) && (!this.get('search') || !this.get('label'))) {
         publicAPI.actions.open(event);
       }
 
@@ -106,6 +112,10 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
 
       if (!publicAPI.isOpen && event.type !== 'change') {
         publicAPI.actions.open(event);
+      }
+
+      if (this.get('search') && this.get('label') && event.target.value === '') {
+        publicAPI.actions.close(event);
       }
 
       this.notifyValidityChange();
@@ -137,5 +147,29 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
       // Update the scroll index
       this.updateState({ scrollIndex: index });
     }
-  }
+  },
+  handleAsyncSearchTask: task(function*(term, searchThenable) {
+    try {
+      if (this.get('label')) {
+        this.get('publicAPI').actions.close();
+      }
+      this.updateState({ loading: true });
+      let results = yield searchThenable;
+      this.get('publicAPI').actions.open();
+      let resultsArray = toPlainArray(results);
+      this.updateState({
+        results: resultsArray,
+        lastSearchedText: term,
+        resultsCount: countOptions(results),
+        loading: false
+      });
+      this.resetHighlighted();
+    } catch(e) {
+      this.updateState({ lastSearchedText: term, loading: false });
+    } finally {
+      if (typeof searchThenable.cancel === 'function') {
+        searchThenable.cancel();
+      }
+    }
+  }).restartable()
 });
