@@ -1,8 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import layout from '../templates/components/paper-autocomplete-trigger';
 
 const { Component, isPresent, isBlank, run, get, computed } = Ember;
 
+/**
+ * @class PaperAutocompleteTrigger
+ * @extends Ember.Component
+ */
 export default Component.extend({
   layout,
   tagName: 'md-autocomplete-wrap',

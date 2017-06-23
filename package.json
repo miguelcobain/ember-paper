@@ -57,7 +57,7 @@
     "broccoli-filter": "^1.2.3",
     "broccoli-funnel": "^1.2.0",
     "broccoli-merge-trees": "^2.0.0",
-    "ember-basic-dropdown": "0.20.0",
+    "ember-basic-dropdown": "^0.32.8",
     "ember-cli-babel": "^6.3.0",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-composability-tools": "0.0.8",
