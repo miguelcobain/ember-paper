@@ -18,16 +18,15 @@ export default BasicDropdown.extend({
       return;
     }
 
-    let calculatePosition = this.get(this.get('renderInPlace') ? 'calculateInPlacePosition' : 'calculatePosition');
     let options = this.getProperties('horizontalPosition', 'verticalPosition', 'matchTriggerWidth', 'previousHorizontalPosition', 'previousVerticalPosition');
     options.dropdown = this;
-    let positionData = calculatePosition(triggerElement, dropdownElement, options);
+    let positionData = this.calculatePosition(triggerElement, dropdownElement, options);
     return this.applyReposition(triggerElement, dropdownElement, positionData);
   },
 
   // EBD passes `dropdown` as options
   // that var is `this` component itself
-  calculatePosition(trigger, dropdownEl, { horizontalPosition, verticalPosition, matchTriggerWidth, dropdown }) {
+  calculatePosition(trigger, dropdownEl, wormholeEl, { horizontalPosition, verticalPosition, matchTriggerWidth, dropdown }) {
     let $window = $(window);
     let scroll = { left: $window.scrollLeft(), top: $window.scrollTop() };
     let { left: triggerLeft, top: triggerTop, width: triggerWidth, height: triggerHeight } = trigger.getBoundingClientRect();
