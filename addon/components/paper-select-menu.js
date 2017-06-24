@@ -33,7 +33,7 @@ export default PaperMenu.extend({
 
   // EBD passes `dropdown` as options
   // that var is `this` component itself
-  calculatePosition(trigger, dropdownEl, { dropdown }) {
+  calculatePosition(trigger, dropdownEl, wormholeEl, { dropdown }) {
     let $dropdown = $(dropdownEl);
     let opts = {
       target: $(trigger),
