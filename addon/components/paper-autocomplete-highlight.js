@@ -13,7 +13,6 @@ const { Component, computed, String: { htmlSafe } } = Ember;
 export default Component.extend({
   layout,
   tagName: 'span',
-
   flags: '',
 
   highlight: computed('searchText', 'label', 'flags', function() {
