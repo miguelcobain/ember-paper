@@ -2226,16 +2226,7 @@ ember-ajax@^3.0.0:
   dependencies:
     ember-cli-babel "^6.0.0"
 
-ember-basic-dropdown@^0.32.5:
-  version "0.32.7"
-  resolved "https://registry.yarnpkg.com/ember-basic-dropdown/-/ember-basic-dropdown-0.32.7.tgz#cf2eef033cdad5e3b7e570ae78bcf2d13f880c07"
-  dependencies:
-    ember-cli-babel "^6.1.0"
-    ember-cli-htmlbars "^1.1.1"
-    ember-native-dom-helpers "^0.4.0"
-    ember-wormhole "^0.5.1"
-
-ember-basic-dropdown@^0.32.8:
+ember-basic-dropdown@^0.32.5, ember-basic-dropdown@^0.32.8:
   version "0.32.8"
   resolved "https://registry.yarnpkg.com/ember-basic-dropdown/-/ember-basic-dropdown-0.32.8.tgz#d460a78ae6eb8128d4bb0128520e6e9efdac2cd3"
   dependencies:
@@ -2737,13 +2728,6 @@ ember-maybe-import-regenerator@^0.1.5:
     broccoli-merge-trees "^1.0.0"
     ember-cli-babel "^6.0.0-beta.4"
     regenerator-runtime "^0.9.5"
-
-ember-native-dom-helpers@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/ember-native-dom-helpers/-/ember-native-dom-helpers-0.4.1.tgz#c4db7afa25dbe3efd84f36376f1ede2678cd7bb0"
-  dependencies:
-    broccoli-funnel "^1.1.0"
-    ember-cli-babel "^6.1.0"
 
 ember-native-dom-helpers@^0.5.0:
   version "0.5.0"
