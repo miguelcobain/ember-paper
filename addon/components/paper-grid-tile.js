@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 import layout from '../templates/components/paper-grid-tile';
-import PaperGridList from './paper-grid-list';
+import { ChildMixin } from 'ember-composability-tools';
 
 const { Component, computed, inject, get } = Ember;
 
@@ -11,7 +11,7 @@ const { Component, computed, inject, get } = Ember;
  * @class PaperGridTile
  * @extends Ember.Component
  */
-export default Component.extend({
+export default Component.extend(ChildMixin, {
   layout,
   tagName: 'md-grid-tile',
 
@@ -20,10 +20,9 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    this.get('gridList').registerGridTile(this);
     this.get('gridList').send('invalidateTiles');
 
-    this._watchResponsiveAttributes(['md-colspan', 'md-rowspan'], (mediaName) => {
+    this._watchResponsiveAttributes(['colspan', 'rowspan'], (mediaName) => {
       this.get('gridList').send('invalidateLayout', mediaName);
     });
   },
@@ -34,9 +33,7 @@ export default Component.extend({
     this.get('gridList').send('invalidateLayout');
   },
 
-  gridList: computed(function() {
-    return this.nearestOfType(PaperGridList);
-  }),
+  gridList: computed.alias('parentComponent'),
 
   _watchResponsiveAttributes(attrNames, watchFn) {
 

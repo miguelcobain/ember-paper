@@ -2,9 +2,11 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-grid-list';
+import { ParentMixin } from 'ember-composability-tools';
 import gridLayout from '../utils/grid-layout';
 
-const { Component, inject, computed, A, run, get, isEqual } = Ember;
+const { Component, inject, computed, run, get, isEqual } = Ember;
 
 const unitCSS = (units) => {
   return `${units.share}% - (${units.gutter} * ${units.gutterShare})`;
@@ -26,7 +28,8 @@ const media = (mediaName) => {
  * @class PaperGridList
  * @extends Ember.Component
  */
-export default Component.extend({
+export default Component.extend(ParentMixin, {
+  layout,
   tagName: 'md-grid-list',
 
   constants: inject.service(),
@@ -34,9 +37,7 @@ export default Component.extend({
   layoutInvalidated: false,
   tilesInvalidated: false,
   lastLayoutProps: {},
-  tiles: computed(function() {
-    return A();
-  }),
+  tiles: computed.alias('childComponents'),
 
   _invalidateLayoutListener: computed(function() {
     return run.bind(this, () => {
@@ -47,17 +48,13 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
     this._watchMedia();
-    this._watchResponsiveAttributes(['md-cols', 'md-row-height', 'md-gutter'], run.bind(this, this.layoutIfMediaMatch));
+    this._watchResponsiveAttributes(['cols', 'rowHeight', 'gutter'], run.bind(this, this.layoutIfMediaMatch));
 
   },
 
   willDestroyElement() {
     this._super(...arguments);
     this._unwatchMedia();
-  },
-
-  registerGridTile(gridTile) {
-    this.get('tiles').addObject(gridTile);
   },
 
   doLayout() {
@@ -192,7 +189,7 @@ export default Component.extend({
         // Base veritcal size of a row.
         vUnit = unitCSS({ share: vShare, gutterShare: hGutterShare, gutter });
 
-        // padidngTop and marginTop are used to maintain the given aspect ratio, as
+        // paddingTop and marginTop are used to maintain the given aspect ratio, as
         // a percentage-based value for these properties is applied to the *width* of the
         // containing block. See http://www.w3.org/TR/CSS2/box.html#margin-properties
         style.paddingTop = dimensionCSS({ unit: vUnit, span: spans.row, gutter });
@@ -251,26 +248,26 @@ export default Component.extend({
   _getTileSpans(tileElements) {
     return [].map.call(tileElements, (ele) => {
       return {
-        row: parseInt(this._getResponsiveAttribute(ele, 'md-rowspan'), 10) || 1,
-        col: parseInt(this._getResponsiveAttribute(ele, 'md-colspan'), 10) || 1
+        row: parseInt(this._getResponsiveAttribute(ele, 'rowspan'), 10) || 1,
+        col: parseInt(this._getResponsiveAttribute(ele, 'colspan'), 10) || 1
       };
     });
   },
 
   _getColumnCount() {
-    let colCount = parseInt(this._getResponsiveAttribute(this, 'md-cols'), 10);
+    let colCount = parseInt(this._getResponsiveAttribute(this, 'cols'), 10);
     if (isNaN(colCount)) {
-      throw 'md-grid-list: md-cols attribute was not found, or contained a non-numeric value';
+      throw 'md-grid-list: cols attribute was not found, or contained a non-numeric value';
     }
     return colCount;
   },
 
   _getGutter() {
-    return this._applyDefaultUnit(this._getResponsiveAttribute(this, 'md-gutter') || 1);
+    return this._applyDefaultUnit(this._getResponsiveAttribute(this, 'gutter') || 1);
   },
 
   _getRowHeight() {
-    let rowHeight = this._getResponsiveAttribute(this, 'md-row-height');
+    let rowHeight = this._getResponsiveAttribute(this, 'rowHeight');
     switch (this._getRowMode()) {
       case 'fixed': {
         return this._applyDefaultUnit(rowHeight);
@@ -286,7 +283,7 @@ export default Component.extend({
   },
 
   _getRowMode() {
-    let rowHeight = this._getResponsiveAttribute(this, 'md-row-height');
+    let rowHeight = this._getResponsiveAttribute(this, 'rowHeight');
     if (rowHeight === 'fit') {
       return 'fit';
     } else if (rowHeight.indexOf(':') !== -1) {
