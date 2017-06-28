@@ -1,0 +1,5 @@
+{{#ember-wormhole to=destinationId}}
+    {{#paper-toast-inner swipe=swipe  swipeToClose=swipeToClose onClose=onClose right=right left=left bottom=bottom top=top capsule=capsule}}
+      {{yield (hash text="paper-toast-text")}}
+    {{/paper-toast-inner}}
+{{/ember-wormhole}}
