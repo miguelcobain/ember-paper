@@ -173,7 +173,6 @@ export default Component.extend(ParentMixin, {
   },
 
   colsMedia: computed('cols', function() {
-    // TODO: verify valid
     let sizes = this._extractResponsiveSizes(this.get('cols'));
     if (Object.keys(sizes).length === 0) {
       throw new Error('md-grid-list: No valid cols found');
@@ -186,7 +185,6 @@ export default Component.extend(ParentMixin, {
   }),
 
   gutterMedia: computed('gutter', function() {
-    // TODO: verify valid
     return this._extractResponsiveSizes(this.get('gutter'), rowHeightRegex);
   }),
 
@@ -195,7 +193,6 @@ export default Component.extend(ParentMixin, {
   }),
 
   rowHeightMedia: computed('rowHeight', function() {
-    // TODO: verify valid
     let rowHeights = this._extractResponsiveSizes(this.get('rowHeight'), rowHeightRegex);
     if (Object.keys(rowHeights).length === 0) {
       throw new Error('md-grid-list: No valid rowHeight found');
