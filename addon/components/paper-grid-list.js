@@ -6,14 +6,13 @@ import layout from '../templates/components/paper-grid-list';
 import { ParentMixin } from 'ember-composability-tools';
 import gridLayout from '../utils/grid-layout';
 
-const { Component, inject, computed, run, get, isEqual } = Ember;
+const { Component, inject, computed, run } = Ember;
+
+const mediaRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+)(?!\S)/g;
+const rowHeightRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+(?:[a-z]{2,3}|%)?|\d+:\d+|fit)(?!\S)/g;
 
 const unitCSS = (units) => {
   return `${units.share}% - (${units.gutter} * ${units.gutterShare})`;
-};
-
-const positionCSS = (positions) => {
-  return `calc((${positions.unit} + ${positions.gutter}) * ${positions.offset})`;
 };
 
 const dimensionCSS = (dimensions) => {
@@ -22,6 +21,10 @@ const dimensionCSS = (dimensions) => {
 
 const media = (mediaName) => {
   return ((mediaName.charAt(0) !== '(') ? (`(${mediaName})`) : mediaName);
+};
+
+const mediaListenerName = (name) => {
+  return `${name.replace('-', '')}Listener`;
 };
 
 /**
@@ -34,190 +37,81 @@ export default Component.extend(ParentMixin, {
 
   constants: inject.service(),
 
-  layoutInvalidated: false,
-  tilesInvalidated: false,
-  lastLayoutProps: {},
   tiles: computed.alias('childComponents'),
-
-  _invalidateLayoutListener: computed(function() {
-    return run.bind(this, () => {
-      this.send('invalidateLayout');
-    });
-  }),
 
   didInsertElement() {
     this._super(...arguments);
-    this._watchMedia();
-    this._watchResponsiveAttributes(['cols', 'rowHeight', 'gutter'], run.bind(this, this.layoutIfMediaMatch));
+    this._installMediaListener();
+    this._updateCurrentMedia();
+  },
 
+  didUpdateAttrs() {
+    this._super(...arguments);
+    this.updateGrid();
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    this._unwatchMedia();
+    this._uninstallMediaListener();
   },
 
-  doLayout() {
-    if (this.isDestroyed) {
-      return;
-    }
-    try {
-      let tilesInvalidated = this.get('tilesInvalidated');
-      this._layoutDelegate(tilesInvalidated);
-    } finally {
-      this.setProperties({
-        'layoutInvalidated': false,
-        'tilesInvalidated': false
-      });
-    }
-  },
-
-  layoutIfMediaMatch(mediaName) {
-    if (mediaName == null) {
-      this.send('invalidateLayout');
-    } else if (window.matchMedia(mediaName)) {
-      this.send('invalidateLayout');
-    }
-  },
-
-  _watchMedia() {
-
-    let invalidateLayoutListener = this.get('_invalidateLayoutListener');
-
+  // Sets up a listener for each media query
+  _installMediaListener() {
     for (let mediaName in this.get('constants.MEDIA')) {
       let query = this.get('constants.MEDIA')[mediaName] || media(mediaName);
-      window.matchMedia(query).addListener(invalidateLayoutListener);
+      let mediaList = window.matchMedia(query);
+      let listenerName = mediaListenerName(mediaName);
+
+      // Sets mediaList to a property so removeListener can access it
+      this.set(`${listenerName}List`, mediaList);
+      // Creates a function based on mediaName so that removeListener can remove it.
+      this[listenerName] = run.bind(this, (result) => {
+        this._mediaDidChange(mediaName, result.matches);
+      });
+
+      // Calls '_mediaDidChange' once
+      this[listenerName](mediaList);
+
+      mediaList.addListener(this[listenerName]);
     }
   },
 
-  _watchResponsiveAttributes(attrNames, watchFn) {
-    let checkObserverValues = (sender, key, mediaName) => {
-      let oldValue = sender.get(`old${key}`);
-      let newValue = sender.get(key);
+  _uninstallMediaListener() {
+    for (let mediaName in this.get('constants.MEDIA')) {
+      let listenerName = mediaListenerName(mediaName);
+      let mediaList = this.get(`${listenerName}List`);
+      mediaList.removeListener(this[listenerName]);
+    }
+  },
 
-      if (oldValue !== newValue) {
-        watchFn(mediaName);
-      }
+  _mediaDidChange(mediaName, matches) {
+    this.set(mediaName, matches);
+    run.debounce(this, this._updateCurrentMedia, 150);
+  },
 
-    };
+  _updateCurrentMedia() {
+    let mediaPriorities = this.get('constants.MEDIA_PRIORITY');
+    let currentMedia = mediaPriorities.filter((mediaName) => {
+      return this.get(mediaName);
+    });
+    this.set('currentMedia', currentMedia);
+    this.updateGrid();
+  },
 
-    attrNames.forEach((attrName) => {
-      if (get(this, attrName)) {
-        this.set(`old${attrName}`, get(this, attrName));
-
-        let customObserver = run.bind(this, checkObserverValues, this, attrName);
-
-        this.addObserver(attrName, customObserver);
-      }
-
-      for (let mediaName in this.get('constants.MEDIA')) {
-        let normalizedName = `${attrName}-${mediaName}`;
-        if (get(this, normalizedName)) {
-          let customObserverNormalized = run.bind(this, checkObserverValues, this, normalizedName, mediaName);
-          this.addObserver(normalizedName, customObserverNormalized);
-        }
-      }
-
+  updateGrid() {
+    this.$().css(this.get('gridStyle'));
+    this.get('tiles').forEach((tile) =>  {
+      tile.$().css(tile.get('tileStyle'));
     });
   },
 
-  _unwatchMedia() {
-    let invalidateLayoutListener = this.get('_invalidateLayoutListener');
-    for (let mediaName in this.get('constants.MEDIA')) {
-      let query = this.get('constants.MEDIA')[mediaName] || media(mediaName);
-      window.matchMedia(query).removeListener(invalidateLayoutListener);
-    }
-  },
-
-  _getResponsiveAttribute(component, attrName) {
-    let mediaPriorities = this.get('constants.MEDIA_PRIORITY');
-    for (let i = 0; i < mediaPriorities.length; i++) {
-      let mediaName = mediaPriorities[i];
-      let query = this.get('constants.MEDIA')[mediaName] || media(mediaName);
-
-      if (!window.matchMedia(query).matches) {
-        continue;
-      }
-
-      let normalizedName = `${attrName}-${mediaName}`;
-      if (get(component, normalizedName)) {
-        return get(component, normalizedName);
-      }
-    }
-
-    // fallback on unprefixed
-    return get(component, attrName);
-  },
-
-  _getTileStyle(position, spans, colCount, rowCount, gutter, rowMode, rowHeight) {
-
-    // Percent of the available horizontal space that one column takes up.
-    let hShare = (1 / colCount) * 100;
-
-    // Fraction of the gutter size that each column takes up.
-    let hGutterShare = (colCount - 1) / colCount;
-
-    // Base horizontal size of a column.
-    let hUnit = unitCSS({ share: hShare, gutterShare: hGutterShare, gutter });
-
-    // The width and horizontal position of each tile is always calculated the same way, but the
-    // height and vertical position depends on the rowMode.
-    let style = {
-      left: positionCSS({ unit: hUnit, offset: position.col, gutter }),
-      width: dimensionCSS({ unit: hUnit, span: spans.col, gutter }),
-      // resets
-      paddingTop: '',
-      marginTop: '',
-      top: '',
-      height: ''
-    };
-
-    let vShare, vUnit;
-
-    switch (rowMode) {
-      case 'fixed': {
-        // In fixed mode, simply use the given rowHeight.
-        style.top = positionCSS({ unit: rowHeight, offset: position.row, gutter });
-        style.height = dimensionCSS({ unit: rowHeight, span: spans.row, gutter });
-        break;
-      }
-      case 'ratio': {
-        // Percent of the available vertical space that one row takes up. Here, rowHeight holds
-        // the ratio value. For example, if the width:height ratio is 4:3, rowHeight = 1.333.
-        vShare = hShare / rowHeight;
-
-        // Base veritcal size of a row.
-        vUnit = unitCSS({ share: vShare, gutterShare: hGutterShare, gutter });
-
-        // paddingTop and marginTop are used to maintain the given aspect ratio, as
-        // a percentage-based value for these properties is applied to the *width* of the
-        // containing block. See http://www.w3.org/TR/CSS2/box.html#margin-properties
-        style.paddingTop = dimensionCSS({ unit: vUnit, span: spans.row, gutter });
-        style.marginTop = positionCSS({ unit: vUnit, offset: position.row, gutter });
-        break;
-      }
-      case 'fit': {
-        // Fraction of the gutter size that each column takes up.
-        let vGutterShare = (rowCount - 1) / rowCount;
-
-        // Percent of the available vertical space that one row takes up.
-        vShare = (1 / rowCount) * 100;
-
-        // Base vertical size of a row.
-        vUnit = unitCSS({ share: vShare, gutterShare: vGutterShare, gutter });
-
-        style.top = positionCSS({ unit: vUnit, offset: position.row, gutter });
-        style.height = dimensionCSS({ unit: vUnit, span: spans.row, gutter });
-        break;
-      }
-    }
-
-    return style;
-
-  },
-
-  _getGridStyle(colCount, rowCount, gutter, rowMode, rowHeight) {
+  gridStyle: computed('currentCols', 'rowCount', 'currentGutter', 'currentRowMode', 'currentRowHeight', function() {
     let style = {};
+    let colCount = this.get('currentCols');
+    let rowCount = this.get('rowCount');
+    let gutter = this.get('currentGutter');
+    let rowHeight = this.get('currentRowHeight');
+    let rowMode = this.get('currentRowMode');
 
     switch (rowMode) {
       case 'fixed': {
@@ -243,32 +137,76 @@ export default Component.extend(ParentMixin, {
     }
 
     return style;
-  },
+  }),
 
-  _getTileSpans(tileElements) {
-    return [].map.call(tileElements, (ele) => {
+  tileSpans: computed('tiles.[]', 'tiles.@each.{currentRowspan,currentColspan}', function() {
+    return this.get('tiles').map((tile) => {
       return {
-        row: parseInt(this._getResponsiveAttribute(ele, 'rowspan'), 10) || 1,
-        col: parseInt(this._getResponsiveAttribute(ele, 'colspan'), 10) || 1
+        row: tile.get('currentRowspan'),
+        col: tile.get('currentColspan')
       };
     });
-  },
+  }),
 
-  _getColumnCount() {
-    let colCount = parseInt(this._getResponsiveAttribute(this, 'cols'), 10);
-    if (isNaN(colCount)) {
-      throw 'md-grid-list: cols attribute was not found, or contained a non-numeric value';
+  // Parses attribute string and returns hash of media sizes
+  _extractResponsiveSizes(string, regex = mediaRegex) {
+    let matches = {};
+    let match;
+    while ((match = regex.exec(string))) {
+      if (match[2]) {
+        matches[match[2].slice(0, -1)] = match[3];
+      } else {
+        matches.base = match[3];
+      }
     }
-    return colCount;
+    return matches;
   },
 
-  _getGutter() {
-    return this._applyDefaultUnit(this._getResponsiveAttribute(this, 'gutter') || 1);
+  // Gets attribute for current media
+  _getAttributeForMedia(sizes, currentMedia) {
+    for (let i = 0; i < currentMedia.length; i++) {
+      if (sizes[currentMedia[i]]) {
+        return sizes[currentMedia[i]];
+      }
+    }
+    return sizes.base;
   },
 
-  _getRowHeight() {
-    let rowHeight = this._getResponsiveAttribute(this, 'rowHeight');
-    switch (this._getRowMode()) {
+  colsMedia: computed('cols', function() {
+    // TODO: verify valid
+    let sizes = this._extractResponsiveSizes(this.get('cols'));
+    if (Object.keys(sizes).length === 0) {
+      throw new Error('md-grid-list: No valid cols found');
+    }
+    return sizes;
+  }),
+
+  currentCols: computed('colsMedia', 'currentMedia.[]', function() {
+    return this._getAttributeForMedia(this.get('colsMedia'), this.get('currentMedia')) || 1;
+  }),
+
+  gutterMedia: computed('gutter', function() {
+    // TODO: verify valid
+    return this._extractResponsiveSizes(this.get('gutter'), rowHeightRegex);
+  }),
+
+  currentGutter: computed('gutterMedia', 'currentMedia.[]', function() {
+    return this._applyDefaultUnit(this._getAttributeForMedia(this.get('gutterMedia'), this.get('currentMedia')) || 1);
+  }),
+
+  rowHeightMedia: computed('rowHeight', function() {
+    // TODO: verify valid
+    let rowHeights = this._extractResponsiveSizes(this.get('rowHeight'), rowHeightRegex);
+    if (Object.keys(rowHeights).length === 0) {
+      throw new Error('md-grid-list: No valid rowHeight found');
+    }
+    return rowHeights;
+  }),
+
+  currentRowHeight: computed('rowHeightMedia', 'currentMedia.[]', function() {
+    let rowHeight = this._getAttributeForMedia(this.get('rowHeightMedia'), this.get('currentMedia'));
+    this.set('currentRowMode', this._getRowMode(rowHeight));
+    switch (this._getRowMode(rowHeight)) {
       case 'fixed': {
         return this._applyDefaultUnit(rowHeight);
       }
@@ -280,10 +218,9 @@ export default Component.extend(ParentMixin, {
         return 0;
       }
     }
-  },
+  }),
 
-  _getRowMode() {
-    let rowHeight = this._getResponsiveAttribute(this, 'rowHeight');
+  _getRowMode(rowHeight) {
     if (rowHeight === 'fit') {
       return 'fit';
     } else if (rowHeight.indexOf(':') !== -1) {
@@ -293,57 +230,24 @@ export default Component.extend(ParentMixin, {
     }
   },
 
-  _layoutDelegate(tilesInvalidated) {
+  rowCount: computed.alias('gridLayoutInfo.rowCount'),
+
+  // Calculates tile positions
+  gridLayoutInfo: computed('tiles.[]', 'tileSpans', 'currentCols', function() {
     let tiles = this.get('tiles');
-    let props = {
-      tileSpans: this._getTileSpans(tiles),
-      colCount: this._getColumnCount(),
-      rowMode: this._getRowMode(),
-      rowHeight: this._getRowHeight(),
-      gutter: this._getGutter()
-    };
+    let layoutInfo = gridLayout(this.get('currentCols'), this.get('tileSpans')).layoutInfo();
 
-    if (!tilesInvalidated && isEqual(props, this.get('lastLayoutProps'))) {
-      return;
-    }
+    tiles.forEach((tile, i) => {
+      let positioning = layoutInfo.positioning[i];
+      tile.set('position', positioning.position);
+      tile.set('spans', positioning.spans);
+    });
 
-    gridLayout(props.colCount, props.tileSpans, tiles)
-      .map((tilePositions, rowCount) => {
-        return {
-          grid: {
-            element: this.$(),
-            style: this._getGridStyle(props.colCount, rowCount, props.gutter, props.rowMode, props.rowHeight)
-          },
-          tiles: tilePositions.map((ps, i) => {
-            return {
-              element: tiles[i].$(),
-              style: this._getTileStyle(ps.position, ps.spans, props.colCount, rowCount, props.gutter, props.rowMode, props.rowHeight)
-            };
-          })
-        };
-      })
-      .reflow();
-
-    this.set('lastLayoutProps', props);
-
-  },
+    return layoutInfo;
+  }),
 
   _applyDefaultUnit(val) {
     return /\D$/.test(val) ? val : `${val}px`;
-  },
-
-  actions: {
-    invalidateTiles() {
-      this.set('tilesInvalidated', true);
-      this.send('invalidateLayout');
-    },
-
-    invalidateLayout() {
-      if (this.get('layoutInvalidated') || this.get('isDestroyed') || this.get('isDestroying')) {
-        return;
-      }
-      this.set('layoutInvalidated', true);
-      run.next(this, this.doLayout);
-    }
   }
+
 });

@@ -1,79 +1,20 @@
 /**
  * @module ember-paper
  */
-let defaultAnimator = GridTileAnimator;
 
 /**
  * Publish layout function
  */
 function GridLayout(colCount, tileSpans) {
-  let self, layoutInfo, gridStyles, layoutTime, mapTime, reflowTime;
-
-  layoutInfo = calculateGridfor(colCount, tileSpans);
-
-  return self = {
-
+  let layoutInfo = calculateGridfor(colCount, tileSpans);
+  return {
     /*
      * An array of objects describing each tile's position in the grid.
      */
     layoutInfo() {
       return layoutInfo;
-    },
-
-    /*
-     * Maps grid positioning to an element and a set of styles using the
-     * provided updateFn.
-     */
-    map(updateFn) {
-      let info = self.layoutInfo();
-      gridStyles = updateFn(info.positioning, info.rowCount);
-
-      return self;
-    },
-
-    /*
-     * Default animator simply sets the element.css( <styles> ). An alternate
-     * animator can be provided as an argument. The function has the following
-     * signature:
-     *
-     *    function({grid: {element: JQLite, style: Object}, tiles: Array<{element: JQLite, style: Object}>)
-         */
-    reflow(animatorFn) {
-      let animator = animatorFn || defaultAnimator;
-      animator(gridStyles.grid, gridStyles.tiles);
-      return self;
-    },
-
-    /*
-     * Timing for the most recent layout run.
-     */
-    performance() {
-      return {
-        tileCount: tileSpans.length,
-        layoutTime,
-        mapTime,
-        reflowTime,
-        totalTime: layoutTime + mapTime + reflowTime
-      };
     }
   };
-}
-
-/*
- * Default Gridlist animator simple sets the css for each element;
- * NOTE: any transitions effects must be manually set in the CSS.
- * e.g.
- *
- *  md-grid-tile {
-   *    transition: all 700ms ease-out 50ms;
-   *  }
- *
- */
-function GridTileAnimator(grid, tiles) {
-  grid.element.css(grid.style);
-  tiles.forEach(function(t) {
-    t.element.css(t.style);
-  });
 }
 
 /*
@@ -109,9 +50,7 @@ function calculateGridfor(colCount, tileSpans) {
 
   function reserveSpace(spans, i) {
     if (spans.col > colCount) {
-      throw `md-grid-list: Tile at position ${i} has a colspan
-      (${spans.col}) that exceeds the column count
-      (${colCount})`;
+      throw new Error(`md-grid-list: Tile at position ${i} has a colspan (${spans.col}) that exceeds the column count (${colCount})`);
     }
 
     let start = 0;
