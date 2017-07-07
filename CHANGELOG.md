@@ -16,6 +16,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/release-1/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
 ### master
+- [#730](https://github.com/miguelcobain/ember-paper/pull/730) ready for fastboot 1.0
+
+### 1.0.0-alpha.20 (June 26, 2017)
 - [#679](https://github.com/miguelcobain/ember-paper/issues/679) fix outline on paper-menu
 - [#699](https://github.com/miguelcobain/ember-paper/issues/699) Removed paper-wormhole initializer in favor of the `contentFor` hook. This makes ember-paper more acceptance test friendly.
 - updated Angular Material to 1.1.4 version
@@ -25,6 +28,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [#707](https://github.com/miguelcobain/ember-paper/pull/707) paper-dialog-inner's image load events are now properly cleaned up
 - [51a6250](https://github.com/miguelcobain/ember-paper/commit/51a6250bebf1200e2b38d21c5655333540543bb8) icons are now absolutely sized (line-height, min-height, font-size, etc), from the `size` property
 - [#720](https://github.com/miguelcobain/ember-paper/issues/720) add `opaque` option to `paper-dialog` component (defaults to `true`).
+- [#726](https://github.com/miguelcobain/ember-paper/pull/726) update eps to 1.8.5 version. An internal change, but clears some deprecation messages and bugs.
 
 ### 1.0.0-alpha.19 (March 20, 2017)
 - [56b84cf](https://github.com/miguelcobain/ember-paper/commit/56b84cf6b30e01dcf64961c4f75e101d0899593c) fix sliders on android browsers
