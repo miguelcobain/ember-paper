@@ -255,7 +255,7 @@ export default Mixin.create({
     }, false);
 
     function rgbaToRGB(color) {
-      return color ? color.replace('rgba', 'rgb').replace(/,[^\),]+\)/, ')') : 'rgb(0,0,0)';
+      return color ? color.replace('rgba', 'rgb').replace(/,[^),]+\)/, ')') : 'rgb(0,0,0)';
     }
 
     function getSize(fit, x, y) {
