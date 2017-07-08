@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('paper-grid-list', 'Integration | Component | paper grid list', {
   integration: true
@@ -14,8 +15,9 @@ test('it renders tiles with tag name', function(assert) {
       {{/grid.tile}}
     {{/paper-grid-list}}
   `);
-
-  assert.equal(this.$('md-grid-tile').length, 1);
+  return wait().then(() => {
+    assert.equal(this.$('md-grid-tile').length, 1);
+  });
 });
 
 test('it renders tiles with footer', function(assert) {
@@ -29,6 +31,7 @@ test('it renders tiles with footer', function(assert) {
       {{/grid.tile}}
     {{/paper-grid-list}}
   `);
-
-  assert.equal(this.$('md-grid-tile-footer').length, 1);
+  return wait().then(() => {
+    assert.equal(this.$('md-grid-tile-footer').length, 1);
+  });
 });
