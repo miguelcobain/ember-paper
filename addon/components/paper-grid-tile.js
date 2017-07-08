@@ -36,7 +36,7 @@ export default Component.extend(ChildMixin, {
 
   updateTile() {
     let gridList = this.get('gridList');
-    run.debounce(gridList, gridList.updateGrid, 150);
+    run.debounce(gridList, gridList.updateGrid, 50);
   },
 
   colspanMedia: computed('colspan', function() {
@@ -57,9 +57,10 @@ export default Component.extend(ChildMixin, {
     return parseInt(rowspan, 10) || 1;
   }),
 
-  tileStyle: computed('position', 'spans', 'gridList.{rowCount,currentCols,currentGutter,currentRowMode,currentRowHeight}', function() {
+  _tileStyle() {
     let position = this.get('position');
-    let spans = this.get('spans');
+    let currentColspan = this.get('currentColspan');
+    let currentRowspan = this.get('currentRowspan');
     let rowCount = this.get('gridList.rowCount');
     let colCount = this.get('gridList.currentCols');
     let gutter = this.get('gridList.currentGutter');
@@ -79,7 +80,7 @@ export default Component.extend(ChildMixin, {
     // height and vertical position depends on the rowMode.
     let style = {
       left: positionCSS({ unit: hUnit, offset: position.col, gutter }),
-      width: dimensionCSS({ unit: hUnit, span: spans.col, gutter }),
+      width: dimensionCSS({ unit: hUnit, span: currentColspan, gutter }),
       // resets
       paddingTop: '',
       marginTop: '',
@@ -93,7 +94,7 @@ export default Component.extend(ChildMixin, {
       case 'fixed': {
         // In fixed mode, simply use the given rowHeight.
         style.top = positionCSS({ unit: rowHeight, offset: position.row, gutter });
-        style.height = dimensionCSS({ unit: rowHeight, span: spans.row, gutter });
+        style.height = dimensionCSS({ unit: rowHeight, span: currentRowspan, gutter });
         break;
       }
       case 'ratio': {
@@ -107,7 +108,7 @@ export default Component.extend(ChildMixin, {
         // paddingTop and marginTop are used to maintain the given aspect ratio, as
         // a percentage-based value for these properties is applied to the *width* of the
         // containing block. See http://www.w3.org/TR/CSS2/box.html#margin-properties
-        style.paddingTop = dimensionCSS({ unit: vUnit, span: spans.row, gutter });
+        style.paddingTop = dimensionCSS({ unit: vUnit, span: currentRowspan, gutter });
         style.marginTop = positionCSS({ unit: vUnit, offset: position.row, gutter });
         break;
       }
@@ -122,12 +123,12 @@ export default Component.extend(ChildMixin, {
         vUnit = unitCSS({ share: vShare, gutterShare: vGutterShare, gutter });
 
         style.top = positionCSS({ unit: vUnit, offset: position.row, gutter });
-        style.height = dimensionCSS({ unit: vUnit, span: spans.row, gutter });
+        style.height = dimensionCSS({ unit: vUnit, span: currentRowspan, gutter });
         break;
       }
     }
 
     return style;
-  })
+  }
 
 });

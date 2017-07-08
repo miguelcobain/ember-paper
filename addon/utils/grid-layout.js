@@ -5,16 +5,8 @@
 /**
  * Publish layout function
  */
-function GridLayout(colCount, tileSpans) {
-  let layoutInfo = calculateGridfor(colCount, tileSpans);
-  return {
-    /*
-     * An array of objects describing each tile's position in the grid.
-     */
-    layoutInfo() {
-      return layoutInfo;
-    }
-  };
+function GridLayout(colCount, tiles) {
+  return calculateGridfor(colCount, tiles);
 }
 
 /*
@@ -33,24 +25,23 @@ function GridLayout(colCount, tileSpans) {
  *    tile, spaceTracker's elements are each decremented by 1 to a minimum
  *    of 0. Rows are searched in this fashion until space is found.
  */
-function calculateGridfor(colCount, tileSpans) {
+function calculateGridfor(colCount, tiles) {
   let curCol = 0;
   let curRow = 0;
   let spaceTracker = newSpaceTracker();
 
   return {
-    positioning: tileSpans.map(function(spans, i) {
-      return {
-        spans,
-        position: reserveSpace(spans, i)
-      };
+    positions: tiles.map(function(tile, i) {
+      return reserveSpace(tile, i);
     }),
     rowCount: curRow + Math.max(...spaceTracker)
   };
 
-  function reserveSpace(spans, i) {
-    if (spans.col > colCount) {
-      throw new Error(`md-grid-list: Tile at position ${i} has a colspan (${spans.col}) that exceeds the column count (${colCount})`);
+  function reserveSpace(tile, i) {
+    let colspan = tile.get('currentColspan');
+    let rowspan = tile.get('currentRowspan');
+    if (colspan > colCount) {
+      throw new Error(`md-grid-list: Tile at position ${i} has a colspan (${colspan}) that exceeds the column count (${colCount})`);
     }
 
     let start = 0;
@@ -61,7 +52,7 @@ function calculateGridfor(colCount, tileSpans) {
     // this, recognize that you've iterated across an entire row looking for
     // space, and if so fast-forward by the minimum rowSpan count. Repeat
     // until the required space opens up.
-    while (end - start < spans.col) {
+    while (end - start < colspan) {
       if (curCol >= colCount) {
         nextRow();
         continue;
@@ -77,8 +68,8 @@ function calculateGridfor(colCount, tileSpans) {
       curCol = end + 1;
     }
 
-    adjustRow(start, spans.col, spans.row);
-    curCol = start + spans.col;
+    adjustRow(start, colspan, rowspan);
+    curCol = start + colspan;
 
     return {
       col: start,

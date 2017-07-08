@@ -42,7 +42,6 @@ export default Component.extend(ParentMixin, {
   didInsertElement() {
     this._super(...arguments);
     this._installMediaListener();
-    this._updateCurrentMedia();
   },
 
   didUpdateAttrs() {
@@ -65,9 +64,9 @@ export default Component.extend(ParentMixin, {
       // Sets mediaList to a property so removeListener can access it
       this.set(`${listenerName}List`, mediaList);
       // Creates a function based on mediaName so that removeListener can remove it.
-      this[listenerName] = run.bind(this, (result) => {
+      this.set(listenerName, run.bind(this, (result) => {
         this._mediaDidChange(mediaName, result.matches);
-      });
+      }));
 
       // Calls '_mediaDidChange' once
       this[listenerName](mediaList);
@@ -86,7 +85,7 @@ export default Component.extend(ParentMixin, {
 
   _mediaDidChange(mediaName, matches) {
     this.set(mediaName, matches);
-    run.debounce(this, this._updateCurrentMedia, 150);
+    run.debounce(this, this._updateCurrentMedia, 50);
   },
 
   _updateCurrentMedia() {
@@ -99,19 +98,21 @@ export default Component.extend(ParentMixin, {
   },
 
   updateGrid() {
-    this.$().css(this.get('gridStyle'));
+    this.$().css(this._gridStyle());
     this.get('tiles').forEach((tile) =>  {
-      tile.$().css(tile.get('tileStyle'));
+      tile.$().css(tile._tileStyle());
     });
   },
 
-  gridStyle: computed('currentCols', 'rowCount', 'currentGutter', 'currentRowMode', 'currentRowHeight', function() {
+  _gridStyle() {
+    this._setTileLayout();
+
     let style = {};
     let colCount = this.get('currentCols');
-    let rowCount = this.get('rowCount');
     let gutter = this.get('currentGutter');
     let rowHeight = this.get('currentRowHeight');
     let rowMode = this.get('currentRowMode');
+    let rowCount = this.get('rowCount');
 
     switch (rowMode) {
       case 'fixed': {
@@ -137,16 +138,19 @@ export default Component.extend(ParentMixin, {
     }
 
     return style;
-  }),
+  },
 
-  tileSpans: computed('tiles.[]', 'tiles.@each.{currentRowspan,currentColspan}', function() {
-    return this.get('tiles').map((tile) => {
-      return {
-        row: tile.get('currentRowspan'),
-        col: tile.get('currentColspan')
-      };
+  // Calculates tile positions
+  _setTileLayout() {
+    let tiles = this.get('tiles');
+    let layoutInfo = gridLayout(this.get('currentCols'), tiles);
+
+    tiles.forEach((tile, i) => {
+      tile.set('position', layoutInfo.positions[i]);
     });
-  }),
+
+    this.set('rowCount', layoutInfo.rowCount);
+  },
 
   // Parses attribute string and returns hash of media sizes
   _extractResponsiveSizes(string, regex = mediaRegex) {
@@ -226,22 +230,6 @@ export default Component.extend(ParentMixin, {
       return 'fixed';
     }
   },
-
-  rowCount: computed.alias('gridLayoutInfo.rowCount'),
-
-  // Calculates tile positions
-  gridLayoutInfo: computed('tiles.[]', 'tileSpans', 'currentCols', function() {
-    let tiles = this.get('tiles');
-    let layoutInfo = gridLayout(this.get('currentCols'), this.get('tileSpans')).layoutInfo();
-
-    tiles.forEach((tile, i) => {
-      let positioning = layoutInfo.positioning[i];
-      tile.set('position', positioning.position);
-      tile.set('spans', positioning.spans);
-    });
-
-    return layoutInfo;
-  }),
 
   _applyDefaultUnit(val) {
     return /\D$/.test(val) ? val : `${val}px`;
