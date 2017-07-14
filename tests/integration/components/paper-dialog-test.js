@@ -71,6 +71,24 @@ test('should only prevent scrolling behind scoped modal', function(assert) {
   assert.equal($('md-backdrop').css('position'), 'absolute', 'backdrop is absolute');
 });
 
+test('backdrop is opaque by default', function(assert) {
+  this.render(hbs`
+    <div id="paper-wormhole"></div>
+    {{paper-dialog}}
+  `);
+
+  assert.ok($('md-backdrop').hasClass('md-opaque'), 'backdrop is opaque');
+});
+
+test('backdrop opaqueness can be disabled ', function(assert) {
+  this.render(hbs`
+    <div id="paper-wormhole"></div>
+    {{paper-dialog opaque=false}}
+  `);
+
+  assert.notOk($('md-backdrop').hasClass('md-opaque'), 'backdrop is not opaque');
+});
+
 test('should prevent scrolling entirely behind fixed modal', function(assert) {
   assert.expect(1);
 

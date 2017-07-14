@@ -1,8 +1,15 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import layout from '../templates/components/paper-autocomplete-trigger';
 
 const { Component, isPresent, isBlank, run, get, computed } = Ember;
 
+/**
+ * @class PaperAutocompleteTrigger
+ * @extends Ember.Component
+ */
 export default Component.extend({
   layout,
   tagName: 'md-autocomplete-wrap',
@@ -39,28 +46,43 @@ export default Component.extend({
   }),
 
   // Lifecycle hooks
-  didUpdateAttrs({ oldAttrs, newAttrs }) {
+  didUpdateAttrs() {
     this._super(...arguments);
     /*
      * We need to update the input field with value of the selected option whenever we're closing
      * the select box. But we also close the select box when we're loading search results and when
      * we remove input text -- so protect against this
      */
-    if (oldAttrs.select.isOpen && !newAttrs.select.isOpen && !newAttrs.loading && newAttrs.searchText) {
+    let oldSelect = this.get('_oldSelect');
+    let oldLastSearchedText = this.get('_lastSearchedText');
+    let oldLoading = this.get('_loading');
+
+    let select = this.get('select');
+    let loading = this.get('loading');
+    let searchText = this.get('searchText');
+    let lastSearchedText = this.get('lastSearchedText');
+
+    if (oldSelect && oldSelect.isOpen && !select.isOpen && !loading && searchText) {
       this.set('text', this.getSelectedAsText());
     }
 
-    if (newAttrs.lastSearchedText !== oldAttrs.lastSearchedText) {
-      if (isBlank(newAttrs.lastSearchedText)) {
-        run.schedule('actions', null, newAttrs.select.actions.close, null, true);
+    if (lastSearchedText !== oldLastSearchedText) {
+      if (isBlank(lastSearchedText)) {
+        run.schedule('actions', null, select.actions.close, null, true);
       } else {
-        run.schedule('actions', null, newAttrs.select.actions.open);
+        run.schedule('actions', null, select.actions.open);
       }
-    } else if (!isBlank(newAttrs.lastSearchedText) && get(this, 'options.length') === 0 && this.get('loading')) {
-      run.schedule('actions', null, newAttrs.select.actions.close, null, true);
-    } else if (oldAttrs.loading && !newAttrs.loading && newAttrs.options.length > 0) {
-      run.schedule('actions', null, newAttrs.select.actions.open);
+    } else if (!isBlank(lastSearchedText) && get(this, 'options.length') === 0 && this.get('loading')) {
+      run.schedule('actions', null, select.actions.close, null, true);
+    } else if (oldLoading && !loading && this.get('options.length') > 0) {
+      run.schedule('actions', null, select.actions.open);
     }
+
+    this.setProperties({
+      _oldSelect: select,
+      _lastSearchedText: lastSearchedText,
+      _loading: loading
+    });
   },
 
   // Actions
