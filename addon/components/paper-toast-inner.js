@@ -3,6 +3,7 @@
  */
 import Ember from 'ember';
 import layout from '../templates/components/paper-toast-inner';
+import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 const { Component, run, computed, String: { htmlSafe }  } = Ember;
 
 /* global Hammer */
@@ -11,22 +12,28 @@ const { Component, run, computed, String: { htmlSafe }  } = Ember;
  * @class PaperToastInner
  * @extends Ember.Component
  */
-export default Component.extend({
+export default Component.extend(TransitionMixin, {
   layout,
   tagName: 'md-toast',
-  classNames: [],
-  bottom: true,
+  transitionName: 'ng',
+
   dragging: false,
   _hammer: null,
+
   x: 0,
+
   attributeBindings: ['style'],
-  classNameBindings: ['left:md-left', 'right:md-right', 'top:md-top', 'bottom:md-bottom', 'capsule:md-capsule', 'dragging:md-dragging'],
+
+  classNameBindings: ['left:md-left:md-right', 'top:md-top:md-bottom', 'capsule:md-capsule', 'dragging:md-dragging'],
+
   style: computed('x', function() {
     return htmlSafe(`transform:translate(${ this.get('x') }px, 0)`);
   }),
+
   setValueFromEvent(event) {
     this.set('x', event);
   },
+
   _setupHammer() {
     // Enable dragging the slider
     let containerManager = new Hammer.Manager(this.element, {
@@ -70,10 +77,12 @@ export default Component.extend({
       this._teardownHammer();
     }
   },
+
   _teardownHammer() {
     this._hammer.destroy();
     delete this._hammer;
   },
+
   dragStart(event) {
     if (!this.get('swipeToClose')) {
       return;

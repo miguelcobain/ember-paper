@@ -4,6 +4,8 @@ const { Controller } = Ember;
 
 export default Controller.extend({
   hideDelay: 3000,
+  positionX: 'left',
+  positionY: 'bottom',
   actions: {
     /* Toast */
     openToast() {

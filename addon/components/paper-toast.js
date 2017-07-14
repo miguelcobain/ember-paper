@@ -13,16 +13,26 @@ export default Component.extend({
   layout,
   tagName: 'div',
   escapeToClose: true,
+  capsule: false,
   hideDelay: 3000,
+
+  position: 'bottom left',
+
+  left: computed('position', function() {
+    let [, x] = this.get('position').split(' ');
+    return x === 'left';
+  }),
+
+  top: computed('position', function() {
+    let [y] = this.get('position').split(' ');
+    return y === 'top';
+  }),
+
+  classNameBindings: ['capsule:md-capsule'],
+
   // Calculate a default that is always valid for the parent of the backdrop.
-  wormholeSelector: '#paper-wormhole',
+  wormholeSelector: '#paper-toast-fab-wormhole',
   defaultedParent: computed.or('parent', 'wormholeSelector'),
-
-  // Calculate a default that is always valid where the opening transition should originate.
-  defaultedOpenFrom: computed.or('openFrom', 'origin', 'parent'),
-
-  // Calculate a default that is always valid where the closing transition should terminate.
-  defaultedCloseTo: computed.or('closeTo', 'origin', 'parent'),
 
   // Calculate the id of the wormhole destination, setting it if need be. The
   // id is that of the 'parent', if provided, or 'paper-wormhole' if not.
@@ -52,11 +62,19 @@ export default Component.extend({
   _destroyMessage() {
     this.sendAction('onClose');
   },
+
+  willInsertElement() {
+    this._super(...arguments);
+    $(`#${this.get('destinationId')}`).addClass(`md-toast-animating`);
+  },
+
   didInsertElement() {
     this._super(...arguments);
+
     if (this.get('hideDelay') !== false) {
       run.later(this, '_destroyMessage', this.get('hideDelay'));
     }
+
     if (this.get('escapeToClose')) {
       // Adding Listener to body tag, FIXME
       $('body').on(`keydown.${this.elementId}`, (e) => {
@@ -65,6 +83,9 @@ export default Component.extend({
         }
       });
     }
+
+    let y = this.get('top') ? 'top' : 'bottom';
+    $(`#${this.get('destinationId')}`).addClass(`md-toast-open-${y}`);
   },
 
   willDestroyElement() {
@@ -72,7 +93,11 @@ export default Component.extend({
     if (this.get('escapeToClose')) {
       $('body').off(`keydown.${this.elementId}`);
     }
+
+    let y = this.get('top') ? 'top' : 'bottom';
+    $(`#${this.get('destinationId')}`).removeClass(`md-toast-open-${y} md-toast-animating`);
   },
+
   swipe()  {
     if (this.get('swipeToClose')) {
       this.sendAction('onClose');

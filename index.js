@@ -55,7 +55,11 @@ module.exports = {
       response = emberPowerSelect.contentFor(type, config);
       if (config.environment !== 'test' &&  !config._emberPaperContentForInvoked) {
         config._emberPaperContentForInvoked = true;
-        response = response ? `${response}<div id="paper-wormhole"></div>`: '<div id="paper-wormhole"></div>';
+        response = `
+          ${response || ''}
+          <div id="paper-wormhole"></div>
+          <div id="paper-toast-fab-wormhole"></div>
+        `;
       }
       return response;
     }
