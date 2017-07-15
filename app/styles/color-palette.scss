@@ -36,8 +36,8 @@ $color-red: (
   'A400': #ff1744,
   'A700': #d50000,
   'contrastDefaultColor': $light-contrast-color,
-  'contrastDarkColors': 50 100 200 300 A100,
-  'contrastStrongLightColors': 400 500 600 700 A200 A400 A700
+  'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+  'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
 ) !default;
 
 // Pink
@@ -59,8 +59,8 @@ $color-pink: (
   'A400': #f50057,
   'A700': #c51162,
   'contrastDefaultColor': $light-contrast-color,
-  'contrastDarkColors': 50 100 200 A100,
-  'contrastStrongLightColors': 500 600 A200 A400 A700
+  'contrastDarkColors': ('50', '100', '200', 'A100'),
+  'contrastStrongLightColors': ('500', '600', 'A200', 'A400', 'A700')
 ) !default;
 
 // Purple
@@ -82,8 +82,8 @@ $color-purple: (
   'A400': #d500f9,
   'A700': #aa00ff,
   'contrastDefaultColor': $light-contrast-color,
-  'contrastDarkColors': 50 100 200 A100,
-  'contrastStrongLightColors': 300 400 A200 A400 A700
+  'contrastDarkColors': ('50', '100', '200', 'A100'),
+  'contrastStrongLightColors': ('300', '400', 'A200', 'A400', 'A700')
 ) !default;
 
 // Deep Purple
@@ -105,8 +105,8 @@ $color-deep-purple: (
   'A400': #651fff,
   'A700': #6200ea,
   'contrastDefaultColor': $light-contrast-color,
-  'contrastDarkColors': 50 100 200 A100,
-  'contrastStrongLightColors': 300 400 A200
+  'contrastDarkColors': ('50', '100', '200', 'A100'),
+  'contrastStrongLightColors': ('300', '400', 'A200')
 ) !default;
 
 // Indigo
@@ -128,8 +128,8 @@ $color-indigo: (
   'A400': #3d5afe,
   'A700': #304ffe,
   'contrastDefaultColor': $light-contrast-color,
-  'contrastDarkColors': 50 100 200 A100,
-  'contrastStrongLightColors': 300 400 A200 A400
+  'contrastDarkColors': ('50', '100', '200', 'A100'),
+  'contrastStrongLightColors': ('300', '400', 'A200', 'A400')
 ) !default;
 
 // Blue
@@ -151,8 +151,8 @@ $color-blue: (
   'A400': #2979ff,
   'A700': #2962ff,
   'contrastDefaultColor': $light-contrast-color,
-  'contrastDarkColors': 50 100 200 300 400 A100,
-  'contrastStrongLightColors': 500 600 700 A200 A400 A700
+  'contrastDarkColors': ('50', '100', '200', '300', '400', 'A100'),
+  'contrastStrongLightColors': ('500', '600', '700', 'A200', 'A400', 'A700')
 ) !default;
 
 // Light Blue
@@ -174,8 +174,8 @@ $color-light-blue: (
   'A400': #00b0ff,
   'A700': #0091ea,
   'contrastDefaultColor': $dark-contrast-color,
-  'contrastLightColors': 600 700 800 900 A700,
-  'contrastStrongLightColors': 600 700 800 A700
+  'contrastLightColors': ('600', '700', '800', '900', 'A700'),
+  'contrastStrongLightColors': ('600', '700', '800', 'A700')
 ) !default;
 
 // Cyan
@@ -197,8 +197,8 @@ $color-cyan: (
   'A400': #00e5ff,
   'A700': #00b8d4,
   'contrastDefaultColor': $dark-contrast-color,
-  'contrastLightColors': 700 800 900,
-  'contrastStrongLightColors': 700 800 900
+  'contrastLightColors': ('700', '800', '900'),
+  'contrastStrongLightColors': ('700', '800', '900')
 ) !default;
 
 // Teal
@@ -220,8 +220,8 @@ $color-teal: (
   'A400': #1de9b6,
   'A700': #00bfa5,
   'contrastDefaultColor': $dark-contrast-color,
-  'contrastLightColors': 500 600 700 800 900,
-  'contrastStrongLightColors': 500 600 700
+  'contrastLightColors': ('500', '600', '700', '800', '900'),
+  'contrastStrongLightColors': ('500', '600', '700')
 ) !default;
 
 // Green
@@ -243,8 +243,8 @@ $color-green: (
   'A400': #00e676,
   'A700': #00c853,
   'contrastDefaultColor': $dark-contrast-color,
-  'contrastLightColors': 500 600 700 800 900,
-  'contrastStrongLightColors': 500 600 700
+  'contrastLightColors': ('500', '600', '700', '800', '900'),
+  'contrastStrongLightColors': ('500', '600', '700')
 ) !default;
 
 // Light Green
@@ -266,8 +266,8 @@ $color-light-green: (
   'A400': #76ff03,
   'A700': #64dd17,
   'contrastDefaultColor': $dark-contrast-color,
-  'contrastLightColors': 700 800 900,
-  'contrastStrongLightColors': 700 800 900
+  'contrastLightColors': ('700', '800', '900'),
+  'contrastStrongLightColors': ('700', '800', '900')
 ) !default;
 
 // Lime
@@ -289,8 +289,8 @@ $color-lime: (
   'A400': #c6ff00,
   'A700': #aeea00,
   'contrastDefaultColor': $dark-contrast-color,
-  'contrastLightColors': 900,
-  'contrastStrongLightColors': 900
+  'contrastLightColors': ('900'),
+  'contrastStrongLightColors': ('900')
 ) !default;
 
 // Yellow
@@ -353,8 +353,8 @@ $color-orange: (
   'A400': #ff9100,
   'A700': #ff6d00,
   'contrastDefaultColor': $dark-contrast-color,
-  'contrastLightColors': 800 900,
-  'contrastStrongLightColors': 800 900
+  'contrastLightColors': ('800', '900'),
+  'contrastStrongLightColors': ('800', '900')
 ) !default;
 
 // Deep Orange
@@ -376,8 +376,8 @@ $color-deep-orange: (
   'A400': #ff3d00,
   'A700': #dd2c00,
   'contrastDefaultColor': $light-contrast-color,
-  'contrastDarkColors': 50 100 200 300 400 A100 A200,
-  'contrastStrongLightColors': 500 600 700 800 900 A400 A700
+  'contrastDarkColors': ('50', '100', '200', '300', '400', 'A100', 'A200'),
+  'contrastStrongLightColors': ('500', '600', '700', '800', '900', 'A400', 'A700')
 ) !default;
 
 // Brown
@@ -399,8 +399,8 @@ $color-brown: (
   'A400': #8d6e63,
   'A700': #5d4037,
   'contrastDefaultColor': $light-contrast-color,
-  'contrastDarkColors': 50 100 200 A100 A200,
-  'contrastStrongLightColors': 300 400
+  'contrastDarkColors': ('50', '100', '200', 'A100', 'A200'),
+  'contrastStrongLightColors': ('300', '400')
 ) !default;
 
 // Grey
@@ -421,7 +421,7 @@ $color-grey: (
   'A400': #303030,
   'A700': #616161,
   'contrastDefaultColor': $dark-contrast-color,
-  'contrastLightColors': 600 700 800 900 A200 A400 A700
+  'contrastLightColors': ('600', '700', '800', '900', 'A200', 'A400', 'A700')
 ) !default;
 
 // Blue Grey
@@ -442,8 +442,8 @@ $color-blue-grey: (
   'A400': #78909c,
   'A700': #455a64,
   'contrastDefaultColor': $light-contrast-color,
-  'contrastDarkColors': 50 100 200 300 A100 A200,
-  'contrastStrongLightColors': 400 500 700
+  'contrastDarkColors': ('50', '100', '200', '300', 'A100', 'A200'),
+  'contrastStrongLightColors': ('400', '500', '700')
 ) !default;
 
 $shades: (
