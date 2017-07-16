@@ -1,0 +1,9 @@
+{{#if shouldPaginate}}
+  {{paper-prev-button disabled=(not canPageBack) click=(action "previousPage")}}
+  {{paper-next-button disabled=(not canPageForward) click=(action "nextPage")}}
+{{/if}}
+{{#paper-tabs-canvas parentComponent=parentComponent}}
+  {{#paper-pagination-wrapper parentComponent=parentComponent}}
+    {{yield}}
+  {{/paper-pagination-wrapper}}
+{{/paper-tabs-canvas}}

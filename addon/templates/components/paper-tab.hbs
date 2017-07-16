@@ -1,0 +1,11 @@
+{{#if label}}
+  {{#paper-tab-label parentComponent=this}}{{label}}{{/paper-tab-label}}
+  {{#if hasBlock}}
+    {{#paper-tab-body parentComponent=this}}{{yield}}{{/paper-tab-body}}
+  {{/if}}
+{{else}}
+  {{yield (hash
+    label=(component "paper-tab-label" parentComponent=this)
+    body=(component "paper-tab-body" parentComponent=this)
+  )}}
+{{/if}}
