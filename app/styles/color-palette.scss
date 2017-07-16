@@ -35,7 +35,9 @@ $color-red: (
   'A200': #ff5252,
   'A400': #ff1744,
   'A700': #d50000,
-  'contrast': $light-contrast-color
+  'contrastDefaultColor': $light-contrast-color,
+  'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+  'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
 ) !default;
 
 // Pink
@@ -56,7 +58,9 @@ $color-pink: (
   'A200': #ff4081,
   'A400': #f50057,
   'A700': #c51162,
-  'contrast' : $light-contrast-color
+  'contrastDefaultColor': $light-contrast-color,
+  'contrastDarkColors': ('50', '100', '200', 'A100'),
+  'contrastStrongLightColors': ('500', '600', 'A200', 'A400', 'A700')
 ) !default;
 
 // Purple
@@ -77,7 +81,9 @@ $color-purple: (
   'A200': #e040fb,
   'A400': #d500f9,
   'A700': #aa00ff,
-  'contrast': $light-contrast-color
+  'contrastDefaultColor': $light-contrast-color,
+  'contrastDarkColors': ('50', '100', '200', 'A100'),
+  'contrastStrongLightColors': ('300', '400', 'A200', 'A400', 'A700')
 ) !default;
 
 // Deep Purple
@@ -98,7 +104,9 @@ $color-deep-purple: (
   'A200': #7c4dff,
   'A400': #651fff,
   'A700': #6200ea,
-  'contrast': $light-contrast-color
+  'contrastDefaultColor': $light-contrast-color,
+  'contrastDarkColors': ('50', '100', '200', 'A100'),
+  'contrastStrongLightColors': ('300', '400', 'A200')
 ) !default;
 
 // Indigo
@@ -119,7 +127,9 @@ $color-indigo: (
   'A200': #536dfe,
   'A400': #3d5afe,
   'A700': #304ffe,
-  'contrast': $light-contrast-color
+  'contrastDefaultColor': $light-contrast-color,
+  'contrastDarkColors': ('50', '100', '200', 'A100'),
+  'contrastStrongLightColors': ('300', '400', 'A200', 'A400')
 ) !default;
 
 // Blue
@@ -140,7 +150,9 @@ $color-blue: (
   'A200': #448aff,
   'A400': #2979ff,
   'A700': #2962ff,
-  'contrast': $light-contrast-color
+  'contrastDefaultColor': $light-contrast-color,
+  'contrastDarkColors': ('50', '100', '200', '300', '400', 'A100'),
+  'contrastStrongLightColors': ('500', '600', '700', 'A200', 'A400', 'A700')
 ) !default;
 
 // Light Blue
@@ -161,7 +173,9 @@ $color-light-blue: (
   'A200': #40c4ff,
   'A400': #00b0ff,
   'A700': #0091ea,
-  'contrast': $dark-contrast-color
+  'contrastDefaultColor': $dark-contrast-color,
+  'contrastLightColors': ('600', '700', '800', '900', 'A700'),
+  'contrastStrongLightColors': ('600', '700', '800', 'A700')
 ) !default;
 
 // Cyan
@@ -182,7 +196,9 @@ $color-cyan: (
   'A200': #18ffff,
   'A400': #00e5ff,
   'A700': #00b8d4,
-  'contrast': $dark-contrast-color
+  'contrastDefaultColor': $dark-contrast-color,
+  'contrastLightColors': ('700', '800', '900'),
+  'contrastStrongLightColors': ('700', '800', '900')
 ) !default;
 
 // Teal
@@ -203,7 +219,9 @@ $color-teal: (
   'A200': #64ffda,
   'A400': #1de9b6,
   'A700': #00bfa5,
-  'contrast': $dark-contrast-color
+  'contrastDefaultColor': $dark-contrast-color,
+  'contrastLightColors': ('500', '600', '700', '800', '900'),
+  'contrastStrongLightColors': ('500', '600', '700')
 ) !default;
 
 // Green
@@ -224,7 +242,9 @@ $color-green: (
   'A200': #69f0ae,
   'A400': #00e676,
   'A700': #00c853,
-  'contrast': $dark-contrast-color
+  'contrastDefaultColor': $dark-contrast-color,
+  'contrastLightColors': ('500', '600', '700', '800', '900'),
+  'contrastStrongLightColors': ('500', '600', '700')
 ) !default;
 
 // Light Green
@@ -245,7 +265,9 @@ $color-light-green: (
   'A200': #b2ff59,
   'A400': #76ff03,
   'A700': #64dd17,
-  'contrast': $dark-contrast-color
+  'contrastDefaultColor': $dark-contrast-color,
+  'contrastLightColors': ('700', '800', '900'),
+  'contrastStrongLightColors': ('700', '800', '900')
 ) !default;
 
 // Lime
@@ -266,7 +288,9 @@ $color-lime: (
   'A200': #eeff41,
   'A400': #c6ff00,
   'A700': #aeea00,
-  'contrast': $dark-contrast-color
+  'contrastDefaultColor': $dark-contrast-color,
+  'contrastLightColors': ('900'),
+  'contrastStrongLightColors': ('900')
 ) !default;
 
 // Yellow
@@ -286,7 +310,7 @@ $color-yellow: (
   'A200': #ffff00,
   'A400': #ffea00,
   'A700': #ffd600,
-  'contrast': $dark-contrast-color
+  'contrastDefaultColor': $dark-contrast-color
 ) !default;
 
 // Amber
@@ -307,7 +331,7 @@ $color-amber: (
   'A200': #ffd740,
   'A400': #ffc400,
   'A700': #ffab00,
-  'contrast': $dark-contrast-color
+  'contrastDefaultColor': $dark-contrast-color
 ) !default;
 
 // Orange
@@ -328,7 +352,9 @@ $color-orange: (
   'A200': #ffab40,
   'A400': #ff9100,
   'A700': #ff6d00,
-  'contrast': $dark-contrast-color
+  'contrastDefaultColor': $dark-contrast-color,
+  'contrastLightColors': ('800', '900'),
+  'contrastStrongLightColors': ('800', '900')
 ) !default;
 
 // Deep Orange
@@ -349,7 +375,9 @@ $color-deep-orange: (
   'A200': #ff6e40,
   'A400': #ff3d00,
   'A700': #dd2c00,
-  'contrast': $light-contrast-color
+  'contrastDefaultColor': $light-contrast-color,
+  'contrastDarkColors': ('50', '100', '200', '300', '400', 'A100', 'A200'),
+  'contrastStrongLightColors': ('500', '600', '700', '800', '900', 'A400', 'A700')
 ) !default;
 
 // Brown
@@ -370,7 +398,9 @@ $color-brown: (
   'A200': #bcaaa4,
   'A400': #8d6e63,
   'A700': #5d4037,
-  'contrast': $light-contrast-color
+  'contrastDefaultColor': $light-contrast-color,
+  'contrastDarkColors': ('50', '100', '200', 'A100', 'A200'),
+  'contrastStrongLightColors': ('300', '400')
 ) !default;
 
 // Grey
@@ -390,7 +420,8 @@ $color-grey: (
   'A200': #000000,
   'A400': #303030,
   'A700': #616161,
-  'contrast': $dark-contrast-color
+  'contrastDefaultColor': $dark-contrast-color,
+  'contrastLightColors': ('600', '700', '800', '900', 'A200', 'A400', 'A700')
 ) !default;
 
 // Blue Grey
@@ -410,7 +441,9 @@ $color-blue-grey: (
   'A200': #b0bec5,
   'A400': #78909c,
   'A700': #455a64,
-  'contrast': $light-contrast-color
+  'contrastDefaultColor': $light-contrast-color,
+  'contrastDarkColors': ('50', '100', '200', '300', 'A100', 'A200'),
+  'contrastStrongLightColors': ('400', '500', '700')
 ) !default;
 
 $shades: (
@@ -474,4 +507,48 @@ $default-color: '500' !default;
 
   @warn 'Unknown `#{$type}` in $colors. `#{$color}`';
   @return null;
+}
+
+// returns the correct contrast color for the given color
+@function contrast($color, $type: null) {
+  $curr_color: null;
+  // color is a string case
+  @if map-has-key($colors, $color) {
+    $curr_color: map-get($colors, $color);
+  } @else {
+    // color is a map
+    @if map-has-key($color, $type) {
+      $curr_color: map-get($color, $type);
+    }
+  }
+
+  // if no type was provided:
+  //   - use 'default' key if present
+  //   - use '500' from $default-color
+  @if ($type == null) {
+    @if map-has-key($curr_color, 'default') {
+      $type: map-get($curr_color, 'default');
+    } @else {
+      $type: $default-color;
+    }
+  }
+
+  // $curr_color hold the color hash
+  // contrastDarkColors holds the shades of dark contrast
+  // contrastLightColors holds the shades of light contrast
+  // contrastStrongLightColors holds the shades of strong light contrast
+  $contrastDarkColors: map-get($curr_color, 'contrastDarkColors');
+  $contrastLightColors: map-get($curr_color, 'contrastLightColors');
+  $contrastStrongLightColors: map-get($curr_color, 'contrastStrongLightColors');
+  $contrastDefaultColor: map-get($curr_color, 'contrastDefaultColor');
+
+  @if $contrastDarkColors != null and index($contrastDarkColors, $type) != null {
+    @return $dark-contrast-color;
+  } @else if $contrastLightColors != null and index($contrastLightColors, $type) != null {
+    @return $light-contrast-color;
+  } @else if $contrastStrongLightColors != null and index($contrastStrongLightColors, $type) != null {
+    @return $strong-light-contrast-color;
+  } @else {
+    @return $contrastDefaultColor;
+  }
 }

@@ -142,5 +142,11 @@
 @import './angular-material/components/chips/chips';
 @import './angular-material/components/chips/chips-theme';
 
+@import './angular-material/components/panel/panel';
+@import './angular-material/components/panel/panel-theme';
+
+@import './angular-material/components/tooltip/tooltip';
+@import './angular-material/components/tooltip/tooltip-theme';
+
 // some overrides that are needed for ember-paper (avoid if possible)
 @import './overrides/paper-autocomplete';
