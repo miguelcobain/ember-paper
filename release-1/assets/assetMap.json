@@ -1,10 +1,10 @@
 {
   "assets": {
     "assets/dummy-fastboot.js": "assets/dummy-fastboot-c005ac26fea532a4ce414d75a0997b88.js",
-    "assets/dummy.css": "assets/dummy-7e781a7a323bb20dca73e187a544d1d1.css",
-    "assets/dummy.js": "assets/dummy-c3daa99340baae2d0c28eea3dddbd018.js",
+    "assets/dummy.css": "assets/dummy-9a166f1e4da61085cacf760bc7804635.css",
+    "assets/dummy.js": "assets/dummy-644a94a8ccba00ef5c93edb4d2d484b3.js",
     "assets/vendor.css": "assets/vendor-75f40878596e268f96dd0e4a24b078bb.css",
-    "assets/vendor.js": "assets/vendor-844294501ebf154b0fad9197e6d24115.js",
+    "assets/vendor.js": "assets/vendor-35f4b1191293da11428721927b902464.js",
     "ember-logo-original.png": "ember-logo-original-96cc57a28066aa60c12df89c146c07d5.png",
     "ember-logo-white.png": "ember-logo-white-955db9d87b940bf54a17bd1fa78d0713.png",
     "ember-logo.png": "ember-logo-f8c3883ec9c9fa6892bd30261fbd007e.png",
