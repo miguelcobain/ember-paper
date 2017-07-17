@@ -148,5 +148,8 @@
 @import './angular-material/components/tooltip/tooltip';
 @import './angular-material/components/tooltip/tooltip-theme';
 
+@import './angular-material/components/toast/toast';
+@import './angular-material/components/toast/toast-theme';
+
 // some overrides that are needed for ember-paper (avoid if possible)
 @import './overrides/paper-autocomplete';

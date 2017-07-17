@@ -28,6 +28,9 @@ table {
   overflow: auto;
 }
 
+#main {
+  position: relative;
+}
 
  md-select-menu md-content md-option:not([disabled]):focus, md-select-menu.md-default-theme md-content md-option:not([disabled]):hover, md-select-menu md-content md-option:not([disabled]):hover {
     background: rgb(238,238,238);

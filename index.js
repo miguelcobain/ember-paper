@@ -54,7 +54,11 @@ module.exports = {
       response = emberPowerSelect.contentFor(type, config);
       if (config.environment !== 'test' &&  !config._emberPaperContentForInvoked) {
         config._emberPaperContentForInvoked = true;
-        response = response ? `${response}<div id="paper-wormhole"></div>`: '<div id="paper-wormhole"></div>';
+        response = `
+          ${response || ''}
+          <div id="paper-wormhole"></div>
+          <div id="paper-toast-fab-wormhole"></div>
+        `;
       }
       return response;
     }
@@ -171,7 +175,10 @@ module.exports = {
       'components/panel/panel-theme.scss',
 
       'components/tooltip/tooltip.scss',
-      'components/tooltip/tooltip-theme.scss'
+      'components/tooltip/tooltip-theme.scss',
+
+      'components/toast/toast.scss',
+      'components/toast/toast-theme.scss'
     ];
 
     var angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {
