@@ -171,6 +171,12 @@ module.exports = {
       'components/chips/chips.scss',
       'components/chips/chips-theme.scss',
 
+      'components/panel/panel.scss',
+      'components/panel/panel-theme.scss',
+
+      'components/tooltip/tooltip.scss',
+      'components/tooltip/tooltip-theme.scss',
+
       'components/toast/toast.scss',
       'components/toast/toast-theme.scss'
     ];

@@ -38,6 +38,7 @@ Router.map(function() {
     this.route('switch');
     this.route('toast');
     this.route('toolbar');
+    this.route('tooltip');
     this.route('virtual-repeat');
   });
 
