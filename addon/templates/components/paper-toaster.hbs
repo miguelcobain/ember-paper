@@ -4,11 +4,16 @@
     onClose=(action onClose activeToast)
     position=activeToast.position
     duration=activeToast.duration
-    parent=parent}}
+    parent=parent as |toast|}}
     {{#if activeToast.componentName}}
       {{component activeToast.componentName}}
     {{else}}
-      {{activeToast.text}}
+      {{#toast.text}}{{activeToast.text}}{{/toast.text}}
+      {{#if activeToast.action}}
+        {{#paper-button accent=activeToast.action.accent onClick=activeToast.action.onClick}}
+          {{activeToast.action.label}}
+        {{/paper-button}}
+      {{/if}}
     {{/if}}
   {{/paper-toast}}
 {{/if}}

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { computed, merge, run, A, Service, tryInvoke, Object: EObject } = Ember;
+const { computed, assign, run, A, Service, tryInvoke, Object: EObject } = Ember;
 
 const DEFAULT_PROPS = {
   duration: 3000,
@@ -12,13 +12,13 @@ export default Service.extend({
   activeToast: computed.reads('queue.firstObject'),
 
   show(text, options) {
-    let t = EObject.create(merge({ text, show: true }, this.buildOptions(options)));
+    let t = EObject.create(assign({ text, show: true }, this.buildOptions(options)));
     this.get('queue').pushObject(t);
     return t;
   },
 
   showComponent(componentName, options) {
-    let t = EObject.create(merge({ componentName, show: true }, this.buildOptions(options)));
+    let t = EObject.create(assign({ componentName, show: true }, this.buildOptions(options)));
     this.get('queue').pushObject(t);
     return t;
   },
@@ -28,16 +28,16 @@ export default Service.extend({
 
     if (this.get('activeToast') === toast) {
       run.later(() => {
-        tryInvoke(toast, 'callback');
+        tryInvoke(toast, 'onClose');
         this.get('queue').removeObject(toast);
       }, 400);
     } else {
-      tryInvoke(toast, 'callback');
+      tryInvoke(toast, 'onClose');
       this.get('queue').removeObject(toast);
     }
   },
 
   buildOptions(options) {
-    return merge(DEFAULT_PROPS, options);
+    return assign({}, DEFAULT_PROPS, options);
   }
 });

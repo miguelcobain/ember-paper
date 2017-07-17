@@ -24,6 +24,19 @@ export default Controller.extend({
         duration: 4000
       });
     },
+
+    openServiceActionToast() {
+      this.get('paperToaster').show(this.get('toastText'), {
+        duration: 4000,
+        action: {
+          label: 'Undo',
+          accent: true,
+          onClick() {
+            alert('toast action pressed');
+          }
+        }
+      });
+    },
     // END-SNIPPET
     cancelToast(toast) {
       this.get('paperToaster').cancelToast(toast);

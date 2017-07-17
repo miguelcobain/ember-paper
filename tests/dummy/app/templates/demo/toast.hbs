@@ -109,9 +109,14 @@
         <h3>Options</h3>
 
         <div class="layout-column">
-          {{paper-input value=toastText onChange=(action (mut toastText))}}
+          {{paper-input label="Toast text" value=toastText onChange=(action (mut toastText))}}
+        </div>
+        <div class="layout-row">
           {{#paper-button raised=true primary=true onClick=(action "openServiceToast")}}
-            Open toast with the service
+            Open toast
+          {{/paper-button}}
+          {{#paper-button raised=true primary=true onClick=(action "openServiceActionToast")}}
+            Open toast with action
           {{/paper-button}}
         </div>
         <ul>
@@ -144,8 +149,11 @@
           (p-section
             "Options"
             (p-row "duration" "number or `false`" "Timeout in milliseconds. Defaults to `3000`. Use `false` to keep it open until a `cancelToast` is used.")
-            (p-row "callback" "function" "You can pass in a function the will be called back after the toast closes.")
+            (p-row "onClose" "function" "You can pass in a function the will be called back after the toast closes.")
             (p-row "position" "string" "Possible values are `bottom left` (default), `bottom right`, `top left` and `top right`")
+            (p-row "action.label" "string" "The label of the action button.")
+            (p-row "action.accent" "boolean" "Wether or not you want the action button to be higlighted with the accent color.")
+            (p-row "action.onClick" "function" "This function gets called when the button is pressed.")
           )
         }}
 
