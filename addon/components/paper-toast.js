@@ -4,17 +4,18 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-toast';
 
-const { $, Component, computed, inject, testing, run } = Ember;
+const { $, Component, computed, inject, testing, run, guidFor } = Ember;
 /**
  * @class PaperToast
  * @extends Ember.Component
  */
 export default Component.extend({
   layout,
-  tagName: 'div',
-  escapeToClose: true,
+  tagName: '',
+  escapeToClose: false,
+  swipeToClose: true,
   capsule: false,
-  hideDelay: 3000,
+  duration: 3000,
 
   position: 'bottom left',
 
@@ -27,8 +28,6 @@ export default Component.extend({
     let [y] = this.get('position').split(' ');
     return y === 'top';
   }),
-
-  classNameBindings: ['capsule:md-capsule'],
 
   // Calculate a default that is always valid for the parent of the backdrop.
   wormholeSelector: '#paper-toast-fab-wormhole',
@@ -50,7 +49,7 @@ export default Component.extend({
     } else {
       let id = $parent.attr('id');
       if (!id) {
-        id = `${this.elementId}-parent`;
+        id = `${this.uniqueId}-parent`;
         $parent.get(0).id = id;
       }
       return id;
@@ -60,24 +59,31 @@ export default Component.extend({
   constants: inject.service(),
 
   _destroyMessage() {
-    this.sendAction('onClose');
+    if (!this.isDestroyed) {
+      this.sendAction('onClose');
+    }
+  },
+
+  init() {
+    this._super(...arguments);
+    this.uniqueId = guidFor(this);
   },
 
   willInsertElement() {
     this._super(...arguments);
-    $(`#${this.get('destinationId')}`).addClass(`md-toast-animating`);
+    $(`#${this.get('destinationId')}`).addClass('md-toast-animating');
   },
 
   didInsertElement() {
     this._super(...arguments);
 
-    if (this.get('hideDelay') !== false) {
-      run.later(this, '_destroyMessage', this.get('hideDelay'));
+    if (this.get('duration') !== false) {
+      run.later(this, '_destroyMessage', this.get('duration'));
     }
 
     if (this.get('escapeToClose')) {
       // Adding Listener to body tag, FIXME
-      $('body').on(`keydown.${this.elementId}`, (e) => {
+      $('body').on(`keydown.${this.uniqueId}`, (e) => {
         if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.get('onClose')) {
           this._destroyMessage();
         }
@@ -91,7 +97,7 @@ export default Component.extend({
   willDestroyElement() {
     this._super(...arguments);
     if (this.get('escapeToClose')) {
-      $('body').off(`keydown.${this.elementId}`);
+      $('body').off(`keydown.${this.uniqueId}`);
     }
 
     let y = this.get('top') ? 'top' : 'bottom';

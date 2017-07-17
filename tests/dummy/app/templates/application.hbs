@@ -63,7 +63,9 @@
     {{/paper-content}}
   {{/paper-sidenav}}
 
-  <div class="flex layout-column" tabindex="-1" role="main">
+  <div id="main" class="flex layout-column" tabindex="-1" role="main">
     {{outlet}}
   </div>
 {{/paper-sidenav-container}}
+
+{{paper-toaster parent="#main"}}

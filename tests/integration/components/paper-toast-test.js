@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import $ from 'jquery';
 
 moduleForComponent('paper-toast', 'Integration | Component | paper toast', {
   integration: true
@@ -24,7 +25,7 @@ test('it renders', function(assert) {
   assert.equal($('md-toast').text().trim(), 'Toast was shown successfully!');
 });
 
-test('hideDelay triggers onClose', function(assert) {
+test('duration triggers onClose', function(assert) {
   let done = assert.async();
 
   this.set('closeAction', () => {
@@ -33,13 +34,13 @@ test('hideDelay triggers onClose', function(assert) {
   });
 
   this.render(hbs`
-    {{#paper-toast hideDelay=100 onClose=closeAction}}
+    {{#paper-toast duration=100 onClose=closeAction}}
       Toast was shown successfully!
     {{/paper-toast}}
   `);
 });
 
-test('hideDelay set to `false` does not trigger onClose', function(assert) {
+test('duration set to `false` does not trigger onClose', function(assert) {
   assert.expect(0);
 
   this.set('closeAction', () => {
@@ -47,7 +48,7 @@ test('hideDelay set to `false` does not trigger onClose', function(assert) {
   });
 
   this.render(hbs`
-    {{#paper-toast hideDelay=false onClose=closeAction}}
+    {{#paper-toast duration=false onClose=closeAction}}
       Toast was shown successfully!
     {{/paper-toast}}
   `);

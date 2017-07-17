@@ -1,11 +1,15 @@
 import Ember from 'ember';
 
-const { Controller } = Ember;
+const { inject, Controller } = Ember;
 
 export default Controller.extend({
-  hideDelay: 3000,
+  duration: 3000,
   positionX: 'left',
   positionY: 'bottom',
+  toastText: 'Hello world',
+
+  paperToaster: inject.service(),
+
   actions: {
     /* Toast */
     openToast() {
@@ -13,6 +17,16 @@ export default Controller.extend({
     },
     openToastWithout() {
       this.set('showToastWithout', true);
+    },
+    // BEGIN-SNIPPET toaster
+    openServiceToast() {
+      this.get('paperToaster').show(this.get('toastText'), {
+        duration: 4000
+      });
+    },
+    // END-SNIPPET
+    cancelToast(toast) {
+      this.get('paperToaster').cancelToast(toast);
     },
     closeToast() {
       this.set('showToast', false);

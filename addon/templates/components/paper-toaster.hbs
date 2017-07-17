@@ -1,0 +1,14 @@
+{{yield}}
+{{#if activeToast.show}}
+  {{#paper-toast
+    onClose=(action onClose activeToast)
+    position=activeToast.position
+    duration=activeToast.duration
+    parent=parent}}
+    {{#if activeToast.componentName}}
+      {{component activeToast.componentName}}
+    {{else}}
+      {{activeToast.text}}
+    {{/if}}
+  {{/paper-toast}}
+{{/if}}
