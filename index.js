@@ -171,7 +171,10 @@ module.exports = {
       'components/panel/panel-theme.scss',
 
       'components/tooltip/tooltip.scss',
-      'components/tooltip/tooltip-theme.scss'
+      'components/tooltip/tooltip-theme.scss',
+
+      'components/navBar/navBar.scss',
+      'components/navBar/navBar-theme.scss'
     ];
 
     var angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {

@@ -1,0 +1,13 @@
+<div class="md-nav-bar">
+  <nav role="navigation">
+    <ul class="_md-nav-bar-list" role="listbox">
+      {{yield (hash
+        item=(component "paper-nav-bar-item"
+          selectedNavItem=selectedNavItem
+          onSelect=(action "onChange")
+        )
+      )}}
+    </ul>
+  </nav>
+  {{paper-nav-ink-bar class=(if movingRight "_md-right" "_md-left") left=inkBarLeft width=inkBarWidth}}
+</div>

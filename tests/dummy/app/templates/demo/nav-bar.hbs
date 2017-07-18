@@ -1,0 +1,64 @@
+{{page-toolbar pageTitle="Nav Bar" isDemo=true}}
+
+{{#doc-content}}
+
+  {{#paper-card class="navBardemoBasicUsage"}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Basic Usage</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-content class="md-padding"}}
+      testValue: {{testValue}}
+      {{#paper-nav-bar
+        selectedNavItem=selectedNavItem
+        onChange=(action (mut selectedNavItem))
+        as |nav|}}
+        {{#nav.item name="page-one" onClick=(action (mut testValue) true)}}
+          Page One
+        {{/nav.item}}
+        {{#nav.item name="page-two"}}
+          Page Two
+        {{/nav.item}}
+        {{#nav.item name="page-three"}}
+          Page Three
+        {{/nav.item}}
+      {{/paper-nav-bar}}
+
+      <div class="ext-content">
+        External content for {{selectedNavItem}}.
+      </div>
+
+    {{/paper-content}}
+  {{/paper-card}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Routable Usage</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    {{#paper-content class="md-padding"}}
+      {{#paper-nav-bar
+        selectedNavItem=selectedNavRoute
+        onChange=(action (mut selectedNavRoute))
+        as |nav|}}
+        {{#nav.item name="page-one" href="#/components/nav-bar/"}}
+          Index
+        {{/nav.item}}
+        {{#nav.item name="page-two" href="#/components/nav-bar/nested-route"}}
+          Nested Route
+        {{/nav.item}}
+      {{/paper-nav-bar}}
+
+      <div class="md-padding">
+
+        {{outlet}}
+
+      </div>
+
+    {{/paper-content}}
+  {{/paper-card}}
+
+{{/doc-content}}

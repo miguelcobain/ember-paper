@@ -1,0 +1,10 @@
+{{#paper-button
+  accent=true
+  onClick=(action "onButtonClick")
+  href=href
+  class=(concat
+    "_md-nav-button"
+    (if selected '' ' md-unselected')
+  )}}
+  {{yield}}
+{{/paper-button}}
