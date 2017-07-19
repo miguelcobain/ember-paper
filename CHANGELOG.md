@@ -24,8 +24,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
   - now uses camelCased attributes, just like the rest of the project
   - uses contextual components api, i.e `{{#paper-grid-list as |grid|}}{{#grid.tile}}`.
   - no more separate responsive-related attributes. Related attributes were merged
-  and now you can specify responsive breakpoints in the same attribute. 
+  and now you can specify responsive breakpoints in the same attribute.
   - see the docs for more information on the new usage
+- [#615](https://github.com/miguelcobain/ember-paper/pull/615) this fixes a problem with paper-chips on blur ([#611](https://github.com/miguelcobain/ember-paper/issues/611))
 
 ### 1.0.0-alpha.20 (June 26, 2017)
 - [#679](https://github.com/miguelcobain/ember-paper/issues/679) fix outline on paper-menu
