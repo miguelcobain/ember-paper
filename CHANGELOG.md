@@ -19,6 +19,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [#730](https://github.com/miguelcobain/ember-paper/pull/730) ready for fastboot 1.0
 - [#752](https://github.com/miguelcobain/ember-paper/pull/752) Tooltips are now available. Contrasts are now set correctly.
 - [#750](https://github.com/miguelcobain/ember-paper/pull/750) Toasts are now available.
+- [#753](https://github.com/miguelcobain/ember-paper/pull/753) Nav bar is now available. This feature essentially replaces tabs.
 
 ### 1.0.0-alpha.20 (June 26, 2017)
 - [#679](https://github.com/miguelcobain/ember-paper/issues/679) fix outline on paper-menu

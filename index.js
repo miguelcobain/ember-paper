@@ -178,7 +178,10 @@ module.exports = {
       'components/tooltip/tooltip-theme.scss',
 
       'components/toast/toast.scss',
-      'components/toast/toast-theme.scss'
+      'components/toast/toast-theme.scss',
+
+      'components/navBar/navBar.scss',
+      'components/navBar/navBar-theme.scss'
     ];
 
     var angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {

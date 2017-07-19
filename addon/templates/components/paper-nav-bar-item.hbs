@@ -1,0 +1,15 @@
+{{#paper-button
+  accent=accent
+  disabled=disabled
+  onClick=(action "onButtonClick")
+  href=href
+  class=(concat
+    "_md-nav-button"
+    (unless selected " md-unselected")
+  )}}
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
+    {{name}}
+  {{/if}}
+{{/paper-button}}

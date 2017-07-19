@@ -1,0 +1,105 @@
+{{page-toolbar pageTitle="Nav Bar" isDemo=true}}
+
+{{#doc-content}}
+
+  <div class="md-padding">
+    {{#paper-card class="navBardemoBasicUsage"}}
+      {{#paper-toolbar}}
+        {{#paper-toolbar-tools}}
+          <h2>Basic Usage</h2>
+          <span class="flex"></span>
+          {{#paper-button onClick=(action "toggle" "showBasicUsageSourceCode") iconButton=true}}
+            {{paper-icon icon="code"}}
+          {{/paper-button}}
+        {{/paper-toolbar-tools}}
+      {{/paper-toolbar}}
+
+      <div class="doc-code-example {{if showBasicUsageSourceCode 'is-visible'}}">
+        {{code-snippet name="basic-usage.hbs"}}
+      </div>
+
+      <div class="doc-content-example">
+        {{#paper-content class="md-padding"}}
+          {{! BEGIN-SNIPPET basic-usage}}
+          {{#paper-nav-bar
+            selectedNavItem=selectedNavItem
+            onChange=(action (mut selectedNavItem)) as |nav|}}
+            {{#nav.item name=1}}
+              Page One
+            {{/nav.item}}
+            {{#nav.item name=2}}
+              Page Two
+            {{/nav.item}}
+            {{#nav.item name=3}}
+              Page Three
+            {{/nav.item}}
+          {{/paper-nav-bar}}
+
+          {{#liquid-bind selectedNavItem class="ext-content"}}
+            External content for {{selectedNavItem}}.
+          {{/liquid-bind}}
+          {{! END-SNIPPET }}
+
+          <p><em><b>Note:</b> transitions were implemented using liquid-fire.</em></p>
+        {{/paper-content}}
+      </div>
+    {{/paper-card}}
+  </div>
+
+  <div class="md-padding">
+    {{#paper-card}}
+      {{#paper-toolbar}}
+        {{#paper-toolbar-tools}}
+          <h2>Routable Usage</h2>
+          <span class="flex"></span>
+          {{#paper-button onClick=(action "toggle" "showRoutableUsageSourceCode") iconButton=true}}
+            {{paper-icon icon="code"}}
+          {{/paper-button}}
+        {{/paper-toolbar-tools}}
+      {{/paper-toolbar}}
+
+      <div class="doc-code-example {{if showRoutableUsageSourceCode 'is-visible'}}">
+        {{code-snippet name="routable-usage.hbs"}}
+      </div>
+
+      <div class="doc-content-example">
+        {{#paper-content class="md-padding"}}
+          {{! BEGIN-SNIPPET routable-usage}}
+          {{#paper-nav-bar
+            selectedNavItem=selectedNavRoute
+            onChange=(action (mut selectedNavRoute)) as |nav|}}
+            {{#nav.item name="page-one" href="#/components/nav-bar/"}}
+              Index
+            {{/nav.item}}
+            {{#nav.item name="page-two" href="#/components/nav-bar/nested-route"}}
+              Nested Route
+            {{/nav.item}}
+          {{/paper-nav-bar}}
+
+          {{liquid-outlet class="ext-content"}}
+          {{! END-SNIPPET }}
+
+          <p><em><b>Note:</b> transitions were implemented using liquid-fire.</em></p>
+        {{/paper-content}}
+      </div>
+    {{/paper-card}}
+  </div>
+
+  <div class="md-padding">
+    {{paper-api
+      (p-section
+        (p-row "selectedNavItem" "string" "Name of the active tab.")
+        (p-row "onChange" "action" "An action triggered when the active tab changes.")
+      )
+      (p-section
+        "`nav.item` API"
+        (p-row "name" "string" "Name of the tab. To activate the tab, `selectedNavItem` needs to have this value.")
+        (p-row "disabled" "boolean" "Pass `true` to disable the tab button.")
+        (p-row "accent" "boolean" "Pass `false` to disable accent color on tab. Default is `true`.")
+        (p-row "href" "string" "You can pass an href to the tab button to render a link. Hint: use `ember-href-to` to generate route urls.")
+        (p-row "onClick" "action" "An action triggered when the tab button is clicked.")
+      ) title="API Usage"
+    }}
+  </div>
+
+{{/doc-content}}

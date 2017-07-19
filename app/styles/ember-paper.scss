@@ -151,5 +151,8 @@
 @import './angular-material/components/toast/toast';
 @import './angular-material/components/toast/toast-theme';
 
+@import './angular-material/components/navBar/navBar';
+@import './angular-material/components/navBar/navBar-theme';
+
 // some overrides that are needed for ember-paper (avoid if possible)
 @import './overrides/paper-autocomplete';

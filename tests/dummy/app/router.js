@@ -29,6 +29,9 @@ Router.map(function() {
     this.route('input');
     this.route('list');
     this.route('menu');
+    this.route('nav-bar', function() {
+      this.route('nested-route');
+    });
     this.route('progress-circular');
     this.route('progress-linear');
     this.route('radio');
