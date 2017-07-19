@@ -23,23 +23,24 @@
           {{! BEGIN-SNIPPET basic-usage}}
           {{#paper-nav-bar
             selectedNavItem=selectedNavItem
-            onChange=(action (mut selectedNavItem))
-            as |nav|}}
-            {{#nav.item name="page-one"}}
+            onChange=(action (mut selectedNavItem)) as |nav|}}
+            {{#nav.item name=1}}
               Page One
             {{/nav.item}}
-            {{#nav.item name="page-two"}}
+            {{#nav.item name=2}}
               Page Two
             {{/nav.item}}
-            {{#nav.item name="page-three"}}
+            {{#nav.item name=3}}
               Page Three
             {{/nav.item}}
           {{/paper-nav-bar}}
 
-          <div class="ext-content">
+          {{#liquid-bind selectedNavItem class="ext-content"}}
             External content for {{selectedNavItem}}.
-          </div>
+          {{/liquid-bind}}
           {{! END-SNIPPET }}
+
+          <p><em><b>Note:</b> transitions were implemented using liquid-fire.</em></p>
         {{/paper-content}}
       </div>
     {{/paper-card}}
@@ -66,8 +67,7 @@
           {{! BEGIN-SNIPPET routable-usage}}
           {{#paper-nav-bar
             selectedNavItem=selectedNavRoute
-            onChange=(action (mut selectedNavRoute))
-            as |nav|}}
+            onChange=(action (mut selectedNavRoute)) as |nav|}}
             {{#nav.item name="page-one" href="#/components/nav-bar/"}}
               Index
             {{/nav.item}}
@@ -76,29 +76,30 @@
             {{/nav.item}}
           {{/paper-nav-bar}}
 
-          <div class="md-padding">
-            {{outlet}}
-          </div>
+          {{liquid-outlet class="ext-content"}}
           {{! END-SNIPPET }}
+
+          <p><em><b>Note:</b> transitions were implemented using liquid-fire.</em></p>
         {{/paper-content}}
       </div>
     {{/paper-card}}
   </div>
 
   <div class="md-padding">
-    {{#paper-card as |card|}}
-      {{#card.content}}
-        {{paper-api
-          (p-section
-            (p-row "selectedNavItem" "string" "Name of the active tab.")
-          )
-          (p-section
-            "Actions"
-            (p-row "onChange" "action" "An action triggered when the active tab changes.")
-          ) title="API Usage"
-        }}
-      {{/card.content}}
-    {{/paper-card}}
+    {{paper-api
+      (p-section
+        (p-row "selectedNavItem" "string" "Name of the active tab.")
+        (p-row "onChange" "action" "An action triggered when the active tab changes.")
+      )
+      (p-section
+        "`nav.item` API"
+        (p-row "name" "string" "Name of the tab. To activate the tab, `selectedNavItem` needs to have this value.")
+        (p-row "disabled" "boolean" "Pass `true` to disable the tab button.")
+        (p-row "accent" "boolean" "Pass `false` to disable accent color on tab. Default is `true`.")
+        (p-row "href" "string" "You can pass an href to the tab button to render a link. Hint: use `ember-href-to` to generate route urls.")
+        (p-row "onClick" "action" "An action triggered when the tab button is clicked.")
+      ) title="API Usage"
+    }}
   </div>
 
 {{/doc-content}}

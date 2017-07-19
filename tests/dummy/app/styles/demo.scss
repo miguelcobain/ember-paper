@@ -153,6 +153,7 @@ blockquote {
   padding-left: 16px;
 }
 
+/*
 ul {
   margin: 0;
   padding: 0;
@@ -167,7 +168,7 @@ ul li {
 
 ul li:first-child {
   margin-top: 0;
-}
+}*/
 
 .preview-block {
   background: #f5f5f5;
@@ -1498,7 +1499,7 @@ md-input-container .hint {
 }
 
 /* Nav Bar demo */
-.navBardemoBasicUsage md-content .ext-content {
+md-content .ext-content {
   padding: 50px;
   margin: 20px;
   background-color: #FFF2E0;

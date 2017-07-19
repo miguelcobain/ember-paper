@@ -9,6 +9,7 @@ export default Component.extend(ChildMixin, {
   classNames: ['md-nav-item'],
   attributeBindings: ['ariaSelected:aria-selected'],
   ariaSelected: computed.reads('selected'),
+  accent: true,
 
   selected: computed('selectedNavItem', 'name', function() {
     if (this.get('selectedNavItem') !== undefined) {
