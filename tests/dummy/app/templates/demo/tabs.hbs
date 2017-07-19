@@ -1,6 +1,6 @@
-{{page-toolbar pageTitle="Nav Bar" isDemo=true}}
+{{page-toolbar pageTitle="Tabs" isDemo=true}}
 
-{{#doc-content}}
+{{#doc-content class="tabs-demo"}}
 
   <div class="md-padding">
     {{#paper-card class="navBardemoBasicUsage"}}
@@ -19,28 +19,37 @@
       </div>
 
       <div class="doc-content-example">
-        {{#paper-content class="md-padding"}}
+        {{#paper-content}}
           {{! BEGIN-SNIPPET basic-usage}}
-          {{#paper-nav-bar
-            selectedNavItem=selectedNavItem
-            onChange=(action (mut selectedNavItem)) as |nav|}}
-            {{#nav.item name=1}}
+          {{#paper-tabs
+            borderBottom=true
+            selected=selectedNavItem
+            onChange=(action (mut selectedNavItem)) as |tabs|}}
+            {{#tabs.tab name=1}}
               Page One
-            {{/nav.item}}
-            {{#nav.item name=2}}
+            {{/tabs.tab}}
+            {{#tabs.tab name=2}}
               Page Two
-            {{/nav.item}}
-            {{#nav.item name=3}}
+            {{/tabs.tab}}
+            {{#tabs.tab name=3}}
               Page Three
-            {{/nav.item}}
-          {{/paper-nav-bar}}
+            {{/tabs.tab}}
+          {{/paper-tabs}}
 
-          {{#liquid-bind selectedNavItem class="ext-content"}}
-            External content for {{selectedNavItem}}.
+          {{#liquid-bind selectedNavItem class="md-padding" as |current|}}
+            <h1 class="md-display-2">Tab {{current}}</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis
+              vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices.
+              Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.
+            </p>
           {{/liquid-bind}}
           {{! END-SNIPPET }}
 
-          <p><em><b>Note:</b> transitions were implemented using liquid-fire.</em></p>
+          <div class="md-padding">
+            <em><b>Note:</b> transitions were implemented using liquid-fire.</em>
+          </div>
         {{/paper-content}}
       </div>
     {{/paper-card}}
@@ -63,23 +72,23 @@
       </div>
 
       <div class="doc-content-example">
-        {{#paper-content class="md-padding"}}
+        {{#paper-content}}
           {{! BEGIN-SNIPPET routable-usage}}
-          {{#paper-nav-bar
-            selectedNavItem=selectedNavRoute
-            onChange=(action (mut selectedNavRoute)) as |nav|}}
-            {{#nav.item name="page-one" href="#/components/nav-bar/"}}
+          {{#paper-tabs borderBottom=true as |tabs|}}
+            {{#tabs.tab name="page-one" href="#/components/tabs/"}}
               Index
-            {{/nav.item}}
-            {{#nav.item name="page-two" href="#/components/nav-bar/nested-route"}}
+            {{/tabs.tab}}
+            {{#tabs.tab name="page-two" href="#/components/tabs/nested-route"}}
               Nested Route
-            {{/nav.item}}
-          {{/paper-nav-bar}}
+            {{/tabs.tab}}
+          {{/paper-tabs}}
 
-          {{liquid-outlet class="ext-content"}}
+          {{liquid-outlet class="md-padding"}}
           {{! END-SNIPPET }}
 
-          <p><em><b>Note:</b> transitions were implemented using liquid-fire.</em></p>
+          <div class="md-padding">
+            <em><b>Note:</b> transitions were implemented using liquid-fire.</em>
+          </div>
         {{/paper-content}}
       </div>
     {{/paper-card}}
@@ -88,14 +97,15 @@
   <div class="md-padding">
     {{paper-api
       (p-section
-        (p-row "selectedNavItem" "string" "Name of the active tab.")
+        (p-row "selected" "string" "Name of the active tab.")
         (p-row "onChange" "action" "An action triggered when the active tab changes.")
+        (p-row "accent" "boolean" "Pass `false` to enable accent color on tab.")
+        (p-row "primary" "boolean" "Pass `false` to enable primary color on tab.")
       )
       (p-section
-        "`nav.item` API"
+        "`tabs.tab` API"
         (p-row "name" "string" "Name of the tab. To activate the tab, `selectedNavItem` needs to have this value.")
         (p-row "disabled" "boolean" "Pass `true` to disable the tab button.")
-        (p-row "accent" "boolean" "Pass `false` to disable accent color on tab. Default is `true`.")
         (p-row "href" "string" "You can pass an href to the tab button to render a link. Hint: use `ember-href-to` to generate route urls.")
         (p-row "onClick" "action" "An action triggered when the tab button is clicked.")
       ) title="API Usage"

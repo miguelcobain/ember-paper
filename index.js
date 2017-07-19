@@ -180,8 +180,8 @@ module.exports = {
       'components/toast/toast.scss',
       'components/toast/toast-theme.scss',
 
-      'components/navBar/navBar.scss',
-      'components/navBar/navBar-theme.scss'
+      'components/tabs/tabs.scss',
+      'components/tabs/tabs-theme.scss'
     ];
 
     var angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {

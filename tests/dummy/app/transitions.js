@@ -16,8 +16,8 @@ export default function() {
 
   // nav bar demo - routable usage
   this.transition(
-    this.fromRoute('demo.nav-bar.index'),
-    this.toRoute('demo.nav-bar.nested-route'),
+    this.fromRoute('demo.tabs.index'),
+    this.toRoute('demo.tabs.nested-route'),
     this.use('toLeft'),
     this.reverse('toRight')
   );

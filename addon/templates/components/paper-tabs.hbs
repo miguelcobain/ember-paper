@@ -1,0 +1,16 @@
+<md-tabs-wrapper>
+  <md-tabs-canvas tabindex="-1" role="tablist">
+    <md-pagination-wrapper>
+      {{yield (hash
+        tab=(component "paper-tab"
+          noInk=noInk
+          selected=selected
+          onSelect=(action "onChange")
+        )
+      )}}
+      {{#unless noInkBar}}
+        {{paper-ink-bar movingRight=movingRight left=inkBarLeft right=inkBarRight}}
+      {{/unless}}
+    </md-pagination-wrapper>
+  </md-tabs-canvas>
+</md-tabs-wrapper>
