@@ -68,11 +68,11 @@ function randomColor() {
 function randomSpan() {
   let r = Math.random();
   if (r < 0.8) {
-    return 1;
+    return 'gt-sm-1';
   } else if (r < 0.9) {
-    return 2;
+    return 'gt-sm-2';
   } else {
-    return 3;
+    return 'gt-sm-3';
   }
 }
 

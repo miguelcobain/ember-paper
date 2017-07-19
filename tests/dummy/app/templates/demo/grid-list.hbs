@@ -1,49 +1,50 @@
-{{page-toolbar pageTitle="Grid List" isDemo=true isWIP=true}}
+{{page-toolbar pageTitle="Grid List" isDemo=true}}
 
 {{#doc-content}}
   <h2>Basic Usage</h2>
   {{! BEGIN-SNIPPET grid-list.basic-usage }}
   {{#paper-content class="md-whiteframe-z1 grid-list-demo1"}}
 
-    {{#paper-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
-    md-row-height-gt-md="1:1" md-row-height="2:2"
-    md-gutter="12px" md-gutter-gt-sm="8px"}}
+    {{#paper-grid-list
+      cols="1 md-2 gt-md-6"
+      rowHeight="gt-md-1:1 2:2"
+      gutter="12px gt-sm-8px" as |grid|}}
 
-      {{#paper-grid-tile class="gray" md-rowspan="3" md-colspan="2" md-colspan-sm="1"}}
-        {{#paper-grid-tile-footer}}
-            <h3>#1: (3r x 2c)</h3>
-        {{/paper-grid-tile-footer}}
-      {{/paper-grid-tile}}
+      {{#grid.tile class="gray" rowspan="2" colspan="sm-1 gt-sm-2" as |tile|}}
+        {{#tile.footer}}
+          <h3>#1: (3r x 2c)</h3>
+        {{/tile.footer}}
+      {{/grid.tile}}
 
-      {{#paper-grid-tile class="green"}}
-        {{#paper-grid-tile-footer}}
-            <h3>#2: (1r x 1c)</h3>
-        {{/paper-grid-tile-footer}}
-      {{/paper-grid-tile}}
+      {{#grid.tile class="green" as |tile|}}
+        {{#tile.footer}}
+          <h3>#2: (1r x 1c)</h3>
+        {{/tile.footer}}
+      {{/grid.tile}}
 
-      {{#paper-grid-tile class="yellow"}}
-        {{#paper-grid-tile-footer}}
-            <h3>#3: (1r x 1c)</h3>
-        {{/paper-grid-tile-footer}}
-      {{/paper-grid-tile}}
+      {{#grid.tile class="yellow" as |tile|}}
+        {{#tile.footer}}
+          <h3>#3: (1r x 1c)</h3>
+        {{/tile.footer}}
+      {{/grid.tile}}
 
-      {{#paper-grid-tile class="blue" md-rowspan="2"}}
-        {{#paper-grid-tile-footer}}
+      {{#grid.tile class="blue" rowspan="2" as |tile|}}
+        {{#tile.footer}}
             <h3>#4: (2r x 1c)</h3>
-        {{/paper-grid-tile-footer}}
-      {{/paper-grid-tile}}
+        {{/tile.footer}}
+      {{/grid.tile}}
 
-      {{#paper-grid-tile class="red" md-rowspan="2" md-colspan="2" md-colspan-sm="1"}}
-        {{#paper-grid-tile-footer}}
-            <h3>#5: (2r x 2c)</h3>
-        {{/paper-grid-tile-footer}}
-      {{/paper-grid-tile}}
+      {{#grid.tile class="red" rowspan="2" colspan="sm-1 gt-sm-2" as |tile|}}
+        {{#tile.footer}}
+          <h3>#5: (2r x 2c)</h3>
+        {{/tile.footer}}
+      {{/grid.tile}}
 
-      {{#paper-grid-tile class="green" md-rowspan="2"}}
-        {{#paper-grid-tile-footer}}
-            <h3>#6: (2r x 1c)</h3>
-        {{/paper-grid-tile-footer}}
-      {{/paper-grid-tile}}
+      {{#grid.tile class="green" rowspan="2" as |tile|}}
+        {{#tile.footer}}
+          <h3>#6: (2r x 1c)</h3>
+        {{/tile.footer}}
+      {{/grid.tile}}
 
     {{/paper-grid-list}}
 
@@ -56,17 +57,18 @@
   <h2>Dynamic Tiles</h2>
   {{! BEGIN-SNIPPET grid-list.dynamic-tiles }}
   {{#paper-content class="md-whiteframe-z1 grid-list-demo-dynamicTiles"}}
-    {{#paper-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
-    md-row-height-gt-md="1:1" md-row-height="4:3"
-    md-gutter="8px" md-gutter-gt-sm="4px"}}
+    {{#paper-grid-list
+      cols="sm-2 md-4 gt-md-6"
+      rowHeight="4:3 gt-md-1:1"
+      gutter="8px gt-sm-4px" as |grid|}}
 
-      {{#each tiles as |tile|}}
-        {{#paper-grid-tile md-rowspan=tile.span.row md-colspan=tile.span.col md-colspan-sm="1" class=tile.background}}
+      {{#each tiles as |dynamicTile|}}
+        {{#grid.tile rowspan=dynamicTile.span.row colspan=(concat dynamicTile.span.col ' xs-1')  class=dynamicTile.background as |tile|}}
           <md-icon></md-icon>
-          {{#paper-grid-tile-footer}}
-              <h3>{{tile.title}}</h3>
-          {{/paper-grid-tile-footer}}
-        {{/paper-grid-tile}}
+          {{#tile.footer}}
+            <h3>{{dynamicTile.title}}</h3>
+          {{/tile.footer}}
+        {{/grid.tile}}
       {{/each}}
 
     {{/paper-grid-list}}
@@ -80,14 +82,15 @@
   {{! BEGIN-SNIPPET grid-list.responsive }}
   {{#paper-content class="md-whiteframe-z1 grid-list-demo-responsiveTiles" layout-padding=''}}
 
-    {{#paper-grid-list md-cols-gt-md="12" md-cols-sm="3" md-cols-md="8"
-      md-row-height-gt-md="1:1" md-row-height="4:3"
-      md-gutter-gt-md="16px" md-gutter-gt-sm="8px" md-gutter="4px"}}
+    {{#paper-grid-list
+      cols="3 md-8 gt-md-12"
+      rowHeight="4:3 gt-md-1:1"
+      gutter="4px md-8px gt-md-16px" as |grid|}}
 
       {{#each colorTiles as |tile|}}
 
-        {{#paper-grid-tile md-colspan-gt-sm=tile.colspan md-rowspan-gt-sm=tile.rowspan class=tile.style}}
-        {{/paper-grid-tile}}
+        {{#grid.tile colspan=tile.colspan rowspan=tile.rowspan class=tile.style}}
+        {{/grid.tile}}
 
       {{/each}}
     {{/paper-grid-list}}
