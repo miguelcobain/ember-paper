@@ -11,7 +11,8 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
   classNames: ['md-tab'],
   classNameBindings: ['isSelected:md-active'],
   attributeBindings: ['isSelected:aria-selected', 'href', 'style'],
-  accent: true,
+
+  rippleContainerSelector: null,
 
   // <a> tags have brower styles or are usually styled by the user
   // this makes sure that tab item still looks good with an anchor tag
@@ -39,10 +40,7 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
     let button = this.element;
     let { width } = button.getBoundingClientRect();
     let left = button.offsetLeft;
-    this.setProperties({
-      width,
-      left
-    });
+    this.setProperties({ width, left });
   },
 
   click() {
