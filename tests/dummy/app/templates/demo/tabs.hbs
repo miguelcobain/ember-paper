@@ -81,10 +81,10 @@
         {{#paper-content}}
           {{! BEGIN-SNIPPET routable-usage}}
           {{#paper-tabs borderBottom=true as |tabs|}}
-            {{#tabs.tab name="page-one" href="#/components/tabs/"}}
+            {{#tabs.tab name="page-one" href=(href-to "demo.tabs.index")}}
               Index
             {{/tabs.tab}}
-            {{#tabs.tab name="page-two" href="#/components/tabs/nested-route"}}
+            {{#tabs.tab name="page-two" href=(href-to "demo.tabs.nested-route")}}
               Nested Route
             {{/tabs.tab}}
           {{/paper-tabs}}
