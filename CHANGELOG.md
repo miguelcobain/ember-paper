@@ -27,6 +27,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
   and now you can specify responsive breakpoints in the same attribute.
   - see the docs for more information on the new usage
 - [#615](https://github.com/miguelcobain/ember-paper/pull/615) this fixes a problem with paper-chips on blur ([#611](https://github.com/miguelcobain/ember-paper/issues/611))
+- [d0e0b94](https://github.com/miguelcobain/ember-paper/commit/d0e0b948fa0fadbbab3151ba83b252dc955d525c) paper-item now accepts an `href` attribute. Hint: use `ember-href-to` addon to make paper-items that change routes. Same for buttons!
 
 ### 1.0.0-alpha.20 (June 26, 2017)
 - [#679](https://github.com/miguelcobain/ember-paper/issues/679) fix outline on paper-menu

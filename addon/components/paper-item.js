@@ -44,7 +44,7 @@ export default Component.extend(RippleMixin, ParentMixin, {
   hasProxiedComponent: computed.bool('proxiedComponents.length'),
   shouldBeClickable: computed.or('hasProxiedComponent', 'onClick'),
 
-  hasPrimaryAction: computed.notEmpty('onClick'),
+  hasPrimaryAction: computed.or('onClick', 'href'),
 
   noProxy: computed('hasPrimaryAction', 'hasProxiedComponent', function() {
     return !this.get('hasPrimaryAction') && !this.get('hasProxiedComponent');
