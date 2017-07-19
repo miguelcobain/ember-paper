@@ -9,5 +9,7 @@
       )}}
     </ul>
   </nav>
-  {{paper-nav-ink-bar class=(if movingRight "_md-right" "_md-left") left=inkBarLeft width=inkBarWidth}}
+  {{#unless noInkBar}}
+    {{paper-nav-ink-bar class=(if movingRight "_md-right" "_md-left") left=inkBarLeft width=inkBarWidth}}
+  {{/unless}}
 </div>

@@ -9,12 +9,11 @@
       {{/paper-toolbar-tools}}
     {{/paper-toolbar}}
     {{#paper-content class="md-padding"}}
-      testValue: {{testValue}}
       {{#paper-nav-bar
         selectedNavItem=selectedNavItem
         onChange=(action (mut selectedNavItem))
         as |nav|}}
-        {{#nav.item name="page-one" onClick=(action (mut testValue) true)}}
+        {{#nav.item name="page-one"}}
           Page One
         {{/nav.item}}
         {{#nav.item name="page-two"}}

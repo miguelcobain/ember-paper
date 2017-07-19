@@ -1,10 +1,15 @@
 {{#paper-button
   accent=true
+  disabled=disabled
   onClick=(action "onButtonClick")
   href=href
   class=(concat
     "_md-nav-button"
-    (if selected '' ' md-unselected')
+    (unless selected " md-unselected")
   )}}
-  {{yield}}
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
+    {{name}}
+  {{/if}}
 {{/paper-button}}

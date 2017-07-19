@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-nav-bar-item';
-
+import { ChildMixin } from 'ember-composability-tools';
 const { computed, Component } = Ember;
 
-export default Component.extend({
+export default Component.extend(ChildMixin, {
   layout,
   tagName: 'li',
   classNames: ['md-nav-item'],
@@ -11,7 +11,9 @@ export default Component.extend({
   ariaSelected: computed.reads('selected'),
 
   selected: computed('selectedNavItem', 'name', function() {
-    return this.get('selectedNavItem') === this.get('name');
+    if (this.get('selectedNavItem') !== undefined) {
+      return this.get('selectedNavItem') === this.get('name');
+    }
   }),
 
   didRender() {
