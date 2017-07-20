@@ -484,42 +484,41 @@ $colors: map-merge($colors,(
 ));
 
 $default-color: '500' !default;
+
+// returns color shade given a color palette name or a palette map
 @function color($color, $type: null) {
-  @if map-has-key($colors, $color) {
+  $curr_color: null;
+  // color is a string case
+  @if type-of($color) == 'string' and map-has-key($colors, $color) {
     $curr_color: map-get($colors, $color);
-
-    @if ($type == null) {
-      @if map-has-key($curr_color, 'default') {
-        $type: map-get($curr_color, 'default');
-      } @else {
-        $type: $default-color;
-      }
-    }
-
-    @if map-has-key($curr_color, $type) {
-      @return map-get($curr_color, $type);
-    }
   } @else {
-    @if map-has-key($color, $type) {
-      @return map-get($color, $type);
+    // color is a map
+    $curr_color: $color;
+  }
+
+  // if no type was provided:
+  //   - use 'default' key if present
+  //   - use '500' from $default-color
+  @if ($type == null) {
+    @if map-has-key($curr_color, 'default') {
+      $type: map-get($curr_color, 'default');
+    } @else {
+      $type: $default-color;
     }
   }
 
-  @warn 'Unknown `#{$type}` in $colors. `#{$color}`';
-  @return null;
+  @return map-get($curr_color, $type);
 }
 
 // returns the correct contrast color for the given color
 @function contrastColor($color, $type: null) {
   $curr_color: null;
   // color is a string case
-  @if map-has-key($colors, $color) {
+  @if type-of($color) == 'string' and map-has-key($colors, $color) {
     $curr_color: map-get($colors, $color);
   } @else {
     // color is a map
-    @if map-has-key($color, $type) {
-      $curr_color: map-get($color, $type);
-    }
+    $curr_color: $color;
   }
 
   // if no type was provided:
