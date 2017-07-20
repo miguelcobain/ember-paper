@@ -19,7 +19,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [#730](https://github.com/miguelcobain/ember-paper/pull/730) ready for fastboot 1.0
 - [#752](https://github.com/miguelcobain/ember-paper/pull/752) Tooltips are now available. Contrasts are now set correctly.
 - [#750](https://github.com/miguelcobain/ember-paper/pull/750) Toasts are now available.
-- [#753](https://github.com/miguelcobain/ember-paper/pull/753) Nav bar is now available. This feature essentially replaces tabs.
+- [#753](https://github.com/miguelcobain/ember-paper/pull/753) and [#755](https://github.com/miguelcobain/ember-paper/pull/755) Tabs are now available.
 - [#739](https://github.com/miguelcobain/ember-paper/pull/739) Grid list was updated:
   - now uses camelCased attributes, just like the rest of the project
   - uses contextual components api, i.e `{{#paper-grid-list as |grid|}}{{#grid.tile}}`.

@@ -6,11 +6,12 @@ const { computed, Component, String: { htmlSafe } } = Ember;
 export default Component.extend({
   layout,
 
-  tagName: 'md-nav-ink-bar',
+  tagName: 'md-ink-bar',
 
   attributeBindings: ['style'],
+  classNameBindings: ['movingRight:md-right:md-left'],
 
-  style: computed('left', 'width', function() {
-    return htmlSafe(`left: ${this.get('left')}px; width: ${this.get('width')}px;`);
+  style: computed('left', 'right', function() {
+    return htmlSafe(`left: ${this.get('left')}px; right: ${this.get('right')}px;`);
   })
 });
