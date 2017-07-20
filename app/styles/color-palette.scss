@@ -510,7 +510,7 @@ $default-color: '500' !default;
 }
 
 // returns the correct contrast color for the given color
-@function contrast($color, $type: null) {
+@function contrastColor($color, $type: null) {
   $curr_color: null;
   // color is a string case
   @if map-has-key($colors, $color) {

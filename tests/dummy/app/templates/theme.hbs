@@ -4,19 +4,39 @@
 <div class="doc-content">
   <h3>Color and the Palette</h3>
   <p>
-    <code>ember-paper</code> uses the same color palettes and palette names as Angular Material and <a href="https://material.google.com/style/color.html">Material Design</a>. Each pallete contains 14 shades/tints of the specified hue for use by components in diffierent situations. The definitive shade/tint is <code>'500'</code>. Specify the desired palette(s) prior to importing <code>ember-paper.scss</code>.
+    <code>ember-paper</code> uses the same color palettes and palette names as
+    Angular Material and <a href="https://material.google.com/style/color.html">Material Design</a>.
+    Each pallete contains 14 shades/tints of the specified hue for use by components
+    in diffierent situations. The definitive shade/tint is <code>'500'</code>.
+    Specify the desired palette(s) prior to importing <code>ember-paper.scss</code>.
   </p>
   {{code-snippet name="theme.import.scss"}}
   <h3>Overriding Variables</h3>
   <p>
-    Many of the sass variables are defined with <code>!default</code>. This allows a variable to be overridden by a previous definition. Make overrides prior to importing the file defining the variable.
+    Many of the sass variables are defined with <code>!default</code>.
+    This allows a variable to be overridden by a previous definition.
+    Make overrides prior to importing the file defining the variable.
   </p>
   <p>
-    You can modify the colors in the palette you are using for <code>$primary</code>, <code>$accent</code>, or <code>$warn</code>. You can also define an entirely new palette and specify it by a new name as the primary, accent, or warn color.
+    You can modify the colors in the palette you are using for <code>$primary</code>,
+    <code>$accent</code>, or <code>$warn</code>. You can also define an entirely
+    new palette and specify it by a new name as the primary, accent, or warn color.
   </p>
   <h3>Using theme colors in your custom SASS</h3>
   <p>
-    <code>ember-paper</code> provides the <code>color</code> sass function which looks-up the specified shade/tint from the specified palette and return the appropriate color.
+    <code>ember-paper</code> provides two sass functions that you can use to hook
+    more easily into the provided palettes:
+  </p>
+  <p>
+    <code>color($palette, $shade)</code> sass function takes a palette or palette name
+    and a shade/tint and returns its color. If no shade is specified, the default is
+    <code>'500'</code>.
+  </p>
+  <p>
+    <code>contrastColor($palette, $shade)</code> sass function works very similarly,
+    but returns the correct contrast color instead of the color itself. This is useful
+    for placing text on top of a color or whenever you need a color for legibility/contrast
+    purposes.
   </p>
   {{code-snippet name="theme.color-function.scss"}}
 </div>
