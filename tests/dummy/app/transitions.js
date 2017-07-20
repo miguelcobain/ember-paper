@@ -8,7 +8,7 @@ export default function() {
 
   this.transition(
     this.toValue((toValue, fromValue) => {
-      return toValue && fromValue && toValue > fromValue;
+      return toValue.tab > fromValue.tab;
     }),
     this.use('toLeft'),
     this.reverse('toRight')

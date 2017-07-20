@@ -22,10 +22,8 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
     }
   }),
 
-  isSelected: computed('selected', 'name', function() {
-    if (this.get('selected') !== undefined) {
-      return this.get('selected') === this.get('name');
-    }
+  isSelected: computed('selected', 'value', function() {
+    return this.get('selected') === this.get('value');
   }),
 
   init() {
@@ -37,9 +35,8 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
 
   didRender() {
     this._super(...arguments);
-    let button = this.element;
-    let { width } = button.getBoundingClientRect();
-    let left = button.offsetLeft;
+    let { width } = this.element.getBoundingClientRect();
+    let left = this.element.offsetLeft;
     this.setProperties({ width, left });
   },
 

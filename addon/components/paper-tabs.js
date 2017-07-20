@@ -12,14 +12,14 @@ export default Component.extend(ParentMixin, ColorMixin, {
   classNames: ['md-no-tab-content'],
   attributeBindings: ['borderBottom:md-border-bottom'],
 
-  selected: null, // key of item
+  selected: 0, // select first tab by default
 
-  _selectedTab: computed('childComponents.@each.name', 'selected', function() {
-    return this.get('childComponents').findBy('name', this.get('selected'));
+  _selectedTab: computed('childComponents.@each.value', 'selected', function() {
+    return this.get('childComponents').findBy('value', this.get('selected'));
   }),
 
-  _previousSelectedTab: computed('childComponents.@each.name', 'previousSelectedNavItem', function() {
-    return this.get('childComponents').findBy('name', this.get('previousSelected'));
+  _previousSelectedTab: computed('childComponents.@each.value', 'previousSelected', function() {
+    return this.get('childComponents').findBy('value', this.get('previousSelected'));
   }),
 
   noInkBar: false,
@@ -47,7 +47,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
     this._super(...arguments);
     if (this.get('selected') !== this.get('previousSelected')) {
       this.setMovingRight();
-      this.set('previousSelected', this.get('selectedNavItem'));
+      this.fixOffsetIfNeeded();
+      this.set('previousSelected', this.get('selected'));
     }
   },
 
@@ -77,9 +78,36 @@ export default Component.extend(ParentMixin, ColorMixin, {
     window.removeEventListener('orientationchange', this.updateCanvasWidth);
   },
 
+  registerChild(childComponent) {
+    this._super(...arguments);
+    // automatically set value if not manually set
+    if (childComponent.get('value') === undefined) {
+      let length = this.childComponents.get('length');
+      childComponent.set('value', length - 1);
+    }
+  },
+
   setMovingRight() {
     let movingRight = this.get('_previousSelectedTab.left') < this.get('_selectedTab.left');
     this.set('movingRight', movingRight);
+  },
+
+  fixOffsetIfNeeded() {
+    let canvasWidth = this.get('canvasWidth');
+    let currentOffset = this.get('currentOffset');
+
+    let tabRight = this.get('_selectedTab.left') + this.get('_selectedTab.width');
+    if (tabRight - currentOffset > canvasWidth) {
+      let newOffset = tabRight - canvasWidth;
+      this.set('currentOffset', newOffset);
+      this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
+    }
+
+    if (this.get('_selectedTab.left') < currentOffset) {
+      let newOffset = this.get('_selectedTab.left');
+      this.set('currentOffset', newOffset);
+      this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
+    }
   },
 
   currentOffset: 0,
@@ -113,9 +141,9 @@ export default Component.extend(ParentMixin, ColorMixin, {
     onChange(selected) {
       // support non DDAU scenario
       if (this.get('onChange')) {
-        this.sendAction('onChange', selected.get('name'));
+        this.sendAction('onChange', selected.get('value'));
       } else {
-        this.set('selected', selected.get('name'));
+        this.set('selected', selected.get('value'));
       }
     }
   }

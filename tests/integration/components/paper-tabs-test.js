@@ -6,30 +6,28 @@ moduleForComponent('paper-tabs', 'Integration | Component | paper tabs', {
   integration: true
 });
 
+test('default active tab is the first', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs as |tabs|}}
+      {{tabs.tab}}
+      {{tabs.tab}}
+      {{tabs.tab}}
+    {{/paper-tabs}}
+  `);
+
+  assert.ok(find('.md-tab:nth-child(1)').classList.contains('md-active'));
+});
+
 test('can set default selected tab', function(assert) {
   this.render(hbs`
-    {{#paper-tabs selected="two" as |tabs|}}
-      {{tabs.tab name="one"}}
-      {{tabs.tab name="two"}}
-      {{tabs.tab name="three"}}
+    {{#paper-tabs selected=1 as |tabs|}}
+      {{tabs.tab}}
+      {{tabs.tab}}
+      {{tabs.tab}}
     {{/paper-tabs}}
   `);
 
   assert.ok(find('.md-tab:nth-child(2)').classList.contains('md-active'));
-});
-
-test('blockless nav bar items render name prop', function(assert) {
-  this.render(hbs`
-    {{#paper-tabs as |tabs|}}
-      {{tabs.tab name="one"}}
-      {{tabs.tab name="two"}}
-      {{tabs.tab name="three"}}
-    {{/paper-tabs}}
-  `);
-
-  assert.ok(find('.md-tab:nth-child(1)').textContent, 'one');
-  assert.ok(find('.md-tab:nth-child(2)').textContent, 'two');
-  assert.ok(find('.md-tab:nth-child(3)').textContent, 'three');
 });
 
 test('block nav bar items renders block', function(assert) {
@@ -53,19 +51,19 @@ test('block nav bar items renders block', function(assert) {
 });
 
 test('can change selected tab using property', function(assert) {
-  this.selected = 'two';
+  this.selected = 1;
 
   this.render(hbs`
     {{#paper-tabs selected=selected as |tabs|}}
-      {{tabs.tab name="one"}}
-      {{tabs.tab name="two"}}
-      {{tabs.tab name="three"}}
+      {{tabs.tab}}
+      {{tabs.tab}}
+      {{tabs.tab}}
     {{/paper-tabs}}
   `);
 
   assert.ok(find('.md-tab:nth-child(2)').classList.contains('md-active'));
 
-  this.set('selected', 'three');
+  this.set('selected', 2);
 
   assert.ok(find('.md-tab:nth-child(3)').classList.contains('md-active'));
 
@@ -74,9 +72,9 @@ test('can change selected tab using property', function(assert) {
 test('clicking on a tab sets it to active', async function(assert) {
   this.render(hbs`
     {{#paper-tabs as |tabs|}}
-      {{tabs.tab name="one"}}
-      {{tabs.tab name="two"}}
-      {{tabs.tab name="three"}}
+      {{tabs.tab}}
+      {{tabs.tab}}
+      {{tabs.tab}}
     {{/paper-tabs}}
   `);
 
@@ -88,9 +86,9 @@ test('clicking on a tab sets it to active', async function(assert) {
 test('clicking on multiple tabs works', async function(assert) {
   this.render(hbs`
     {{#paper-tabs as |tabs|}}
-      {{tabs.tab name="one"}}
-      {{tabs.tab name="two"}}
-      {{tabs.tab name="three"}}
+      {{tabs.tab}}
+      {{tabs.tab}}
+      {{tabs.tab}}
     {{/paper-tabs}}
   `);
 
@@ -104,15 +102,15 @@ test('clicking on multiple tabs works', async function(assert) {
 test('onChange is triggered', async function(assert) {
   assert.expect(1);
 
-  this.onChange = (name) => {
-    assert.equal(name, 'two');
+  this.onChange = (index) => {
+    assert.equal(index, 1);
   };
 
   this.render(hbs`
     {{#paper-tabs onChange=onChange as |tabs|}}
-      {{tabs.tab name="one"}}
-      {{tabs.tab name="two"}}
-      {{tabs.tab name="three"}}
+      {{tabs.tab}}
+      {{tabs.tab}}
+      {{tabs.tab}}
     {{/paper-tabs}}
   `);
 
@@ -128,9 +126,9 @@ test('item onClick is triggered', async function(assert) {
 
   this.render(hbs`
     {{#paper-tabs onChange=onChange as |tabs|}}
-      {{tabs.tab name="one"}}
-      {{tabs.tab name="two"}}
-      {{tabs.tab name="three" onClick=onClick}}
+      {{tabs.tab}}
+      {{tabs.tab}}
+      {{tabs.tab onClick=onClick}}
     {{/paper-tabs}}
   `);
 
