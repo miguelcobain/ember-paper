@@ -163,11 +163,7 @@ test('click outside should not close dialog by default', function(assert) {
 });
 
 test('dialog shouldn\'t swallow click events', function(assert) {
-  assert.expect(3);
-
-  this.$().click(() => {
-    assert.ok(true, 'click event bubbled up');
-  });
+  assert.expect(2);
 
   this.render(hbs`
     {{#paper-dialog clickOutsideToClose=true}}
