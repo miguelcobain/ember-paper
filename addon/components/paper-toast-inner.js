@@ -18,7 +18,6 @@ export default Component.extend(TransitionMixin, {
   transitionName: 'ng',
 
   dragging: false,
-  _hammer: null,
 
   x: 0,
 
@@ -45,10 +44,10 @@ export default Component.extend(TransitionMixin, {
     containerManager.add(swipe);
     containerManager.add(pan);
     containerManager
-    .on('panstart', run.bind(this, this.dragStart))
-    .on('panmove', run.bind(this, this.drag))
-    .on('panend', run.bind(this, this.dragEnd))
-    .on('swiperight swipeleft', run.bind(this, this.dragEnd));
+      .on('panstart', run.bind(this, this.dragStart))
+      .on('panmove', run.bind(this, this.drag))
+      .on('panend', run.bind(this, this.dragEnd))
+      .on('swiperight swipeleft', run.bind(this, this.dragEnd));
     this._hammer = containerManager;
   },
 
