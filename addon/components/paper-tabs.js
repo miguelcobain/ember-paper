@@ -31,8 +31,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
     return this.get('_selectedTab.left') || 0;
   }),
 
-  inkBarRight: computed('wrapperWidth', '_selectedTab.width', 'inkBarLeft', function() {
-    return this.get('wrapperWidth') - this.get('inkBarLeft') - (this.get('_selectedTab.width') || 0);
+  inkBarRight: computed('wrapperWidth', '_selectedTab.currentWidth', 'inkBarLeft', function() {
+    return this.get('wrapperWidth') - this.get('inkBarLeft') - (this.get('_selectedTab.currentWidth') || 0);
   }),
 
   tabsWidth: computed('childComponents.@each.width', function() {
@@ -41,6 +41,14 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
   shouldPaginate: computed('canvasWidth', function() {
     return this.get('tabsWidth') > this.get('canvasWidth');
+  }),
+
+  shouldCenter: computed('shouldPaginate', 'center', function() {
+    return !this.get('shouldPaginate') && this.get('center');
+  }),
+
+  shouldStretch: computed('shouldPaginate', 'stretch', function() {
+    return !this.get('shouldPaginate') && this.get('stretch');
   }),
 
   didReceiveAttrs() {
@@ -58,6 +66,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
     let updateCanvasWidth = () => {
       let { width: canvasWidth } = this.element.querySelector('md-tabs-canvas').getBoundingClientRect();
       let { width: wrapperWidth } = this.element.querySelector('md-pagination-wrapper').getBoundingClientRect();
+      this.get('childComponents').invoke('updateDimensions');
       this.set('canvasWidth', canvasWidth);
       this.set('wrapperWidth', wrapperWidth);
     };
@@ -70,6 +79,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
   didRender() {
     this._super(...arguments);
     this.updateCanvasWidth();
+
   },
 
   willDestroyElement() {

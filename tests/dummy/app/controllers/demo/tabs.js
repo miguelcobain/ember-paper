@@ -9,6 +9,8 @@ const LOREM = `
 `;
 
 export default Controller.extend({
+  borderBottom: true,
+
   selectedBasicTab: 0,
 
   chapters: computed(function() {

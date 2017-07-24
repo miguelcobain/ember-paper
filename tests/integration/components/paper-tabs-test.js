@@ -187,3 +187,14 @@ test('using href renders anchor tags', function(assert) {
     assert.ok(t.hasAttribute('href'));
   });
 });
+
+test('using href renders anchor tags', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs center=true as |tabs|}}
+      {{tabs.tab}}
+    {{/paper-tabs}}
+  `);
+
+  assert.ok(find('md-tabs-canvas').classList.contains('md-center-tabs'));
+  assert.ok(find('md-pagination-wrapper').classList.contains('md-center-tabs'));
+});

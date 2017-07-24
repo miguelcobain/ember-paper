@@ -22,7 +22,9 @@
         {{#paper-content}}
           {{! BEGIN-SNIPPET basic-usage}}
           {{#paper-tabs
-            borderBottom=true
+            center=center
+            stretch=stretch
+            borderBottom=borderBottom
             selected=selectedBasicTab
             onChange=(action (mut selectedBasicTab)) as |tabs|}}
             {{#tabs.tab}}
@@ -53,6 +55,21 @@
           {{/liquid-bind}}
           {{! END-SNIPPET }}
         {{/paper-content}}
+        {{#paper-card-content}}
+
+          {{#paper-checkbox value=center onChange=(action (mut center))}}
+            Center tabs
+          {{/paper-checkbox}}
+
+          {{#paper-checkbox value=stretch onChange=(action (mut stretch))}}
+            Stretch tabs
+          {{/paper-checkbox}}
+
+          {{#paper-checkbox value=borderBottom onChange=(action (mut borderBottom))}}
+            Border bottom
+          {{/paper-checkbox}}
+
+        {{/paper-card-content}}
       </div>
       {{paper-divider}}
       {{#paper-card-content}}
