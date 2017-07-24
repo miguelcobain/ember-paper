@@ -9,7 +9,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
   layout,
   tagName: 'md-tabs',
 
-  classNames: ['md-no-tab-content'],
+  classNames: ['md-no-tab-content', 'md-default-theme'],
   attributeBindings: ['borderBottom:md-border-bottom'],
 
   selected: 0, // select first tab by default
