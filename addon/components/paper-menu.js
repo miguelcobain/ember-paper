@@ -55,11 +55,9 @@ export default BasicDropdownComponent.extend({
     return { left, top };
   }),
 
-  // EBD passes `dropdown` as options
-  // that var is `this` component itself
-  calculatePosition(trigger, dropdownEl, { dropdown }) {
-    let containerNode = dropdownEl;
-    let openMenuNode = dropdownEl.firstElementChild;
+  calculatePosition(trigger, content, destination, { dropdown }) {
+    let containerNode = content;
+    let openMenuNode = content.firstElementChild;
     let openMenuNodeRect = openMenuNode.getBoundingClientRect();
     let boundryNode = document.body;
     let boundryNodeRect = boundryNode.getBoundingClientRect();

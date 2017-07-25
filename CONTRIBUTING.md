@@ -94,12 +94,9 @@ If needed, run `npm install` to update `ember-cli-github-pages` to version `0.1.
 2. Build the `master` branch:
 ```bash
 checkout master
-mkdir release-1 # if the directory does not already exist
-ember github-pages:commit --message "Publish gh-pages for v1.0.0-alpha.0" --destination "release-1"
+ember github-pages:commit --message "Publish gh-pages for v1.0.0-beta.X"
 ```
 
-3. If the `0.2` branch needs building, repeat step 2 for `release-0-2`.
+3. Checkout branch `gh-pages` and confirm that you are satisfied.
 
-4. Checkout branch `gh-pages` and confirm that you are satisfied.
-
-5. Push `gh-pages` to github.
+4. Push `gh-pages` to github.

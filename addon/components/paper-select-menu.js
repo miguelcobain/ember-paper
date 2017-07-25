@@ -31,10 +31,8 @@ export default PaperMenu.extend({
 
   triggerComponent: 'paper-select-menu-trigger',
 
-  // EBD passes `dropdown` as options
-  // that var is `this` component itself
-  calculatePosition(trigger, dropdownEl, { dropdown }) {
-    let $dropdown = $(dropdownEl);
+  calculatePosition(trigger, content, destination, { dropdown }) {
+    let $dropdown = $(content);
     let opts = {
       target: $(trigger),
       parent: $('body'),

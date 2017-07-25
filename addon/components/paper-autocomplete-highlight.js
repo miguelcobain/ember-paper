@@ -13,7 +13,6 @@ const { Component, computed, String: { htmlSafe } } = Ember;
 export default Component.extend({
   layout,
   tagName: 'span',
-
   flags: '',
 
   highlight: computed('searchText', 'label', 'flags', function() {
@@ -29,7 +28,7 @@ export default Component.extend({
     if (!term) {
       return term;
     }
-    return term.replace(/[\\\^\$\*\+\?\.\(\)\|\{}\[\]]/g, '\\$&');
+    return term.replace(/[\\^$*+?.()|{}[\]]/g, '\\$&');
   },
 
   getRegExp(text, flags) {
@@ -41,7 +40,7 @@ export default Component.extend({
     if (flags.indexOf('$') >= 1) {
       str += '$';
     }
-    return new RegExp(this.sanitize(str), flags.replace(/[\$\^]/g, ''));
+    return new RegExp(this.sanitize(str), flags.replace(/[$^]/g, ''));
   }
 
 });

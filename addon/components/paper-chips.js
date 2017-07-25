@@ -80,8 +80,8 @@ export default Component.extend({
       }
     },
 
-    inputBlur() {
-      if (this.focusMovingTo('.ember-power-select-option')) {
+    inputBlur(_, event) {
+      if (this.focusMovingTo('.ember-power-select-option', event)) {
         // Focus has shifted to an item - don't mess with this event.
         return true;
       }
@@ -94,7 +94,7 @@ export default Component.extend({
 
       //this.closeAutocomplete();
 
-      if (!this.focusMovingTo('md-chips-wrap')) {
+      if (!this.focusMovingTo('md-chips-wrap', event)) {
         this.set('focusedElement', 'none');
       }
     },
@@ -103,8 +103,8 @@ export default Component.extend({
       this.set('focusedElement', 'chips');
     },
 
-    chipsBlur() {
-      if (!this.focusMovingTo(this.getInput())) {
+    chipsBlur(event) {
+      if (!this.focusMovingTo(this.getInput(), event)) {
         this.set('focusedElement', 'none');
       }
     },
@@ -230,7 +230,7 @@ export default Component.extend({
     return this.$('.md-chip-input-container input');
   },
 
-  focusMovingTo(selector) {
+  focusMovingTo(selector, event) {
     if (!isEmpty(event) && !isEmpty(event.relatedTarget) && this.$(event.relatedTarget).is(selector)) {
       return true;
     }
