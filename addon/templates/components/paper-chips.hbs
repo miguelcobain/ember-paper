@@ -1,5 +1,5 @@
 <md-chips-wrap
-  class="md-chips {{if (and (not readOnly) isFocused) "md-focused"}} {{unless readOnly "md-removable"}}"
+  class="md-chips {{if (and (not readOnly) isFocused) "md-focused"}} {{unless readOnly "md-removable"}} {{if readOnly "md-readonly"}}"
   tabindex="-1"
   onkeydown={{action "keyDown"}}
   onfocus={{action "chipsFocus"}}
