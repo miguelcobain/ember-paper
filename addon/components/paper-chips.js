@@ -127,7 +127,7 @@ export default Component.extend({
       event.stopPropagation();
 
       // If we have a valid chip index, make it active.
-      if (!isEmpty(index)) {
+      if (!isEmpty(index) && !this.get('readOnly')) {
         // Shift actual focus to wrap so that subsequent blur events work as expected.
         this.$('md-chips-wrap').focus();
 
