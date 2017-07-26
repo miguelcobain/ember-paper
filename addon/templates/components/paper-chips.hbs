@@ -4,7 +4,7 @@
   onkeydown={{action "keyDown"}}
   onfocus={{action "chipsFocus"}}
   onblur={{action "chipsBlur"}}>
-  {{#each content as |item index|}}
+  {{#each content key=keyProp as |item index|}}
     <md-chip class="md-chip md-default-theme {{if readOnly "md-readonly"}} {{if (eq activeChip index) "md-focused"}}">
       <div class="md-chip-content" tabindex="-1" aria-hidden="true">
         {{#if hasBlock}}

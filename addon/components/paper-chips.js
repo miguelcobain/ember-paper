@@ -9,6 +9,7 @@ export default Component.extend({
   classNames: ['md-default-theme'],
   activeChip: -1,
   focusedElement: 'none',
+  keyProp: null,
   isFocused: computed('focusedElement', function() {
     if (this.get('focusedElement') === 'none') {
       return false;
@@ -48,8 +49,8 @@ export default Component.extend({
           item[this.get('searchField')] = newItem;
         }
 
-        this.sendAction('addItem', item);
         this.set('newChipValue', '');
+        this.sendAction('addItem', item);
 
         if (isPresent(this.get('autocomplete'))) {
           // We have an autocomplete - reset it once it's closed itself.
