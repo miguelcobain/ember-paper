@@ -19,6 +19,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [8544228](https://github.com/miguelcobain/ember-paper/commit/854422819791dfbda205f5ab437887129f699db1) fix going to tabs next page
 - [25432c9](https://github.com/miguelcobain/ember-paper/commit/25432c965205eb2512019437507cf840e1f8265e) add `center` and `stretch` options to tabs
 - [#632](https://github.com/miguelcobain/ember-paper/pull/632) BUGFIX - chips: Don't explicitly close autocomplete on input blur
+- [#377](https://github.com/miguelcobain/ember-paper/issues/377) BUGFIX - progress-linear: decimal values resulted in buggy animation
 
 ### 1.0.0-beta.1 (July 20, 2017) - Chester Bennington release. RIP.
 - [#730](https://github.com/miguelcobain/ember-paper/pull/730) ready for fastboot 1.0
