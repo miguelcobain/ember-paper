@@ -3,7 +3,7 @@ import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
-const { computed, Component, String: { htmlSafe } } = Ember;
+const { computed, Component, String: { htmlSafe }, inject } = Ember;
 
 export default Component.extend(ParentMixin, ColorMixin, {
   layout,
@@ -11,6 +11,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
   classNames: ['md-no-tab-content', 'md-default-theme'],
   attributeBindings: ['borderBottom:md-border-bottom'],
+
+  constants: inject.service(),
 
   selected: 0, // select first tab by default
 
@@ -26,6 +28,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
   noInk: false,
   ariaLabel: null,
   previousInkBarPosition: 0,
+  stretch: 'sm',
 
   inkBarLeft: computed('_selectedTab.left', function() {
     return this.get('_selectedTab.left') || 0;
@@ -47,8 +50,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
     return !this.get('shouldPaginate') && this.get('center');
   }),
 
-  shouldStretch: computed('shouldPaginate', 'stretch', function() {
-    return !this.get('shouldPaginate') && this.get('stretch');
+  shouldStretch: computed('shouldPaginate', 'currentStretch', function() {
+    return !this.get('shouldPaginate') && this.get('currentStretch');
   }),
 
   didReceiveAttrs() {
@@ -64,11 +67,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
     this._super(...arguments);
 
     let updateCanvasWidth = () => {
-      let { width: canvasWidth } = this.element.querySelector('md-tabs-canvas').getBoundingClientRect();
-      let { width: wrapperWidth } = this.element.querySelector('md-pagination-wrapper').getBoundingClientRect();
-      this.get('childComponents').invoke('updateDimensions');
-      this.set('canvasWidth', canvasWidth);
-      this.set('wrapperWidth', wrapperWidth);
+      this.updateDimensions();
+      this.updateStretchTabs();
     };
 
     window.addEventListener('resize', updateCanvasWidth);
@@ -118,6 +118,30 @@ export default Component.extend(ParentMixin, ColorMixin, {
       this.set('currentOffset', newOffset);
       this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
     }
+  },
+
+  updateDimensions() {
+    let { width: canvasWidth } = this.element.querySelector('md-tabs-canvas').getBoundingClientRect();
+    let { width: wrapperWidth } = this.element.querySelector('md-pagination-wrapper').getBoundingClientRect();
+    this.get('childComponents').invoke('updateDimensions');
+    this.set('canvasWidth', canvasWidth);
+    this.set('wrapperWidth', wrapperWidth);
+  },
+
+  updateStretchTabs() {
+    let stretch = this.get('stretch');
+    let currentStretch;
+
+    // if `true` or `false` is specified, always/never "stretch tabs"
+    // otherwise proceed with normal matchMedia test
+    if (typeof stretch === 'boolean') {
+      currentStretch = stretch;
+    } else {
+      let mediaQuery = this.get('constants').MEDIA[stretch] || stretch;
+      currentStretch = window.matchMedia(mediaQuery).matches;
+    }
+
+    this.set('currentStretch', currentStretch);
   },
 
   currentOffset: 0,

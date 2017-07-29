@@ -172,6 +172,18 @@ test('borderBottom true adds border', function(assert) {
   assert.ok(find('md-tabs').hasAttribute('md-border-bottom'));
 });
 
+test('stretch true adds correct class', function(assert) {
+  this.render(hbs`
+    {{#paper-tabs stretch=true as |tabs|}}
+      {{tabs.tab}}
+      {{tabs.tab}}
+      {{tabs.tab}}
+    {{/paper-tabs}}
+  `);
+
+  assert.ok(find('md-tabs-wrapper').classList.contains('md-stretch-tabs'));
+});
+
 test('using href renders anchor tags', function(assert) {
   this.render(hbs`
     {{#paper-tabs as |tabs|}}
