@@ -20,24 +20,204 @@ $foreground-dark: (
   'shadow': none
 ) !default;
 
+$color-light-blue: (
+    '50' : #edf8f9,
+    '100' : #d1edf0,
+    '200' : #b3e1e6,
+    '300' : #94d4db,
+    '400' : #7dcbd4,
+    '500' : #66c2cc,
+    '600' : #5ebcc7,
+    '700' : #53b4c0,
+    '800' : #49acb9,
+    '900' : #389fad,
+    'A100' : #f9feff,
+    'A200' : #c6f8ff,
+    'A400' : #93f1ff,
+    'A700' : #7aeeff,
+    'contrastDefaultColor': $dark-contrast-color,
+    'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+    'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
+) !default;
+
+$color-blue: (
+    '50' : #e0f3f8,
+    '100' : #b3e2ed,
+    '200' : #80cfe1,
+    '300' : #4dbcd4,
+    '400' : #26adcb,
+    '500' : #009fc2,
+    '600' : #0097bc,
+    '700' : #008db4,
+    '800' : #0083ac,
+    '900' : #00729f,
+    'A100' : #c9eeff,
+    'A200' : #96ddff,
+    'A400' : #63ccff,
+    'A700' : #4ac4ff,
+    'contrastDefaultColor': $light-contrast-color,
+    'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+    'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
+) !default;
+
+$color-navy: (
+    '50' : #e5e5eb,
+    '100' : #bfbfce,
+    '200' : #9494ae,
+    '300' : #69698d,
+    '400' : #494974,
+    '500' : #29295c,
+    '600' : #242454,
+    '700' : #1f1f4a,
+    '800' : #191941,
+    '900' : #0f0f30,
+    'A100' : #6e6eff,
+    'A200' : #3b3bff,
+    'A400' : #0808ff,
+    'A700' : #0000ed,
+    'contrastDefaultColor': $light-contrast-color,
+    'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+    'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
+) !default;
+
 $color-red: (
-  '50': #ffebee,
-  '100': #ffcdd2,
-  '200': #ef9a9a,
-  '300': #e57373,
-  '400': #ef5350,
-  '500': #f44336,
-  '600': #e53935,
-  '700': #d32f2f,
-  '800': #c62828,
-  '900': #b71c1c,
-  'A100': #ff8a80,
-  'A200': #ff5252,
-  'A400': #ff1744,
-  'A700': #d50000,
-  'contrastDefaultColor': $light-contrast-color,
-  'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
-  'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
+    '50' : #f9e4e9,
+    '100' : #f0bbc8,
+    '200' : #e78da3,
+    '300' : #dd5f7e,
+    '400' : #d53d62,
+    '500' : #ce1b46,
+    '600' : #c9183f,
+    '700' : #c21437,
+    '800' : #bc102f,
+    '900' : #b00820,
+    'A100' : #ffdbdf,
+    'A200' : #ffa8b1,
+    'A400' : #ff7584,
+    'A700' : #ff5c6d,
+    'contrastDefaultColor': $light-contrast-color,
+    'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+    'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
+) !default;
+
+$color-light-grey: (
+    '50' : #fcfcfc,
+    '100' : #f8f8f8,
+    '200' : #f3f3f3,
+    '300' : #eeeeee,
+    '400' : #eaeaea,
+    '500' : #e6e6e6,
+    '600' : #e3e3e3,
+    '700' : #dfdfdf,
+    '800' : #dbdbdb,
+    '900' : #d5d5d5,
+    'A100' : #ffffff,
+    'A200' : #ffffff,
+    'A400' : #ffffff,
+    'A700' : #ffffff,
+    'contrastDefaultColor': $dark-contrast-color,
+    'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+    'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
+) !default;
+
+$color-grey: (
+    '50' : #f5f5f5,
+    '100' : #e6e6e6,
+    '200' : #d5d5d5,
+    '300' : #c4c4c4,
+    '400' : #b7b7b7,
+    '500' : #aaaaaa,
+    '600' : #a3a3a3,
+    '700' : #999999,
+    '800' : #909090,
+    '900' : #7f7f7f,
+    'A100' : #ffffff,
+    'A200' : #fbdddd,
+    'A400' : #ffa7a7,
+    'A700' : #ff8d8d,
+    'contrastDefaultColor': $light-contrast-color,
+    'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+    'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
+) !default;
+
+$color-dark-grey: (
+    '50' : #e7e7e7,
+    '100' : #c2c2c2,
+    '200' : #999999,
+    '300' : #707070,
+    '400' : #525252,
+    '500' : #333333,
+    '600' : #2e2e2e,
+    '700' : #272727,
+    '800' : #202020,
+    '900' : #141414,
+    'A100' : #ef6e6e,
+    'A200' : #ea4040,
+    'A400' : #f60000,
+    'A700' : #dd0000,
+    'contrastDefaultColor': $light-contrast-color,
+    'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+    'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
+) !default;
+
+$color-word-blue: (
+    '50' : #e7f0fd,
+    '100' : #c3d8fb,
+    '200' : #9bbff8,
+    '300' : #73a5f5,
+    '400' : #5591f2,
+    '500' : #377ef0,
+    '600' : #3176ee,
+    '700' : #2a6bec,
+    '800' : #2361e9,
+    '900' : #164ee5,
+    'A100' : #ffffff,
+    'A200' : #e2e9ff,
+    'A400' : #afc2ff,
+    'A700' : #96afff,
+    'contrastDefaultColor': $light-contrast-color,
+    'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+    'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
+) !default;
+
+$color-ppt-orange: (
+    '50' : #ffefe2,
+    '100' : #ffd7b6,
+    '200' : #ffbd85,
+    '300' : #ffa354,
+    '400' : #ff8f2f,
+    '500' : #ff7b0a,
+    '600' : #ff7309,
+    '700' : #ff6807,
+    '800' : #ff5e05,
+    '900' : #ff4b03,
+    'A100' : #ffffff,
+    'A200' : #fff5f2,
+    'A400' : #ffcebf,
+    'A700' : #ffbaa6,
+    'contrastDefaultColor': $light-contrast-color,
+    'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+    'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
+) !default;
+
+$color-excel-green: (
+    '50' : #eaf6e5,
+    '100' : #cbe9bf,
+    '200' : #a9da94,
+    '300' : #86cb69,
+    '400' : #6cc048,
+    '500' : #52b528,
+    '600' : #4bae24,
+    '700' : #41a51e,
+    '800' : #389d18,
+    '900' : #288d0f,
+    'A100' : #c9ffbe,
+    'A200' : #9eff8b,
+    'A400' : #74ff58,
+    'A700' : #5eff3f,
+    'contrastDefaultColor': $light-contrast-color,
+    'contrastDarkColors': ('50', '100', '200', '300', 'A100'),
+    'contrastStrongLightColors': ('400', '500', '600', '700', 'A200', 'A400', 'A700')
 ) !default;
 
 // Pink
@@ -130,29 +310,6 @@ $color-indigo: (
   'contrastDefaultColor': $light-contrast-color,
   'contrastDarkColors': ('50', '100', '200', 'A100'),
   'contrastStrongLightColors': ('300', '400', 'A200', 'A400')
-) !default;
-
-// Blue
-// ----------------------------
-
-$color-blue: (
-  '50': #e3f2fd,
-  '100': #bbdefb,
-  '200': #90caf9,
-  '300': #64b5f6,
-  '400': #42a5f5,
-  '500': #2196f3,
-  '600': #1e88e5,
-  '700': #1976d2,
-  '800': #1565c0,
-  '900': #0d47a1,
-  'A100': #82b1ff,
-  'A200': #448aff,
-  'A400': #2979ff,
-  'A700': #2962ff,
-  'contrastDefaultColor': $light-contrast-color,
-  'contrastDarkColors': ('50', '100', '200', '300', '400', 'A100'),
-  'contrastStrongLightColors': ('500', '600', '700', 'A200', 'A400', 'A700')
 ) !default;
 
 // Light Blue
@@ -403,27 +560,6 @@ $color-brown: (
   'contrastStrongLightColors': ('300', '400')
 ) !default;
 
-// Grey
-// ----------------------------
-$color-grey: (
-  '50': #fafafa,
-  '100': #f5f5f5,
-  '200': #eeeeee,
-  '300': #e0e0e0,
-  '400': #bdbdbd,
-  '500': #9e9e9e,
-  '600': #757575,
-  '700': #616161,
-  '800': #424242,
-  '900': #212121,
-  'A100': #ffffff,
-  'A200': #000000,
-  'A400': #303030,
-  'A700': #616161,
-  'contrastDefaultColor': $dark-contrast-color,
-  'contrastLightColors': ('600', '700', '800', '900', 'A200', 'A400', 'A700')
-) !default;
-
 // Blue Grey
 // ----------------------------
 $color-blue-grey: (
@@ -458,13 +594,21 @@ $background-light: map-merge($color-grey, (
 $colors: () !default;
 
 $colors: map-merge($colors,(
+  'light-blue': $color-light-blue,
+  'blue': $color-blue,
+  'navy': $color-navy,
   'red': $color-red,
+  'light-grey': $color-light-grey,
+  'grey': $color-grey,
+  'dark-grey': $color-dark-grey,
+  'word-blue': $color-word-blue,
+  'ppt-orange': $color-ppt-orange,
+  'excel-green': $color-excel-green,
+  ///////////// Material Defaults //////////////
   'pink': $color-pink,
   'purple': $color-purple,
   'deep-purple': $color-deep-purple,
   'indigo': $color-indigo,
-  'blue': $color-blue,
-  'light-blue': $color-light-blue,
   'cyan': $color-cyan,
   'teal': $color-teal,
   'green': $color-green,
@@ -476,7 +620,6 @@ $colors: map-merge($colors,(
   'deep-orange': $color-deep-orange,
   'brown': $color-brown,
   'blue-grey': $color-blue-grey,
-  'grey': $color-grey,
   'shades': $shades,
   'foreground-light': $foreground-light,
   'foreground-dark': $foreground-dark,
