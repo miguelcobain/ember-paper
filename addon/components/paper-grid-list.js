@@ -63,13 +63,14 @@ export default Component.extend(ParentMixin, {
 
       // Sets mediaList to a property so removeListener can access it
       this.set(`${listenerName}List`, mediaList);
+
       // Creates a function based on mediaName so that removeListener can remove it.
       this.set(listenerName, run.bind(this, (result) => {
         this._mediaDidChange(mediaName, result.matches);
       }));
 
-      // Calls '_mediaDidChange' once
-      this[listenerName](mediaList);
+      // Trigger initial grid calculations
+      this._mediaDidChange(mediaName, mediaList.matches);
 
       mediaList.addListener(this[listenerName]);
     }
@@ -85,23 +86,23 @@ export default Component.extend(ParentMixin, {
 
   _mediaDidChange(mediaName, matches) {
     this.set(mediaName, matches);
-    run.debounce(this, this._updateCurrentMedia, 50);
+
+    // Debounces until the next run loop
+    run.debounce(this, this._updateCurrentMedia, 0);
   },
 
   _updateCurrentMedia() {
     let mediaPriorities = this.get('constants.MEDIA_PRIORITY');
-    let currentMedia = mediaPriorities.filter((mediaName) => {
-      return this.get(mediaName);
-    });
+    let currentMedia = mediaPriorities.filter((mediaName) => this.get(mediaName));
     this.set('currentMedia', currentMedia);
     this.updateGrid();
   },
 
+  // Updates styles and triggers onUpdate callbacks
   updateGrid() {
     this.$().css(this._gridStyle());
-    this.get('tiles').forEach((tile) =>  {
-      tile.$().css(tile._tileStyle());
-    });
+    this.get('tiles').forEach((tile) => tile.updateTile());
+    this.sendAction('onUpdate');
   },
 
   _gridStyle() {
