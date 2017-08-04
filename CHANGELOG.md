@@ -15,6 +15,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
+### master
+- [#772](https://github.com/miguelcobain/ember-paper/pull/772) fix tabs ink-bar in dialogs
+
 ### 1.0.0-beta.2
 - [8544228](https://github.com/miguelcobain/ember-paper/commit/854422819791dfbda205f5ab437887129f699db1) fix going to tabs next page
 - [25432c9](https://github.com/miguelcobain/ember-paper/commit/25432c965205eb2512019437507cf840e1f8265e) and [13a0294](https://github.com/miguelcobain/ember-paper/commit/13a029427a14730d8d35a0c923d9fcf7362a0eb9) add `center` and `stretch` options to tabs. `stretch` can be a match media query.
