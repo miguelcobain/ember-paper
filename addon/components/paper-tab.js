@@ -35,7 +35,7 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
 
   didInsertElement() {
     this._super(...arguments);
-    let { width } = this.element.getBoundingClientRect();
+    let width = this.element.offsetWidth;
     // this is the initial tab width
     // it is used to calculate if we need pagination or not
     this.set('width', width);
