@@ -23,7 +23,7 @@
     {{/each}}
     {{#unless readOnly}}
       <div class="md-chip-input-container">
-        {{#paper-autocomplete closeOnSelect=true onBlur=(action "inputBlur") onSelectionChange=(action "autocompleteChange") onSearchTextChange=(action "searchTextChange") onFocus=(action "inputFocus") onOpen=(action "inputFocus") placeholder=placeholder options=options searchField=searchField as |item select|}}
+        {{#paper-autocomplete closeOnSelect=true onBlur=(action "inputBlur") onSelectionChange=(action "autocompleteChange") onSearchTextChange=(action "searchTextChange") onFocus=(action "inputFocus") onOpen=(action "inputFocus") placeholder=placeholder options=options searchField=searchField search=search matcher=matcher as |item select|}}
           <div class="md-contact-suggestion">
             <img src={{get item imageField}} alt={{get item nameField}} class="md-contact-avatar">
             <span class="md-contact-name">{{get item nameField}}</span>

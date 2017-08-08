@@ -121,8 +121,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
   },
 
   updateDimensions() {
-    let { width: canvasWidth } = this.element.querySelector('md-tabs-canvas').getBoundingClientRect();
-    let { width: wrapperWidth } = this.element.querySelector('md-pagination-wrapper').getBoundingClientRect();
+    let canvasWidth = this.element.querySelector('md-tabs-canvas').offsetWidth;
+    let wrapperWidth = this.element.querySelector('md-pagination-wrapper').offsetWidth;
     this.get('childComponents').invoke('updateDimensions');
     this.set('canvasWidth', canvasWidth);
     this.set('wrapperWidth', wrapperWidth);

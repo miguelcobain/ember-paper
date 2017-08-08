@@ -16,6 +16,9 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
 ### master
+- [#772](https://github.com/miguelcobain/ember-paper/pull/772) fix tabs ink-bar in dialogs
+
+### 1.0.0-beta.2
 - [8544228](https://github.com/miguelcobain/ember-paper/commit/854422819791dfbda205f5ab437887129f699db1) fix going to tabs next page
 - [25432c9](https://github.com/miguelcobain/ember-paper/commit/25432c965205eb2512019437507cf840e1f8265e) and [13a0294](https://github.com/miguelcobain/ember-paper/commit/13a029427a14730d8d35a0c923d9fcf7362a0eb9) add `center` and `stretch` options to tabs. `stretch` can be a match media query.
 - [#632](https://github.com/miguelcobain/ember-paper/pull/632) and [#623](https://github.com/miguelcobain/ember-paper/pull/623) BUGFIX - paper-chips:
@@ -24,7 +27,8 @@ Contributions and pull requests are always welcome. Contributors may often be fo
   - Adds the ability to click a chip to highlight it.
   - Adds the ability to click anywhere in the chips element to give the input focus.
   - Fixed issues with focus being left behind on autocomplete and contact chips elements.
-- [#377](https://github.com/miguelcobain/ember-paper/issues/377) BUGFIX - progress-linear: decimal values resulted in buggy animation
+- [#377](https://github.com/miguelcobain/ember-paper/issues/377) BUGFIX - `progress-linear`: decimal values resulted in buggy animation
+- [#770](https://github.com/miguelcobain/ember-paper/pull/770) Allow `paper-chips` and `paper-contact-chips` to have customizable search action and matcher.
 
 ### 1.0.0-beta.1 (July 20, 2017) - Chester Bennington release. RIP.
 - [#730](https://github.com/miguelcobain/ember-paper/pull/730) ready for fastboot 1.0
