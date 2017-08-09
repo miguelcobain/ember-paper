@@ -114,7 +114,7 @@ export default Component.extend(ColorMixin, {
     let newValue = clamp(this.get('value'), 0, 100);
     let newDisabled = this.get('disabled');
 
-    if (this.oldValue !== newValue) {
+    if (this.oldValue !== newValue && this.get('mode') === MODE_DETERMINATE) {
       // value changed
       this.startDeterminateAnimation(this.oldValue, newValue);
       this.oldValue = newValue;
