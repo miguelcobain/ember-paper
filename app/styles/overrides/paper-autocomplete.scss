@@ -3,3 +3,12 @@
   height: 225.5px;
   max-height: 225.5px;
 }
+
+md-autocomplete {
+  button.reset-button {
+    display: none;
+  }
+  &[disabled] input {
+    text-overflow: ellipsis;
+  }
+}
