@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import run from 'ember-runloop';
+import { clickTrigger, nativeClick } from '../../../tests/helpers/ember-basic-dropdown';
 import $ from 'jquery';
 
 moduleForComponent('paper-menu', 'Integration | Component | paper menu', {
@@ -31,7 +32,7 @@ function focus(el) {
   }
 }
 
-function nativeClick(selector, options = {}) {
+function nativeClick2(selector, options = {}) {
   let mousedown = new window.Event('mousedown', { bubbles: true, cancelable: true, view: window });
   let mouseup = new window.Event('mouseup', { bubbles: true, cancelable: true, view: window });
   let click = new window.Event('click', { bubbles: true, cancelable: true, view: window });
@@ -47,14 +48,12 @@ function nativeClick(selector, options = {}) {
   run(() => element.dispatchEvent(click));
 }
 
-function clickTrigger(scope, options = {}) {
+function clickTrigger2(scope, options = {}) {
   let selector = '.ember-basic-dropdown-trigger';
-  nativeClick(selector, options);
+  nativeClick2(selector, options);
 }
 
-test('opens on click', function(assert) {
-  assert.expect(1);
-  this.appRoot = document.querySelector('#ember-testing');
+test('opens on click', async function(assert) {
   this.render(hbs`{{#paper-menu as |menu|}}
     {{#menu.trigger}}
       {{#paper-button iconButton=true}}
@@ -68,22 +67,14 @@ test('opens on click', function(assert) {
     {{/menu.content}}
   {{/paper-menu}}`);
 
-  return wait().then(() => {
-    clickTrigger();
+  await wait();
 
-    return wait().then(() => {
-      let selectors = $('.md-open-menu-container');
-      assert.ok(selectors.length, 'opened menu');
-      return wait().then(() => {
+  await clickTrigger('md-menu');
 
-      });
-    });
-  });
+  assert.equal(document.querySelectorAll('.md-open-menu-container').length, 1, 'opened menu');
 });
 
-test('backdrop removed if menu closed', function(assert) {
-  assert.expect(2);
-  this.appRoot = document.querySelector('#ember-testing');
+test('backdrop removed if menu closed', async function(assert) {
   this.render(hbs`{{#paper-menu as |menu|}}
     {{#menu.trigger}}
       {{#paper-button iconButton=true}}
@@ -97,25 +88,18 @@ test('backdrop removed if menu closed', function(assert) {
     {{/menu.content}}
   {{/paper-menu}}`);
 
-  return wait().then(() => {
-    clickTrigger();
+  await wait();
 
-    return wait().then(() => {
+  await clickTrigger('md-menu');
 
-      let selectors = $('.md-open-menu-container');
-      assert.ok(selectors.length, 'opened menu');
-      clickTrigger();
-      return wait().then(() => {
-        let selector = $('.md-backdrop');
-        assert.ok(!selector.length, 'backdrop removed');
-      });
-    });
-  });
+  assert.equal(document.querySelectorAll('md-backdrop').length, 1, 'backdrop visible');
+
+  await clickTrigger('md-menu');
+
+  assert.equal(document.querySelectorAll('md-backdrop').length, 0, 'backdrop removed');
 });
 
-test('backdrop removed if backdrop clicked', function(assert) {
-  assert.expect(2);
-  this.appRoot = document.querySelector('#ember-testing');
+test('backdrop removed if backdrop clicked', async function(assert) {
   this.render(hbs`{{#paper-menu as |menu|}}
     {{#menu.trigger}}
       {{#paper-button iconButton=true}}
@@ -129,20 +113,15 @@ test('backdrop removed if backdrop clicked', function(assert) {
     {{/menu.content}}
   {{/paper-menu}}`);
 
-  return wait().then(() => {
-    clickTrigger();
+  await wait();
 
-    return wait().then(() => {
+  await clickTrigger('md-menu');
 
-      let selectors = $('.md-open-menu-container');
-      assert.ok(selectors.length, 'opened menu');
-      $('md-backdrop').click();
-      return wait().then(() => {
-        let selector = $('.md-backdrop');
-        assert.ok(!selector.length, 'backdrop removed');
-      });
-    });
-  });
+  assert.equal(document.querySelectorAll('md-backdrop').length, 1, 'backdrop visible');
+
+  await nativeClick('md-backdrop');
+
+  assert.equal(document.querySelectorAll('md-backdrop').length, 0, 'backdrop removed');
 });
 
 test('keydown changes focused element', function(assert) {
@@ -165,7 +144,7 @@ test('keydown changes focused element', function(assert) {
   {{/paper-menu}}`);
 
   return wait().then(() => {
-    clickTrigger();
+    clickTrigger2();
 
     return wait().then(() => {
 
