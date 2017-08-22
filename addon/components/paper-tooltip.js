@@ -1,9 +1,11 @@
 import Ember from 'ember';
 import layout from '../templates/components/paper-tooltip';
 import $ from 'jquery';
+import getParent from 'ember-paper/utils/get-parent';
 const { Component, computed, testing, run, String: { htmlSafe } } = Ember;
 
 export default Component.extend({
+  tagName: '',
   layout,
 
   position: 'bottom',
@@ -45,7 +47,7 @@ export default Component.extend({
     if (attachTo) {
       return $(attachTo).get(0);
     } else {
-      return this.element.parentNode;
+      return getParent(this);
     }
   }),
 

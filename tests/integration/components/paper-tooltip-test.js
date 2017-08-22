@@ -107,3 +107,19 @@ test('renders on bottom by default', async function(assert) {
   });
 });
 
+test('custom class is applied on md-tooltip element', async function(assert) {
+
+  this.render(hbs`
+    {{#paper-button}}
+      button
+      {{#paper-tooltip class="my-tooltip"}}
+        tooltip
+      {{/paper-tooltip}}
+    {{/paper-button}}
+  `);
+
+  await triggerEvent('.md-button', 'mouseenter');
+
+  assert.ok(find('md-tooltip').classList.contains('my-tooltip'));
+});
+
