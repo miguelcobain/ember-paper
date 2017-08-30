@@ -238,7 +238,7 @@ test('when has selection and searchText changed, the dropdown is shown with w/o 
 test('we can highlight search results for properties that aren\'t text', function(assert) {
   assert.expect(2);
 
-  this.set('items', [1, 2, 3, 4]);
+  this.set('items', ['1', '2', '3', '4']);
   this.set('selectedItem', 1);
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
