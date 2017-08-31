@@ -45,6 +45,7 @@
     "ember-href-to": "^1.13.0",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.3.0",
+    "ember-router-service-polyfill": "^1.0.1",
     "ember-source": "~2.14.0",
     "ember-transition-helper": "0.0.6",
     "eslint-plugin-ember-suave": "^1.0.0",

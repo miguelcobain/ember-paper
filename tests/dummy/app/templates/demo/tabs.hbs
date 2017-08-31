@@ -197,11 +197,11 @@
       <div class="doc-content-example">
         {{#paper-content}}
           {{! BEGIN-SNIPPET routable-usage}}
-          {{#paper-tabs borderBottom=true as |tabs|}}
-            {{#tabs.tab href=(href-to "demo.tabs.index")}}
+          {{#paper-tabs selected=currentRouteName borderBottom=true as |tabs|}}
+            {{#tabs.tab value="demo.tabs.index" href=(href-to "demo.tabs.index")}}
               Index
             {{/tabs.tab}}
-            {{#tabs.tab href=(href-to "demo.tabs.nested-route")}}
+            {{#tabs.tab value="demo.tabs.nested-route" href=(href-to "demo.tabs.nested-route")}}
               Nested Route
             {{/tabs.tab}}
           {{/paper-tabs}}
@@ -226,6 +226,10 @@
             urls for your routes. It plays really well with <code>paper-tabs</code>,
             <code>paper-buttons</code> and even <code>paper-item</code>s.
           </em>
+        </p>
+        <p>
+          <b>Hint:</b> use <code>ember-router-service-polyfill</code> addon to easily retrieve
+          the current route name, and passes it as the selected value to <code>paper-tabs</code>.
         </p>
       {{/paper-card-content}}
     {{/paper-card}}
