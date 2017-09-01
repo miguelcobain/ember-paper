@@ -1,0 +1,19 @@
+md-menu-content {
+  background-color: rgba(51, 51, 51, 0.95);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16), 0 3px 6px 0 rgba(0, 0, 0, 0.23);
+  padding-top:0;
+  padding-bottom:0;
+
+  md-icon.md-default-theme,
+  md-icon {
+    color: rgba(255, 255, 255, 1);
+  }
+  md-menu-item {
+    color: rgba(255, 255, 255, 1);
+
+    .md-button.md-default-theme:not([disabled]).md-focused,
+    .md-button:not([disabled]).md-focused {
+      background-color: rgba(0, 159, 194, 1);
+    }
+  }
+}
