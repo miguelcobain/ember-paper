@@ -3,3 +3,16 @@
   height: 225.5px;
   max-height: 225.5px;
 }
+
+.md-autocomplete-suggestions-container.md-default-theme,
+.md-autocomplete-suggestions-container {
+  background-color: rgba(51, 51, 51, 0.95);
+
+  .ember-power-select-option {
+    color:#fff;
+
+    &.selected {
+      background-color: #009fc2;
+    }
+  }
+}
