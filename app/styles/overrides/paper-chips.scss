@@ -7,16 +7,18 @@ md-chips.md-default-theme .md-chip,
 md-chip,
 .md-chip {
   background-color:rgba(255, 255, 255, 0);
-  border:1px solid #e6e6e6;
+  box-shadow:0 0 0 1px #e6e6e6;
 }
 .md-chips md-chip .md-chip-content,
 .md-chips .md-chip .md-chip-content {
   color:#333;
 }
-md-chips.md-default-theme md-chip.md-focused {
+md-chips.md-default-theme md-chip.md-focused,
+md-chips md-chip.md-focused {
   background-color: #009fc2;
 
-  .md-chip-content {
+  .md-chip-content,
+  .md-contact-name {
     color:#fff;
   }
 }
