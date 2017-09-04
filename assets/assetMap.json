@@ -1,10 +1,11 @@
 {
   "assets": {
-    "assets/dummy-fastboot.js": "assets/dummy-fastboot-c005ac26fea532a4ce414d75a0997b88.js",
-    "assets/dummy.css": "assets/dummy-a596673c8096c5a5cdcd8ea5e394ae01.css",
-    "assets/dummy.js": "assets/dummy-19631c9e1c20b8ff65e159817da7b822.js",
+    "assets/assetMap.json": "assets/assetMap.json",
+    "assets/dummy-fastboot.js": "assets/dummy-fastboot-79227cfae53af54d4330b2e960cd1956.js",
+    "assets/dummy.css": "assets/dummy-d07754501a220f535cac21c72fdf9dc4.css",
+    "assets/dummy.js": "assets/dummy-b82e9a634e077258500dd1e2424b586c.js",
     "assets/vendor.css": "assets/vendor-75f40878596e268f96dd0e4a24b078bb.css",
-    "assets/vendor.js": "assets/vendor-c873f6c940b7cdaa9d24d02eb37780ed.js",
+    "assets/vendor.js": "assets/vendor-9eebb174060a0ccc1ac2dd9df5318537.js",
     "ember-logo-original.png": "ember-logo-original-96cc57a28066aa60c12df89c146c07d5.png",
     "ember-logo-white.png": "ember-logo-white-955db9d87b940bf54a17bd1fa78d0713.png",
     "ember-logo.png": "ember-logo-f8c3883ec9c9fa6892bd30261fbd007e.png",
