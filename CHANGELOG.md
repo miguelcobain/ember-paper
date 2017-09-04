@@ -15,7 +15,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
-### master
+### 1.0.0-beta.3
 - [#802](https://github.com/miguelcobain/ember-paper/pull/802) allow icons to have tooltips.
 - [#772](https://github.com/miguelcobain/ember-paper/pull/772) fix tabs ink-bar in dialogs.
 - [db3b46c](https://github.com/miguelcobain/ember-paper/commit/db3b46cb3f7c6090b1fb5707c841a855fd5a4de5) paper-tooltip is now a tagless component and proxies `class` attributes to the tooltip element class.
