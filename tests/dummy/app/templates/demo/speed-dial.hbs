@@ -32,19 +32,19 @@
 
               {{#dial.actions as |actions|}}
                 {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action "dummy")}}
+                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
                     {{paper-icon "people"}}
                   {{/paper-button}}
                 {{/actions.action}}
 
                 {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action "dummy")}}
+                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
                     {{paper-icon "accessibility"}}
                   {{/paper-button}}
                 {{/actions.action}}
 
                 {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action "dummy")}}
+                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
                     {{paper-icon "check-circle"}}
                   {{/paper-button}}
                 {{/actions.action}}
@@ -135,19 +135,19 @@
 
               {{#dial.actions as |actions|}}
                 {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action "dummy")}}
+                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
                     {{paper-icon "people"}}
                   {{/paper-button}}
                 {{/actions.action}}
 
                 {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action "dummy")}}
+                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
                     {{paper-icon "accessibility"}}
                   {{/paper-button}}
                 {{/actions.action}}
 
                 {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action "dummy")}}
+                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
                     {{paper-icon "check-circle"}}
                   {{/paper-button}}
                 {{/actions.action}}
@@ -178,50 +178,18 @@
   </div>
 {{/doc-content}}
 
-{{!--
-{{#paper-speed-dial
-  animation=animation direction=direction
-  onMouseEnter=(action (mut open) true) onMouseLeave=(action (mut open) false)
-  open=open onToggle=(action (mut open)) as |dial|}}
-  {{#dial.trigger}}
-    {{#paper-button fab=true}}
-      {{paper-icon "menu"}}
-    {{/paper-button}}
-  {{/dial.trigger}}
+{{#if showDialog}}
+  {{#paper-dialog fullscreen=fullscreen onClose=(action (mut showDialog) false)}}
 
-  {{#dial.actions as |actions|}}
-    {{#actions.action}}
-      {{#paper-button mini=true onClick=(action "dummy")}}
-        {{paper-icon "people"}}
-      {{/paper-button}}
-    {{/actions.action}}
+    {{#paper-dialog-content}}
+      <h2 class="md-title">An action was clicked!</h2>
+      <p>Close this dialog and try another button.</p>
+    {{/paper-dialog-content}}
 
-    {{#actions.action}}
-      {{#paper-button mini=true onClick=(action "dummy")}}
-        {{paper-icon "accessibility"}}
-      {{/paper-button}}
-    {{/actions.action}}
+    {{#paper-dialog-actions class="layout-row"}}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action (mut showDialog) false)}}Okay!{{/paper-button}}
+    {{/paper-dialog-actions}}
 
-    {{#actions.action}}
-      {{#paper-button mini=true onClick=(action "dummy")}}
-        {{paper-icon "check-circle"}}
-      {{/paper-button}}
-    {{/actions.action}}
-  {{/dial.actions}}
-{{/paper-speed-dial}}
-
-{{#paper-radio-group groupValue=animation onChange=(action (mut animation)) as |group|}}
-  {{#group.radio value="fling"}}Fling{{/group.radio}}
-  {{#group.radio value="scale"}}Scale{{/group.radio}}
-{{/paper-radio-group}}
-
-{{#paper-radio-group groupValue=direction onChange=(action (mut direction)) as |group|}}
-  {{#group.radio value="up"}}Up{{/group.radio}}
-  {{#group.radio value="down"}}Down{{/group.radio}}
-  {{#group.radio value="left"}}Left{{/group.radio}}
-  {{#group.radio value="right"}}Right{{/group.radio}}
-{{/paper-radio-group}}
-
-{{#paper-checkbox value=open onChange=(action (mut open))}}
-  open
-{{/paper-checkbox}}--}}
+  {{/paper-dialog}}
+{{/if}}
