@@ -2,17 +2,27 @@
 md-chips {
   font-size:14px;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 md-chips.md-default-theme md-chip,
 md-chips.md-default-theme .md-chip,
 md-chip,
 .md-chip {
   background-color:rgba(255, 255, 255, 0);
+<<<<<<< HEAD
   box-shadow:0 0 0 1px #e6e6e6;
+=======
+  box-shadow:0px 0px 5px 0px rgba(0, 0, 0, .25);
+  border:1px solid rgba(0, 0, 0, .20);
+>>>>>>> master
 }
 .md-chips md-chip .md-chip-content,
 .md-chips .md-chip .md-chip-content {
   color:#333;
 }
+<<<<<<< HEAD
 md-chips.md-default-theme md-chip.md-focused,
 md-chips md-chip.md-focused {
   background-color: #009fc2;
@@ -22,3 +32,5 @@ md-chips md-chip.md-focused {
     color:#fff;
   }
 }
+=======
+>>>>>>> master
