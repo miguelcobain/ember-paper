@@ -1,0 +1,144 @@
+$sidenav-mobile-width: 320px !default;
+$sidenav-desktop-width: 400px !default;
+$sidenav-min-space: 56px !default;
+
+md-sidenav {
+  box-sizing: border-box;
+  position: absolute;
+  flex-direction: column;
+  z-index: $z-index-sidenav;
+
+  width: $sidenav-mobile-width;
+  max-width: $sidenav-mobile-width;
+  bottom: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  ul {
+    list-style: none;
+  }
+
+  // Animation Comment Syntax: [mdLockedOpen]|[mdClosed]
+  // mdLockedOpen states: unlocked, locked, any
+  // mdClosed states: open, closed, any
+  // Default state: unlocked|open
+
+  // unlocked|closed
+  &.md-closed {
+    display: none;
+  }
+
+  // any|open <=> any|closed
+  &.md-closed-add,
+  &.md-closed-remove {
+    display: flex;
+    transition: 0.2s ease-in all;
+  }
+
+  // any|open <=> any|closed (animating)
+  &.md-closed-add.md-closed-add-active,
+  &.md-closed-remove.md-closed-remove-active {
+    transition: $swift-ease-out;
+  }
+
+  // unlocked|any <=> locked|any
+  &.md-locked-open-add,
+  &.md-locked-open-remove {
+    position: static;
+    display: flex;
+    transform: translate3d(0, 0, 0);
+  }
+
+  // locked|any
+  &.md-locked-open,
+  &.md-locked-open.md-closed,
+  &.md-locked-open.md-closed.md-sidenav-left,
+  &.md-locked-open.md-closed.md-sidenav-right {
+    position: static;
+    display: flex;
+    transform: translate3d(0, 0, 0);
+  }
+
+  // locked|closed => unlock|closed
+  &.md-locked-open-remove.md-closed {
+    position: static;
+    display: flex;
+    transform: translate3d(0, 0, 0);
+  }
+
+  // unlocked|closed => locked|closed
+  &.md-closed.md-locked-open-add {
+    position: static;
+    display: flex;
+    transform: translate3d(0%, 0, 0);
+  }
+
+  // unlocked|closed => locked|closed (pre-animation)
+  &.md-closed.md-locked-open-add:not(.md-locked-open-add-active) {
+    transition: width $swift-ease-in-duration $swift-ease-in-timing-function,
+                min-width $swift-ease-in-duration $swift-ease-in-timing-function;
+    width: 0 !important;
+    min-width: 0 !important;
+  }
+
+  // unlocked|closed => locked|closed (animating)
+  &.md-closed.md-locked-open-add-active {
+    transition: width $swift-ease-in-duration $swift-ease-in-timing-function,
+                min-width $swift-ease-in-duration $swift-ease-in-timing-function;
+  }
+
+  // locked|any => unlocked|any (animating)
+  &.md-locked-open-remove-active {
+    transition: width $swift-ease-in-duration $swift-ease-in-timing-function,
+                min-width $swift-ease-in-duration $swift-ease-in-timing-function;
+    width: 0 !important;
+    min-width: 0 !important;
+  }
+
+  @extend .md-sidenav-left;
+}
+.md-sidenav-backdrop.md-locked-open {
+  display: none;
+}
+
+.md-sidenav-left {
+  left: 0;
+  top: 0;
+  transform: translate3d(0%, 0, 0);
+  &.md-closed {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.md-sidenav-right {
+  left: 100%;
+  top: 0;
+  transform: translate(-100%, 0);
+  &.md-closed {
+    transform: translate(0%, 0);
+  }
+}
+
+@media (min-width: $layout-breakpoint-xs) {
+  md-sidenav {
+    max-width: $sidenav-desktop-width;
+  }
+}
+
+@media (max-width: $sidenav-desktop-width + $sidenav-min-space) {
+  md-sidenav {
+    width: calc(100% - #{$sidenav-min-space});
+    min-width: calc(100% - #{$sidenav-min-space});
+    max-width: calc(100% - #{$sidenav-min-space});
+  }
+}
+
+// IE Only
+@media screen and (-ms-high-contrast: active) {
+  .md-sidenav-left {
+    border-right: 1px solid #fff;
+  }
+  .md-sidenav-right {
+    border-left: 1px solid #fff;
+  }
+}
