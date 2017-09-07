@@ -1,0 +1,127 @@
+@mixin md-tab-primary {
+  > md-tabs-wrapper {
+    background-color: '{{primary-color}}';
+    > md-tabs-canvas {
+      > md-pagination-wrapper {
+        > md-tab-item:not([disabled]) {
+          &, md-icon {
+            color: '{{primary-100}}';
+          }
+          &.md-active, &.md-focused {
+            &, md-icon {
+              color: '{{primary-contrast}}';
+            }
+          }
+          &.md-focused {
+            background: '{{primary-contrast-0.1}}';
+          }
+        }
+      }
+    }
+  }
+}
+@mixin md-tab-warn {
+  > md-tabs-wrapper {
+    background-color: '{{warn-color}}';
+    > md-tabs-canvas {
+      > md-pagination-wrapper {
+        > md-tab-item:not([disabled]) {
+          &, md-icon {
+            color: '{{warn-100}}';
+          }
+          &.md-active, &.md-focused {
+            &, md-icon {
+              color: '{{warn-contrast}}';
+            }
+          }
+          &.md-focused {
+            background: '{{warn-contrast-0.1}}';
+          }
+        }
+      }
+    }
+  }
+}
+@mixin md-tab-accent {
+  > md-tabs-wrapper {
+    background-color: '{{accent-color}}';
+    > md-tabs-canvas {
+      > md-pagination-wrapper {
+        > md-tab-item:not([disabled]) {
+          &, md-icon {
+            color: '{{accent-A100}}';
+          }
+          &.md-active, &.md-focused {
+            &, md-icon {
+              color: '{{accent-contrast}}';
+            }
+          }
+          &.md-focused {
+            background: '{{accent-contrast-0.1}}';
+          }
+        }
+        > md-ink-bar {
+          color: '{{primary-600-1}}';
+          background: '{{primary-600-1}}';
+        }
+      }
+    }
+  }
+
+}
+md-tabs.md-THEME_NAME-theme {
+  md-tabs-wrapper {
+    background-color: transparent;
+    border-color: '{{foreground-4}}';
+  }
+  .md-paginator md-icon {
+    color: '{{primary-color}}';
+  }
+
+  md-ink-bar {
+    color: '{{accent-color}}';
+    background: '{{accent-color}}';
+  }
+
+  .md-tab {
+    color: '{{foreground-2}}';
+    &[disabled] {
+      &, md-icon {
+        color: '{{foreground-3}}';
+      }
+    }
+    &.md-active, &.md-focused {
+      &, md-icon {
+        color: '{{primary-color}}';
+      }
+    }
+    &.md-focused {
+      background: '{{primary-color-0.1}}';
+    }
+    .md-ripple-container {
+      color: '{{accent-A100}}';
+    }
+  }
+
+  &.md-accent {
+    @include md-tab-accent();
+  }
+
+  &.md-primary {
+    @include md-tab-primary();
+  }
+
+  &.md-warn {
+    @include md-tab-warn();
+  }
+}
+
+md-toolbar > md-tabs.md-THEME_NAME-theme {
+  @include md-tab-primary();
+}
+md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme {
+  @include md-tab-accent();
+}
+md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme {
+  @include md-tab-warn();
+}

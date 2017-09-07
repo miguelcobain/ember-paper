@@ -1,0 +1,163 @@
+md-input-container {
+
+  // The asterisk of the select should always use the warn color.
+  md-select.md-THEME_NAME-theme .md-select-value {
+    span:first-child:after {
+      color: '{{warn-A700}}'
+    }
+  }
+
+  // When the select is blurred and not invalid then the asterisk should use the foreground color.
+  &:not(.md-input-focused):not(.md-input-invalid) {
+    md-select.md-THEME_NAME-theme .md-select-value {
+      span:first-child:after {
+        color: '{{foreground-3}}';
+      }
+    }
+  }
+
+  &.md-input-focused:not(.md-input-has-value) {
+    md-select.md-THEME_NAME-theme .md-select-value {
+      color: '{{primary-color}}';
+
+      &.md-select-placeholder {
+        color: '{{primary-color}}';
+      }
+    }
+  }
+
+  &.md-input-invalid {
+    md-select.md-THEME_NAME-theme .md-select-value {
+      color: '{{warn-A700}}' !important;
+      border-bottom-color: '{{warn-A700}}' !important;
+    }
+
+    md-select.md-THEME_NAME-theme.md-no-underline .md-select-value {
+      border-bottom-color: transparent !important;
+    }
+  }
+
+}
+
+md-select.md-THEME_NAME-theme {
+  &[disabled] .md-select-value {
+    border-bottom-color: transparent;
+    background-image: linear-gradient(to right, '{{foreground-3}}' 0%, '{{foreground-3}}' 33%, transparent 0%);
+    background-image: -ms-linear-gradient(left, transparent 0%, '{{foreground-3}}' 100%);
+  }
+
+  .md-select-value {
+    border-bottom-color: '{{foreground-4}}';
+
+    &.md-select-placeholder {
+      color: '{{foreground-3}}';
+    }
+
+    span:first-child:after {
+      color: '{{warn-A700}}'
+    }
+  }
+
+  &.md-no-underline .md-select-value {
+    border-bottom-color: transparent !important;
+  }
+
+  &.ng-invalid.ng-touched {
+    .md-select-value {
+      color: '{{warn-A700}}' !important;
+      border-bottom-color: '{{warn-A700}}' !important;
+    }
+
+    &.md-no-underline .md-select-value {
+      border-bottom-color: transparent !important;
+    }
+  }
+
+  &:not([disabled]):focus {
+    .md-select-value {
+      border-bottom-color: '{{primary-color}}';
+      color: '{{ foreground-1 }}';
+      &.md-select-placeholder {
+        color: '{{ foreground-1 }}';
+      }
+    }
+
+    &.md-no-underline .md-select-value {
+      border-bottom-color: transparent !important;
+    }
+
+    &.md-accent .md-select-value {
+      border-bottom-color: '{{accent-color}}';
+    }
+
+    &.md-warn .md-select-value {
+      border-bottom-color: '{{warn-color}}';
+    }
+  }
+
+  &[disabled] {
+    .md-select-value {
+      color: '{{foreground-3}}';
+
+      &.md-select-placeholder {
+        color: '{{foreground-3}}';
+      }
+    }
+
+    .md-select-icon {
+      color: '{{foreground-3}}';
+    }
+  }
+
+  .md-select-icon {
+    color: '{{foreground-2}}';
+  }
+}
+
+md-select-menu.md-THEME_NAME-theme {
+  md-content {
+    background: '{{background-A100}}';
+
+    md-optgroup {
+      color: '{{background-600-0.87}}';
+    }
+
+    md-option {
+      color: '{{background-900-0.87}}';
+
+      &[disabled] {
+        .md-text {
+          color: '{{background-400-0.87}}';
+        }
+      }
+
+      &:not([disabled]) {
+        &:focus,
+        &:hover {
+          background: '{{background-200}}'
+        }
+      }
+
+      &[selected] {
+        color: '{{primary-500}}';
+        &:focus {
+          color: '{{primary-600}}';
+        }
+        &.md-accent {
+          color: '{{accent-color}}';
+          &:focus {
+            color: '{{accent-A700}}';
+          }
+        }
+      }
+    }
+  }
+}
+
+.md-checkbox-enabled.md-THEME_NAME-theme {
+  @include checkbox-primary('[selected]');
+
+  md-option .md-text {
+    color: '{{background-900-0.87}}';
+  }
+}
