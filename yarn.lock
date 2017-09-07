@@ -190,19 +190,9 @@ amd-name-resolver@0.0.7:
   dependencies:
     ensure-posix-path "^1.0.1"
 
-amd-name-resolver@0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/amd-name-resolver/-/amd-name-resolver-0.0.7.tgz#814301adfe8a2f109f6e84d5e935196efb669615"
-  dependencies:
-    ensure-posix-path "^1.0.1"
-
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
-
-"angular-material-source@git+ssh://git@github.com/angular/material.git#1.1.4":
-  version "1.1.4"
-  resolved "git+ssh://git@github.com/angular/material.git#861ac903110e5ccfb708b50002bdc9d5e64f95da"
 
 ansi-escapes@^1.1.0:
   version "1.4.0"
@@ -352,14 +342,6 @@ ast-types@0.8.12:
   version "0.8.12"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/ast-types/-/ast-types-0.8.12.tgz#a0d90e4351bb887716c83fd637ebf818af4adfcc"
 
-ast-types@0.8.15:
-  version "0.8.15"
-  resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/ast-types/-/ast-types-0.8.15.tgz#8eef0827f04dff0ec8857ba925abe3fea6194e52"
-
-ast-types@0.8.15:
-  version "0.8.15"
-  resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.8.15.tgz#8eef0827f04dff0ec8857ba925abe3fea6194e52"
-
 ast-types@0.9.6:
   version "0.9.6"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/ast-types/-/ast-types-0.9.6.tgz#102c9e9e9005d3e7e3829bf0c4fa24ee862ee9b9"
@@ -416,14 +398,14 @@ asynckit@^0.4.0:
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
 autoprefixer@^7.0.0:
-  version "7.1.3"
-  resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/autoprefixer/-/autoprefixer-7.1.3.tgz#0e8d337976d6f13644db9f8813b4c42f3d1ccc34"
+  version "7.1.4"
+  resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/autoprefixer/-/autoprefixer-7.1.4.tgz#960847dbaa4016bc8e8e52ec891cbf8f1257a748"
   dependencies:
     browserslist "^2.4.0"
-    caniuse-lite "^1.0.30000718"
+    caniuse-lite "^1.0.30000726"
     normalize-range "^0.1.2"
     num2fraction "^1.2.2"
-    postcss "^6.0.10"
+    postcss "^6.0.11"
     postcss-value-parser "^3.2.3"
 
 aws-sign2@~0.6.0:
@@ -1742,7 +1724,7 @@ can-symlink@^1.0.0:
   dependencies:
     tmp "0.0.28"
 
-caniuse-lite@^1.0.30000718:
+caniuse-lite@^1.0.30000718, caniuse-lite@^1.0.30000726:
   version "1.0.30000726"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/caniuse-lite/-/caniuse-lite-1.0.30000726.tgz#966a753fa107a09d4131cf8b3d616723a06ccf7e"
 
@@ -2359,8 +2341,8 @@ ee-first@1.1.1:
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
 electron-to-chromium@^1.3.18:
-  version "1.3.20"
-  resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/electron-to-chromium/-/electron-to-chromium-1.3.20.tgz#2eedd5ccbae7ddc557f68ad1fce9c172e915e4e5"
+  version "1.3.21"
+  resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/electron-to-chromium/-/electron-to-chromium-1.3.21.tgz#a967ebdcfe8ed0083fc244d1894022a8e8113ea2"
 
 ember-ajax@^3.0.0:
   version "3.0.0"
@@ -2958,7 +2940,7 @@ ember-router-generator@^1.0.0:
 
 ember-router-service-polyfill@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ember-router-service-polyfill/-/ember-router-service-polyfill-1.0.1.tgz#a04d3d84c4bb6927e8438d367d9e40dfd40646f6"
+  resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/ember-router-service-polyfill/-/ember-router-service-polyfill-1.0.1.tgz#a04d3d84c4bb6927e8438d367d9e40dfd40646f6"
   dependencies:
     ember-cli-babel "^6.0.0"
 
@@ -3832,7 +3814,7 @@ glob-parent@^2.0.0:
   dependencies:
     is-glob "^2.0.0"
 
-glob@7.1.1:
+glob@7.1.1, glob@^7.0.4, glob@^7.0.5:
   version "7.1.1"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/glob/-/glob-7.1.1.tgz#805211df04faaf1c63a3600306cdf5ade50b2ec8"
   dependencies:
@@ -3862,7 +3844,7 @@ glob@^5.0.10, glob@^5.0.15:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.0.0, glob@^7.0.3, glob@^7.0.4, glob@^7.0.5, glob@^7.1.2, glob@~7.1.1:
+glob@^7.0.0, glob@^7.0.3, glob@^7.1.2, glob@~7.1.1:
   version "7.1.2"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
   dependencies:
@@ -4478,10 +4460,6 @@ jsesc@~0.3.x:
   version "0.3.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/jsesc/-/jsesc-0.3.0.tgz#1bf5ee63b4539fe2e26d0c1e99c240b97a457972"
 
-jsesc@~0.3.x:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.3.0.tgz#1bf5ee63b4539fe2e26d0c1e99c240b97a457972"
-
 jsesc@~0.5.0:
   version "0.5.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
@@ -4689,32 +4667,6 @@ lodash._basecreatewrapper@~2.3.0:
     lodash._slice "~2.3.0"
     lodash.isobject "~2.3.0"
 
-lodash._basecreate@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash._basecreate/-/lodash._basecreate-2.3.0.tgz#9b88a86a4dcff7b7f3c61d83a2fcfc0671ec9de0"
-  dependencies:
-    lodash._renative "~2.3.0"
-    lodash.isobject "~2.3.0"
-    lodash.noop "~2.3.0"
-
-lodash._basecreatecallback@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash._basecreatecallback/-/lodash._basecreatecallback-2.3.0.tgz#37b2ab17591a339e988db3259fcd46019d7ac362"
-  dependencies:
-    lodash._setbinddata "~2.3.0"
-    lodash.bind "~2.3.0"
-    lodash.identity "~2.3.0"
-    lodash.support "~2.3.0"
-
-lodash._basecreatewrapper@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash._basecreatewrapper/-/lodash._basecreatewrapper-2.3.0.tgz#aa0c61ad96044c3933376131483a9759c3651247"
-  dependencies:
-    lodash._basecreate "~2.3.0"
-    lodash._setbinddata "~2.3.0"
-    lodash._slice "~2.3.0"
-    lodash.isobject "~2.3.0"
-
 lodash._baseflatten@^3.0.0:
   version "3.1.4"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash._baseflatten/-/lodash._baseflatten-3.1.4.tgz#0770ff80131af6e34f3b511796a7ba5214e65ff7"
@@ -4760,10 +4712,6 @@ lodash._htmlescapes@~2.3.0:
   version "2.3.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash._htmlescapes/-/lodash._htmlescapes-2.3.0.tgz#1ca98863cadf1fa1d82c84f35f31e40556a04f3a"
 
-lodash._htmlescapes@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash._htmlescapes/-/lodash._htmlescapes-2.3.0.tgz#1ca98863cadf1fa1d82c84f35f31e40556a04f3a"
-
 lodash._isiterateecall@^3.0.0:
   version "3.0.9"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash._isiterateecall/-/lodash._isiterateecall-3.0.9.tgz#5203ad7ba425fae842460e696db9cf3e6aac057c"
@@ -4775,14 +4723,6 @@ lodash._objecttypes@~2.3.0:
 lodash._reinterpolate@~2.3.0:
   version "2.3.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash._reinterpolate/-/lodash._reinterpolate-2.3.0.tgz#03ee9d85c0e55cbd590d71608a295bdda51128ec"
-
-lodash._objecttypes@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash._objecttypes/-/lodash._objecttypes-2.3.0.tgz#6a3ea3987dd6eeb8021b2d5c9c303549cc2bae1e"
-
-lodash._reinterpolate@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-2.3.0.tgz#03ee9d85c0e55cbd590d71608a295bdda51128ec"
 
 lodash._reinterpolate@~3.0.0:
   version "3.0.0"
@@ -4816,34 +4756,6 @@ lodash._slice@~2.3.0:
   version "2.3.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash._slice/-/lodash._slice-2.3.0.tgz#147198132859972e4680ca29a5992c855669aa5c"
 
-lodash._renative@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash._renative/-/lodash._renative-2.3.0.tgz#77d8edd4ced26dd5971f9e15a5f772e4e317fbd3"
-
-lodash._reunescapedhtml@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash._reunescapedhtml/-/lodash._reunescapedhtml-2.3.0.tgz#db920b55ac7f3ff825939aceb9ba2c231713d24d"
-  dependencies:
-    lodash._htmlescapes "~2.3.0"
-    lodash.keys "~2.3.0"
-
-lodash._setbinddata@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash._setbinddata/-/lodash._setbinddata-2.3.0.tgz#e5610490acd13277d59858d95b5f2727f1508f04"
-  dependencies:
-    lodash._renative "~2.3.0"
-    lodash.noop "~2.3.0"
-
-lodash._shimkeys@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash._shimkeys/-/lodash._shimkeys-2.3.0.tgz#611f93149e3e6c721096b48769ef29537ada8ba9"
-  dependencies:
-    lodash._objecttypes "~2.3.0"
-
-lodash._slice@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash._slice/-/lodash._slice-2.3.0.tgz#147198132859972e4680ca29a5992c855669aa5c"
-
 lodash.assign@^3.2.0:
   version "3.2.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash.assign/-/lodash.assign-3.2.0.tgz#3ce9f0234b4b2223e296b8fa0ac1fee8ebca64fa"
@@ -4863,14 +4775,6 @@ lodash.assignin@^4.1.0:
 lodash.bind@~2.3.0:
   version "2.3.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash.bind/-/lodash.bind-2.3.0.tgz#c2a8e18b68e5ecc152e2b168266116fea5b016cc"
-  dependencies:
-    lodash._createwrapper "~2.3.0"
-    lodash._renative "~2.3.0"
-    lodash._slice "~2.3.0"
-
-lodash.bind@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash.bind/-/lodash.bind-2.3.0.tgz#c2a8e18b68e5ecc152e2b168266116fea5b016cc"
   dependencies:
     lodash._createwrapper "~2.3.0"
     lodash._renative "~2.3.0"
@@ -4897,13 +4801,6 @@ lodash.defaults@~2.3.0:
     lodash._objecttypes "~2.3.0"
     lodash.keys "~2.3.0"
 
-lodash.defaults@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash.defaults/-/lodash.defaults-2.3.0.tgz#a832b001f138f3bb9721c2819a2a7cc5ae21ed25"
-  dependencies:
-    lodash._objecttypes "~2.3.0"
-    lodash.keys "~2.3.0"
-
 lodash.defaultsdeep@^4.6.0:
   version "4.6.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash.defaultsdeep/-/lodash.defaultsdeep-4.6.0.tgz#bec1024f85b1bd96cbea405b23c14ad6443a6f81"
@@ -4911,14 +4808,6 @@ lodash.defaultsdeep@^4.6.0:
 lodash.escape@~2.3.0:
   version "2.3.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash.escape/-/lodash.escape-2.3.0.tgz#844c38c58f844e1362ebe96726159b62cf5f2a58"
-  dependencies:
-    lodash._escapehtmlchar "~2.3.0"
-    lodash._reunescapedhtml "~2.3.0"
-    lodash.keys "~2.3.0"
-
-lodash.escape@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash.escape/-/lodash.escape-2.3.0.tgz#844c38c58f844e1362ebe96726159b62cf5f2a58"
   dependencies:
     lodash._escapehtmlchar "~2.3.0"
     lodash._reunescapedhtml "~2.3.0"
@@ -4972,16 +4861,6 @@ lodash.isobject@~2.3.0:
   dependencies:
     lodash._objecttypes "~2.3.0"
 
-lodash.isfunction@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-2.3.0.tgz#6b2973e47a647cf12e70d676aea13643706e5267"
-
-lodash.isobject@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash.isobject/-/lodash.isobject-2.3.0.tgz#2e16d3fc583da9831968953f2d8e6d73434f6799"
-  dependencies:
-    lodash._objecttypes "~2.3.0"
-
 lodash.keys@^3.0.0:
   version "3.1.2"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash.keys/-/lodash.keys-3.1.2.tgz#4dbc0472b156be50a0b286855d1bd0b0c656098a"
@@ -5010,10 +4889,6 @@ lodash.noop@~2.3.0:
   version "2.3.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash.noop/-/lodash.noop-2.3.0.tgz#3059d628d51bbf937cd2a0b6fc3a7f212a669c2c"
 
-lodash.noop@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash.noop/-/lodash.noop-2.3.0.tgz#3059d628d51bbf937cd2a0b6fc3a7f212a669c2c"
-
 lodash.omit@^4.1.0:
   version "4.5.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash.omit/-/lodash.omit-4.5.0.tgz#6eb19ae5a1ee1dd9df0b969e66ce0b7fa30b5e60"
@@ -5025,12 +4900,6 @@ lodash.restparam@^3.0.0:
 lodash.support@~2.3.0:
   version "2.3.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash.support/-/lodash.support-2.3.0.tgz#7eaf038af4f0d6aab776b44aa6dcfc80334c9bfd"
-  dependencies:
-    lodash._renative "~2.3.0"
-
-lodash.support@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash.support/-/lodash.support-2.3.0.tgz#7eaf038af4f0d6aab776b44aa6dcfc80334c9bfd"
   dependencies:
     lodash._renative "~2.3.0"
 
@@ -5077,12 +4946,6 @@ lodash.uniqby@^4.7.0:
 lodash.values@~2.3.0:
   version "2.3.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/lodash.values/-/lodash.values-2.3.0.tgz#ca96fbe60a20b0b0ec2ba2ba5fc6a765bd14a3ba"
-  dependencies:
-    lodash.keys "~2.3.0"
-
-lodash.values@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lodash.values/-/lodash.values-2.3.0.tgz#ca96fbe60a20b0b0ec2ba2ba5fc6a765bd14a3ba"
   dependencies:
     lodash.keys "~2.3.0"
 
@@ -5299,7 +5162,7 @@ minimatch@^2.0.1, minimatch@^2.0.3:
   dependencies:
     brace-expansion "^1.0.0"
 
-minimist@0.0.8:
+minimist@0.0.8, minimist@~0.0.1:
   version "0.0.8"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
@@ -5307,7 +5170,7 @@ minimist@^1.1.0, minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
-minimist@~0.0.1, minimist@~0.0.7, minimist@~0.0.9:
+minimist@~0.0.7, minimist@~0.0.9:
   version "0.0.10"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
 
@@ -5833,7 +5696,7 @@ postcss-value-parser@^3.2.3:
   version "3.3.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/postcss-value-parser/-/postcss-value-parser-3.3.0.tgz#87f38f9f18f774a4ab4c8a232f5c5ce8872a9d15"
 
-postcss@^6.0.1, postcss@^6.0.10:
+postcss@^6.0.1, postcss@^6.0.11:
   version "6.0.11"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/postcss/-/postcss-6.0.11.tgz#f48db210b1d37a7f7ab6499b7a54982997ab6f72"
   dependencies:
@@ -6043,20 +5906,11 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
-recast@0.10.33:
+recast@0.10.33, recast@^0.10.10:
   version "0.10.33"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/recast/-/recast-0.10.33.tgz#942808f7aa016f1fa7142c461d7e5704aaa8d697"
   dependencies:
     ast-types "0.8.12"
-    esprima-fb "~15001.1001.0-dev-harmony-fb"
-    private "~0.1.5"
-    source-map "~0.5.0"
-
-recast@^0.10.10:
-  version "0.10.43"
-  resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/recast/-/recast-0.10.43.tgz#b95d50f6d60761a5f6252e15d80678168491ce7f"
-  dependencies:
-    ast-types "0.8.15"
     esprima-fb "~15001.1001.0-dev-harmony-fb"
     private "~0.1.5"
     source-map "~0.5.0"
@@ -6094,10 +5948,6 @@ regenerator-runtime@^0.10.5:
 regenerator-runtime@^0.11.0:
   version "0.11.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/regenerator-runtime/-/regenerator-runtime-0.11.0.tgz#7e54fe5b5ccd5d6624ea6255c3473be090b802e1"
-
-regenerator-runtime@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.0.tgz#7e54fe5b5ccd5d6624ea6255c3473be090b802e1"
 
 regenerator-runtime@^0.9.5:
   version "0.9.6"
@@ -6446,11 +6296,7 @@ shell-quote@~0.0.1:
 
 shellwords@^0.1.0:
   version "0.1.1"
-<<<<<<< HEAD
-  resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
-=======
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
->>>>>>> f10cb94b89ef663b65877267a2a2b0486a4f2056
 
 sigmund@~1.0.0:
   version "1.0.1"
@@ -6574,13 +6420,13 @@ source-map-url@^0.3.0:
   version "0.3.0"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/source-map-url/-/source-map-url-0.3.0.tgz#7ecaf13b57bcd09da8a40c5d269db33799d4aaf9"
 
-source-map@0.1.32:
+source-map@0.1.32, source-map@~0.1.31, source-map@~0.1.x:
   version "0.1.32"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/source-map/-/source-map-0.1.32.tgz#c8b6c167797ba4740a8ea33252162ff08591b266"
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@0.1.34:
+source-map@0.1.34, source-map@~0.1.30, source-map@~0.1.7:
   version "0.1.34"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/source-map/-/source-map-0.1.34.tgz#a7cfe89aec7b1682c3b198d0acfb47d7d090566b"
   dependencies:
@@ -6595,12 +6441,6 @@ source-map@0.4.x, source-map@^0.4.2, source-map@^0.4.4:
 source-map@^0.5.0, source-map@^0.5.6, source-map@^0.5.7, source-map@~0.5.0, source-map@~0.5.1:
   version "0.5.7"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
-
-source-map@~0.1.30, source-map@~0.1.31, source-map@~0.1.7, source-map@~0.1.x:
-  version "0.1.43"
-  resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/source-map/-/source-map-0.1.43.tgz#c24bc146ca517c1471f5dacbe2571b2b7f9e3346"
-  dependencies:
-    amdefine ">=0.0.4"
 
 source-map@~0.3.0:
   version "0.3.0"
@@ -6642,11 +6482,7 @@ spdx-license-ids@^1.0.2:
   version "1.2.2"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/spdx-license-ids/-/spdx-license-ids-1.2.2.tgz#c9df7a3424594ade6bd11900d596696dc06bac57"
 
-sprintf-js@^1.0.3:
-  version "1.1.1"
-  resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/sprintf-js/-/sprintf-js-1.1.1.tgz#36be78320afe5801f6cea3ee78b6e5aab940ea0c"
-
-sprintf-js@~1.0.2:
+sprintf-js@^1.0.3, sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://savoartifactory.jfrog.io/savoartifactory/api/npm/npm-remote/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 

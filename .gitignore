@@ -16,6 +16,7 @@
 /libpeerconnection.log
 npm-debug.log*
 testem.log
+yarn-error.log
 
 # editors
 /.idea

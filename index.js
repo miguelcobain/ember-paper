@@ -184,7 +184,7 @@ module.exports = {
       'components/tabs/tabs-theme.scss'
     ];
 
-    var angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {
+    var angularScssFiles = new Funnel(this.pathBase('./lib/material'), {
       files: scssFiles,
       srcDir: '/src',
       destDir: 'angular-material',
