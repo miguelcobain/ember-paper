@@ -88,7 +88,7 @@ export default Component.extend(ParentMixin, {
 
   _mediaDidChange(mediaName, matches) {
     this.set(mediaName, matches);
-    run.debounce(this, this._updateCurrentMedia, 50);
+    run.debounce(this, this._updateCurrentMedia, 0);
   },
 
   _updateCurrentMedia() {
