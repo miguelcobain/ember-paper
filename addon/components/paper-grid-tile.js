@@ -36,7 +36,7 @@ export default Component.extend(ChildMixin, {
 
   updateTile() {
     let gridList = this.get('gridList');
-    run.debounce(gridList, gridList.updateGrid, 50);
+    run.debounce(gridList, gridList.updateGrid, 0);
   },
 
   colspanMedia: computed('colspan', function() {
