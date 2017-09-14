@@ -16,7 +16,7 @@ module.exports = {
 
   setupPreprocessorRegistry(type, registry) {
     registry.add('htmlbars-ast-plugin', {
-      name: 'font-awesome-static-transform',
+      name: 'ember-paper-static-transform',
       plugin: buildAstTransform(this),
       baseDir() {
         return __dirname;
