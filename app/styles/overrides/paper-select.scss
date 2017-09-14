@@ -1,0 +1,35 @@
+.ember-basic-dropdown-content.md-select-menu-container {
+  background-color:rgba(255, 255, 255, 0) !important;
+}
+md-select-menu.md-default-theme {
+  padding:0;
+
+  md-content {
+    background-color: rgba(51, 51, 51, 0.95);
+
+    md-option {
+      color:#fff;
+
+      &[disabled] {
+        .md-text {
+          color:#efefef;
+        }
+      }
+
+      &:not([disabled]) {
+        &:focus,
+        &:hover {
+          background-color: #009fc2;
+          color:#fff;
+        }
+      }
+
+      &[selected] {
+        font-weight:bold;
+        &:focus {
+          color: #fff;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.md-tab {
+  font-weight:400;
+}
+md-tabs.md-default-theme .md-tab,
+md-tabs .md-tab {
+  color:#333;
+}
+md-tabs.md-default-theme .md-tab.md-active,
+md-tabs.md-default-theme .md-tab.md-active md-icon,
+md-tabs.md-default-theme .md-tab.md-focused,
+md-tabs.md-default-theme .md-tab.md-focused md-icon,
+md-tabs .md-tab.md-active,
+md-tabs .md-tab.md-active md-icon,
+md-tabs .md-tab.md-focused,
+md-tabs .md-tab.md-focused md-icon {
+  font-weight:500;
+  color:#333;
+}
+
+md-tabs.md-default-theme md-ink-bar,
+md-tabs md-ink-bar {
+  color:rgba(0, 159, 194, .75);
+  background-color:rgba(0, 159, 194, .75);
+  height:4px;
+}
+
+md-tabs.md-default-theme .md-tab.md-focused,
+md-tabs .md-tab.md-focused {
+  background-color:rgba(0, 159, 194, .1);
+}
+
+md-tabs.md-default-theme.md-primary > md-tabs-wrapper,
+md-tabs.md-primary > md-tabs-wrapper {
+    background-color: #009fc2;
+}
+
+md-tabs.md-default-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]),
+md-tabs.md-default-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) md-icon, md-tabs.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]),
+md-tabs.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) md-icon {
+  color:#fff;
+}
