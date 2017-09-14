@@ -1,25 +1,35 @@
-md-select-menu:not(.md-overflow) md-content {
+.ember-basic-dropdown-content.md-select-menu-container {
+  background-color:rgba(255, 255, 255, 0) !important;
+}
+md-select-menu.md-default-theme {
   padding:0;
-}
 
-md-select-menu.md-default-theme md-content,
-md-select-menu md-content {
-  background-color: rgba(51, 51, 51, 0.95);
-}
+  md-content {
+    background-color: rgba(51, 51, 51, 0.95);
 
-md-select-menu.md-default-theme md-content md-option,
-md-select-menu md-content md-option {
-  color:#fff;
-}
+    md-option {
+      color:#fff;
 
-md-select-menu md-content md-option:not([disabled]):focus,
-md-select-menu.md-default-theme md-content md-option:not([disabled]):hover,
-md-select-menu md-content md-option:not([disabled]):hover {
-  // TODO:  Figure out how to do this without !important
-  background-color: #009fc2 !important;
-}
+      &[disabled] {
+        .md-text {
+          color:#efefef;
+        }
+      }
 
-md-select-menu.md-default-theme md-content md-option[selected],
-md-select-menu md-content md-option[selected] {
-  // TODO: Discuss this state with Brittany
+      &:not([disabled]) {
+        &:focus,
+        &:hover {
+          background-color: #009fc2;
+          color:#fff;
+        }
+      }
+
+      &[selected] {
+        font-weight:bold;
+        &:focus {
+          color: #fff;
+        }
+      }
+    }
+  }
 }

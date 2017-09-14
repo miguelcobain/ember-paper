@@ -1,0 +1,10 @@
+md-input-container {
+  label {
+    font-weight:400;
+  }
+  &.md-focused.md-input-focused {
+    label {
+      font-weight:700;
+    }
+  }
+}
