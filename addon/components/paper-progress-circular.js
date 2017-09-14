@@ -155,39 +155,41 @@ export default Component.extend(ColorMixin, {
 
   lastAnimationId: 0,
   renderCircle(animateFrom, animateTo, ease = linearEase, animationDuration = 100, iterationCount = 0, dashLimit = 100) {
-    let id = ++this.lastAnimationId;
-    let startTime = now();
-    let changeInValue = animateTo - animateFrom;
-    let diameter = this.get('diameter');
-    let strokeWidth = this.get('strokeWidth');
-    let rotation = -90 * iterationCount;
+    if (!this.isDestroyed && !this.isDestroying) {
+      let id = ++this.lastAnimationId;
+      let startTime = now();
+      let changeInValue = animateTo - animateFrom;
+      let diameter = this.get('diameter');
+      let strokeWidth = this.get('strokeWidth');
+      let rotation = -90 * iterationCount;
 
-    let renderFrame = (value, diameter, strokeWidth, dashLimit) => {
-      if (!this.isDestroyed && !this.isDestroying) {
-        this.$('path').attr('stroke-dashoffset', this.getDashLength(diameter, strokeWidth, value, dashLimit));
-        this.$('path').attr('transform', `rotate(${rotation} ${diameter / 2} ${diameter / 2})`);
-      }
-    };
-
-    // No need to animate it if the values are the same
-    if (animateTo === animateFrom) {
-      renderFrame(animateTo, diameter, strokeWidth, dashLimit);
-    } else {
-      let animation = () => {
-        let currentTime = clamp(now() - startTime, 0, animationDuration);
-
-        renderFrame(ease(currentTime, animateFrom, changeInValue, animationDuration), diameter, strokeWidth, dashLimit);
-
-        // Do not allow overlapping animations
-        if (id === this.lastAnimationId && currentTime < animationDuration) {
-          this.lastDrawFrame = rAF(animation);
-        }
-
-        if (currentTime >= animationDuration && this.get('mode') === MODE_INDETERMINATE) {
-          this.startIndeterminateAnimation();
+      let renderFrame = (value, diameter, strokeWidth, dashLimit) => {
+        if (!this.isDestroyed && !this.isDestroying) {
+          this.$('path').attr('stroke-dashoffset', this.getDashLength(diameter, strokeWidth, value, dashLimit));
+          this.$('path').attr('transform', `rotate(${rotation} ${diameter / 2} ${diameter / 2})`);
         }
       };
-      this.lastDrawFrame = rAF(animation);
+
+      // No need to animate it if the values are the same
+      if (animateTo === animateFrom) {
+        renderFrame(animateTo, diameter, strokeWidth, dashLimit);
+      } else {
+        let animation = () => {
+          let currentTime = clamp(now() - startTime, 0, animationDuration);
+
+          renderFrame(ease(currentTime, animateFrom, changeInValue, animationDuration), diameter, strokeWidth, dashLimit);
+
+          // Do not allow overlapping animations
+          if (id === this.lastAnimationId && currentTime < animationDuration) {
+            this.lastDrawFrame = rAF(animation);
+          }
+
+          if (currentTime >= animationDuration && this.get('mode') === MODE_INDETERMINATE) {
+            this.startIndeterminateAnimation();
+          }
+        };
+        this.lastDrawFrame = rAF(animation);
+      }
     }
   },
 
