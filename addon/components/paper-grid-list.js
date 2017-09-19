@@ -47,9 +47,11 @@ export default Component.extend(ParentMixin, {
     this._installMediaListener();
   },
 
-  didUpdateAttrs() {
+  didUpdate() {
     this._super(...arguments);
-    this.updateGrid();
+
+    // Debounces until the next run loop
+    run.debounce(this, this.updateGrid, 0);
   },
 
   willDestroyElement() {
@@ -146,14 +148,20 @@ export default Component.extend(ParentMixin, {
 
   // Calculates tile positions
   _setTileLayout() {
-    let tiles = this.get('tiles');
+    let tiles = this.orderedTiles();
     let layoutInfo = gridLayout(this.get('currentCols'), tiles);
 
-    tiles.forEach((tile, i) => {
-      tile.set('position', layoutInfo.positions[i]);
-    });
+    tiles.forEach((tile, i) => tile.set('position', layoutInfo.positions[i]));
 
     this.set('rowCount', layoutInfo.rowCount);
+  },
+
+  // Sorts tiles by their order in the dom
+  orderedTiles() {
+    let domTiles = this.$('md-grid-tile').toArray();
+    return this.get('tiles').sort((a, b) => {
+      return domTiles.indexOf(a.get('element')) > domTiles.indexOf(b.get('element')) ? 1 : -1;
+    });
   },
 
   // Parses attribute string and returns hash of media sizes
