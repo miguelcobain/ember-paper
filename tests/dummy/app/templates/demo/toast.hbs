@@ -110,7 +110,17 @@
 
         <div class="layout-column">
           {{paper-input label="Toast text" value=toastText onChange=(action (mut toastText))}}
+
+          <strong>Toast class</strong>
+          <div>
+            {{#paper-radio-group class="layout-row" groupValue=toastClass onChange=(action (mut toastClass)) as |group|}}
+              {{#group.radio value=""}}[none]{{/group.radio}}
+              {{#group.radio value="md-accent"}}md-accent{{/group.radio}}
+              {{#group.radio value="md-warn"}}md-warn{{/group.radio}}
+            {{/paper-radio-group}}
+          </div>
         </div>
+
         <div class="layout-row">
           {{#paper-button raised=true primary=true onClick=(action "openServiceToast")}}
             Open toast
