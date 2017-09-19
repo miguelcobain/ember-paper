@@ -135,7 +135,8 @@ export default Component.extend(ParentMixin, {
         break;
       }
       case 'fit': {
-        // noop, as the height is user set
+        // rowHeight is container height
+        style.height = '100%';
         break;
       }
     }
