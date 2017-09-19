@@ -142,6 +142,7 @@ test('it reorders tiles when dom order changes', async function(assert) {
 
   this.get('tiles').reverseObjects();
 
+  await waitUntil(() => find('.TWO'));
   assert.equal(tilePosition('.ONE'), 3);
   assert.equal(tilePosition('.TWO'), 2);
   assert.equal(tilePosition('.THREE'), 1);
