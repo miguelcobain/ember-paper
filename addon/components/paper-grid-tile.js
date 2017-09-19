@@ -31,12 +31,15 @@ export default Component.extend(ChildMixin, {
 
   didUpdateAttrs() {
     this._super(...arguments);
-    this.updateTile();
+    let gridList = this.get('gridList');
+
+    // Debounces until the next run loop
+    run.debounce(gridList, gridList.updateGrid, 0);
   },
 
   updateTile() {
-    let gridList = this.get('gridList');
-    run.debounce(gridList, gridList.updateGrid, 0);
+    this.$().css(this._tileStyle());
+    this.sendAction('onUpdate');
   },
 
   colspanMedia: computed('colspan', function() {
