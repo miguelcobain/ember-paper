@@ -66,7 +66,7 @@ export default Component.extend({
       this.set('text', this.getSelectedAsText());
     } else if (oldSelect && select && oldSelect.selected && !select.selected) {
 
-      // the selection has been cleared.  We need clear the text property, unsets cached key press values in _innerText
+      // the selection has been cleared.  We need to clear the text property and unset cached key press values in _innerText
       this.set('text', '');
     }
 
