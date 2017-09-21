@@ -271,3 +271,38 @@ test('we can highlight search results for properties that aren\'t text', functio
     assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
   });
 });
+
+test('clears when selected and searchText are falsey', function(assert) {
+  assert.expect(2);
+  this.appRoot = document.querySelector('#ember-testing');
+  this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
+  this.set('selectedItem', 'One');
+  this.set('searchText', 'One');
+  this.render(hbs`{{#paper-autocomplete
+    placeholder="Item"
+    options=items
+    searchText=searchText
+    onSearchTextChange=(action (mut searchText))
+    selected=selectedItem
+    onSelectionChange=(action (mut selectedItem))
+    as |item|
+  }}
+    {{item}}
+  {{/paper-autocomplete}}`);
+
+  return wait().then(() => {
+    $('md-autocomplete-wrap input').val('One');
+    $('md-autocomplete-wrap input').change();
+
+    let $initialSelector = $($('.ember-paper-autocomplete-search-input').get(0));
+    assert.equal($initialSelector.val(), 'One');
+
+    this.set('selectedItem', null);
+    this.set('searchText', null);
+
+    return wait().then(() => {
+      let $selector = $($('.ember-paper-autocomplete-search-input').get(0));
+      assert.equal($selector.val(), '');
+    });
+  });
+});

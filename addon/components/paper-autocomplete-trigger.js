@@ -64,6 +64,10 @@ export default Component.extend({
 
     if (oldSelect && oldSelect.isOpen && !select.isOpen && !loading && searchText) {
       this.set('text', this.getSelectedAsText());
+    } else if (oldSelect && select && oldSelect.selected && !select.selected) {
+
+      // the selection has been cleared.  We need clear the text property, unsets cached key press values in _innerText
+      this.set('text', '');
     }
 
     if (lastSearchedText !== oldLastSearchedText) {
