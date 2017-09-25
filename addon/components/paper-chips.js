@@ -90,7 +90,7 @@ export default Component.extend({
       }
 
       // We don't want the autocomplete to open on focus - it'll open when the user starts typing.
-      if (isPresent(autocomplete)) {
+      if (isPresent(autocomplete) && isPresent(autocomplete.actions)) {
         autocomplete.actions.close();
       }
     },
