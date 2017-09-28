@@ -13,8 +13,10 @@ const { Component, isPresent, isBlank, run, get, computed } = Ember;
 export default Component.extend({
   layout,
   tagName: 'md-autocomplete-wrap',
-  classNames: ['md-show-clear-button'],
-  classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
+  classNameBindings: ['showClearButton:md-show-clear-button', 'noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
+
+  isEnabled: computed.not('disabled').readOnly(),
+  showClearButton: computed.and('allowClear', 'isEnabled').readOnly(),
 
   noLabel: computed.not('extra.label'),
   _innerText: computed.oneWay('searchText'),
