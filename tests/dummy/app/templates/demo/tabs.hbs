@@ -197,7 +197,7 @@
       <div class="doc-content-example">
         {{#paper-content}}
           {{! BEGIN-SNIPPET routable-usage}}
-          {{#paper-tabs selected=currentRouteName borderBottom=true as |tabs|}}
+          {{#paper-tabs selected=currentRouteName borderBottom=true onChange=(action "noop") as |tabs|}}
             {{#tabs.tab value="demo.tabs.index" href=(href-to "demo.tabs.index")}}
               Index
             {{/tabs.tab}}
@@ -228,8 +228,8 @@
           </em>
         </p>
         <p>
-          <b>Hint:</b> use <code>ember-router-service-polyfill</code> addon to easily retrieve
-          the current route name, and passes it as the selected value to <code>paper-tabs</code>.
+          <b>Hint:</b>for Ember versions less than 2.15, use the <code>ember-router-service-polyfill</code> addon to easily retrieve
+          the current route name and use it as the selected value to <code>paper-tabs</code>.
         </p>
       {{/paper-card-content}}
     {{/paper-card}}
