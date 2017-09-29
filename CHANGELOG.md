@@ -13,9 +13,45 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - Many attributes have been renamed for clarity and consistency. See the specific changes below.
 - `paper-icon`'s `size` attribute now takes a size in pixels, and `lg` or `sm` values are no longer supported.
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
-- Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/release-1/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
+- Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
 ### master
+- [68f4832](https://github.com/miguelcobain/ember-paper/commit/68f4832b67a3fd544164b1ace17d50d974b11ad2) add correct overflow class when dialog does not contain images (fixes [#807](https://github.com/miguelcobain/ember-paper/issues/807))
+
+### 1.0.0-beta.3
+- [#802](https://github.com/miguelcobain/ember-paper/pull/802) allow icons to have tooltips.
+- [#772](https://github.com/miguelcobain/ember-paper/pull/772) fix tabs ink-bar in dialogs.
+- [db3b46c](https://github.com/miguelcobain/ember-paper/commit/db3b46cb3f7c6090b1fb5707c841a855fd5a4de5) paper-tooltip is now a tagless component and proxies `class` attributes to the tooltip element class.
+- [81c4acd](https://github.com/miguelcobain/ember-paper/commit/81c4acd4f2658b895adbde5c91f5ceea1865e6d3) Speed dials are now available.
+
+### 1.0.0-beta.2
+- [8544228](https://github.com/miguelcobain/ember-paper/commit/854422819791dfbda205f5ab437887129f699db1) fix going to tabs next page
+- [25432c9](https://github.com/miguelcobain/ember-paper/commit/25432c965205eb2512019437507cf840e1f8265e) and [13a0294](https://github.com/miguelcobain/ember-paper/commit/13a029427a14730d8d35a0c923d9fcf7362a0eb9) add `center` and `stretch` options to tabs. `stretch` can be a match media query.
+- [#632](https://github.com/miguelcobain/ember-paper/pull/632) and [#623](https://github.com/miguelcobain/ember-paper/pull/623) BUGFIX - paper-chips:
+  - Don't explicitly close autocomplete on input blur.
+  - Don't use `cursor: text` if `readOnly` is true.
+  - Adds the ability to click a chip to highlight it.
+  - Adds the ability to click anywhere in the chips element to give the input focus.
+  - Fixed issues with focus being left behind on autocomplete and contact chips elements.
+- [#377](https://github.com/miguelcobain/ember-paper/issues/377) BUGFIX - `progress-linear`: decimal values resulted in buggy animation
+- [#770](https://github.com/miguelcobain/ember-paper/pull/770) Allow `paper-chips` and `paper-contact-chips` to have customizable search action and matcher.
+
+### 1.0.0-beta.1 (July 20, 2017) - Chester Bennington release. RIP.
+- [#730](https://github.com/miguelcobain/ember-paper/pull/730) ready for fastboot 1.0
+- [#752](https://github.com/miguelcobain/ember-paper/pull/752) Tooltips are now available. Contrasts are now set correctly.
+- [#750](https://github.com/miguelcobain/ember-paper/pull/750) Toasts are now available.
+- [#753](https://github.com/miguelcobain/ember-paper/pull/753), [#755](https://github.com/miguelcobain/ember-paper/pull/755) and [bc90bea](https://github.com/miguelcobain/ember-paper/commit/bc90beae6194c0d12644ffdff4aff1caddadee72) Tabs are now available.
+- [#739](https://github.com/miguelcobain/ember-paper/pull/739) Grid list was updated:
+  - now uses camelCased attributes, just like the rest of the project
+  - uses contextual components api, i.e `{{#paper-grid-list as |grid|}}{{#grid.tile}}`.
+  - no more separate responsive-related attributes. Related attributes were merged
+  and now you can specify responsive breakpoints in the same attribute.
+  - see the docs for more information on the new usage
+- [#615](https://github.com/miguelcobain/ember-paper/pull/615) this fixes a problem with paper-chips on blur ([#611](https://github.com/miguelcobain/ember-paper/issues/611))
+- [d0e0b94](https://github.com/miguelcobain/ember-paper/commit/d0e0b948fa0fadbbab3151ba83b252dc955d525c) paper-item now accepts an `href` attribute. Hint: use `ember-href-to` addon to make paper-items that change routes. Same for buttons!
+- [#737](https://github.com/miguelcobain/ember-paper/issues/737) fixed bug that happened when overriding colors with a custom palette
+
+### 1.0.0-alpha.20 (June 26, 2017)
 - [#679](https://github.com/miguelcobain/ember-paper/issues/679) fix outline on paper-menu
 - [#699](https://github.com/miguelcobain/ember-paper/issues/699) Removed paper-wormhole initializer in favor of the `contentFor` hook. This makes ember-paper more acceptance test friendly.
 - updated Angular Material to 1.1.4 version
@@ -25,6 +61,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [#707](https://github.com/miguelcobain/ember-paper/pull/707) paper-dialog-inner's image load events are now properly cleaned up
 - [51a6250](https://github.com/miguelcobain/ember-paper/commit/51a6250bebf1200e2b38d21c5655333540543bb8) icons are now absolutely sized (line-height, min-height, font-size, etc), from the `size` property
 - [#720](https://github.com/miguelcobain/ember-paper/issues/720) add `opaque` option to `paper-dialog` component (defaults to `true`).
+- [#726](https://github.com/miguelcobain/ember-paper/pull/726) update eps to 1.8.5 version. An internal change, but clears some deprecation messages and bugs.
 
 ### 1.0.0-alpha.19 (March 20, 2017)
 - [56b84cf](https://github.com/miguelcobain/ember-paper/commit/56b84cf6b30e01dcf64961c4f75e101d0899593c) fix sliders on android browsers

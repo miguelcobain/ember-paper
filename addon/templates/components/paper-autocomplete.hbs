@@ -1,7 +1,9 @@
-{{#paper-autocomplete-dropdown
+{{#basic-dropdown
   horizontalPosition=(readonly horizontalPosition)
+  destination=(readonly destination)
   initiallyOpened=(readonly initiallyOpened)
   matchTriggerWidth=(readonly matchTriggerWidth)
+  calculatePosition=(readonly calculatePosition)
   onClose=(action "onClose")
   onOpen=(action "onOpen")
   registerAPI=(action "registerAPI")
@@ -9,9 +11,11 @@
   verticalPosition=(readonly verticalPosition)
   disabled=(readonly disabled)
   contentComponent=(readonly contentComponent)
+  triggerComponent=(readonly triggerWrapperComponent)
   as |dropdown|}}
 
   {{#dropdown.trigger
+    tagName="md-autocomplete"
     ariaDescribedBy=(readonly ariaDescribedBy)
     ariaInvalid=(readonly ariaInvalid)
     ariaLabel=(readonly ariaLabel)
@@ -21,9 +25,10 @@
     onKeyDown=(action "onTriggerKeydown")
     onFocus=(action "onTriggerFocus")
     onBlur=(action "deactivate")
-    tabindex=(readonly tabindex)
-    disabledProxy=disabled
-    label=label}}
+    onMouseDown=(action "onTriggerMouseDown")
+    tabindex=-1
+    label=(readonly label)
+    disabled=(readonly disabled)}}
     {{#component triggerComponent
       allowClear=(readonly allowClear)
       required=(readonly required)
@@ -33,12 +38,13 @@
       disabled=disabled
       buildSelection=(readonly buildSelection)
       extra=(readonly extra)
+      isTouched=(readonly isTouched)
       listboxId=(readonly optionsId)
       onFocus=(action "onFocus")
       activate=(action "activate")
       onBlur=(action "onBlur")
       onInput=(action "onInput")
-	  onClear=onClear
+      onClear=(readonly onClear)
       placeholder=(readonly placeholder)
       onKeydown=(action "onKeydown")
       searchEnabled=(readonly searchEnabled)
@@ -47,16 +53,15 @@
       validationErrorMessages=(readonly validationErrorMessages)
       select=(readonly publicAPI)
       selected=(readonly selected)
-      selectedItemComponent=(readonly selectedItemComponent)
-      as |opt term|}}
-      {{yield opt term}}
+      selectedItemComponent=(readonly selectedItemComponent)}}
+      {{yield publicAPI selected}}
     {{/component}}
   {{/dropdown.trigger}}
 
   {{#dropdown.content
     class=(readonly concatenatedDropdownClasses)
     select=(readonly publicAPI)
-    to=(readonly destination) as |virtualItems|}}
+    as |virtualItems|}}
     {{#if mustShowSearchMessage}}
       {{component searchMessageComponent
         searchMessage=(readonly searchMessage)
@@ -86,5 +91,4 @@
       {{/component}}
     {{/if}}
   {{/dropdown.content}}
-
-{{/paper-autocomplete-dropdown}}
+{{/basic-dropdown}}

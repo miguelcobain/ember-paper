@@ -7,8 +7,8 @@ $warn: "pink";
 
 // If desired, import the palettes and modify to your liking.
 @import "color-palette";
-$color-teal: map-merge($color-teal, ('contrast':  $light-contrast-color));
-$color-light-green: map-merge($color-light-green, ('contrast':  $light-contrast-color));
+$color-teal: map-merge($color-teal, ('contrastDefaultColor':  $light-contrast-color));
+$color-light-green: map-merge($color-light-green, ('contrastDefaultColor':  $light-contrast-color));
 
 // Import the rest of ember-paper.
 @import "ember-paper";

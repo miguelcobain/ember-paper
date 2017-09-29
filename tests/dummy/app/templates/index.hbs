@@ -3,29 +3,15 @@
 {{#paper-content scroll-y=true class="layout-padding flex"}}
 <div class="doc-content">
 
-  {{#paper-card as |card|}}
-  {{#paper-toolbar warn=true}}
-    {{#paper-toolbar-tools}}
-      <h2>Pre-production Version</h2>
-      <span class="flex"></span>
-      {{#paper-button href="/ember-paper/release-0-2"}}Switch to version 0.2{{/paper-button}}
-    {{/paper-toolbar-tools}}
-  {{/paper-toolbar}}
-  {{#card.content}}
-    <p>You are viewing the demonstration and documentation for a <strong>pre-production</strong> built of <code>ember-paper</code>. This version is in flux. For version 1.0, all components are being updated to reflect the latest Ember coding practices and Angular Material stylesheets. Components which have not yet been updated are shown with a {{paper-icon "warning"}} and are subject to API changes. Be sure to read CHANGELOG.md when updating.</p>
-    <p><strong>Wrong version?</strong> The latest released stable version of <code>ember-paper</code> is 0.2, installed by <br><code>ember install ember-paper@^0.2</code>. See README.md for advice on which version to use. <a href="/ember-paper/release-0-2">Switch to version 0.2.</a></p>
-  {{/card.content}}
-  {{/paper-card}}
-
   <h2 class="md-headline" style="margin-top: 24px;">Welcome to Ember Paper.</h2>
   <p>This project aims to bring Google's new <a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design</a> to Ember. The goal is to encapsulate everything possible in Ember components. This project is packaged as an <a href="http://www.ember-cli.com/">Ember-cli</a> addon.</p>
 
   <h2 class="md-headline">Installation</h2>
 
-  <p>Install your preferred version of this ember-cli addon in your ember-cli project. To install the latest pre-production 1.0 version:</p>
-  {{code-snippet name="install-1.0.sh"}}
-  <p>To install the latest stable 0.2 version:</p>
-  {{code-snippet name="install-0.2.sh"}}
+  <p>
+    To install run:
+  </p>
+  {{code-snippet name="install.sh"}}
 
   <p>This should also automatically create an scss file under <code>app/styles/app.scss</code> with <code>@import 'ember-paper';</code> and install <code>ember-cli-sass</code>.</p>
   <p>Sass is an important part of Ember-paper. Using sass you can override default variables and easily change the default behavior of Ember-paper.</p>
@@ -64,6 +50,12 @@
       inside the head tag. This is especially useful if you want to include your own fonts.
     </dd>
   </dl>
+
+  <h2 class="md-headline">Documentation for Previous Versions</h2>
+  <p>Documentation for previous versions can be found here:</p>
+  <ul>
+    <li><a href="https://forge512.github.io/ember-paper/">Version 0.2</a></li>
+  </ul>
 
   <h2 class="md-headline">Contribution</h2>
   <p>This is a very ambitious project. Google's design specs are extensive, and non-trivial to implement. If you can port or fix a component or two, please drop a pull request or issue on GitHub or join us on slack. See README.md for more resources.</p>

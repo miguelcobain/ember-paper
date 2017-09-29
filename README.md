@@ -46,6 +46,8 @@ You can find out more information on the CSP addon page [here](https://github.co
 
 Version 0.2 is a good choice if you need to use `ember-paper` now in your application, and you have tested the components you use and confirmed that they work to your satisfaction. If you encounter bugs, you'll likely need to fix them yourself, as the `ember-paper` team is focused on completing version 1.0. When version 1.0 is released, you will need to adapt to the the API changes as part of your update.
 
+Version 0.2 documentation can be found [here](https://forge512.github.io/ember-paper/).
+
 **1.0** All new development work is focused on the master branch, which will be released as version 1.0.0. This version uses the Angular Material style sheets, which are imported and processed automatically during the build process. This allows `ember-paper` to have excellent fidelity with regard to the Angular version.
 
 The master branch contains significant API changes relative to version 0.2 and earlier. Modern Ember coding style and naming conventions are used. These changes are detailed in the [change log](CHANGELOG.md).

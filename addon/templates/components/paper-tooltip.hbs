@@ -1,0 +1,9 @@
+{{#if renderTooltip}}
+  {{#ember-wormhole to=destinationId}}
+    <div class="md-panel-outer-wrapper md-panel-is-showing" style={{containerStyle}}>
+      {{#paper-tooltip-inner class=class position=position anchorElement=anchorElement hide=hideTooltip}}
+        {{yield}}
+      {{/paper-tooltip-inner}}
+    </div>
+  {{/ember-wormhole}}
+{{/if}}

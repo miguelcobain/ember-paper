@@ -28,6 +28,9 @@ table {
   overflow: auto;
 }
 
+#main {
+  position: relative;
+}
 
  md-select-menu md-content md-option:not([disabled]):focus, md-select-menu.md-default-theme md-content md-option:not([disabled]):hover, md-select-menu md-content md-option:not([disabled]):hover {
     background: rgb(238,238,238);
@@ -150,6 +153,7 @@ blockquote {
   padding-left: 16px;
 }
 
+/*
 ul {
   margin: 0;
   padding: 0;
@@ -164,7 +168,7 @@ ul li {
 
 ul li:first-child {
   margin-top: 0;
-}
+}*/
 
 .preview-block {
   background: #f5f5f5;
@@ -1491,5 +1495,24 @@ md-input-container .hint {
   .slider-container > md-input-container {
     max-width: 56px;
     margin-left: 16px;
+  }
+}
+
+/* tabs demo */
+.tabs-demo .md-padding h1:first-child {
+  margin-top: 0;
+}
+
+md-tabs.md-primary {
+  border-radius: 0px;
+}
+
+/* toast demo */
+md-toast {
+  &.md-accent > .md-toast-content {
+    background: color($accent, '400');
+  }
+  &.md-warn > .md-toast-content {
+    background: color($warn, '400');
   }
 }

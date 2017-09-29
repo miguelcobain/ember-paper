@@ -1,0 +1,258 @@
+{{page-toolbar pageTitle="Tabs" isDemo=true}}
+
+{{#doc-content class="tabs-demo"}}
+
+  <div class="md-padding">
+    {{#paper-card}}
+      {{#paper-toolbar}}
+        {{#paper-toolbar-tools}}
+          <h2>Basic Usage</h2>
+          <span class="flex"></span>
+          {{#paper-button onClick=(action "toggle" "showBasicUsageSourceCode") iconButton=true}}
+            {{paper-icon icon="code"}}
+          {{/paper-button}}
+        {{/paper-toolbar-tools}}
+      {{/paper-toolbar}}
+
+      <div class="doc-code-example {{if showBasicUsageSourceCode 'is-visible'}}">
+        {{code-snippet name="basic-usage.hbs"}}
+      </div>
+
+      <div class="doc-content-example">
+        {{#paper-content}}
+          {{! BEGIN-SNIPPET basic-usage}}
+          {{#paper-tabs
+            center=center
+            stretch=stretch
+            borderBottom=borderBottom
+            selected=selectedBasicTab
+            onChange=(action (mut selectedBasicTab)) as |tabs|}}
+            {{#tabs.tab}}
+              Page One
+            {{/tabs.tab}}
+            {{#tabs.tab}}
+              Page Two
+            {{/tabs.tab}}
+            {{#tabs.tab}}
+              Page Three
+            {{/tabs.tab}}
+            {{#tabs.tab}}
+              Page Three
+            {{/tabs.tab}}
+            {{#tabs.tab}}
+              Page Three
+            {{/tabs.tab}}
+          {{/paper-tabs}}
+
+          {{#liquid-bind (hash tab=selectedBasicTab) class="md-padding" as |current|}}
+            <h1 class="md-display-2">Tab {{current.tab}}</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis
+              vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices.
+              Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.
+            </p>
+          {{/liquid-bind}}
+          {{! END-SNIPPET }}
+        {{/paper-content}}
+        {{#paper-card-content}}
+
+          {{#paper-checkbox value=center onChange=(action (mut center))}}
+            Center tabs
+          {{/paper-checkbox}}
+
+          {{#paper-checkbox value=stretch onChange=(action (mut stretch))}}
+            Stretch tabs
+          {{/paper-checkbox}}
+
+          {{#paper-checkbox value=borderBottom onChange=(action (mut borderBottom))}}
+            Border bottom
+          {{/paper-checkbox}}
+
+        {{/paper-card-content}}
+      </div>
+      {{paper-divider}}
+      {{#paper-card-content}}
+        <p>
+          <em><b>Note:</b> transitions were implemented using liquid-fire.</em>
+        </p>
+
+        <p>
+          The way that we teach paper-tabs is that they are essentially a <code>radio-group</code>
+          with some additional features (like tab pagination). So, this component essentially is
+          just a tab header you can use to control a value of a property.
+        </p>
+        <p>
+          To reinforce this idea, each of the tabs optionally accepts a <code>value</code>
+          property which needs to match the <code>paper-tabs</code> <code>selected</code>
+          property (see API table below for more info). You don't need to use the value property,
+          though. Each tab is automatically given a value equal to its index. So, your <code>onChange</code>
+          action will start getting integer values if you don't specify any value on the tabs.
+        </p>
+        <p>
+          It is up to the user to manage the body of the tabs. They're free to use <code>liquid-fire</code>,
+          css transitions or even just plain handlebars <code>\{{#if}}</code>s.
+          This makes the component <strong>much</strong> more flexible and DDAU-compliant, in our experience,
+          but it also means you will need to do a little bit more work to manage what you want to do with
+          the value. Thankfully Ember makes this dead easy for us.
+        </p>
+        <p>
+          To test tab pagination resize the browser.
+        </p>
+      {{/paper-card-content}}
+    {{/paper-card}}
+  </div>
+
+  <div class="md-padding">
+    {{#paper-card}}
+      {{#paper-toolbar}}
+        {{#paper-toolbar-tools}}
+          <h2>Dynamic Usage</h2>
+          <span class="flex"></span>
+          {{#paper-button onClick=(action "toggle" "showDynamicUsageSourceCode") iconButton=true}}
+            {{paper-icon "code"}}
+          {{/paper-button}}
+        {{/paper-toolbar-tools}}
+      {{/paper-toolbar}}
+
+      <div class="doc-code-example {{if showDynamicUsageSourceCode 'is-visible'}}">
+        {{code-snippet name="dynamic-usage.hbs"}}
+      </div>
+
+      <div class="doc-content-example">
+        {{#paper-content}}
+          {{! BEGIN-SNIPPET dynamic-usage}}
+          {{#paper-tabs primary=true
+            borderBottom=true
+            selected=selectedChapter
+            onChange=(action (mut selectedChapter)) as |tabs|}}
+            {{#each chapters as |chapter|}}
+              {{#tabs.tab value=chapter}}
+                {{chapter.title}}
+              {{/tabs.tab}}
+            {{/each}}
+          {{/paper-tabs}}
+
+          {{#liquid-bind (hash tab=selectedChapter.index m=selectedChapter) class="md-padding dynamic-animation" as |current|}}
+            <h1 class="md-display-2">{{current.m.title}}</h1>
+            <p>{{current.m.body}}</p>
+            {{#paper-button
+              primary=true raised=true disabled=(eq chapters.length 1)
+              onClick=(action "removeChapter" current.m)}}
+              Remove chapter
+            {{/paper-button}}
+          {{/liquid-bind}}
+
+          {{! END-SNIPPET }}
+        {{/paper-content}}
+      </div>
+      {{paper-divider}}
+
+      {{#paper-card-content}}
+        <div class="md-padding layout-row layout-align-space-around-start">
+          {{paper-input class="flex-20" label="Title" value=newTitle required=true onChange=(action (mut newTitle))}}
+          {{paper-input class="flex-60" label="Content" textarea=true value=newContent required=true onChange=(action (mut newContent))}}
+          <div class="flex-20 layout-row layout-align-center-start">
+            {{#paper-button
+              primary=true raised=true disabled=(not (and newTitle newContent))
+              onClick=(action "addChapter")}}
+              Add chapter
+            {{/paper-button}}
+          </div>
+        </div>
+
+        <p>
+          <em><b>Note:</b> transitions were implemented using liquid-fire.</em>
+        </p>
+        <p>
+          In this example we render tabs dynamically, one per model. Note that we
+          need some simple book-keeping to implement some specific features.
+        </p>
+        <p>
+          What happens when we delete an active chapter? We decide that by setting
+          <code>selected</code>. When adding a new chapter we want it to be the
+          new selected tab. No problem, just set the <code>selected</code> property
+          to the newly selected chapter.
+        </p>
+      {{/paper-card-content}}
+    {{/paper-card}}
+  </div>
+
+  <div class="md-padding">
+    {{#paper-card}}
+      {{#paper-toolbar}}
+        {{#paper-toolbar-tools}}
+          <h2>Routable Usage</h2>
+          <span class="flex"></span>
+          {{#paper-button onClick=(action "toggle" "showRoutableUsageSourceCode") iconButton=true}}
+            {{paper-icon icon="code"}}
+          {{/paper-button}}
+        {{/paper-toolbar-tools}}
+      {{/paper-toolbar}}
+
+      <div class="doc-code-example {{if showRoutableUsageSourceCode 'is-visible'}}">
+        {{code-snippet name="routable-usage.hbs"}}
+      </div>
+
+      <div class="doc-content-example">
+        {{#paper-content}}
+          {{! BEGIN-SNIPPET routable-usage}}
+          {{#paper-tabs selected=currentRouteName borderBottom=true onChange=(action "noop") as |tabs|}}
+            {{#tabs.tab value="demo.tabs.index" href=(href-to "demo.tabs.index")}}
+              Index
+            {{/tabs.tab}}
+            {{#tabs.tab value="demo.tabs.nested-route" href=(href-to "demo.tabs.nested-route")}}
+              Nested Route
+            {{/tabs.tab}}
+          {{/paper-tabs}}
+
+          {{liquid-outlet class="md-padding"}}
+          {{! END-SNIPPET }}
+        {{/paper-content}}
+      </div>
+      {{paper-divider}}
+
+      {{#paper-card-content}}
+        <p>
+          <em><b>Note:</b> transitions were implemented using liquid-fire.</em>
+        </p>
+        <p>
+          Sometimes we need to use tabs with routes. If you pass an <code>href</code>
+          property to a tab, it will render itself as an <code>&lt;a&gt;</code> tag.
+        </p>
+        <p>
+          <em>
+            <b>Hint:</b> use <code>ember-href-to</code> addon to easily generate
+            urls for your routes. It plays really well with <code>paper-tabs</code>,
+            <code>paper-buttons</code> and even <code>paper-item</code>s.
+          </em>
+        </p>
+        <p>
+          <b>Hint:</b>for Ember versions less than 2.15, use the <code>ember-router-service-polyfill</code> addon to easily retrieve
+          the current route name and use it as the selected value to <code>paper-tabs</code>.
+        </p>
+      {{/paper-card-content}}
+    {{/paper-card}}
+  </div>
+
+  <div class="md-padding">
+    {{paper-api
+      (p-section
+        (p-row "selected" "string or number" "Value of the active tab. Each tab automatically gets an index as its value. Default is `0` (the first tab active).")
+        (p-row "onChange" "action" "An action triggered when the active tab changes.")
+        (p-row "accent" "boolean" "Pass `true` to enable accent color scheme.")
+        (p-row "primary" "boolean" "Pass `true` to enable primary color scheme.")
+        (p-row "stretch" "boolean or matchMedia query" "Use true/false to permanently enable/disable tab stretching. You can also use a matchMedia query to enable tab stretching only at certain viewport sizes. Default value is `sm` (`(min-width: 600px) and (max-width: 959px)`).")
+        (p-row "borderBottom" "boolean" "Use true to enable border beneath tabs. Default is false.")
+      )
+      (p-section
+        "`tabs.tab` API"
+        (p-row "value" "string" "Value associated with the tab. To activate the tab, `selected` needs to have this value. Each tab gets a value automatically set to its index, so you don't need to use this property unless you need specific values for some special case.")
+        (p-row "disabled" "boolean" "Pass `true` to disable the tab button.")
+        (p-row "href" "string" "You can pass an href to the tab button to render a link. Hint: use `ember-href-to` to generate route urls.")
+        (p-row "onClick" "action" "An action triggered when the tab button is clicked.")
+      ) title="API Usage"
+    }}
+  </div>
+
+{{/doc-content}}

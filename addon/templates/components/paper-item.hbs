@@ -8,7 +8,8 @@
   {{#if hasPrimaryAction}}
     <div class="md-button md-no-style">
       {{paper-button class="md-no-style"
-        onClick=(action onClick)
+        onClick=onClick
+        href=href
         onMouseEnter=(action mouseEnter) onMouseLeave=(action mouseLeave)}}
       <div class="md-list-item-inner">
         {{yield controls}}

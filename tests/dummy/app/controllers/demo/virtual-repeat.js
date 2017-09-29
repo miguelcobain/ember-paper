@@ -33,7 +33,8 @@ export default Controller.extend({
 
   years: computed(function() {
     let currentYear = new Date().getFullYear();
-    return new Array(20).map((_, i) => currentYear - i);
+    let endYear = currentYear + 20;
+    return Array.from({ length: (endYear - currentYear) }, (v, k) => k + currentYear);
   }).readOnly(),
 
   monthsWithYears: computed('years', function() {

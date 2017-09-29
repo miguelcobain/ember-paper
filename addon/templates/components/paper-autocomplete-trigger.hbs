@@ -3,6 +3,7 @@
     label=extra.label
     value=text
     flex=true
+    isTouched=(readonly isTouched)
     required=(readonly required)
     passThru=(readonly passThru)
     validationErrorMessages=(readonly validationErrorMessages)
@@ -23,7 +24,6 @@
     onkeydown={{action "handleKeydown"}}
     disabled={{readonly disabled}}
     onmousedown={{action "stopPropagation"}}
-
     accept={{passThru.accept}}
     autocomplete={{passThru.autocomplete}}
     autosave={{passThru.autosave}}
@@ -44,7 +44,7 @@
   {{paper-progress-linear classNameBindings="extra.label:md-inline"}}
 {{/if}}
 {{#if (and (or selected text) allowClear (not select.disabled))}}
-  {{#paper-reset-button onReset=(action "clear") tabindex="-1"}}
+  {{#paper-reset-button onReset=(action "clear") onDidTransitionOut=(action "resetButtonDestroyed") tabindex="-1"}}
     {{paper-icon "close"}}
   {{/paper-reset-button}}
 {{/if}}

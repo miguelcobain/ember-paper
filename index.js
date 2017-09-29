@@ -8,6 +8,7 @@ var autoprefixer = require('broccoli-autoprefixer');
 var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
 var AngularScssFilter = require('./lib/angular-scss-filter');
+var fastbootTransform = require('fastboot-transform');
 
 module.exports = {
   name: 'ember-paper',
@@ -30,11 +31,9 @@ module.exports = {
       } while (current.parent.parent && (current = current.parent));
     }
 
-    if (!process.env.EMBER_CLI_FASTBOOT) {
-      app.import('vendor/hammerjs/hammer.js');
-      app.import('vendor/matchmedia-polyfill/matchMedia.js');
-      app.import('vendor/propagating-hammerjs/propagating.js');
-    }
+    app.import('vendor/hammerjs/hammer.js');
+    app.import('vendor/matchmedia-polyfill/matchMedia.js');
+    app.import('vendor/propagating-hammerjs/propagating.js');
   },
 
   config(env, baseConfig) {
@@ -55,7 +54,11 @@ module.exports = {
       response = emberPowerSelect.contentFor(type, config);
       if (config.environment !== 'test' &&  !config._emberPaperContentForInvoked) {
         config._emberPaperContentForInvoked = true;
-        response = response ? `${response}<div id="paper-wormhole"></div>`: '<div id="paper-wormhole"></div>';
+        response = `
+          ${response || ''}
+          <div id="paper-wormhole"></div>
+          <div id="paper-toast-fab-wormhole"></div>
+        `;
       }
       return response;
     }
@@ -64,21 +67,19 @@ module.exports = {
   treeForVendor: function(tree) {
     var trees = [];
 
-    if (!process.env.EMBER_CLI_FASTBOOT) {
-      var hammerJs = new Funnel(this.pathBase('hammerjs'), {
-        files: [ 'hammer.js' ],
-        destDir: 'hammerjs'
-      });
-      var matchMediaPolyfill = new Funnel(this.pathBase('matchmedia-polyfill'), {
-        files: [ 'matchMedia.js' ],
-        destDir: 'matchmedia-polyfill'
-      });
-      var propagatingHammerJs = new Funnel(this.pathBase('propagating-hammerjs'), {
-        files: [ 'propagating.js' ],
-        destDir: 'propagating-hammerjs'
-      });
-      trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs]);
-    }
+    var hammerJs = fastbootTransform(new Funnel(this.pathBase('hammerjs'), {
+      files: [ 'hammer.js' ],
+      destDir: 'hammerjs'
+    }));
+    var matchMediaPolyfill = fastbootTransform(new Funnel(this.pathBase('matchmedia-polyfill'), {
+      files: [ 'matchMedia.js' ],
+      destDir: 'matchmedia-polyfill'
+    }));
+    var propagatingHammerJs = fastbootTransform(new Funnel(this.pathBase('propagating-hammerjs'), {
+      files: [ 'propagating.js' ],
+      destDir: 'propagating-hammerjs'
+    }));
+    trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs]);
 
     if (tree) {
       trees.push(tree);
@@ -168,7 +169,21 @@ module.exports = {
       'components/virtualRepeat/virtual-repeater.scss',
 
       'components/chips/chips.scss',
-      'components/chips/chips-theme.scss'
+      'components/chips/chips-theme.scss',
+
+      'components/panel/panel.scss',
+      'components/panel/panel-theme.scss',
+
+      'components/tooltip/tooltip.scss',
+      'components/tooltip/tooltip-theme.scss',
+
+      'components/toast/toast.scss',
+      'components/toast/toast-theme.scss',
+
+      'components/tabs/tabs.scss',
+      'components/tabs/tabs-theme.scss',
+
+      'components/fabSpeedDial/fabSpeedDial.scss'
     ];
 
     var angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {

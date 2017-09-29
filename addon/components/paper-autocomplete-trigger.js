@@ -1,16 +1,31 @@
+/**
+ * @module ember-paper
+ */
 import Ember from 'ember';
 import layout from '../templates/components/paper-autocomplete-trigger';
 
 const { Component, isPresent, isBlank, run, get, computed } = Ember;
 
+/**
+ * @class PaperAutocompleteTrigger
+ * @extends Ember.Component
+ */
 export default Component.extend({
   layout,
   tagName: 'md-autocomplete-wrap',
-  classNames: ['md-show-clear-button'],
-  classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
+  classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing', 'showingClearButton:md-show-clear-button'],
 
   noLabel: computed.not('extra.label'),
   _innerText: computed.oneWay('searchText'),
+
+  showingClearButton: computed('allowClear', 'disabled', 'resetButtonDestroyed', function() {
+    // make room for clear button:
+    // - if we're enabled
+    // - or if we're disabled but the button still wasn't destroyed
+    return this.get('allowClear') && (
+      !this.get('disabled') || (this.get('disabled') && !this.get('resetButtonDestroyed'))
+    );
+  }),
 
   text: computed('selected', 'searchText', '_innerText', {
     get() {
@@ -39,28 +54,50 @@ export default Component.extend({
   }),
 
   // Lifecycle hooks
-  didUpdateAttrs({ oldAttrs, newAttrs }) {
+  didUpdateAttrs() {
     this._super(...arguments);
     /*
      * We need to update the input field with value of the selected option whenever we're closing
      * the select box. But we also close the select box when we're loading search results and when
      * we remove input text -- so protect against this
      */
-    if (oldAttrs.select.isOpen && !newAttrs.select.isOpen && !newAttrs.loading && newAttrs.searchText) {
+    let oldSelect = this.get('_oldSelect');
+    let oldLastSearchedText = this.get('_lastSearchedText');
+    let oldLoading = this.get('_loading');
+    let oldDisabled = this.get('_lastDisabled');
+
+    let select = this.get('select');
+    let loading = this.get('loading');
+    let searchText = this.get('searchText');
+    let lastSearchedText = this.get('lastSearchedText');
+    let disabled = this.get('disabled');
+
+    if (oldSelect && oldSelect.isOpen && !select.isOpen && !loading && searchText) {
       this.set('text', this.getSelectedAsText());
     }
 
-    if (newAttrs.lastSearchedText !== oldAttrs.lastSearchedText) {
-      if (isBlank(newAttrs.lastSearchedText)) {
-        run.schedule('actions', null, newAttrs.select.actions.close, null, true);
+    if (lastSearchedText !== oldLastSearchedText) {
+      if (isBlank(lastSearchedText)) {
+        run.schedule('actions', null, select.actions.close, null, true);
       } else {
-        run.schedule('actions', null, newAttrs.select.actions.open);
+        run.schedule('actions', null, select.actions.open);
       }
-    } else if (!isBlank(newAttrs.lastSearchedText) && get(this, 'options.length') === 0 && this.get('loading')) {
-      run.schedule('actions', null, newAttrs.select.actions.close, null, true);
-    } else if (oldAttrs.loading && !newAttrs.loading && newAttrs.options.length > 0) {
-      run.schedule('actions', null, newAttrs.select.actions.open);
+    } else if (!isBlank(lastSearchedText) && get(this, 'options.length') === 0 && this.get('loading')) {
+      run.schedule('actions', null, select.actions.close, null, true);
+    } else if (oldLoading && !loading && this.get('options.length') > 0) {
+      run.schedule('actions', null, select.actions.open);
     }
+
+    if (oldDisabled && !disabled) {
+      this.set('resetButtonDestroyed', false);
+    }
+
+    this.setProperties({
+      _oldSelect: select,
+      _lastSearchedText: lastSearchedText,
+      _loading: loading,
+      _lastDisabled: disabled
+    });
   },
 
   // Actions
@@ -97,6 +134,12 @@ export default Component.extend({
       }
       this.get('onInput')(e.target ? e : { target: { value: e } });
       this.set('text', e.target ? e.target.value : e);
+    },
+
+    resetButtonDestroyed() {
+      if (this.get('disabled')) {
+        this.set('resetButtonDestroyed', true);
+      }
     }
   },
   // Methods
