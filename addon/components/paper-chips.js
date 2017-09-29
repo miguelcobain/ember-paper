@@ -77,7 +77,7 @@ export default Component.extend({
 
       this.set('focusedElement', 'input');
 
-      if (!this.get('content').length && !input.is(':focus')) {
+      if (!this.get('content').length && !input.is(':focus') && input[0] !== document.activeElement) {
         input.focus();
       } else {
         this.set('activeChip', -1);
