@@ -1,29 +1,16 @@
 import Ember from 'ember';
-const { computed, assign, run, A, Service, tryInvoke, Object: EObject, getOwner } = Ember;
+const { computed, assign, run, A, Service, tryInvoke, Object: EObject } = Ember;
+import config from 'ember-get-config';
+
+const DEFAULT_PROPS = {
+  duration: 3000,
+  position: 'bottom left'
+};
 
 export default Service.extend({
   queue: A(),
 
   activeToast: computed.reads('queue.firstObject'),
-
-  defaultsOptions: {
-    duration: 3000,
-    position: 'bottom left'
-  },
-
-  init() {
-    this._super(...arguments);
-    let ENV = getOwner(this).factoryFor('config:environment').class;
-    if (ENV['ember-paper'] && ENV['ember-paper']['paper-toaster']) {
-      let defaultsAppOptions = ENV['ember-paper']['paper-toaster'];
-      ['duration', 'position'].forEach((optKey) => {
-        let value = defaultsAppOptions[optKey];
-        if (value) {
-          this.set(`defaultsOptions.${optKey}`, value);
-        }
-      });
-    }
-  },
 
   show(text, options) {
     let t = EObject.create(assign({ text, show: true }, this.buildOptions(options)));
@@ -52,6 +39,10 @@ export default Service.extend({
   },
 
   buildOptions(options) {
-    return assign({}, this.get('defaultsOptions'), options);
+    let toasterOptions = {};
+    if (config['ember-paper'] && config['ember-paper']['paper-toaster']) {
+      toasterOptions = config['ember-paper']['paper-toaster'];
+    }
+    return assign({}, DEFAULT_PROPS, toasterOptions, options);
   }
 });

@@ -64,6 +64,7 @@
     "ember-cli-htmlbars": "^2.0.1",
     "ember-composability-tools": "0.0.8",
     "ember-css-transitions": "0.1.10",
+    "ember-get-config": "^0.2.3",
     "ember-power-select": "^1.8.5",
     "ember-wormhole": "0.5.2",
     "fastboot-transform": "^0.1.2",
