@@ -48,6 +48,7 @@ export default Component.extend(ParentMixin, {
     onSubmit() {
       if (this.get('isInvalid')) {
         this.get('childComponents').setEach('isTouched', true);
+        this.sendAction('onInvalid');
       } else {
         this.sendAction('onSubmit');
         this.get('childComponents').setEach('isTouched', false);
