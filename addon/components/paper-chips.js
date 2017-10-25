@@ -1,6 +1,7 @@
 import Component from '@ember/component';
+import { A } from '@ember/array';
 import { isPresent, isEmpty } from '@ember/utils';
-import { observer, computed } from '@ember/object';
+import { observer } from '@ember/object';
 import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-chips';
 
@@ -10,26 +11,23 @@ export default Component.extend({
   classNames: ['md-default-theme'],
   activeChip: -1,
   focusedElement: 'none',
-  isFocused: computed('focusedElement', function() {
-    if (this.get('focusedElement') === 'none') {
-      return false;
-    }
-
-    return true;
-  }),
+  isFocused: false,
   resetTimer: null,
   lastItemChosen: false,
 
-  handleFocusChange: observer('focusedElement', 'activeChip', function() {
-    let element = this.get('focusedElement');
-
-    if (!this.get('isFocused')) {
-      this.set('activeChip', -1);
+  focusWatcher: observer('focusedElement', function() {
+    if (this.get('focusedElement') === 'none') {
+      this.set('isFocused', false);
+    } else {
+      this.set('isFocused', true);
     }
+  }),
 
-    if ((element === 'chips' && (this.get('activeChip') !== -1)) || element === 'input') {
+  handleFocusChange: observer('isFocused', function() {
+    if (this.get('isFocused')) {
       this.sendAction('focusIn', window.event);
     } else {
+      this.set('activeChip', -1);
       this.sendAction('focusOut', window.event);
     }
   }),
@@ -64,6 +62,7 @@ export default Component.extend({
     },
 
     removeItem(item) {
+      this.set('focusedElement', 'chips');
       this.sendAction('removeItem', item);
       let current = this.get('activeChip');
 
@@ -96,7 +95,7 @@ export default Component.extend({
     },
 
     inputBlur(_, event) {
-      if (this.focusMovingTo('.ember-power-select-option', event)) {
+      if (this.focusMovingTo('.ember-power-select-option', event, true)) {
         // Focus has shifted to an item - don't mess with this event.
         return true;
       }
@@ -107,7 +106,7 @@ export default Component.extend({
         return true;
       }
 
-      if (!this.focusMovingTo('md-chips-wrap', event)) {
+      if (!(this.focusMovingToAny(['md-chips-wrap', 'md-chip', '.md-chip-content', '.md-chip-remove'], event))) {
         this.set('focusedElement', 'none');
       }
     },
@@ -117,7 +116,7 @@ export default Component.extend({
     },
 
     chipsBlur(event) {
-      if (!this.focusMovingTo(this.getInput(), event)) {
+      if (!this.focusMovingToAny([this.getInput(), 'md-chips-wrap', 'md-chip', '.md-chip-content', '.md-chip-remove'], event)) {
         this.set('focusedElement', 'none');
         this.set('activeChip', -1);
       }
@@ -193,11 +192,9 @@ export default Component.extend({
     // No text has been entered, but we have chips; cursor keys should select chips.
     let current = this.get('activeChip');
     let chips = this.get('content');
-    let input = this.getInput();
 
     if (['ArrowLeft', 'Left'].includes(key) || (key === 'Backspace' && current === -1)) {
       if (current === -1) {
-        input.blur();
         this.$('md-chips-wrap', this.element).focus();
         this.set('activeChip', chips.length - 1);
       } else if (current > 0) {
@@ -209,8 +206,7 @@ export default Component.extend({
       }
 
       if (this.get('activeChip') >= chips.length) {
-        this.set('activeChip', -1);
-        input.focus();
+        this.getInput().focus();
       }
     } else if (current >= 0 && ['Backspace', 'Delete', 'Del'].includes(key)) {
       this.sendAction('removeItem', chips[current]);
@@ -259,11 +255,21 @@ export default Component.extend({
     return this.$('.md-chip-input-container input');
   },
 
-  focusMovingTo(selector, event) {
-    if (!isEmpty(event) && !isEmpty(event.relatedTarget) && this.$().find(event.relatedTarget).is(selector)) {
-      return true;
+  focusMovingTo(selector, event, allowExternal) {
+    if (!isEmpty(event) && !isEmpty(event.relatedTarget)) {
+      if (allowExternal && this.$(event.relatedTarget).is(selector)) {
+        return true;
+      } else if (this.$().find(event.relatedTarget).is(selector)) {
+        return true;
+      }
     }
 
     return false;
+  },
+
+  focusMovingToAny(selectors, event, allowExternal) {
+    return A(selectors).any(function(selector) {
+      return this.focusMovingTo(selector, event, allowExternal);
+    }, this);
   }
 });
