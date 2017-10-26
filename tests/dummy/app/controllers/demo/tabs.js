@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { Controller, computed, A } = Ember;
+const { Controller, computed, A, inject } = Ember;
 
 const LOREM = `
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -12,6 +12,10 @@ export default Controller.extend({
   borderBottom: true,
 
   selectedBasicTab: 0,
+
+  router: inject.service(),
+
+  currentRouteName: computed.readOnly('router.currentRouteName'),
 
   chapters: computed(function() {
     let tabs = A();
@@ -56,6 +60,8 @@ export default Controller.extend({
         this.set('selectedChapter', newSelection);
       }
       this.get('chapters').removeObject(t);
-    }
+    },
+
+    noop() {}
   }
 });

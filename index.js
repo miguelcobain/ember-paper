@@ -181,7 +181,9 @@ module.exports = {
       'components/toast/toast-theme.scss',
 
       'components/tabs/tabs.scss',
-      'components/tabs/tabs-theme.scss'
+      'components/tabs/tabs-theme.scss',
+
+      'components/fabSpeedDial/fabSpeedDial.scss'
     ];
 
     var angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {

@@ -97,10 +97,6 @@ export default Component.extend(ColorMixin, {
     return htmlSafe(`stroke-width: ${this.get('strokeWidth')}px`);
   }),
 
-  svgArc: computed('value', 'oldValue', 'diameter', function() {
-
-  }),
-
   didInsertElement() {
     this._super(...arguments);
 
@@ -155,6 +151,10 @@ export default Component.extend(ColorMixin, {
 
   lastAnimationId: 0,
   renderCircle(animateFrom, animateTo, ease = linearEase, animationDuration = 100, iterationCount = 0, dashLimit = 100) {
+    if (this.isDestroyed || this.isDestroying) {
+      return;
+    }
+
     let id = ++this.lastAnimationId;
     let startTime = now();
     let changeInValue = animateTo - animateFrom;

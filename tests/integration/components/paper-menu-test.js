@@ -1,4 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
+import { findAll } from 'ember-native-dom-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import run from 'ember-runloop';
@@ -217,4 +218,35 @@ test('md-menu doesn\'t have a tabindex attribute', function(assert) {
   `);
 
   assert.equal(this.$('md-menu').attr('tabindex'), '-1', 'no tabindex present');
+});
+
+test('using href renders anchor tags', function(assert) {
+  assert.expect(2);
+  this.appRoot = document.querySelector('#ember-testing');
+  this.render(hbs`{{#paper-menu as |menu|}}
+    {{#menu.trigger}}
+      {{#paper-button iconButton=true}}
+        {{paper-icon "local_phone"}}
+      {{/paper-button}}
+    {{/menu.trigger}}
+    {{#menu.content width=4 as |content|}}
+        {{#content.menu-item href="a"}}
+          <span id="menu-item">Test</span>
+        {{/content.menu-item}}
+    {{/menu.content}}
+  {{/paper-menu}}`);
+
+  return wait().then(() => {
+    clickTrigger();
+
+    return wait().then(() => {
+      let selectors = $('.md-open-menu-container');
+      assert.ok(selectors.length, 'opened menu');
+      let tags = findAll('a');
+      assert.ok(tags.length, 'anchor tags');
+      return wait().then(() => {
+
+      });
+    });
+  });
 });
