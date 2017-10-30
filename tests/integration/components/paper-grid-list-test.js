@@ -3,7 +3,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { find, findAll, waitUntil } from 'ember-native-dom-helpers';
 
-const { A } = Ember;
+const { A, run } = Ember;
 
 function getStyle(selector, property) {
   let el = find(selector);
@@ -264,10 +264,11 @@ test('it recalculates when tile is added', async function(assert) {
   assert.equal(tilePosition('.TWO'), 2);
   assert.equal(tilePosition('.THREE'), 3);
 
-  this.get('tiles').insertAt(2, 'FOUR');
+  run(() => {
+    this.get('tiles').insertAt(2, 'FOUR');
+  });
 
   await waitUntil(() => find('.FOUR'));
-
   assert.equal(tilePosition('.ONE'), 1, 'ONE');
   assert.equal(tilePosition('.TWO'), 2, 'TWO');
   assert.equal(tilePosition('.FOUR'), 3, 'FOUR');
@@ -296,7 +297,9 @@ test('it recalculates when tile is removed', async function(assert) {
   assert.equal(tilePosition('.TWO'), 2);
   assert.equal(tilePosition('.THREE'), 3);
 
-  this.get('tiles').removeAt(1);
+  run(() => {
+    this.get('tiles').removeAt(1);
+  });
 
   await waitUntil(() => !find('.TWO'));
   assert.equal(find('.TWO'), null);
@@ -326,7 +329,9 @@ test('it reorders tiles when dom order changes', async function(assert) {
   assert.equal(tilePosition('.TWO'), 2);
   assert.equal(tilePosition('.THREE'), 3);
 
-  this.get('tiles').reverseObjects();
+  run(() => {
+    this.get('tiles').reverseObjects();
+  });
 
   await waitUntil(() => find('.TWO'));
   assert.equal(tilePosition('.ONE'), 3);
