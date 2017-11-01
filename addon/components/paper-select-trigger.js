@@ -1,11 +1,10 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { computed } from '@ember/object';
+
 import TriggerComponent from 'ember-power-select/components/power-select/trigger';
 import layout from '../templates/components/paper-select-trigger';
-
-const { computed } = Ember;
 
 /**
  * @class PaperSelectTrigger

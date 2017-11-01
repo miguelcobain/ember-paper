@@ -1,6 +1,7 @@
-import Ember from 'ember';
-
-const { run, RSVP, Controller, A } = Ember;
+import { run } from '@ember/runloop';
+import RSVP from 'rsvp';
+import Controller from '@ember/controller';
+import { A } from '@ember/array';
 
 // per MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 const escapeRegExp = (input) => {

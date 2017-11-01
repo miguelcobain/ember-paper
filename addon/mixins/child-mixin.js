@@ -1,10 +1,10 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-import ParentMixin from 'ember-paper/mixins/parent-mixin';
+import Mixin from '@ember/object/mixin';
 
-const { Mixin, computed } = Ember;
+import { computed } from '@ember/object';
+import ParentMixin from 'ember-paper/mixins/parent-mixin';
 
 /**
  * @class ChildMixin

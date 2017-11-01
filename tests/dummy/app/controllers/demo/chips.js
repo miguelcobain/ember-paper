@@ -1,5 +1,7 @@
-import Ember from 'ember';
-const { Controller, computed, A } = Ember;
+import { map, filter } from '@ember/object/computed';
+import Controller from '@ember/controller';
+import { computed } from '@ember/object';
+import { A } from '@ember/array';
 
 export default Controller.extend({
   fruitNames: A(['Apple', 'Banana', 'Orange']),
@@ -18,7 +20,7 @@ export default Controller.extend({
     'Some-guy withalongalastaname'
   ],
 
-  contacts: computed.map('names', function(c, index) {
+  contacts: map('names', function(c, index) {
     let [firstName, lastName] = c.split(' ');
     return {
       name: c,
@@ -27,7 +29,7 @@ export default Controller.extend({
     };
   }),
 
-  selectedContacts: computed.filter('contacts', function(c) {
+  selectedContacts: filter('contacts', function(c) {
     return c.name.startsWith('N');
   }),
 
@@ -37,7 +39,7 @@ export default Controller.extend({
     });
   }),
 
-  altContacts: computed.map('names', function(c, index) {
+  altContacts: map('names', function(c, index) {
     let [firstName, lastName] = c.split(' ');
     let [lastInitial] = lastName; // Grab first letter of last name.
     return {
@@ -47,7 +49,7 @@ export default Controller.extend({
     };
   }),
 
-  selectedAltContacts: computed.filter('altContacts', function(c) {
+  selectedAltContacts: filter('altContacts', function(c) {
     return c.shortName.startsWith('N');
   }),
 

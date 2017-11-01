@@ -1,11 +1,13 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-grid-tile';
 import { ChildMixin } from 'ember-composability-tools';
-
-const { Component, computed, run } = Ember;
 
 const positionCSS = (positions) => {
   return `calc((${positions.unit} + ${positions.gutter}) * ${positions.offset})`;
@@ -27,7 +29,7 @@ export default Component.extend(ChildMixin, {
   layout,
   tagName: 'md-grid-tile',
 
-  gridList: computed.alias('parentComponent'),
+  gridList: alias('parentComponent'),
 
   didUpdateAttrs() {
     this._super(...arguments);

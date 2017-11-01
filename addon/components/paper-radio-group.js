@@ -1,12 +1,14 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+
+import { filterBy, mapBy } from '@ember/object/computed';
+import Component from '@ember/component';
+import { assert } from '@ember/debug';
 import layout from '../templates/components/paper-radio-group';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import { ParentMixin } from 'ember-composability-tools';
-
-const { Component, computed, inject, assert } = Ember;
 
 /**
  * @class PaperRadioGroup
@@ -24,7 +26,7 @@ export default Component.extend(FocusableMixin, ParentMixin, {
 
   radioComponent: 'paper-radio',
 
-  constants: inject.service(),
+  constants: service(),
 
   // Lifecycle hooks
   init() {
@@ -32,8 +34,8 @@ export default Component.extend(FocusableMixin, ParentMixin, {
     assert('{{paper-radio-group}} requires an `onChange` action or null for no action', this.get('onChange') !== undefined);
   },
 
-  enabledChildRadios: computed.filterBy('childComponents', 'disabled', false),
-  childValues: computed.mapBy('enabledChildRadios', 'value'),
+  enabledChildRadios: filterBy('childComponents', 'disabled', false),
+  childValues: mapBy('enabledChildRadios', 'value'),
 
   keyDown(ev) {
 

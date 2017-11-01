@@ -1,10 +1,10 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-import layout from '../templates/components/paper-sidenav-toggle';
+import { inject as service } from '@ember/service';
 
-const { Component, inject } = Ember;
+import Component from '@ember/component';
+import layout from '../templates/components/paper-sidenav-toggle';
 
 /**
  * @class PaperSidenavToggle
@@ -16,7 +16,7 @@ export default Component.extend({
 
   name: 'default',
 
-  paperSidenav: inject.service(),
+  paperSidenav: service(),
 
   toggle() {
     this.get('paperSidenav').toggle(this.get('name'));

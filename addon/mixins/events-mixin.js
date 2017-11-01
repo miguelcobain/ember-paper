@@ -1,9 +1,7 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-
-const { Mixin } = Ember;
+import Mixin from '@ember/object/mixin';
 
 /**
  * @class EventsMixin

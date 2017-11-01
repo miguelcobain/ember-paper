@@ -1,14 +1,16 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+
+import { not, and } from '@ember/object/computed';
+import Component from '@ember/component';
+import { assert } from '@ember/debug';
 import layout from '../templates/components/paper-checkbox';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
-
-const { Component, inject, assert, computed } = Ember;
 
 /**
  * @class PaperCheckbox
@@ -33,12 +35,12 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   /* FocusableMixin Overrides */
   focusOnlyOnKey: true,
 
-  constants: inject.service(),
+  constants: service(),
 
   value: false,
 
-  notIndeterminate: computed.not('indeterminate'),
-  isChecked: computed.and('notIndeterminate', 'value'),
+  notIndeterminate: not('indeterminate'),
+  isChecked: and('notIndeterminate', 'value'),
 
   init() {
     this._super(...arguments);

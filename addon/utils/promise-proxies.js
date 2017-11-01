@@ -1,8 +1,11 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-const { RSVP: { Promise }, ArrayProxy, ObjectProxy, PromiseProxyMixin } = Ember;
+import { Promise } from 'rsvp';
+
+import ArrayProxy from '@ember/array/proxy';
+import ObjectProxy from '@ember/object/proxy';
+import PromiseProxyMixin from '@ember/object/promise-proxy-mixin';
 
 // See http://emberjs.com/api/data/classes/DS.PromiseArray.html
 export const PromiseArray = ArrayProxy.extend(PromiseProxyMixin);

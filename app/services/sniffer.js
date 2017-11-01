@@ -1,7 +1,7 @@
 /* globals FastBoot */
-import Ember from 'ember';
+import Service from '@ember/service';
 
-const { Service, computed } = Ember;
+import { computed } from '@ember/object';
 
 let isString = function(value) {
   return typeof value === 'string';

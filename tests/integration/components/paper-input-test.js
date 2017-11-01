@@ -1,9 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
-
-const { Component } = Ember;
 
 moduleForComponent('paper-input', 'Integration | Component | paper input', {
   integration: true,

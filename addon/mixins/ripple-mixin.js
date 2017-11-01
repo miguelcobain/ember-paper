@@ -1,9 +1,12 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
 
-const { inject, computed, Mixin, run, $ } = Ember;
+import { computed } from '@ember/object';
+import Mixin from '@ember/object/mixin';
+import { run } from '@ember/runloop';
+import $ from 'jquery';
 /* global window */
 
 const DURATION = 400;
@@ -13,7 +16,7 @@ const DURATION = 400;
  * @extends Ember.Mixin
  */
 export default Mixin.create({
-  util: inject.service(),
+  util: service(),
   rippleContainerSelector: '.md-container',
 
   center: false,

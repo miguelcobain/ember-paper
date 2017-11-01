@@ -1,10 +1,20 @@
 /**
  * @module ember-paper
  */
+import { inject as service } from '@ember/service';
+
+import { or } from '@ember/object/computed';
+import $ from 'jquery';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
+import { guidFor } from '@ember/object/internals';
 import Ember from 'ember';
 import layout from '../templates/components/paper-toast';
 
-const { $, Component, computed, inject, testing, run, guidFor } = Ember;
+const {
+  testing
+} = Ember;
 /**
  * @class PaperToast
  * @extends Ember.Component
@@ -31,7 +41,7 @@ export default Component.extend({
 
   // Calculate a default that is always valid for the parent of the backdrop.
   wormholeSelector: '#paper-toast-fab-wormhole',
-  defaultedParent: computed.or('parent', 'wormholeSelector'),
+  defaultedParent: or('parent', 'wormholeSelector'),
 
   // Calculate the id of the wormhole destination, setting it if need be. The
   // id is that of the 'parent', if provided, or 'paper-wormhole' if not.
@@ -56,7 +66,7 @@ export default Component.extend({
     }
   }),
 
-  constants: inject.service(),
+  constants: service(),
 
   _destroyMessage() {
     if (!this.isDestroyed) {

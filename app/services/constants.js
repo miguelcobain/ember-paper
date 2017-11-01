@@ -1,10 +1,9 @@
-import Ember from 'ember';
-
-const { Service, inject, computed, Object: EObject } = Ember;
+import Service, { inject as service } from '@ember/service';
+import EObject, { computed } from '@ember/object';
 
 export default Service.extend({
 
-  sniffer: inject.service('sniffer'),
+  sniffer: service('sniffer'),
 
   webkit: computed(function() {
     return /webkit/i.test(this.get('sniffer.vendorPrefix'));

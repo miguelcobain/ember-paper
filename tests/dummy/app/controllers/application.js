@@ -1,6 +1,6 @@
-import Ember from 'ember';
-
-const { Controller, computed } = Ember;
+import { equal } from '@ember/object/computed';
+import Controller from '@ember/controller';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
   actions: {
@@ -21,6 +21,6 @@ export default Controller.extend({
     }
   }),
 
-  demosExpanded: computed.equal('expandedItem', 'demos'),
-  layoutExpanded: computed.equal('expandedItem', 'layout')
+  demosExpanded: equal('expandedItem', 'demos'),
+  layoutExpanded: equal('expandedItem', 'layout')
 });

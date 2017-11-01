@@ -1,6 +1,6 @@
-import Ember from 'ember';
-
-const { Controller, computed, String: { htmlSafe } } = Ember;
+import Controller from '@ember/controller';
+import { computed } from '@ember/object';
+import { htmlSafe } from '@ember/string';
 
 export default Controller.extend({
   color: {

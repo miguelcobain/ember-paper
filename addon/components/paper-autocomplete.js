@@ -1,15 +1,18 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+
+import { alias } from '@ember/object/computed';
+import { assert } from '@ember/debug';
+import { isNone } from '@ember/utils';
+import { defineProperty, computed } from '@ember/object';
 import PowerSelect from 'ember-power-select/components/power-select';
 import layout from '../templates/components/paper-autocomplete';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
 import calculatePosition from '../utils/calculate-ac-position';
-
-const { assert, computed, inject, isNone, defineProperty } = Ember;
 
 /**
  * @class PaperAutocomplete
@@ -19,8 +22,8 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
   layout,
   calculatePosition,
 
-  util: inject.service(),
-  constants: inject.service(),
+  util: service(),
+  constants: service(),
   triggerComponent: 'paper-autocomplete-trigger',
   contentComponent: 'paper-autocomplete-content',
   optionsComponent: 'paper-autocomplete-options',
@@ -31,8 +34,8 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
   extra: computed('labelPath', 'label', function() {
     return this.getProperties('label', 'labelPath');
   }),
-  onfocus: computed.alias('onFocus'),
-  onblur: computed.alias('onBlur'),
+  onfocus: alias('onFocus'),
+  onblur: alias('onBlur'),
   onchange: null,
   oninput: null,
   validationProperty: computed('onSearchTextChange', 'onSelectionChange', function() {
@@ -66,8 +69,8 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     assert('{{paper-autocomplete}} requires at least one of the `onSelectionChange` or `onSearchTextChange` functions to be provided.', hasTextChange || hasSelectionChange);
 
     let aliasOnChangeDepKey = hasSelectionChange ? 'onSelectionChange' : '_onChangeNop';
-    defineProperty(this, 'oninput', computed.alias('onSearchTextChange'));
-    defineProperty(this, 'onchange', computed.alias(aliasOnChangeDepKey));
+    defineProperty(this, 'oninput', alias('onSearchTextChange'));
+    defineProperty(this, 'onchange', alias(aliasOnChangeDepKey));
   },
 
   // Choose highlighted item on key tab

@@ -1,6 +1,8 @@
-import Ember from 'ember';
-
-const { Controller, run, computed, A, Object: EObject, assign: eAssign, merge } = Ember;
+import Controller from '@ember/controller';
+import { run } from '@ember/runloop';
+import { A } from '@ember/array';
+import EObject, { computed } from '@ember/object';
+import { merge, assign as eAssign } from '@ember/polyfills';
 
 const assign = eAssign || merge;
 

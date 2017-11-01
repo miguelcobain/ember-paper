@@ -1,9 +1,7 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-
-const { Component } = Ember;
+import Component from '@ember/component';
 
 /**
  * @class PaperCardHeaderHeadline

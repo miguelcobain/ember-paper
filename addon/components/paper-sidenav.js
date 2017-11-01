@@ -1,10 +1,10 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-import layout from '../templates/components/paper-sidenav';
+import { not } from '@ember/object/computed';
 
-const { Component, computed } = Ember;
+import Component from '@ember/component';
+import layout from '../templates/components/paper-sidenav';
 
 /**
  * @class
@@ -18,7 +18,7 @@ export default Component.extend({
   position: 'left',
   lockedOpen: 'gt-sm',
   open: false,
-  closed: computed.not('open'),
+  closed: not('open'),
   closeOnClick: true,
 
   actions: {

@@ -1,10 +1,13 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+
+import { filterBy } from '@ember/object/computed';
+import Component from '@ember/component';
+import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-menu-content-inner';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
-const { Component, inject, computed, run } = Ember;
 
 /**
  * @class PaperMenuContentInner
@@ -17,8 +20,8 @@ export default Component.extend(ParentMixin, {
   attributeBindings: ['width'],
   classNameBindings: ['dense:md-dense'],
 
-  constants: inject.service(),
-  enabledMenuItems: computed.filterBy('childComponents', 'disabled', false),
+  constants: service(),
+  enabledMenuItems: filterBy('childComponents', 'disabled', false),
 
   didInsertElement() {
     run.later(() => {

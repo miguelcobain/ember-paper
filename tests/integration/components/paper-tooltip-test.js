@@ -1,9 +1,8 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import { find, triggerEvent } from 'ember-native-dom-helpers';
-const { run } = Ember;
 
 moduleForComponent('paper-tooltip', 'Integration | Component | paper tooltip', {
   integration: true

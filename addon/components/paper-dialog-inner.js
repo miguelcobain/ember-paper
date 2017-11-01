@@ -1,10 +1,10 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-import Translate3dMixin from '../mixins/translate3d-mixin';
+import Component from '@ember/component';
 
-const { Component, run } = Ember;
+import { run } from '@ember/runloop';
+import Translate3dMixin from '../mixins/translate3d-mixin';
 
 /**
  * @class PaperDialogInner

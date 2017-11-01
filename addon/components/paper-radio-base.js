@@ -1,13 +1,14 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import Component from '@ember/component';
+
+import { computed } from '@ember/object';
+import { assert } from '@ember/debug';
 import layout from '../templates/components/paper-radio-base';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-
-const { Component, computed, assert } = Ember;
 
 /**
  * @class PaperRadio

@@ -1,10 +1,10 @@
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { typeOf } from '@ember/utils';
+import { htmlSafe } from '@ember/string';
 import Ember from 'ember';
 
 const {
-  Component,
-  computed,
-  typeOf,
-  String: { htmlSafe },
   Handlebars: { Utils: { escapeExpression } }
 } = Ember;
 

@@ -1,9 +1,7 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-
-const { isEmpty } = Ember;
+import { isEmpty } from '@ember/utils';
 
 export function min(value, min) {
   return isEmpty(min) || isEmpty(value) || parseFloat(value) >= parseFloat(min);

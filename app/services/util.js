@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { Service, $ } = Ember;
+import Service from '@ember/service';
+import $ from 'jquery';
 
 let Util = Service.extend({
 

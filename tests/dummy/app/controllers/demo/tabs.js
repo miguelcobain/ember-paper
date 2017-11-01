@@ -1,5 +1,8 @@
-import Ember from 'ember';
-const { Controller, computed, A, inject } = Ember;
+import { inject as service } from '@ember/service';
+import { readOnly, reads } from '@ember/object/computed';
+import Controller from '@ember/controller';
+import { computed } from '@ember/object';
+import { A } from '@ember/array';
 
 const LOREM = `
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -13,9 +16,9 @@ export default Controller.extend({
 
   selectedBasicTab: 0,
 
-  router: inject.service(),
+  router: service(),
 
-  currentRouteName: computed.readOnly('router.currentRouteName'),
+  currentRouteName: readOnly('router.currentRouteName'),
 
   chapters: computed(function() {
     let tabs = A();
@@ -30,7 +33,7 @@ export default Controller.extend({
     return tabs;
   }),
 
-  selectedChapter: computed.reads('chapters.firstObject'),
+  selectedChapter: reads('chapters.firstObject'),
 
   actions: {
     toggle(propName) {

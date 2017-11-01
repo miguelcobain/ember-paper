@@ -1,11 +1,14 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+
+import { computed } from '@ember/object';
+import Component from '@ember/component';
+import { isPresent } from '@ember/utils';
+import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-progress-linear';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-
-const { inject, computed, Component, isPresent, String: { htmlSafe } } = Ember;
 
 function makeTransform(value) {
   let scale = value / 100;
@@ -30,7 +33,7 @@ export default Component.extend(ColorMixin, {
   attributeBindings: ['mode:md-mode', 'bufferValue:md-buffer-value'],
   classNames: ['md-default-theme'],
 
-  constants: inject.service(),
+  constants: service(),
 
   mode: computed('value', function() {
     let value = this.get('value');

@@ -1,10 +1,10 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-import EventsMixin from './events-mixin';
+import Mixin from '@ember/object/mixin';
 
-const { Mixin, computed } = Ember;
+import { computed } from '@ember/object';
+import EventsMixin from './events-mixin';
 
 /**
  * @class FocusableMixin

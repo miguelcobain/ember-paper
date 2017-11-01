@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { Controller, A } = Ember;
+import Controller from '@ember/controller';
+import { A } from '@ember/array';
 
 export default Controller.extend({
   showSourceCodeFull: false,

@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { inject, Controller } = Ember;
+import { inject as service } from '@ember/service';
+import Controller from '@ember/controller';
 
 export default Controller.extend({
   duration: 3000,
@@ -9,7 +8,7 @@ export default Controller.extend({
   toastText: 'Hello world',
   toastClass: '',
 
-  paperToaster: inject.service(),
+  paperToaster: service(),
 
   actions: {
     /* Toast */

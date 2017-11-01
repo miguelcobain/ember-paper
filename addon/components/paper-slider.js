@@ -1,12 +1,17 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+
+import { not } from '@ember/object/computed';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
+import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-slider';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import clamp from 'ember-paper/utils/clamp';
-const { Component, computed, inject, run, String: { htmlSafe } } = Ember;
 /* global Hammer */
 
 /**
@@ -24,7 +29,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   classNames: ['md-default-theme'],
   classNameBindings: ['isMinimum:md-min', 'active:md-active', 'dragging:md-dragging'],
 
-  constants: inject.service(),
+  constants: service(),
 
   min: 0,
   max: 100,
@@ -123,7 +128,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
   active: false,
   dragging: false,
-  enabled: computed.not('disabled'),
+  enabled: not('disabled'),
 
   sliderDimensions() {
     return this.element.querySelector('.md-track-container').getBoundingClientRect();

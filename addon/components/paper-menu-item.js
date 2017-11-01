@@ -1,11 +1,10 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import Component from '@ember/component';
+
 import layout from '../templates/components/paper-menu-item';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
-
-const { Component } = Ember;
 
 /**
  * @class PaperMenuItem

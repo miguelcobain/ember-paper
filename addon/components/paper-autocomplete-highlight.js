@@ -1,10 +1,11 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-import layout from '../templates/components/paper-autocomplete-highlight';
+import Component from '@ember/component';
 
-const { Component, computed, String: { htmlSafe } } = Ember;
+import { computed } from '@ember/object';
+import { htmlSafe } from '@ember/string';
+import layout from '../templates/components/paper-autocomplete-highlight';
 
 /**
  * @class PaperAutocompleteHighlight

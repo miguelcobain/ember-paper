@@ -1,8 +1,6 @@
 // BEGIN-SNIPPET buttons.component
 // app/components/custom-button.js
-import Ember from 'ember';
-
-const { Component } = Ember;
+import Component from '@ember/component';
 
 export default Component.extend({
   actions: {

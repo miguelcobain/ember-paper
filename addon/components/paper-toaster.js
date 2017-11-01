@@ -1,13 +1,13 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { reads } from '@ember/object/computed';
+import Component from '@ember/component';
 import layout from '../templates/components/paper-toaster';
-
-const { computed, inject, Component } = Ember;
 
 export default Component.extend({
   layout,
   tagName: '',
-  paperToaster: inject.service(),
-  activeToast: computed.reads('paperToaster.activeToast'),
+  paperToaster: service(),
+  activeToast: reads('paperToaster.activeToast'),
 
   onClose(toast) {
     this.get('paperToaster').cancelToast(toast);

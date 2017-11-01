@@ -1,10 +1,18 @@
 /**
  * @module ember-paper
  */
+import { inject as service } from '@ember/service';
+
+import { or } from '@ember/object/computed';
+import $ from 'jquery';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 import Ember from 'ember';
 import layout from '../templates/components/paper-dialog';
 
-const { $, Component, computed, inject, testing } = Ember;
+const {
+  testing
+} = Ember;
 
 /**
  * @class PaperDialog
@@ -20,13 +28,13 @@ export default Component.extend({
 
   // Calculate a default that is always valid for the parent of the backdrop.
   wormholeSelector: '#paper-wormhole',
-  defaultedParent: computed.or('parent', 'wormholeSelector'),
+  defaultedParent: or('parent', 'wormholeSelector'),
 
   // Calculate a default that is always valid where the opening transition should originate.
-  defaultedOpenFrom: computed.or('openFrom', 'origin', 'parent'),
+  defaultedOpenFrom: or('openFrom', 'origin', 'parent'),
 
   // Calculate a default that is always valid where the closing transition should terminate.
-  defaultedCloseTo: computed.or('closeTo', 'origin', 'parent'),
+  defaultedCloseTo: or('closeTo', 'origin', 'parent'),
 
   // Calculate the id of the wormhole destination, setting it if need be. The
   // id is that of the 'parent', if provided, or 'paper-wormhole' if not.
@@ -51,7 +59,7 @@ export default Component.extend({
     }
   }),
 
-  constants: inject.service(),
+  constants: service(),
 
   didInsertElement() {
     this._super(...arguments);

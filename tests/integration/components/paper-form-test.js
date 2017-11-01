@@ -1,8 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-
-const { Component } = Ember;
 
 moduleForComponent('paper-form', 'Integration | Component | paper form', {
   integration: true

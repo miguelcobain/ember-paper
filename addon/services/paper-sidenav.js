@@ -1,9 +1,9 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import Service from '@ember/service';
 
-const { Service, assert } = Ember;
+import { assert } from '@ember/debug';
 
 /**
  * @class PaperSidenav

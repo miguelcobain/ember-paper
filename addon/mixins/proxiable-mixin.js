@@ -1,10 +1,10 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-import { ChildMixin } from 'ember-composability-tools';
+import Mixin from '@ember/object/mixin';
 
-const { Mixin, run } = Ember;
+import { run } from '@ember/runloop';
+import { ChildMixin } from 'ember-composability-tools';
 
 /**
  * @class ProxiableMixin

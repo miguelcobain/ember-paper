@@ -1,8 +1,6 @@
-import Ember from 'ember';
+import { get } from '@ember/object';
 import PowerOptions from 'ember-power-select/components/power-select/options';
 import layout from '../templates/components/paper-autocomplete-options';
-
-const { get } = Ember;
 
 export default PowerOptions.extend({
   layout,

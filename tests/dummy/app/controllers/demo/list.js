@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { Controller, computed } = Ember;
+import { map } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
 export default Controller.extend({
   names: [
@@ -9,7 +8,7 @@ export default Controller.extend({
     'Nick Giannopoulos'
   ],
 
-  listData: computed.map('names', function(c, index) {
+  listData: map('names', function(c, index) {
     let [firstName, lastName] = c.split(' ');
     return {
       name: c,

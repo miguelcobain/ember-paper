@@ -1,9 +1,7 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-
-const { isEmpty } = Ember;
+import { isEmpty } from '@ember/utils';
 
 export function required(value, required) {
   return (required === true && !isEmpty(value)) || required !== true;

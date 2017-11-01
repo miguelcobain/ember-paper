@@ -1,11 +1,11 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { run } from '@ember/runloop';
+
+import $ from 'jquery';
 import PaperMenuContent from './paper-menu-content';
 import layout from '../templates/components/paper-select-content';
-
-const { run, $ } = Ember;
 
 function waitForAnimations(element, callback) {
   let computedStyle = window.getComputedStyle(element);

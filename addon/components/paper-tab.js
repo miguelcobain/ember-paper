@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
+import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-tab';
 import { ChildMixin } from 'ember-composability-tools';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-const { computed, Component, String: { htmlSafe } } = Ember;
 
 export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
   layout,

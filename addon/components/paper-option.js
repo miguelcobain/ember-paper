@@ -1,12 +1,11 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { readOnly, not } from '@ember/object/computed';
+
 import layout from '../templates/components/paper-option';
 import PaperMenuItem from './paper-menu-item';
 import RippleMixin from '../mixins/ripple-mixin';
-
-const { computed } = Ember;
 
 /**
  * @class PaperOption
@@ -19,7 +18,7 @@ export default PaperMenuItem.extend(RippleMixin, {
   attributeBindings: ['aria-selected', 'aria-disabled', 'aria-current', 'data-option-index', 'role', 'selected', 'tabindex'],
   rippleContainerSelector: null,
   tabindex: '0',
-  fitRipple: computed.readOnly('isIconButton'),
-  center: computed.readOnly('isIconButton'),
-  dimBackground: computed.not('isIconButton')
+  fitRipple: readOnly('isIconButton'),
+  center: readOnly('isIconButton'),
+  dimBackground: not('isIconButton')
 });

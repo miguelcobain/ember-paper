@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import { assign } from '@ember/polyfills';
+import { run } from '@ember/runloop';
 import Application from '../../app';
 import config from '../../config/environment';
-
-const { assign, run } = Ember;
 
 export default function startApp(attrs) {
   let application;
