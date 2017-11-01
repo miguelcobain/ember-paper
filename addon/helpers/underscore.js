@@ -6,7 +6,7 @@ import Helper from '@ember/component/helper';
 import Ember from 'ember';
 
 const {
- String: Str
+  String: Str
 } = Ember;
 
 export function underscore([text]) {
