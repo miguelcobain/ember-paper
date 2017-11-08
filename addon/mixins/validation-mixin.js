@@ -53,12 +53,12 @@ function buildComputedValidationMessages(property) {
     // error messages array and string
     let errors = this.get('errors') || [];
     assert('`errors` must be an array or string', isArray(errors) || typeof errors === 'string' || errors instanceof String);
-    if(isArray(errors)) {
+    if (isArray(errors)) {
       messages.pushObjects(errors.map((e) => {
-        return get(e, 'message') ? e : {message: e};
+        return get(e, 'message') ? e : { message: e };
       }));
-    }else if(typeof errors === 'string' || errors instanceof String){
-      messages.pushObject({ message: errors});
+    } else if (typeof errors === 'string' || errors instanceof String) {
+      messages.pushObject({ message: errors });
     }
 
     return messages;
