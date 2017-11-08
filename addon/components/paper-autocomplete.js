@@ -3,9 +3,11 @@
  */
 import Ember from 'ember';
 import PowerSelect from 'ember-power-select/components/power-select';
+import layout from '../templates/components/paper-autocomplete';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
+import calculatePosition from '../utils/calculate-ac-position';
 
 const { assert, computed, inject, isNone, defineProperty } = Ember;
 
@@ -14,11 +16,16 @@ const { assert, computed, inject, isNone, defineProperty } = Ember;
  * @extends PowerSelectComponent
  */
 export default PowerSelect.extend(ValidationMixin, ChildMixin, {
+  layout,
+  calculatePosition,
+
   util: inject.service(),
   constants: inject.service(),
   triggerComponent: 'paper-autocomplete-trigger',
   contentComponent: 'paper-autocomplete-content',
   optionsComponent: 'paper-autocomplete-options',
+  triggerWrapperComponent: 'paper-autocomplete-trigger-container',
+
   concatenatedDropdownClasses: ['md-autocomplete-suggestions-container md-virtual-repeat-container'],
 
   extra: computed('labelPath', 'label', function() {
@@ -75,6 +82,10 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
 
   actions: {
 
+    onTriggerMouseDown() {
+      return false;
+    },
+
     onFocus(event) {
       this.send('activate');
       let publicAPI = this.get('publicAPI');
@@ -96,6 +107,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
       if (action) {
         action(this.get('publicAPI'), event);
       }
+
       this.notifyValidityChange();
     },
 

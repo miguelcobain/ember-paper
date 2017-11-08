@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-autocomplete-highlight';
 
 const { Component, computed, String: { htmlSafe } } = Ember;
 
@@ -10,6 +11,7 @@ const { Component, computed, String: { htmlSafe } } = Ember;
  * @extends Ember.Component
  */
 export default Component.extend({
+  layout,
   tagName: 'span',
   flags: '',
 
@@ -26,7 +28,7 @@ export default Component.extend({
     if (!term) {
       return term;
     }
-    return term.replace(/[\\\^\$\*\+\?\.\(\)\|\{}\[\]]/g, '\\$&');
+    return term.replace(/[\\^$*+?.()|{}[\]]/g, '\\$&');
   },
 
   getRegExp(text, flags) {
@@ -38,7 +40,7 @@ export default Component.extend({
     if (flags.indexOf('$') >= 1) {
       str += '$';
     }
-    return new RegExp(this.sanitize(str), flags.replace(/[\$\^]/g, ''));
+    return new RegExp(this.sanitize(str), flags.replace(/[$^]/g, ''));
   }
 
 });

@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-const { run, $: jQuery } = Ember;
+const { Component, run, $: jQuery } = Ember;
 
 moduleForComponent('paper-group-radio', 'Integration | Component | paper radio group', {
   integration: true
@@ -173,7 +173,7 @@ test('should be possible to select next with up/left arrow in a paper-radio-grou
   assert.equal(this.get('groupValue'), '3');
 });
 
-test('the `onChange` action is mandatory for paper-radio-group', function(assert) {
+/* test('the `onChange` action is mandatory for paper-radio-group', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
@@ -185,4 +185,20 @@ test('the `onChange` action is mandatory for paper-radio-group', function(assert
       {{/paper-radio-group}}
     `);
   }, /requires an `onChange` action/);
+});*/
+
+test('passing `radioComponent` allows customizing the yielded radio-component', function(assert) {
+  assert.expect(1);
+
+  this.register('component:custom-radio', Component.extend({
+    classNames: 'custom-radio'
+  }));
+
+  this.render(hbs`
+    {{#paper-radio-group radioComponent="custom-radio" groupValue=groupValue onChange=null as |group|}}
+      {{group.radio}}
+    {{/paper-radio-group}}
+  `);
+
+  assert.equal(this.$('.custom-radio').length, 1, 'custom radio component is displayed');
 });

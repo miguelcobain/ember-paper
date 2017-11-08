@@ -1,8 +1,10 @@
 import Ember from 'ember';
+import layout from '../templates/components/paper-virtual-repeat-scroller';
 
 const { Component } = Ember;
 
 export default Component.extend({
+  layout,
   classNames: ['md-virtual-repeat-scroller'],
 
   didInsertElement() {

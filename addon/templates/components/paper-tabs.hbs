@@ -1,0 +1,30 @@
+<md-tabs-wrapper class={{if shouldStretch "md-stretch-tabs"}}>
+
+  {{#if shouldPaginate}}
+    <md-prev-button role="button" class={{unless canPageBack "md-disabled"}} onclick={{action "previousPage"}}>
+      {{paper-icon "keyboard-arrow-left"}}
+    </md-prev-button>
+    <md-next-button role="button" class={{unless canPageForward "md-disabled"}} onclick={{action "nextPage"}}>
+      {{paper-icon "keyboard-arrow-left"}}
+    </md-next-button>
+  {{/if}}
+
+  <md-tabs-canvas class="{{if shouldPaginate "md-paginated"}} {{if shouldCenter "md-center-tabs"}}" tabindex="-1" role="tablist">
+    <md-pagination-wrapper class={{if shouldCenter "md-center-tabs"}} style={{if shouldPaginate paginationStyle}}>
+
+      {{yield (hash
+        tab=(component "paper-tab"
+          noInk=noInk
+          selected=selected
+          onSelect=(action "onChange")
+        )
+      )}}
+
+      {{#unless noInkBar}}
+        {{paper-ink-bar movingRight=movingRight left=inkBarLeft right=inkBarRight}}
+      {{/unless}}
+
+    </md-pagination-wrapper>
+  </md-tabs-canvas>
+
+</md-tabs-wrapper>

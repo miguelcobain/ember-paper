@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-switch';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
@@ -21,6 +22,7 @@ const {
  * @uses ProxiableMixin
  */
 export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
+  layout,
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['value:md-checked', 'dragging:md-dragging'],

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import VirtualEachComponent from 'virtual-each/components/virtual-each/component';
+import layout from '../templates/components/paper-virtual-repeat';
 
 const {
   computed,
@@ -15,6 +16,7 @@ const {
 const EXTRA_ROW_PADDING = 3;
 
 const VirtualRepeatComponent = VirtualEachComponent.extend({
+  layout,
   tagName: 'md-virtual-repeat-container',
   classNames: ['md-virtual-repeat-container'],
   classNameBindings: ['horizontal:md-orient-horizontal'],
@@ -125,9 +127,12 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     });
   },
 
-  didReceiveAttrs(changes) {
+  didReceiveAttrs() {
     this._super(...arguments);
-    let { newAttrs, oldAttrs={} } = changes;
+
+    let oldScrollIndex = this.get('_oldScrollIndex');
+    let newScrollIndex = this.get('scrollIndex');
+    let scrollTop = this.get('scrollTop');
 
     RSVP.cast(this.getAttr('items')).then((attrItems) => {
       let items = emberArray(attrItems);
@@ -138,17 +143,12 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
         _totalHeight: Math.max(itemsCount * this.get('itemHeight'), 0)
       });
 
-      // Set size explicitly
-      if (newAttrs.height) {
-        this.set('size', newAttrs.height);
-      } else if (newAttrs.width) {
-        this.set('size', newAttrs.width);
+      // Scroll index has changed, load more data & scroll
+      if (oldScrollIndex !== newScrollIndex) {
+        this.scrollToVirtualItem(newScrollIndex, scrollTop);
       }
 
-      // Scroll index has changed, load more data & scroll
-      if (oldAttrs.scrollIndex !== newAttrs.scrollIndex) {
-        this.scrollToVirtualItem(newAttrs.scrollIndex, newAttrs.scrollTop);
-      }
+      this.set('_oldScrollIndex', newScrollIndex);
     });
   },
 
@@ -188,7 +188,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
   },
 
   endAt: computed('_startAt', '_visibleItemCount', 'items.length', function() {
-    let { _startAt, _visibleItemCount } = this.getProperties('_startAt' , '_visibleItemCount');
+    let { _startAt, _visibleItemCount } = this.getProperties('_startAt', '_visibleItemCount');
     let totalItemsCount = get(this, 'items.length');
     return Math.min(totalItemsCount, _startAt + _visibleItemCount);
 
@@ -225,7 +225,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     );
   }).readOnly(),
 
-  scrollToVirtualItem(newIndex, toTop=false) {
+  scrollToVirtualItem(newIndex, toTop = false) {
     let { _startAt, endAt } = this.getProperties('_startAt', 'endAt');
 
     if (newIndex < _startAt || newIndex > endAt) {

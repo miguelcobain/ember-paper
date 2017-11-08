@@ -22,18 +22,27 @@ export default Component.extend(TransitionMixin, {
   transitionName: 'ng',
   shouldTransition: computed.bool('opaque'),
 
-  backdropStyle: computed('fixed', 'translateStyle', function() {
-    let style = this.get('translateStyle');
-    return this.get('fixed') ? htmlSafe(`position:fixed; ${style}`) : style;
+  backdropStyle: computed('fixed', function() {
+    return this.get('fixed') ? htmlSafe('position:fixed;') : null;
   }),
 
   addDestroyedElementClone(original, clone) {
     original.parent().append(clone);
   },
 
-  click(e) {
+  sendClickAction(e) {
     e.preventDefault();
     this.sendAction('onClick', e);
-  }
+  },
 
+  click(e) {
+    this.sendClickAction(e);
+  },
+
+  // needed for iOS
+  // iOS doesn't trigger a click event on normal divs
+  // unless we use `cursor: pointer` css
+  touchEnd(e) {
+    this.sendClickAction(e);
+  }
 });

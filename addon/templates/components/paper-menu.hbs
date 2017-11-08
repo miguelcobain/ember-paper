@@ -1,0 +1,28 @@
+{{yield (hash
+  dropdown=(readonly publicAPI)
+  isOpen=publicAPI.isOpen
+  disabled=publicAPI.disabled
+  actions=publicAPI.actions
+  trigger=(component triggerComponent
+    tagName="md-menu"
+    dropdown=(readonly publicAPI)
+    hPosition=(readonly hPosition)
+    onFocus=(action "handleFocus")
+    renderInPlace=(readonly renderInPlace)
+    vPosition=(readonly vPosition)
+    tabindex=-1
+  )
+  content=(component "paper-menu-content"
+    dropdown=(readonly publicAPI)
+    destination=(readonly destination)
+    hPosition=(readonly hPosition)
+    renderInPlace=(readonly renderInPlace)
+    vPosition=(readonly vPosition)
+    top=(readonly top)
+    left=(readonly left)
+    right=(readonly right)
+    width=(readonly width)
+    transform=transform
+    transformOrigin=transformOrigin
+  )
+)}}

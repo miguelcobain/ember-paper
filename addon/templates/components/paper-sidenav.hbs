@@ -1,0 +1,17 @@
+{{#unless closed}}
+  {{paper-backdrop
+    opaque=true
+    class="md-sidenav-backdrop"
+    onClick=(action "onBackdropTap")}}
+{{/unless}}
+
+{{#paper-sidenav-inner
+  class=class
+  name=name
+  position=position
+  lockedOpen=lockedOpen
+  closed=closed
+  closeOnClick=closeOnClick
+  onToggle=(action "onToggle")}}
+  {{yield}}
+{{/paper-sidenav-inner}}

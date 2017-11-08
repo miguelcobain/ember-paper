@@ -34,6 +34,7 @@ export default Controller.extend({
     this.set('timer2', run.later(this, function() {
       this.set('mode', this.get('mode') === 'query' ? 'determinate' : 'query');
       this.set('determinateValue', 30);
+      this.set('determinateValue2', 30);
       run.later(this, this.setupTimer2);
     }, 7200));
   },

@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-toolbar';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 const { Component } = Ember;
@@ -12,6 +13,7 @@ const { Component } = Ember;
  * @uses ColorMixin
  */
 export default Component.extend(ColorMixin, {
+  layout,
   tagName: 'md-toolbar',
   classNames: ['md-default-theme'],
   tall: false,

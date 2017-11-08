@@ -15,7 +15,7 @@
       Checkbox (disabled)
     {{/paper-checkbox}}
 
-    {{#paper-checkbox value=true   onChange=(action (mut value4)) disabled=true}}
+    {{#paper-checkbox value=true onChange=(action (mut value4)) disabled=true}}
       Checkbox (disabled and value)
     {{/paper-checkbox}}
 
@@ -24,6 +24,14 @@
     {{/paper-checkbox}}
 
     {{paper-checkbox label="Blockless version" value=value6 onChange=(action "toggleValue6")}}
+
+    {{#paper-checkbox indeterminate=isIndeterminate value=value7 onChange=(action (mut value7))}}
+      Indeterminate checkbox
+    {{/paper-checkbox}}
+
+    {{#paper-checkbox disabled=true indeterminate=isIndeterminate value=value7 onChange=null}}
+      Indeterminate checkbox (disabled)
+    {{/paper-checkbox}}
   </div>
   {{! END-SNIPPET }}
 

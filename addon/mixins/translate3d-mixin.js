@@ -147,7 +147,7 @@ export default Mixin.create({
    * @public
    */
   copyRect(source, destination) {
-    if (!source) {
+    if (!source) {
       return null;
     }
 

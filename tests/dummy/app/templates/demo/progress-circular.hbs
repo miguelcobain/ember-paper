@@ -4,7 +4,7 @@
   <h2>Basic Usage</h2>
   <h3>Determinate</h3>
   <p>For operations where the percentage of the operation completed can be determined, use a determinate indicator. They give users a quick sense of how long an operation will take.</p>
-  <div class="layout-row layout-sm-column layout-align-space-around">
+  <div class="layout-column layout-gt-sm-row layout-align-space-around">
     {{! BEGIN-SNIPPET progress-circular.determinate }}
     {{paper-progress-circular value=determinateValue}}
     {{! END-SNIPPET }}
@@ -13,7 +13,7 @@
 
   <h3>Indeterminate</h3>
   <p>For operations where the user is asked to wait a moment while something finishes up, and it’s not necessary to expose what's happening behind the scenes and how long it will take, use an indeterminate indicator.</p>
-  <div class="layout-row layout-sm-column layout-align-space-around">
+  <div class="layout-column layout-gt-sm-row layout-align-space-around">
     {{! BEGIN-SNIPPET progress-circular.indeterminate }}
     {{paper-progress-circular}}
     {{! END-SNIPPET }}
@@ -22,9 +22,9 @@
 
   <h3>Theming</h3>
 
-  <div class="layout-row layout-sm-column layout-align-space-around layout-align-center">
+  <div class="layout-column layout-gt-sm-row layout-align-space-around layout-align-center">
     {{! BEGIN-SNIPPET progress-circular.theming }}
-    {{paper-progress-circular class="md-hue-2" diameter="25%"}}
+    {{paper-progress-circular class="md-hue-2" diameter=25}}
     {{paper-progress-circular accent=true diameter=40}}
     {{paper-progress-circular accent=true class="md-hue-1" diameter=60}}
     {{paper-progress-circular warn=true class="md-hue-3" diameter=70}}
@@ -33,4 +33,36 @@
   </div>
   {{code-snippet name="progress-circular.theming.hbs"}}
 
+  <h3>Playground</h3>
+
+  <div class="layout-column layout-gt-sm-row">
+    {{! BEGIN-SNIPPET progress-circular.playground }}
+    <div class="flex layout-row layout-align-space-around layout-align-center">
+      {{paper-progress-circular value=sliderValue diameter=sliderDiameter strokeRatio=strokeRatio disabled=isDisabled}}
+    </div>
+    <div class="flex flex-gt-sm-33">
+      {{#paper-checkbox value=isIndeterminate onChange=(action "setIndeterminate")}}
+        Indeterminate
+      {{/paper-checkbox}}
+      {{#paper-checkbox value=isDisabled onChange=(action (mut isDisabled))}}
+        Disabled
+      {{/paper-checkbox}}
+      <div class="layout layout-align-center-center slider-container">
+        <span class="flex">Value ({{if sliderValue sliderValue "null"}})</span>
+        {{paper-slider class="flex" value=sliderValue min=0 max=100 onChange=(action "setValue")}}
+      </div>
+
+      <div class="layout layout-align-center-center slider-container">
+        <span class="flex">Diameter ({{sliderDiameter}})</span>
+        {{paper-slider class="flex" value=sliderDiameter min=0 max=300 onChange=(action (mut sliderDiameter))}}
+      </div>
+
+      <div class="layout layout-align-center-center slider-container">
+        <span class="flex">Stroke ratio ({{strokeRatio}})</span>
+        {{paper-slider class="flex" value=strokeRatio min=0 max=0.5 step=0.0025 onChange=(action (mut strokeRatio))}}
+      </div>
+
+    </div>
+    {{! END-SNIPPET }}
+  </div>
 {{/doc-content}}

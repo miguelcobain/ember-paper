@@ -1,0 +1,20 @@
+{{#if dropdown.isOpen}}
+  {{#ember-wormhole to=destination renderInPlace=renderInPlace}}
+    {{!--
+      Not really needed anymore - EPS does a good job of managing dropdown position
+      including destination scroll offset.
+      This remove double click issue when trying to focus another element while
+      autocomplete is open.
+     {{paper-backdrop class="md-click-catcher"}}
+     --}}
+    {{#paper-virtual-repeat (readonly select.results)
+      id=(readonly dropdownId)
+      class=(concat dropdownId " md-autocomplete-suggestions-container" " ember-basic-dropdown-content " (if renderInPlace 'ember-basic-dropdown-content--in-place ') (if hPosition (concat 'ember-basic-dropdown-content--' hPosition ' ')) (if vPosition (concat 'ember-basic-dropdown-content--' vPosition ' ') "md-whiteframe-z1 ") animationClass)
+      containerSelector='.md-autocomplete-suggestions'
+      scrollIndex=(readonly select.scrollIndex)
+      positionCoordinates=(hash top=top left=left right=right width=width)
+      as |rawItems virtualItems|}}
+      {{yield virtualItems}}
+    {{/paper-virtual-repeat}}
+  {{/ember-wormhole}}
+{{/if}}

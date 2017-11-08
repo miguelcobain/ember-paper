@@ -1,8 +1,6 @@
-import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-
-const { $: jQuery } = Ember;
+import $ from 'jquery';
 
 moduleForComponent('paper-checkbox', 'Integration | Component | paper checkbox', {
   integration: true
@@ -67,7 +65,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
     this.render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
     assert.equal(this.get('value'), false);
 
-    let e = jQuery.Event('keypress');
+    let e = new $.Event('keypress');
     e.which = keyCode; // # Some key code value
     this.$('md-checkbox').trigger(e);
 
@@ -81,7 +79,7 @@ test('shouldn\'t trigger an action when disabled', function(assert) {
     this.render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
     assert.equal(this.get('value'), true);
 
-    let e = jQuery.Event('keypress');
+    let e = new $.Event('keypress');
     e.which = keyCode; // # Some key code value
     this.$('md-checkbox').trigger(e);
 
@@ -109,10 +107,25 @@ test('block version should set label inside', function(assert) {
   assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
 });
 
-test('the `onChange` action is mandatory', function(assert) {
+/* test('the `onChange` action is mandatory', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
     this.render(hbs`{{paper-checkbox value=true}}`);
   }, /requires an `onChange` action/);
+});*/
+
+test('if `indeterminate` is true, set md-indeterminate class', function(assert) {
+  assert.expect(3);
+
+  this.set('value', true);
+  this.render(hbs`
+    {{paper-checkbox value=value indeterminate=indeterminate
+      label="Blue" onChange=(action (mut value))}}
+  `);
+  assert.ok(this.$('md-checkbox').hasClass('md-checked'));
+
+  this.set('indeterminate', true);
+  assert.ok(!this.$('md-checkbox').hasClass('md-checked'));
+  assert.ok(this.$('md-checkbox').hasClass('md-indeterminate'));
 });

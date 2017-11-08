@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-progress-linear';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 const { inject, computed, Component, isPresent, String: { htmlSafe } } = Ember;
@@ -23,17 +24,13 @@ const MODE_QUERY = 'query';
  * @uses ColorMixin
  */
 export default Component.extend(ColorMixin, {
+  layout,
   tagName: 'md-progress-linear',
 
   attributeBindings: ['mode:md-mode', 'bufferValue:md-buffer-value'],
   classNames: ['md-default-theme'],
 
   constants: inject.service(),
-
-  init() {
-    this._super(...arguments);
-    this.setupTransforms();
-  },
 
   mode: computed('value', function() {
     let value = this.get('value');
@@ -52,28 +49,15 @@ export default Component.extend(ColorMixin, {
 
   queryModeClass: computed('mode', function() {
     let mode = this.get('mode');
-
-    switch (mode) {
-      case MODE_QUERY:
-      case MODE_BUFFER:
-      case MODE_DETERMINATE:
-      case MODE_INDETERMINATE:
-        return `md-mode-${mode}`;
-      default:
-        return '';
+    if ([MODE_QUERY, MODE_BUFFER, MODE_DETERMINATE, MODE_INDETERMINATE].includes(mode)) {
+      return `md-mode-${mode}`;
+    } else {
+      return '';
     }
   }),
 
-  transforms: new Array(101),
-
-  setupTransforms() {
-    for (let i = 0; i < 101; i++) {
-      this.transforms[i] = makeTransform(i);
-    }
-  },
-
   bar1Style: computed('clampedBufferValue', function() {
-    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedBufferValue')]}`);
+    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${makeTransform(this.get('clampedBufferValue'))}`);
   }),
 
   bar2Style: computed('clampedValue', 'mode', function() {
@@ -81,7 +65,7 @@ export default Component.extend(ColorMixin, {
       return htmlSafe('');
     }
 
-    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${this.transforms[this.get('clampedValue')]}`);
+    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${makeTransform(this.get('clampedValue'))}`);
   }),
 
   clampedValue: computed('value', function() {

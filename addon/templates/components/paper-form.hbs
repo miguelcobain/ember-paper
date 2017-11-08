@@ -1,0 +1,22 @@
+{{yield (hash
+  isValid=isValid
+  isInvalid=isInvalid
+  isTouched=isTouched
+  isInvalidAndTouched=isInvalidAndTouched
+  input=(component inputComponent
+    parentComponent=this
+    onValidityChange=(action "onValidityChange")
+  )
+  submit-button=(component submitButtonComponent
+    type="submit"
+  )
+  select=(component selectComponent
+  	parentComponent=this
+  	onValidityChange=(action "onValidityChange")
+  )
+  autocomplete=(component autocompleteComponent
+  	parentComponent=this
+  	onValidityChange=(action "onValidityChange")
+  )
+  onSubmit=(action "onSubmit")
+)}}

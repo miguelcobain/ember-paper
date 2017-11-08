@@ -52,15 +52,15 @@ export default Component.extend({
     if (shouldSort) {
       category = category.slice().sort(function(a, b) {
         return a[0] < b[0]
-                  ? -1
-                  : a[0] > b[0] ? 1 : 0;
+          ? -1
+          : a[0] > b[0] ? 1 : 0;
       });
     }
 
     return category.map((row) => {
       return typeOf(row) === 'array'
-          ? row.map((cell) => escape(cell))
-          : escape(row);
+        ? row.map((cell) => escape(cell))
+        : escape(row);
     });
   }
 

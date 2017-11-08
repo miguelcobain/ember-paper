@@ -1,9 +1,11 @@
-import PowerOptions from 'ember-power-select/components/power-select/options';
 import Ember from 'ember';
+import PowerOptions from 'ember-power-select/components/power-select/options';
+import layout from '../templates/components/paper-select-options';
 
 const { $ } = Ember;
 
 export default PowerOptions.extend({
+  layout,
   tagName: 'md-content',
   init() {
     if (this.get('role') === 'group') {

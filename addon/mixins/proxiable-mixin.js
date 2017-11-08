@@ -4,7 +4,7 @@
 import Ember from 'ember';
 import { ChildMixin } from 'ember-composability-tools';
 
-const { Mixin, run, computed } = Ember;
+const { Mixin, run } = Ember;
 
 /**
  * @class ProxiableMixin
@@ -34,8 +34,6 @@ export default Mixin.create(ChildMixin, {
       }, 100);
     }
   },
-
-  hasAction: computed.or('onClick', 'onChange'),
 
   focusIn() {
     this._super(...arguments);

@@ -1,0 +1,24 @@
+{{yield (hash
+  isOpen=publicAPI.isOpen
+  disabled=publicAPI.disabled
+  actions=publicAPI.actions
+  trigger=(component triggerComponent
+    disabled=publicAPI.disabled
+    dropdown=(readonly publicAPI)
+    hPosition=(readonly hPosition)
+    onFocus=(action "handleFocus")
+    renderInPlace=(readonly renderInPlace)
+    vPosition=(readonly vPosition)
+  )
+  content=(component "paper-select-content"
+    dropdown=(readonly publicAPI)
+    destination=(readonly destination)
+    hPosition=(readonly hPosition)
+    renderInPlace=(readonly renderInPlace)
+    vPosition=(readonly vPosition)
+    top=(readonly top)
+    left=(readonly left)
+    right=(readonly right)
+    width=(readonly width)
+  )
+)}}

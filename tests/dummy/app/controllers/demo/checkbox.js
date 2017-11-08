@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Controller } = Ember;
+const { Controller, computed } = Ember;
 
 export default Controller.extend({
   value1: true,
@@ -9,6 +9,10 @@ export default Controller.extend({
   value4: false,
   value5: false,
   value6: false,
+
+  isIndeterminate: computed('value7', function() {
+    return this.get('value7') === undefined;
+  }),
 
   actions: {
     toggleValue6() {

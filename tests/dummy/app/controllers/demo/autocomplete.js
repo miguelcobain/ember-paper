@@ -29,7 +29,7 @@ export default Controller.extend({
         run.cancel(this.searchTimer);
 
         this.searchTimer = run.later(this, () => {
-          let nameRegExp = new RegExp(escapeRegExp(`${term}`),'i', 'g');
+          let nameRegExp = new RegExp(escapeRegExp(`${term}`), 'i', 'g');
           let countries = this.get('items');
           let results = countries.filter((c) => nameRegExp.exec(c.name)) || [];
           resolve(results);
@@ -38,7 +38,7 @@ export default Controller.extend({
     }
   },
 
-  arrayOfItems: ['Ember1.0', 'Ember2.0', 'Paper', 'One', 'Two', 'Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'],
+  arrayOfItems: ['Ember1.0', 'Ember2.0', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'],
 
   /*
    * Array of static Objects.

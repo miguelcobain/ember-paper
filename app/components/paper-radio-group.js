@@ -1,3 +1,1 @@
-import PaperRadioGroup from 'ember-paper/components/paper-radio-group';
-
-export default PaperRadioGroup;
+export { default } from 'ember-paper/components/paper-radio-group';

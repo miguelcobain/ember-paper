@@ -3,6 +3,7 @@
  */
 import Ember from 'ember';
 import PaperMenu from './paper-menu';
+import layout from '../templates/components/paper-select-menu';
 
 const { $ } = Ember;
 
@@ -26,9 +27,12 @@ function clamp(min, n, max) {
  * @extends Ember.Component
  */
 export default PaperMenu.extend({
+  layout,
+
   triggerComponent: 'paper-select-menu-trigger',
-  performFullReposition(trigger, dropdown) {
-    let $dropdown = $(dropdown);
+
+  calculatePosition(trigger, content, destination, { dropdown }) {
+    let $dropdown = $(content);
     let opts = {
       target: $(trigger),
       parent: $('body'),
@@ -48,7 +52,7 @@ export default PaperMenu.extend({
       left: parentRect.left + SELECT_EDGE_MARGIN,
       top: SELECT_EDGE_MARGIN,
       bottom: parentRect.height - SELECT_EDGE_MARGIN,
-      right: parentRect.width - SELECT_EDGE_MARGIN - (this.get('floatingScrollbars') ? 16 : 0)
+      right: parentRect.width - SELECT_EDGE_MARGIN - (dropdown.get('floatingScrollbars') ? 16 : 0)
     };
     let spaceAvailable = {
       top: targetRect.top - bounds.top,
@@ -62,7 +66,8 @@ export default PaperMenu.extend({
     let optionNodes = selectNode.getElementsByTagName('md-option');
     let optgroupNodes = selectNode.getElementsByTagName('md-optgroup');
 
-    let centeredNode;
+    let centeredNode, left, top, transformOrigin;
+
     // If a selected node, center around that
     if (selectedNode) {
       centeredNode = selectedNode;
@@ -120,7 +125,6 @@ export default PaperMenu.extend({
       }
     }
 
-    let left, top, transformOrigin;
     if (shouldOpenAroundTarget) {
       left = targetRect.left;
       top = targetRect.top + targetRect.height;
@@ -131,14 +135,14 @@ export default PaperMenu.extend({
       }
     } else {
       left = (targetRect.left + centeredRect.left - centeredRect.paddingLeft) + 2;
-      top = Math.floor(targetRect.top + targetRect.height / 2 - centeredRect.height / 2 -
-          centeredRect.top + contentNode.scrollTop) + 2;
+      top = Math.floor(targetRect.top + targetRect.height / 2 - centeredRect.height / 2
+        - centeredRect.top + contentNode.scrollTop) + 2;
 
       transformOrigin = `${centeredRect.left + targetRect.width / 2}px
         ${centeredRect.top + centeredRect.height / 2 - contentNode.scrollTop}px 0px`;
 
-      containerNode.style.minWidth = `${targetRect.width + centeredRect.paddingLeft +
-        centeredRect.paddingRight}px`;
+      containerNode.style.minWidth = `${targetRect.width + centeredRect.paddingLeft
+        + centeredRect.paddingRight}px`;
     }
 
     let containerRect = containerNode.getBoundingClientRect();
@@ -152,12 +156,12 @@ export default PaperMenu.extend({
       top: dropdownTop,
       left: dropdownLeft,
       // Animate a scale out if we aren't just repositioning
-      transform: !this.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
+      transform: !dropdown.didAnimateScale ? `scale(${scaleX}, ${scaleY})` : undefined,
       transformOrigin
     };
 
-    this.didAnimateScale = true;
+    dropdown.didAnimateScale = true;
 
-    this.applyReposition(trigger, dropdown, { style });
+    return { style, horizontalPosition: '', verticalPosition: '' };
   }
 });

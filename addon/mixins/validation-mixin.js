@@ -3,7 +3,7 @@
  */
 import Ember from 'ember';
 
-const { Mixin, computed, A, assert, isArray, Logger, get, String: { loc } } = Ember;
+const { Mixin, computed, A, assert, isArray, Logger, get, String: { loc }, isBlank } = Ember;
 
 import requiredValidator from 'ember-paper/validators/required';
 import minValidator from 'ember-paper/validators/min';
@@ -19,8 +19,11 @@ import maxlengthValidator from 'ember-paper/validators/maxlength';
  *
  * @return computed property that depends on the supplied property name
  */
-function buildComputedValidationMessages(property) {
-  return computed(property, 'errors.[]', 'customValidations.[]', function() {
+function buildComputedValidationMessages(property, validations = [], customValidations = []) {
+  let validationParams = validations.map((v) => get(v, 'param')).filter((v) => !isBlank(v));
+  let customValidationParams = customValidations.map((v) => get(v, 'param')).filter((v) => !isBlank(v));
+
+  return computed(property, 'errors.[]', 'customValidations.[]', ...validationParams, ...customValidationParams, function() {
     let validations = A();
     let messages = A();
 
@@ -45,7 +48,7 @@ function buildComputedValidationMessages(property) {
             message: loc(message.string || message, paramValue, currentValue)
           });
         }
-      } catch (error) {
+      } catch(error) {
         Logger.error('Exception with validation: ', validation, error);
       }
     });
@@ -73,13 +76,21 @@ export default Mixin.create({
   validationErrorMessages: null,
   lastIsInvalid: undefined,
   validationProperty: null, // property that validation should be based on
+
   init() {
     this._super(...arguments);
     assert('validationProperty must be set', this.get('validationProperty'));
     if (!this.get('validationErrorMessages')) {
-      this.set('validationErrorMessages', buildComputedValidationMessages(this.get('validationProperty')));
+      let computedValidationMessages = buildComputedValidationMessages(
+        this.get('validationProperty'),
+        this.validations(),
+        this.get('customValidations')
+      );
+      this.set('validationErrorMessages', computedValidationMessages);
     }
   },
+
+  hasErrorMessages: computed.bool('validationErrorMessages.length'),
 
   /**
    * The result of isInvalid is appropriate for controlling the display of
@@ -92,7 +103,7 @@ export default Mixin.create({
    *    false: input is valid (touched or not), or is no longer rendered
    *    true: input has been touched and is invalid.
    */
-  isInvalid: computed.or('validationErrorMessages.length'),
+  isInvalid: computed.reads('hasErrorMessages'),
   isValid: computed.not('isInvalid'),
 
   /**
@@ -116,9 +127,12 @@ export default Mixin.create({
   notifyValidityChange() {
     let isValid = this.get('isValid');
     let lastIsValid = this.get('lastIsValid');
-    if (lastIsValid !== isValid) {
+    let isTouched = this.get('isTouched');
+    let lastIsTouched = this.get('lastIsTouched');
+    if (lastIsValid !== isValid || lastIsTouched !== isTouched) {
       this.sendAction('onValidityChange', isValid);
       this.set('lastIsValid', isValid);
+      this.set('lastIsTouched', isTouched);
     }
   },
   customValidations: [],

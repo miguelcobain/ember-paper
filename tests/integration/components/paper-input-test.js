@@ -1,6 +1,9 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+
+const { Component } = Ember;
 
 moduleForComponent('paper-input', 'Integration | Component | paper input', {
   integration: true,
@@ -23,17 +26,42 @@ test('renders with left icon', function(assert) {
   this.render(hbs`{{paper-input icon="person" onChange=dummyOnChange}}`);
 
   assert.ok(this.$('md-input-container md-icon').length);
-  assert.ok(this.$('md-input-container').hasClass('md-has-icon'));
+  assert.ok(this.$('md-input-container').hasClass('md-icon-left'));
 });
 
 test('renders with right icon', function(assert) {
-  assert.expect(3);
+  assert.expect(2);
 
   this.render(hbs`{{paper-input label="name" iconRight="person" onChange=dummyOnChange}}`);
 
   assert.ok(this.$('md-input-container md-icon').length);
-  assert.ok(this.$('md-input-container').hasClass('md-has-icon'));
   assert.ok(this.$('md-input-container').hasClass('md-icon-right'));
+});
+
+test('renders with a custom icon component when `iconComponent` is specified', function(assert) {
+  assert.expect(2);
+
+  this.register('component:custom-icon', Component.extend({
+    classNames: ['custom-icon']
+  }));
+
+  this.render(hbs`{{paper-input iconComponent="custom-icon" icon="person" onChange=dummyOnChange}}`);
+
+  assert.equal(this.$('md-input-container md-icon').length, 0, 'default icon component is not rendered');
+  assert.equal(this.$('md-input-container .custom-icon').length, 1, 'custom icon component rendered');
+});
+
+test('renders with a custom icon component when `iconComponent` is specified and icon should be displayed on the right', function(assert) {
+  assert.expect(2);
+
+  this.register('component:custom-icon', Component.extend({
+    classNames: ['custom-icon']
+  }));
+
+  this.render(hbs`{{paper-input iconComponent="custom-icon" iconRight="person" onChange=dummyOnChange}}`);
+
+  assert.equal(this.$('md-input-container md-icon').length, 0, 'default icon component is not rendered');
+  assert.equal(this.$('md-input-container .custom-icon').length, 1, 'custom icon component rendered');
 });
 
 test('renders input with id', function(assert) {
@@ -113,6 +141,28 @@ test('renders input with attribute autocomplete', function(assert) {
 
   let actual = this.$('md-input-container input').attr('autocomplete');
   let expected = 'autocomplete';
+
+  assert.equal(actual, expected);
+});
+
+test('renders input with attribute autocorrect', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`{{paper-input passThru=(hash autocorrect="autocorrect") onChange=dummyOnChange}}`);
+
+  let actual = this.$('md-input-container input').attr('autocorrect');
+  let expected = 'autocorrect';
+
+  assert.equal(actual, expected);
+});
+
+test('renders input with attribute autocapitalize', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`{{paper-input passThru=(hash autocapitalize="autocapitalize") onChange=dummyOnChange}}`);
+
+  let actual = this.$('md-input-container input').attr('autocapitalize');
+  let expected = 'autocapitalize';
 
   assert.equal(actual, expected);
 });
@@ -325,6 +375,52 @@ test('custom validations work', function(assert) {
   assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
 });
 
+test('changing param in built-in validations works', function(assert) {
+  assert.expect(3);
+
+  this.value = '';
+  this.required = false;
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      required=required}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 0, 'no errors');
+
+  this.set('required', true);
+
+  assert.equal(this.$('.paper-input-error').length, 1, 'renders one error');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'This is required.');
+});
+
+test('changing param in custom validations works', function(assert) {
+  assert.expect(6);
+
+  this.value = 'aaabbbccc';
+  this.notinclude = 'cc';
+  this.customValidations = [{
+    param: 'notinclude',
+    message: 'You can\'t include the substring %@.',
+    validate: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) === -1
+  }];
+
+  this.render(hbs`
+    {{paper-input value=value onChange=dummyOnChange isTouched=true
+      maxlength=8 customValidations=customValidations notinclude=notinclude}}
+  `);
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
+
+  this.set('notinclude', 'bb');
+
+  assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+  assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
+  assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring bb.');
+});
+
 test('custom validations without param work', function(assert) {
   assert.expect(3);
 
@@ -401,7 +497,7 @@ test('renders error messages from an external `errors` string array', function(a
   assert.equal(this.$('.paper-input-error').last().text().trim(), 'foo should be smaller than 12.');
 });
 
-test('the `onChange` action is mandatory for paper-input', function(assert) {
+/* test('the `onChange` action is mandatory for paper-input', function(assert) {
   assert.expect(1);
 
   assert.throws(() => {
@@ -409,7 +505,7 @@ test('the `onChange` action is mandatory for paper-input', function(assert) {
       {{paper-input value="asd"}}
     `);
   }, /`onChange` action/);
-});
+});*/
 
 test('displayed input value matches actual input value', function(assert) {
   assert.expect(4);
@@ -499,4 +595,15 @@ test('hasValue works when `value` updated programatically', function(assert) {
     this.$('md-input-container').hasClass('md-input-has-value'),
     'should have md-input-has-value class if input has value'
   );
+});
+
+test('can render other stuff using paper-input block', function(assert) {
+  this.foo = '';
+  this.render(hbs`
+    {{#paper-input value=foo onChange=(action (mut foo))}}
+      <div class="other-stuff"></div>
+    {{/paper-input}}
+  `);
+
+  assert.equal(this.$('.other-stuff').length, 1);
 });

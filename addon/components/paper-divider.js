@@ -13,7 +13,7 @@ export default Component.extend({
   tagName: 'md-divider',
   attributeBindings: ['insetAttr:md-inset'],
   inset: false,
-  classNames: ['paper-divider','md-default-theme'],
+  classNames: ['paper-divider', 'md-default-theme'],
 
   /*
    * Not binding boolean values in Ember 1.8.1?

@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Ember from 'ember';
+import layout from '../templates/components/paper-item';
 import RippleMixin from '../mixins/ripple-mixin';
 import { ParentMixin } from 'ember-composability-tools';
 
@@ -14,11 +15,15 @@ const { Component, computed } = Ember;
  * @uses RippleMixin
  */
 export default Component.extend(RippleMixin, ParentMixin, {
+  layout,
   tagName: 'md-list-item',
 
   // Ripple Overrides
   rippleContainerSelector: '.md-no-style',
-  noink: computed.not('shouldBeClickable'),
+  // disable ripple when we have a primary action or when we don't have a proxied component
+  noink: computed('hasPrimaryAction', 'hasProxiedComponent', function() {
+    return this.get('hasPrimaryAction') || !this.get('hasProxiedComponent');
+  }),
 
   center: false,
   dimBackground: true,
@@ -26,7 +31,7 @@ export default Component.extend(RippleMixin, ParentMixin, {
 
   classNameBindings: [
     'hasProxiedComponent:md-proxy-focus', 'shouldBeClickable:md-clickable',
-    'focused:md-focused'
+    'focused:md-focused', 'hasPrimaryAction:_md-button-wrap'
   ],
   attributeBindings: ['role', 'tabindex'],
   role: 'listitem',
@@ -39,7 +44,7 @@ export default Component.extend(RippleMixin, ParentMixin, {
   hasProxiedComponent: computed.bool('proxiedComponents.length'),
   shouldBeClickable: computed.or('hasProxiedComponent', 'onClick'),
 
-  hasPrimaryAction: computed.notEmpty('onClick'),
+  hasPrimaryAction: computed.or('onClick', 'href'),
 
   noProxy: computed('hasPrimaryAction', 'hasProxiedComponent', function() {
     return !this.get('hasPrimaryAction') && !this.get('hasProxiedComponent');
@@ -56,5 +61,13 @@ export default Component.extend(RippleMixin, ParentMixin, {
         component.processProxy();
       }
     });
+  },
+
+  mouseEnter(ev) {
+    this.sendAction('onMouseEnter', ev);
+  },
+
+  mouseLeave(ev) {
+    this.sendAction('onMouseLeave', ev);
   }
 });

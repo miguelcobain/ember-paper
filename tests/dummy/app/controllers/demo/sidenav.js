@@ -3,8 +3,8 @@ const { Controller } = Ember;
 
 export default Controller.extend({
   actions: {
-    toggleSourceCode() {
-      this.toggleProperty('showSourceCode');
+    toggle(propName) {
+      this.toggleProperty(propName);
     }
   }
 });

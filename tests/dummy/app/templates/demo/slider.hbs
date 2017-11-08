@@ -1,71 +1,73 @@
-{{page-toolbar pageTitle="Slider" isDemo=true isWIP=true}}
+{{page-toolbar pageTitle="Slider" isDemo=true}}
 
-{{#doc-content}}
-  {{! BEGIN-SNIPPET slider }}
-  <h2>
-    RGB <span style={{colorStyle}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-  </h2>
+{{#doc-content class="slider-demo"}}
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Basic Usage</h2>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-card-content class="flex"}}
+      {{! BEGIN-SNIPPET slider }}
+      <h2>
+        RGB <span style={{colorStyle}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      </h2>
 
-  <div layout>
-    <div flex="10" class="layout layout-align-center-center">
-      <span>R</span>
-    </div>
-    {{paper-slider flex=true min='0' max='255' value=color.red}}
-    <div flex="20" class="layout layout-align-center-center">
-      {{input type="number" value=color.red}}
-    </div>
-  </div>
+      <div class="layout layout-align-center-center slider-container">
+        <span>R</span>
+        {{paper-slider class="flex" min=0 max=255 value=color.red onChange=(action (mut color.red))}}
+        {{paper-input type="number" value=color.red onChange=(action (mut color.red))}}
+      </div>
 
-  <div layout>
-    <div flex="10" class="layout layout-align-center-center">
-      <span>G</span>
-    </div>
-    {{paper-slider flex=true min='0' max='255' value=color.green class='md-accent'}}
-    <div flex="20" class="layout layout-align-center-center">
-      {{input type="number" value=color.green}}
-    </div>
-  </div>
+      <div class="layout layout-align-center-center slider-container">
+        <span>G</span>
+        {{paper-slider class="flex md-accent" min=0 max=255 value=color.green onChange=(action (mut color.green))}}
+        {{paper-input type="number" value=color.green  onChange=(action (mut color.green))}}
+      </div>
 
-  <div layout>
-    <div flex="10" class="layout layout-align-center-center">
-      <span>B</span>
-    </div>
-    {{paper-slider flex=true min='0' max='255' value=color.blue class='md-primary'}}
-    <div flex="20" class="layout layout-align-center-center">
-      {{input type="number" value=color.blue}}
-    </div>
-  </div>
+      <div class="layout layout-align-center-center slider-container">
+        <span>B</span>
+        {{paper-slider class="flex md-primary" min=0 max=255 value=color.blue onChange=(action (mut color.blue))}}
+        {{paper-input type="number" value=color.blue onChange=(action (mut color.blue))}}
+      </div>
 
-  <h2>Rating: {{rating}}/5 - demo of theming classes</h2>
-  <div layout>
-    <div flex="10" class="layout layout-align-center-center">
-      <span>default</span>
-    </div>
-    {{paper-slider flex=true discrete=true value=rating1 step='1' min='1' max='5'}}
-  </div>
-  <div layout>
-    <div flex="10" class="layout layout-align-center-center">
-      <span>md-warn</span>
-    </div>
-    {{paper-slider flex=true warn=true discrete=true value=rating2 step="1" min="1" max="5"}}
-  </div>
-  <div layout>
-    <div flex="10" class="layout layout-align-center-center">
-      <span>md-primary</span>
-    </div>
-    {{paper-slider flex=true primary=true discrete=true value=rating3 step="1" min="1" max="5"}}
-  </div>
+      <h2>Rating: {{rating}}/5 - demo of theming classes</h2>
+      <div class="layout layout-align-center-center slider-container">
+        <div class="layout flex-10 layout-align-center-center">
+          <span>default</span>
+        </div>
+        {{paper-slider class="flex" discrete=true value=rating1 step=1 min=1 max=5 onChange=(action (mut rating1))}}
+      </div>
+      <div class="layout layout-align-center-center slider-container">
+        <div class="layout flex-10 layout-align-center-center">
+          <span>md-warn</span>
+        </div>
+        {{paper-slider class="flex" warn=true discrete=true value=rating2 step=1 min=1 max=5 onChange=(action (mut rating2))}}
+      </div>
+      <div class="layout layout-align-center-center slider-container">
+        <div class="layout flex-10 layout-align-center-center">
+          <span>md-primary</span>
+        </div>
+        {{paper-slider class="flex" primary=true discrete=true value=rating3 step=1 min=1 max=5 onChange=(action (mut rating3))}}
+      </div>
 
-  <h2>Disabled</h2>
-  {{paper-slider value=disabled1 disabled=true}}
-  {{paper-slider value=disabled2 disabled=true}}
+      <h2>Disabled</h2>
+      <div class="layout layout-align-center-center slider-container">
+        {{paper-icon icon="brightness-low"}}
+        {{paper-slider class="flex" value=disabled1 disabled=isSliderDisabled onChange=(action (mut disabled1))}}
+        {{paper-input type="number" value=disabled1 onChange=(action (mut disabled1))}}
+      </div>
+      {{paper-checkbox value=isSliderDisabled onChange=(action (mut isSliderDisabled))}}
+      {{paper-slider value=disabled2 disabled=true}}
 
-  <h2>Disabled, Discrete</h2>
-  {{paper-slider value=disabled1 disabled=true step="3" discrete=true min="0" max="10"}}
-  {{paper-slider value=disabled2 disabled=true step="10" discrete=true}}
-  {{! END-SNIPPET }}
+      <h2>Disabled, Discrete</h2>
+      {{paper-slider value=discreteDisabled1 disabled=true discrete=true step=3 min=0 max=10}}
+      {{paper-slider value=discreteDisabled2 disabled=true discrete=true step=10}}
+      {{! END-SNIPPET }}
 
-  <h3>Template</h3>
-  {{code-snippet name="slider.hbs"}}
+      <h3>Template</h3>
+      {{code-snippet name="slider.hbs"}}
+    {{/paper-card-content}}
+  {{/paper-card}}
 
 {{/doc-content}}

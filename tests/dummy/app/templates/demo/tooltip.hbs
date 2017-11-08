@@ -1,0 +1,97 @@
+{{page-toolbar pageTitle="Tooltip" isDemo=true}}
+
+{{#doc-content}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Basic Usage</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggle" "showSourceCode") iconButton=true}}
+          {{paper-icon icon="code"}}
+          {{#paper-tooltip}}
+            {{if showSourceCode "Hide" "Show"}} code
+          {{/paper-tooltip}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
+      {{code-snippet name="tooltip.hbs"}}
+    </div>
+
+    <div class="doc-content-example">
+
+      {{#paper-card-content}}
+        <p>
+          You can render tooltips using the paper-tooltip component. This component
+          will attach to the immediate parent element and use it for positioning.
+        </p>
+
+        <p>
+          You can control the position of you tooltip using the
+          <code>position</code> property which can be one of <code>bottom</code> (default),
+          <code>top</code>, <code>left</code> or <code>right</code>. Try it:
+        </p>
+
+        <div class="layout-row layout-align-space-around-center md-padding">
+          {{! BEGIN-SNIPPET tooltip }}
+          {{#paper-button raised=true}}
+            A button
+            {{#paper-tooltip position=position}}
+              Hey! I'm a tooltip. Çup?
+            {{/paper-tooltip}}
+          {{/paper-button}}
+
+          {{#paper-button iconButton=true raised=true}}
+            {{paper-icon "create"}}
+            {{#paper-tooltip position=position}}
+              Create
+            {{/paper-tooltip}}
+          {{/paper-button}}
+
+          {{#paper-button fab=true raised=true accent=true}}
+            {{paper-icon "delete"}}
+            {{#paper-tooltip position=position}}
+              Delete
+            {{/paper-tooltip}}
+          {{/paper-button}}
+
+          <div>
+            {{#paper-icon "info"}}
+              {{#paper-tooltip position=position}}
+                Icon tooltip
+              {{/paper-tooltip}}
+            {{/paper-icon}}
+          </div>
+          {{! END-SNIPPET tooltip }}
+        </div>
+
+        {{#paper-radio-group groupValue=position onChange=(action (mut position)) as |group|}}
+          {{#group.radio value="bottom"}}
+            Bottom
+          {{/group.radio}}
+          {{#group.radio value="top"}}
+            Top
+          {{/group.radio}}
+          {{#group.radio value="left"}}
+            Left
+          {{/group.radio}}
+          {{#group.radio value="right"}}
+            Right
+          {{/group.radio}}
+        {{/paper-radio-group}}
+
+        {{paper-api
+          (p-section
+            (p-row "zIndex" "number" "Controls the z-index of the tooltip. By default it is 100.")
+            (p-row "position" "string" "Controls the position of the tooltip. Use one of `bottom` (default), `top`, `left` or `right`")
+            (p-row "parent" "jQuery object, element or selector" "Existing element where the tooltip will be rendered. Defaults to the global paper-wormhole.")
+            (p-row "attachTo" "jQuery object, element or selector" "Existing element that the tooltip will use to position itself. Defaults to the immediate parent element of the tooltip.")
+          )
+        }}
+
+      {{/paper-card-content}}
+    </div>
+  {{/paper-card}}
+{{/doc-content}}

@@ -1,0 +1,63 @@
+<md-chips-wrap
+  class="md-chips {{if (and (not readOnly) isFocused) "md-focused"}} {{unless readOnly "md-removable"}} {{if readOnly "md-readonly"}}"
+  tabindex="-1"
+  onkeydown={{action "keyDown"}}
+  onfocus={{action "chipsFocus"}}
+  onblur={{action "chipsBlur"}}>
+  {{#each content as |item index|}}
+    <md-chip class="md-chip md-default-theme {{if readOnly "md-readonly"}} {{if (eq activeChip index) "md-focused"}}" onclick={{action "chipClick" index}}>
+      <div class="md-chip-content" tabindex="-1" aria-hidden="true">
+        {{#if hasBlock}}
+          {{yield item}}
+        {{else}}
+          <span>{{item}}</span>
+        {{/if}}
+      </div>
+      <div class="md-chip-remove-container">
+        {{#unless readOnly}}
+          <button class="md-chip-remove" onclick={{action "removeItem" item}} type="button" aria-hidden="true" tabindex="-1">
+            {{paper-icon icon="clear" size=18}}
+            <span class="md-visually-hidden"> Remove </span>
+          </button>
+        {{/unless}}
+      </div>
+      {{#unless readOnly}}
+        <span class="md-visually-hidden"> Press delete to remove this chip. </span>
+      {{/unless}}
+    </md-chip>
+  {{/each}}
+  {{#unless readOnly}}
+    <div class="md-chip-input-container">
+      {{#if (or requireMatch options)}}
+        {{#paper-autocomplete
+          options=options
+          closeOnSelect=true
+          placeholder=placeholder
+          searchField=searchField
+          search=search
+          matcher=matcher
+          noMatchesMessage=noMatchesMessage
+          onBlur=(action "inputBlur")
+          onSelectionChange=(action "autocompleteChange")
+          onSearchTextChange=(action "searchTextChange")
+          onFocus=(action "inputFocus")
+          onOpen=(action "inputFocus")
+          onCreate=(action "addItem") as |item|}}
+          {{#if hasBlock}}
+            {{yield item}}
+          {{else}}
+            <span>{{item}}</span>
+          {{/if}}
+        {{/paper-autocomplete}}
+      {{else}}
+        {{input tabindex="0"
+          placeholder=placeholder
+          aria-label="Add Tag"
+          value=newChipValue
+          focus-in="inputFocus"
+          focus-out="inputBlur"
+          enter=(action "addItem" newChipValue)}}
+      {{/if}}
+    </div>
+  {{/unless}}
+</md-chips-wrap>

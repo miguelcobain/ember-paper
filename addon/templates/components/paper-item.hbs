@@ -1,0 +1,24 @@
+{{#with (hash
+  checkbox=(component "paper-checkbox" parentComponent=this bubbles=false shouldRegister=true)
+  button=(component "paper-button" parentComponent=this bubbles=false shouldRegister=true skipProxy=true)
+  switch=(component "paper-switch" parentComponent=this bubbles=false shouldRegister=true)
+  radio=(component "paper-radio-proxiable" parentComponent=this bubbles=false shouldRegister=true)
+) as |controls|}}
+
+  {{#if hasPrimaryAction}}
+    <div class="md-button md-no-style">
+      {{paper-button class="md-no-style"
+        onClick=onClick
+        href=href
+        onMouseEnter=(action mouseEnter) onMouseLeave=(action mouseLeave)}}
+      <div class="md-list-item-inner">
+        {{yield controls}}
+      </div>
+    </div>
+  {{else}}
+    <div class="md-no-style md-list-item-inner">
+      {{yield controls}}
+    </div>
+  {{/if}}
+
+{{/with}}

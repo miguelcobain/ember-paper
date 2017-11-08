@@ -1,8 +1,9 @@
 /**
  * @module ember-paper
  */
-import PaperMenuContent from './paper-menu-content';
 import Ember from 'ember';
+import PaperMenuContent from './paper-menu-content';
+import layout from '../templates/components/paper-select-content';
 
 const { run, $ } = Ember;
 
@@ -30,6 +31,8 @@ function waitForAnimations(element, callback) {
  * @extends PaperMenuContent
  */
 export default PaperMenuContent.extend({
+  layout,
+
   animateIn() {
     run.next(() => {
       run.scheduleOnce('afterRender', this, () => {
