@@ -23,10 +23,10 @@ test('it renders with classes', function(assert) {
 
   assert.ok($component.hasClass('paper-icon'));
   assert.ok($component.hasClass('material-icons'));
-  assert.equal($component.text(), 'foo');
+  assert.equal($component.text().trim(), 'foo');
   this.set('icon', 'bar');
-  assert.equal($component.text(), 'bar');
-  assert.notEqual($component.text(), 'foo');
+  assert.equal($component.text().trim(), 'bar');
+  assert.notEqual($component.text().trim(), 'foo');
 });
 
 test('it renders with spin class', function(assert) {

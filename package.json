@@ -1,7 +1,7 @@
 {
   "name": "ember-paper",
   "description": "The Ember approach to Material Design.",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -44,9 +44,10 @@
     "ember-export-application-global": "^2.0.0",
     "ember-href-to": "^1.13.0",
     "ember-load-initializers": "^1.0.0",
+    "ember-native-dom-helpers": "^0.5.4",
     "ember-resolver": "^4.3.0",
     "ember-router-service-polyfill": "^1.0.1",
-    "ember-source": "~2.14.0",
+    "ember-source": "~2.15.0",
     "ember-transition-helper": "0.0.6",
     "eslint-plugin-ember-suave": "^1.0.0",
     "liquid-fire": "0.27.3",
@@ -63,6 +64,7 @@
     "ember-cli-htmlbars": "^2.0.1",
     "ember-composability-tools": "0.0.8",
     "ember-css-transitions": "0.1.10",
+    "ember-get-config": "^0.2.3",
     "ember-power-select": "^1.8.5",
     "ember-wormhole": "0.5.2",
     "fastboot-transform": "^0.1.2",

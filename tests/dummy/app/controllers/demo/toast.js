@@ -7,6 +7,7 @@ export default Controller.extend({
   positionX: 'left',
   positionY: 'bottom',
   toastText: 'Hello world',
+  toastClass: '',
 
   paperToaster: inject.service(),
 
@@ -21,13 +22,15 @@ export default Controller.extend({
     // BEGIN-SNIPPET toaster
     openServiceToast() {
       this.get('paperToaster').show(this.get('toastText'), {
-        duration: 4000
+        duration: 4000,
+        toastClass: this.get('toastClass')
       });
     },
 
     openServiceActionToast() {
       this.get('paperToaster').show(this.get('toastText'), {
         duration: 4000,
+        toastClass: this.get('toastClass'),
         action: {
           label: 'Undo',
           accent: true,

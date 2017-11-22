@@ -13,6 +13,10 @@ export default Component.extend(TransitionMixin, {
       return;
     }
     onReset(e);
-  }
+  },
 
+  didTransitionOut() {
+    this._super(...arguments);
+    this.sendAction('onDidTransitionOut');
+  }
 });

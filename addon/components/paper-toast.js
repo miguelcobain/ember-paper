@@ -104,7 +104,7 @@ export default Component.extend({
     $(`#${this.get('destinationId')}`).removeClass(`md-toast-open-${y} md-toast-animating`);
   },
 
-  swipe()  {
+  swipeAction()  {
     if (this.get('swipeToClose')) {
       this.sendAction('onClose');
     }
