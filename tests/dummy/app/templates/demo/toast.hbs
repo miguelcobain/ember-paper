@@ -110,7 +110,17 @@
 
         <div class="layout-column">
           {{paper-input label="Toast text" value=toastText onChange=(action (mut toastText))}}
+
+          <strong>Toast class</strong>
+          <div>
+            {{#paper-radio-group class="layout-row" groupValue=toastClass onChange=(action (mut toastClass)) as |group|}}
+              {{#group.radio value=""}}[none]{{/group.radio}}
+              {{#group.radio value="md-accent"}}md-accent{{/group.radio}}
+              {{#group.radio value="md-warn"}}md-warn{{/group.radio}}
+            {{/paper-radio-group}}
+          </div>
         </div>
+
         <div class="layout-row">
           {{#paper-button raised=true primary=true onClick=(action "openServiceToast")}}
             Open toast
@@ -151,11 +161,22 @@
             (p-row "duration" "number or `false`" "Timeout in milliseconds. Defaults to `3000`. Use `false` to keep it open until a `cancelToast` is used.")
             (p-row "onClose" "function" "You can pass in a function the will be called back after the toast closes.")
             (p-row "position" "string" "Possible values are `bottom left` (default), `bottom right`, `top left` and `top right`")
+            (p-row "toastClass" "string" "CSS class to be applied to the md-toast element")
             (p-row "action.label" "string" "The label of the action button.")
             (p-row "action.accent" "boolean" "Wether or not you want the action button to be higlighted with the accent color.")
             (p-row "action.onClick" "function" "This function gets called when the button is pressed.")
           )
         }}
+
+        <h3>Application defaults</h3>
+
+        <p>
+          You can define a default <code>duration</code>, <code>toastClass</code>
+          and <code>position</code> for your application by adding in your
+          <code>config/environment.js</code> file:
+        </p>
+
+        {{code-snippet name="paper-toaster-defaults.js"}}
 
       {{/paper-card-content}}
     </div>

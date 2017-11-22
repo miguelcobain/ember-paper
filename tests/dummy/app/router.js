@@ -38,6 +38,7 @@ Router.map(function() {
     this.route('select');
     this.route('sidenav');
     this.route('slider');
+    this.route('speed-dial');
     this.route('switch');
     this.route('toast');
     this.route('toolbar');
