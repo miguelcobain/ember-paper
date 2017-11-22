@@ -13,11 +13,19 @@ const { Component, isPresent, isBlank, run, get, computed } = Ember;
 export default Component.extend({
   layout,
   tagName: 'md-autocomplete-wrap',
-  classNames: ['md-show-clear-button'],
-  classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing'],
+  classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing', 'showingClearButton:md-show-clear-button'],
 
   noLabel: computed.not('extra.label'),
   _innerText: computed.oneWay('searchText'),
+
+  showingClearButton: computed('allowClear', 'disabled', 'resetButtonDestroyed', function() {
+    // make room for clear button:
+    // - if we're enabled
+    // - or if we're disabled but the button still wasn't destroyed
+    return this.get('allowClear') && (
+      !this.get('disabled') || (this.get('disabled') && !this.get('resetButtonDestroyed'))
+    );
+  }),
 
   text: computed('selected', 'searchText', '_innerText', {
     get() {
@@ -56,11 +64,13 @@ export default Component.extend({
     let oldSelect = this.get('_oldSelect');
     let oldLastSearchedText = this.get('_lastSearchedText');
     let oldLoading = this.get('_loading');
+    let oldDisabled = this.get('_lastDisabled');
 
     let select = this.get('select');
     let loading = this.get('loading');
     let searchText = this.get('searchText');
     let lastSearchedText = this.get('lastSearchedText');
+    let disabled = this.get('disabled');
 
     if (oldSelect && oldSelect.isOpen && !select.isOpen && !loading && searchText) {
       this.set('text', this.getSelectedAsText());
@@ -78,10 +88,15 @@ export default Component.extend({
       run.schedule('actions', null, select.actions.open);
     }
 
+    if (oldDisabled && !disabled) {
+      this.set('resetButtonDestroyed', false);
+    }
+
     this.setProperties({
       _oldSelect: select,
       _lastSearchedText: lastSearchedText,
-      _loading: loading
+      _loading: loading,
+      _lastDisabled: disabled
     });
   },
 
@@ -119,6 +134,12 @@ export default Component.extend({
       }
       this.get('onInput')(e.target ? e : { target: { value: e } });
       this.set('text', e.target ? e.target.value : e);
+    },
+
+    resetButtonDestroyed() {
+      if (this.get('disabled')) {
+        this.set('resetButtonDestroyed', true);
+      }
     }
   },
   // Methods

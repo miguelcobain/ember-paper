@@ -1506,3 +1506,13 @@ md-input-container .hint {
 md-tabs.md-primary {
   border-radius: 0px;
 }
+
+/* toast demo */
+md-toast {
+  &.md-accent > .md-toast-content {
+    background: color($accent, '400');
+  }
+  &.md-warn > .md-toast-content {
+    background: color($warn, '400');
+  }
+}

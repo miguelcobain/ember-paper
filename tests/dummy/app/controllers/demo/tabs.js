@@ -15,7 +15,7 @@ export default Controller.extend({
 
   router: inject.service(),
 
-  currentRouteName: computed.reads('router.currentRouteName'),
+  currentRouteName: computed.readOnly('router.currentRouteName'),
 
   chapters: computed(function() {
     let tabs = A();
@@ -60,6 +60,8 @@ export default Controller.extend({
         this.set('selectedChapter', newSelection);
       }
       this.get('chapters').removeObject(t);
-    }
+    },
+
+    noop() {}
   }
 });

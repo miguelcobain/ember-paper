@@ -1,5 +1,6 @@
 import Ember from 'ember';
 const { computed, assign, run, A, Service, tryInvoke, Object: EObject } = Ember;
+import config from 'ember-get-config';
 
 const DEFAULT_PROPS = {
   duration: 3000,
@@ -38,6 +39,10 @@ export default Service.extend({
   },
 
   buildOptions(options) {
-    return assign({}, DEFAULT_PROPS, options);
+    let toasterOptions = {};
+    if (config['ember-paper'] && config['ember-paper']['paper-toaster']) {
+      toasterOptions = config['ember-paper']['paper-toaster'];
+    }
+    return assign({}, DEFAULT_PROPS, toasterOptions, options);
   }
 });

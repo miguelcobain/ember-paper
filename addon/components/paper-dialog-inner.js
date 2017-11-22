@@ -32,21 +32,24 @@ export default Component.extend(Translate3dMixin, {
     }
   },
 
-  imagesLoaded() {
-    let content = this.element.querySelector('md-dialog-content');
-    this.set('contentOverflow', content.scrollHeight > content.clientHeight);
-  },
-
   didInsertElement() {
     this._super(...arguments);
+    this.checkContentOverflow();
     // content overflow might change depending on load of images inside dialog.
     let images = this.$().find('img');
-    images.on(`load.${this.elementId}`, run.bind(this, this.imagesLoaded));
+    images.on(`load.${this.elementId}`, run.bind(this, this.checkContentOverflow));
   },
 
   willDestroyElement() {
     this._super(...arguments);
     let images = this.$().find('img');
     images.off(`load.${this.elementId}`);
+  },
+
+  checkContentOverflow() {
+    let content = this.element.querySelector('md-dialog-content');
+    if (content) {
+      this.set('contentOverflow', content.scrollHeight > content.clientHeight);
+    }
   }
 });
