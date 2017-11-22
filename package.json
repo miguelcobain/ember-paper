@@ -1,7 +1,7 @@
 {
   "name": "savo-paper",
   "description": "The Ember approach to Material Design.",
-  "version": "1.0.0-beta.3-savo-0.2.0",
+  "version": "1.0.0-beta.3-savo-0.2.1",
   "directories": {
     "doc": "doc",
     "test": "tests"
