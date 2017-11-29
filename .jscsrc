@@ -1,5 +1,0 @@
-{
-  "preset": "ember-suave",
-  "requireNumericLiterals": false,
-  "requireCommentsToIncludeAccess": false
-}

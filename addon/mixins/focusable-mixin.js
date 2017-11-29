@@ -52,13 +52,15 @@ export default Mixin.create(EventsMixin, {
     this.set('focused', false);
   },
 
-  mouseEnter() {
+  mouseEnter(e) {
     this.set('hover', true);
+    this.sendAction('onMouseEnter', e);
   },
 
   mouseLeave(e) {
     this.set('hover', false);
     this._super(e);
+    this.sendAction('onMouseLeave', e);
   },
 
   down() {

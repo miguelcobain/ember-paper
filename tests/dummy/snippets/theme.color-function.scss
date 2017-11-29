@@ -1,5 +1,5 @@
 .my-component {
-  color: color($primary, 'contrast');
+  color: contrastColor($primary, '500');
   background-color: color($primary, '200');
 }
 

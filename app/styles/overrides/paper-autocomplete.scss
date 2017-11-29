@@ -1,0 +1,5 @@
+//## Overwrite the AM@1.1.1 styles -- explicit height was removed
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
+  height: 225.5px;
+  max-height: 225.5px;
+}

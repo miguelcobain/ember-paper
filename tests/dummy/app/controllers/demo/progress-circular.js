@@ -23,6 +23,28 @@ export default Controller.extend({
 
   stop() {
     run.cancel(this.get('timer'));
+  },
+
+  sliderDiameter: 100,
+  sliderValue: null,
+  isIndeterminate: true,
+  strokeRatio: 0.1,
+
+  actions: {
+    setValue(v) {
+      this.set('isIndeterminate', false);
+      this.set('sliderValue', v);
+    },
+
+    setIndeterminate(value) {
+      if (value) {
+        this.set('isIndeterminate', true);
+        this.set('sliderValue', null);
+      } else {
+        this.set('isIndeterminate', false);
+        this.set('sliderValue', 50);
+      }
+    }
   }
 
 });

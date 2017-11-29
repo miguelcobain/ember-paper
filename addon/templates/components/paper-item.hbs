@@ -6,11 +6,15 @@
 ) as |controls|}}
 
   {{#if hasPrimaryAction}}
-    {{#paper-button class="md-no-style" onClick=(action onClick)}}
+    <div class="md-button md-no-style">
+      {{paper-button class="md-no-style"
+        onClick=onClick
+        href=href
+        onMouseEnter=(action mouseEnter) onMouseLeave=(action mouseLeave)}}
       <div class="md-list-item-inner">
         {{yield controls}}
       </div>
-    {{/paper-button}}
+    </div>
   {{else}}
     <div class="md-no-style md-list-item-inner">
       {{yield controls}}

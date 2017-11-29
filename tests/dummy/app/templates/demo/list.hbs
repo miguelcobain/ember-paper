@@ -88,10 +88,12 @@
         {{#each toppings as |topping|}}
           {{#paper-item as |controls|}}
             <p>{{topping.name}}</p>
-            {{controls.checkbox
-              value=topping.enabled
-              secondary=true
-              onChange=(action (mut topping.enabled))}}
+            <div class="md-secondary-container">
+              {{controls.checkbox
+                value=topping.enabled
+                secondary=true
+                onChange=(action (mut topping.enabled))}}
+            </div>
           {{/paper-item}}
         {{/each}}
 
@@ -100,15 +102,19 @@
         {{#paper-subheader}}Secondary Buttons{{/paper-subheader}}
         {{#paper-item as |controls|}}
           <p>Clicking the button to the right will fire the secondary action</p>
-          {{#controls.button secondary=true onClick=(action "transitionTo" "more info")}}
-            More Info
-          {{/controls.button}}
+          <div class="md-secondary-container">
+            {{#controls.button secondary=true onClick=(action "transitionTo" "more info")}}
+              More Info
+            {{/controls.button}}
+          </div>
         {{/paper-item}}
         {{#paper-item onClick=(action "transitionTo" "primary action") as |controls|}}
           <p>Click anywhere to fire the primary action, or the button to fire the secondary</p>
-          {{#controls.button secondary=true onClick=(action "transitionTo" "secondary action")}}
-            More Info
-          {{/controls.button}}
+          <div class="md-secondary-container">
+            {{#controls.button secondary=true onClick=(action "transitionTo" "secondary action")}}
+              More Info
+            {{/controls.button}}
+          </div>
         {{/paper-item}}
 
         {{paper-divider}}
@@ -117,12 +123,16 @@
         {{#paper-item onClick=(action "transitionToWifiMenu") as |controls|}}
           {{paper-icon "network-wifi"}}
           <p>Wi-Fi</p>
-          {{controls.switch secondary=true value=wifiEnabled onChange=(action (mut wifiEnabled))}}
+          <div class="md-secondary-container">
+            {{controls.switch secondary=true value=wifiEnabled onChange=(action (mut wifiEnabled))}}
+          </div>
         {{/paper-item}}
         {{#paper-item onClick=(action "transitionToBluetoothMenu") as |controls|}}
           {{paper-icon "bluetooth"}}
           <p>Bluetooth</p>
-          {{controls.switch secondary=true value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
+          <div class="md-secondary-container">
+            {{controls.switch secondary=true value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
+          </div>
         {{/paper-item}}
         {{#paper-item onClick=(action "transitionToDataUsage")}}
           {{paper-icon "data-usage"}}
@@ -131,14 +141,35 @@
 
         {{paper-divider}}
 
-        {{#paper-subheader class="md-no-sticky"}}Checkbox with Secondary Action{{/paper-subheader}}
+        {{#paper-subheader}}Checkbox with Secondary Action{{/paper-subheader}}
         {{#each messageData as |item|}}
           {{#paper-item as |controls|}}
             {{controls.checkbox value=item.checked onChange=(action (mut item.checked))}}
             <p>{{item.message}}</p>
-            {{#controls.button secondary=true iconButton=true onClick=(action "secondaryMessageClick" item)}}
-              {{paper-icon "message"}}
-            {{/controls.button}}
+            <div class="md-secondary-container">
+              {{#controls.button secondary=true iconButton=true onClick=(action "secondaryMessageClick" item)}}
+                {{paper-icon "message"}}
+              {{/controls.button}}
+            </div>
+          {{/paper-item}}
+        {{/each}}
+
+        {{paper-divider}}
+
+        {{#paper-subheader}}Avatar with Secondary Action Icon{{/paper-subheader}}
+        {{#each listData as |item|}}
+          {{#paper-item onClick=(action "goToPerson" item) as |controls|}}
+            <img src={{item.img}} alt={{item.name}} class="md-avatar">
+            <p>{{item.name}}</p>
+            <div class="md-secondary-container">
+              {{controls.checkbox value=item.checked onChange=(action (mut item.checked))}}
+              {{#controls.button secondary=true iconButton=true onClick=(action "secondaryMessageClick" item)}}
+                {{paper-icon "email"}}
+              {{/controls.button}}
+              {{#controls.button secondary=true iconButton=true onClick=(action "secondaryMessageClick" item)}}
+                {{paper-icon "message"}}
+              {{/controls.button}}
+            </div>
           {{/paper-item}}
         {{/each}}
 
@@ -177,11 +208,13 @@
         {{#each toppings as |topping|}}
           {{#paper-item as |controls|}}
             <p>{{topping.name}}</p>
-            {{controls.radio
-              groupValue=radioSelectedTopping
-              value=topping
-              secondary=true
-              onChange=(action (mut radioSelectedTopping))}}
+            <div class="md-secondary-container">
+              {{controls.radio
+                groupValue=radioSelectedTopping
+                value=topping
+                secondary=true
+                onChange=(action (mut radioSelectedTopping))}}
+              </div>
           {{/paper-item}}
         {{/each}}
 

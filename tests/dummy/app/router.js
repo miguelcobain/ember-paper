@@ -14,6 +14,7 @@ Router.map(function() {
   this.route('typography');
   this.route('theme');
   this.route('cookbook');
+  this.route('addons');
 
   this.route('demo', { path: 'components' }, function() {
     this.route('autocomplete');
@@ -28,14 +29,20 @@ Router.map(function() {
     this.route('input');
     this.route('list');
     this.route('menu');
+    this.route('tabs', function() {
+      this.route('nested-route');
+    });
     this.route('progress-circular');
     this.route('progress-linear');
     this.route('radio');
     this.route('select');
     this.route('sidenav');
     this.route('slider');
+    this.route('speed-dial');
     this.route('switch');
+    this.route('toast');
     this.route('toolbar');
+    this.route('tooltip');
     this.route('virtual-repeat');
   });
 

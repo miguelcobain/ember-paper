@@ -1,0 +1,203 @@
+{{page-toolbar pageTitle="Toast" isDemo=true}}
+
+{{#doc-content}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Component Usage</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
+      {{code-snippet name="toast.hbs"}}
+    </div>
+
+    <div class="doc-content-example">
+      <div id="paper-dialog-demo"></div>
+      {{#paper-card-content}}
+        <p>Open a toast over the app's content. Press escape, swipe or timeout to close the toast.</p>
+
+        <div class="layout-row layout-wrap">
+          {{#paper-button raised=true primary=true onClick=(action "openToast")}}
+            Open toast with accent button
+          {{/paper-button}}
+
+          {{#paper-button raised=true primary=true onClick=(action "openToastWithout")}}
+            Open toast
+          {{/paper-button}}
+        </div>
+
+        <h3>Options</h3>
+        <div class="layout-row layout-wrap layout-xs-column layout-sm-column">
+
+          <div class="flex">
+            {{#paper-radio-group groupValue=positionX onChange=(action (mut positionX)) as |group|}}
+              {{#group.radio value="left"}}Left{{/group.radio}}
+              {{#group.radio value="right"}}Right{{/group.radio}}
+            {{/paper-radio-group}}
+          </div>
+          <div class="flex">
+            {{#paper-radio-group groupValue=positionY onChange=(action (mut positionY)) as |group|}}
+              {{#group.radio value="top"}}Top{{/group.radio}}
+              {{#group.radio value="bottom"}}Bottom{{/group.radio}}
+            {{/paper-radio-group}}
+          </div>
+          <div class="flex">
+            {{#paper-checkbox value=capsule onChange=(action (mut capsule))}}
+              capsule
+            {{/paper-checkbox}}
+          </div>
+          <div class="flex">
+            {{#paper-checkbox value=swipeToClose  flex=true onChange=(action (mut swipeToClose))}}
+              swipeToClose
+            {{/paper-checkbox}}
+          </div>
+        </div>
+
+        <h3>duration</h3>
+        <div class="layout layout-align-center-center slider-container">
+          {{paper-icon "watch later"}}
+          {{paper-slider class="flex" value=duration max=6000 onChange=(action (mut duration))}}
+          {{paper-input type="number" value=duration onChange=(action (mut duration))}}
+        </div>
+
+        {{paper-api
+          (p-section
+            (p-row "parent" "jQuery object, element or selector" "Existing element where the modal and backdrop will be rendered")
+            (p-row "swipeToClose" "boolean" "Causes swiping to trigger the `onClose` handler. Defaults to `true`.")
+            (p-row "duration" "number or `false`" "Timeout in milliseconds, set to false to disable timeout. Defaults to `3000`")
+            (p-row "escapeToClose" "boolean" "Causes pressing escape to close the toast. Defaults to `false`.")
+            (p-row "position" "string" "Possible values are `bottom left` (default), `bottom right`, `top left` and `top right`")
+            (p-row "capsule" "boolean" "Controls whether the capsule class is added to the toast.Defaults to `false`")
+          )
+          (p-section
+            "Actions"
+            (p-row "onClose" "action" "An action to be executed when the toast is closed, e.g. by pressing escape, swiping or timeout.")
+          )
+        }}
+
+      {{/paper-card-content}}
+    </div>
+
+  {{/paper-card}}
+
+  {{#paper-card}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Paper Toaster Service</h2>
+        <span class="flex"></span>
+        {{#paper-button onClick=(action "toggleSourceCode") iconButton=true}}
+          {{paper-icon icon="code"}}
+        {{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
+      {{code-snippet name="toaster.js"}}
+    </div>
+
+    <div class="doc-content-example">
+      {{#paper-card-content}}
+
+        <p>Open a toast via <code>paperToaster</code> service and <code>\{{paper-toaster}}</code> component.</p>
+
+        <h3>Options</h3>
+
+        <div class="layout-column">
+          {{paper-input label="Toast text" value=toastText onChange=(action (mut toastText))}}
+
+          <strong>Toast class</strong>
+          <div>
+            {{#paper-radio-group class="layout-row" groupValue=toastClass onChange=(action (mut toastClass)) as |group|}}
+              {{#group.radio value=""}}[none]{{/group.radio}}
+              {{#group.radio value="md-accent"}}md-accent{{/group.radio}}
+              {{#group.radio value="md-warn"}}md-warn{{/group.radio}}
+            {{/paper-radio-group}}
+          </div>
+        </div>
+
+        <div class="layout-row">
+          {{#paper-button raised=true primary=true onClick=(action "openServiceToast")}}
+            Open toast
+          {{/paper-button}}
+          {{#paper-button raised=true primary=true onClick=(action "openServiceActionToast")}}
+            Open toast with action
+          {{/paper-button}}
+        </div>
+        <ul>
+          {{#each paperToaster.queue as |toast index|}}
+            <li>
+              "{{toast.text}}" -
+              {{#if (eq index 0)}}
+                {{#if toast.show}}
+                  showing for {{toast.duration}}ms
+                {{else}}
+                  (Removing...)
+                {{/if}}
+              {{else}}
+                (Waiting)
+              {{/if}}
+              {{#paper-button onClick=(action "cancelToast" toast)}}
+                Cancel
+              {{/paper-button}}
+            </li>
+          {{/each}}
+        </ul>
+
+        {{paper-api
+          (p-section
+            "Methods"
+            (p-row "show(text[, options])" "Toast" "Display a toast that renders given text.")
+            (p-row "showComponent(componentName[, options])" "Toast" "Display a toast that renders a component.")
+            (p-row "cancelToast(toast)" "" "Closes or cancel a given toast.")
+          )
+          (p-section
+            "Options"
+            (p-row "duration" "number or `false`" "Timeout in milliseconds. Defaults to `3000`. Use `false` to keep it open until a `cancelToast` is used.")
+            (p-row "onClose" "function" "You can pass in a function the will be called back after the toast closes.")
+            (p-row "position" "string" "Possible values are `bottom left` (default), `bottom right`, `top left` and `top right`")
+            (p-row "toastClass" "string" "CSS class to be applied to the md-toast element")
+            (p-row "action.label" "string" "The label of the action button.")
+            (p-row "action.accent" "boolean" "Wether or not you want the action button to be higlighted with the accent color.")
+            (p-row "action.onClick" "function" "This function gets called when the button is pressed.")
+          )
+        }}
+
+        <h3>Application defaults</h3>
+
+        <p>
+          You can define a default <code>duration</code>, <code>toastClass</code>
+          and <code>position</code> for your application by adding in your
+          <code>config/environment.js</code> file:
+        </p>
+
+        {{code-snippet name="paper-toaster-defaults.js"}}
+
+      {{/paper-card-content}}
+    </div>
+
+  {{/paper-card}}
+
+  <span id="bottom-of-card"></span>
+
+{{/doc-content}}
+
+{{! BEGIN-SNIPPET toast }}
+{{#if showToast}}
+  {{#paper-toast duration=duration position=(concat positionY " " positionX) capsule=capsule swipeToClose=swipeToClose onClose=(action "closeToast") as |toast|}}
+    {{#toast.text}}Hello{{/toast.text}}
+    {{#paper-button accent=true onClick=(action "buttonAction")}}Undo{{/paper-button}}
+  {{/paper-toast}}
+{{/if}}
+
+{{#if showToastWithout}}
+  {{#paper-toast duration=duration position=(concat positionY " " positionX) capsule=capsule swipeToClose=swipeToClose onClose=(action "closeToastWithout") as |toast|}}
+    {{#toast.text}}Hello{{/toast.text}}
+  {{/paper-toast}}
+{{/if}}
+{{! END-SNIPPET }}

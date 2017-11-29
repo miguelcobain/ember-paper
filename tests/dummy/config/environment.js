@@ -1,7 +1,6 @@
-/* jshint node: true */
+/* eslint-env node */
 
 module.exports = function(environment) {
-  // jscs:disable requireEnhancedObjectLiterals, validateQuoteMarks, disallowEmptyBlocks, disallowVar
 
   var ENV = {
     modulePrefix: 'dummy',
@@ -24,7 +23,7 @@ module.exports = function(environment) {
       // when it is created
       rootElement: 'body'
     },
-    
+
     contentSecurityPolicy: {
       'default-src': "'none'",
       'script-src': "'self' 'unsafe-inline' 'unsafe-eval' https://buttons.github.io https://api.github.com",
@@ -57,7 +56,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.rootURL = '/ember-paper/release-1';
+    ENV.rootURL = '/ember-paper';
   }
 
   return ENV;
