@@ -5,7 +5,7 @@ import Ember from 'ember';
 import layout from '../templates/components/paper-menu-item';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 
-const { Component } = Ember;
+const { Component, computed } = Ember;
 
 /**
  * @class PaperMenuItem
@@ -17,16 +17,18 @@ export default Component.extend(ChildMixin, {
   tagName: 'md-menu-item',
   disabled: false,
 
+  shouldRenderButton: computed.or('onClick', 'href'),
+
   actions: {
     handleClick(event) {
       this.get('dropdown.actions').close();
       this.sendAction('onClick', event);
     }
   },
+
   mouseEnter() {
     if (!this.get('disabled')) {
       this.$('button').focus();
     }
   }
-
 });
