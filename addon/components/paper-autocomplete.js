@@ -46,7 +46,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
   }),
 
   concatenatedDropdownClasses: computed('dropdownClass', function() {
-    let classes = ['md-autocomplete-suggestions-container md-virtual-repeat-container dude'];
+    let classes = ['md-autocomplete-suggestions-container md-virtual-repeat-container'];
     if (this.get('dropdownClass')) {
       classes.push(this.get('dropdownClass'));
     }
