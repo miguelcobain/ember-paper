@@ -80,7 +80,9 @@ export default Component.extend({
     };
 
     anchorElement.addEventListener('focus', enterEventHandler);
-    anchorElement.addEventListener('touchstart', enterEventHandler);
+    anchorElement.addEventListener('touchstart', enterEventHandler, {
+      passive: true
+    });
     anchorElement.addEventListener('mouseenter', enterEventHandler);
 
     window.addEventListener('scroll', leaveHandler);
