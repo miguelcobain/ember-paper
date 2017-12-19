@@ -9,9 +9,20 @@ var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
 var AngularScssFilter = require('./lib/angular-scss-filter');
 var fastbootTransform = require('fastboot-transform');
+var buildAstTransform = require('./lib/ast-transform');
 
 module.exports = {
   name: 'ember-paper',
+
+  setupPreprocessorRegistry(type, registry) {
+    registry.add('htmlbars-ast-plugin', {
+      name: 'ember-paper-static-transform',
+      plugin: buildAstTransform(this),
+      baseDir() {
+        return __dirname;
+      }
+    });
+  },
 
   included: function() {
     this._super.included.apply(this, arguments);
