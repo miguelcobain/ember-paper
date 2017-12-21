@@ -29,7 +29,7 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - [5da2611](https://github.com/miguelcobain/ember-paper/commit/5da2611773e67bf66a99976563fd2241cceea700) add hideAllMessages to paper-autocomplete
 - [#683](https://github.com/miguelcobain/ember-paper/pull/683) paper-autocomplete now resolves promises passed in the `selected` property
 - [0b72622](https://github.com/miguelcobain/ember-paper/commit/0b726220e8a69ceb35d8461b3cc55e9ce8ba3036) make sure paper-tooltip handlers do not run when tooltip is destroyed
-- [d692555](https://github.com/miguelcobain/ember-paper/commit/d69255597e1c06834aebdc7ccad85d874bfdbb18) paper-tooltip is now correctly positioned when used inside liquid-fire containers
+- [d692555](https://github.com/miguelcobain/ember-paper/commit/d69255597e1c06834aebdc7ccad85d874bfdbb18) paper-menu is now correctly positioned when used inside liquid-fire containers
 - [630f803](https://github.com/miguelcobain/ember-paper/commit/630f803c967a75c0a9f73a24f09b8bf05ea048dd) you can now use an `isSelected` property on paper-tabs yielded `tab` component (`{{#tabs.tab}}`). Especially useful with route `is-active` helpers.
 - [1dcd802](https://github.com/miguelcobain/ember-paper/commit/1dcd80277e1306ca61871b1e05f031f68d95020a) menu-item now supports `href` attribute
 - [#868](https://github.com/miguelcobain/ember-paper/pull/868) paper-autocomplete respects dropdownClass just like ember-power-select
