@@ -1,12 +1,12 @@
 /**
  * @module ember-paper
  */
-import { bool, reads, not } from '@ember/object/computed';
 
 import Mixin from '@ember/object/mixin';
-import { assert } from '@ember/debug';
+import { assert, warn } from '@ember/debug';
 import { isArray, A } from '@ember/array';
 import { get, computed } from '@ember/object';
+import { bool, reads, not } from '@ember/object/computed';
 import { loc } from '@ember/string';
 import { isBlank } from '@ember/utils';
 import requiredValidator from 'ember-paper/validators/required';
@@ -14,7 +14,6 @@ import minValidator from 'ember-paper/validators/min';
 import maxValidator from 'ember-paper/validators/max';
 import minlengthValidator from 'ember-paper/validators/minlength';
 import maxlengthValidator from 'ember-paper/validators/maxlength';
-import { warn } from '@ember/debug';
 
 /**
  * In order to make validation generic it is required that components using the validation mixin
