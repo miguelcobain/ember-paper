@@ -9,12 +9,9 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import { guidFor } from '@ember/object/internals';
-import Ember from 'ember';
+import { getOwner } from '@ember/application';
 import layout from '../templates/components/paper-toast';
 
-const {
-  testing
-} = Ember;
 /**
  * @class PaperToast
  * @extends Ember.Component
@@ -46,7 +43,9 @@ export default Component.extend({
   // Calculate the id of the wormhole destination, setting it if need be. The
   // id is that of the 'parent', if provided, or 'paper-wormhole' if not.
   destinationId: computed('defaultedParent', function() {
-    if (testing && !this.get('parent')) {
+    let config = getOwner(this).resolveRegistration('config:environment');
+
+    if (config.environment === 'test' && !this.get('parent')) {
       return 'ember-testing';
     }
     let parent = this.get('defaultedParent');
