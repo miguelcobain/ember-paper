@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Component from '@ember/component';
+import { or } from '@ember/object/computed';
 
 import layout from '../templates/components/paper-menu-item';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
@@ -16,7 +17,7 @@ export default Component.extend(ChildMixin, {
   tagName: 'md-menu-item',
   disabled: false,
 
-  shouldRenderButton: computed.or('onClick', 'href'),
+  shouldRenderButton: or('onClick', 'href'),
 
   actions: {
     handleClick(event) {

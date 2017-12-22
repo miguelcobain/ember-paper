@@ -1,6 +1,6 @@
 import { inject as service } from '@ember/service';
 import { gt } from '@ember/object/computed';
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-tabs';
