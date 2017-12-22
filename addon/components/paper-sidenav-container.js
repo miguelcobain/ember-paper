@@ -1,9 +1,9 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const { Component, String: { htmlSafe } } = Ember;
+import { htmlSafe } from '@ember/string';
 
 /**
  * @class PaperSidenavContainer

@@ -1,10 +1,13 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import Component from '@ember/component';
+
+import { run } from '@ember/runloop';
+import { computed } from '@ember/object';
+import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-toast-inner';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
-const { Component, run, computed, String: { htmlSafe }  } = Ember;
 
 /* global Hammer */
 

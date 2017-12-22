@@ -1,8 +1,12 @@
-import Ember from 'ember';
+import { filterBy } from '@ember/object/computed';
+import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-select-menu-inner';
 import PaperMenuContentInner from './paper-menu-content-inner';
-import { indexOfOption, optionAtIndex, countOptions } from 'ember-power-select/utils/group-utils';
-const { computed, run } = Ember;
+import {
+  indexOfOption,
+  optionAtIndex,
+  countOptions
+} from 'ember-power-select/utils/group-utils';
 
 function advanceSelectableOption(options, currentOption, step) {
   let resultsLength = countOptions(options);
@@ -21,7 +25,7 @@ export default PaperMenuContentInner.extend({
   tagName: 'md-select-menu',
   classNames: ['md-default-theme'],
   classNameBindings: ['searchEnabled:md-overflow'],
-  enabledOptions: computed.filterBy('childComponents', 'disabled', false),
+  enabledOptions: filterBy('childComponents', 'disabled', false),
   didInsertElement() {
     run.next(() => {
       let focusTarget = this.$('md-option[aria-selected="true"]');

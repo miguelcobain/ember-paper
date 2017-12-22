@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-speed-dial';
-const { Component, computed, run } = Ember;
 
 export default Component.extend({
   layout,

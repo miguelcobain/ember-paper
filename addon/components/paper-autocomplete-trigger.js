@@ -1,10 +1,13 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-import layout from '../templates/components/paper-autocomplete-trigger';
+import { not, oneWay } from '@ember/object/computed';
 
-const { Component, isPresent, isBlank, run, get, computed } = Ember;
+import Component from '@ember/component';
+import { isBlank, isPresent } from '@ember/utils';
+import { run } from '@ember/runloop';
+import { computed, get } from '@ember/object';
+import layout from '../templates/components/paper-autocomplete-trigger';
 
 /**
  * @class PaperAutocompleteTrigger
@@ -15,8 +18,8 @@ export default Component.extend({
   tagName: 'md-autocomplete-wrap',
   classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing', 'showingClearButton:md-show-clear-button'],
 
-  noLabel: computed.not('extra.label'),
-  _innerText: computed.oneWay('searchText'),
+  noLabel: not('extra.label'),
+  _innerText: oneWay('searchText'),
 
   showingClearButton: computed('allowClear', 'disabled', 'resetButtonDestroyed', function() {
     // make room for clear button:

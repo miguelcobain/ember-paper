@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { Route, on } = Ember;
+import Route from '@ember/routing/route';
+import { on } from '@ember/object/evented';
 
 export default Route.extend({
 

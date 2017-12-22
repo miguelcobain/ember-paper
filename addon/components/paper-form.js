@@ -1,11 +1,12 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { not, and } from '@ember/object/computed';
+
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 import layout from '../templates/components/paper-form';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
-
-const { Component, computed } = Ember;
 
 /**
  * @class PaperForm
@@ -21,7 +22,7 @@ export default Component.extend(ParentMixin, {
   selectComponent: 'paper-select',
   autocompleteComponent: 'paper-autocomplete',
 
-  isValid: computed.not('isInvalid'),
+  isValid: not('isInvalid'),
   isInvalid: computed('childComponents.@each.isInvalid', function() {
     return this.get('childComponents').isAny('isInvalid');
   }),
@@ -30,7 +31,7 @@ export default Component.extend(ParentMixin, {
     return this.get('childComponents').isAny('isTouched');
   }),
 
-  isInvalidAndTouched: computed.and('isInvalid', 'isTouched'),
+  isInvalidAndTouched: and('isInvalid', 'isTouched'),
 
   submit() {
     this.send('onSubmit');

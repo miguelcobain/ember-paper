@@ -1,10 +1,14 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
 
-const { Mixin, computed, A, assert, isArray, Logger, get, String: { loc }, isBlank } = Ember;
-
+import Mixin from '@ember/object/mixin';
+import { assert, warn } from '@ember/debug';
+import { isArray, A } from '@ember/array';
+import { get, computed } from '@ember/object';
+import { bool, reads, not } from '@ember/object/computed';
+import { loc } from '@ember/string';
+import { isBlank } from '@ember/utils';
 import requiredValidator from 'ember-paper/validators/required';
 import minValidator from 'ember-paper/validators/min';
 import maxValidator from 'ember-paper/validators/max';
@@ -49,7 +53,7 @@ function buildComputedValidationMessages(property, validations = [], customValid
           });
         }
       } catch(error) {
-        Logger.error('Exception with validation: ', validation, error);
+        warn(`Exception with validation: ${validation} ${error}`, false);
       }
     });
 
@@ -86,7 +90,7 @@ export default Mixin.create({
     }
   },
 
-  hasErrorMessages: computed.bool('validationErrorMessages.length'),
+  hasErrorMessages: bool('validationErrorMessages.length'),
 
   /**
    * The result of isInvalid is appropriate for controlling the display of
@@ -99,8 +103,8 @@ export default Mixin.create({
    *    false: input is valid (touched or not), or is no longer rendered
    *    true: input has been touched and is invalid.
    */
-  isInvalid: computed.reads('hasErrorMessages'),
-  isValid: computed.not('isInvalid'),
+  isInvalid: reads('hasErrorMessages'),
+  isValid: not('isInvalid'),
 
   /**
    * Return the built-in validations.

@@ -8,10 +8,8 @@ Many ember-paper contributors hang out on the [e-paper channel on slack](https:/
 
 * **Suave.** ember-paper uses the [ember-suave](https://github.com/DockYard/ember-suave) coding style.
 
-* **jscs.** Before submitting a pull request,
-check for coding style issues with  `jscs -c .jscsrc app addon`.
-
 * **Comments.** Include block-style (`/**`) comments before  functions with a non-trivial or non-obvious purpose. Include line-style (`//`) comments wherever code might not be obvious to a future contributor, years later, without your knowledge of the functioning of the code. If an intermediate-level Ember developer will wonder why something works, explain it.
+
 * **Actions.** Accept action closures rather than strings representing action names.
 `{{some-component someAction=(action "myAction")}}`, not `{{some-component someAction="myAction" param="the stuff" target=someTarget}}`. Invoke the action with `this.sendAction('onWhatever');`. There is no need to test for the presence of `onWhatever` as `sendAction` handles that situation.
 
@@ -42,29 +40,6 @@ someOption: false,
 classNameBindings: ["someOption:md-some-option"],
 ```
 This makes the usage clear to both future maintainers and developer-users who may read the code.
-
-* **Importing**
-
- * Import the module, then use const object destructing to extract the desired methods. For example,
-```javascript
-import Ember from 'ember';
-const { computed } = Ember;
-```
-
- * When the destructured object assignment statement exceeds 80 columns, put each variable it its own line:
-```javascript
-const {
-  $,
-  Mixin,
-  String: { htmlSafe },
-  RSVP: { Promise },
-  computed,
-  on,
-  inject: { service },
-  run: { scheduleOnce }
-} = Ember;
-```
- * Order the imported variables in order of appearance, or other logical order.
 
 ## Converting components from Angular Material
 

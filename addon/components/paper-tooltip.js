@@ -1,8 +1,15 @@
+import { or } from '@ember/object/computed';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
+import { htmlSafe } from '@ember/string';
 import Ember from 'ember';
 import layout from '../templates/components/paper-tooltip';
 import $ from 'jquery';
 import getParent from 'ember-paper/utils/get-parent';
-const { Component, computed, testing, run, String: { htmlSafe } } = Ember;
+const {
+  testing
+} = Ember;
 
 export default Component.extend({
   tagName: '',
@@ -11,7 +18,7 @@ export default Component.extend({
   position: 'bottom',
 
   wormholeSelector: '#paper-wormhole',
-  defaultedParent: computed.or('parent', 'wormholeSelector'),
+  defaultedParent: or('parent', 'wormholeSelector'),
 
   // Calculate the id of the wormhole destination, setting it if need be. The
   // id is that of the 'parent', if provided, or 'paper-wormhole' if not.

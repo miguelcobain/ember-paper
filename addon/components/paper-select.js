@@ -1,14 +1,14 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { alias, and } from '@ember/object/computed';
+
+import { computed } from '@ember/object';
 import layout from '../templates/components/paper-select';
 import PowerSelect from 'ember-power-select/components/power-select';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-
-const { computed } = Ember;
 
 function concatWithProperty(strings, property) {
   if (property) {
@@ -24,7 +24,7 @@ function concatWithProperty(strings, property) {
 export default PowerSelect.extend(ValidationMixin, ChildMixin, FocusableMixin, {
   layout,
   tagName: 'md-input-container',
-  onchange: computed.alias('onChange'),
+  onchange: alias('onChange'),
   optionsComponent: 'paper-select-options',
   triggerComponent: 'paper-select-trigger',
   beforeOptionsComponent: 'paper-select-search',
@@ -32,10 +32,10 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, FocusableMixin, {
   searchEnabled: false,
   validationProperty: 'selected',
   isTouched: false,
-  isInvalidAndTouched: computed.and('isInvalid', 'isTouched'),
+  isInvalidAndTouched: and('isInvalid', 'isTouched'),
   attributeBindings: ['parentTabindex:tabindex'],
-  shouldShowLabel: computed.and('label', 'selected'),
-  focusedAndSelected: computed.and('focused', 'selected'),
+  shouldShowLabel: and('label', 'selected'),
+  focusedAndSelected: and('focused', 'selected'),
 
   didReceiveAttrs() {
     this._super(...arguments);

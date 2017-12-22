@@ -1,5 +1,5 @@
-import Ember from 'ember';
-const { Helper, typeOf } = Ember;
+import Helper from '@ember/component/helper';
+import { typeOf } from '@ember/utils';
 
 export default Helper.extend({
   compute([row]) {

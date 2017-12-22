@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { isPresent, isEmpty } from '@ember/utils';
+import { observer, computed } from '@ember/object';
+import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-chips';
-
-const { Component, isEmpty, isPresent, computed, observer, run } = Ember;
 
 export default Component.extend({
   layout,

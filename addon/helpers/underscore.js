@@ -1,12 +1,11 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-
-const { Helper, String: Str } = Ember;
+import Helper from '@ember/component/helper';
+import { underscore as strUnderscore } from '@ember/string';
 
 export function underscore([text]) {
-  return Str.underscore(text);
+  return strUnderscore(text);
 }
 
 export default Helper.helper(underscore);

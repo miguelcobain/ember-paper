@@ -1,7 +1,7 @@
 /* globals FastBoot */
-import Ember from 'ember';
+import Service from '@ember/service';
 
-const { Service, computed } = Ember;
+import { computed } from '@ember/object';
 
 let isString = function(value) {
   return typeof value === 'string';
@@ -41,16 +41,16 @@ export default Service.extend({
     });
 
     let bodyStyle = _document.body && _document.body.style;
-    let vendorPrefix;
+    let vendorPrefix, match;
     let vendorRegex = /^(Moz|webkit|ms)(?=[A-Z])/;
 
     let transitions = false;
     let animations = false;
-    let match;
 
     if (bodyStyle) {
       for (let prop in bodyStyle) {
-        if (match = vendorRegex.exec(prop)) {
+        match = vendorRegex.exec(prop);
+        if (match) {
           vendorPrefix = match[0];
           vendorPrefix = vendorPrefix.substr(0, 1).toUpperCase() + vendorPrefix.substr(1);
           break;

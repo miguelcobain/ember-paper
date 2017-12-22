@@ -1,6 +1,6 @@
-import Ember from 'ember';
-
-const { computed, Component, String: { htmlSafe } } = Ember;
+import { computed } from '@ember/object';
+import Component from '@ember/component';
+import { htmlSafe } from '@ember/string';
 
 export default Component.extend({
   tagName: 'md-ink-bar',

@@ -1,5 +1,5 @@
-import Ember from 'ember';
-const { Controller, run } = Ember;
+import Controller from '@ember/controller';
+import { run } from '@ember/runloop';
 
 export default Controller.extend({
 

@@ -1,7 +1,5 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
 import BasicTrigger from 'ember-basic-dropdown/components/basic-dropdown/trigger';
-
-const { computed } = Ember;
 
 export default BasicTrigger.extend({
   tagName: 'md-select',

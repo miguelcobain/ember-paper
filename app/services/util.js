@@ -1,11 +1,10 @@
-import Ember from 'ember';
-
-const { Service, $ } = Ember;
+import Service from '@ember/service';
+import $ from 'jquery';
 
 let Util = Service.extend({
 
   // Disables scroll around the passed element.
-  disableScrollAround(element) {
+  disableScrollAround() {
     let util = this;
     let $document = $(window.document);
 
@@ -51,13 +50,13 @@ let Util = Service.extend({
       // Prevent keypresses from elements inside the body
       // used to stop the keypresses that could cause the page to scroll
       // (arrow keys, spacebar, tab, etc).
-      function disableKeyNav(e) {
+      function disableKeyNav() {
         // -- temporarily removed this logic, will possibly re-add at a later date
         return;
-        if (!element[0].contains(e.target)) {
+        /* if (!element[0].contains(e.target)) {
           e.preventDefault();
           e.stopImmediatePropagation();
-        }
+        } */
       }
 
       function preventDefault(e) {
@@ -115,7 +114,7 @@ let Util = Service.extend({
    * be property names, property chains, or array indices.
    */
   supplant(template, values, pattern) {
-    pattern = pattern || /\{([^\{\}]*)\}/g;
+    pattern = pattern || /\{([^{}]*)\}/g;
     return template.replace(pattern, function(a, b) {
       let p = b.split('.');
       let r = values;
@@ -125,7 +124,7 @@ let Util = Service.extend({
             r = r[p[s]];
           }
         }
-      } catch (e) {
+      } catch(e) {
         r = a;
       }
       return (typeof r === 'string' || typeof r === 'number') ? r : a;

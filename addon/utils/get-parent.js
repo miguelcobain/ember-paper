@@ -1,5 +1,8 @@
+import { get } from '@ember/object';
 import Ember from 'ember';
-const { get, ViewUtils } = Ember;
+const {
+  ViewUtils
+} = Ember;
 
 // taken from https://github.com/kaliber5/ember-bootstrap/blob/master/addon/utils/get-parent.js
 export default function getParent(view) {

@@ -1,12 +1,13 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { filter, bool, or } from '@ember/object/computed';
+
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 import layout from '../templates/components/paper-item';
 import RippleMixin from '../mixins/ripple-mixin';
 import { ParentMixin } from 'ember-composability-tools';
-
-const { Component, computed } = Ember;
 
 /**
  * @class PaperItem
@@ -37,14 +38,14 @@ export default Component.extend(RippleMixin, ParentMixin, {
   role: 'listitem',
   tabindex: '-1',
 
-  proxiedComponents: computed.filter('childComponents', function(c) {
+  proxiedComponents: filter('childComponents', function(c) {
     return !c.get('skipProxy');
   }),
 
-  hasProxiedComponent: computed.bool('proxiedComponents.length'),
-  shouldBeClickable: computed.or('hasProxiedComponent', 'onClick'),
+  hasProxiedComponent: bool('proxiedComponents.length'),
+  shouldBeClickable: or('hasProxiedComponent', 'onClick'),
 
-  hasPrimaryAction: computed.or('onClick', 'href'),
+  hasPrimaryAction: or('onClick', 'href'),
 
   noProxy: computed('hasPrimaryAction', 'hasProxiedComponent', function() {
     return !this.get('hasPrimaryAction') && !this.get('hasProxiedComponent');

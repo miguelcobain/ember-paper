@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { run } from '@ember/runloop';
+import jQuery from 'jquery';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-
-const { Component, run, $: jQuery } = Ember;
 
 moduleForComponent('paper-group-radio', 'Integration | Component | paper radio group', {
   integration: true

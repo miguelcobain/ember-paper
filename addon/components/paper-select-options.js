@@ -1,8 +1,6 @@
-import Ember from 'ember';
+import $ from 'jquery';
 import PowerOptions from 'ember-power-select/components/power-select/options';
 import layout from '../templates/components/paper-select-options';
-
-const { $ } = Ember;
 
 export default PowerOptions.extend({
   layout,

@@ -1,10 +1,9 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-import layout from '../templates/components/paper-card-header';
+import Component from '@ember/component';
 
-const { Component } = Ember;
+import layout from '../templates/components/paper-card-header';
 
 /**
  * @class PaperCardHeader

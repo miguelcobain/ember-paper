@@ -1,17 +1,21 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-import { nextTick, computeTimeout } from 'ember-css-transitions/mixins/transition-mixin';
+import { inject as service } from '@ember/service';
 
-const { $, Mixin, String: { htmlSafe }, computed, inject, run } = Ember;
+import $ from 'jquery';
+import Mixin from '@ember/object/mixin';
+import { htmlSafe } from '@ember/string';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
+import { nextTick, computeTimeout } from 'ember-css-transitions/mixins/transition-mixin';
 
 /**
  * @class Translate3dMixin
  * @extends Ember.Mixin
  */
 export default Mixin.create({
-  constants: inject.service(),
+  constants: service(),
 
   attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],

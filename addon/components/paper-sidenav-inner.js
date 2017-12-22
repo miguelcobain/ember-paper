@@ -2,10 +2,13 @@
  * @module ember-paper
  */
 /* globals FastBoot */
-import Ember from 'ember';
-import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
+import { inject as service } from '@ember/service';
 
-const { Component, inject, computed, $, run } = Ember;
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import $ from 'jquery';
+import { run } from '@ember/runloop';
+import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
 /**
  * @class PaperSidenavInner
@@ -18,8 +21,8 @@ export default Component.extend(TransitionMixin, {
   classNameBindings: ['positionClass'],
   transitionClassNameBindings: ['isLockedOpen:md-locked-open', 'closed:md-closed'],
 
-  constants: inject.service(),
-  paperSidenav: inject.service(),
+  constants: service(),
+  paperSidenav: service(),
 
   name: 'default',
   position: 'left',

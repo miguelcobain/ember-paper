@@ -1,11 +1,8 @@
-import Ember from 'ember';
-
-const {
-  computed,
-  Controller,
-  RSVP,
-  run,
-  A: emberArray } = Ember;
+import { computed } from '@ember/object';
+import Controller from '@ember/controller';
+import RSVP from 'rsvp';
+import { run } from '@ember/runloop';
+import { A as emberArray } from '@ember/array';
 
 const months = [
   'January', 'February', 'March', 'April', 'May', 'June',

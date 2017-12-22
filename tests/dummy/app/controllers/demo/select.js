@@ -1,6 +1,8 @@
-import Ember from 'ember';
-
-const { Controller, computed, RSVP, A, run } = Ember;
+import Controller from '@ember/controller';
+import { computed } from '@ember/object';
+import RSVP from 'rsvp';
+import { A } from '@ember/array';
+import { run } from '@ember/runloop';
 
 export default Controller.extend({
 

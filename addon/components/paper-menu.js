@@ -1,10 +1,11 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { assert } from '@ember/debug';
+
+import { computed } from '@ember/object';
 import layout from '../templates/components/paper-menu';
 import BasicDropdownComponent from 'ember-basic-dropdown/components/basic-dropdown';
-const { assert, computed } = Ember;
 
 const MENU_EDGE_MARGIN = 8;
 

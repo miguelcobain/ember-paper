@@ -1,9 +1,7 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-
-const { isEmpty } = Ember;
+import { isEmpty } from '@ember/utils';
 
 export function max(value, max) {
   return isEmpty(max) || isEmpty(value) || parseFloat(value) <= parseFloat(max);

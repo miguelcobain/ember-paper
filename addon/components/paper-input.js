@@ -1,14 +1,19 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { or, bool, and } from '@ember/object/computed';
+
+import Component from '@ember/component';
+import $ from 'jquery';
+import { computed } from '@ember/object';
+import { isEmpty } from '@ember/utils';
+import { run } from '@ember/runloop';
+import { assert } from '@ember/debug';
 import layout from '../templates/components/paper-input';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
-
-const { Component, $, computed, isEmpty, run, assert } = Ember;
 
 /**
  * @class PaperInput
@@ -39,7 +44,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   iconComponent: 'paper-icon',
 
   // override validation mixin `isInvalid` to account for the native input validity
-  isInvalid: computed.or('hasErrorMessages', 'isNativeInvalid'),
+  isInvalid: or('hasErrorMessages', 'isNativeInvalid'),
 
   hasValue: computed('value', 'isNativeInvalid', function() {
     let value = this.get('value');
@@ -56,9 +61,9 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
     return `${currentLength}/${this.get('maxlength')}`;
   }),
 
-  hasLeftIcon: computed.bool('icon'),
-  hasRightIcon: computed.bool('iconRight'),
-  isInvalidAndTouched: computed.and('isInvalid', 'isTouched'),
+  hasLeftIcon: bool('icon'),
+  hasRightIcon: bool('iconRight'),
+  isInvalidAndTouched: and('isInvalid', 'isTouched'),
 
   validationProperty: 'value', // property that validations should be run on
 

@@ -1,11 +1,10 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import $ from 'jquery';
+
 import PaperMenu from './paper-menu';
 import layout from '../templates/components/paper-select-menu';
-
-const { $ } = Ember;
 
 const SELECT_EDGE_MARGIN = 8;
 

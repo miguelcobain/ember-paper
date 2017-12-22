@@ -1,9 +1,11 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { gt } from '@ember/object/computed';
+import { computed, observer } from '@ember/object';
+import Component from '@ember/component';
+import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-
-const { computed, Component, String: { htmlSafe }, inject, observer } = Ember;
 
 export default Component.extend(ParentMixin, ColorMixin, {
   layout,
@@ -12,7 +14,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
   classNames: ['md-no-tab-content', 'md-default-theme'],
   attributeBindings: ['borderBottom:md-border-bottom'],
 
-  constants: inject.service(),
+  constants: service(),
 
   selected: 0, // select first tab by default
 
@@ -146,7 +148,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
   },
 
   currentOffset: 0,
-  canPageBack: computed.gt('currentOffset', 0),
+  canPageBack: gt('currentOffset', 0),
   canPageForward: computed('wrapperWidth', 'currentOffset', 'canvasWidth', function() {
     return this.get('wrapperWidth') - this.get('currentOffset') > this.get('canvasWidth');
   }),

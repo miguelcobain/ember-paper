@@ -1,23 +1,17 @@
-import Ember from 'ember';
-
-const {
-  Component,
-  computed,
-  typeOf,
-  String: { htmlSafe },
-  Handlebars: { Utils: { escapeExpression } }
-} = Ember;
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { typeOf } from '@ember/utils';
+import { htmlSafe } from '@ember/string';
 
 const escape = function(text) {
-  let result = escapeExpression(text);
-  // Convert backtick markup, as escaped by escapeExpression to <code> element.
-  result = result.replace(/&#x60;(.*?)&#x60;/g, '<code>$1</code>');
+  // Convert backtick markup to <code> element.
+  text = text.replace(/`(.*?)`/g, '<code>$1</code>');
   // Convert ** markup to <em> element.
-  result = result.replace(/\*\*(.*?)\*\*/g, '<em>$1</em>');
+  text = text.replace(/\*\*(.*?)\*\*/g, '<em>$1</em>');
   // Convert * markup to <strong> element.
-  result = result.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
+  text = text.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
 
-  return result ? htmlSafe(result) : '';
+  return text ? htmlSafe(text) : '';
 };
 
 export default Component.extend({

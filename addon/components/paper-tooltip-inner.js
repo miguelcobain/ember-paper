@@ -1,8 +1,11 @@
-import Ember from 'ember';
+import { bool } from '@ember/object/computed';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
+import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-tooltip-inner';
 import TransitionMixin, { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
 import calculateTooltipPosition from 'ember-paper/utils/calculate-tooltip-position';
-const { Component, computed, run, String: { htmlSafe } } = Ember;
 
 export default Component.extend(TransitionMixin, {
   layout,
@@ -11,7 +14,7 @@ export default Component.extend(TransitionMixin, {
   classNames: ['md-tooltip', 'md-panel'],
   classNameBindings: ['positionClass'],
   transitionClassNameBindings: ['show:md-show', 'hide:md-hide'],
-  show: computed.bool('style'),
+  show: bool('style'),
 
   positionClass: computed('position', function() {
     return `md-origin-${this.get('position')}`;

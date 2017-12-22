@@ -1,12 +1,15 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+
+import { alias } from '@ember/object/computed';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-grid-list';
 import { ParentMixin } from 'ember-composability-tools';
 import gridLayout from '../utils/grid-layout';
-
-const { Component, inject, computed, run } = Ember;
 
 const mediaRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+)(?!\S)/g;
 const rowHeightRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+(?:[a-z]{2,3}|%)?|\d+:\d+|fit)(?!\S)/g;
@@ -35,9 +38,9 @@ export default Component.extend(ParentMixin, {
   layout,
   tagName: 'md-grid-list',
 
-  constants: inject.service(),
+  constants: service(),
 
-  tiles: computed.alias('childComponents'),
+  tiles: alias('childComponents'),
 
   didInsertElement() {
     this._super(...arguments);

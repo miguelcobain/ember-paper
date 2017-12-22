@@ -1,9 +1,9 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const { Component, computed } = Ember;
+import { computed } from '@ember/object';
 
 /**
  * @class PaperDivider

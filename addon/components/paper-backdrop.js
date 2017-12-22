@@ -1,10 +1,12 @@
 /**
  * @module ember-paper
  */
-import Ember from 'ember';
-import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
+import { bool } from '@ember/object/computed';
 
-const { Component, computed, String: { htmlSafe } } = Ember;
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { htmlSafe } from '@ember/string';
+import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
 /**
  * @class PaperBackdrop
@@ -20,7 +22,7 @@ export default Component.extend(TransitionMixin, {
 
   // TransitionMixin:
   transitionName: 'ng',
-  shouldTransition: computed.bool('opaque'),
+  shouldTransition: bool('opaque'),
 
   backdropStyle: computed('fixed', function() {
     return this.get('fixed') ? htmlSafe('position:fixed;') : null;

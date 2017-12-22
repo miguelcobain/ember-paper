@@ -1,10 +1,10 @@
 /* eslint-env node */
+'use strict';
 
 module.exports = function(environment) {
-
-  var ENV = {
+  let ENV = {
     modulePrefix: 'dummy',
-    environment: environment,
+    environment,
     rootURL: '/',
     locationType: 'hash',
     EmberENV: {
@@ -22,17 +22,6 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
       rootElement: 'body'
-    },
-
-    contentSecurityPolicy: {
-      'default-src': "'none'",
-      'script-src': "'self' 'unsafe-inline' 'unsafe-eval' https://buttons.github.io https://api.github.com",
-      'font-src': "'self' https://fonts.gstatic.com",
-      'style-src': "'self' 'unsafe-inline' https://buttons.github.io https://fonts.googleapis.com",
-      'connect-src': "'self'",
-      'img-src': "'self' data:",
-      'media-src': "'self'",
-      'child-src': "'self' https://buttons.github.io"
     }
   };
 
