@@ -1,17 +1,14 @@
 /**
  * @module ember-paper
  */
-import { reads } from '@ember/object/computed';
 
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import Ember from 'ember';
+import { reads } from '@ember/object/computed';
+import { htmlSafe } from '@ember/string';
+
 import layout from '../templates/components/paper-icon';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-
-const {
-  String: Str
-} = Ember;
 
 /**
  * @class PaperIcon
@@ -48,7 +45,7 @@ let PaperIconComponent = Component.extend(ColorMixin, {
     let size = this.get('size');
 
     if (size) {
-      return Str.htmlSafe(`height: ${size}px; min-height: ${size}px; min-width: ${size}px; font-size: ${size}px; line-height: ${size}px;`);
+      return htmlSafe(`height: ${size}px; min-height: ${size}px; min-width: ${size}px; font-size: ${size}px; line-height: ${size}px;`);
     }
   })
 });

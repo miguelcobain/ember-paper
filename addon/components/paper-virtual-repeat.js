@@ -4,13 +4,8 @@ import { observer, set, get, computed } from '@ember/object';
 import RSVP from 'rsvp';
 import { A as emberArray } from '@ember/array';
 import { htmlSafe } from '@ember/string';
-import Ember from 'ember';
 import VirtualEachComponent from 'virtual-each/components/virtual-each/component';
 import layout from '../templates/components/paper-virtual-repeat';
-
-const {
-  Handlebars
-} = Ember;
 
 const EXTRA_ROW_PADDING = 3;
 
@@ -72,7 +67,6 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     let style = this.get('positionStyle');
 
     if (height !== null && !isNaN(height)) {
-      height = Handlebars.Utils.escapeExpression(height);
       style += ` height: ${height}px;`;
     }
     return htmlSafe(style);
@@ -101,7 +95,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
   }).readOnly(),
 
   contentStyle: computed('_marginTop', '_totalHeight', function() {
-    let height = Handlebars.Utils.escapeExpression(get(this, '_totalHeight'));
+    let height = get(this, '_totalHeight');
     return htmlSafe(this.get('horizontal') ? `width: ${height}px;` : `height: ${height}px;`);
   }).readOnly(),
 

@@ -9,17 +9,12 @@ import { isArray, A } from '@ember/array';
 import { get, computed } from '@ember/object';
 import { loc } from '@ember/string';
 import { isBlank } from '@ember/utils';
-import Ember from 'ember';
-
-const {
-  Logger
-} = Ember;
-
 import requiredValidator from 'ember-paper/validators/required';
 import minValidator from 'ember-paper/validators/min';
 import maxValidator from 'ember-paper/validators/max';
 import minlengthValidator from 'ember-paper/validators/minlength';
 import maxlengthValidator from 'ember-paper/validators/maxlength';
+import { warn } from '@ember/debug';
 
 /**
  * In order to make validation generic it is required that components using the validation mixin
@@ -59,7 +54,7 @@ function buildComputedValidationMessages(property, validations = [], customValid
           });
         }
       } catch(error) {
-        Logger.error('Exception with validation: ', validation, error);
+        warn(`Exception with validation: ${validation} ${error}`, false);
       }
     });
 

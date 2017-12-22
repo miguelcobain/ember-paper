@@ -2,14 +2,9 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { typeOf } from '@ember/utils';
 import { htmlSafe } from '@ember/string';
-import Ember from 'ember';
-
-const {
-  Handlebars: { Utils: { escapeExpression } }
-} = Ember;
 
 const escape = function(text) {
-  let result = escapeExpression(text);
+  let result = htmlSafe(text);
   // Convert backtick markup, as escaped by escapeExpression to <code> element.
   result = result.replace(/&#x60;(.*?)&#x60;/g, '<code>$1</code>');
   // Convert ** markup to <em> element.
