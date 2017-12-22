@@ -3,64 +3,43 @@
  */
 import Ember from 'ember';
 import layout from '../templates/components/paper-checkbox';
-import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import RippleMixin from 'ember-paper/mixins/ripple-mixin';
-import ColorMixin from 'ember-paper/mixins/color-mixin';
-import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
+import ChildMixin from 'ember-paper/mixins/child-mixin';
 
-const { Component, inject, assert, computed } = Ember;
+const { Component, assert, computed, A } = Ember;
 
 /**
  * @class PaperCheckbox
  * @extends Ember.Component
- * @uses FocusableMixin
- * @uses RippleMixin
- * @uses ColorMixin
- * @uses ProxiableMixin
+ * @uses ChildMixin
  */
-export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
+export default Component.extend(ChildMixin, {
   layout,
-  tagName: 'md-checkbox',
-  classNames: ['md-checkbox', 'md-default-theme'],
-  classNameBindings: ['isChecked:md-checked', 'indeterminate:md-indeterminate'],
-
-  /* RippleMixin Overrides */
-  rippleContainerSelector: '.md-container',
-  center: true,
-  dimBackground: false,
-  fitRipple: true,
-
-  /* FocusableMixin Overrides */
-  focusOnlyOnKey: true,
-
-  constants: inject.service(),
+  tagName: 'md-input-container',
 
   value: false,
+  isTouched: false,
 
   notIndeterminate: computed.not('indeterminate'),
   isChecked: computed.and('notIndeterminate', 'value'),
+  isNotChecked: computed.not('isChecked'),
+  isInvalid: computed.and('required', 'isNotChecked'),
+  isInvalidAndTouched: computed.and('isInvalid', 'isTouched'),
+
+  displayErrorMessages: computed('errorMessages.required', function() {
+    let messages = A();
+    messages.pushObject(this.get('errorMessages.required') || 'This is required.');
+    return messages;
+  }),
 
   init() {
     this._super(...arguments);
     assert('{{paper-checkbox}} requires an `onChange` action or null for no action.', this.get('onChange') !== undefined);
   },
 
-  click() {
-    if (!this.get('disabled')) {
-      this.sendAction('onChange', !this.get('value'));
+  actions: {
+    onChange(value) {
+      this.sendAction('onChange', value);
+      this.sendAction('onValidityChange');
     }
-    // Prevent bubbling, if specified. If undefined, the event will bubble.
-    return this.get('bubbles');
-  },
-
-  keyPress(ev) {
-    if (ev.which === this.get('constants.KEYCODE.SPACE') || ev.which === this.get('constants.KEYCODE.ENTER')) {
-      ev.preventDefault();
-      this.click();
-    }
-  },
-
-  processProxy() {
-    this.sendAction('onChange', !this.get('value'));
   }
 });
