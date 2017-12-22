@@ -57,7 +57,6 @@ moduleForComponent('paper-autcomplete', 'Integration | Component | paper autocom
 
 test('opens on click', function(assert) {
   assert.expect(1);
-  this.appRoot = document.querySelector('#ember-testing');
   this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
@@ -83,7 +82,6 @@ test('opens on click', function(assert) {
 
 test('backdrop removed if select closed', function(assert) {
   assert.expect(2);
-  this.appRoot = document.querySelector('#ember-testing');
   this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
   this.render(hbs`
     <div id="other-div"></div>
@@ -118,7 +116,6 @@ test('backdrop removed if select closed', function(assert) {
 
 test('should render only enough items to fill the menu + 3', function(assert) {
   assert.expect(2);
-  this.appRoot = document.querySelector('#ember-testing');
   this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
@@ -145,7 +142,6 @@ test('should render only enough items to fill the menu + 3', function(assert) {
 
 test('should filter list by search term', function(assert) {
   assert.expect(3);
-  this.appRoot = document.querySelector('#ember-testing');
   this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
@@ -238,8 +234,8 @@ test('when has selection and searchText changed, the dropdown is shown with w/o 
 test('we can highlight search results for properties that aren\'t text', function(assert) {
   assert.expect(2);
 
-  this.set('items', ['1', '2', '3', '4']);
-  this.set('selectedItem', 1);
+  this.items = ['1', '2', '3', '4'];
+  this.selectedItem = 1;
   this.render(hbs`{{#paper-autocomplete
     placeholder="Item"
     options=items
@@ -269,5 +265,28 @@ test('we can highlight search results for properties that aren\'t text', functio
     suggestions = $('.md-autocomplete-suggestions');
     assert.ok(suggestions.length, 'autocomplete-suggestions list is opened');
     assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
+  });
+});
+
+test('dropdown can be customized using dropdownClass', function(assert) {
+  assert.expect(1);
+  this.items = ['1', '2', '3'];
+  this.render(hbs`{{#paper-autocomplete
+    dropdownClass="custom-dropdown-class"
+    placeholder="Item"
+    options=items
+    selected=selectedItem
+    onSelectionChange=(action (mut selectedItem))
+    as |item|
+  }}
+    {{item}}
+  {{/paper-autocomplete}}`);
+
+  return wait().then(() => {
+    $('md-autocomplete-wrap input')[0].focus();
+    return wait().then(() => {
+      let ddContainer = $('.md-autocomplete-suggestions-container.custom-dropdown-class');
+      assert.ok(ddContainer.length, 'contains custom dropdownClass');
+    });
   });
 });

@@ -18,12 +18,22 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
   selected: 0, // select first tab by default
 
-  _selectedTab: computed('childComponents.@each.value', 'selected', function() {
-    return this.get('childComponents').findBy('value', this.get('selected'));
+  _selectedTab: computed('childComponents.@each.isSelected', function() {
+    return this.get('childComponents').findBy('isSelected');
   }),
 
-  _previousSelectedTab: computed('childComponents.@each.value', 'previousSelected', function() {
-    return this.get('childComponents').findBy('value', this.get('previousSelected'));
+  _selectedTabDidChange: observer('_selectedTab', function() {
+    let selectedTab = this.get('_selectedTab');
+    let previousSelectedTab = this.get('_previousSelectedTab');
+
+    if (selectedTab === previousSelectedTab) {
+      return;
+    }
+
+    this.setMovingRight();
+    this.fixOffsetIfNeeded();
+
+    this.set('_previousSelectedTab', selectedTab);
   }),
 
   noInkBar: false,
@@ -55,15 +65,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
   shouldStretch: computed('shouldPaginate', 'currentStretch', function() {
     return !this.get('shouldPaginate') && this.get('currentStretch');
   }),
-
-  didReceiveAttrs() {
-    this._super(...arguments);
-    if (this.get('selected') !== this.get('previousSelected')) {
-      this.setMovingRight();
-      this.fixOffsetIfNeeded();
-      this.set('previousSelected', this.get('selected'));
-    }
-  },
 
   didInsertElement() {
     this._super(...arguments);

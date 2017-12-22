@@ -16,16 +16,18 @@ export default Component.extend(ChildMixin, {
   tagName: 'md-menu-item',
   disabled: false,
 
+  shouldRenderButton: computed.or('onClick', 'href'),
+
   actions: {
     handleClick(event) {
       this.get('dropdown.actions').close();
       this.sendAction('onClick', event);
     }
   },
+
   mouseEnter() {
     if (!this.get('disabled')) {
       this.$('button').focus();
     }
   }
-
 });

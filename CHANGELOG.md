@@ -15,8 +15,25 @@ Contributions and pull requests are always welcome. Contributors may often be fo
 - renamed the `paper-radio-group` `paper-radio` to just `radio` -- usage would now be `group.radio` as opposed to `group.paper-radio`.
 - Flex and layout attributes are replaced by classes (see [the documentation](http://miguelcobain.github.io/ember-paper/#/layout/introduction)). `flex=true` on Ember Paper components has also been removed and replaced by classes.
 
-### master
+### 1.0.0-beta.4
 - [68f4832](https://github.com/miguelcobain/ember-paper/commit/68f4832b67a3fd544164b1ace17d50d974b11ad2) add correct overflow class when dialog does not contain images (fixes [#807](https://github.com/miguelcobain/ember-paper/issues/807))
+- [#811](https://github.com/miguelcobain/ember-paper/pull/811) Fix paper-progress-circular infinite loop in acceptance tests
+- [#820](https://github.com/miguelcobain/ember-paper/pull/820) Add support for additional CSS class on paper-toast
+- [41765e6](https://github.com/miguelcobain/ember-paper/commit/41765e69991dff1fa1d8c70aa5f197c688ae0650) fix autocomplete clear button animation
+- [#834](https://github.com/miguelcobain/ember-paper/pull/834) and [88eca4d](https://github.com/miguelcobain/ember-paper/commit/88eca4d5a675a5e19a39ab635debd12dab2eb90c) paper-toaster: make duration and position configurable application wide
+- [#846](https://github.com/miguelcobain/ember-paper/pull/846) Add onInvalid action to form
+- [#849](https://github.com/miguelcobain/ember-paper/pull/849) allow html5 download attribute on paper-button
+- [3567c22](https://github.com/miguelcobain/ember-paper/commit/3567c22bc290092d158a0d61777e0cb7e10c7a7b) add onClick action to paper-input
+- [96efe26](https://github.com/miguelcobain/ember-paper/commit/96efe264ac0ab3b74da8c0dc911ff9d002c4362b) add onKeyUp action to paper-input
+- [#854](https://github.com/miguelcobain/ember-paper/pull/854) fixed error when paper-toaster was used with `swipe` event registered in the event dispatcher
+- [5da2611](https://github.com/miguelcobain/ember-paper/commit/5da2611773e67bf66a99976563fd2241cceea700) add hideAllMessages to paper-autocomplete
+- [#683](https://github.com/miguelcobain/ember-paper/pull/683) paper-autocomplete now resolves promises passed in the `selected` property
+- [0b72622](https://github.com/miguelcobain/ember-paper/commit/0b726220e8a69ceb35d8461b3cc55e9ce8ba3036) make sure paper-tooltip handlers do not run when tooltip is destroyed
+- [d692555](https://github.com/miguelcobain/ember-paper/commit/d69255597e1c06834aebdc7ccad85d874bfdbb18) paper-menu is now correctly positioned when used inside liquid-fire containers
+- [630f803](https://github.com/miguelcobain/ember-paper/commit/630f803c967a75c0a9f73a24f09b8bf05ea048dd) you can now use an `isSelected` property on paper-tabs yielded `tab` component (`{{#tabs.tab}}`). Especially useful with route `is-active` helpers.
+- [1dcd802](https://github.com/miguelcobain/ember-paper/commit/1dcd80277e1306ca61871b1e05f031f68d95020a) menu-item now supports `href` attribute
+- [#868](https://github.com/miguelcobain/ember-paper/pull/868) paper-autocomplete respects dropdownClass just like ember-power-select
+- [399d60c](https://github.com/miguelcobain/ember-paper/commit/399d60c1145a6ba7ec50e9864850725c2f94456e) make paper-item support target attribute
 
 ### 1.0.0-beta.3
 - [#802](https://github.com/miguelcobain/ember-paper/pull/802) allow icons to have tooltips.

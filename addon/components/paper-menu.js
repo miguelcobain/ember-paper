@@ -100,7 +100,7 @@ export default BasicDropdownComponent.extend({
 
     switch (positionMode.top) {
       case 'target':
-        position.top = existingOffsets.top + originNodeRect.top - alignTargetRect.top;
+        position.top = existingOffsets.top + originNodeRect.top - (alignTargetRect.top - openMenuNodeRect.top);
         break;
       case 'cascade':
         position.top = originNodeRect.top - parseFloat(menuStyle.paddingTop) - originNode.style.top;
@@ -114,7 +114,7 @@ export default BasicDropdownComponent.extend({
 
     switch (positionMode.left) {
       case 'target': {
-        position.left = existingOffsets.left + originNodeRect.left - alignTargetRect.left;
+        position.left = existingOffsets.left + originNodeRect.left - (alignTargetRect.left - openMenuNodeRect.left);
         transformOrigin += 'left';
         break;
       }

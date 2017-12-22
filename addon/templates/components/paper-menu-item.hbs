@@ -1,5 +1,5 @@
-{{#if onClick}}
-  {{#paper-button onClick="handleClick" disabled=disabled}}
+{{#if shouldRenderButton}}
+  {{#paper-button onClick="handleClick" href=href target=target disabled=disabled}}
     {{yield}}
   {{/paper-button}}
 {{else}}

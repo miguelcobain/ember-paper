@@ -63,16 +63,18 @@ export default Component.extend({
     let anchorElement = this.get('anchorElement');
 
     let leaveHandler = () => {
-      this.set('hideTooltip', true);
-      run.later(() => {
-        if (!this.isDestroyed) {
-          this.set('renderTooltip', false);
-        }
-      }, 150);
+      if (!this.isDestroyed) {
+        this.set('hideTooltip', true);
+        run.later(() => {
+          if (!this.isDestroyed) {
+            this.set('renderTooltip', false);
+          }
+        }, 150);
 
-      anchorElement.addEventListener('blur', leaveHandler);
-      anchorElement.addEventListener('touchcancel', leaveHandler);
-      anchorElement.addEventListener('mouseleave', leaveHandler);
+        anchorElement.addEventListener('blur', leaveHandler);
+        anchorElement.addEventListener('touchcancel', leaveHandler);
+        anchorElement.addEventListener('mouseleave', leaveHandler);
+      }
     };
 
     let enterEventHandler = () => {
