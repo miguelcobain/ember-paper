@@ -36,6 +36,9 @@ export default PaperMenuContent.extend({
   animateIn() {
     run.next(() => {
       run.scheduleOnce('afterRender', this, () => {
+        if (this.isDestroyed || this.isDestroying) {
+          return;
+        }
         let dropdown = this.get('dropdown');
         dropdown.actions.reposition();
         this.set('isActive', true);
