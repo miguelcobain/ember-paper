@@ -109,6 +109,9 @@ export default Mixin.create({
 
     if (originator) {
       originator = $(originator).get(0);
+    }
+
+    if (originator) {
       let originBnds = this.copyRect(originator.getBoundingClientRect());
       let dialogRect = this.copyRect(element.getBoundingClientRect());
       let dialogCenterPt = this.centerPointFor(dialogRect);
