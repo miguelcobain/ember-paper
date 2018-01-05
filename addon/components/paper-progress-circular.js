@@ -59,7 +59,7 @@ export default Component.extend(ColorMixin, {
     return mode === MODE_DETERMINATE || mode === MODE_INDETERMINATE ? `md-mode-${mode}` : 'ng-hide';
   }),
 
-  isIndeterminate: equal('mode', MODE_INDETERMINATE),
+  isIndeterminate: equal('mode', MODE_INDETERMINATE).readOnly(),
 
   strokeWidth: computed('strokeRatio', 'diameter', function() {
     return this.get('strokeRatio') * this.get('diameter');
@@ -113,9 +113,11 @@ export default Component.extend(ColorMixin, {
     let newValue = clamp(this.get('value'), 0, 100);
     let newDisabled = this.get('disabled');
 
-    if (this.oldValue !== newValue) {
-      // value changed
-      this.startDeterminateAnimation(this.oldValue, newValue);
+    let diameterChanged = this.oldDiameter !== this.get('diameter');
+    let strokeRatioChanged = this.oldStrokeRatio !== this.get('strokeRatio');
+
+    if (this.oldValue !== newValue || diameterChanged || strokeRatioChanged) {
+      this.startDeterminateAnimation(this.oldValue || 0, newValue);
       this.oldValue = newValue;
     }
 
@@ -128,6 +130,9 @@ export default Component.extend(ColorMixin, {
       }
       this.oldValue = newValue;
     }
+
+    this.oldDiameter = this.get('diameter');
+    this.oldStrokeRatio = this.get('strokeRatio');
   },
 
   willDestroyElement() {
@@ -167,8 +172,12 @@ export default Component.extend(ColorMixin, {
 
     let renderFrame = (value, diameter, strokeWidth, dashLimit) => {
       if (!this.isDestroyed && !this.isDestroying) {
-        this.$('path').attr('stroke-dashoffset', this.getDashLength(diameter, strokeWidth, value, dashLimit));
-        this.$('path').attr('transform', `rotate(${rotation} ${diameter / 2} ${diameter / 2})`);
+        let $path = this.$('path');
+        if (!$path) {
+          return;
+        }
+        $path.attr('stroke-dashoffset', this.getDashLength(diameter, strokeWidth, value, dashLimit));
+        $path.attr('transform', `rotate(${rotation} ${diameter / 2} ${diameter / 2})`);
       }
     };
 
@@ -178,7 +187,6 @@ export default Component.extend(ColorMixin, {
     } else {
       let animation = () => {
         let currentTime = clamp(now() - startTime, 0, animationDuration);
-
         renderFrame(ease(currentTime, animateFrom, changeInValue, animationDuration), diameter, strokeWidth, dashLimit);
 
         // Do not allow overlapping animations
