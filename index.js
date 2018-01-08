@@ -1,11 +1,14 @@
-/* jshint node: true */
 'use strict';
 
-var fs = require('fs');
+/* eslint-env node */
+/* eslint-disable no-var, object-shorthand, prefer-template */
+
 var path = require('path');
 var resolve = require('resolve');
+var version = require('./package.json').version;
 var autoprefixer = require('broccoli-autoprefixer');
 var mergeTrees = require('broccoli-merge-trees');
+var writeFile = require('broccoli-file-creator');
 var Funnel = require('broccoli-funnel');
 var AngularScssFilter = require('./lib/angular-scss-filter');
 var fastbootTransform = require('fastboot-transform');
@@ -13,9 +16,8 @@ var fastbootTransform = require('fastboot-transform');
 module.exports = {
   name: 'ember-paper',
 
-  included: function() {
+  included() {
     this._super.included.apply(this, arguments);
-
     var app;
 
     // If the addon has the _findHost() method (in ember-cli >= 2.7.0), we'll just
@@ -31,20 +33,21 @@ module.exports = {
       } while (current.parent.parent && (current = current.parent));
     }
 
+    app.import('vendor/ember-paper/register-version.js');
     app.import('vendor/hammerjs/hammer.js');
     app.import('vendor/matchmedia-polyfill/matchMedia.js');
     app.import('vendor/propagating-hammerjs/propagating.js');
   },
 
-  config(env, baseConfig) {
+  config() {
     return { 'ember-paper': { insertFontLinks: true } };
   },
 
-  contentFor: function(type, config) {
+  contentFor(type, config) {
     if (type === 'head') {
       if (config['ember-paper'].insertFontLinks) {
-        return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">' +
-          '<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">';
+        return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">'
+         + '<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">';
       }
     } else if (type === 'body-footer') {
       var response = null;
@@ -64,22 +67,27 @@ module.exports = {
     }
   },
 
-  treeForVendor: function(tree) {
+  treeForVendor(tree) {
     var trees = [];
 
+    var versionTree = writeFile(
+      'ember-paper/register-version.js',
+      "Ember.libraries.register('Ember Paper', '" + version + "');"
+    );
+
     var hammerJs = fastbootTransform(new Funnel(this.pathBase('hammerjs'), {
-      files: [ 'hammer.js' ],
+      files: ['hammer.js'],
       destDir: 'hammerjs'
     }));
     var matchMediaPolyfill = fastbootTransform(new Funnel(this.pathBase('matchmedia-polyfill'), {
-      files: [ 'matchMedia.js' ],
+      files: ['matchMedia.js'],
       destDir: 'matchmedia-polyfill'
     }));
     var propagatingHammerJs = fastbootTransform(new Funnel(this.pathBase('propagating-hammerjs'), {
-      files: [ 'propagating.js' ],
+      files: ['propagating.js'],
       destDir: 'propagating-hammerjs'
     }));
-    trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs]);
+    trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs, versionTree]);
 
     if (tree) {
       trees.push(tree);
@@ -88,9 +96,9 @@ module.exports = {
     return mergeTrees(trees);
   },
 
-  treeForStyles: function(tree) {
+  treeForStyles(tree) {
     var scssFiles = [
-      //core styles
+      // core styles
       'core/style/typography.scss',
       'core/style/mixins.scss',
       'core/style/variables.scss',
@@ -98,7 +106,7 @@ module.exports = {
       'core/style/layout.scss',
       'core/services/layout/layout.scss',
 
-      //component styles
+      // component styles
       'components/content/content.scss',
       'components/content/content-theme.scss',
 
@@ -212,14 +220,14 @@ module.exports = {
     tl;dr - We want the non built scss files, and b/c this dep is only provided via
     bower, we use this hack. Please change it if you read this and know a better way.
   */
-  pathBase: function(packageName) {
+  pathBase(packageName) {
     return path.dirname(resolve.sync(packageName + '/package.json', { basedir: __dirname }));
   },
 
-  postprocessTree: function(type, tree) {
+  postprocessTree(type, tree) {
     if (type === 'all' || type === 'styles') {
       tree = autoprefixer(tree,
-          this.app.options.autoprefixer || { browsers: ['last 2 versions'] });
+        this.app.options.autoprefixer || { browsers: ['last 2 versions'] });
     }
     return tree;
   }
