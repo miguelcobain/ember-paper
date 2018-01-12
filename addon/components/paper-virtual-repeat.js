@@ -23,10 +23,12 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     }
   },
 
-  defaultAttrs: {
-    scrollTimeout: 30,
-    height: 48
-  },
+  defaultAttrs: computed(function() {
+    return {
+      scrollTimeout: 30,
+      height: 48
+    };
+  }),
 
   size: computed('initialSize', 'items.[]', 'itemHeight', function() {
     let itemSize = this.get('itemHeight');

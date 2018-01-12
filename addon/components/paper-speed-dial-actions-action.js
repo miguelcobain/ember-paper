@@ -15,7 +15,7 @@ export default Component.extend({
   classNames: ['md-fab-action-item'],
   attributeBindings: ['style'],
 
-  style: computed('elementDidRender', 'speedDial.animation', 'speedDial.open', 'speedDial.direction', function() {
+  style: computed('elementDidRender', 'speedDial.{animation,open,direction}', function() {
     if (!this.get('elementDidRender')) {
       return;
     }
