@@ -86,7 +86,7 @@ module.exports = {
       files: ['propagating.js'],
       destDir: 'propagating-hammerjs'
     }));
-    
+
     trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs, versionTree]);
 
     if (tree) {
@@ -101,7 +101,7 @@ module.exports = {
       // core styles
       'core/style/typography.scss',
       'core/style/mixins.scss',
-      'core/style/letiables.scss',
+      'core/style/variables.scss',
       'core/style/structure.scss',
       'core/style/layout.scss',
       'core/services/layout/layout.scss',
