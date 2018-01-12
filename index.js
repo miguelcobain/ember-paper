@@ -1,8 +1,8 @@
 'use strict';
 
-
 const path = require('path');
 const resolve = require('resolve');
+const version = require('./package.json').version;
 const autoprefixer = require('broccoli-autoprefixer');
 const mergeTrees = require('broccoli-merge-trees');
 const writeFile = require('broccoli-file-creator');
@@ -66,8 +66,8 @@ module.exports = {
 
   treeForVendor(tree) {
     let trees = [];
-      
-    var versionTree = writeFile(
+
+    let versionTree = writeFile(
       'ember-paper/register-version.js',
       `Ember.libraries.register('Ember Paper', '${version}');`
     );
@@ -76,14 +76,17 @@ module.exports = {
       files: ['hammer.js'],
       destDir: 'hammerjs'
     }));
+
     let matchMediaPolyfill = fastbootTransform(new Funnel(this.pathBase('matchmedia-polyfill'), {
       files: ['matchMedia.js'],
       destDir: 'matchmedia-polyfill'
     }));
+
     let propagatingHammerJs = fastbootTransform(new Funnel(this.pathBase('propagating-hammerjs'), {
       files: ['propagating.js'],
       destDir: 'propagating-hammerjs'
     }));
+    
     trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs, versionTree]);
 
     if (tree) {
