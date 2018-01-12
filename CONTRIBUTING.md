@@ -62,16 +62,8 @@ becomes
 
 ## Building and deploying the dummy app to github
 
-If needed, run `npm install` to update `ember-cli-github-pages` to version `0.1.0` or later to obtain `destination` option support.
+Run
 
-1. In the `master` branch, ensure that the version number in `package.json` reflects the current changes and CHANGELOG.md. If needed, bump the version number, commit, and make a git tag for the release.
-
-2. Build the `master` branch:
 ```bash
-checkout master
-ember github-pages:commit --message "Publish gh-pages for v1.0.0-beta.X"
+ember deploy production
 ```
-
-3. Checkout branch `gh-pages` and confirm that you are satisfied.
-
-4. Push `gh-pages` to github.
