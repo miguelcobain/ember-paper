@@ -129,12 +129,12 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     let newScrollIndex = this.get('scrollIndex');
     let scrollTop = this.get('scrollTop');
 
-    RSVP.cast(this.getAttr('items')).then((attrItems) => {
+    RSVP.cast(this.get('items')).then((attrItems) => {
       let items = emberArray(attrItems);
       let itemsCount = this.get('totalItemsCount') || get(items, 'length');
       this.setProperties({
         _items: items,
-        _positionIndex: this.getAttr('positionIndex'),
+        _positionIndex: this.get('positionIndex'),
         _totalHeight: Math.max(itemsCount * this.get('itemHeight'), 0)
       });
 
@@ -196,7 +196,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     let _visibleItemCount = get(this, '_visibleItemCount');
     let itemsLength = get(this, 'totalItemsCount') || get(items, 'length');
     let endAt = Math.min(itemsLength, startAt + _visibleItemCount);
-    let onScrollBottomed = this.getAttr('onScrollBottomed');
+    let onScrollBottomed = this.get('onScrollBottomed');
 
     if (typeof onScrollBottomed === 'function' && (startAt + _visibleItemCount - EXTRA_ROW_PADDING) >= itemsLength) {
       run.next(this, onScrollBottomed, startAt, endAt);
