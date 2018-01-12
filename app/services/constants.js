@@ -43,6 +43,7 @@ export default Service.extend({
     TAB: 9
   }),
 
+  // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
   MEDIA: {
     'xs': '(max-width: 599px)',
     'gt-xs': '(min-width: 600px)',
@@ -56,6 +57,7 @@ export default Service.extend({
     'print': 'print'
   },
 
+  // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
   MEDIA_PRIORITY: [
     'xl',
     'gt-lg',

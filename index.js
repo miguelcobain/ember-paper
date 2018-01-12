@@ -1,24 +1,21 @@
 'use strict';
 
-/* eslint-env node */
-/* eslint-disable no-var, object-shorthand, prefer-template */
 
-var path = require('path');
-var resolve = require('resolve');
-var version = require('./package.json').version;
-var autoprefixer = require('broccoli-autoprefixer');
-var mergeTrees = require('broccoli-merge-trees');
-var writeFile = require('broccoli-file-creator');
-var Funnel = require('broccoli-funnel');
-var AngularScssFilter = require('./lib/angular-scss-filter');
-var fastbootTransform = require('fastboot-transform');
+const path = require('path');
+const resolve = require('resolve');
+const autoprefixer = require('broccoli-autoprefixer');
+const mergeTrees = require('broccoli-merge-trees');
+const writeFile = require('broccoli-file-creator');
+const Funnel = require('broccoli-funnel');
+const AngularScssFilter = require('./lib/angular-scss-filter');
+const fastbootTransform = require('fastboot-transform');
 
 module.exports = {
   name: 'ember-paper',
 
   included() {
     this._super.included.apply(this, arguments);
-    var app;
+    let app;
 
     // If the addon has the _findHost() method (in ember-cli >= 2.7.0), we'll just
     // use that.
@@ -27,7 +24,7 @@ module.exports = {
     } else {
       // Otherwise, we'll use this implementation borrowed from the _findHost()
       // method in ember-cli.
-      var current = this;
+      let current = this;
       do {
         app = current.app || app;
       } while (current.parent.parent && (current = current.parent));
@@ -47,11 +44,11 @@ module.exports = {
     if (type === 'head') {
       if (config['ember-paper'].insertFontLinks) {
         return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">'
-         + '<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">';
+          + '<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">';
       }
     } else if (type === 'body-footer') {
-      var response = null;
-      var emberPowerSelect = this.addons.filter(function(addon) {
+      let response = null;
+      let emberPowerSelect = this.addons.filter(function(addon) {
         return addon.name === 'ember-power-select';
       })[0];
       response = emberPowerSelect.contentFor(type, config);
@@ -68,22 +65,22 @@ module.exports = {
   },
 
   treeForVendor(tree) {
-    var trees = [];
-
+    let trees = [];
+      
     var versionTree = writeFile(
       'ember-paper/register-version.js',
-      "Ember.libraries.register('Ember Paper', '" + version + "');"
+      `Ember.libraries.register('Ember Paper', '${version}');`
     );
 
-    var hammerJs = fastbootTransform(new Funnel(this.pathBase('hammerjs'), {
+    let hammerJs = fastbootTransform(new Funnel(this.pathBase('hammerjs'), {
       files: ['hammer.js'],
       destDir: 'hammerjs'
     }));
-    var matchMediaPolyfill = fastbootTransform(new Funnel(this.pathBase('matchmedia-polyfill'), {
+    let matchMediaPolyfill = fastbootTransform(new Funnel(this.pathBase('matchmedia-polyfill'), {
       files: ['matchMedia.js'],
       destDir: 'matchmedia-polyfill'
     }));
-    var propagatingHammerJs = fastbootTransform(new Funnel(this.pathBase('propagating-hammerjs'), {
+    let propagatingHammerJs = fastbootTransform(new Funnel(this.pathBase('propagating-hammerjs'), {
       files: ['propagating.js'],
       destDir: 'propagating-hammerjs'
     }));
@@ -97,11 +94,11 @@ module.exports = {
   },
 
   treeForStyles(tree) {
-    var scssFiles = [
+    let scssFiles = [
       // core styles
       'core/style/typography.scss',
       'core/style/mixins.scss',
-      'core/style/variables.scss',
+      'core/style/letiables.scss',
       'core/style/structure.scss',
       'core/style/layout.scss',
       'core/services/layout/layout.scss',
@@ -194,7 +191,7 @@ module.exports = {
       'components/fabSpeedDial/fabSpeedDial.scss'
     ];
 
-    var angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {
+    let angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {
       files: scssFiles,
       srcDir: '/src',
       destDir: 'angular-material',
@@ -221,13 +218,12 @@ module.exports = {
     bower, we use this hack. Please change it if you read this and know a better way.
   */
   pathBase(packageName) {
-    return path.dirname(resolve.sync(packageName + '/package.json', { basedir: __dirname }));
+    return path.dirname(resolve.sync(`${packageName}/package.json`, { basedir: __dirname }));
   },
 
   postprocessTree(type, tree) {
     if (type === 'all' || type === 'styles') {
-      tree = autoprefixer(tree,
-        this.app.options.autoprefixer || { browsers: ['last 2 versions'] });
+      tree = autoprefixer(tree, this.app.options.autoprefixer || { browsers: ['last 2 versions'] });
     }
     return tree;
   }

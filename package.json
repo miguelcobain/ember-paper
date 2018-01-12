@@ -9,6 +9,7 @@
   "scripts": {
     "postinstall": "npm rebuild node-sass",
     "build": "ember build",
+    "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember serve",
     "test": "ember try:each"
   },
@@ -24,7 +25,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.5.0",
     "ember-ajax": "^3.0.0",
-    "ember-cli": "~2.17.1",
+    "ember-cli": "~2.18.0",
     "ember-cli-dependency-checker": "^2.0.1",
     "ember-cli-eslint": "^4.2.1",
     "ember-cli-fastboot": "1.0.0",
@@ -46,9 +47,11 @@
     "ember-load-initializers": "^1.0.0",
     "ember-native-dom-helpers": "^0.5.4",
     "ember-resolver": "^4.3.0",
-    "ember-source": "~2.17.0",
+    "ember-source": "~2.18.0",
     "ember-transition-helper": "0.0.6",
+    "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-ember-suave": "^1.0.0",
+    "eslint-plugin-node": "^5.2.1",
     "liquid-fire": "0.27.3",
     "loader.js": "^4.5.1"
   },

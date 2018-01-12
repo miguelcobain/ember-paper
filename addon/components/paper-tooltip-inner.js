@@ -13,6 +13,7 @@ export default Component.extend(TransitionMixin, {
   attributeBindings: ['style'],
   classNames: ['md-tooltip', 'md-panel'],
   classNameBindings: ['positionClass'],
+  // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
   transitionClassNameBindings: ['show:md-show', 'hide:md-hide'],
   show: bool('style'),
 

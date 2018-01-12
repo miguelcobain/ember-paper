@@ -40,7 +40,6 @@ export default Component.extend({
   }),
 
   getEscapedCategory(category) {
-    /* jshint -W014 */
     let shouldSort = this.get('sort');
 
     if (shouldSort) {

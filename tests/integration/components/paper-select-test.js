@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
-import run from 'ember-runloop';
+import { run } from '@ember/runloop';
 import $ from 'jquery';
 
 moduleForComponent('paper-select', 'Integration | Component | paper select', {

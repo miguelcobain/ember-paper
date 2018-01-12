@@ -209,6 +209,7 @@ export default Component.extend(ParentMixin, {
 
   currentRowHeight: computed('rowHeightMedia', 'currentMedia.[]', function() {
     let rowHeight = this._getAttributeForMedia(this.get('rowHeightMedia'), this.get('currentMedia'));
+    // eslint-disable-next-line ember/no-side-effects
     this.set('currentRowMode', this._getRowMode(rowHeight));
     switch (this._getRowMode(rowHeight)) {
       case 'fixed': {
