@@ -81,8 +81,10 @@ export default Component.extend({
       anchorElement.addEventListener('touchcancel', leaveHandler);
       anchorElement.addEventListener('mouseleave', leaveHandler);
 
-      this.set('renderTooltip', true);
-      this.set('hideTooltip', false);
+      if (!this.isDestroyed) {
+        this.set('renderTooltip', true);
+        this.set('hideTooltip', false);
+      }
     };
 
     anchorElement.addEventListener('focus', enterEventHandler);
