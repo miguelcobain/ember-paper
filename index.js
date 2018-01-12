@@ -2,8 +2,10 @@
 
 const path = require('path');
 const resolve = require('resolve');
+const version = require('./package.json').version;
 const autoprefixer = require('broccoli-autoprefixer');
 const mergeTrees = require('broccoli-merge-trees');
+const writeFile = require('broccoli-file-creator');
 const Funnel = require('broccoli-funnel');
 const AngularScssFilter = require('./lib/angular-scss-filter');
 const fastbootTransform = require('fastboot-transform');
@@ -13,7 +15,6 @@ module.exports = {
 
   included() {
     this._super.included.apply(this, arguments);
-
     let app;
 
     // If the addon has the _findHost() method (in ember-cli >= 2.7.0), we'll just
@@ -29,6 +30,7 @@ module.exports = {
       } while (current.parent.parent && (current = current.parent));
     }
 
+    app.import('vendor/ember-paper/register-version.js');
     app.import('vendor/hammerjs/hammer.js');
     app.import('vendor/matchmedia-polyfill/matchMedia.js');
     app.import('vendor/propagating-hammerjs/propagating.js');
@@ -65,19 +67,27 @@ module.exports = {
   treeForVendor(tree) {
     let trees = [];
 
+    let versionTree = writeFile(
+      'ember-paper/register-version.js',
+      `Ember.libraries.register('Ember Paper', '${version}');`
+    );
+
     let hammerJs = fastbootTransform(new Funnel(this.pathBase('hammerjs'), {
       files: ['hammer.js'],
       destDir: 'hammerjs'
     }));
+
     let matchMediaPolyfill = fastbootTransform(new Funnel(this.pathBase('matchmedia-polyfill'), {
       files: ['matchMedia.js'],
       destDir: 'matchmedia-polyfill'
     }));
+
     let propagatingHammerJs = fastbootTransform(new Funnel(this.pathBase('propagating-hammerjs'), {
       files: ['propagating.js'],
       destDir: 'propagating-hammerjs'
     }));
-    trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs]);
+    
+    trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs, versionTree]);
 
     if (tree) {
       trees.push(tree);

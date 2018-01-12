@@ -58,6 +58,7 @@
   "dependencies": {
     "angular-material-source": "github:angular/material#v1.1.4",
     "broccoli-autoprefixer": "^5.0.0",
+    "broccoli-file-creator": "^1.1.1",
     "broccoli-filter": "^1.2.4",
     "broccoli-funnel": "^1.2.0",
     "broccoli-merge-trees": "^2.0.0",
