@@ -7,7 +7,7 @@ export default Component.extend(TransitionMixin, {
   transitionClass: 'ng',
   onReset: null,
 
-  mouseUp(e) {
+  touchEnd(e) {
     let onReset = this.get('onReset');
     if (onReset === null) {
       return;
