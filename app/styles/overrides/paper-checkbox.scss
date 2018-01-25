@@ -1,0 +1,12 @@
+.md-checkbox .md-container .md-icon {
+  border-width:1px;
+}
+md-checkbox.md-checkbox.md-checked .md-icon::after {
+  margin-left:.825px;
+}
+md-checkbox.md-default-theme:not(.md-checked) .md-icon, md-checkbox:not(.md-checked) .md-icon {
+  border-color: #aaa;
+}
+md-checkbox.md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox .md-icon {
+  border-color: #009fc2;
+}
