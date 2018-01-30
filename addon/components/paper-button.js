@@ -34,7 +34,8 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
     'href',
     'target',
     'title',
-    'download'
+    'download',
+    'rel'
   ],
   classNameBindings: [
     'raised:md-raised',
