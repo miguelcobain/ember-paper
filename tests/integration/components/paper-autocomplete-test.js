@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, find, focus, triggerEvent, findAll, fillIn } from '@ember/test-helpers';
+import { click, render, settled, find, focus, triggerEvent, findAll, fillIn } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper autocomplete', function(hooks) {
@@ -260,4 +260,37 @@ module('Integration | Component | paper autocomplete', function(hooks) {
 
     assert.ok(find('.md-autocomplete-suggestions-container').classList.contains('custom-dropdown-class'), 'contains custom dropdownClass');
   });
+
+  test('shows validation errors after being touched', async function(assert) {
+    assert.expect(3);
+    this.items = ['1', '2', '3', '4'];
+
+    class DummyValidation {
+      get errors() {
+        return ['validation error!'];
+      }
+    }
+    this.v = new DummyValidation();
+    await render(hbs`{{#paper-autocomplete
+      label="Fooo"
+      options=items
+      selected=selectedItem
+      errors=v.errors
+      onSelectionChange=(action (mut selectedItem))
+      as |item|}}
+      {{item}}
+    {{/paper-autocomplete}}`);
+
+    await settled();
+
+    assert.dom('md-input-container').hasNoClass('md-input-invalid');
+
+    await click('md-autocomplete input');
+    await triggerEvent('md-autocomplete input', 'blur');
+
+    assert.dom('md-input-container').hasClass('md-input-invalid');
+    assert.dom('md-autocomplete .paper-input-error').hasText('validation error!');
+  });
 });
+
+
