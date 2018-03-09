@@ -90,6 +90,16 @@ export function calculateWormholedPosition(trigger, content, destination, { hori
 
   // Calculate vertical position
   let triggerTopWithScroll = triggerTop + scroll.top;
+
+  /**
+   * Fixes bug where the dropdown always stays on the same position on the screen when
+   * the <body> is relatively positioned
+   */
+  let isBodyPositionRelative = window.getComputedStyle(document.body).getPropertyValue('position') === 'relative';
+  if (!isBodyPositionRelative) {
+    triggerTopWithScroll += scroll.top;
+  }
+
   if (verticalPosition === 'above') {
     style.top = triggerTopWithScroll - dropdownHeight;
   } else if (verticalPosition === 'below') {
