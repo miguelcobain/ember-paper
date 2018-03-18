@@ -9,6 +9,7 @@ import { assert } from '@ember/debug';
 import layout from '../templates/components/paper-radio-group';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import { ParentMixin } from 'ember-composability-tools';
+import { isPresent } from '@ember/utils';
 
 /**
  * @class PaperRadioGroup
@@ -57,7 +58,7 @@ export default Component.extend(FocusableMixin, ParentMixin, {
     let groupValue = this.get('groupValue');
     let index = 0;
 
-    if (groupValue) {
+    if (isPresent(groupValue)) {
       index = this.get('childValues').indexOf(groupValue);
       index += increment;
       let length = this.get('childValues.length');
