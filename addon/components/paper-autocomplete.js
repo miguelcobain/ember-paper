@@ -33,7 +33,6 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
   onchange: null,
   oninput: null,
   searchText: '',
-  defaultHighlighted: null, // Don't automatically highlight any option
   _onChangeNop() { },
 
   extra: computed('labelPath', 'label', function() {
