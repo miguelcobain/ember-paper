@@ -173,6 +173,32 @@ test('should be possible to select next with up/left arrow in a paper-radio-grou
   assert.equal(this.get('groupValue'), '3');
 });
 
+test('should be possible to select next with down/right arrow in a paper-radio-group (when group.radio value is 0)', function(assert) {
+  assert.expect(2);
+
+  this.render(hbs`
+    {{#paper-radio-group groupValue=groupValue onChange=(action (mut groupValue)) as |group|}}
+      {{#group.radio value=0}}
+        Radio button 1
+      {{/group.radio}}
+      {{#group.radio value="2"}}
+        Radio button 2
+      {{/group.radio}}
+      {{#group.radio value="3"}}
+        Radio button 3
+      {{/group.radio}}
+    {{/paper-radio-group}}
+  `);
+
+  triggerKeydown(this.$('md-radio-group').get(0), 40);
+
+  assert.equal(this.get('groupValue'), 0);
+
+  triggerKeydown(this.$('md-radio-group').get(0), 39);
+
+  assert.equal(this.get('groupValue'), '2');
+});
+
 /* test('the `onChange` action is mandatory for paper-radio-group', function(assert) {
   assert.expect(1);
 
