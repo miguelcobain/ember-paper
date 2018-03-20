@@ -14,11 +14,11 @@
   {{/paper-toolbar}}
 
   <div class="doc-code-example {{if showSourceCode 'is-visible'}}">
-    {{code-snippet name="sidenav.hbs"}}
+    {{code-snippet name="sidenav.basic-usage.hbs"}}
   </div>
 
   <div class="doc-content-example">
-    {{! BEGIN-SNIPPET sidenav }}
+    {{! BEGIN-SNIPPET sidenav.basic-usage }}
     {{#paper-sidenav-container class="inner-sidenav"}}
 
       {{#paper-sidenav
@@ -78,7 +78,7 @@
       {{/paper-sidenav}}
 
     {{/paper-sidenav-container}}
-    {{! END-SNIPPET sidenav }}
+    {{! END-SNIPPET sidenav.basic-usage }}
   </div>
 
 {{/paper-card}}
@@ -95,11 +95,11 @@
   {{/paper-toolbar}}
 
   <div class="doc-code-example {{if persistentCode 'is-visible'}}">
-    {{code-snippet name="sidenav.hbs"}}
+    {{code-snippet name="sidenav.persistent.hbs"}}
   </div>
 
   <div class="doc-content-example">
-    {{! BEGIN-SNIPPET sidenav }}
+    {{! BEGIN-SNIPPET sidenav.persistent }}
     {{#paper-sidenav-container class="inner-sidenav"}}
 
       {{#paper-sidenav
@@ -134,7 +134,7 @@
       {{/paper-card-content}}
 
     {{/paper-sidenav-container}}
-    {{! END-SNIPPET sidenav }}
+    {{! END-SNIPPET sidenav.persistent }}
   </div>
 
 {{/paper-card}}
