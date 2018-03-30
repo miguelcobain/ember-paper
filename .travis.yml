@@ -12,7 +12,8 @@ addons:
   chrome: stable
 
 cache:
-  yarn: true
+  directories:
+    - $HOME/.npm
 
 env:
   global:
@@ -34,11 +35,9 @@ matrix:
     - env: EMBER_TRY_SCENARIO=ember-canary
 
 before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - export PATH=$HOME/.yarn/bin:$PATH
-
-install:
-  - yarn install --no-lockfile --non-interactive
+  - npm config set spin false
+  - npm install -g npm@4
+  - npm --version
 
 script:
   # Usually, it's ok to finish the test scenario without reverting
