@@ -1,0 +1,12 @@
+{{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+  {{#toolbar.tools}}
+    {{#paper-sidenav-toggle as |toggleAction|}}
+      {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
+        {{paper-icon "menu"}}
+      {{/paper-button}}
+    {{/paper-sidenav-toggle}}
+    <h2>
+      {{pageTitle}}
+    </h2>
+  {{/toolbar.tools}}
+{{/paper-toolbar}}

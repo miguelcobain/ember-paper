@@ -1,0 +1,36 @@
+{{#paper-sidenav-container class="site-nav-container"}}
+  {{#paper-sidenav class="md-whiteframe-z2 site-sidenav" lockedOpen="gt-sm"
+    open=isSidenavOpen onToggle=(action (mut isSidenavOpen))}}
+    {{#paper-toolbar class="site-content-toolbar" as |toolbar|}}
+      {{#toolbar.tools}}
+        <div class="flex layout-column layout-align-center-center">
+          <div class="flex">Ember paper</div>
+        </div>
+      {{/toolbar.tools}}
+    {{/paper-toolbar}}
+
+    {{#paper-content}}
+
+      {{#paper-list}}
+        {{#menu-item active=(is-active "index" currentRouteName) href=(href-to "index")}}Introduction{{/menu-item}}
+
+        {{#menu-item onClick=(action (toggle "expandedItem" this "demos" null)) expanded=(eq expandedItem "demos") canExpand=true}}Submenu{{/menu-item}}
+
+        <div class="submenu">
+          {{#if (eq expandedItem "demos")}}
+            {{#submenu-item active=(is-active "index" currentRouteName) href=(href-to "index")}}Submenu Item{{/submenu-item}}
+          {{/if}}
+        </div>
+        {{#menu-item active=(is-active "forms" currentRouteName) href=(href-to "index")}}Menu Item{{/menu-item}}
+
+      {{/paper-list}}
+
+    {{/paper-content}}
+  {{/paper-sidenav}}
+
+  <div id="main" class="flex layout-column" tabindex="-1" role="main">
+    {{outlet}}
+  </div>
+{{/paper-sidenav-container}}
+
+{{paper-toaster parent="#main"}}
