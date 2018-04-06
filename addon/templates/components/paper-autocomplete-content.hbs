@@ -1,17 +1,23 @@
 {{#if dropdown.isOpen}}
   {{#ember-wormhole to=destination renderInPlace=renderInPlace}}
-    {{#paper-virtual-repeat (readonly select.results)
-      id=(readonly dropdownId)
-      class=(concat class " ember-basic-dropdown-content "
+      <md-virtual-repeat-container
+        id={{readonly dropdownId}}
+        class={{concat class " ember-basic-dropdown-content "
         (if renderInPlace 'ember-basic-dropdown-content--in-place ')
         (if hPosition (concat 'ember-basic-dropdown-content--' hPosition ' '))
         (if vPosition (concat 'ember-basic-dropdown-content--' vPosition ' ') "md-whiteframe-z1 ")
-        animationClass)
-      containerSelector='.md-autocomplete-suggestions'
-      scrollIndex=(readonly select.scrollIndex)
-      positionCoordinates=(hash top=top left=left right=right width=width)
-      as |rawItems virtualItems|}}
-      {{yield virtualItems}}
-    {{/paper-virtual-repeat}}
+        animationClass}}
+        style={{style}}>
+        <div class="md-virtual-repeat-scroller">
+          <div class="md-virtual-repeat-sizer" style={{contentStyle}}></div>
+          {{#if ignoreOffsetter}}
+          	<div class="md-virtual-repeat-offsetter"></div>
+          {{else}}
+          	<div class="md-virtual-repeat-offsetter" style={{offsetterStyle}}>
+              {{yield select.results}}
+          	</div>
+          {{/if}}
+        </div>
+     </md-virtual-repeat-container>
   {{/ember-wormhole}}
 {{/if}}

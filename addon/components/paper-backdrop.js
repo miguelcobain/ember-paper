@@ -29,7 +29,9 @@ export default Component.extend(TransitionMixin, {
   }),
 
   addDestroyedElementClone(original, clone) {
-    original.parent().append(clone);
+    if (original && original.parentElement) {
+      original.parentElement.append(clone);
+    }
   },
 
   sendClickAction(e) {

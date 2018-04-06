@@ -26,7 +26,7 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
   constants: service(),
   triggerComponent: 'paper-autocomplete-trigger',
   contentComponent: 'paper-autocomplete-content',
-  optionsComponent: 'paper-autocomplete-options',
+  // optionsComponent: 'paper-autocomplete-options',
   triggerWrapperComponent: 'paper-autocomplete-trigger-container',
   onfocus: alias('onFocus'),
   onblur: alias('onBlur'),

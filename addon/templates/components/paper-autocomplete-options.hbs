@@ -1,12 +1,12 @@
-{{#each options as |opt|}}
-  <li class="ember-power-select-option {{if (eq opt.raw select.highlighted) 'selected'}}"
-    aria-selected="{{ember-power-select-is-selected opt.raw select.selected}}"
+{{!-- {{#each options as |opt index|}}
+  <li class="ember-power-select-option {{if (eq opt select.highlighted) 'selected'}}"
+    aria-selected="{{ember-power-select-is-selected opt select.selected}}"
     aria-disabled={{ember-power-select-true-string-if-present opt.disabled}}
-    aria-current="{{eq opt.raw select.highlighted}}"
-    data-option-index="{{groupIndex}}{{opt.virtualIndex}}"
-    data-option-actual-index="{{groupIndex}}{{opt.actualIndex}}"
+    aria-current="{{eq opt select.highlighted}}"
+    data-option-index="{{groupIndex}}{{index}}"
+    data-option-actual-index="{{groupIndex}}{{index}}"
     role="option"
     tabindex="0">
-    {{yield opt.raw select}}
+    {{yield opt select}}
   </li>
-{{/each}}
+{{/each}} --}}

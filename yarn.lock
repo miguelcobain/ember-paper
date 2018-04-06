@@ -2930,11 +2930,11 @@ ember-cp-validations@3.3.2:
     exists-sync "0.0.4"
     walk-sync "^0.3.1"
 
-ember-css-transitions@0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/ember-css-transitions/-/ember-css-transitions-0.1.10.tgz#483d45e273e30f88bf98faa2a4a9dadf02d0d67c"
+ember-css-transitions@^0.1.12:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/ember-css-transitions/-/ember-css-transitions-0.1.12.tgz#40e75b1b6e97fce039e5a2cf717aff9cc04fef7f"
   dependencies:
-    ember-cli-babel "^5.1.6"
+    ember-cli-babel "^6.6.0"
 
 ember-data@^2.14.4:
   version "2.18.0"
