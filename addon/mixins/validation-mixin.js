@@ -5,7 +5,7 @@
 import Mixin from '@ember/object/mixin';
 import { assert, warn } from '@ember/debug';
 import { isArray, A } from '@ember/array';
-import { get, computed } from '@ember/object';
+import { get, computed, defineProperty } from '@ember/object';
 import { bool, reads, not } from '@ember/object/computed';
 import { loc } from '@ember/string';
 import { isBlank } from '@ember/utils';
@@ -86,7 +86,7 @@ export default Mixin.create({
         this.validations(),
         this.get('customValidations')
       );
-      this.set('validationErrorMessages', computedValidationMessages);
+      defineProperty(this, 'validationErrorMessages', computedValidationMessages);
     }
   },
 
