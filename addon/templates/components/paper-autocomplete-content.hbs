@@ -1,5 +1,5 @@
 {{#if dropdown.isOpen}}
-  {{#ember-wormhole to=destination renderInPlace=renderInPlace}}
+  {{#maybe-in-element destinationEl renderInPlace}}
     {{#paper-virtual-repeat (readonly select.results)
       id=(readonly dropdownId)
       class=(concat class " ember-basic-dropdown-content "
@@ -13,5 +13,5 @@
       as |rawItems virtualItems|}}
       {{yield virtualItems}}
     {{/paper-virtual-repeat}}
-  {{/ember-wormhole}}
+  {{/maybe-in-element}}
 {{/if}}

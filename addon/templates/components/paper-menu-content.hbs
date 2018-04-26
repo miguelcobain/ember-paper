@@ -1,5 +1,5 @@
 {{#if dropdown.isOpen}}
-  {{#ember-wormhole to=to renderInPlace=renderInPlace}}
+  {{#maybe-in-element destinationEl renderInPlace}}
     {{!-- we already have our own paper-backdrop
       {{#if overlay}}
         <div class="ember-basic-dropdown-overlay"></div>
@@ -16,5 +16,5 @@
         {{yield innerContentHash}}
       {{/paper-menu-content-inner}}
     </div>
-  {{/ember-wormhole}}
+  {{/maybe-in-element}}
 {{/if}}
