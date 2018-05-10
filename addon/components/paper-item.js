@@ -18,6 +18,7 @@ import { ParentMixin } from 'ember-composability-tools';
 export default Component.extend(RippleMixin, ParentMixin, {
   layout,
   tagName: 'md-list-item',
+  attributeBindings: ['title'],
 
   // Ripple Overrides
   rippleContainerSelector: '.md-no-style',
