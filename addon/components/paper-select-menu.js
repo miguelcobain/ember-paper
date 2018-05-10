@@ -60,7 +60,6 @@ export default PaperMenu.extend({
       bottom: bounds.bottom - (targetRect.top + targetRect.height)
     };
     let maxWidth = parentRect.width - SELECT_EDGE_MARGIN * 2;
-    let isScrollable = contentNode.scrollHeight > contentNode.offsetHeight;
     let selectedNode = selectNode.querySelector('md-option[selected]');
     let optionNodes = selectNode.getElementsByTagName('md-option');
     let optgroupNodes = selectNode.getElementsByTagName('md-optgroup');
@@ -107,6 +106,8 @@ export default PaperMenu.extend({
       centeredRect.paddingRight = parseInt(centeredStyle.paddingRight, 10) || 0;
     }
 
+    // Get scrollHeight/offsetHeight *after* container is set with display:block
+    let isScrollable = contentNode.scrollHeight > contentNode.offsetHeight;
     if (isScrollable) {
       let scrollBuffer = contentNode.offsetHeight / 2;
       contentNode.scrollTop = centeredRect.top + centeredRect.height / 2 - scrollBuffer;
