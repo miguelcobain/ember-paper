@@ -18,7 +18,6 @@ import { ParentMixin } from 'ember-composability-tools';
 export default Component.extend(RippleMixin, ParentMixin, {
   layout,
   tagName: 'md-list-item',
-  attributeBindings: ['title'],
 
   // Ripple Overrides
   rippleContainerSelector: '.md-no-style',
@@ -35,7 +34,7 @@ export default Component.extend(RippleMixin, ParentMixin, {
     'hasProxiedComponent:md-proxy-focus', 'shouldBeClickable:md-clickable',
     'focused:md-focused', 'hasPrimaryAction:_md-button-wrap'
   ],
-  attributeBindings: ['role', 'tabindex'],
+  attributeBindings: ['role', 'tabindex', 'title'],
   role: 'listitem',
   tabindex: '-1',
 
