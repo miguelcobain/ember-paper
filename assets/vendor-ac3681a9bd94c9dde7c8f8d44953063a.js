@@ -3323,7 +3323,7 @@ o+="import "+n+" from '"+t[0]+"'\n"}}),o+="\n"):o+="Please use globals instead."
 t["ember-computed"]={default:Ember.computed}
 for(var n=["empty","notEmpty","none","not","bool","match","equal","gt","gte","lt","lte","alias","oneWay","reads","readOnly","deprecatingAlias","and","or","collect","sum","min","max","map","sort","setDiff","mapBy","mapProperty","filter","filterBy","filterProperty","uniq","union","intersect"],r=0,i=n.length;r<i;r++){var o=n[r]
 t["ember-computed"][o]=Ember.computed[o]}for(var a in t)e(a,t[a],!0)}(),function(){if(Ember.Test){var t={"ember-test":{default:Ember.Test},"ember-test/adapter":{default:Ember.Test.Adapter},"ember-test/qunit-adapter":{default:Ember.Test.QUnitAdapter}}
-for(var n in t)e(n,t[n])}}(),e("jquery",{default:self.jQuery}),e("rsvp",{default:Ember.RSVP})}(),Ember.libraries.register("Ember Paper","1.0.0-beta.6"),"undefined"==typeof FastBoot&&function(e,t,n,r){"use strict"
+for(var n in t)e(n,t[n])}}(),e("jquery",{default:self.jQuery}),e("rsvp",{default:Ember.RSVP})}(),Ember.libraries.register("Ember Paper","1.0.0-beta.7"),"undefined"==typeof FastBoot&&function(e,t,n,r){"use strict"
 var i,o=["","webkit","Moz","MS","ms","o"],a=t.createElement("div"),s="function",l=Math.round,u=Math.abs,c=Date.now
 function d(e,t,n){return setTimeout(v(e,n),t)}function p(e,t,n){return!!Array.isArray(e)&&(m(e,n[t],n),!0)}function m(e,t,n){var i
 if(e)if(e.forEach)e.forEach(t,n)
@@ -4592,9 +4592,13 @@ try{for(var a,s=e[Symbol.iterator]();!(r=(a=s.next()).done)&&(n.push(a.value),!t
 throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),n=Ember.testing,r=e.rAF=n||!window.requestAnimationFrame?function(e){return Ember.run.later(e,17)}:window.requestAnimationFrame
 e.cAF=n||!window.cancelAnimationFrame?function(e){return Ember.run.cancel(e)}:window.cancelAnimationFrame
 function i(){return new Ember.RSVP.Promise(function(e){Ember.run.schedule("afterRender",function(){r(function(){e()})})})}function o(e){var t=window.getComputedStyle(e),n=t.transitionDuration,r=t.transitionDelay,i=t.animationDuration,o=t.animationDelay,a=t.animationIterationCount
-return 1e3*(Math.max(parseFloat(o),parseFloat(r))+Math.max(parseFloat(i)*parseFloat(a),parseFloat(n)))}e.default=Ember.Mixin.create({classNameBindings:["joinedTransitionClasses"],joinedTransitionClasses:Ember.computed("transitionClasses.[]",function(){return this.get("transitionClasses").join(" ")}),addClass:function(e,t){this.get("isDestroying")?t.classList.add(e):this.get("transitionClasses").addObject(e)},removeClass:function(e,t){this.get("isDestroying")?t.classList.remove(e):this.get("transitionClasses").removeObject(e)},"transition-class":Ember.computed.alias("transitionClass"),transitionName:Ember.computed.alias("transitionClass"),init:function(){this._super.apply(this,arguments),this.transitionClasses=Ember.A(),this.transitionTimeouts=[],this._setupTriggerObservers()},transition:function(e,t,n){var r=this,a=this.clone||this.element,s=t+"-"+e,l=s+"-active"
+return 1e3*(Math.max(parseFloat(o),parseFloat(r))+Math.max(parseFloat(i)*parseFloat(a),parseFloat(n)))}e.default=Ember.Mixin.create({classNameBindings:["joinedTransitionClasses"],joinedTransitionClasses:Ember.computed("transitionClasses.[]",function(){return this.get("transitionClasses").join(" ")}),addClass:function(e,t){this.get("isDestroying")?t.classList.add(e):this.get("transitionClasses").addObject(e)},removeClass:function(e,t){this.get("isDestroying")?t.classList.remove(e):this.get("transitionClasses").removeObject(e)},"transition-class":Ember.computed.alias("transitionClass"),transitionName:Ember.computed.alias("transitionClass"),transition:function(e,t,n){var r=this,a=this.clone||this.element,s=t+"-"+e,l=s+"-active"
 this.addClass(s,a),i().then(function(){r.addClass(l,a),"remove"===e&&r.removeClass(t),Ember.run.schedule("afterRender",function(){var e=Ember.run.later(function(){r.removeClass(s,a),r.removeClass(l,a),n&&n()},o(a)||0)
-r.transitionTimeouts.push(e)})})},didInsertElement:function(){var e=this
+r.transitionTimeouts.push(e)})})},init:function(){this._super.apply(this,arguments)
+var e=this.get("transitionName")
+if(e){var t=e+"-enter"
+this.transitionClasses=Ember.A([t])}else this.transitionClasses=Ember.A()
+this.transitionTimeouts=[],this._setupTriggerObservers()},didInsertElement:function(){var e=this
 this._super.apply(this,arguments)
 var t=this.get("transitionName")
 t&&Ember.run.schedule("afterRender",function(){e.transition("enter",t,e.didTransitionIn)})},willDestroyElement:function(){var e=this
