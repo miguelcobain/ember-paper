@@ -17,6 +17,8 @@ export default Component.extend(TransitionMixin, {
 
   didTransitionOut() {
     this._super(...arguments);
-    this.sendAction('onDidTransitionOut');
+    if (this.get('onDidTransitionOut')) {
+      this.get('onDidTransitionOut')();
+    }
   }
 });
