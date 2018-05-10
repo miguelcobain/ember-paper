@@ -2734,9 +2734,9 @@ ember-cp-validations@^4.0.0-beta.0:
     ember-require-module "^0.2.0"
     ember-validators "^1.1.1"
 
-ember-css-transitions@^0.1.13:
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/ember-css-transitions/-/ember-css-transitions-0.1.13.tgz#9493c2e8d21df128e060daca91cbf4442c8517d4"
+ember-css-transitions@^0.1.14:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/ember-css-transitions/-/ember-css-transitions-0.1.14.tgz#85cbaad976bd8b5b4d88f2b4d517c00dc97455e4"
   dependencies:
     ember-cli-babel "^6.6.0"
 
