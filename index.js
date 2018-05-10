@@ -4,7 +4,7 @@ const path = require('path');
 const resolve = require('resolve');
 const version = require('./package.json').version;
 const autoprefixer = require('broccoli-autoprefixer');
-const mergeTrees = require('broccoli-merge-trees');
+const BroccoliMergeTrees = require('broccoli-merge-trees');
 const writeFile = require('broccoli-file-creator');
 const Funnel = require('broccoli-funnel');
 const AngularScssFilter = require('./lib/angular-scss-filter');
@@ -93,7 +93,7 @@ module.exports = {
       trees.push(tree);
     }
 
-    return mergeTrees(trees);
+    return new BroccoliMergeTrees(trees);
   },
 
   treeForStyles(tree) {
@@ -205,7 +205,8 @@ module.exports = {
       annotation: 'AngularScssFilter'
     });
 
-    return this._super.treeForStyles(mergeTrees([angularScssFiles, tree], { overwrite: true }));
+    let mergedTrees = new BroccoliMergeTrees([angularScssFiles, tree], { overwrite: true });
+    return this._super.treeForStyles(mergedTrees);
   },
 
   /*
