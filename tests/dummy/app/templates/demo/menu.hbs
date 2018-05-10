@@ -223,4 +223,44 @@ classes to specify where it should position itself in respect to origin and alig
 {{/paper-card-content}}
 {{/paper-card}}
 
+
+{{#paper-card}}
+  {{#paper-card-content}}
+    <h2>Dense menu</h2>
+
+    <p><code class="paper">paper-menu-content</code> may specify a `dense` boolean attribute.
+    </p>
+
+    <div class="layout-column layout-align-center-center">
+      {{! BEGIN-SNIPPET menu.dense }}
+
+      <div class="menus layout-fill layout-wrap layout-row layout-align-space-between-center">
+        <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
+          <p>Dense menu (<code class="paper">dense=true</code>)</p>
+          {{#paper-menu as |menu|}}
+            {{#menu.trigger}}
+              {{#paper-button onClick=null iconButton=true}}
+                {{paper-icon "local_phone" class="md-menu-origin"}}
+              {{/paper-button}}
+            {{/menu.trigger}}
+
+            {{#menu.content dense=true as |content|}}
+              {{#each options as |item|}}
+                {{#content.menu-item onClick=(action "openSomething")}}
+                  <span class="md-menu-align-target">Option</span> {{item}}
+                {{/content.menu-item}}
+              {{/each}}
+            {{/menu.content}}
+          {{/paper-menu}}
+        </div>
+      </div>
+      {{! END-SNIPPET }}
+    </div>
+
+    <h3>Template</h3>
+    {{code-snippet name="menu.dense.hbs"}}
+
+  {{/paper-card-content}}
+{{/paper-card}}
+
 {{/doc-content}}
