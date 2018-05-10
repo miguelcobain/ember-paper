@@ -1,4 +1,4 @@
-{{#ember-wormhole to=destinationId}}
+{{#-in-element destinationEl}}
   {{paper-backdrop
     locked-open=isLockedOpen
     opaque=opaque
@@ -17,4 +17,4 @@
       {{yield}}
     {{/paper-dialog-inner}}
   {{/paper-dialog-container}}
-{{/ember-wormhole}}
+{{/-in-element}}
