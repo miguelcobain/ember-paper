@@ -62,6 +62,12 @@ export default ContentComponent.extend({
     }
   }),
 
+  // returns `destinationElement` for ember-basic-dropdown >= 1.0.0
+  // finds destination by `to` for ember-basic-dropdown < 1.0.0
+  destinationEl: computed('destinationElement', 'to', function() {
+    return this.get('destinationElement') || document.getElementById(this.get('to'));
+  }),
+
   startObservingDomMutations() {
     if (MutObserver) {
       this.mutationObserver = new MutObserver((mutations) => {

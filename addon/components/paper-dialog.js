@@ -38,7 +38,7 @@ export default Component.extend({
     let config = getOwner(this).resolveRegistration('config:environment');
 
     if (config.environment === 'test' && !this.get('parent')) {
-      return 'ember-testing';
+      return '#ember-testing';
     }
     let parent = this.get('defaultedParent');
     let $parent = $(parent);
@@ -46,15 +46,20 @@ export default Component.extend({
     // exist yet. This only happens during integration tests or if entire application
     // route is a dialog.
     if ($parent.length === 0 && parent.charAt(0) === '#') {
-      return parent.substring(1);
+      return `#${parent.substring(1)}`;
     } else {
       let id = $parent.attr('id');
       if (!id) {
         id = `${this.elementId}-parent`;
         $parent.get(0).id = id;
       }
-      return id;
+      return `#${id}`;
     }
+  }),
+
+  // Find the element referenced by destinationId
+  destinationEl: computed('destinationId', function() {
+    return document.querySelector(this.get('destinationId'));
   }),
 
   constants: service(),
@@ -62,7 +67,7 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
     if (this.get('escapeToClose')) {
-      $(`#${this.get('destinationId')}`).on(`keydown.${this.elementId}`, (e) => {
+      $(this.get('destinationId')).on(`keydown.${this.elementId}`, (e) => {
         if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.get('onClose')) {
           this.sendAction('onClose');
         }
@@ -73,7 +78,7 @@ export default Component.extend({
   willDestroyElement() {
     this._super(...arguments);
     if (this.get('escapeToClose')) {
-      $(`#${this.get('destinationId')}`).off(`keydown.${this.elementId}`);
+      $(this.get('destinationId')).off(`keydown.${this.elementId}`);
     }
   },
 
