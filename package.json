@@ -40,7 +40,7 @@
     "ember-cli-sri": "^2.1.1",
     "ember-cli-uglify": "^2.0.0",
     "ember-code-snippet": "1.9.0",
-    "ember-cp-validations": "~3.5.3",
+    "ember-cp-validations": "^4.0.0-beta.0",
     "ember-data": "^2.14.4",
     "ember-deferred-content": "~1.0.0",
     "ember-disable-prototype-extensions": "^1.1.2",
