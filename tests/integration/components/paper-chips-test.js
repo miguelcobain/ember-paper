@@ -1,10 +1,8 @@
-import Ember from 'ember';
+import { A } from '@ember/array';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { click, find, findAll, fillIn, keyEvent } from 'ember-native-dom-helpers';
 import $ from 'jquery';
-
-const { A } = Ember;
 
 moduleForComponent('paper-chips', 'Integration | Component | paper chips', {
   integration: true,
