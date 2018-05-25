@@ -25,6 +25,17 @@
 </p>
 <h3>Template</h3>
 {{code-snippet name="select.basic-usage.hbs"}}
+<p>Paper select is based on Ember power select, advanced documentation can be found <a href="https://ember-power-select.com/docs">here</a>.</p>
+{{#paper-api
+    (p-section
+      (p-row "disabled" "boolean" "Should the select field be disabled? Default is `false`.")
+      (p-row "label" "string" "Field label. Same as paper-input.")
+      (p-row "options" "array" "List of selectable options.")
+      (p-row "selected" "object" "Value of selected option.")
+    )
+      title="Select Helpers"
+}}
+{{/paper-api}}
 
 <h2>Option groups</h2>
 
@@ -69,10 +80,9 @@
 <h3>Template</h3>
 {{code-snippet name="select.async-search.hbs"}}
 
-{{!--
 
-<h2>Select Search</h2>
-
+<h2>Select with Search</h2>
+<p>Paper select can include a paper-input field at the top of the dropdown which acts as a live filter for the paper-select options. For additional documentation on search, please refer to the power-select docs <a href="https://ember-power-select.com/docs/the-search">here</a>.</p>
 <div class="layout-column layout-align-center-center">
   <div class="layout-column layout-align-center-center" style="height: 130px;">
     {{! BEGIN-SNIPPET select.select-header }}
@@ -87,9 +97,7 @@
     onChange=(action (mut selectedVegetable))
     as |vegetable|
   }}
-    {{#paper-checkbox value=vegetable.checked onChange=(action (mut vegetable.checked))}}
-      {{vegetable.name}}
-    {{/paper-checkbox}}
+    {{vegetable.name}}
   {{/paper-select}}
 
     {{! END-SNIPPET }}
@@ -99,5 +107,14 @@
 <h3>Template</h3>
 
 {{code-snippet name="select.select-header.hbs"}}
---}}
+
+{{#paper-api
+    (p-section
+      (p-row "searchField" "string" "Field name of provided options which search filter should compare against.")
+      (p-row "searchPlaceholder" "string" "Placeholder for paper-input which is displayed at top of paper-select dropdown.")
+      (p-row "searchEnabled" "boolean" "Enable paper-select to be searchable. Default is false.")
+    )
+      title="Select Search Helpers"
+}}
+{{/paper-api}}
 {{/doc-content}}
