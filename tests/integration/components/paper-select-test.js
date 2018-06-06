@@ -110,3 +110,53 @@ test('backdrop removed if select closed', function(assert) {
     });
   });
 });
+
+test('header is rendered above content', async function(assert) {
+  this.set('sizes', ['small (12-inch)', 'medium (14-inch)', 'large (16-inch)', 'insane (42-inch)']);
+
+  this.render(hbs`{{#paper-select
+    disabled=disableSelect
+    placeholder="Size"
+    options=sizes
+    searchEnabled=true
+    selected=selectedSize
+    onChange=(action (mut selectedSize))
+    as |size|
+  }}
+    {{size}}
+  {{/paper-select}}`);
+
+  await wait();
+
+  await clickTrigger();
+
+  assert.ok(!!$('md-select-menu > md-select-header'), 'header is a direct child of menu');
+  assert.ok(!!$('md-select-menu > md-content'), 'content is a direct child of menu');
+});
+
+test('it can search a value', async function(assert) {
+  this.set('sizes', ['small (12-inch)', 'medium (14-inch)', 'large (16-inch)', 'insane (42-inch)']);
+
+  this.render(hbs`{{#paper-select
+    disabled=disableSelect
+    placeholder="Size"
+    options=sizes
+    searchEnabled=true
+    selected=selectedSize
+    onChange=(action (mut selectedSize))
+    as |size|
+  }}
+    {{size}}
+  {{/paper-select}}`);
+
+  await clickTrigger();
+
+  await wait();
+
+  assert.equal($('md-select-menu md-option').length, 4);
+
+  $('md-select-header input').val('small').trigger('input');
+
+  assert.equal($('md-select-menu md-option').length, 1);
+  assert.equal($('md-select-menu md-option').text().trim(), 'small (12-inch)');
+});
