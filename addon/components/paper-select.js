@@ -56,6 +56,19 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, FocusableMixin, {
     return concatWithProperty(classes, this.get('triggerClass'));
   }),
   actions: {
+    choose(selected, e) {
+      if (e && e.timeStamp) {
+        if (this.openingEvent && this.openingEvent.timeStamp) {
+          if (Math.abs(this.openingEvent.timeStamp - e.timeStamp) > 150) {
+            // @HACK: e-p-s checks that the mouse has moved 2 pixels, so we
+            // set the original event to null if more than 150ms have passed.
+            this.openingEvent = null;
+          }
+        }
+      }
+
+      this._super(...arguments);
+    },
     onClose() {
       this._super(...arguments);
       this.set('isTouched', true);
