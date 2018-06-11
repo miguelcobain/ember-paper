@@ -1,9 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render, settled, find, focus, triggerEvent, findAll, fillIn } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { run } from '@ember/runloop';
-import $ from 'jquery';
 
 module('Integration | Component | paper autocomplete', function(hooks) {
   setupRenderingTest(hooks);
@@ -70,14 +68,11 @@ module('Integration | Component | paper autocomplete', function(hooks) {
       {{item}}
     {{/paper-autocomplete}}`);
 
-    return settled().then(() => {
-      $('md-autocomplete-wrap input')[0].focus();
+    await settled();
 
-      return settled().then(() => {
-        let selectors = $('.md-autocomplete-suggestions');
-        assert.ok(selectors.length, 'opened menu');
-      });
-    });
+    await focus('md-autocomplete-wrap input');
+
+    assert.ok(find('.md-autocomplete-suggestions'), 'opened menu');
   });
 
   test('backdrop removed if select closed', async function(assert) {
@@ -97,21 +92,15 @@ module('Integration | Component | paper autocomplete', function(hooks) {
       {{item}}
     {{/paper-autocomplete}}`);
 
-    return settled().then(() => {
-      $('md-autocomplete-wrap input')[0].focus();
+    await settled();
 
-      return settled().then(() => {
+    await focus('md-autocomplete-wrap input');
 
-        let selectors = $('.md-autocomplete-suggestions');
-        assert.ok(selectors.length, 'opened menu');
-        let event = new window.Event('mousedown', { bubbles: true, cancelable: true, view: window });
-        this.$('#other-div')[0].dispatchEvent(event);
-        return settled().then(() => {
-          let selector = $('.md-autocomplete-suggestions');
-          assert.ok(!selector.length, 'backdrop removed');
-        });
-      });
-    });
+    assert.ok(find('.md-autocomplete-suggestions'), 'opened menu');
+
+    await triggerEvent('#other-div', 'mousedown');
+
+    assert.notOk(find('.md-autocomplete-suggestions'), 'backdrop removed');
   });
 
   test('should render only enough items to fill the menu + 3', async function(assert) {
@@ -129,15 +118,13 @@ module('Integration | Component | paper autocomplete', function(hooks) {
       {{item}}
     {{/paper-autocomplete}}`);
 
-    return settled().then(() => {
-      $('md-autocomplete-wrap input')[0].focus();
+    await settled();
 
-      return settled().then(() => {
-        let selectors = $('.md-autocomplete-suggestions');
-        assert.ok(selectors.length, 'opened menu');
-        assert.equal(selectors.children().length, 8, 'only rendered 8 items');
-      });
-    });
+    await focus('md-autocomplete-wrap input');
+
+    assert.ok(find('.md-autocomplete-suggestions'), 'opened menu');
+
+    assert.equal(findAll('.md-autocomplete-suggestions li').length, 8, 'only rendered 8 items');
   });
 
   test('should filter list by search term', async function(assert) {
@@ -154,21 +141,18 @@ module('Integration | Component | paper autocomplete', function(hooks) {
     }}
       {{item}}
     {{/paper-autocomplete}}`);
-    return settled().then(() => {
-      $('md-autocomplete-wrap input')[0].focus();
 
-      return settled().then(() => {
+    await settled();
 
-        let selectors = $('.md-autocomplete-suggestions');
-        assert.ok(selectors.length, 'opened menu');
-        assert.ok(selectors.children().length === 8, 'only rendered 8 list items');
-        $('md-autocomplete-wrap input').val('four');
-        $('md-autocomplete-wrap input').change();
-        return settled().then(() => {
-          assert.ok(selectors.children().length === 1, 'only render searched item');
-        });
-      });
-    });
+    await focus('md-autocomplete-wrap input');
+
+    assert.ok(find('.md-autocomplete-suggestions'), 'opened menu');
+
+    assert.equal(findAll('.md-autocomplete-suggestions li').length, 8, 'only rendered 8 items');
+
+    await fillIn('md-autocomplete-wrap input', 'four');
+
+    assert.equal(findAll('.md-autocomplete-suggestions li').length, 1, 'only render searched item');
   });
 
   test('when has selection and gets focused, the dropdown is not shown', async function(assert) {
@@ -188,9 +172,11 @@ module('Integration | Component | paper autocomplete', function(hooks) {
       {{item}}
     {{/paper-autocomplete}}`);
 
-    $('md-autocomplete-wrap input')[0].focus();
-    let suggestions = $('.md-autocomplete-suggestions');
-    assert.ok(!suggestions.length, 'autocomplete-suggestions list must be closed when selected & focused in');
+    await settled();
+
+    await focus('md-autocomplete-wrap input');
+
+    assert.notOk(find('.md-autocomplete-suggestions'), 'autocomplete-suggestions list must be closed when selected & focused in');
   });
 
   test('when has selection and searchText changed, the dropdown is shown with w/o selection', async function(assert) {
@@ -210,25 +196,17 @@ module('Integration | Component | paper autocomplete', function(hooks) {
       {{item}}
     {{/paper-autocomplete}}`);
 
-    $('md-autocomplete-wrap input')[0].focus();
-    let suggestions = $('.md-autocomplete-suggestions');
-    assert.ok(!suggestions.length, 'dropdown must be closed when selected & focused in');
+    await settled();
 
-    // TODO: refactor this into helper; like e-p-s
+    await focus('md-autocomplete-wrap input');
 
-    run(() => {
-      let $selector = $($('md-autocomplete-wrap input').get(0)); // Only interact with the first result
-      $selector.val('Pape');
-      let event = document.createEvent('Events');
-      event.initEvent('input', true, true);
-      $selector[0].dispatchEvent(event);
-    });
+    assert.notOk(find('.md-autocomplete-suggestions'), 'dropdown must be closed when selected & focused in');
 
-    return settled().then(() => {
-      suggestions = $('.md-autocomplete-suggestions');
-      assert.ok(suggestions.length, 'autocomplete-suggestions list is opened');
-      assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
-    });
+    await fillIn('md-autocomplete-wrap input', 'Pape');
+
+    assert.ok(find('.md-autocomplete-suggestions'), 'autocomplete-suggestions list is opened');
+
+    assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
   });
 
   test('we can highlight search results for properties that aren\'t text', async function(assert) {
@@ -251,21 +229,15 @@ module('Integration | Component | paper autocomplete', function(hooks) {
           flags="i"}}
     {{/paper-autocomplete}}`);
 
-    let suggestions = $('.md-autocomplete-suggestions');
+    await settled();
 
-    run(() => {
-      let $selector = $($('md-autocomplete-wrap input').get(0)); // Only interact with the first result
-      $selector.val('1');
-      let event = document.createEvent('Events');
-      event.initEvent('input', true, true);
-      $selector[0].dispatchEvent(event);
-    });
+    await focus('md-autocomplete-wrap input');
 
-    return settled().then(() => {
-      suggestions = $('.md-autocomplete-suggestions');
-      assert.ok(suggestions.length, 'autocomplete-suggestions list is opened');
-      assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
-    });
+    await fillIn('md-autocomplete-wrap input', '1');
+
+    assert.ok(find('.md-autocomplete-suggestions'), 'autocomplete-suggestions list is opened');
+
+    assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
   });
 
   test('dropdown can be customized using dropdownClass', async function(assert) {
@@ -282,12 +254,10 @@ module('Integration | Component | paper autocomplete', function(hooks) {
       {{item}}
     {{/paper-autocomplete}}`);
 
-    return settled().then(() => {
-      $('md-autocomplete-wrap input')[0].focus();
-      return settled().then(() => {
-        let ddContainer = $('.md-autocomplete-suggestions-container.custom-dropdown-class');
-        assert.ok(ddContainer.length, 'contains custom dropdownClass');
-      });
-    });
+    await settled();
+
+    await focus('md-autocomplete-wrap input');
+
+    assert.ok(find('.md-autocomplete-suggestions-container').classList.contains('custom-dropdown-class'), 'contains custom dropdownClass');
   });
 });
