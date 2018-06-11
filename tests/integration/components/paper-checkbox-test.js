@@ -59,11 +59,11 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
   // space and enter key codes
   [32, 13].forEach((keyCode) => {
-    test(`should be possible to check with key code ${keyCode}`, function(assert) {
+    test(`should be possible to check with key code ${keyCode}`, async function(assert) {
       assert.expect(2);
 
       this.set('value', false);
-      this.render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
+      await render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
       assert.equal(this.get('value'), false);
 
       let e = new $.Event('keypress');
@@ -73,11 +73,11 @@ module('Integration | Component | paper checkbox', function(hooks) {
       assert.equal(this.get('value'), true);
     });
 
-    test(`should be possible to uncheck with key code ${keyCode}`, function(assert) {
+    test(`should be possible to uncheck with key code ${keyCode}`, async function(assert) {
       assert.expect(2);
 
       this.set('value', true);
-      this.render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
+      await render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
       assert.equal(this.get('value'), true);
 
       let e = new $.Event('keypress');
