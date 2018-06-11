@@ -11,10 +11,24 @@ import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-progress-circular';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import clamp from 'ember-paper/utils/clamp';
-import { rAF, cAF } from 'ember-css-transitions/mixins/transition-mixin';
 
 const MODE_DETERMINATE = 'determinate';
 const MODE_INDETERMINATE = 'indeterminate';
+
+/**
+ * @private
+ * T (period) = 1 / f (frequency)
+ * TICK = 1 / 60hz = 0,01667s = 17ms
+ */
+const TICK = 17;
+
+const rAF = !window.requestAnimationFrame ? function(fn) {
+  return setTimeout(fn, TICK);
+} : window.requestAnimationFrame;
+
+const cAF = !window. cancelAnimationFrame ? function(fn) {
+  return clearTimeout(fn, TICK);
+} : window. cancelAnimationFrame;
 
 const now = () => new Date().getTime();
 
