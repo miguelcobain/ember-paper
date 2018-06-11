@@ -1,9 +1,8 @@
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render, settled, find, triggerEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { find, triggerEvent } from 'ember-native-dom-helpers';
 
 module('Integration | Component | paper tooltip', function(hooks) {
   setupRenderingTest(hooks);
@@ -12,7 +11,7 @@ module('Integration | Component | paper tooltip', function(hooks) {
     ['blur', 'touchcancel', 'mouseleave'].forEach((closeEvent) => {
       test(`opens after ${openEvent} and closes after ${closeEvent}`, async function(assert) {
 
-        this.render(hbs`
+        await render(hbs`
           {{#paper-button}}
             button
             {{#paper-tooltip}}
@@ -35,7 +34,7 @@ module('Integration | Component | paper tooltip', function(hooks) {
   ['scroll', 'blur', 'resize', 'orientationchange'].forEach((closeEvent) => {
     test(`closes after global ${closeEvent}`, async function(assert) {
 
-      this.render(hbs`
+      await render(hbs`
         {{#paper-button}}
           button
           {{#paper-tooltip}}
@@ -91,7 +90,7 @@ module('Integration | Component | paper tooltip', function(hooks) {
   ['bottom', 'top', 'left', 'right'].forEach((position) => {
     test(`renders on ${position}`, async function(assert) {
       this.position = position;
-      this.render(hbs`
+      await render(hbs`
         {{#paper-button}}
           button
           {{#paper-tooltip position=position}}
