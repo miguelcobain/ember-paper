@@ -8,18 +8,18 @@ module('Integration | Component | paper speed dial', function(hooks) {
   setupRenderingTest(hooks);
 
   ['fling', 'scale'].forEach((animation) => {
-    test(`adds the correct class for ${animation} animation`, function(assert) {
+    test(`adds the correct class for ${animation} animation`, async function(assert) {
       this.animation = animation;
-      this.render(hbs`{{paper-speed-dial animation=animation}}`);
+      await render(hbs`{{paper-speed-dial animation=animation}}`);
 
       assert.ok(find('md-fab-speed-dial').classList.contains(`md-${animation}`));
     });
   });
 
   ['up', 'down', 'left', 'right'].forEach((direction) => {
-    test(`adds the correct class for ${direction} direction`, function(assert) {
+    test(`adds the correct class for ${direction} direction`, async function(assert) {
       this.direction = direction;
-      this.render(hbs`{{paper-speed-dial direction=direction}}`);
+      await render(hbs`{{paper-speed-dial direction=direction}}`);
 
       assert.ok(find('md-fab-speed-dial').classList.contains(`md-${direction}`));
     });
