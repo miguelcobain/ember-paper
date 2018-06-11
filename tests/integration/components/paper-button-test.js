@@ -1,110 +1,112 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('paper-button', 'Integration | Component | paper button', {
-  integration: true
-});
+module('Integration | Component | paper button', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('renders block label', function(assert) {
-  this.render(hbs`
-    {{#paper-button}}
-      Block label
-    {{/paper-button}}
-  `);
-  assert.equal(this.$('button').text().trim(), 'Block label');
-});
-
-test('renders inline label', function(assert) {
-  this.render(hbs`
-    {{paper-button label='Inline label'}}
-  `);
-  assert.equal(this.$('button').text().trim(), 'Inline label');
-});
-
-test('renders type button by default', function(assert) {
-  this.render(hbs`
-    {{paper-button label='Inline label'}}
-  `);
-  assert.equal(this.$('button').attr('type'), 'button');
-});
-
-test('triggers onClick function when attribute is present', function(assert) {
-  assert.expect(1);
-
-  this.set('foo', () => {
-    assert.ok(true);
+  test('renders block label', async function(assert) {
+    await render(hbs`
+      {{#paper-button}}
+        Block label
+      {{/paper-button}}
+    `);
+    assert.equal(this.$('button').text().trim(), 'Block label');
   });
-  this.render(hbs`
-    {{#paper-button onClick=foo}}
-      A label
-    {{/paper-button}}
-  `);
-  this.$('.md-button').click();
-});
 
-test('does nothing onClick if attribute is not present', function(assert) {
-  assert.expect(0);
+  test('renders inline label', async function(assert) {
+    await render(hbs`
+      {{paper-button label='Inline label'}}
+    `);
+    assert.equal(this.$('button').text().trim(), 'Inline label');
+  });
 
-  this.render(hbs`
-    {{#paper-button}}
-      A label
-    {{/paper-button}}
-  `);
-  this.$('.md-button').click();
-});
+  test('renders type button by default', async function(assert) {
+    await render(hbs`
+      {{paper-button label='Inline label'}}
+    `);
+    assert.equal(this.$('button').attr('type'), 'button');
+  });
 
-test('uses md-raised class when raised=true', function(assert) {
-  this.render(hbs`
-    {{#paper-button raised=true}}
-      A label
-    {{/paper-button}}
-  `);
-  assert.ok(this.$('.md-button').hasClass('md-raised'));
-});
+  test('triggers onClick function when attribute is present', async function(assert) {
+    assert.expect(1);
 
-test('uses md-icon-button class when iconButton=true', function(assert) {
-  this.render(hbs`
-    {{#paper-button iconButton=true}}
-      A label
-    {{/paper-button}}
-  `);
-  assert.ok(this.$('.md-button').hasClass('md-icon-button'));
-});
+    this.set('foo', () => {
+      assert.ok(true);
+    });
+    await render(hbs`
+      {{#paper-button onClick=foo}}
+        A label
+      {{/paper-button}}
+    `);
+    this.$('.md-button').click();
+  });
 
-test('uses md-fab class when fab=true', function(assert) {
-  this.render(hbs`
-    {{#paper-button fab=true}}
-      A label
-    {{/paper-button}}
-  `);
-  assert.ok(this.$('.md-button').hasClass('md-fab'));
-});
+  test('does nothing onClick if attribute is not present', async function(assert) {
+    assert.expect(0);
 
-test('uses md-mini and md-fab class when mini=true', function(assert) {
-  this.render(hbs`
-    {{#paper-button mini=true}}
-      A label
-    {{/paper-button}}
-  `);
-  assert.ok(this.$('.md-button').is('.md-fab', '.md-mini'));
-});
+    await render(hbs`
+      {{#paper-button}}
+        A label
+      {{/paper-button}}
+    `);
+    this.$('.md-button').click();
+  });
 
-test('uses a tag when href is specified', function(assert) {
-  this.render(hbs`
-    {{#paper-button href="http://example.com"}}
-      A label
-    {{/paper-button}}
-  `);
-  assert.ok(this.$('.md-button').is('a'));
-  assert.ok(this.$('.md-button').attr('href') === 'http://example.com');
-});
+  test('uses md-raised class when raised=true', async function(assert) {
+    await render(hbs`
+      {{#paper-button raised=true}}
+        A label
+      {{/paper-button}}
+    `);
+    assert.ok(this.$('.md-button').hasClass('md-raised'));
+  });
 
-test('renders target', function(assert) {
-  this.render(hbs`
-    {{#paper-button href="http://example.com" target="_blank"}}
-      A label
-    {{/paper-button}}
-  `);
-  assert.ok(this.$('.md-button').is('a'));
-  assert.ok(this.$('.md-button').attr('target') === '_blank');
+  test('uses md-icon-button class when iconButton=true', async function(assert) {
+    await render(hbs`
+      {{#paper-button iconButton=true}}
+        A label
+      {{/paper-button}}
+    `);
+    assert.ok(this.$('.md-button').hasClass('md-icon-button'));
+  });
+
+  test('uses md-fab class when fab=true', async function(assert) {
+    await render(hbs`
+      {{#paper-button fab=true}}
+        A label
+      {{/paper-button}}
+    `);
+    assert.ok(this.$('.md-button').hasClass('md-fab'));
+  });
+
+  test('uses md-mini and md-fab class when mini=true', async function(assert) {
+    await render(hbs`
+      {{#paper-button mini=true}}
+        A label
+      {{/paper-button}}
+    `);
+    assert.ok(this.$('.md-button').is('.md-fab', '.md-mini'));
+  });
+
+  test('uses a tag when href is specified', async function(assert) {
+    await render(hbs`
+      {{#paper-button href="http://example.com"}}
+        A label
+      {{/paper-button}}
+    `);
+    assert.ok(this.$('.md-button').is('a'));
+    assert.ok(this.$('.md-button').attr('href') === 'http://example.com');
+  });
+
+  test('renders target', async function(assert) {
+    await render(hbs`
+      {{#paper-button href="http://example.com" target="_blank"}}
+        A label
+      {{/paper-button}}
+    `);
+    assert.ok(this.$('.md-button').is('a'));
+    assert.ok(this.$('.md-button').attr('target') === '_blank');
+  });
 });

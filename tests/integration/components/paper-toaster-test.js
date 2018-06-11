@@ -1,25 +1,27 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('paper-toaster', 'Integration | Component | paper toaster', {
-  integration: true
-});
+module('Integration | Component | paper toaster', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
+  test('it renders', async function(assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{paper-toaster}}`);
+    await render(hbs`{{paper-toaster}}`);
 
-  assert.equal(this.$().text().trim(), '');
+    assert.equal(this.$().text().trim(), '');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#paper-toaster}}
-      template block text
-    {{/paper-toaster}}
-  `);
+    // Template block usage:
+    await render(hbs`
+      {{#paper-toaster}}
+        template block text
+      {{/paper-toaster}}
+    `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
 });
