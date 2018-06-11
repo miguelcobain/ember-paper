@@ -157,6 +157,8 @@ test('it can search a value', async function(assert) {
 
   $('md-select-header input').val('small').trigger('input');
 
+  await wait();
+
   assert.equal($('md-select-menu md-option').length, 1);
   assert.equal($('md-select-menu md-option').text().trim(), 'small (12-inch)');
 });
