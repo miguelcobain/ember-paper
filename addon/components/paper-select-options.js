@@ -9,8 +9,6 @@ export default PowerOptions.extend({
     if (this.get('role') === 'group') {
       this.set('tagName', '');
       this.set('attributeBindings', undefined);
-    } else if (this.get('searchEnabled')) {
-      this.set('tagName', 'md-optgroup');
     }
     this._super(...arguments);
   },
