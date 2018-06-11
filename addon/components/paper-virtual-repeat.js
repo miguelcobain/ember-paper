@@ -1,5 +1,6 @@
 import { mapBy } from '@ember/object/computed';
 import { run } from '@ember/runloop';
+import { assign } from '@ember/polyfills';
 import { observer, set, get, computed } from '@ember/object';
 import RSVP from 'rsvp';
 import { A as emberArray } from '@ember/array';
@@ -22,13 +23,6 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
       this.eventHandlers.scroll.call(this, e);
     }
   },
-
-  defaultAttrs: computed(function() {
-    return {
-      scrollTimeout: 30,
-      height: 48
-    };
-  }),
 
   size: computed('initialSize', 'items.[]', 'itemHeight', function() {
     let itemSize = this.get('itemHeight');
@@ -111,6 +105,14 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     let size = this.get('size');
     return Math.ceil(this.get('itemHeight') ? size / this.get('itemHeight') : 1) + EXTRA_ROW_PADDING;
   }).readOnly(),
+
+  init() {
+    this._super(...arguments);
+    this.set('defaultAttrs', assign({}, this.get('defaultAttrs') || {}, {
+      scrollTimeout: 30,
+      height: 48
+    }));
+  },
 
   didInsertElement() {
     this._super(...arguments);
