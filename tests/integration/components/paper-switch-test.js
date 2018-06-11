@@ -1,9 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-
-import $ from 'jquery';
 
 module('Integration | Component | paper switch', function(hooks) {
   setupRenderingTest(hooks);
@@ -71,29 +69,26 @@ module('Integration | Component | paper switch', function(hooks) {
 
   // space and enter key codes
   [32, 13].forEach((keyCode) => {
-    test(`should be possible to switch on with key code ${keyCode}`, function(assert) {
+    test(`should be possible to switch on with key code ${keyCode}`, async function(assert) {
       assert.expect(2);
 
       this.set('switchValue', false);
-      this.render(hbs`{{paper-switch value=switchValue onChange=(action (mut switchValue))}}`);
+      await render(hbs`{{paper-switch value=switchValue onChange=(action (mut switchValue))}}`);
       assert.equal(this.get('switchValue'), false);
 
-      let e = new $.Event('keypress', { which: keyCode });
-      this.$('md-switch').trigger(e);
+      await triggerKeyEvent('md-switch', 'keypress', keyCode);
 
       assert.equal(this.get('switchValue'), true);
     });
 
-    test(`should be possible to switch off with key code ${keyCode}`, function(assert) {
+    test(`should be possible to switch off with key code ${keyCode}`, async function(assert) {
       assert.expect(2);
 
       this.set('switchValue', true);
-      this.render(hbs`{{paper-switch value=switchValue onChange=(action (mut switchValue))}}`);
+      await render(hbs`{{paper-switch value=switchValue onChange=(action (mut switchValue))}}`);
       assert.equal(this.get('switchValue'), true);
 
-      let e = new $.Event('keypress');
-      e.which = keyCode; // # Some key code value
-      this.$('md-switch').trigger(e);
+      await triggerKeyEvent('md-switch', 'keypress', keyCode);
 
       assert.equal(this.get('switchValue'), false);
     });
