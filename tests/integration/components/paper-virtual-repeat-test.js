@@ -65,12 +65,14 @@ module('Integration | Component | paper virtual repeat', function(hooks) {
       {{/paper-virtual-repeat}}
       </div>`);
 
-    assert.equal(this.$('.md-virtual-repeat-offsetter').attr('style'), 'transform: translateY(0px);');
+    assert.dom('.md-virtual-repeat-offsetter').hasAttribute('style', 'transform: translateY(0px);');
+
     this.$('.md-virtual-repeat-scroller').scrollTop(30);
-    return settled().then(() => {
-      assert.equal(this.$('.md-virtual-repeat-offsetter').children().length, 10 + NUM_EXTRA);
-      assert.equal(this.$('.md-virtual-repeat-offsetter').attr('style'), 'transform: translateY(30px);');
-    });
+
+    await settled();
+
+    assert.dom('.md-virtual-repeat-offsetter > *').exists({ count: 10 + NUM_EXTRA });
+    assert.dom('.md-virtual-repeat-offsetter').hasAttribute('style', 'transform: translateY(30px);');
   });
 
   test('should call onScrollBottomed action when scrolled to the bottom', async function(assert) {
