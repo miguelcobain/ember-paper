@@ -42,7 +42,6 @@ module('Integration | Component | paper switch', function(hooks) {
       {{/paper-switch}}
     `);
 
-    await click('md-switch');
     await focus('md-switch');
 
     assert.dom('md-switch').hasClass('md-focused');
