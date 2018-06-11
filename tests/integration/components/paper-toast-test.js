@@ -87,10 +87,10 @@ module('Integration | Component | paper toast', function(hooks) {
   ['bottom left', 'bottom right', 'top left', 'top right'].forEach((position) => {
     let [y, x] = position.split(' ');
 
-    test(`position '${position}' sets the correct classes`, function(assert) {
+    test(`position '${position}' sets the correct classes`, async function(assert) {
       this.position = position;
 
-      this.render(hbs`
+      await render(hbs`
         {{paper-toast position=position}}
       `);
 
