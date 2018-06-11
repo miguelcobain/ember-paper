@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerKeyEvent } from '@ember/test-helpers';
+import { render, triggerKeyEvent, click, focus } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper switch', function(hooks) {
@@ -15,10 +15,12 @@ module('Integration | Component | paper switch', function(hooks) {
         Radio button 1
       {{/paper-switch}}
     `);
-    assert.ok(this.$('md-switch').hasClass('md-checked'));
+
+    assert.dom('md-switch').hasClass('md-checked');
 
     this.set('switchValue', false);
-    assert.ok(!this.$().hasClass('md-checked'));
+
+    assert.dom('md-switch').doesNotHaveClass('md-checked');
   });
 
   test('should not set focused class', async function(assert) {
@@ -27,9 +29,10 @@ module('Integration | Component | paper switch', function(hooks) {
         Radio button 1
       {{/paper-switch}}
     `);
-    this.$('md-switch').click();
 
-    assert.ok(!this.$('md-switch').hasClass('md-focused'));
+    await click('md-switch');
+
+    assert.dom('md-switch').doesNotHaveClass('md-focused');
   });
 
   test('should set focused class', async function(assert) {
@@ -38,11 +41,11 @@ module('Integration | Component | paper switch', function(hooks) {
         Radio button 1
       {{/paper-switch}}
     `);
-    this.$('md-switch').click();
-    this.$('md-switch').focusout();
-    this.$('md-switch').focusin();
 
-    assert.ok(this.$('md-switch').hasClass('md-focused'));
+    await click('md-switch');
+    await focus('md-switch');
+
+    assert.dom('md-switch').hasClass('md-focused');
   });
 
   test('should render block content as label', async function(assert) {
@@ -54,7 +57,8 @@ module('Integration | Component | paper switch', function(hooks) {
         A block label
       {{/paper-switch}}
     `);
-    assert.equal(this.$('md-switch .md-label').text().trim(), 'A block label');
+
+    assert.dom('md-switch .md-label').hasText('A block label');
   });
 
   test('blockless mode should render label', async function(assert) {
@@ -64,7 +68,8 @@ module('Integration | Component | paper switch', function(hooks) {
     await render(hbs`
       {{paper-switch value=switchValue onChange=foo label="An inline label"}}
     `);
-    assert.equal(this.$('md-switch .md-label').text().trim(), 'An inline label');
+
+    assert.dom('md-switch .md-label').hasText('An inline label');
   });
 
   // space and enter key codes
