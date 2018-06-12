@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import { next } from '@ember/runloop';
 
 module('Integration | Component | paper virtual repeat', function(hooks) {
   setupRenderingTest(hooks);
@@ -65,14 +66,18 @@ module('Integration | Component | paper virtual repeat', function(hooks) {
       {{/paper-virtual-repeat}}
       </div>`);
 
+    await settled();
+
     assert.dom('.md-virtual-repeat-offsetter').hasAttribute('style', 'transform: translateY(0px);');
 
     this.$('.md-virtual-repeat-scroller').scrollTop(30);
 
     await settled();
 
-    assert.dom('.md-virtual-repeat-offsetter > *').exists({ count: 10 + NUM_EXTRA });
-    assert.dom('.md-virtual-repeat-offsetter').hasAttribute('style', 'transform: translateY(30px);');
+    await next(() => {
+      assert.dom('.md-virtual-repeat-offsetter > *').exists({ count: 10 + NUM_EXTRA });
+      assert.dom('.md-virtual-repeat-offsetter').hasAttribute('style', 'transform: translateY(30px);');
+    });
   });
 
   test('should call onScrollBottomed action when scrolled to the bottom', async function(assert) {
