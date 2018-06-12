@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render, settled, fillIn, triggerEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper input', function(hooks) {
@@ -534,15 +534,14 @@ module('Integration | Component | paper input', function(hooks) {
   });
 
   test('displayed input value matches actual input value with no onChange method', async function(assert) {
-    assert.expect(2);
-
     this.set('value', 'foo');
 
     await render(hbs`{{paper-input onChange=null value=value}}`);
 
-    this.$('input, textarea').val('12345').trigger('input');
-    assert.equal(this.$('input, textarea').val(), 'foo', 'input value should be `foo` (component value)');
-    assert.equal(this.get('value'), 'foo', 'component value should be foo');
+    await fillIn('input', '12345');
+
+    assert.dom('input').hasValue('foo');
+    assert.equal(this.get('value'), 'foo');
   });
 
   test('errors only show after input is touched and input is invalid', async function(assert) {
@@ -556,28 +555,25 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input onChange=null errors=errors}}`);
 
-    assert.equal(this.$('.md-input-invalid').length, 0, 'does not render md-input-invalid class');
-    assert.equal(this.$('.paper-input-error').length, 0, 'renders zero errors');
-    this.$('input, textarea').trigger('blur');
-    assert.equal(this.$('.paper-input-error').length, 1, 'render md-input-invalid class');
-    assert.equal(this.$('.md-input-invalid').length, 1, 'renders one error');
+    assert.dom('.md-input-invalid').doesNotExist();
+    assert.dom('.paper-input-error').doesNotExist();
+
+    await triggerEvent('input', 'blur');
+
+    assert.dom('.md-input-invalid').exists();
+    assert.dom('.paper-input-error').exists({ count: 1 });
   });
 
   test('hasValue works when user types', async function(assert) {
-    this.foo = '';
     await render(hbs`{{paper-input value=foo onChange=(action (mut foo))}}`);
 
-    assert.notOk(
-      this.$('md-input-container').hasClass('md-input-has-value'),
-      'should not have md-input-has-value class if input does not have value'
-    );
+    assert.dom('md-input-container')
+      .doesNotHaveClass('md-input-has-value', 'should not have md-input-has-value class if input does not have value');
 
-    let $input = this.$('md-input-container input');
-    $input.val('abc').trigger('input');
+    await fillIn('input', 'abc');
 
-    assert.ok(
-      this.$('md-input-container').hasClass('md-input-has-value'),
-      'should have md-input-has-value class if input has value'
+    assert.dom('md-input-container')
+      .hasClass('md-input-has-value', 'should have md-input-has-value class if input has value'
     );
   });
 
