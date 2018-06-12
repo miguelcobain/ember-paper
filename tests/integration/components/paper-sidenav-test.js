@@ -170,14 +170,17 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await render(hbs`{{paper-sidenav}}`);
 
-    assert.notOk(this.$('md-sidenav').hasClass('md-locked-open'));
+    assert.dom('md-sidenav').doesNotHaveClass('md-locked-open');
 
     window.matchMedia = function() {
       return { matches: true };
     };
+
     window.dispatchEvent(new window.Event('resize'));
 
-    assert.ok(this.$('md-sidenav').hasClass('md-locked-open'));
+    await settled();
+
+    assert.dom('md-sidenav').hasClass('md-locked-open');
   });
 
   test('sidenav ceases to "lock open" if a resize happens and the test does not pass', async function(assert) {

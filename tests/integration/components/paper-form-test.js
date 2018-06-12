@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, triggerEvent, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper form', function(hooks) {
@@ -142,16 +142,16 @@ module('Integration | Component | paper form', function(hooks) {
     `);
 
     // no touched inputs
-    assert.equal(this.$('.ng-dirty').length, 0, 'no touched inputs');
+    assert.dom('.ng-dirty').doesNotExist();
 
-    this.$('input:first').trigger('blur');
+    await triggerEvent('input:first-of-type', 'blur');
 
     // there is a dirty input
-    assert.equal(this.$('.ng-dirty').length, 1, 'there is a touched input');
+    assert.dom('.ng-dirty').exists({ count: 1 });
 
-    this.$('button').click();
+    await click('button');
 
-    assert.equal(this.$('.ng-dirty').length, 0, 'inputs were reset');
+    assert.dom('.ng-dirty').doesNotExist('inputs were reset');
   });
 
   test('works without using contextual components', async function(assert) {
