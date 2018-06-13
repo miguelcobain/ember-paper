@@ -1,374 +1,376 @@
 import Component from '@ember/component';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, triggerEvent, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('paper-form', 'Integration | Component | paper form', {
-  integration: true
-});
+module('Integration | Component | paper form', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('`isInvalid` and `isValid` work as expected', function(assert) {
-  assert.expect(4);
+  test('`isInvalid` and `isValid` work as expected', async function(assert) {
+    assert.expect(4);
 
-  this.render(hbs`
-    {{#paper-form as |form|}}
-      {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
-      {{form.input value=bar onChange=(action (mut bar)) label="Bar" errors=errors}}
+    await render(hbs`
+      {{#paper-form as |form|}}
+        {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
+        {{form.input value=bar onChange=(action (mut bar)) label="Bar" errors=errors}}
 
-      {{#if form.isInvalid}}
-        <div class="invalid-div">Form is invalid!</div>
-      {{/if}}
-      {{#if form.isValid}}
-        <div class="valid-div">Form is valid!</div>
-      {{/if}}
+        {{#if form.isInvalid}}
+          <div class="invalid-div">Form is invalid!</div>
+        {{/if}}
+        {{#if form.isValid}}
+          <div class="valid-div">Form is valid!</div>
+        {{/if}}
 
-    {{/paper-form}}
-  `);
+      {{/paper-form}}
+    `);
 
-  assert.equal(this.$('.invalid-div').length, 0);
-  assert.equal(this.$('.valid-div').length, 1);
+    assert.equal(this.$('.invalid-div').length, 0);
+    assert.equal(this.$('.valid-div').length, 1);
 
-  this.set('errors', [{
-    message: 'foo should be a number.',
-    attribute: 'foo'
-  }, {
-    message: 'foo should be smaller than 12.',
-    attribute: 'foo'
-  }]);
+    this.set('errors', [{
+      message: 'foo should be a number.',
+      attribute: 'foo'
+    }, {
+      message: 'foo should be smaller than 12.',
+      attribute: 'foo'
+    }]);
 
-  assert.equal(this.$('.invalid-div').length, 1);
-  assert.equal(this.$('.valid-div').length, 0);
-});
-
-test('form `onSubmit` action is invoked and `onInvalid` is not', function(assert) {
-  assert.expect(1);
-
-  this.set('onSubmit', () => {
-    assert.ok(true);
+    assert.equal(this.$('.invalid-div').length, 1);
+    assert.equal(this.$('.valid-div').length, 0);
   });
 
-  this.set('onInvalid', () => {
-    assert.notOk(true);
+  test('form `onSubmit` action is invoked and `onInvalid` is not', async function(assert) {
+    assert.expect(1);
+
+    this.set('onSubmit', () => {
+      assert.ok(true);
+    });
+
+    this.set('onInvalid', () => {
+      assert.notOk(true);
+    });
+
+    await render(hbs`
+      {{#paper-form onSubmit=(action onSubmit) onInvalid=(action onInvalid) as |form|}}
+        {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
+        {{form.input value=bar onChange=(action (mut bar)) label="Bar"}}
+
+        <button type="button" onclick={{action form.onSubmit}}>Submit</button>
+
+      {{/paper-form}}
+    `);
+
+    this.$('button').click();
   });
 
-  this.render(hbs`
-    {{#paper-form onSubmit=(action onSubmit) onInvalid=(action onInvalid) as |form|}}
-      {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
-      {{form.input value=bar onChange=(action (mut bar)) label="Bar"}}
+  test('form `onInvalid` action is invoked and `onSubmit` is not when the form is not valid', async function(assert) {
+    assert.expect(1);
 
-      <button type="button" onclick={{action form.onSubmit}}>Submit</button>
+    this.set('onSubmit', () => {
+      assert.notOk(true);
+    });
 
-    {{/paper-form}}
-  `);
+    this.set('onInvalid', () => {
+      assert.ok(true);
+    });
 
-  this.$('button').click();
-});
+    await render(hbs`
+      {{#paper-form onSubmit=(action onSubmit) onInvalid=(action onInvalid) as |form|}}
+        {{form.input value="" required=true onChange=null}}
 
-test('form `onInvalid` action is invoked and `onSubmit` is not when the form is not valid', function(assert) {
-  assert.expect(1);
+        <button type="submit">Submit</button>
+      {{/paper-form}}
+    `);
 
-  this.set('onSubmit', () => {
-    assert.notOk(true);
+    this.$('button').click();
   });
 
-  this.set('onInvalid', () => {
-    assert.ok(true);
+  test('form `onValidityChange` action is invoked', async function(assert) {
+    // paper-input triggers `onValidityChange` on render
+    // so we expect two runs: one on render and another on validity change
+    assert.expect(9);
+
+    this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
+      assert.ok(isValid);
+      assert.notOk(isTouched);
+      assert.notOk(isInvalidAndTouched);
+    });
+
+    await render(hbs`
+      {{#paper-form onValidityChange=(action onValidityChange) as |form|}}
+        {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
+        {{form.input value=bar onChange=(action (mut bar)) label="Bar" errors=errors}}
+      {{/paper-form}}
+    `);
+
+    this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
+      assert.ok(isValid);
+      assert.ok(isTouched);
+      assert.notOk(isInvalidAndTouched);
+    });
+
+    this.$('input:first').trigger('blur');
+
+    this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
+      assert.notOk(isValid);
+      assert.ok(isTouched);
+      assert.ok(isInvalidAndTouched);
+    });
+
+    this.set('errors', [{
+      message: 'foo should be a number.',
+      attribute: 'foo'
+    }, {
+      message: 'foo should be smaller than 12.',
+      attribute: 'foo'
+    }]);
+
   });
 
-  this.render(hbs`
-    {{#paper-form onSubmit=(action onSubmit) onInvalid=(action onInvalid) as |form|}}
-      {{form.input value="" required=true onChange=null}}
+  test('form is reset after submit action is invoked', async function(assert) {
+    assert.expect(3);
 
-      <button type="submit">Submit</button>
-    {{/paper-form}}
-  `);
+    await render(hbs`
+      {{#paper-form as |form|}}
+        {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
+        {{form.input value=bar onChange=(action (mut bar)) label="Bar"}}
 
-  this.$('button').click();
-});
+        <button onclick={{action form.onSubmit}}>Submit</button>
 
-test('form `onValidityChange` action is invoked', function(assert) {
-  // paper-input triggers `onValidityChange` on render
-  // so we expect two runs: one on render and another on validity change
-  assert.expect(9);
+      {{/paper-form}}
+    `);
 
-  this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
-    assert.ok(isValid);
-    assert.notOk(isTouched);
-    assert.notOk(isInvalidAndTouched);
+    // no touched inputs
+    assert.dom('.ng-dirty').doesNotExist();
+
+    await triggerEvent('input:first-of-type', 'blur');
+
+    // there is a dirty input
+    assert.dom('.ng-dirty').exists({ count: 1 });
+
+    await click('button');
+
+    assert.dom('.ng-dirty').doesNotExist('inputs were reset');
   });
 
-  this.render(hbs`
-    {{#paper-form onValidityChange=(action onValidityChange) as |form|}}
-      {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
-      {{form.input value=bar onChange=(action (mut bar)) label="Bar" errors=errors}}
-    {{/paper-form}}
-  `);
+  test('works without using contextual components', async function(assert) {
+    assert.expect(4);
 
-  this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
-    assert.ok(isValid);
-    assert.ok(isTouched);
-    assert.notOk(isInvalidAndTouched);
+    await render(hbs`
+      {{#paper-form as |form|}}
+        {{paper-input value=foo onChange=(action (mut foo)) label="Foo"}}
+        {{paper-input value=bar onChange=(action (mut bar)) label="Bar" errors=errors}}
+
+        {{#if form.isInvalid}}
+          <div class="invalid-div">Form is invalid!</div>
+        {{/if}}
+        {{#if form.isValid}}
+          <div class="valid-div">Form is valid!</div>
+        {{/if}}
+
+      {{/paper-form}}
+    `);
+
+    assert.equal(this.$('.invalid-div').length, 0);
+    assert.equal(this.$('.valid-div').length, 1);
+
+    this.set('errors', [{
+      message: 'foo should be a number.',
+      attribute: 'foo'
+    }, {
+      message: 'foo should be smaller than 12.',
+      attribute: 'foo'
+    }]);
+
+    assert.equal(this.$('.invalid-div').length, 1);
+    assert.equal(this.$('.valid-div').length, 0);
   });
 
-  this.$('input:first').trigger('blur');
+  test('form submit button renders', async function(assert) {
+    assert.expect(1);
 
-  this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
-    assert.notOk(isValid);
-    assert.ok(isTouched);
-    assert.ok(isInvalidAndTouched);
+    await render(hbs`
+      {{#paper-form as |form|}}
+        {{#form.submit-button}}Submit{{/form.submit-button}}
+      {{/paper-form}}
+    `);
+
+    assert.equal(this.$('button').length, 1);
   });
 
-  this.set('errors', [{
-    message: 'foo should be a number.',
-    attribute: 'foo'
-  }, {
-    message: 'foo should be smaller than 12.',
-    attribute: 'foo'
-  }]);
+  test('form submit button calls form onSubmit action', async function(assert) {
+    assert.expect(1);
 
-});
+    this.set('onSubmit', () => {
+      assert.ok(true);
+    });
 
-test('form is reset after submit action is invoked', function(assert) {
-  assert.expect(3);
+    await render(hbs`
+      {{#paper-form onSubmit=(action onSubmit) as |form|}}
+        {{#form.submit-button}}Submit{{/form.submit-button}}
+      {{/paper-form}}
+    `);
 
-  this.render(hbs`
-    {{#paper-form as |form|}}
-      {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
-      {{form.input value=bar onChange=(action (mut bar)) label="Bar"}}
-
-      <button onclick={{action form.onSubmit}}>Submit</button>
-
-    {{/paper-form}}
-  `);
-
-  // no touched inputs
-  assert.equal(this.$('.ng-dirty').length, 0, 'no touched inputs');
-
-  this.$('input:first').trigger('blur');
-
-  // there is a dirty input
-  assert.equal(this.$('.ng-dirty').length, 1, 'there is a touched input');
-
-  this.$('button').click();
-
-  assert.equal(this.$('.ng-dirty').length, 0, 'inputs were reset');
-});
-
-test('works without using contextual components', function(assert) {
-  assert.expect(4);
-
-  this.render(hbs`
-    {{#paper-form as |form|}}
-      {{paper-input value=foo onChange=(action (mut foo)) label="Foo"}}
-      {{paper-input value=bar onChange=(action (mut bar)) label="Bar" errors=errors}}
-
-      {{#if form.isInvalid}}
-        <div class="invalid-div">Form is invalid!</div>
-      {{/if}}
-      {{#if form.isValid}}
-        <div class="valid-div">Form is valid!</div>
-      {{/if}}
-
-    {{/paper-form}}
-  `);
-
-  assert.equal(this.$('.invalid-div').length, 0);
-  assert.equal(this.$('.valid-div').length, 1);
-
-  this.set('errors', [{
-    message: 'foo should be a number.',
-    attribute: 'foo'
-  }, {
-    message: 'foo should be smaller than 12.',
-    attribute: 'foo'
-  }]);
-
-  assert.equal(this.$('.invalid-div').length, 1);
-  assert.equal(this.$('.valid-div').length, 0);
-});
-
-test('form submit button renders', function(assert) {
-  assert.expect(1);
-
-  this.render(hbs`
-    {{#paper-form as |form|}}
-      {{#form.submit-button}}Submit{{/form.submit-button}}
-    {{/paper-form}}
-  `);
-
-  assert.equal(this.$('button').length, 1);
-});
-
-test('form submit button calls form onSubmit action', function(assert) {
-  assert.expect(1);
-
-  this.set('onSubmit', () => {
-    assert.ok(true);
+    this.$('button').click();
   });
 
-  this.render(hbs`
-    {{#paper-form onSubmit=(action onSubmit) as |form|}}
-      {{#form.submit-button}}Submit{{/form.submit-button}}
-    {{/paper-form}}
-  `);
+  test('form submit button is of type submit', async function(assert) {
+    assert.expect(1);
 
-  this.$('button').click();
-});
+    await render(hbs`
+      {{#paper-form as |form|}}
+        {{#form.submit-button}}Submit{{/form.submit-button}}
+      {{/paper-form}}
+    `);
 
-test('form submit button is of type submit', function(assert) {
-  assert.expect(1);
-
-  this.render(hbs`
-    {{#paper-form as |form|}}
-      {{#form.submit-button}}Submit{{/form.submit-button}}
-    {{/paper-form}}
-  `);
-
-  assert.equal(this.$('button').attr('type'), 'submit');
-});
-
-test('form submit button component can be customized by passing `submitButtonComponent`', function(assert) {
-  assert.expect(1);
-
-  this.register('component:custom-submit-button', Component.extend({
-    classNames: ['custom-submit-button']
-  }));
-
-  this.render(hbs`
-    {{#paper-form submitButtonComponent="custom-submit-button" as |form|}}
-      {{form.submit-button}}
-    {{/paper-form}}
-  `);
-
-  assert.equal(this.$('.custom-submit-button').length, 1, 'custom submit button is displayed');
-});
-
-test('form `onSubmit` action is invoked when form element is submitted', function(assert) {
-  assert.expect(1);
-
-  this.set('onSubmit', () => {
-    assert.ok(true);
+    assert.equal(this.$('button').attr('type'), 'submit');
   });
 
-  this.render(hbs`
-    {{#paper-form onSubmit=(action onSubmit) as |form|}}
-      {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
-      {{form.input value=bar onChange=(action (mut bar)) label="Bar"}}
+  test('form submit button component can be customized by passing `submitButtonComponent`', async function(assert) {
+    assert.expect(1);
 
-      <input type="submit" value="Submit">
+    this.owner.register('component:custom-submit-button', Component.extend({
+      classNames: ['custom-submit-button']
+    }));
 
-    {{/paper-form}}
-  `);
+    await render(hbs`
+      {{#paper-form submitButtonComponent="custom-submit-button" as |form|}}
+        {{form.submit-button}}
+      {{/paper-form}}
+    `);
 
-  this.$('input').last().click();
-});
+    assert.equal(this.$('.custom-submit-button').length, 1, 'custom submit button is displayed');
+  });
 
-test('yielded form.input renders the `paper-input`-component', function(assert) {
-  assert.expect(1);
+  test('form `onSubmit` action is invoked when form element is submitted', async function(assert) {
+    assert.expect(1);
 
-  this.register('component:paper-input', Component.extend({
-    classNames: ['paper-input']
-  }));
+    this.set('onSubmit', () => {
+      assert.ok(true);
+    });
 
-  this.render(hbs`
-    {{#paper-form as |form|}}
-      {{form.input}}
-    {{/paper-form}}
-  `);
+    await render(hbs`
+      {{#paper-form onSubmit=(action onSubmit) as |form|}}
+        {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
+        {{form.input value=bar onChange=(action (mut bar)) label="Bar"}}
 
-  assert.equal(this.$('.paper-input').length, 1, 'paper-input component displayed');
-});
+        <input type="submit" value="Submit">
 
-test('yielded form.input can be customized by passing `inputComponent`', function(assert) {
-  assert.expect(2);
+      {{/paper-form}}
+    `);
 
-  this.register('component:paper-input', Component.extend({
-    classNames: ['paper-input']
-  }));
+    this.$('input').last().click();
+  });
 
-  this.register('component:custom-input', Component.extend({
-    classNames: ['custom-input']
-  }));
+  test('yielded form.input renders the `paper-input`-component', async function(assert) {
+    assert.expect(1);
 
-  this.render(hbs`
-    {{#paper-form inputComponent="custom-input" as |form|}}
-      {{form.input}}
-    {{/paper-form}}
-  `);
+    this.owner.register('component:paper-input', Component.extend({
+      classNames: ['paper-input']
+    }));
 
-  assert.equal(this.$('.paper-input').length, 0, 'paper-input component is not displayed');
-  assert.equal(this.$('.custom-input').length, 1, 'custom input-component is displayed');
-});
+    await render(hbs`
+      {{#paper-form as |form|}}
+        {{form.input}}
+      {{/paper-form}}
+    `);
 
-test('yielded form.select renders `paper-select`-component', function(assert) {
-  assert.expect(1);
+    assert.equal(this.$('.paper-input').length, 1, 'paper-input component displayed');
+  });
 
-  this.register('component:paper-select', Component.extend({
-    classNames: ['paper-select']
-  }));
+  test('yielded form.input can be customized by passing `inputComponent`', async function(assert) {
+    assert.expect(2);
 
-  this.render(hbs`
-    {{#paper-form as |form|}}
-      {{form.select}}
-    {{/paper-form}}
-  `);
+    this.owner.register('component:paper-input', Component.extend({
+      classNames: ['paper-input']
+    }));
 
-  assert.equal(this.$('.paper-select').length, 1, 'paper-select is displayed');
-});
+    this.owner.register('component:custom-input', Component.extend({
+      classNames: ['custom-input']
+    }));
 
-test('yielded form.select can be customized by passing `selectComponent`', function(assert) {
-  assert.expect(2);
+    await render(hbs`
+      {{#paper-form inputComponent="custom-input" as |form|}}
+        {{form.input}}
+      {{/paper-form}}
+    `);
 
-  this.register('component:paper-select', Component.extend({
-    classNames: ['paper-select']
-  }));
+    assert.equal(this.$('.paper-input').length, 0, 'paper-input component is not displayed');
+    assert.equal(this.$('.custom-input').length, 1, 'custom input-component is displayed');
+  });
 
-  this.register('component:custom-select', Component.extend({
-    classNames: ['custom-select']
-  }));
+  test('yielded form.select renders `paper-select`-component', async function(assert) {
+    assert.expect(1);
 
-  this.render(hbs`
-    {{#paper-form selectComponent="custom-select" as |form|}}
-      {{form.select}}
-    {{/paper-form}}
-  `);
+    this.owner.register('component:paper-select', Component.extend({
+      classNames: ['paper-select']
+    }));
 
-  assert.equal(this.$('.paper-select').length, 0, 'paper-select component is not displayed');
-  assert.equal(this.$('.custom-select').length, 1, 'custom select-component is displayed');
-});
+    await render(hbs`
+      {{#paper-form as |form|}}
+        {{form.select}}
+      {{/paper-form}}
+    `);
 
-test('yielded form.autocomplete renders `paper-autocomplete`-component', function(assert) {
-  assert.expect(1);
+    assert.equal(this.$('.paper-select').length, 1, 'paper-select is displayed');
+  });
 
-  this.register('component:paper-autocomplete', Component.extend({
-    classNames: ['paper-autocomplete']
-  }));
+  test('yielded form.select can be customized by passing `selectComponent`', async function(assert) {
+    assert.expect(2);
 
-  this.render(hbs`
-    {{#paper-form as |form|}}
-      {{form.autocomplete}}
-    {{/paper-form}}
-  `);
+    this.owner.register('component:paper-select', Component.extend({
+      classNames: ['paper-select']
+    }));
 
-  assert.equal(this.$('.paper-autocomplete').length, 1, 'paper-autocomplete is displayed');
-});
+    this.owner.register('component:custom-select', Component.extend({
+      classNames: ['custom-select']
+    }));
 
-test('yielded form.autocomplete can be customized by passing `autocompleteComponent`', function(assert) {
-  assert.expect(2);
+    await render(hbs`
+      {{#paper-form selectComponent="custom-select" as |form|}}
+        {{form.select}}
+      {{/paper-form}}
+    `);
 
-  this.register('component:paper-autocomplete', Component.extend({
-    classNames: ['paper-autocomplete']
-  }));
+    assert.equal(this.$('.paper-select').length, 0, 'paper-select component is not displayed');
+    assert.equal(this.$('.custom-select').length, 1, 'custom select-component is displayed');
+  });
 
-  this.register('component:custom-autocomplete', Component.extend({
-    classNames: ['custom-autocomplete']
-  }));
+  test('yielded form.autocomplete renders `paper-autocomplete`-component', async function(assert) {
+    assert.expect(1);
 
-  this.render(hbs`
-    {{#paper-form autocompleteComponent="custom-autocomplete" as |form|}}
-      {{form.autocomplete}}
-    {{/paper-form}}
-  `);
+    this.owner.register('component:paper-autocomplete', Component.extend({
+      classNames: ['paper-autocomplete']
+    }));
 
-  assert.equal(this.$('.paper-autocomplete').length, 0, 'paper-autocomplete component is not displayed');
-  assert.equal(this.$('.custom-autocomplete').length, 1, 'custom autocomplete-component is displayed');
+    await render(hbs`
+      {{#paper-form as |form|}}
+        {{form.autocomplete}}
+      {{/paper-form}}
+    `);
+
+    assert.equal(this.$('.paper-autocomplete').length, 1, 'paper-autocomplete is displayed');
+  });
+
+  test('yielded form.autocomplete can be customized by passing `autocompleteComponent`', async function(assert) {
+    assert.expect(2);
+
+    this.owner.register('component:paper-autocomplete', Component.extend({
+      classNames: ['paper-autocomplete']
+    }));
+
+    this.owner.register('component:custom-autocomplete', Component.extend({
+      classNames: ['custom-autocomplete']
+    }));
+
+    await render(hbs`
+      {{#paper-form autocompleteComponent="custom-autocomplete" as |form|}}
+        {{form.autocomplete}}
+      {{/paper-form}}
+    `);
+
+    assert.equal(this.$('.paper-autocomplete').length, 0, 'paper-autocomplete component is not displayed');
+    assert.equal(this.$('.custom-autocomplete').length, 1, 'custom autocomplete-component is displayed');
+  });
 });

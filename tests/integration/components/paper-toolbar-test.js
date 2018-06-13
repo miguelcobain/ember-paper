@@ -1,30 +1,32 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('paper-toolbar', 'Integration | Component | paper toolbar', {
-  integration: true
-});
+module('Integration | Component | paper toolbar', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('uses md-tall class tall=true', function(assert) {
-  assert.expect(1);
+  test('uses md-tall class tall=true', async function(assert) {
+    assert.expect(1);
 
-  this.render(hbs`
-    {{#paper-toolbar tall=true}}
-    {{/paper-toolbar}}
-  `);
+    await render(hbs`
+      {{#paper-toolbar tall=true}}
+      {{/paper-toolbar}}
+    `);
 
-  assert.ok(this.$('md-toolbar').hasClass('md-tall'));
-});
+    assert.ok(this.$('md-toolbar').hasClass('md-tall'));
+  });
 
-test('paper-toolbar-tools uses .md-toolbar-tools class', function(assert) {
-  assert.expect(1);
+  test('paper-toolbar-tools uses .md-toolbar-tools class', async function(assert) {
+    assert.expect(1);
 
-  this.render(hbs`
-    {{#paper-toolbar tall=true}}
-      {{#paper-toolbar-tools}}
-      {{/paper-toolbar-tools}}
-    {{/paper-toolbar}}
-  `);
+    await render(hbs`
+      {{#paper-toolbar tall=true}}
+        {{#paper-toolbar-tools}}
+        {{/paper-toolbar-tools}}
+      {{/paper-toolbar}}
+    `);
 
-  assert.equal(this.$('.md-toolbar-tools').length, 1);
+    assert.equal(this.$('.md-toolbar-tools').length, 1);
+  });
 });
