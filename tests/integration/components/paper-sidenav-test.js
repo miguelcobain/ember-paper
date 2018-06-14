@@ -21,8 +21,8 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await render(hbs`{{paper-sidenav-container class="sidenav-container"}}`);
 
-    assert.ok(find('.sidenav-container').classList.contains('flex'));
-    assert.ok(find('.sidenav-container').classList.contains('layout-row'));
+    assert.dom('.sidenav-container').hasClass('flex');
+    assert.dom('.sidenav-container').hasClass('layout-row');
   });
 
   test('sidenav uses md-sidenav-left by default', async function(assert) {
@@ -30,7 +30,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await render(hbs`{{paper-sidenav}}`);
 
-    assert.ok(find('md-sidenav').classList.contains('md-sidenav-left'));
+    assert.dom('md-sidenav').hasClass('md-sidenav-left');
   });
 
   test('sidenav uses md-sidenav-right with position="right"', async function(assert) {
@@ -38,7 +38,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await render(hbs`{{paper-sidenav position="right"}}`);
 
-    assert.ok(find('md-sidenav').classList.contains('md-sidenav-right'));
+    assert.dom('md-sidenav').hasClass('md-sidenav-right');
   });
 
   test('sidenav starts open when `open=true`', async function(assert) {
@@ -46,7 +46,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await render(hbs`{{paper-sidenav open=true lockedOpen=false}}`);
 
-    assert.notOk(find('md-sidenav').classList.contains('md-closed'));
+    assert.dom('md-sidenav').hasNoClass('md-closed');
   });
 
   test('sidenav starts closed when `open=true`', async function(assert) {
@@ -54,7 +54,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await render(hbs`{{paper-sidenav open=false lockedOpen=false}}`);
 
-    assert.ok(find('md-sidenav').classList.contains('md-closed'));
+    assert.dom('md-sidenav').hasClass('md-closed');
   });
 
   test('should trigger an action when clicking on backdrop', async function(assert) {
@@ -80,12 +80,12 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await render(hbs`{{paper-sidenav open=isOpen lockedOpen=false}}`);
 
-    assert.ok(find('md-sidenav').classList.contains('md-closed'));
+    assert.dom('md-sidenav').hasClass('md-closed');
 
     this.set('isOpen', true);
 
     return settled().then(() => {
-      assert.notOk(find('md-sidenav').classList.contains('md-closed'));
+      assert.dom('md-sidenav').hasNoClass('md-closed');
     });
   });
 
@@ -96,12 +96,12 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await render(hbs`{{paper-sidenav open=isOpen lockedOpen=false}}`);
 
-    assert.notOk(find('md-sidenav').classList.contains('md-closed'));
+    assert.dom('md-sidenav').hasNoClass('md-closed');
 
     this.set('isOpen', false);
 
     return settled().then(() => {
-      assert.ok(find('md-sidenav').classList.contains('md-closed'));
+      assert.dom('md-sidenav').hasClass('md-closed');
     });
   });
 
@@ -146,7 +146,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await render(hbs`{{paper-sidenav}}`);
 
-    assert.ok(find('md-sidenav').classList.contains('md-locked-open'));
+    assert.dom('md-sidenav').hasClass('md-locked-open');
   });
 
   test('sidenav does not "lock open" when specified matchMedia test does not pass', async function(assert) {
@@ -158,7 +158,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await render(hbs`{{paper-sidenav}}`);
 
-    assert.notOk(find('md-sidenav').classList.contains('md-locked-open'));
+    assert.dom('md-sidenav').hasNoClass('md-locked-open');
   });
 
   test('sidenav "locks open" if a resize happens and the test passes', async function(assert) {
@@ -192,7 +192,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await render(hbs`{{paper-sidenav}}`);
 
-    assert.ok(find('md-sidenav').classList.contains('md-locked-open'));
+    assert.dom('md-sidenav').hasClass('md-locked-open');
 
     window.matchMedia = function() {
       return { matches: false };
@@ -200,7 +200,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
     window.dispatchEvent(new window.Event('resize'));
 
     return settled().then(() => {
-      assert.notOk(find('md-sidenav').classList.contains('md-locked-open'));
+      assert.dom('md-sidenav').hasNoClass('md-locked-open');
     });
   });
 

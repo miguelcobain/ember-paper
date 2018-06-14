@@ -14,7 +14,7 @@ module('Integration | Component | paper toast', function(hooks) {
 
     await render(hbs`{{paper-toast}}`);
 
-    assert.equal(find('*').textContent.trim(), '');
+    assert.dom('*').hasText('');
 
     // Template block usage:
     await render(hbs`

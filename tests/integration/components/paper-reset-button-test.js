@@ -12,7 +12,7 @@ module('Integration | Component | paper reset button', function(hooks) {
 
     await render(hbs`{{paper-reset-button}}`);
 
-    assert.equal(find('*').textContent.trim(), '');
+    assert.dom('*').hasText('');
 
     // Template block usage:
     await render(hbs`
@@ -21,6 +21,6 @@ module('Integration | Component | paper reset button', function(hooks) {
       {{/paper-reset-button}}
     `);
 
-    assert.equal(find('*').textContent.trim(), 'template block text');
+    assert.dom('*').hasText('template block text');
   });
 });

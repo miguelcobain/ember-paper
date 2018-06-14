@@ -18,7 +18,7 @@ module('Integration | Component | paper radio', function(hooks) {
         Radio button 2
       {{/paper-radio}}
     `);
-    assert.ok(find('md-radio-button').classList.contains('md-checked'));
+    assert.dom('md-radio-button').hasClass('md-checked');
 
     this.set('groupValue', null);
     assert.ok(!find('md-radio-button').classList.contains('md-checked'));
@@ -81,7 +81,7 @@ module('Integration | Component | paper radio', function(hooks) {
 
     await render(hbs`{{paper-radio value="1" onChange=(action (mut value)) label="çup?"}}`);
 
-    assert.equal(find('.md-label > span').textContent.trim(), 'çup?');
+    assert.dom('.md-label > span').hasText('çup?');
   });
 
   test('block version should set label inside', async function(assert) {
@@ -93,7 +93,7 @@ module('Integration | Component | paper radio', function(hooks) {
       {{/paper-radio}}
     `);
 
-    assert.equal(find('.md-label > span').textContent.trim(), 'çup?');
+    assert.dom('.md-label > span').hasText('çup?');
   });
 
   /* test('the `onChange` action is mandatory for paper-radio', function(assert) {

@@ -12,14 +12,14 @@ module('Integration | Component | paper button', function(hooks) {
         Block label
       {{/paper-button}}
     `);
-    assert.equal(find('button').textContent.trim(), 'Block label');
+    assert.dom('button').hasText('Block label');
   });
 
   test('renders inline label', async function(assert) {
     await render(hbs`
       {{paper-button label='Inline label'}}
     `);
-    assert.equal(find('button').textContent.trim(), 'Inline label');
+    assert.dom('button').hasText('Inline label');
   });
 
   test('renders type button by default', async function(assert) {
@@ -60,7 +60,7 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    assert.ok(find('.md-button').classList.contains('md-raised'));
+    assert.dom('.md-button').hasClass('md-raised');
   });
 
   test('uses md-icon-button class when iconButton=true', async function(assert) {
@@ -69,7 +69,7 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    assert.ok(find('.md-button').classList.contains('md-icon-button'));
+    assert.dom('.md-button').hasClass('md-icon-button');
   });
 
   test('uses md-fab class when fab=true', async function(assert) {
@@ -78,7 +78,7 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    assert.ok(find('.md-button').classList.contains('md-fab'));
+    assert.dom('.md-button').hasClass('md-fab');
   });
 
   test('uses md-mini and md-fab class when mini=true', async function(assert) {

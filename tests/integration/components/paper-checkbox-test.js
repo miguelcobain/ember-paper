@@ -12,7 +12,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     this.set('value', true);
     await render(hbs`{{paper-checkbox value=value label="Blue" onChange=(action (mut value))}}`);
-    assert.ok(find('md-checkbox').classList.contains('md-checked'));
+    assert.dom('md-checkbox').hasClass('md-checked');
 
     this.set('value', false);
     assert.ok(!find('md-checkbox').classList.contains('md-checked'));
@@ -93,7 +93,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     await render(hbs`{{paper-checkbox value=value onChange=(action (mut value)) label="çup?"}}`);
 
-    assert.equal(find('.md-label > span').textContent.trim(), 'çup?');
+    assert.dom('.md-label > span').hasText('çup?');
   });
 
   test('block version should set label inside', async function(assert) {
@@ -105,7 +105,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
       {{/paper-checkbox}}
     `);
 
-    assert.equal(find('.md-label > span').textContent.trim(), 'çup?');
+    assert.dom('.md-label > span').hasText('çup?');
   });
 
   /* test('the `onChange` action is mandatory', function(assert) {
@@ -124,10 +124,10 @@ module('Integration | Component | paper checkbox', function(hooks) {
       {{paper-checkbox value=value indeterminate=indeterminate
         label="Blue" onChange=(action (mut value))}}
     `);
-    assert.ok(find('md-checkbox').classList.contains('md-checked'));
+    assert.dom('md-checkbox').hasClass('md-checked');
 
     this.set('indeterminate', true);
     assert.ok(!find('md-checkbox').classList.contains('md-checked'));
-    assert.ok(find('md-checkbox').classList.contains('md-indeterminate'));
+    assert.dom('md-checkbox').hasClass('md-indeterminate');
   });
 });

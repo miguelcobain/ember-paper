@@ -22,11 +22,11 @@ module('Integration | Component | paper tooltip', function(hooks) {
 
         await triggerEvent('.md-button', openEvent);
 
-        assert.ok(find('md-tooltip'), 'tooltip was rendered');
+        assert.dom('md-tooltip').exists('tooltip was rendered');
 
         await triggerEvent('.md-button', closeEvent);
 
-        assert.notOk(find('md-tooltip'), 'tooltip was destroyed');
+        assert.dom('md-tooltip').doesNotExist('tooltip was destroyed');
       });
     });
   });
@@ -45,13 +45,13 @@ module('Integration | Component | paper tooltip', function(hooks) {
 
       await triggerEvent('.md-button', 'mouseenter');
 
-      assert.ok(find('md-tooltip'), 'tooltip was rendered');
+      assert.dom('md-tooltip').exists('tooltip was rendered');
 
       run(() => window.dispatchEvent(new window.Event(closeEvent)));
 
       await settled();
 
-      assert.notOk(find('md-tooltip'), 'tooltip was destroyed');
+      assert.dom('md-tooltip').doesNotExist('tooltip was destroyed');
     });
   });
 
@@ -68,7 +68,7 @@ module('Integration | Component | paper tooltip', function(hooks) {
 
     await triggerEvent('.md-button', 'mouseenter');
 
-    assert.ok(find('md-tooltip').classList.contains('md-origin-bottom'));
+    assert.dom('md-tooltip').hasClass('md-origin-bottom');
   });
 
   test('renders on bottom by default', async function(assert) {
@@ -84,7 +84,7 @@ module('Integration | Component | paper tooltip', function(hooks) {
 
     await triggerEvent('.md-button', 'mouseenter');
 
-    assert.ok(find('md-tooltip').classList.contains('md-origin-bottom'));
+    assert.dom('md-tooltip').hasClass('md-origin-bottom');
   });
 
   ['bottom', 'top', 'left', 'right'].forEach((position) => {
@@ -101,7 +101,7 @@ module('Integration | Component | paper tooltip', function(hooks) {
 
       await triggerEvent('.md-button', 'mouseenter');
 
-      assert.ok(find('md-tooltip').classList.contains(`md-origin-${position}`));
+      assert.dom('md-tooltip').hasClass(`md-origin-${position}`);
     });
   });
 
@@ -118,7 +118,7 @@ module('Integration | Component | paper tooltip', function(hooks) {
 
     await triggerEvent('.md-button', 'mouseenter');
 
-    assert.ok(find('md-tooltip').classList.contains('my-tooltip'));
+    assert.dom('md-tooltip').hasClass('my-tooltip');
   });
 });
 

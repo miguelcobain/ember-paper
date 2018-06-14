@@ -43,7 +43,7 @@ module('Integration | Component | paper radio group', function(hooks) {
         {{/group.radio}}
       {{/paper-radio-group}}
     `);
-    assert.ok(find('md-radio-button').classList.contains('md-checked'));
+    assert.dom('md-radio-button').hasClass('md-checked');
 
     this.set('groupValue', null);
     assert.ok(!find('md-radio-button').classList.contains('md-checked'));
@@ -227,6 +227,6 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    assert.equal(findAll('.custom-radio').length, 1, 'custom radio component is displayed');
+    assert.dom('.custom-radio').exists({ count: 1 }, 'custom radio component is displayed');
   });
 });

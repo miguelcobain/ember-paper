@@ -16,7 +16,7 @@ module('Integration | Component | paper grid list', function(hooks) {
       {{/paper-grid-list}}
     `);
     return settled().then(() => {
-      assert.equal(findAll('md-grid-tile').length, 1);
+      assert.dom('md-grid-tile').exists({ count: 1 });
     });
   });
 
@@ -32,7 +32,7 @@ module('Integration | Component | paper grid list', function(hooks) {
       {{/paper-grid-list}}
     `);
     return settled().then(() => {
-      assert.equal(findAll('md-grid-tile-footer').length, 1);
+      assert.dom('md-grid-tile-footer').exists({ count: 1 });
     });
   });
 });
