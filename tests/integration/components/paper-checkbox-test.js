@@ -104,14 +104,6 @@ module('Integration | Component | paper checkbox', function(hooks) {
     assert.dom('.md-label > span').hasText('çup?');
   });
 
-  /* test('the `onChange` action is mandatory', function(assert) {
-    assert.expect(1);
-
-    assert.throws(() => {
-      this.render(hbs`{{paper-checkbox value=true}}`);
-    }, /requires an `onChange` action/);
-  });*/
-
   test('if `indeterminate` is true, set md-indeterminate class', async function(assert) {
     assert.expect(3);
 

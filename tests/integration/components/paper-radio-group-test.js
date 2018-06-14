@@ -183,20 +183,6 @@ module('Integration | Component | paper radio group', function(hooks) {
     assert.equal(this.get('groupValue'), '2');
   });
 
-  /* test('the `onChange` action is mandatory for paper-radio-group', function(assert) {
-    assert.expect(1);
-
-    assert.throws(() => {
-      this.render(hbs`
-        {{#paper-radio-group groupValue=groupValue as |group|}}
-          {{#group.radio value="1"}}
-            Radio button 1
-          {{/group.radio}}
-        {{/paper-radio-group}}
-      `);
-    }, /requires an `onChange` action/);
-  });*/
-
   test('passing `radioComponent` allows customizing the yielded radio-component', async function(assert) {
     assert.expect(1);
 

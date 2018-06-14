@@ -96,11 +96,4 @@ module('Integration | Component | paper radio', function(hooks) {
     assert.dom('.md-label > span').hasText('çup?');
   });
 
-  /* test('the `onChange` action is mandatory for paper-radio', function(assert) {
-    assert.expect(1);
-
-    assert.throws(() => {
-      this.render(hbs`{{paper-radio value="1"}}`);
-    }, /requires an `onChange` action/);
-  });*/
 });

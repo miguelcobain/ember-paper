@@ -6,53 +6,6 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | paper autocomplete', function(hooks) {
   setupRenderingTest(hooks);
 
-  /* test('either `onSearchTextChange` or `onSelectionChange` functions are provided provided', function(assert) {
-    assert.expect(4);
-
-    assert.throws(() => {
-      this.render(hbs`
-        {{#paper-autocomplete options=countries selected=selected as |opt|}}
-          {{opt}}
-        {{/paper-autocomplete}}
-        `);
-    }, 'requires at least one of the `onSelectionChange` or `onSearchTextChange` functions to be provided.');
-
-    assert.ok(() => {
-      this.render(hbs`
-        {{#paper-autocomplete
-            options=countries
-            selected=selected
-            onSelectionChange=(action (mut selected)) as |opt|}}
-          {{opt}}
-        {{/paper-autocomplete}}
-        `);
-    }, 'does not throw when on `onSelectionChange` is provided');
-
-    assert.ok(() => {
-      this.render(hbs`
-        {{#paper-autocomplete
-            options=countries
-            searchText=searchText
-            onSearchTextChange=(action (mut searchText)) as |opt|}}
-          {{opt}}
-        {{/paper-autocomplete}}
-        `);
-    }, 'does not throw when on `onSearchTextChange` is provided');
-
-    assert.ok(() => {
-      this.render(hbs`
-        {{#paper-autocomplete
-            options=countries
-            searchText=searchText
-            onSearchTextChange=(action (mut searchText))
-            selected=selected
-            onSelectionChange=(action (mut selected)) as |opt|}}
-          {{opt}}
-        {{/paper-autocomplete}}
-        `);
-    }, 'does not throw when both `onSearchTextChange` and `onSelectionChange` are provided');
-  });*/
-
   test('opens on click', async function(assert) {
     assert.expect(1);
     this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);

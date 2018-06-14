@@ -273,26 +273,4 @@ module('Integration | Component | paper sidenav', function(hooks) {
     await click('#toggle-button');
   });
 
-  /* test('clicking sidenav-toggle for unregistered sidenav should throw', function(assert) {
-    assert.expect(1);
-
-    this.set('sidenavToggle', (value) => {
-      assert.notOk(value);
-    });
-
-    this.render(hbs`
-      {{#paper-sidenav name="balele" open=true onToggle=(action sidenavToggle) lockedOpen=false}}
-        Hi!
-      {{/paper-sidenav}}
-      {{#paper-sidenav-toggle name="çup" as |toggleAction|}}
-        {{#paper-button id="toggle-button" onClick=(action toggleAction)}}
-          Toggle sidenav
-        {{/paper-button}}
-      {{/paper-sidenav-toggle}}
-    `);
-
-    assert.throws(() => {
-      this.$('#toggle-button').click();
-    }, /You tried to toggle a sidenav named 'çup' but no such sidenav is registered/);
-  });*/
 });

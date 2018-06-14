@@ -469,16 +469,6 @@ module('Integration | Component | paper input', function(hooks) {
     assert.equal(this.$('.paper-input-error').last().text().trim(), 'foo should be smaller than 12.');
   });
 
-  /* test('the `onChange` action is mandatory for paper-input', function(assert) {
-    assert.expect(1);
-
-    assert.throws(() => {
-      this.render(hbs`
-        {{paper-input value="asd"}}
-      `);
-    }, /`onChange` action/);
-  });*/
-
   test('displayed input value matches actual input value', async function(assert) {
     assert.expect(4);
 
