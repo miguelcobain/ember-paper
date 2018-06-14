@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, find, focus, triggerEvent, findAll, fillIn } from '@ember/test-helpers';
+import { render, settled, focus, triggerEvent, fillIn } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper autocomplete', function(hooks) {

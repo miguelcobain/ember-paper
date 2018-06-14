@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerEvent, click, find, findAll } from '@ember/test-helpers';
+import { render, triggerEvent, click, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper form', function(hooks) {
