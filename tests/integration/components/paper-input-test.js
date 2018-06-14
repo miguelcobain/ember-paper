@@ -98,9 +98,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input disabled=true onChange=dummyOnChange}}`);
 
-    let actual = find('md-input-container input').getAttribute('disabled');
-    let expected = 'disabled';
-    assert.equal(actual, expected);
+    assert.dom('md-input-container input').isDisabled();
   });
 
   test('renders input as required', async function(assert) {
@@ -108,9 +106,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash required="required") onChange=dummyOnChange}}`);
 
-    let actual = find('md-input-container input').getAttribute('required');
-    let expected = 'required';
-    assert.equal(actual, expected);
+    assert.dom('md-input-container input').isRequired();
   });
 
   test('renders input as autofocus', async function(assert) {
@@ -118,9 +114,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input autofocus=true onChange=dummyOnChange}}`);
 
-    let actual = find('md-input-container input').getAttribute('autofocus');
-    let expected = 'autofocus';
-    assert.equal(actual, expected);
+    assert.dom('md-input-container input').hasAttribute('autofocus');
   });
 
   test('renders input with accept types of files', async function(assert) {
@@ -128,9 +122,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash accept="audio/*|video/*|image/*") onChange=dummyOnChange}}`);
 
-    let actual = find('md-input-container input').getAttribute('accept');
-    let expected = 'audio/*|video/*|image/*';
-    assert.equal(actual, expected);
+    assert.dom('md-input-container input').hasAttribute('accept', 'audio/*|video/*|image/*');
   });
 
   test('renders input with attribute autocomplete', async function(assert) {
@@ -138,10 +130,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash autocomplete="autocomplete") onChange=dummyOnChange}}`);
 
-    let actual = find('md-input-container input').getAttribute('autocomplete');
-    let expected = 'autocomplete';
-
-    assert.equal(actual, expected);
+    assert.dom('md-input-container input').hasAttribute('autocomplete', 'autocomplete');
   });
 
   test('renders input with attribute autocorrect', async function(assert) {
@@ -149,10 +138,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash autocorrect="autocorrect") onChange=dummyOnChange}}`);
 
-    let actual = find('md-input-container input').getAttribute('autocorrect');
-    let expected = 'autocorrect';
-
-    assert.equal(actual, expected);
+    assert.dom('md-input-container input').hasAttribute('autocorrect', 'autocorrect');
   });
 
   test('renders input with attribute autocapitalize', async function(assert) {
@@ -160,10 +146,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash autocapitalize="autocapitalize") onChange=dummyOnChange}}`);
 
-    let actual = find('md-input-container input').getAttribute('autocapitalize');
-    let expected = 'autocapitalize';
-
-    assert.equal(actual, expected);
+    assert.dom('md-input-container input').hasAttribute('autocapitalize', 'autocapitalize');
   });
 
   test('renders input with attribute form', async function(assert) {
@@ -171,10 +154,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash form="myform") onChange=dummyOnChange onChange=dummyOnChange}}`);
 
-    let actual = find('md-input-container input').getAttribute('form');
-    let expected = 'myform';
-
-    assert.equal(actual, expected);
+    assert.dom('md-input-container input').hasAttribute('form', 'myform');
   });
 
   test('renders input with attribute formnovalidate', async function(assert) {
@@ -182,10 +162,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash formnovalidate="formnovalidate") onChange=dummyOnChange}}`);
 
-    let actual = find('md-input-container input').getAttribute('formnovalidate');
-    let expected = 'formnovalidate';
-
-    assert.equal(actual, expected);
+    assert.dom('md-input-container input').hasAttribute('formnovalidate', 'formnovalidate');
   });
 
   test('renders input with attribute formtarget', async function(assert) {
@@ -193,10 +170,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash formtarget="_blank") onChange=dummyOnChange}}`);
 
-    let actual = find('md-input-container input').getAttribute('formtarget');
-    let expected = '_blank';
-
-    assert.equal(actual, expected);
+    assert.dom('md-input-container input').hasAttribute('formtarget', '_blank');
   });
 
   test('renders input with attribute formenctype', async function(assert) {
@@ -204,10 +178,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash formenctype="multipart/form-data") onChange=dummyOnChange}}`);
 
-    let actual = find('md-input-container input').getAttribute('formenctype');
-    let expected = 'multipart/form-data';
-
-    assert.equal(actual, expected);
+    assert.dom('md-input-container input').hasAttribute('formenctype', 'multipart/form-data');
   });
 
   test('renders input with multiple passThru attributes', async function(assert) {
