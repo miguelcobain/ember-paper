@@ -1,8 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click, find } from '@ember/test-helpers';
+import { render, click, find, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import $ from 'jquery';
 
 module('Integration | Component | paper checkbox', function(hooks) {
   setupRenderingTest(hooks);
@@ -15,7 +14,8 @@ module('Integration | Component | paper checkbox', function(hooks) {
     assert.dom('md-checkbox').hasClass('md-checked');
 
     this.set('value', false);
-    assert.ok(!find('md-checkbox').classList.contains('md-checked'));
+
+    assert.dom('md-checkbox').doesNotHaveClass('md-checked');
   });
 
   test('should trigger an action when unchecking', async function(assert) {
@@ -66,9 +66,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
       await render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
       assert.equal(this.get('value'), false);
 
-      let e = new $.Event('keypress');
-      e.which = keyCode; // # Some key code value
-      this.$('md-checkbox').trigger(e);
+      await triggerKeyEvent('md-checkbox', 'keypress', keyCode);
 
       assert.equal(this.get('value'), true);
     });
@@ -80,9 +78,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
       await render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
       assert.equal(this.get('value'), true);
 
-      let e = new $.Event('keypress');
-      e.which = keyCode; // # Some key code value
-      this.$('md-checkbox').trigger(e);
+      await triggerKeyEvent('md-checkbox', 'keypress', keyCode);
 
       assert.equal(this.get('value'), false);
     });
@@ -127,7 +123,8 @@ module('Integration | Component | paper checkbox', function(hooks) {
     assert.dom('md-checkbox').hasClass('md-checked');
 
     this.set('indeterminate', true);
-    assert.ok(!find('md-checkbox').classList.contains('md-checked'));
+
+    assert.dom('md-checkbox').doesNotHaveClass('md-checked');
     assert.dom('md-checkbox').hasClass('md-indeterminate');
   });
 });

@@ -1,8 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import $ from 'jquery';
 
 module('Integration | Component | paper toast', function(hooks) {
   setupRenderingTest(hooks);
@@ -23,7 +22,7 @@ module('Integration | Component | paper toast', function(hooks) {
       {{/paper-toast}}
     `);
 
-    assert.equal($('md-toast').text().trim(), 'Toast was shown successfully!');
+    assert.dom('md-toast').hasText('Toast was shown successfully!');
   });
 
   test('duration triggers onClose', async function(assert) {
@@ -60,7 +59,8 @@ module('Integration | Component | paper toast', function(hooks) {
       {{paper-toast}}
     `);
 
-    assert.ok($().find('#ember-testing md-toast'), 'rendered in default');
+    assert.dom('md-toast').exists({ count: 1 });
+    assert.dom(find('md-toast').parentElement).hasAttribute('id', 'ember-testing');
   });
 
   test('should render in specific wormhole if parent is defined', async function(assert) {
@@ -70,8 +70,9 @@ module('Integration | Component | paper toast', function(hooks) {
         So this is singularity, eh?
       {{/paper-toast}}
     `);
-    assert.ok(!$('#ember-testing > md-toast').length, 'did not render in default');
-    assert.ok($('#sagittarius-a md-toast').length, 'rendered in parent');
+
+    assert.dom('md-toast').exists({ count: 1 });
+    assert.dom(find('md-toast').parentElement).hasAttribute('id', 'sagittarius-a');
   });
 
   test('capsule sets the correct class', async function(assert) {
@@ -79,9 +80,7 @@ module('Integration | Component | paper toast', function(hooks) {
       {{paper-toast capsule=true}}
     `);
 
-    let toast = $('md-toast');
-
-    assert.ok(toast.hasClass('md-capsule'), 'rendered in default');
+    assert.dom('md-toast').hasClass('md-capsule');
   });
 
   ['bottom left', 'bottom right', 'top left', 'top right'].forEach((position) => {
@@ -94,9 +93,9 @@ module('Integration | Component | paper toast', function(hooks) {
         {{paper-toast position=position}}
       `);
 
-      assert.ok($('#ember-testing > md-toast').hasClass(`md-${x}`));
-      assert.ok($('#ember-testing > md-toast').hasClass(`md-${y}`));
-      assert.ok($('#ember-testing').hasClass(`md-toast-open-${y}`));
+      assert.dom('md-toast').hasClass(`md-${x}`);
+      assert.dom('md-toast').hasClass(`md-${y}`);
+      assert.dom().hasClass(`md-toast-open-${y}`);
     });
   });
 });
