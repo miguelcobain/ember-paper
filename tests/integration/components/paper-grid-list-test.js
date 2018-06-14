@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render, settled, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper grid list', function(hooks) {
@@ -16,7 +16,7 @@ module('Integration | Component | paper grid list', function(hooks) {
       {{/paper-grid-list}}
     `);
     return settled().then(() => {
-      assert.equal(this.$('md-grid-tile').length, 1);
+      assert.equal(findAll('md-grid-tile').length, 1);
     });
   });
 
@@ -32,7 +32,7 @@ module('Integration | Component | paper grid list', function(hooks) {
       {{/paper-grid-list}}
     `);
     return settled().then(() => {
-      assert.equal(this.$('md-grid-tile-footer').length, 1);
+      assert.equal(findAll('md-grid-tile-footer').length, 1);
     });
   });
 });

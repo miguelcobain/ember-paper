@@ -3,7 +3,7 @@ import { run } from '@ember/runloop';
 import jQuery from 'jquery';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click, findAll, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper radio group', function(hooks) {
@@ -43,10 +43,10 @@ module('Integration | Component | paper radio group', function(hooks) {
         {{/group.radio}}
       {{/paper-radio-group}}
     `);
-    assert.ok(this.$('md-radio-button').hasClass('md-checked'));
+    assert.ok(find('md-radio-button').classList.contains('md-checked'));
 
     this.set('groupValue', null);
-    assert.ok(!this.$('md-radio-button').hasClass('md-checked'));
+    assert.ok(!find('md-radio-button').classList.contains('md-checked'));
   });
 
   test('should trigger an action when checking', async function(assert) {
@@ -119,7 +119,7 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    this.$('md-radio-button').click();
+    await click('md-radio-button');
   });
 
   test('should be possible to select next with down/right arrow in a paper-radio-group', async function(assert) {
@@ -139,11 +139,11 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    triggerKeydown(this.$('md-radio-group').get(0), 40);
+    triggerKeydown(findAll('md-radio-group')[0], 40);
 
     assert.equal(this.get('groupValue'), '1');
 
-    triggerKeydown(this.$('md-radio-group').get(0), 39);
+    triggerKeydown(findAll('md-radio-group')[0], 39);
 
     assert.equal(this.get('groupValue'), '2');
   });
@@ -165,11 +165,11 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    triggerKeydown(this.$('md-radio-group').get(0), 38);
+    triggerKeydown(findAll('md-radio-group')[0], 38);
 
     assert.equal(this.get('groupValue'), '1');
 
-    triggerKeydown(this.$('md-radio-group').get(0), 37);
+    triggerKeydown(findAll('md-radio-group')[0], 37);
 
     assert.equal(this.get('groupValue'), '3');
   });
@@ -191,11 +191,11 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    triggerKeydown(this.$('md-radio-group').get(0), 40);
+    triggerKeydown(findAll('md-radio-group')[0], 40);
 
     assert.equal(this.get('groupValue'), 0);
 
-    triggerKeydown(this.$('md-radio-group').get(0), 39);
+    triggerKeydown(findAll('md-radio-group')[0], 39);
 
     assert.equal(this.get('groupValue'), '2');
   });
@@ -227,6 +227,6 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    assert.equal(this.$('.custom-radio').length, 1, 'custom radio component is displayed');
+    assert.equal(findAll('.custom-radio').length, 1, 'custom radio component is displayed');
   });
 });

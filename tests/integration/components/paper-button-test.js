@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper button', function(hooks) {
@@ -12,21 +12,21 @@ module('Integration | Component | paper button', function(hooks) {
         Block label
       {{/paper-button}}
     `);
-    assert.equal(this.$('button').text().trim(), 'Block label');
+    assert.equal(find('button').textContent.trim(), 'Block label');
   });
 
   test('renders inline label', async function(assert) {
     await render(hbs`
       {{paper-button label='Inline label'}}
     `);
-    assert.equal(this.$('button').text().trim(), 'Inline label');
+    assert.equal(find('button').textContent.trim(), 'Inline label');
   });
 
   test('renders type button by default', async function(assert) {
     await render(hbs`
       {{paper-button label='Inline label'}}
     `);
-    assert.equal(this.$('button').attr('type'), 'button');
+    assert.equal(find('button').getAttribute('type'), 'button');
   });
 
   test('triggers onClick function when attribute is present', async function(assert) {
@@ -40,7 +40,7 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    this.$('.md-button').click();
+    await click('.md-button');
   });
 
   test('does nothing onClick if attribute is not present', async function(assert) {
@@ -51,7 +51,7 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    this.$('.md-button').click();
+    await click('.md-button');
   });
 
   test('uses md-raised class when raised=true', async function(assert) {
@@ -60,7 +60,7 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    assert.ok(this.$('.md-button').hasClass('md-raised'));
+    assert.ok(find('.md-button').classList.contains('md-raised'));
   });
 
   test('uses md-icon-button class when iconButton=true', async function(assert) {
@@ -69,7 +69,7 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    assert.ok(this.$('.md-button').hasClass('md-icon-button'));
+    assert.ok(find('.md-button').classList.contains('md-icon-button'));
   });
 
   test('uses md-fab class when fab=true', async function(assert) {
@@ -78,7 +78,7 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    assert.ok(this.$('.md-button').hasClass('md-fab'));
+    assert.ok(find('.md-button').classList.contains('md-fab'));
   });
 
   test('uses md-mini and md-fab class when mini=true', async function(assert) {
@@ -97,7 +97,7 @@ module('Integration | Component | paper button', function(hooks) {
       {{/paper-button}}
     `);
     assert.ok(this.$('.md-button').is('a'));
-    assert.ok(this.$('.md-button').attr('href') === 'http://example.com');
+    assert.ok(find('.md-button').getAttribute('href') === 'http://example.com');
   });
 
   test('renders target', async function(assert) {
@@ -107,6 +107,6 @@ module('Integration | Component | paper button', function(hooks) {
       {{/paper-button}}
     `);
     assert.ok(this.$('.md-button').is('a'));
-    assert.ok(this.$('.md-button').attr('target') === '_blank');
+    assert.ok(find('.md-button').getAttribute('target') === '_blank');
   });
 });
