@@ -142,22 +142,22 @@ export default Component.extend({
       if (item) {
         // Trigger onChange for the new item.
         this.sendAction('addItem', item);
-
-        this.queueReset();
+        this.set('searchText', '');
+        // this.queueReset();
 
         // Track selection of last item if no match required.
         if (this.get('options').length === 1 && !this.get('requireMatch')) {
           this.set('lastItemChosen', true);
           this.set('autocomplete', null);
         }
-
-        return true;
       }
     },
 
-    searchTextChange(searchText, select) {
+    searchTextChange(value, select) {
+      this.set('searchText', value);
+
       // Close dropdown if search text is cleared by the user.
-      if (isEmpty(searchText)) {
+      if (isEmpty(value)) {
         select.actions.close();
       }
     },
@@ -222,31 +222,31 @@ export default Component.extend({
   },
 
   resetInput() {
-    let select = this.get('autocomplete');
-    let input = this.getInput();
+    // let select = this.get('autocomplete');
+    // let input = this.getInput();
 
-    if (input.is('.ember-paper-autocomplete-search-input') && isPresent(select)) {
-      // Reset the underlying ember-power-select so that it's ready for another selection.
-      input.val('');
-      select.actions.search('');
+    // if (input.is('.ember-paper-autocomplete-search-input') && isPresent(select)) {
+    //   // Reset the underlying ember-power-select so that it's ready for another selection.
+    //   input.val('');
+    //   select.actions.search('');
 
-      // Close the dropdown after focusing the field.
-      input.focus();
-      select.actions.close();
-    } else {
-      input.focus();
-    }
+    //   // Close the dropdown after focusing the field.
+    //   input.focus();
+    //   select.actions.close();
+    // } else {
+    //   input.focus();
+    // }
 
-    this.set('focusedElement', 'input');
-    this.set('resetTimer', null);
+    // this.set('focusedElement', 'input');
+    // this.set('resetTimer', null);
   },
 
   queueReset() {
-    if (this.get('resetTimer')) {
-      run.cancel(this.get('resetTimer'));
-    }
+    // if (this.get('resetTimer')) {
+    //   run.cancel(this.get('resetTimer'));
+    // }
 
-    this.set('resetTimer', run.next(this, this.resetInput));
+    // this.set('resetTimer', run.next(this, this.resetInput));
   },
 
   closeAutocomplete() {

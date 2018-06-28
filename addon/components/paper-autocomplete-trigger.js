@@ -19,7 +19,6 @@ export default Component.extend({
   classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing', 'showingClearButton:md-show-clear-button'],
 
   noLabel: not('extra.label'),
-  _innerText: oneWay('searchText'),
 
   showingClearButton: computed('allowClear', 'disabled', 'resetButtonDestroyed', function() {
     // make room for clear button:
@@ -30,23 +29,20 @@ export default Component.extend({
     );
   }),
 
-  text: computed('select', 'searchText', '_innerText', {
+  text: computed('select', 'searchText', {
     get() {
       let {
         select,
         searchText,
-        _innerText
       } = this.getProperties('select', 'searchText', '_innerText');
 
       if (select && select.selected) {
         return this.getSelectedAsText();
       }
-      return searchText ? searchText : _innerText;
+      return searchText;
     },
     set(_, v) {
       let { select, searchText } = this.getProperties('select', 'searchText');
-      this.set('_innerText', v);
-
       // searchText should always win
       if (!(select && select.selected) && isPresent(searchText)) {
         return searchText;
