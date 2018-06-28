@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import { isPresent, isEmpty } from '@ember/utils';
 import { observer, computed } from '@ember/object';
-import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-chips';
 
 export default Component.extend({
@@ -17,7 +16,6 @@ export default Component.extend({
 
     return true;
   }),
-  resetTimer: null,
   lastItemChosen: false,
 
   handleFocusChange: observer('focusedElement', 'activeChip', function() {
@@ -55,11 +53,7 @@ export default Component.extend({
 
         this.sendAction('addItem', item);
         this.set('newChipValue', '');
-
-        if (isPresent(this.get('autocomplete'))) {
-          // We have an autocomplete - reset it once it's closed itself.
-          this.queueReset();
-        }
+        this.set('searchText', '');
       }
     },
 
@@ -68,7 +62,6 @@ export default Component.extend({
       let current = this.get('activeChip');
 
       if (current === -1 || current >= this.get('content').length) {
-        this.queueReset();
         this.set('activeChip', -1);
       }
     },
@@ -143,7 +136,6 @@ export default Component.extend({
         // Trigger onChange for the new item.
         this.sendAction('addItem', item);
         this.set('searchText', '');
-        // this.queueReset();
 
         // Track selection of last item if no match required.
         if (this.get('options').length === 1 && !this.get('requireMatch')) {
@@ -185,7 +177,6 @@ export default Component.extend({
         event.stopPropagation();
         return false;
       }
-
     }
   },
 
@@ -215,38 +206,9 @@ export default Component.extend({
     } else if (current >= 0 && ['Backspace', 'Delete', 'Del'].includes(key)) {
       this.sendAction('removeItem', chips[current]);
       if (current >= chips.length) {
-        this.queueReset();
         this.set('activeChip', -1);
       }
     }
-  },
-
-  resetInput() {
-    // let select = this.get('autocomplete');
-    // let input = this.getInput();
-
-    // if (input.is('.ember-paper-autocomplete-search-input') && isPresent(select)) {
-    //   // Reset the underlying ember-power-select so that it's ready for another selection.
-    //   input.val('');
-    //   select.actions.search('');
-
-    //   // Close the dropdown after focusing the field.
-    //   input.focus();
-    //   select.actions.close();
-    // } else {
-    //   input.focus();
-    // }
-
-    // this.set('focusedElement', 'input');
-    // this.set('resetTimer', null);
-  },
-
-  queueReset() {
-    // if (this.get('resetTimer')) {
-    //   run.cancel(this.get('resetTimer'));
-    // }
-
-    // this.set('resetTimer', run.next(this, this.resetInput));
   },
 
   closeAutocomplete() {
