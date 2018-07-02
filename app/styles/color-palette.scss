@@ -496,6 +496,10 @@ $default-color: '500' !default;
     $curr_color: $color;
   }
 
+  @if type-of($curr_color) != 'map' {
+    @return $curr_color;
+  }
+
   // if no type was provided:
   //   - use 'default' key if present
   //   - use '500' from $default-color
@@ -519,6 +523,10 @@ $default-color: '500' !default;
   } @else {
     // color is a map
     $curr_color: $color;
+  }
+
+  @if type-of($curr_color) != 'map' {
+    @return $curr_color;
   }
 
   // if no type was provided:
