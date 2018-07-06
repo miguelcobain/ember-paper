@@ -78,7 +78,7 @@ export default Component.extend({
 
       this.set('focusedElement', 'input');
 
-      if (!this.get('content').length && !input.is(':focus')) {
+      if (!this.get('content').length && !input.is(':focus') && input[0] !== document.activeElement) {
         input.focus();
       } else {
         this.set('activeChip', -1);
@@ -90,7 +90,7 @@ export default Component.extend({
       }
 
       // We don't want the autocomplete to open on focus - it'll open when the user starts typing.
-      if (isPresent(autocomplete)) {
+      if (isPresent(autocomplete) && isPresent(autocomplete.actions)) {
         autocomplete.actions.close();
       }
     },
