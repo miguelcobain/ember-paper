@@ -2734,9 +2734,9 @@ ember-cp-validations@^4.0.0-beta.0:
     ember-require-module "^0.2.0"
     ember-validators "^1.1.1"
 
-ember-css-transitions@^0.1.14:
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/ember-css-transitions/-/ember-css-transitions-0.1.14.tgz#85cbaad976bd8b5b4d88f2b4d517c00dc97455e4"
+ember-css-transitions@^0.1.15:
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/ember-css-transitions/-/ember-css-transitions-0.1.15.tgz#2a5b5fbba72092444edfe7fec315bb685250491d"
   dependencies:
     ember-cli-babel "^6.6.0"
 
@@ -7792,9 +7792,9 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-virtual-each@~0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/virtual-each/-/virtual-each-0.6.0.tgz#fa07ee1a387f1c6c23da74d347fd6b998c807905"
+"virtual-each@https://github.com/BobrImperator/virtual-each":
+  version "0.6.1"
+  resolved "https://github.com/BobrImperator/virtual-each#ce8fc7162093742580f9a42e4d7bb63f7ea54e35"
   dependencies:
     ember-cli-babel "^6.12.0"
     ember-cli-htmlbars "^2.0.3"
