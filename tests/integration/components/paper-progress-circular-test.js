@@ -43,4 +43,15 @@ module('Integration | Component | paper progress circular', function(hooks) {
     assert.ok(parseFloat($svgPath.attr('stroke-dashoffset')), 'stroke-dashoffset has a number');
     assert.ok(parseFloat($svgPath.attr('stroke-dasharray')), 'stroke-dasharray has a number');
   });
+
+  test('is hidden when value is 0', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{paper-progress-circular value=0 diameter=25}}`);
+    await settled();
+
+    let $svgPath = this.$('md-progress-circular path');
+
+    assert.equal($svgPath.attr('visibility'), 'hidden', 'is hidden when value is 0');
+  });
 });
