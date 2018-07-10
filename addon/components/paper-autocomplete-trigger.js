@@ -1,10 +1,9 @@
 /**
  * @module ember-paper
  */
-import { not, oneWay } from '@ember/object/computed';
-
 import Component from '@ember/component';
-import { isBlank, isPresent } from '@ember/utils';
+import { not } from '@ember/object/computed';
+import { isBlank } from '@ember/utils';
 import { run } from '@ember/runloop';
 import { computed, get } from '@ember/object';
 import layout from '../templates/components/paper-autocomplete-trigger';
@@ -19,7 +18,6 @@ export default Component.extend({
   classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing', 'showingClearButton:md-show-clear-button'],
 
   noLabel: not('extra.label'),
-
   showingClearButton: computed('allowClear', 'disabled', 'resetButtonDestroyed', function() {
     // make room for clear button:
     // - if we're enabled
@@ -29,28 +27,13 @@ export default Component.extend({
     );
   }),
 
-  text: computed('select', 'searchText', {
-    get() {
-      let {
-        select,
-        searchText,
-      } = this.getProperties('select', 'searchText', '_innerText');
-
-      if (select && select.selected) {
-        return this.getSelectedAsText();
-      }
-      return searchText;
-    },
-    set(_, v) {
-      let { select, searchText } = this.getProperties('select', 'searchText');
-      // searchText should always win
-      if (!(select && select.selected) && isPresent(searchText)) {
-        return searchText;
-      }
-
-      return v;
+  text: computed('select.{searchText,selected}', function() {
+    let selected = this.get('select.selected');
+    if (selected) {
+      return this.getSelectedAsText();
     }
-  }),
+    return this.get('select.searchText');
+  }).readOnly(),
 
   // Lifecycle hooks
   didUpdateAttrs() {
@@ -60,20 +43,14 @@ export default Component.extend({
      * the select box. But we also close the select box when we're loading search results and when
      * we remove input text -- so protect against this
      */
-    let oldSelect = this.get('_oldSelect');
     let oldLastSearchedText = this.get('_lastSearchedText');
     let oldLoading = this.get('_loading');
     let oldDisabled = this.get('_lastDisabled');
 
     let select = this.get('select');
     let loading = this.get('loading');
-    let searchText = this.get('searchText');
     let lastSearchedText = this.get('lastSearchedText');
     let disabled = this.get('disabled');
-
-    if (oldSelect && oldSelect.isOpen && !select.isOpen && !loading && searchText) {
-      this.set('text', this.getSelectedAsText());
-    }
 
     if (lastSearchedText !== oldLastSearchedText) {
       if (isBlank(lastSearchedText)) {
@@ -92,7 +69,6 @@ export default Component.extend({
     }
 
     this.setProperties({
-      _oldSelect: select,
       _lastSearchedText: lastSearchedText,
       _loading: loading,
       _lastDisabled: disabled
@@ -107,7 +83,6 @@ export default Component.extend({
 
     clear(e) {
       e.stopPropagation();
-      this.set('text', '');
       if (this.get('onClear')) {
         this.get('onClear')();
       } else {
@@ -132,7 +107,6 @@ export default Component.extend({
         this.get('select').actions.select(null);
       }
       this.get('onInput')(e.target ? e : { target: { value: e } });
-      this.set('text', e.target ? e.target.value : e);
     },
 
     resetButtonDestroyed() {

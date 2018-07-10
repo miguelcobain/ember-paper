@@ -5,8 +5,8 @@ import { inject as service } from '@ember/service';
 
 import { alias } from '@ember/object/computed';
 import { assert } from '@ember/debug';
-import { isNone, isPresent } from '@ember/utils';
-import { defineProperty, aliasMethod, computed } from '@ember/object';
+import { isNone } from '@ember/utils';
+import { defineProperty, computed } from '@ember/object';
 import PowerSelect from 'ember-power-select/components/power-select';
 import layout from '../templates/components/paper-autocomplete';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
@@ -56,8 +56,10 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     return classes.join(' ');
   }),
 
-  _onSearchTextChange(value) {
-    this.set('searchText', value);
+  _onInput(value) {
+    let handler = this.get('onSearchTextChange') || ((v) => this.set('searchText', v));
+    handler(...arguments);
+    return value;
   },
 
   init() {
@@ -67,7 +69,6 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
 
   // Init autocomplete component
   _initComponent() {
-    // eslint-disable-line
     let {
       onSearchTextChange,
       onSelectionChange
@@ -79,12 +80,8 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     assert('{{paper-autocomplete}} requires at least one of the `onSelectionChange` or `onSearchTextChange` functions to be provided.', hasTextChange || hasSelectionChange);
 
     let aliasOnChangeDepKey = hasSelectionChange ? 'onSelectionChange' : '_onChangeNop';
-    this.oninput = (function() {
-      let handler = this.get('onSearchTextChange') || this.get('_onSearchTextChange');
-      handler.call(this, ...arguments);
-    }).bind(this);
-
     defineProperty(this, 'onchange', alias(aliasOnChangeDepKey));
+    this.oninput = this._onInput.bind(this);
   },
 
   // Choose highlighted item on key tab
@@ -98,11 +95,13 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
   },
 
   didReceiveAttrs() {
-    let { searchText, _prevSearchText } = this.getProperties('searchText', '_prevSearchText');
-    if (!isPresent(searchText) && isPresent(_prevSearchText)) {
-      this._resetSearch();
+    let searchText = this.get('searchText');
+    if (searchText !== this.get('publicAPI.searchText')) {
+      let publicAPI = this.get('publicAPI');
+      if (publicAPI && publicAPI.actions) {
+        publicAPI.actions.search(searchText);
+      }
     }
-    this.set('_prevSearchText', searchText);
     this._super(...arguments);
   },
 
