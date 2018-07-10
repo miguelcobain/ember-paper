@@ -15,6 +15,13 @@ export default Controller.extend({
 
   searchText: '',
 
+  highlightFirstMatch(api) {
+    if (api && api.results && api.results.length) {
+      return api.results[0];
+    }
+    return null;
+  },
+
   actions: {
     updateFilter(str) {
       this.set('searchText', str);

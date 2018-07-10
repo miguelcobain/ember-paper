@@ -3,9 +3,7 @@
  */
 import Component from '@ember/component';
 import { not } from '@ember/object/computed';
-import { isBlank } from '@ember/utils';
-import { run } from '@ember/runloop';
-import { computed, get } from '@ember/object';
+import { computed } from '@ember/object';
 import layout from '../templates/components/paper-autocomplete-trigger';
 
 /**
@@ -38,40 +36,14 @@ export default Component.extend({
   // Lifecycle hooks
   didUpdateAttrs() {
     this._super(...arguments);
-    /*
-     * We need to update the input field with value of the selected option whenever we're closing
-     * the select box. But we also close the select box when we're loading search results and when
-     * we remove input text -- so protect against this
-     */
-    let oldLastSearchedText = this.get('_lastSearchedText');
-    let oldLoading = this.get('_loading');
-    let oldDisabled = this.get('_lastDisabled');
-
-    let select = this.get('select');
-    let loading = this.get('loading');
-    let lastSearchedText = this.get('lastSearchedText');
+    let prevDisabled = this.get('_prevDisabled');
     let disabled = this.get('disabled');
-
-    if (lastSearchedText !== oldLastSearchedText) {
-      if (isBlank(lastSearchedText)) {
-        run.schedule('actions', null, select.actions.close, null, true);
-      } else {
-        run.schedule('actions', null, select.actions.open);
-      }
-    } else if (!isBlank(lastSearchedText) && get(this, 'options.length') === 0 && this.get('loading')) {
-      run.schedule('actions', null, select.actions.close, null, true);
-    } else if (oldLoading && !loading && this.get('options.length') > 0) {
-      run.schedule('actions', null, select.actions.open);
-    }
-
-    if (oldDisabled && !disabled) {
+    if (prevDisabled && !disabled) {
       this.set('resetButtonDestroyed', false);
     }
 
     this.setProperties({
-      _lastSearchedText: lastSearchedText,
-      _loading: loading,
-      _lastDisabled: disabled
+      _prevDisabled: disabled
     });
   },
 
