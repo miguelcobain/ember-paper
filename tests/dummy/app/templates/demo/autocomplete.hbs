@@ -13,6 +13,7 @@
       onCreate=(action "addCountry")
       options=items
       allowClear=true
+      defaultHighlighted=(if enableDefaultHighlighted highlightFirstMatch)
       searchText=(readonly countrySearchText)
       onSearchTextChange=(action (mut countrySearchText))
       selected=selectedCountry
@@ -47,6 +48,19 @@
       onChange=(action (mut simulateQuery))}}
       Simulate query
     {{/paper-checkbox}}
+    {{#paper-checkbox
+      value=enableDefaultHighlighted
+      onChange=(action (mut enableDefaultHighlighted))}}
+      Highlight first match
+    {{/paper-checkbox}}
+    {{paper-button
+      primary=true
+      label="Reset search-Text"
+      onClick=(action (mut countrySearchText) '')}}
+    {{paper-button
+      primary=true
+      label="Reset selected"
+      onClick=(action (mut selectedCountry) null)}}
 
     <h3>Template</h3>
     {{code-snippet name="autocomplete.basic-usage.hbs"}}

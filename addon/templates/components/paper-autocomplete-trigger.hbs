@@ -16,11 +16,10 @@
     hideAllMessages=hideAllMessages}}
 {{else}}
   <input type="search"
-    value={{text}}
+    value={{readonly text}}
     class="ember-paper-autocomplete-search-input flex"
     placeholder={{readonly placeholder}}
     oninput={{action "handleInputLocal"}}
-    onchange={{action "handleInputLocal"}}
     onfocus={{action onFocus}}
     onblur={{action onBlur}}
     onkeydown={{action "handleKeydown"}}

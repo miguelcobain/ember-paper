@@ -1,12 +1,9 @@
 /**
  * @module ember-paper
  */
-import { not, oneWay } from '@ember/object/computed';
-
 import Component from '@ember/component';
-import { isBlank, isPresent } from '@ember/utils';
-import { run } from '@ember/runloop';
-import { computed, get } from '@ember/object';
+import { not } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import layout from '../templates/components/paper-autocomplete-trigger';
 
 /**
@@ -19,8 +16,6 @@ export default Component.extend({
   classNameBindings: ['noLabel:md-whiteframe-z1', 'select.isOpen:md-menu-showing', 'showingClearButton:md-show-clear-button'],
 
   noLabel: not('extra.label'),
-  _innerText: oneWay('searchText'),
-
   showingClearButton: computed('allowClear', 'disabled', 'resetButtonDestroyed', function() {
     // make room for clear button:
     // - if we're enabled
@@ -30,76 +25,25 @@ export default Component.extend({
     );
   }),
 
-  text: computed('select', 'searchText', '_innerText', {
-    get() {
-      let {
-        select,
-        searchText,
-        _innerText
-      } = this.getProperties('select', 'searchText', '_innerText');
-
-      if (select && select.selected) {
-        return this.getSelectedAsText();
-      }
-      return searchText ? searchText : _innerText;
-    },
-    set(_, v) {
-      let { select, searchText } = this.getProperties('select', 'searchText');
-      this.set('_innerText', v);
-
-      // searchText should always win
-      if (!(select && select.selected) && isPresent(searchText)) {
-        return searchText;
-      }
-
-      return v;
+  text: computed('select.{searchText,selected}', function() {
+    let selected = this.get('select.selected');
+    if (selected) {
+      return this.getSelectedAsText();
     }
-  }),
+    return this.get('select.searchText');
+  }).readOnly(),
 
   // Lifecycle hooks
   didUpdateAttrs() {
     this._super(...arguments);
-    /*
-     * We need to update the input field with value of the selected option whenever we're closing
-     * the select box. But we also close the select box when we're loading search results and when
-     * we remove input text -- so protect against this
-     */
-    let oldSelect = this.get('_oldSelect');
-    let oldLastSearchedText = this.get('_lastSearchedText');
-    let oldLoading = this.get('_loading');
-    let oldDisabled = this.get('_lastDisabled');
-
-    let select = this.get('select');
-    let loading = this.get('loading');
-    let searchText = this.get('searchText');
-    let lastSearchedText = this.get('lastSearchedText');
+    let prevDisabled = this.get('_prevDisabled');
     let disabled = this.get('disabled');
-
-    if (oldSelect && oldSelect.isOpen && !select.isOpen && !loading && searchText) {
-      this.set('text', this.getSelectedAsText());
-    }
-
-    if (lastSearchedText !== oldLastSearchedText) {
-      if (isBlank(lastSearchedText)) {
-        run.schedule('actions', null, select.actions.close, null, true);
-      } else {
-        run.schedule('actions', null, select.actions.open);
-      }
-    } else if (!isBlank(lastSearchedText) && get(this, 'options.length') === 0 && this.get('loading')) {
-      run.schedule('actions', null, select.actions.close, null, true);
-    } else if (oldLoading && !loading && this.get('options.length') > 0) {
-      run.schedule('actions', null, select.actions.open);
-    }
-
-    if (oldDisabled && !disabled) {
+    if (prevDisabled && !disabled) {
       this.set('resetButtonDestroyed', false);
     }
 
     this.setProperties({
-      _oldSelect: select,
-      _lastSearchedText: lastSearchedText,
-      _loading: loading,
-      _lastDisabled: disabled
+      _prevDisabled: disabled
     });
   },
 
@@ -111,7 +55,6 @@ export default Component.extend({
 
     clear(e) {
       e.stopPropagation();
-      this.set('text', '');
       if (this.get('onClear')) {
         this.get('onClear')();
       } else {
@@ -136,7 +79,6 @@ export default Component.extend({
         this.get('select').actions.select(null);
       }
       this.get('onInput')(e.target ? e : { target: { value: e } });
-      this.set('text', e.target ? e.target.value : e);
     },
 
     resetButtonDestroyed() {
