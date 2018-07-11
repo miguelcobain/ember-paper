@@ -69,6 +69,10 @@ export default Component.extend(ColorMixin, {
     return isPresent(value) ? MODE_DETERMINATE : MODE_INDETERMINATE;
   }),
 
+  isHidden: computed('value', function() {
+    return this.get('value') == 0 ? 'hidden' : 'visible';
+  }),
+
   spinnerClass: computed('mode', function() {
     let mode = this.get('mode');
     return mode === MODE_DETERMINATE || mode === MODE_INDETERMINATE ? `md-mode-${mode}` : 'ng-hide';
