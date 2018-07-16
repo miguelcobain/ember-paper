@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerEvent, click } from '@ember/test-helpers';
+import { render, triggerEvent, click, blur } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper form', function(hooks) {
@@ -110,7 +110,8 @@ module('Integration | Component | paper form', function(hooks) {
       assert.notOk(isInvalidAndTouched);
     });
 
-    this.$('input:first').trigger('blur');
+    await click('input:first-of-type');
+    await blur('input:first-of-type');
 
     this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
       assert.notOk(isValid);

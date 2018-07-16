@@ -105,6 +105,11 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
     this._super(...arguments);
   },
 
+  updateSelection() {
+    this._super(...arguments);
+    this.notifyValidityChange();
+  },
+
   actions: {
 
     onTriggerMouseDown() {
