@@ -7,6 +7,7 @@ import { getOwner } from '@ember/application';
 import layout from '../templates/components/paper-tooltip';
 import $ from 'jquery';
 import getParent from 'ember-paper/utils/get-parent';
+import { supportsPassiveEventListeners } from 'ember-paper/utils/browser-features';
 
 export default Component.extend({
   tagName: '',
@@ -93,8 +94,10 @@ export default Component.extend({
     };
 
     anchorElement.addEventListener('focus', enterEventHandler);
-    anchorElement.addEventListener('touchstart', enterEventHandler);
     anchorElement.addEventListener('mouseenter', enterEventHandler);
+    anchorElement.addEventListener('touchstart',
+      enterEventHandler,
+      supportsPassiveEventListeners ? { passive: true } : false);
 
     window.addEventListener('scroll', leaveHandler);
     window.addEventListener('blur', leaveHandler);
