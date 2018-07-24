@@ -7,9 +7,12 @@ import { computed } from '@ember/object';
 import Mixin from '@ember/object/mixin';
 import { run } from '@ember/runloop';
 import $ from 'jquery';
+import { supportsPassiveEventListeners } from 'ember-paper/utils/browser-features';
+
 /* global window */
 
 const DURATION = 400;
+
 
 /**
  * @class RippleMixin
@@ -129,11 +132,16 @@ export default Mixin.create({
 
   },
   bindEvents() {
-    this.rippleElement.on('mousedown', run.bind(this, this.handleMousedown));
-    this.rippleElement.on('mouseup touchend', run.bind(this, this.handleMouseup));
-    this.rippleElement.on('mouseleave', run.bind(this, this.handleMouseup));
-    this.rippleElement.on('touchmove', run.bind(this, this.handleTouchmove));
+    let re = this.rippleElement.get(0);
+    re.addEventListener('mousedown', run.bind(this, this.handleMousedown));
+    re.addEventListener('mouseup', run.bind(this, this.handleMouseup));
+    re.addEventListener('mouseleave', run.bind(this, this.handleMouseup));
+
+    let options = supportsPassiveEventListeners ? { passive: true } : false;
+    re.addEventListener('touchend', run.bind(this, this.handleMouseup), options);
+    re.addEventListener('touchmove', run.bind(this, this.handleTouchmove), options);
   },
+
   handleMousedown(event) {
     if (this.mousedown) {
       return;
