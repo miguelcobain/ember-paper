@@ -71,7 +71,14 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   didReceiveAttrs() {
     this._super(...arguments);
     assert('{{paper-input}} requires an `onChange` action or null for no action.', this.get('onChange') !== undefined);
-    this.notifyValidityChange();
+
+    let { value, errors } = this.getProperties('value', 'errors');
+    let { _prevValue, _prevErrors } = this.getProperties('_prevValue', '_prevErrors');
+    if (value !== _prevValue || errors !== _prevErrors) {
+      this.notifyValidityChange();
+    }
+    this._prevValue = value;
+    this._prevErrors = errors;
   },
 
   didInsertElement() {
@@ -160,6 +167,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
     },
 
     handleBlur(e) {
+
       this.sendAction('onBlur', e);
       this.set('isTouched', true);
       this.notifyValidityChange();
