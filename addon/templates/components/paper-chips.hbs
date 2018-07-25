@@ -56,8 +56,8 @@
           placeholder=placeholder
           aria-label="Add Tag"
           value=newChipValue
-          focus-in="inputFocus"
-          focus-out="inputBlur"
+          focus-in=(action "inputFocus")
+          focus-out=(action "inputBlur")
           enter=(action "addItem" newChipValue)}}
       {{/if}}
     </div>
