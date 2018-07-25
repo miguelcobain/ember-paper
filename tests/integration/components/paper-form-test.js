@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerEvent, click, blur } from '@ember/test-helpers';
+import { render, triggerEvent, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper form', function(hooks) {
@@ -25,8 +25,8 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    assert.equal(this.$('.invalid-div').length, 0);
-    assert.equal(this.$('.valid-div').length, 1);
+    assert.dom('.invalid-div').doesNotExist();
+    assert.dom('.valid-div').exists({ count: 1 });
 
     this.set('errors', [{
       message: 'foo should be a number.',
@@ -36,8 +36,8 @@ module('Integration | Component | paper form', function(hooks) {
       attribute: 'foo'
     }]);
 
-    assert.equal(this.$('.invalid-div').length, 1);
-    assert.equal(this.$('.valid-div').length, 0);
+    assert.dom('.invalid-div').exists({ count: 1 });
+    assert.dom('.valid-div').doesNotExist();
   });
 
   test('form `onSubmit` action is invoked and `onInvalid` is not', async function(assert) {
@@ -61,7 +61,7 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    this.$('button').click();
+    await click('button');
   });
 
   test('form `onInvalid` action is invoked and `onSubmit` is not when the form is not valid', async function(assert) {
@@ -83,7 +83,7 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    this.$('button').click();
+    await click('button[type=submit]');
   });
 
   test('form `onValidityChange` action is invoked', async function(assert) {
@@ -110,8 +110,7 @@ module('Integration | Component | paper form', function(hooks) {
       assert.notOk(isInvalidAndTouched);
     });
 
-    await click('input:first-of-type');
-    await blur('input:first-of-type');
+    await triggerEvent('input:first-of-type', 'blur');
 
     this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
       assert.notOk(isValid);
@@ -173,8 +172,8 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    assert.equal(this.$('.invalid-div').length, 0);
-    assert.equal(this.$('.valid-div').length, 1);
+    assert.dom('.invalid-div').doesNotExist();
+    assert.dom('.valid-div').exists({ count: 1 });
 
     this.set('errors', [{
       message: 'foo should be a number.',
@@ -184,8 +183,8 @@ module('Integration | Component | paper form', function(hooks) {
       attribute: 'foo'
     }]);
 
-    assert.equal(this.$('.invalid-div').length, 1);
-    assert.equal(this.$('.valid-div').length, 0);
+    assert.dom('.invalid-div').exists({ count: 1 });
+    assert.dom('.valid-div').doesNotExist();
   });
 
   test('form submit button renders', async function(assert) {
@@ -197,7 +196,7 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    assert.equal(this.$('button').length, 1);
+    assert.dom('button').exists({ count: 1 });
   });
 
   test('form submit button calls form onSubmit action', async function(assert) {
@@ -213,7 +212,7 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    this.$('button').click();
+    await click('button');
   });
 
   test('form submit button is of type submit', async function(assert) {
@@ -225,7 +224,7 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    assert.equal(this.$('button').attr('type'), 'submit');
+    assert.dom('button').hasAttribute('type', 'submit');
   });
 
   test('form submit button component can be customized by passing `submitButtonComponent`', async function(assert) {
@@ -241,7 +240,8 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    assert.equal(this.$('.custom-submit-button').length, 1, 'custom submit button is displayed');
+    assert.dom('.custom-submit-button')
+      .exists({ count: 1 }, 'custom submit button is displayed');
   });
 
   test('form `onSubmit` action is invoked when form element is submitted', async function(assert) {
@@ -261,7 +261,7 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    this.$('input').last().click();
+    await click('input[type=submit]');
   });
 
   test('yielded form.input renders the `paper-input`-component', async function(assert) {
@@ -277,7 +277,8 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    assert.equal(this.$('.paper-input').length, 1, 'paper-input component displayed');
+    assert.dom('.paper-input')
+      .exists({ count: 1 }, 'paper-input component displayed');
   });
 
   test('yielded form.input can be customized by passing `inputComponent`', async function(assert) {
@@ -297,8 +298,10 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    assert.equal(this.$('.paper-input').length, 0, 'paper-input component is not displayed');
-    assert.equal(this.$('.custom-input').length, 1, 'custom input-component is displayed');
+    assert.dom('.paper-input')
+      .doesNotExist('paper-input component is not displayed');
+    assert.dom('.custom-input')
+      .exists({ count: 1 }, 'custom input-component is displayed');
   });
 
   test('yielded form.select renders `paper-select`-component', async function(assert) {
@@ -314,7 +317,8 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    assert.equal(this.$('.paper-select').length, 1, 'paper-select is displayed');
+    assert.dom('.paper-select')
+      .exists({ count: 1 }, 'paper-select is displayed');
   });
 
   test('yielded form.select can be customized by passing `selectComponent`', async function(assert) {
@@ -334,8 +338,10 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    assert.equal(this.$('.paper-select').length, 0, 'paper-select component is not displayed');
-    assert.equal(this.$('.custom-select').length, 1, 'custom select-component is displayed');
+    assert.dom('.paper-select')
+      .doesNotExist('paper-select component is not displayed');
+    assert.dom('.custom-select')
+      .exists({ count: 1 }, 'custom select-component is displayed');
   });
 
   test('yielded form.autocomplete renders `paper-autocomplete`-component', async function(assert) {
@@ -351,7 +357,8 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    assert.equal(this.$('.paper-autocomplete').length, 1, 'paper-autocomplete is displayed');
+    assert.dom('.paper-autocomplete')
+      .exists({ count: 1 }, 'paper-autocomplete is displayed');
   });
 
   test('yielded form.autocomplete can be customized by passing `autocompleteComponent`', async function(assert) {
@@ -371,7 +378,9 @@ module('Integration | Component | paper form', function(hooks) {
       {{/paper-form}}
     `);
 
-    assert.equal(this.$('.paper-autocomplete').length, 0, 'paper-autocomplete component is not displayed');
-    assert.equal(this.$('.custom-autocomplete').length, 1, 'custom autocomplete-component is displayed');
+    assert.dom('.paper-autocomplete')
+      .doesNotExist('paper-autocomplete component is not displayed');
+    assert.dom('.custom-autocomplete')
+      .exists({ count: 1 }, 'custom autocomplete-component is displayed');
   });
 });
