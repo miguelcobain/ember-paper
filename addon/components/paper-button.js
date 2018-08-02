@@ -30,7 +30,6 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   type: 'button',
   href: null,
   target: null,
-  timesClicked: 0,
 
   attributeBindings: [
     'type',
