@@ -210,4 +210,24 @@ module('Integration | Component | paper tabs', function(hooks) {
     assert.ok(find('md-tabs-canvas').classList.contains('md-center-tabs'));
     assert.ok(find('md-pagination-wrapper').classList.contains('md-center-tabs'));
   });
+
+  test('disabled tab cannot be accessed', async function(assert) {
+    await render(hbs`
+      {{#paper-tabs as |tabs|}}
+        {{#tabs.tab}}
+          one
+        {{/tabs.tab}}
+        {{#tabs.tab disabled=true}}
+          two
+        {{/tabs.tab}}
+        {{#tabs.tab}}
+          three
+        {{/tabs.tab}}
+      {{/paper-tabs}}
+    `);
+   
+    await click('.md-tab:nth-child(2)');
+  
+    assert.ok(find('.md-tab:nth-child(1)').classList.contains('md-active'));
+  });
 });
