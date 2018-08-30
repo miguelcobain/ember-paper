@@ -230,4 +230,16 @@ module('Integration | Component | paper tabs', function(hooks) {
   
     assert.ok(find('.md-tab:nth-child(1)').classList.contains('md-active'));
   });
+
+  test('using href and disabled does not render anchor tags', async function(assert) {
+    await render(hbs`
+      {{#paper-tabs as |tabs|}}
+        {{tabs.tab href="a"}}
+        {{tabs.tab href="b" disabled=true}}
+        {{tabs.tab href="c"}}
+      {{/paper-tabs}}
+    `);
+
+    assert.notOk(find('.md-tab:nth-child(2)').hasAttribute('href'));
+  });
 });
