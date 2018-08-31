@@ -8,6 +8,7 @@ import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-toast-inner';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
+import { safeClosureAction } from '../utils/actions';
 
 /* global Hammer */
 
@@ -114,7 +115,8 @@ export default Component.extend(TransitionMixin, {
       active: false,
       dragging: false
     });
-    this.sendAction('onClose');
+    
+    safeClosureAction(this, 'onClose');
   }
 }
 );
