@@ -12,7 +12,7 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
   tagName: 'md-tab-item',
   classNames: ['md-tab'],
   classNameBindings: ['isSelected:md-active'],
-  attributeBindings: ['isSelected:aria-selected', 'href', 'style'],
+  attributeBindings: ['isSelected:aria-selected', 'style', 'maybeHref:href'],
 
   rippleContainerSelector: null,
 
@@ -21,6 +21,12 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
   style: computed('href', function() {
     if (this.get('href')) {
       return htmlSafe('text-decoration: none; border: none;');
+    }
+  }),
+
+  maybeHref: computed('href', 'disabled', function() {
+    if (this.get('href') && !this.get('disabled')) {
+      return this.get('href');
     }
   }),
 
@@ -58,7 +64,11 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
   },
 
   click() {
-    safeClosureAction(this, 'onClick', ...arguments);
-    safeClosureAction(this, 'onSelect', this);
+
+    if(!this.get('disabled')) {
+      safeClosureAction(this, 'onClick', ...arguments);
+      safeClosureAction(this, 'onSelect', this);
+    }
+    
   }
 });
