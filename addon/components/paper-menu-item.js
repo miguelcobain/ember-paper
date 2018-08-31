@@ -6,6 +6,7 @@ import { or } from '@ember/object/computed';
 
 import layout from '../templates/components/paper-menu-item';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
+import { safeClosureAction } from '../utils/actions';
 
 /**
  * @class PaperMenuItem
@@ -20,9 +21,9 @@ export default Component.extend(ChildMixin, {
   shouldRenderButton: or('onClick', 'href'),
 
   actions: {
-    handleClick(event) {
+    handleClick(e) {
       this.get('dropdown.actions').close();
-      this.sendAction('onClick', event);
+      safeClosureAction(this, 'onClick', e);
     }
   },
 
