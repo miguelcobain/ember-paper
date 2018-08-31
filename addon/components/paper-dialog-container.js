@@ -2,6 +2,7 @@
  * @module ember-paper
  */
 import Component from '@ember/component';
+import { safeClosureAction } from '../utils/actions';
 
 /**
  * @class PaperDialogContainer
@@ -18,7 +19,7 @@ export default Component.extend({
     if (this._sourceEl === this.element && ev.target === this.element) {
       ev.stopPropagation();
       ev.preventDefault();
-      this.sendAction('outsideClicked');
+      safeClosureAction(this, 'outsideClicked');
     }
   }
 });
