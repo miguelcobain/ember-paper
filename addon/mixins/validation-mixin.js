@@ -14,6 +14,7 @@ import minValidator from 'ember-paper/validators/min';
 import maxValidator from 'ember-paper/validators/max';
 import minlengthValidator from 'ember-paper/validators/minlength';
 import maxlengthValidator from 'ember-paper/validators/maxlength';
+import { safeClosureAction } from '../utils/actions';
 
 /**
  * In order to make validation generic it is required that components using the validation mixin
@@ -130,7 +131,7 @@ export default Mixin.create({
     let isTouched = this.get('isTouched');
     let lastIsTouched = this.get('lastIsTouched');
     if (lastIsValid !== isValid || lastIsTouched !== isTouched) {
-      this.sendAction('onValidityChange', isValid);
+      safeClosureAction(this, 'onValidityChange', isValid);
       this.set('lastIsValid', isValid);
       this.set('lastIsTouched', isTouched);
     }
