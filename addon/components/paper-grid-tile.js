@@ -8,6 +8,7 @@ import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-grid-tile';
 import { ChildMixin } from 'ember-composability-tools';
+import { safeClosureAction } from '../utils/actions';
 
 const positionCSS = (positions) => {
   return `calc((${positions.unit} + ${positions.gutter}) * ${positions.offset})`;
@@ -41,7 +42,7 @@ export default Component.extend(ChildMixin, {
 
   updateTile() {
     this.$().css(this._tileStyle());
-    this.sendAction('onUpdate');
+    safeClosureAction('onUpdate');
   },
 
   colspanMedia: computed('colspan', function() {
