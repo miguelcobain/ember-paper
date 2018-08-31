@@ -13,6 +13,7 @@ import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
+import { safeClosureAction } from '../utils/actions';
 
 /* global Hammer */
 
@@ -131,7 +132,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
       let dragAmount = this.get('dragAmount');
 
       if (!this.get('dragging') || (value && dragAmount < 0.5) || (!value && dragAmount > 0.5)) {
-        this.sendAction('onChange', !value);
+        safeClosureAction(this, 'onChange', !value);
       }
       this.set('dragging', false);
       this.set('dragAmount', null);
@@ -153,7 +154,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   },
 
   processProxy() {
-    this.sendAction('onChange', !this.get('value'));
+    safeClosureAction(this, 'onChange', !this.get('value'));
   }
 
 });
