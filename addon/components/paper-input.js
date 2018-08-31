@@ -14,6 +14,7 @@ import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
+import { safeClosureAction } from '../utils/actions';
 
 /**
  * @class PaperInput
@@ -152,7 +153,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
 
   actions: {
     handleInput(e) {
-      this.sendAction('onChange', e.target.value);
+      safeClosureAction(this, 'onChange', e.target.value);
       // setValue below ensures that the input value is the same as this.value
       run.next(() => {
         if (this.isDestroyed) {
@@ -167,8 +168,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
     },
 
     handleBlur(e) {
-
-      this.sendAction('onBlur', e);
+      safeClosureAction(this, 'onBlur', e);
       this.set('isTouched', true);
       this.notifyValidityChange();
     }
