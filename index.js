@@ -219,7 +219,7 @@ module.exports = {
     does not have such a hack for the same reason.
 
     tl;dr - We want the non built scss files, and b/c this dep is only provided via
-    bower, we use this hack. Please change it if you read this and know a better way.
+    git, we use this hack. Please change it if you read this and know a better way.
   */
   pathBase(packageName) {
     return path.dirname(resolve.sync(`${packageName}/package.json`, { basedir: __dirname }));
