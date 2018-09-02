@@ -446,18 +446,9 @@ $color-blue-grey: (
   'contrastStrongLightColors': ('400', '500', '700')
 ) !default;
 
-$shades: (
-  'black': #000000,
-  'white': #FFFFFF
-) !default;
-
-$background-light: map-merge($color-grey, (
-  'default': 'A100',
-)) !default;
-
 $colors: () !default;
 
-$colors: map-merge($colors,(
+$colors: map-merge($colors, (
   'red': $color-red,
   'pink': $color-pink,
   'purple': $color-purple,
@@ -477,77 +468,6 @@ $colors: map-merge($colors,(
   'brown': $color-brown,
   'blue-grey': $color-blue-grey,
   'grey': $color-grey,
-  'shades': $shades,
   'foreground-light': $foreground-light,
-  'foreground-dark': $foreground-dark,
-  'background-light': $background-light,
+  'foreground-dark': $foreground-dark
 ));
-
-$default-color: '500' !default;
-
-// returns color shade given a color palette name or a palette map
-@function color($color, $type: null) {
-  $curr_color: null;
-  // color is a string case
-  @if type-of($color) == 'string' and map-has-key($colors, $color) {
-    $curr_color: map-get($colors, $color);
-  } @else {
-    // color is a map
-    $curr_color: $color;
-  }
-
-  // if no type was provided:
-  //   - use 'default' key if present
-  //   - use '500' from $default-color
-  @if ($type == null) {
-    @if map-has-key($curr_color, 'default') {
-      $type: map-get($curr_color, 'default');
-    } @else {
-      $type: $default-color;
-    }
-  }
-
-  @return map-get($curr_color, $type);
-}
-
-// returns the correct contrast color for the given color
-@function contrastColor($color, $type: null) {
-  $curr_color: null;
-  // color is a string case
-  @if type-of($color) == 'string' and map-has-key($colors, $color) {
-    $curr_color: map-get($colors, $color);
-  } @else {
-    // color is a map
-    $curr_color: $color;
-  }
-
-  // if no type was provided:
-  //   - use 'default' key if present
-  //   - use '500' from $default-color
-  @if ($type == null) {
-    @if map-has-key($curr_color, 'default') {
-      $type: map-get($curr_color, 'default');
-    } @else {
-      $type: $default-color;
-    }
-  }
-
-  // $curr_color hold the color hash
-  // contrastDarkColors holds the shades of dark contrast
-  // contrastLightColors holds the shades of light contrast
-  // contrastStrongLightColors holds the shades of strong light contrast
-  $contrastDarkColors: map-get($curr_color, 'contrastDarkColors');
-  $contrastLightColors: map-get($curr_color, 'contrastLightColors');
-  $contrastStrongLightColors: map-get($curr_color, 'contrastStrongLightColors');
-  $contrastDefaultColor: map-get($curr_color, 'contrastDefaultColor');
-
-  @if $contrastDarkColors != null and index($contrastDarkColors, $type) != null {
-    @return $dark-contrast-color;
-  } @else if $contrastLightColors != null and index($contrastLightColors, $type) != null {
-    @return $light-contrast-color;
-  } @else if $contrastStrongLightColors != null and index($contrastStrongLightColors, $type) != null {
-    @return $strong-light-contrast-color;
-  } @else {
-    @return $contrastDefaultColor;
-  }
-}

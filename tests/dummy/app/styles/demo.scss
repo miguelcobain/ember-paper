@@ -130,20 +130,20 @@ td.description *:last-child {
 }
 
 tr:nth-child(odd) td {
-  background-color: lighten(color($primary, '50'), 2);
+  background-color: lighten(paper-color($primary, '50'), 2);
 }
 
 tr:nth-child(even) td {
-  background-color: lighten(color($primary, '50'), 4);
+  background-color: lighten(paper-color($primary, '50'), 4);
 }
 
 th {
-  background-color: color($primary, '400');
+  background-color: paper-color($primary, '400');
   color: white;
 }
 
 tr.subheading td {
-  background-color: color($primary, '100');
+  background-color: paper-color($primary, '100');
 }
 
 blockquote {
@@ -176,7 +176,7 @@ ul li:first-child {
 }
 
 md-toolbar.md-default-theme.page-main-toolbar {
-  background-color: color('grey', '100');
+  background-color: paper-color('grey', '100');
   color: $dark-contrast-color;
 
   md-icon, .md-button md-icon {
@@ -218,7 +218,7 @@ md-toolbar.md-default-theme.page-main-toolbar {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: color($color-grey, '500');
+  background: paper-color($color-grey, '500');
 }
 
 .site-sidenav,
@@ -232,10 +232,10 @@ md-toolbar.md-default-theme.page-main-toolbar {
   min-width: 218px;
 }
 md-sidenav.site-sidenav {
-  background: color($primary, '400');
+  background: paper-color($primary, '400');
 
   md-toolbar.md-default-theme {
-    background: linear-gradient(to bottom, color($primary, '600'), color($primary, '400'));;
+    background: linear-gradient(to bottom, paper-color($primary, '600'), paper-color($primary, '400'));;
     border-bottom: 1px solid rgba(#fff, .1);
     color: #fff;
 
@@ -1510,9 +1510,9 @@ md-tabs.md-primary {
 /* toast demo */
 md-toast {
   &.md-accent > .md-toast-content {
-    background: color($accent, '400');
+    background: paper-color($accent, '400');
   }
   &.md-warn > .md-toast-content {
-    background: color($warn, '400');
+    background: paper-color($warn, '400');
   }
 }

@@ -1,15 +1,15 @@
 $flexbox-shadow: inset 0px 0px 5px 0 rgba(0,0,0,0.16);
-$flexbox-color1: color('deep-purple', '200');
-$flexbox-color2: color('orange', '400');
-$flexbox-color3: color('blue', '300');
-$flexbox-color4: color('teal', '200');
-$flexbox-color5: color('pink', '300');
-$flexbox-color6: color('lime', '300');
-$flexbox-color7: color('amber', '300');
+$flexbox-color1: paper-color('deep-purple', '200');
+$flexbox-color2: paper-color('orange', '400');
+$flexbox-color3: paper-color('blue', '300');
+$flexbox-color4: paper-color('teal', '200');
+$flexbox-color5: paper-color('pink', '300');
+$flexbox-color6: paper-color('lime', '300');
+$flexbox-color7: paper-color('amber', '300');
 
 .doc-content.layout-docs {
   .demo-group h4 {
-    color: color('grey');
+    color: paper-color('grey');
     font-size: 90%;
   }
 
@@ -129,7 +129,7 @@ $flexbox-color7: color('amber', '300');
   &.alignment {
     .example {
       border-radius: 0;
-      border-bottom: 1px dotted color('grey', '300');
+      border-bottom: 1px dotted paper-color('grey', '300');
     }
 
     .layout-class {

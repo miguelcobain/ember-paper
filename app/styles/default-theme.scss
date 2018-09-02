@@ -1,13 +1,114 @@
-$theme-name: "default" !default;
-
 $primary: "indigo" !default;
 $accent: "pink" !default;
 $warn: "red" !default;
-$link: "light-blue" !default;
-
-$dark: false !default;
 
 $foreground: "foreground-dark" !default;
 $background: "grey" !default;
 
-$base-color: rgba(0, 0, 0, 0.87) !default;
+// Function that returns a registered palette if a palette name is
+// passed or just returns the given palette itself.
+@function paper-get-palette($palette) {
+  // color is a string case
+  @if type-of($palette) == 'string' and map-has-key($colors, $palette) {
+    @return map-get($colors, $palette);
+  } @else {
+    // palette is a map
+    @return $palette;
+  }
+}
+
+@function color($color, $type: null) {
+  @warn "color function is deprecated. Please use paper-color function instead.";
+  @return paper-color($color, $type);
+}
+
+$default-color: '500' !default;
+
+// returns color shade given a color palette name or a palette map
+@function paper-color($color, $type: null) {
+  $curr_color: paper-get-palette($color);
+
+  // if no type was provided:
+  //   - use 'default' key if present
+  //   - use '500' from $default-color
+  @if ($type == null) {
+    @if map-has-key($curr_color, 'default') {
+      $type: map-get($curr_color, 'default');
+    } @else {
+      $type: $default-color;
+    }
+  }
+
+  @return map-get($curr_color, $type);
+}
+
+@function contrastColor($color, $type: null) {
+  @warn "contrastColor function is deprecated. Please use paper-contrast-color function instead.";
+  @return paper-color($color, $type);
+}
+
+// returns the correct contrast color for the given color
+@function paper-contrast-color($color, $type: null) {
+  $curr_color: paper-get-palette($color);
+
+  // if no type was provided:
+  //   - use 'default' key if present
+  //   - use '500' from $default-color
+  @if ($type == null) {
+    @if map-has-key($curr_color, 'default') {
+      $type: map-get($curr_color, 'default');
+    } @else {
+      $type: $default-color;
+    }
+  }
+
+  // $curr_color hold the color hash
+  // contrastDarkColors holds the shades of dark contrast
+  // contrastLightColors holds the shades of light contrast
+  // contrastStrongLightColors holds the shades of strong light contrast
+  $contrastDarkColors: map-get($curr_color, 'contrastDarkColors');
+  $contrastLightColors: map-get($curr_color, 'contrastLightColors');
+  $contrastStrongLightColors: map-get($curr_color, 'contrastStrongLightColors');
+  $contrastDefaultColor: map-get($curr_color, 'contrastDefaultColor');
+
+  @if $contrastDarkColors != null and index($contrastDarkColors, $type) != null {
+    @return $dark-contrast-color;
+  } @else if $contrastLightColors != null and index($contrastLightColors, $type) != null {
+    @return $light-contrast-color;
+  } @else if $contrastStrongLightColors != null and index($contrastStrongLightColors, $type) != null {
+    @return $strong-light-contrast-color;
+  } @else {
+    @return $contrastDefaultColor;
+  }
+}
+
+// mixin that includes the given palettes css variables.
+@mixin paper-theme-variables($primary, $accent, $warn, $background, $foreground) {
+
+  $palettes: (
+    'primary': $primary,
+    'accent': $accent,
+    'warn': $warn,
+    'background': $background
+  );
+
+  @each $paletteName, $palette in $palettes {
+
+    @each $hue, $color in paper-get-palette($palette) {
+      @if str-index($hue, 'contrast') == null {
+        --#{$paletteName}-#{$hue}: #{red($color)}, #{green($color)}, #{blue($color)};
+        $contrast-color: paper-contrast-color($palette, $hue);
+        --#{$paletteName}-#{$hue}-contrast: #{red($contrast-color)}, #{green($contrast-color)}, #{blue($contrast-color)};
+      }
+    }
+  }
+
+  @each $name, $value in paper-get-palette($foreground) {
+    --foreground-#{$name}: #{$value};
+  }
+
+}
+
+:root {
+  @include paper-theme-variables($primary, $accent, $warn, $background, $foreground);
+}

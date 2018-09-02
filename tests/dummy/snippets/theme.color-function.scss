@@ -1,8 +1,8 @@
 .my-component {
-  color: contrastColor($primary, '500');
-  background-color: color($primary, '200');
+  color: paper-contrast-paper-color($primary, '500');
+  background-color: paper-color($primary, '200');
 }
 
 .oh-dear {
-  background-color: color($warn, 'A100');
+  background-color: paper-color($warn, 'A100');
 }
