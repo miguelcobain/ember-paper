@@ -42,7 +42,7 @@ export default Component.extend(ChildMixin, {
 
   updateTile() {
     this.$().css(this._tileStyle());
-    safeClosureAction('onUpdate');
+    safeClosureAction(this, 'onUpdate');
   },
 
   colspanMedia: computed('colspan', function() {
