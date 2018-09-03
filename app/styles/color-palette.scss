@@ -471,3 +471,11 @@ $colors: map-merge($colors, (
   'foreground-light': $foreground-light,
   'foreground-dark': $foreground-dark
 ));
+
+// export palettes to js land using ember-cli-sass-variables-export addon
+$colors-export: export('palettes', $colors);
+$contrasts-export: export('contrasts', (
+  'light-contrast-color': $light-contrast-color,
+  'dark-contrast-color': $dark-contrast-color,
+  'strong-light-contrast-color': $strong-light-contrast-color
+));

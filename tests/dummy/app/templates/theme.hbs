@@ -1,28 +1,96 @@
-{{page-toolbar pageTitle="Theme & Color" isDemo=false}}
+{{page-toolbar pageTitle="Themes & Colors" isDemo=false}}
 
 {{#paper-content class="md-padding"}}
 <div class="doc-content">
-  <h3>Color and the Palette</h3>
+
   <p>
-    <code>ember-paper</code> uses the same color palettes and palette names as
-    Angular Material and <a href="https://material.google.com/style/color.html">Material Design</a>.
-    Each palette contains 14 shades/tints of the specified hue for use by components
-    in diffierent situations. The definitive shade/tint is <code>'500'</code>.
-    Specify the desired palette(s) prior to importing <code>ember-paper.scss</code>.
+    Color is a big part of any application. Ember paper allows you to customize how your app
+    is colored based on your configuration. Sensible defaults are included.
   </p>
+
+  <h3>Changing default theme</h3>
+
+  <p>
+    A theme is a collection of palettes. Each palette corresponds to an "intention".
+    An ember-paper theme has palettes for <code>primary</code>, <code>accent</code> and <code>warn</code>
+    intentions.
+  </p>
+
+  <p>
+    To customize the default theme, you can override the sass variables for each intention:
+  </p>
+
   {{code-snippet name="theme.import.scss"}}
-  <h3>Overriding Variables</h3>
+
   <p>
-    Many of the sass variables are defined with <code>!default</code>.
-    This allows a variable to be overridden by a previous definition.
-    Make overrides prior to importing the file defining the variable.
+    As you can see, you can just specify a name string for the palette you want, if that palette
+    is one of the included ones. If the default included palettes are all you care about,
+    this is all you need.
   </p>
+
+  <h3>Included palettes</h3>
+
   <p>
-    You can modify the colors in the palette you are using for <code>$primary</code>,
-    <code>$accent</code>, or <code>$warn</code>. You can also define an entirely
-    new palette and specify it by a new name as the primary, accent, or warn color.
+    By default, Ember paper ships with all palettes from the material design spec built in. Valid palettes include:
   </p>
-  <h3>Using theme colors in your custom SASS</h3>
+
+  <ul>
+    <li>red</li>
+    <li>pink</li>
+    <li>purple</li>
+    <li>deep-purple</li>
+    <li>indigo</li>
+    <li>blue</li>
+    <li>light-blue</li>
+    <li>cyan</li>
+    <li>teal</li>
+    <li>green</li>
+    <li>light-green</li>
+    <li>lime</li>
+    <li>yellow</li>
+    <li>amber</li>
+    <li>orange</li>
+    <li>deep-orange</li>
+    <li>brown</li>
+    <li>grey</li>
+    <li>blue-grey</li>
+  </ul>
+
+  <h3>Creating custom palettes</h3>
+
+  <p>
+    A palette is a collection of hues of a color. You can create such a collection yourself using sass maps.
+    ember-paper expects a palette color map to have the keys <code>50</code>, <code>100</code>,
+    <code>200</code>, <code>300</code>, <code>400</code>, <code>500</code>, <code>600</code>,
+    <code>700</code>, <code>800</code>, <code>900</code>, <code>A100</code>, <code>A200</code>,
+    <code>A400</code> and <code>A700</code>.
+  </p>
+
+  <p>
+    Each number means a "stronger" shade of the palette, and the "A" prefixed keys are used when
+    the palette is the accent palette.
+  </p>
+
+  <p>
+    A palette should also have the contrast information. You can do that using the <code>contrastDefaultColor</code>,
+    <code>contrastLightColors</code> and <code>contrastStrongLightColors</code> keys. <code>contrastLightColors</code>
+    has a list of the keys where a <strong>light</strong> color contrast is applied. <code>contrastStrongLightColors</code>
+    has a list of the keys where a <strong>dark</strong> color contrast is applied. Any other key will use
+    the color on the <code>contrastDefaultColor</code> key.
+  </p>
+
+   <p>
+    Here is the definition of the "teal" palette, applied to the primary intention:
+  </p>
+
+  {{code-snippet name="theme.custom-palette.scss"}}
+
+  <blockquote>
+    You can find some material palette generators online. Example: <a href="http://mcg.mbitson.com/">http://mcg.mbitson.com/</a>.
+  </blockquote>
+
+  <h3>Using colors in your styles</h3>
+
   <p>
     <code>ember-paper</code> provides two sass functions that you can use to hook
     more easily into the provided palettes:
@@ -38,6 +106,77 @@
     for placing text on top of a color or whenever you need a color for legibility/contrast
     purposes.
   </p>
+
+  <p>
+    Here is an example of using these functions:
+  </p>
+
   {{code-snippet name="theme.color-function.scss"}}
+
+
+  <h3>Changing themes at runtime</h3>
+
+  <p>
+    Sometimes we have more complex requirements for when or where to use colors in our app.
+    ember-paper provides a `paper-theme` service that allows you to install or uninstall themes
+    at runtime.
+  </p>
+
+  <p>
+    You can use these controls to change the theme at runtime. Feel from to navigate to other
+    routes of the demo after installing a custom theme.
+  </p>
+
+  {{#paper-card as |card|}}
+    {{#card.content class="layout-row"}}
+      {{#paper-select
+        label="Primary palette"
+        class="flex"
+        required=true
+        options=palettes
+        selected=primary
+        onChange=(action (mut primary))
+        as |p|}}
+        {{p.name}}
+      {{/paper-select}}
+
+      {{#paper-select
+        label="Accent palette"
+        class="flex"
+        required=true
+        options=palettes
+        selected=accent
+        onChange=(action (mut accent))
+        as |p|}}
+        {{p.name}}
+      {{/paper-select}}
+
+      {{#paper-select
+        label="Warn palette"
+        class="flex"
+        required=true
+        options=palettes
+        selected=warn
+        onChange=(action (mut warn))
+        as |p|}}
+        {{p.name}}
+      {{/paper-select}}
+
+    {{/card.content}}
+
+    {{#card.actions}}
+      {{#paper-button primary=true raised=true disabled=isInvalid onClick=(action "installTheme")}}
+        Install Theme
+      {{/paper-button}}
+
+      {{#paper-button accent=true raised=true onClick=(action "uninstallTheme")}}
+        Uninstall Theme
+      {{/paper-button}}
+    {{/card.actions}}
+  {{/paper-card}}
+
+  <p>Here is the code used for these actions:</p>
+
+  {{code-snippet name="theme.service.js"}}
 </div>
 {{/paper-content}}

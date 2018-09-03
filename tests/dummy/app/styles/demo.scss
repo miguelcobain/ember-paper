@@ -221,6 +221,10 @@ md-toolbar.md-default-theme.page-main-toolbar {
   background: paper-color($color-grey, '500');
 }
 
+@function paper-var($varName) {
+  @return RGB(var(#{$varName}));
+}
+
 .site-sidenav,
 .site-sidenav.md-locked-open-add-active,
 .site-sidenav.md-locked-open {
@@ -232,10 +236,12 @@ md-toolbar.md-default-theme.page-main-toolbar {
   min-width: 218px;
 }
 md-sidenav.site-sidenav {
-  background: paper-color($primary, '400');
+  background-color: paper-color($primary, '400');
+  background-color: paper-var(--primary-400);
 
   md-toolbar.md-default-theme {
-    background: linear-gradient(to bottom, paper-color($primary, '600'), paper-color($primary, '400'));;
+    background: linear-gradient(to bottom, paper-color($primary, '600'), paper-color($primary, '400'));
+    background: linear-gradient(to bottom, paper-var(--primary-600), paper-var(--primary-400));
     border-bottom: 1px solid rgba(#fff, .1);
     color: #fff;
 

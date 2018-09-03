@@ -9,6 +9,7 @@ const writeFile = require('broccoli-file-creator');
 const Funnel = require('broccoli-funnel');
 const AngularScssFilter = require('./lib/angular-scss-filter');
 const fastbootTransform = require('fastboot-transform');
+const sass = require('node-sass');
 
 module.exports = {
   name: 'ember-paper',
@@ -37,7 +38,14 @@ module.exports = {
   },
 
   config() {
-    return { 'ember-paper': { insertFontLinks: true } };
+    return {
+      'ember-paper': {
+        insertFontLinks: true
+      },
+      sassOptions: {
+        implementation: sass
+      }
+    };
   },
 
   contentFor(type, config) {
