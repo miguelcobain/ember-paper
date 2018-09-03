@@ -201,9 +201,7 @@ module.exports = {
       annotation: 'AngularScssFunnel'
     });
 
-    angularScssFiles = new AngularScssFilter(angularScssFiles, {
-      annotation: 'AngularScssFilter'
-    });
+    angularScssFiles = new AngularScssFilter(angularScssFiles);
 
     let mergedTrees = new BroccoliMergeTrees([angularScssFiles, tree], { overwrite: true });
     return this._super.treeForStyles(mergedTrees);
