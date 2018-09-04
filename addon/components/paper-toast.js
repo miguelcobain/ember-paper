@@ -11,7 +11,7 @@ import { run } from '@ember/runloop';
 import { guidFor } from '@ember/object/internals';
 import { getOwner } from '@ember/application';
 import layout from '../templates/components/paper-toast';
-import { safeClosureAction } from '../utils/actions';
+import { invokeAction } from 'ember-invoke-action';
 
 /**
  * @class PaperToast
@@ -75,7 +75,7 @@ export default Component.extend({
 
   _destroyMessage() {
     if (!this.isDestroyed) {
-      safeClosureAction(this, 'onClose');
+      invokeAction(this, 'onClose');
     }
   },
 
@@ -121,7 +121,7 @@ export default Component.extend({
 
   swipeAction()  {
     if (this.get('swipeToClose')) {
-      safeClosureAction(this, 'onClose');
+      invokeAction(this, 'onClose');
     }
   }
 });

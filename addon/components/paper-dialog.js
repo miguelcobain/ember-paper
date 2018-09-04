@@ -9,7 +9,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { getOwner } from '@ember/application';
 import layout from '../templates/components/paper-dialog';
-import { safeClosureAction } from '../utils/actions';
+import { invokeAction } from 'ember-invoke-action';
 
 /**
  * @class PaperDialog
@@ -70,7 +70,7 @@ export default Component.extend({
     if (this.get('escapeToClose')) {
       $(this.get('destinationId')).on(`keydown.${this.elementId}`, (e) => {
         if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.get('onClose')) {
-          safeClosureAction(this, 'onClose');
+          invokeAction(this, 'onClose');
         }
       });
     }
@@ -86,7 +86,7 @@ export default Component.extend({
   actions: {
     outsideClicked() {
       if (this.get('clickOutsideToClose') && this.get('onClose')) {
-        safeClosureAction(this, 'onClose');
+        invokeAction(this, 'onClose');
       }
     }
   }

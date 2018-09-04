@@ -12,7 +12,7 @@ import layout from '../templates/components/paper-slider';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import clamp from 'ember-paper/utils/clamp';
-import { safeClosureAction } from '../utils/actions';
+import { invokeAction } from 'ember-invoke-action';
 
 /* global Hammer */
 
@@ -140,7 +140,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
     let exactVal = this.percentToValue(this.positionToPercent(value));
     let closestVal = this.minMaxValidator(this.stepValidator(exactVal));
 
-    safeClosureAction(this, 'onChange', closestVal);
+    invokeAction(this, 'onChange', closestVal);
   },
 
   tap(event) {
@@ -202,7 +202,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
 
       newValue = this.get('value') + changeAmount;
 
-      safeClosureAction(this, 'onChange', this.minMaxValidator(newValue));
+      invokeAction(this, 'onChange', this.minMaxValidator(newValue));
 
       event.preventDefault();
       event.stopPropagation();

@@ -7,7 +7,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
-import { safeClosureAction } from '../utils/actions';
+import { invokeAction } from 'ember-invoke-action';
 /**
  * @class PaperBackdrop
  * @extends Ember.Component
@@ -34,7 +34,7 @@ export default Component.extend(TransitionMixin, {
 
   sendClickAction(e) {
     e.preventDefault();
-    safeClosureAction(this, 'onClick', e);
+    invokeAction(this, 'onClick', e);
   },
 
   click(e) {

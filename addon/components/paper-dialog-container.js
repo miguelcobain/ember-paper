@@ -2,7 +2,7 @@
  * @module ember-paper
  */
 import Component from '@ember/component';
-import { safeClosureAction } from '../utils/actions';
+import { invokeAction } from 'ember-invoke-action';
 
 /**
  * @class PaperDialogContainer
@@ -19,7 +19,7 @@ export default Component.extend({
     if (this._sourceEl === this.element && ev.target === this.element) {
       ev.stopPropagation();
       ev.preventDefault();
-      safeClosureAction(this, 'outsideClicked');
+      invokeAction(this, 'outsideClicked');
     }
   }
 });

@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-speed-dial';
-import { safeClosureAction } from '../utils/actions';
+import { invokeAction } from 'ember-invoke-action';
 
 export default Component.extend({
   layout,
@@ -39,11 +39,11 @@ export default Component.extend({
   },
 
   mouseEnter() {
-    safeClosureAction(this, 'onMouseEnter');
+    invokeAction(this, 'onMouseEnter');
   },
 
   mouseLeave() {
-    safeClosureAction(this, 'onMouseLeave');
+    invokeAction(this, 'onMouseLeave');
   },
 
   toggle() {
@@ -57,7 +57,7 @@ export default Component.extend({
   changeOpenValue(value) {
     // support non DDAU scenario
     if (this.get('onToggle')) {
-      safeClosureAction(this, 'onToggle', value);
+      invokeAction(this, 'onToggle', value);
     } else {
       this.set('open', value);
     }

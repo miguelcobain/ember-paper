@@ -6,7 +6,7 @@ import { or } from '@ember/object/computed';
 
 import layout from '../templates/components/paper-menu-item';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
-import { safeClosureAction } from '../utils/actions';
+import { invokeAction } from 'ember-invoke-action';
 
 /**
  * @class PaperMenuItem
@@ -23,7 +23,7 @@ export default Component.extend(ChildMixin, {
   actions: {
     handleClick(e) {
       this.get('dropdown.actions').close();
-      safeClosureAction(this, 'onClick', e);
+      invokeAction(this, 'onClick', e);
     }
   },
 

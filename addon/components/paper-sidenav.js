@@ -5,7 +5,7 @@ import { not } from '@ember/object/computed';
 
 import Component from '@ember/component';
 import layout from '../templates/components/paper-sidenav';
-import { safeClosureAction } from '../utils/actions';
+import { invokeAction } from 'ember-invoke-action';
 
 /**
  * @class
@@ -24,10 +24,10 @@ export default Component.extend({
 
   actions: {
     onToggle() {
-      safeClosureAction(this, 'onToggle', ...arguments);
+      invokeAction(this, 'onToggle', ...arguments);
     },
     onBackdropTap() {
-      safeClosureAction(this, 'onToggle', false);
+      invokeAction(this, 'onToggle', false);
     }
   }
 });

@@ -5,7 +5,7 @@ import layout from '../templates/components/paper-tab';
 import { ChildMixin } from 'ember-composability-tools';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import { safeClosureAction } from '../utils/actions';
+import { invokeAction } from 'ember-invoke-action';
 
 export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
   layout,
@@ -66,8 +66,8 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
   click() {
 
     if(!this.get('disabled')) {
-      safeClosureAction(this, 'onClick', ...arguments);
-      safeClosureAction(this, 'onSelect', this);
+      invokeAction(this, 'onClick', ...arguments);
+      invokeAction(this, 'onSelect', this);
     }
     
   }

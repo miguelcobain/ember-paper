@@ -6,7 +6,7 @@ import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-import { safeClosureAction } from '../utils/actions';
+import { invokeAction } from 'ember-invoke-action';
 
 export default Component.extend(ParentMixin, ColorMixin, {
   layout,
@@ -179,7 +179,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
     onChange(selected) {
       // support non DDAU scenario
       if (this.get('onChange')) {
-        safeClosureAction(this, 'onChange', selected.get('value'));
+        invokeAction(this, 'onChange', selected.get('value'));
       } else {
         this.set('selected', selected.get('value'));
       }

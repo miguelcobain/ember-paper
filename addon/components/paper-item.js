@@ -8,8 +8,7 @@ import { computed } from '@ember/object';
 import layout from '../templates/components/paper-item';
 import RippleMixin from '../mixins/ripple-mixin';
 import { ParentMixin } from 'ember-composability-tools';
-import { safeClosureAction } from '../utils/actions';
-
+import { invokeAction } from 'ember-invoke-action';
 /**
  * @class PaperItem
  * @extends Ember.Component
@@ -66,10 +65,10 @@ export default Component.extend(RippleMixin, ParentMixin, {
   },
 
   mouseEnter(e) {
-    safeClosureAction(this, 'onMouseEnter', e);
+    invokeAction(this, 'onMouseEnter', e);
   },
 
   mouseLeave(e) {
-    safeClosureAction(this, 'onMouseLeave', e);
+    invokeAction(this, 'onMouseLeave', e);
   }
 });
