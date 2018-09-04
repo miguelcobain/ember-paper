@@ -171,7 +171,7 @@ export default Component.extend({
 
     noUnselected(old, event) {
       if (['Backspace', 'Delete', 'Del', 'ArrowLeft', 'Left', 'ArrowRight', 'Right'].includes(event.key)) {
-        invokeAction(this, 'keyDown', item);
+        invokeAction(this, 'keyDown', event);
       } else if (event.key.length === 1 && !event.ctrlKey && !event.altKey && !event.metaKey) {
         // Reject printable key presses
         event.preventDefault();
