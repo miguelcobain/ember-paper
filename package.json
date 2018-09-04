@@ -1,7 +1,7 @@
 {
   "name": "ember-paper",
   "description": "The Ember approach to Material Design.",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0-beta.9",
   "directories": {
     "doc": "doc",
     "test": "tests"
