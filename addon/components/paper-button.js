@@ -9,6 +9,7 @@ import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
+import TouchableMixin from 'ember-paper/mixins/touchable-mixin';
 
 /**
  * @class PaperButton
@@ -18,7 +19,7 @@ import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
  * @uses ColorMixin
  * @uses ProxiableMixin
  */
-export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
+export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, TouchableMixin, {
   layout,
   tagName: 'button',
   classNames: ['md-default-theme', 'md-button'],
@@ -29,6 +30,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   type: 'button',
   href: null,
   target: null,
+
   attributeBindings: [
     'type',
     'href',

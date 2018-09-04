@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, triggerEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper button', function(hooks) {
@@ -60,6 +60,51 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
+    assert.ok(this.$('.md-button').hasClass('md-raised'));
+  });
+
+  test('triggers onClick function if attribute touchable is true and touchend event is fired', async function(assert) {
+
+    assert.expect(1);
+
+    this.set('foo', () => {
+      assert.ok(true);
+    });
+
+    await this.render(hbs`
+      {{#paper-button onClick=foo touchable=true}}
+        A label
+      {{/paper-button}}
+    `);
+
+    await triggerEvent('.md-button', 'touchend');
+
+  });
+
+  test('does nothing onClick if attribute touchable is false and touchend event is fired', async function(assert) {
+
+    assert.expect(0);
+
+    this.set('foo', () => {
+      assert.ok(true);
+    });
+
+    await this.render(hbs`
+      {{#paper-button onClick=foo touchable=false}}
+        A label
+      {{/paper-button}}
+    `);
+
+    await triggerEvent('.md-button', 'touchend');
+
+  });
+
+  test('uses md-raised class when raised=true', function(assert) {
+    this.render(hbs`
+    {{#paper-button raised=true}}
+      A label
+    {{/paper-button}}
+  `);
     assert.ok(this.$('.md-button').hasClass('md-raised'));
   });
 
