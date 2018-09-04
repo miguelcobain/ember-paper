@@ -11,7 +11,7 @@ Many ember-paper contributors hang out on the [e-paper channel on slack](https:/
 * **Comments.** Include block-style (`/**`) comments before  functions with a non-trivial or non-obvious purpose. Include line-style (`//`) comments wherever code might not be obvious to a future contributor, years later, without your knowledge of the functioning of the code. If an intermediate-level Ember developer will wonder why something works, explain it.
 
 * **Actions.** Accept action closures rather than strings representing action names.
-`{{some-component someAction=(action "myAction")}}`, not `{{some-component someAction="myAction" param="the stuff" target=someTarget}}`. ~~Invoke the action with `this.sendAction('onWhatever');`. There is no need to test for the presence of `onWhatever` as `sendAction` handles that situation.~~ Starting from 3.4 sendAction is deprecated, so now be sure to use closure Actions. `this.get('onClick')()`, there is an utility `safeClosureAction(this, 'onClick')` that you can use at utils/actions.
+`{{some-component someAction=(action "myAction")}}`, not `{{some-component someAction="myAction" param="the stuff" target=someTarget}}`. Starting from 3.4 sendAction is deprecated, so be sure to use closure Actions. `this.get('onClick')()`, there is an utility `invokeAction(this, 'onClick')` that you can use from ember-invoke-action addon which takes care about the presence of the action and everything for you.
 
 * **Encapsulation.** When communicating with a private ember-paper component, bind as many properties as are needed.
 When communicating between two public ember components, use `nearestOfType` in a computed property to find the outer component (for pre 2.3 compatibility), and override it when yielding a contextual component.
