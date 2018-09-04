@@ -1,0 +1,21 @@
+.site-sidenav {
+  background-color: paper-color($primary, '400');
+  background-color: paper-var(--primary-400);
+
+  md-toolbar {
+    background: linear-gradient(to bottom, paper-color($primary, '600'), paper-color($primary, '400'));
+    background: linear-gradient(to bottom, paper-var(--primary-600), paper-var(--primary-400));
+  }
+}
+
+// this compiles to:
+
+.site-sidenav {
+  background-color: #ff7043;
+  background-color: RGB(var(--primary-400));
+
+  md-toolbar {
+    background: linear-gradient(to bottom, #f4511e, #ff7043);
+    background: linear-gradient(to bottom, RGB(var(--primary-600)), RGB(var(--primary-400)));
+  }
+}

@@ -21,6 +21,18 @@ export default Controller.extend({
   isValid: and('primary', 'accent', 'warn'),
   isInvalid: not('isValid'),
 
+  primary: computed('palettes.@each.name', function() {
+    return this.get('palettes').find((p) => p.name === 'pink');
+  }),
+
+  accent: computed('palettes.@each.name', function() {
+    return this.get('palettes').find((p) => p.name === 'green');
+  }),
+
+  warn: computed('palettes.@each.name', function() {
+    return this.get('palettes').find((p) => p.name === 'red');
+  }),
+
   actions: {
     // BEGIN-SNIPPET theme.service
     installTheme() {

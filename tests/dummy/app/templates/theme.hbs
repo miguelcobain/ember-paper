@@ -118,7 +118,7 @@
 
   <p>
     Sometimes we have more complex requirements for when or where to use colors in our app.
-    ember-paper provides a `paper-theme` service that allows you to install or uninstall themes
+    ember-paper provides a <code>paper-theme</code> service that allows you to install or uninstall themes
     at runtime.
   </p>
 
@@ -179,6 +179,23 @@
 
   {{code-snippet name="theme.service.js"}}
 
+  <h3>Browser support</h3>
+
+  <p>
+    Ember-paper uses css variables under the hood for dynamically installed themes. While
+    <a href="https://caniuse.com/#feat=css-variables">most browsers support this feature</a>, IE does not.
+    Ember-paper always uses fallback css rules with values from the sass defined theme, so it degrades gracefully to
+    the default theme on IE.
+  </p>
+
+  <p>
+    With that being said, you are encouraged to always provide fallback values yourself on your own custom styles.
+    For this purpose, ember-paper provides a <code>paper-var(--var-name)</code> function. Here is an example of using
+    such fallback values:
+  </p>
+
+  {{code-snippet name="theme.paper-var.scss"}}
+
   <h3>Generating palettes based on a color</h3>
 
   <p>
@@ -201,6 +218,7 @@
 
   <p>
     Generated themes are of course compatible with the paper-theme service method <code>installTheme</code>.
+    So you can install any generated palette right away!
   </p>
 </div>
 {{/paper-content}}
