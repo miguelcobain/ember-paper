@@ -82,6 +82,10 @@ $default-color: '500' !default;
   }
 }
 
+@function paper-var($varName) {
+  @return RGB(var(#{$varName}));
+}
+
 // mixin that includes the given palettes css variables.
 @mixin paper-theme-variables($primary, $accent, $warn, $background, $foreground) {
 

@@ -178,5 +178,29 @@
   <p>Here is the code used for these actions:</p>
 
   {{code-snippet name="theme.service.js"}}
+
+  <h3>Generating palettes based on a color</h3>
+
+  <p>
+    Ember-paper provides an utility to automatically generate palettes based on
+    a single color. This can be very useful if, for example, you want to allow the
+    user to customize the app's colors but still want to abstract away the complexity
+    of creating a palette with all its hues.
+  </p>
+
+  <p>
+    While nothing beats a manual color selection and tuning, this tool does a pretty
+    decent job in the vast majority of the cases.
+  </p>
+
+  <p>
+    To use the utility simply import the function
+    <code>import generateTheme from 'ember-paper/utils/generate-theme';</code>. You
+    can then use the function to create a palette like <code>generateTheme('#326eb6');</code>.
+  </p>
+
+  <p>
+    Generated themes are of course compatible with the paper-theme service method <code>installTheme</code>.
+  </p>
 </div>
 {{/paper-content}}

@@ -221,10 +221,6 @@ md-toolbar.md-default-theme.page-main-toolbar {
   background: paper-color($color-grey, '500');
 }
 
-@function paper-var($varName) {
-  @return RGB(var(#{$varName}));
-}
-
 .site-sidenav,
 .site-sidenav.md-locked-open-add-active,
 .site-sidenav.md-locked-open {
