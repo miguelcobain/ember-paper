@@ -1451,13 +1451,14 @@ broccoli-rollup@^1.2.0:
     symlink-or-copy "^1.1.8"
     walk-sync "^0.3.1"
 
-broccoli-sass-source-maps@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/broccoli-sass-source-maps/-/broccoli-sass-source-maps-4.0.0.tgz#1ee4c10a810b10955b0502e28f85ab672f5961a2"
+broccoli-sass-source-maps@^2.1.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/broccoli-sass-source-maps/-/broccoli-sass-source-maps-2.2.0.tgz#1f1a0794136152b096188638b59b42b17a4bdc68"
   dependencies:
     broccoli-caching-writer "^3.0.3"
     include-path-searcher "^0.1.0"
     mkdirp "^0.3.5"
+    node-sass "^4.7.2"
     object-assign "^2.0.0"
     rsvp "^3.0.6"
 
@@ -1804,7 +1805,7 @@ charm@^1.0.0:
   dependencies:
     inherits "^2.0.1"
 
-chokidar@^2.0.0, chokidar@^2.0.2:
+chokidar@^2.0.2:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.0.4.tgz#356ff4e2b0e8e43e322d18a372460bbcf3accd26"
   dependencies:
@@ -2697,13 +2698,13 @@ ember-cli-sass-variables-export@^1.0.2:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-ember-cli-sass@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-sass/-/ember-cli-sass-9.0.0.tgz#d68e972d6a77b5837face7c03cfd5d1674bb1941"
+ember-cli-sass@^7.2.0:
+  version "7.2.0"
+  resolved "http://registry.npmjs.org/ember-cli-sass/-/ember-cli-sass-7.2.0.tgz#293d1a94c43c1fdbb3835378e43d255e8ad5c961"
   dependencies:
     broccoli-funnel "^1.0.0"
     broccoli-merge-trees "^1.1.0"
-    broccoli-sass-source-maps "^4.0.0"
+    broccoli-sass-source-maps "^2.1.0"
     ember-cli-version-checker "^2.1.0"
 
 ember-cli-shims@^1.2.0:
@@ -5808,7 +5809,7 @@ node-pre-gyp@^0.10.0:
     semver "^5.3.0"
     tar "^4"
 
-node-sass@^4.9.3:
+node-sass@^4.7.2:
   version "4.9.3"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.9.3.tgz#f407cf3d66f78308bb1e346b24fa428703196224"
   dependencies:
@@ -6830,12 +6831,6 @@ sass-graph@^2.2.4:
     lodash "^4.0.0"
     scss-tokenizer "^0.2.3"
     yargs "^7.0.0"
-
-sass@^1.13.1:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.13.1.tgz#1e556f15962269a2732d7d849921a7b7783d90b1"
-  dependencies:
-    chokidar "^2.0.0"
 
 sax@^1.2.4:
   version "1.2.4"
