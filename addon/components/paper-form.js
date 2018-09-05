@@ -7,6 +7,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import layout from '../templates/components/paper-form';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
+import { invokeAction } from 'ember-invoke-action';
 
 /**
  * @class PaperForm
@@ -41,7 +42,7 @@ export default Component.extend(ParentMixin, {
   actions: {
     onValidityChange() {
       if (this.get('lastIsValid') !== this.get('isValid') || this.get('lastIsTouched') !== this.get('isTouched')) {
-        this.sendAction('onValidityChange', this.get('isValid'), this.get('isTouched'), this.get('isInvalidAndTouched'));
+        invokeAction(this, 'onValidityChange', this.get('isValid'), this.get('isTouched'), this.get('isInvalidAndTouched'));
         this.set('lastIsValid', this.get('isValid'));
         this.set('lastIsTouched', this.get('isTouched'));
       }
@@ -49,9 +50,9 @@ export default Component.extend(ParentMixin, {
     onSubmit() {
       if (this.get('isInvalid')) {
         this.get('childComponents').setEach('isTouched', true);
-        this.sendAction('onInvalid');
+        invokeAction(this, 'onInvalid');
       } else {
-        this.sendAction('onSubmit');
+        invokeAction(this, 'onSubmit');
         this.get('childComponents').setEach('isTouched', false);
       }
     }

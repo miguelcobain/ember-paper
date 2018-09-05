@@ -10,6 +10,7 @@ import layout from '../templates/components/paper-radio-group';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import { ParentMixin } from 'ember-composability-tools';
 import { isPresent } from '@ember/utils';
+import { invokeAction } from 'ember-invoke-action';
 
 /**
  * @class PaperRadioGroup
@@ -67,12 +68,12 @@ export default Component.extend(FocusableMixin, ParentMixin, {
 
     let childRadio = this.get('enabledChildRadios').objectAt(index);
     childRadio.set('focused', true);
-    this.sendAction('onChange', childRadio.get('value'));
+    invokeAction(this, 'onChange', childRadio.get('value'))
   },
 
   actions: {
     onChange(value) {
-      this.sendAction('onChange', value);
+      invokeAction(this, 'onChange', value)
     }
   }
 });

@@ -9,6 +9,7 @@ import { computed } from '@ember/object';
 import $ from 'jquery';
 import { run } from '@ember/runloop';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
+import { invokeAction } from 'ember-invoke-action';
 
 /**
  * @class PaperSidenavInner
@@ -86,32 +87,32 @@ export default Component.extend(TransitionMixin, {
       // if sidenav is open and we enter lockedOpen,
       // make the sidenav enter the "closed" state
       if (!this.get('closed') && isLockedOpen) {
-        this.sendAction('onToggle', false);
+        invokeAction(this, 'onToggle', false);
       }
     }
   },
 
   click() {
     if (this.get('closeOnClick') && !this.get('isLockedOpen')) {
-      this.sendAction('onToggle', false);
+      invokeAction(this, 'onToggle', false);
     }
   },
 
   open() {
     if (this.get('closed') && this.get('isLockedOpen')) {
-      this.sendAction('onToggle', true);
+      invokeAction(this, 'onToggle', true);
     }
   },
 
   close() {
     if (!this.get('closed') && !this.get('isLockedOpen')) {
-      this.sendAction('onToggle', false);
+      invokeAction(this, 'onToggle', false);
     }
   },
 
   toggle() {
     if (!this.get('isLockedOpen')) {
-      this.sendAction('onToggle', this.get('closed'));
+      invokeAction(this, 'onToggle', this.get('closed'));
     }
   }
 });

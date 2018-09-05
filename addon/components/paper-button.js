@@ -9,6 +9,7 @@ import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
+import { invokeAction } from 'ember-invoke-action';
 
 /**
  * @class PaperButton
@@ -60,8 +61,8 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
     }
   },
 
-  click(event) {
-    this.sendAction('onClick', event);
+  click(e) {
+    invokeAction(this, 'onClick', e);
     // Prevent bubbling, if specified. If undefined, the event will bubble.
     return this.get('bubbles');
   }

@@ -10,6 +10,7 @@ import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-grid-list';
 import { ParentMixin } from 'ember-composability-tools';
 import gridLayout from '../utils/grid-layout';
+import { invokeAction } from 'ember-invoke-action';
 
 const mediaRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+)(?!\S)/g;
 const rowHeightRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+(?:[a-z]{2,3}|%)?|\d+:\d+|fit)(?!\S)/g;
@@ -107,7 +108,7 @@ export default Component.extend(ParentMixin, {
   updateGrid() {
     this.$().css(this._gridStyle());
     this.get('tiles').forEach((tile) => tile.updateTile());
-    this.sendAction('onUpdate');
+    invokeAction(this, 'onUpdate');
   },
 
   _gridStyle() {

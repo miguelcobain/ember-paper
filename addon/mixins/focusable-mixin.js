@@ -5,6 +5,7 @@ import Mixin from '@ember/object/mixin';
 
 import { computed } from '@ember/object';
 import EventsMixin from './events-mixin';
+import { invokeAction } from 'ember-invoke-action';
 
 /**
  * @class FocusableMixin
@@ -54,13 +55,13 @@ export default Mixin.create(EventsMixin, {
 
   mouseEnter(e) {
     this.set('hover', true);
-    this.sendAction('onMouseEnter', e);
+    invokeAction(this, 'onMouseEnter', e);
   },
 
   mouseLeave(e) {
     this.set('hover', false);
     this._super(e);
-    this.sendAction('onMouseLeave', e);
+    invokeAction(this, 'onMouseLeave', e);
   },
 
   down() {

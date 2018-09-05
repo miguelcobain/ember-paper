@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { isPresent, isEmpty } from '@ember/utils';
 import { observer, computed } from '@ember/object';
 import layout from '../templates/components/paper-chips';
+import { invokeAction } from 'ember-invoke-action';
 
 export default Component.extend({
   layout,
@@ -26,9 +27,9 @@ export default Component.extend({
     }
 
     if ((element === 'chips' && (this.get('activeChip') !== -1)) || element === 'input') {
-      this.sendAction('focusIn', window.event);
+      invokeAction(this, 'focusIn', window.event);
     } else {
-      this.sendAction('focusOut', window.event);
+      invokeAction(this, 'focusOut', window.event);
     }
   }),
 
@@ -51,14 +52,14 @@ export default Component.extend({
           item[this.get('searchField')] = newItem;
         }
 
-        this.sendAction('addItem', item);
+        invokeAction(this, 'addItem', item);
         this.set('newChipValue', '');
         this.set('searchText', '');
       }
     },
 
     removeItem(item) {
-      this.sendAction('removeItem', item);
+      invokeAction(this, 'removeItem', item);
       let current = this.get('activeChip');
 
       if (current === -1 || current >= this.get('content').length) {
@@ -134,7 +135,7 @@ export default Component.extend({
     autocompleteChange(item) {
       if (item) {
         // Trigger onChange for the new item.
-        this.sendAction('addItem', item);
+        invokeAction(this, 'addItem', item);
         this.set('searchText', '');
 
         // Track selection of last item if no match required.
@@ -170,7 +171,7 @@ export default Component.extend({
 
     noUnselected(old, event) {
       if (['Backspace', 'Delete', 'Del', 'ArrowLeft', 'Left', 'ArrowRight', 'Right'].includes(event.key)) {
-        this.sendAction('keyDown', event);
+        invokeAction(this, 'keyDown', event);
       } else if (event.key.length === 1 && !event.ctrlKey && !event.altKey && !event.metaKey) {
         // Reject printable key presses
         event.preventDefault();
@@ -204,7 +205,7 @@ export default Component.extend({
         input.focus();
       }
     } else if (current >= 0 && ['Backspace', 'Delete', 'Del'].includes(key)) {
-      this.sendAction('removeItem', chips[current]);
+      invokeAction(this, 'removeItem', chips[current]);
       if (current >= chips.length) {
         this.set('activeChip', -1);
       }

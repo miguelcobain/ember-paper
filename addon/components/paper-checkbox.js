@@ -11,7 +11,7 @@ import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
-
+import { invokeAction } from 'ember-invoke-action';
 /**
  * @class PaperCheckbox
  * @extends Ember.Component
@@ -49,7 +49,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
 
   click() {
     if (!this.get('disabled')) {
-      this.sendAction('onChange', !this.get('value'));
+      invokeAction(this, 'onChange', !this.get('value'))
     }
     // Prevent bubbling, if specified. If undefined, the event will bubble.
     return this.get('bubbles');
@@ -63,6 +63,6 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   },
 
   processProxy() {
-    this.sendAction('onChange', !this.get('value'));
+    invokeAction(this, 'onChange', !this.get('value'))
   }
 });

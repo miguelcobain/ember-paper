@@ -5,6 +5,7 @@ import { not } from '@ember/object/computed';
 
 import Component from '@ember/component';
 import layout from '../templates/components/paper-sidenav';
+import { invokeAction } from 'ember-invoke-action';
 
 /**
  * @class
@@ -23,10 +24,10 @@ export default Component.extend({
 
   actions: {
     onToggle() {
-      this.sendAction('onToggle', ...arguments);
+      invokeAction(this, 'onToggle', ...arguments);
     },
     onBackdropTap() {
-      this.sendAction('onToggle', false);
+      invokeAction(this, 'onToggle', false);
     }
   }
 });
