@@ -8,7 +8,7 @@ function multiply(rgb1, rgb2) {
   return tinycolor(`rgb ${rgb1.r} ${rgb1.g} ${rgb1.b}`);
 }
 
-export default function generateTheme(base) {
+export default function generatePalette(base) {
   let baseLight = tinycolor('#ffffff');
   let baseDark = multiply(tinycolor(base).toRgb(), tinycolor(base).toRgb());
   let baseTriad = tinycolor(base).tetrad();
