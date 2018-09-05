@@ -14,20 +14,20 @@ export default function generatePalette(base) {
   let baseTriad = tinycolor(base).tetrad();
 
   let palette = {
-    '50': tinycolor.mix(baseLight, base, 12),
-    '100': tinycolor.mix(baseLight, base, 30),
-    '200': tinycolor.mix(baseLight, base, 50),
-    '300': tinycolor.mix(baseLight, base, 70),
-    '400': tinycolor.mix(baseLight, base, 85),
-    '500': tinycolor.mix(baseLight, base, 100),
-    '600': tinycolor.mix(baseDark, base, 87),
-    '700': tinycolor.mix(baseDark, base, 70),
-    '800': tinycolor.mix(baseDark, base, 54),
-    '900': tinycolor.mix(baseDark, base, 25),
-    'A100': tinycolor.mix(baseDark, baseTriad[4], 15).saturate(80).lighten(65),
-    'A200': tinycolor.mix(baseDark, baseTriad[4], 15).saturate(80).lighten(55),
-    'A400': tinycolor.mix(baseDark, baseTriad[4], 15).saturate(100).lighten(45),
-    'A700': tinycolor.mix(baseDark, baseTriad[4], 15).saturate(100).lighten(40)
+    '50': tinycolor.mix(baseLight, base, 12).toString(),
+    '100': tinycolor.mix(baseLight, base, 30).toString(),
+    '200': tinycolor.mix(baseLight, base, 50).toString(),
+    '300': tinycolor.mix(baseLight, base, 70).toString(),
+    '400': tinycolor.mix(baseLight, base, 85).toString(),
+    '500': tinycolor.mix(baseLight, base, 100).toString(),
+    '600': tinycolor.mix(baseDark, base, 87).toString(),
+    '700': tinycolor.mix(baseDark, base, 70).toString(),
+    '800': tinycolor.mix(baseDark, base, 54).toString(),
+    '900': tinycolor.mix(baseDark, base, 25).toString(),
+    'A100': tinycolor.mix(baseDark, baseTriad[4], 15).saturate(80).lighten(65).toString(),
+    'A200': tinycolor.mix(baseDark, baseTriad[4], 15).saturate(80).lighten(55).toString(),
+    'A400': tinycolor.mix(baseDark, baseTriad[4], 15).saturate(100).lighten(45).toString(),
+    'A700': tinycolor.mix(baseDark, baseTriad[4], 15).saturate(100).lighten(40).toString()
   };
 
   let contrastDarkColors = [];
