@@ -10,8 +10,6 @@ module.exports = {
   },
 
   afterInstall() {
-    return this.addAddonsToProject([
-      { name: 'ember-cli-sass', target: '^7.2.0' }
-    ]);
+    return this.addAddonToProject('ember-cli-sass', '^7.2.0');
   }
 };
