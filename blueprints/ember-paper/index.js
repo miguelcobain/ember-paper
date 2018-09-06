@@ -9,7 +9,7 @@ module.exports = {
 
   afterInstall: function() {
     return this.addPackagesToProject([
-      { name: 'ember-cli-sass', target: 'latest' }
+      { name: 'ember-cli-sass', target: '^7.2.0' }
     ]);
   }
 };
