@@ -29,7 +29,6 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   tagName: 'md-input-container',
   classNames: ['md-default-theme'],
   classNameBindings: [
-    'hasPlaceholder:md-input-has-placeholder',
     'hasValue:md-input-has-value',
     'isInvalidAndTouched:md-input-invalid',
     'hasLeftIcon:md-icon-left',
@@ -54,8 +53,9 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
     return !isEmpty(value) || isNativeInvalid;
   }),
 
-  hasPlaceholder: computed('placeholder', 'label', function() {
-    return !isEmpty(this.get('placeholder')) && !isEmpty(this.get('label'));
+  shouldAddPlaceholder: computed('label', 'focused', function() {
+    // if has label, only add placeholder when focused
+    return isEmpty(this.get('label')) || this.get('focused');
   }),
 
   inputElementId: computed('elementId', function() {

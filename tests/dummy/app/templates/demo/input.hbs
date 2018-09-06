@@ -3,7 +3,7 @@
 {{#doc-content}}
   {{! BEGIN-SNIPPET input.basic-usage}}
   <div class="layout layout-sm-column">
-    {{paper-input class="flex-30" label="Name" placeholder="Name" value=name onChange=(action (mut name))}}
+    {{paper-input class="flex-30" label="Name" placeholder="Enter name" value=name onChange=(action (mut name))}}
     {{paper-input class="flex-30" label="E-mail" type="email" value=email onChange=(action (mut email))}}
     {{paper-input class="flex-40" label="Password" type="password" value=password onChange=(action (mut password))}}
   </div>

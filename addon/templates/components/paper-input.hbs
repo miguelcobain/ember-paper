@@ -10,7 +10,7 @@
   <textarea
     class="md-input {{if isInvalid "ng-invalid"}} {{if isTouched "ng-dirty"}}"
     id={{inputElementId}}
-    placeholder={{placeholder}}
+    placeholder={{if shouldAddPlaceholder placeholder}}
     disabled={{disabled}}
     autofocus={{autofocus}}
     onfocus={{onFocus}}
@@ -37,7 +37,7 @@
   <input
     class="md-input {{if isInvalid "ng-invalid"}}  {{if isTouched "ng-dirty"}}"
     id={{inputElementId}}
-    placeholder={{placeholder}}
+    placeholder={{if shouldAddPlaceholder placeholder}}
     type={{type}}
     disabled={{disabled}}
     autofocus={{autofocus}}
