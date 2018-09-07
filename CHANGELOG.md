@@ -1,8 +1,9 @@
 # Ember Paper Changelog
 
-### master
+### 1.0.0-beta.13
 - [a9ac019](https://github.com/miguelcobain/ember-paper/commit/a9ac019ed9203e68f971fcb925827090aafa6d41) use `addAddonToProject` to install ember-cli-sass on ember-paper install. This makes sure that any ember-cli-sass blueprint is run.
 - [6bddb15](https://github.com/miguelcobain/ember-paper/commit/6bddb1500e99abef61081a44e322d44dddfc3863) support label and placeholder simultaneously on paper-inputs
+- [d53b9d7](https://github.com/miguelcobain/ember-paper/commit/d53b9d7a6a0ea796d3a7a6bdbc75a767de7f277f) bump ember-cli-sass-variables-export. ember-paper is now compatible with dart sass, node sass and latest ember-cli-sass versions.
 
 ### 1.0.0-beta.12
 - [f63c337](https://github.com/miguelcobain/ember-paper/commit/f63c3377796dac642005f347da209d0323b1ce2c) fix for accidentally broken palette generation on beta.11
