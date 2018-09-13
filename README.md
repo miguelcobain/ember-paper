@@ -1,4 +1,4 @@
-# Ember Paper [![Build Status](https://travis-ci.org/miguelcobain/ember-paper.svg)](https://travis-ci.org/miguelcobain/ember-paper) [![Ember Observer Score](http://emberobserver.com/badges/ember-paper.svg)](http://emberobserver.com/addons/ember-paper) [![Slack Status](https://ember-community-slackin.herokuapp.com/badge.svg)](https://ember-community-slackin.herokuapp.com/)
+# Ember Paper [![Build Status](https://travis-ci.org/miguelcobain/ember-paper.svg)](https://travis-ci.org/miguelcobain/ember-paper) [![Ember Observer Score](http://emberobserver.com/badges/ember-paper.svg)](http://emberobserver.com/addons/ember-paper) [![Discord](https://img.shields.io/discord/480462759797063690.svg?logo=discord)](https://discord.gg/zT3asNS)
 
 This project aims to bring Google's new [Material Design](https://www.google.com/design/spec/material-design/introduction.html) to Ember. The goal is to encapsulate everything possible in Ember components. This project is packaged as an [Ember-cli](http://www.ember-cli.com/) addon.
 
@@ -19,7 +19,7 @@ Navigate through the docs to understand how to use each component.
 
 ## Resources
 
-- The team can often be found on the [#e-paper channel on slack](https://embercommunity.slack.com/messages/e-paper/). Features and designs are discussed there prior to implementation. Get your invite to Ember Community Slack [here](https://ember-community-slackin.herokuapp.com/).
+- The team can often be found on the [#e-paper channel on discord](https://discord.gg/zT3asNS). Features and designs are discussed there prior to implementation.
 
 - The [GitHub milestone issue](https://github.com/miguelcobain/ember-paper/issues/249) tracks our progress to version 1.0.
 
