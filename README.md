@@ -29,7 +29,7 @@ Navigate through the docs to understand how to use each component.
 
 ## Contributing
 
-This is a very ambitious project. Google's design specs are extensive, and non-trivial to implement. If you can port or fix a component or two, please drop a pull request or issue on GitHub or join us on slack.
+This is a very ambitious project. Google's design specs are extensive, and non-trivial to implement. If you can port or fix a component or two, please drop a pull request or issue on GitHub or join us on Discord.
 
 With everyone's help, we can bring this amazing design spec to Ember in a modular and elegant way. The Ember way.
 

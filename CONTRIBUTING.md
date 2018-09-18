@@ -2,7 +2,7 @@
 
 ## Coordination, communication and community
 
-Many ember-paper contributors hang out on the [#e-paper channel discord](https://discord.gg/zT3asNS)
+Many ember-paper contributors hang out on the [#e-paper channel on Discord](https://discord.gg/zT3asNS).
 
 ## Coding style
 
