@@ -7,6 +7,7 @@ import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import { invokeAction } from 'ember-invoke-action';
+import { scheduleOnce } from '@ember/runloop';
 
 export default Component.extend(ParentMixin, ColorMixin, {
   layout,
@@ -32,7 +33,9 @@ export default Component.extend(ParentMixin, ColorMixin, {
     }
 
     this.setMovingRight();
-    this.fixOffsetIfNeeded();
+    scheduleOnce("afterRender", this, function() {
+      this.fixOffsetIfNeeded();
+    });
 
     this.set('_previousSelectedTab', selectedTab);
   }),
