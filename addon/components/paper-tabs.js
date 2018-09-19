@@ -7,7 +7,6 @@ import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import { invokeAction } from 'ember-invoke-action';
-import { scheduleOnce } from '@ember/runloop';
 
 export default Component.extend(ParentMixin, ColorMixin, {
   layout,
@@ -20,12 +19,13 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
   selected: 0, // select first tab by default
 
-  _selectedTab: computed('childComponents.@each.isSelected', function() {
-    return this.get('childComponents').findBy('isSelected');
+  _selectedTab: computed('selected', function() {
+    return this.get('childComponents').findBy('value', this.get('selected'));
   }),
 
   _selectedTabDidChange: observer('_selectedTab', function() {
     let selectedTab = this.get('_selectedTab');
+    
     let previousSelectedTab = this.get('_previousSelectedTab');
 
     if (selectedTab === previousSelectedTab) {
@@ -33,10 +33,9 @@ export default Component.extend(ParentMixin, ColorMixin, {
     }
 
     this.setMovingRight();
-    scheduleOnce("afterRender", this, function() {
-      this.fixOffsetIfNeeded();
-    });
-
+    
+    this.fixOffsetIfNeeded();
+    
     this.set('_previousSelectedTab', selectedTab);
   }),
 
