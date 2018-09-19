@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### master
+- [df7b5af](https://github.com/miguelcobain/ember-paper/commit/df7b5af8a6245d855e3fc268866dd8c0fe00bf46) bump ember-cli-sass-variables-export. Should now correctly work with ember-cli-sass 7 and below.
+
 ### 1.0.0-beta.13
 - [a9ac019](https://github.com/miguelcobain/ember-paper/commit/a9ac019ed9203e68f971fcb925827090aafa6d41) use `addAddonToProject` to install ember-cli-sass on ember-paper install. This makes sure that any ember-cli-sass blueprint is run.
 - [6bddb15](https://github.com/miguelcobain/ember-paper/commit/6bddb1500e99abef61081a44e322d44dddfc3863) support label and placeholder simultaneously on paper-inputs
