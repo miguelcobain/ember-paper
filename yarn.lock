@@ -3279,11 +3279,12 @@ ember-cli-qunit@^4.1.1:
     ember-cli-babel "^6.11.0"
     ember-qunit "^3.3.2"
 
-ember-cli-sass-variables-export@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-sass-variables-export/-/ember-cli-sass-variables-export-1.1.1.tgz#26c7c0f56c412d2cf82822c86769d57859f6fd32"
+ember-cli-sass-variables-export@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-sass-variables-export/-/ember-cli-sass-variables-export-1.1.2.tgz#8fca29900f8522bca435e7feb016f26bf82c17ca"
   dependencies:
     ember-cli-babel "^7.1.0"
+    ember-cli-version-checker "^2.1.2"
 
 ember-cli-sass@^7.2.0:
   version "7.2.0"
