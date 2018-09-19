@@ -16,7 +16,7 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
 
   rippleContainerSelector: null,
 
-  // <a> tags have brower styles or are usually styled by the user
+  // <a> tags have browser styles or are usually styled by the user
   // this makes sure that tab item still looks good with an anchor tag
   style: computed('href', function() {
     if (this.get('href')) {
