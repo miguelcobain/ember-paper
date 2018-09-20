@@ -44,7 +44,7 @@ $default-color: '500' !default;
 
 @function contrastColor($color, $type: null) {
   @warn "contrastColor function is deprecated. Please use paper-contrast-color function instead.";
-  @return paper-color($color, $type);
+  @return paper-contrast-color($color, $type);
 }
 
 // returns the correct contrast color for the given color
