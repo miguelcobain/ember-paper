@@ -1,8 +1,9 @@
 # Ember Paper Changelog
 
-### master
+### 1.0.0-beta.14
 - [df7b5af](https://github.com/miguelcobain/ember-paper/commit/df7b5af8a6245d855e3fc268866dd8c0fe00bf46) bump ember-cli-sass-variables-export. Should now correctly work with ember-cli-sass 7 and below.
 - [#980](https://github.com/miguelcobain/ember-paper/pull/980) fixes "You modified canPageBack twice in a single render" on paper tabs. Also fixes `_selectedTab` computed getting triggered multiple times unecessarily.
+- [#981](https://github.com/miguelcobain/ember-paper/pull/981) Correctly call `paper-contrast-color` on the deprecated `contrastColor` function.
 
 ### 1.0.0-beta.13
 - [a9ac019](https://github.com/miguelcobain/ember-paper/commit/a9ac019ed9203e68f971fcb925827090aafa6d41) use `addAddonToProject` to install ember-cli-sass on ember-paper install. This makes sure that any ember-cli-sass blueprint is run.
