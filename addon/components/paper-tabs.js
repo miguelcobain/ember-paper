@@ -75,6 +75,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
     let updateCanvasWidth = () => {
       this.updateDimensions();
       this.updateStretchTabs();
+      this.fixOffsetIfNeeded();
     };
 
     window.addEventListener('resize', updateCanvasWidth);
