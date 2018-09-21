@@ -3,6 +3,7 @@ import { gt } from '@ember/object/computed';
 import { computed, observer } from '@ember/object';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
+import { scheduleOnce, next } from '@ember/runloop';
 import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
@@ -23,9 +24,9 @@ export default Component.extend(ParentMixin, ColorMixin, {
     return this.get('childComponents').findBy('value', this.get('selected'));
   }),
 
-  _selectedTabDidChange: observer('_selectedTab', 'childComponents.[]', function() {
+  _selectedTabDidChange: observer('_selectedTab', function() {
     let selectedTab = this.get('_selectedTab');
-    
+
     let previousSelectedTab = this.get('_previousSelectedTab');
 
     if (selectedTab === previousSelectedTab) {
@@ -33,9 +34,9 @@ export default Component.extend(ParentMixin, ColorMixin, {
     }
 
     this.setMovingRight();
-    
+
     this.fixOffsetIfNeeded();
-    
+
     this.set('_previousSelectedTab', selectedTab);
   }),
 
@@ -57,9 +58,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
     return this.get('childComponents').reduce((prev, t) => prev + t.get('width'), 0);
   }),
 
-  shouldPaginate: computed('canvasWidth', function() {
-    return this.get('tabsWidth') > this.get('canvasWidth');
-  }),
+  shouldPaginate: false,
 
   shouldCenter: computed('shouldPaginate', 'center', function() {
     return !this.get('shouldPaginate') && this.get('center');
@@ -75,17 +74,29 @@ export default Component.extend(ParentMixin, ColorMixin, {
     let updateCanvasWidth = () => {
       this.updateDimensions();
       this.updateStretchTabs();
+      this.fixOffsetIfNeeded();
     };
 
     window.addEventListener('resize', updateCanvasWidth);
     window.addEventListener('orientationchange', updateCanvasWidth);
     this.updateCanvasWidth = updateCanvasWidth;
+
+    // trigger updateDimensions to calculate shouldPaginate early on
+    this.updateDimensions();
+    scheduleOnce('afterRender', () => {
+      next(() => {
+        // here the previous and next buttons should already be renderd
+        // and hence the offsets are correctly calculated
+        this.updateDimensions();
+        this.fixOffsetIfNeeded();
+      });
+    });
   },
 
   didRender() {
     this._super(...arguments);
+    // this makes sure that the tabs react to stretch and center changes
     this.updateCanvasWidth();
-
   },
 
   willDestroyElement() {
@@ -132,6 +143,10 @@ export default Component.extend(ParentMixin, ColorMixin, {
     this.get('childComponents').invoke('updateDimensions');
     this.set('canvasWidth', canvasWidth);
     this.set('wrapperWidth', wrapperWidth);
+
+    if (wrapperWidth > canvasWidth) {
+      this.set('shouldPaginate', true);
+    }
   },
 
   updateStretchTabs() {
