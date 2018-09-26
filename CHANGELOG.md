@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.17
+- [d931d19](https://github.com/miguelcobain/ember-paper/commit/d931d1918e9ddd208cecf045bb6378b39148d7d1) Fix several issues with default colors, hues and contrasts.
+
 ### 1.0.0-beta.16
 - [e82f32d](https://github.com/miguelcobain/ember-paper/commit/e82f32d2830b1e645879a1a2fa7401d9ffbb1e3f) Fix tooltip contrast color.
 
