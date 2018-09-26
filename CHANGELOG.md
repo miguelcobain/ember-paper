@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.15
+- [0b57abf](https://github.com/miguelcobain/ember-paper/commit/0b57abf78202db7b3de301557e7b6a914dc32391) Some background color expressions in AM scss weren't being replaced with the correct colors. This made, for example, `.md-avatar-icon` to have the wrong colors.
+
 ### 1.0.0-beta.14
 - [df7b5af](https://github.com/miguelcobain/ember-paper/commit/df7b5af8a6245d855e3fc268866dd8c0fe00bf46) bump ember-cli-sass-variables-export. Should now correctly work with ember-cli-sass 7 and below.
 - [#980](https://github.com/miguelcobain/ember-paper/pull/980) fixes "You modified canPageBack twice in a single render" on paper tabs. Also fixes `_selectedTab` computed getting triggered multiple times unecessarily.
