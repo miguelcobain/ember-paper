@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.16
+- [e82f32d](https://github.com/miguelcobain/ember-paper/commit/e82f32d2830b1e645879a1a2fa7401d9ffbb1e3f) Fix tooltip contrast color.
+
 ### 1.0.0-beta.15
 - [0b57abf](https://github.com/miguelcobain/ember-paper/commit/0b57abf78202db7b3de301557e7b6a914dc32391) Some background color expressions in AM scss weren't being replaced with the correct colors. This made, for example, `.md-avatar-icon` to have the wrong colors.
 
