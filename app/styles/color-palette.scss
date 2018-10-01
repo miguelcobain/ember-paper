@@ -473,9 +473,13 @@ $colors: map-merge($colors, (
 ));
 
 // export palettes to js land using ember-cli-sass-variables-export addon
+// At the moment we're manually including the generated files at addon/utils/[palletes.js|contrasts.js]
+// because ember-cli-sass-variables-export has an issue generating the files when using `ember b`
+/*
 $colors-export: export('palettes', $colors);
 $contrasts-export: export('contrasts', (
   'light-contrast-color': $light-contrast-color,
   'dark-contrast-color': $dark-contrast-color,
   'strong-light-contrast-color': $strong-light-contrast-color
 ));
+*/

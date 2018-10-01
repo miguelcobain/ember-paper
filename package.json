@@ -71,7 +71,6 @@
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-sass": "^7.2.0",
-    "ember-cli-sass-variables-export": "^1.1.2",
     "ember-composability-tools": "0.0.9",
     "ember-css-transitions": "^0.1.15",
     "ember-get-config": "^0.2.4",

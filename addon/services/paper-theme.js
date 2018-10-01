@@ -3,7 +3,7 @@ import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
 
 import PALETTES from 'ember-paper/utils/palettes';
-import CONTRASTS from 'ember-cli-sass-variables-export/utils/contrasts';
+import CONTRASTS from 'ember-paper/utils/contrasts';
 
 import tinycolor from 'tinycolor2';
 
