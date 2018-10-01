@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.18
+- [68ca72e](https://github.com/miguelcobain/ember-paper/commit/d931d1918e9ddd208cecf045bb6378b39148d7d1) not using ember-cli-sass-variables-export addon anymore since it doesn't output the generated files when using `ember build` (just `ember s`). We're manually including the generated files until we find a better solution. The palettes aren't likely to change anyway.
+
 ### 1.0.0-beta.17
 - [d931d19](https://github.com/miguelcobain/ember-paper/commit/d931d1918e9ddd208cecf045bb6378b39148d7d1) Fix several issues with default colors, hues and contrasts.
 
