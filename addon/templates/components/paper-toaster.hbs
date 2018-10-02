@@ -11,7 +11,7 @@
     {{else}}
       {{#toast.text}}{{activeToast.text}}{{/toast.text}}
       {{#if activeToast.action}}
-        {{#paper-button accent=activeToast.action.accent onClick=activeToast.action.onClick}}
+        {{#paper-button primary=activeToast.action.primary accent=activeToast.action.accent warn=activeToast.action.warn onClick=activeToast.action.onClick}}
           {{activeToast.action.label}}
         {{/paper-button}}
       {{/if}}
