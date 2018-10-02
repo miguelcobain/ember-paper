@@ -1,27 +1,89 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper toaster', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  hooks.beforeEach(function() {
+    this.set('paperToaster', {
+      cancelToast() {
+      }
+    });
+  });
 
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
+  test('it can shows an action', async function(assert) {
+    assert.expect(2);
 
-    await render(hbs`{{paper-toaster}}`);
+    this.set('paperToaster.activeToast', {
+      show: true,
+      position: 'bottom left',
+      duration: 500,
+      action: {
+        label: 'label',
+        primary: true,
+        onClick() {
+          assert.ok(true, 'onClick is called');
+        }
+      }
+    });
 
-    assert.equal(this.$().text().trim(), '');
+    await render(hbs`{{paper-toaster paperToaster=paperToaster}}`);
 
-    // Template block usage:
-    await render(hbs`
-      {{#paper-toaster}}
-        template block text
-      {{/paper-toaster}}
-    `);
+    assert.dom('md-toast .md-button').hasText('label');
 
-    assert.equal(this.$().text().trim(), 'template block text');
+    await click('md-toast .md-button');
+  });
+
+  test('it shows a primary action', async function(assert) {
+    this.set('paperToaster.activeToast', {
+      show: true,
+      position: 'bottom left',
+      duration: 500,
+      action: {
+        label: 'label',
+        primary: true,
+        onClick: () => {}
+      }
+    });
+
+    await render(hbs`{{paper-toaster paperToaster=paperToaster}}`);
+
+    assert.dom('md-toast .md-button').hasClass('md-primary');
+  });
+
+  test('it shows a accent action', async function(assert) {
+    this.set('paperToaster.activeToast', {
+      show: true,
+      position: 'bottom left',
+      duration: 500,
+      action: {
+        label: 'label',
+        accent: true,
+        onClick: () => {}
+      }
+    });
+
+    await render(hbs`{{paper-toaster paperToaster=paperToaster}}`);
+
+    assert.dom('md-toast .md-button').hasClass('md-accent');
+  });
+
+  test('it shows a warn action', async function(assert) {
+    this.set('paperToaster.activeToast', {
+      show: true,
+      position: 'bottom left',
+      duration: 500,
+      action: {
+        label: 'label',
+        warn: true,
+        onClick: () => {}
+      }
+    });
+
+    await render(hbs`{{paper-toaster paperToaster=paperToaster}}`);
+
+    assert.dom('md-toast .md-button').hasClass('md-warn');
   });
 });
