@@ -4,7 +4,6 @@
 import Component from '@ember/component';
 
 import { computed } from '@ember/object';
-import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-autocomplete-highlight';
 
 /**
@@ -16,32 +15,67 @@ export default Component.extend({
   tagName: 'span',
   flags: '',
 
-  highlight: computed('searchText', 'label', 'flags', function() {
-    let text = `${this.get('label')}`;
-    let flags = this.get('flags');
-    let regex = this.getRegExp(this.get('searchText'), flags);
+  tokens: computed('regex', 'label', function() {
+    let string = `${this.get('label')}`;
+    let regex = this.get('regex');
 
-    let html = text.replace(regex, '<span class="highlight">$&</span>');
-    return htmlSafe(html);
+    let tokens = [];
+    let lastIndex = 0;
+
+    // Use replace here, because it supports global and single regular expressions at same time.
+    string.replace(regex, (match, index) => {
+      let prev = string.slice(lastIndex, index);
+      if (prev) {
+        tokens.push({
+          text: prev,
+          isMatch: false
+        });
+      }
+
+      tokens.push({
+        text: match,
+        isMatch: true
+      });
+
+      lastIndex = index + match.length;
+    });
+
+    // Append the missing text as a token.
+    let last = string.slice(lastIndex);
+    if (last) {
+      tokens.push({
+        text: last,
+        isMatch: false
+      });
+    }
+
+    return tokens;
   }),
 
-  sanitize(term) {
-    if (!term) {
-      return term;
+  regex: computed('searchText', 'flags', function() {
+    let flags = this.get('flags');
+    let text = this.get('searchText');
+    return this.getRegExp(text, flags);
+  }),
+
+  getRegExp(term, flags) {
+    let startFlag = '';
+    let endFlag = '';
+    let regexTerm = this.sanitizeRegex(term);
+
+    if (flags.indexOf('^') >= 0) {
+      startFlag = '^';
     }
-    return term.replace(/[\\^$*+?.()|{}[\]]/g, '\\$&');
+
+    if (flags.indexOf('$') >= 0) {
+      endFlag = '$';
+    }
+
+    return new RegExp(startFlag + regexTerm + endFlag, flags.replace(/[$^]/g, ''));
   },
 
-  getRegExp(text, flags) {
-    let str = '';
-    if (flags.indexOf('^') >= 1) {
-      str += '^';
-    }
-    str += text;
-    if (flags.indexOf('$') >= 1) {
-      str += '$';
-    }
-    return new RegExp(this.sanitize(str), flags.replace(/[$^]/g, ''));
+  sanitizeRegex(term) {
+    return term && term.toString().replace(/[\\^$*+?.()|{}[\]]/g, '\\$&');
   }
 
 });
