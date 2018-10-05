@@ -1,7 +1,8 @@
 # Ember Paper Changelog
 
 ### master
-- [#794](https://github.com/miguelcobain/ember-paper/pull/794) forward primary/warn arguments to the toasts' paper-button
+- [#794](https://github.com/miguelcobain/ember-paper/pull/794) forward primary/warn arguments to the toasts' paper-button.
+- [dd7979e](https://github.com/miguelcobain/ember-paper/commit/dd7979ec08a94be6470aa355c6da12db5b2ec20b) correctly escape paper-autocomplete-highlight output (fixes [#985](https://github.com/miguelcobain/ember-paper/issues/985)).
 
 ### 1.0.0-beta.18
 - [68ca72e](https://github.com/miguelcobain/ember-paper/commit/d931d1918e9ddd208cecf045bb6378b39148d7d1) not using ember-cli-sass-variables-export addon anymore since it doesn't output the generated files when using `ember build` (just `ember s`). We're manually including the generated files until we find a better solution. The palettes aren't likely to change anyway.
