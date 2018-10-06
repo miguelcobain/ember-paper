@@ -1,0 +1,48 @@
+<table class="md-calendar-day-header">
+  <thead>
+    {{yield}}
+    <tr>
+      {{#each weekdaysNames as |wdn|}}
+        <th>{{-paper-first-char wdn}}</th>
+      {{/each}}
+    </tr>
+  </thead>
+</table>
+
+<div class="md-calendar-scroll-mask" style="width: 340px;">
+  <md-virtual-repeat-container class="md-calendar-scroll-container md-virtual-repeat-container md-orient-vertical">
+    <div class="md-virtual-repeat-scroller" style="width: 340px; padding-right: 0;">
+      <table class="md-calendar">
+        
+        {{#vertical-collection months
+          containerSelector=".md-virtual-repeat-scroller"
+          estimateHeight=340
+          staticHeight=true
+          bufferSize=5
+          firstReached=(action "loadAbove")
+          lastReached=(action "loadBelow") as |month|}}
+
+          <tbody md-calendar-month-body class="md-calendar-month">
+            {{#each month.weeks key="id" as |week|}}
+              <tr>
+                {{#each week.days key="id" as |day|}}
+                  <td class="md-calendar-date {{if day.isSelected "md-calendar-selected-date"}} {{if day.isToday "md-calendar-date-today"}}"
+                    onclick={{action calendar.actions.select day calendar}}
+                    onfocus={{action "onFocusDay" day}}
+                    onblur={{action "onBlurDay"}}>
+                    {{#if day.isCurrentMonth}}
+                      <span class="md-calendar-date-selection-indicator">
+                        {{day.number}}
+                      </span>
+                    {{/if}}
+                  </td>
+                {{/each}}
+              </tr>
+            {{/each}}
+          </tbody>
+
+        {{/vertical-collection}}
+      </table>
+    </div>
+  </md-virtual-repeat-container>
+</div>

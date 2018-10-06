@@ -1,0 +1,25 @@
+<tr>
+  <td align="left">
+    {{#if onCenterChange}}
+      {{#paper-button iconButton=true onClick=(action calendar.actions.moveCenter -1 "month" calendar)}}
+        {{paper-icon "keyboard-arrow-left"}}
+      {{/paper-button}}
+    {{/if}}
+  </td>
+  <td class="md-calendar-month-label md-calendar-label-clickable" colspan="5" align="center" style="padding: 0" onclick={{action onYearModeEnter}}>
+    <span>
+      {{#if hasBlock}}
+        {{yield calendar}}
+      {{else}}
+        {{power-calendar-format-date calendar.center "MMM YYYY" locale=calendar.locale}}
+      {{/if}}
+    </span>
+  </td>
+  <td align="right">
+    {{#if onCenterChange}}
+      {{#paper-button iconButton=true onClick=(action calendar.actions.moveCenter 1 "month" calendar)}}
+        {{paper-icon "keyboard-arrow-right"}}
+      {{/paper-button}}
+    {{/if}}
+  </td>
+</tr>

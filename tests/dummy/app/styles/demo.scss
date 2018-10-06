@@ -14,6 +14,7 @@ body {
   font-size: 1.6rem;
 }
 
+/*
 table {
   margin-bottom: 8px;
   max-width: 100%;
@@ -22,6 +23,7 @@ table {
   border-radius: 2px;
   overflow: hidden;
 }
+*/
 
 .table-wrapper {
   flex: 1;
@@ -111,7 +113,7 @@ p {
 strong {
   font-weight: 500;
 }
-
+/*
 td, th {
   padding: 12px 16px;
   text-align: left;
@@ -144,7 +146,7 @@ th {
 
 tr.subheading td {
   background-color: paper-color($primary, '100');
-}
+}*/
 
 blockquote {
   border-left: 3px solid rgba(0, 0, 0, 0.12);

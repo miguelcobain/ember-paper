@@ -1,0 +1,13 @@
+{{#power-calendar
+  tagName="md-calendar"
+  navComponent=navComponent
+  daysComponent=daysComponent
+  selected=selected onSelect=onSelect
+  center=center onCenterChange=onCenterChange as |calendar|}}
+
+  {{#if yearMode}}
+    {{paper-calendar-months calendar=calendar selected=selected onSelect=onSelect}}
+  {{else}}
+    {{calendar.days}}
+  {{/if}}
+{{/power-calendar}}

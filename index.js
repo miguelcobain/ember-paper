@@ -195,7 +195,10 @@ module.exports = {
       'components/tabs/tabs.scss',
       'components/tabs/tabs-theme.scss',
 
-      'components/fabSpeedDial/fabSpeedDial.scss'
+      'components/fabSpeedDial/fabSpeedDial.scss',
+
+      'components/datepicker/calendar.scss',
+      'components/datepicker/calendar-theme.scss'
     ];
 
     let angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {

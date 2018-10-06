@@ -1,0 +1,96 @@
+<h1 onclick={{action (mut yearMode) false}}>Year mode</h1>
+<tr>
+  <td align="left">
+    {{#paper-button iconButton=true onClick=(action calendar.actions.moveCenter -10 "year" calendar)}}
+      {{paper-icon "keyboard-arrow-left"}}
+    {{/paper-button}}
+  </td>
+  <td class="md-calendar-month-label md-calendar-label-clickable" colspan="5" align="center" style="padding: 0">
+    <span>
+      {{#if hasBlock}}
+        {{yield calendar}}
+      {{else}}
+        {{power-calendar-format-date calendar.center "MMM YYYY" locale=calendar.locale}}
+      {{/if}}
+    </span>
+  </td>
+  <td align="right">
+    {{#paper-button iconButton=true onClick=(action calendar.actions.moveCenter 10 "year" calendar)}}
+      {{paper-icon "keyboard-arrow-right"}}
+    {{/paper-button}}
+  </td>
+</tr>
+<div class="md-calendar-scroll-mask">
+  <table class="md-calendar">
+    <tbody md-calendar-year-body>
+      <tr>
+        <td class="md-calendar-month-label">
+          2099
+        </td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            Jan
+          </span>
+        </td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            Feb
+          </span>
+        </td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            Mar
+          </span>
+        </td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            Apr
+          </span>
+        </td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            May
+          </span>
+        </td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            Jun
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td class="md-calendar-date"></td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            Jul
+          </span>
+        </td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            Aug
+          </span>
+        </td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            Sep
+          </span>
+        </td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            Oct
+          </span>
+        </td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            Nov
+          </span>
+        </td>
+        <td class="md-calendar-date">
+          <span class="md-calendar-date-selection-indicator">
+            Dec
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
