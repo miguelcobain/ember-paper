@@ -25,7 +25,7 @@ export default Component.extend({
     );
   }),
 
-  text: computed('select.selected}', function() {
+  text: computed('select.selected', function() {
     let selected = this.get('select.selected');
     if (selected) {
       return this.getSelectedAsText();
