@@ -4,7 +4,6 @@
 import { inject as service } from '@ember/service';
 
 import { or } from '@ember/object/computed';
-import $ from 'jquery';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { getOwner } from '@ember/application';
@@ -42,20 +41,21 @@ export default Component.extend({
       return '#ember-testing';
     }
     let parent = this.get('defaultedParent');
-    let $parent = $(parent);
-    // If the parent isn't found, assume that it is an id, but that the DOM doesn't
+    let parentEle = document.querySelector(parent);
+    // If the parentEle isn't found, assume that it is an id, but that the DOM doesn't
     // exist yet. This only happens during integration tests or if entire application
     // route is a dialog.
-    if ($parent.length === 0 && parent.charAt(0) === '#') {
+    if (!parentEle && parent.charAt(0) === '#') {
       return `#${parent.substring(1)}`;
     } else {
-      let id = $parent.attr('id');
+      let id = parentEle.getAttribute('id');
       if (!id) {
         id = `${this.elementId}-parent`;
-        $parent.get(0).id = id;
+        parentEle.setAttribute('id', id);
       }
       return `#${id}`;
     }
+
   }),
 
   // Find the element referenced by destinationId
@@ -68,18 +68,22 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
     if (this.get('escapeToClose')) {
-      $(this.get('destinationId')).on(`keydown.${this.elementId}`, (e) => {
+
+      this._destinationEle = document.querySelector(this.destinationId);
+      this._onKeyDown = (e) => {
         if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.get('onClose')) {
           invokeAction(this, 'onClose');
         }
-      });
+      }
+      this._destinationEle.addEventListener('keydown', this._onKeyDown);
+
     }
   },
 
   willDestroyElement() {
     this._super(...arguments);
     if (this.get('escapeToClose')) {
-      $(this.get('destinationId')).off(`keydown.${this.elementId}`);
+      this._destinationEle.removeEventListener('keydown', this._onKeyDown);
     }
   },
 
@@ -91,3 +95,4 @@ export default Component.extend({
     }
   }
 });
+

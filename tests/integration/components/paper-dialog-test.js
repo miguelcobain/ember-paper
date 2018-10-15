@@ -1,8 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
-import $ from 'jquery';
+import { render, settled, find, findAll, click } from '@ember/test-helpers';
+import hbs from 'htmlbars-inline-precompile';ç
 
 module('Integration | Component | paper dialog', function(hooks) {
   setupRenderingTest(hooks);
@@ -12,7 +11,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{paper-dialog}}
     `);
 
-    let selectors = $('#ember-testing > .md-dialog-container md-dialog');
+    let selectors = findAll('#ember-testing > .md-dialog-container md-dialog');
 
     assert.ok(selectors.length, 'has proper selector nesting');
 
@@ -22,7 +21,8 @@ module('Integration | Component | paper dialog', function(hooks) {
     await render(hbs`
       {{paper-dialog}}
     `);
-    let dialogContent = $('md-dialog').html()
+
+    let dialogContent = find('md-dialog').innerHTML
       .replace('<!--', '').replace('-->', '').trim();
 
     assert.equal(dialogContent, '', 'has an empty dialog container');
@@ -35,7 +35,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{/paper-dialog}}
     `);
 
-    let dialogContent = $('md-dialog').html().trim();
+    let dialogContent = find('md-dialog').innerHTML.trim();
 
     assert.equal(dialogContent, 'Lorem ipsum.', 'yielded dialog content');
   });
@@ -45,7 +45,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{paper-dialog}}
     `);
 
-    assert.ok($().find('#ember-testing md-dialog'), 'rendered in default');
+    assert.ok(find('#ember-testing md-dialog'), 'rendered in default');
   });
 
   test('should render in specific wormhole if parent is defined', async function(assert) {
@@ -57,9 +57,9 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{/paper-dialog}}
     `);
 
-    assert.ok(!$('#paper-wormhole md-dialog').length, 'did not render in default');
-    assert.ok($('#sagittarius-a md-dialog').length, 'rendered in parent');
-    assert.ok($('#ember-testing md-dialog').length, 'still rendered in ember-testing');
+    assert.ok(!find('#paper-wormhole md-dialog'), 'did not render in default');
+    assert.ok(find('#sagittarius-a md-dialog'), 'rendered in parent');
+    assert.ok(find('#ember-testing md-dialog'), 'still rendered in ember-testing');
   });
 
   test('should only prevent scrolling behind scoped modal', async function(assert) {
@@ -68,7 +68,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{paper-dialog parent="#sagittarius-a"}}
     `);
 
-    assert.equal($('md-backdrop').css('position'), 'absolute', 'backdrop is absolute');
+    assert.equal(find('md-backdrop').style.position, 'absolute', 'backdrop is absolute');
   });
 
   test('backdrop is opaque by default', async function(assert) {
@@ -77,7 +77,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{paper-dialog}}
     `);
 
-    assert.ok($('md-backdrop').hasClass('md-opaque'), 'backdrop is opaque');
+    assert.ok(find('md-backdrop').classList.contains('md-opaque'), 'backdrop is opaque');
   });
 
   test('backdrop opaqueness can be disabled ', async function(assert) {
@@ -86,7 +86,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{paper-dialog opaque=false}}
     `);
 
-    assert.notOk($('md-backdrop').hasClass('md-opaque'), 'backdrop is not opaque');
+    assert.notOk(find('md-backdrop').classList.contains('md-opaque'), 'backdrop is not opaque');
   });
 
   test('should prevent scrolling entirely behind fixed modal', async function(assert) {
@@ -97,7 +97,7 @@ module('Integration | Component | paper dialog', function(hooks) {
     `);
 
     assert.equal(
-      $('md-backdrop').css('position'), 'fixed', 'backdrop is fixed'
+      find('md-backdrop').style.position, 'fixed', 'backdrop is fixed'
     );
   });
 
@@ -110,7 +110,7 @@ module('Integration | Component | paper dialog', function(hooks) {
     this.set('dialogOpen', true);
 
     let getDialogTransform = () => {
-      let dialog = $('md-dialog').get(0);
+      let dialog = find('md-dialog');
       assert.ok(dialog, 'dialog found');
       return dialog && (dialog.style.webkitTransform || dialog.style.transform);
     };
@@ -145,9 +145,9 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{/if}}
     `);
 
-    assert.ok($('md-dialog').length, 'dialog is showing');
+    assert.ok(find('md-dialog'), 'dialog is showing');
 
-    $('.md-dialog-container').mousedown().mouseup().click();
+    click(find('.md-dialog-container'));
   });
 
   test('click outside should not close dialog by default', async function(assert) {
@@ -156,10 +156,10 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{paper-dialog}}
     `);
 
-    assert.ok($('md-dialog').length, 'dialog is showing');
+    assert.ok(find('md-dialog'), 'dialog is showing');
 
-    $('.md-dialog-container').mousedown().mouseup().click();
-    assert.ok($('md-dialog').length, 'dialog is still showing');
+    click(find('.md-dialog-container'));
+    assert.ok(find('md-dialog'), 'dialog is still showing');
   });
 
   test('dialog shouldn\'t swallow click events', async function(assert) {
@@ -171,10 +171,10 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{/paper-dialog}}
     `);
 
-    assert.ok($('md-dialog').length, 'dialog is showing');
+    assert.ok(find('md-dialog'), 'dialog is showing');
 
-    $('#the-button').mousedown().mouseup().click();
-    assert.ok($('md-dialog').length, 'dialog is still showing');
+    click(find('#the-button'));
+    assert.ok(find('md-dialog'), 'dialog is still showing');
   });
 
   test('has opt-in support for fullscreen at responsive breakpoint', async function(assert) {
@@ -182,7 +182,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{paper-dialog fullscreen=true}}
     `);
 
-    assert.ok($('md-dialog').hasClass('md-dialog-fullscreen'), 'has class for fullscreen');
+    assert.ok(find('md-dialog').classList.contains('md-dialog-fullscreen'), 'has class for fullscreen');
   });
 
   test('pressing escape triggers close action', async function(assert) {
@@ -201,11 +201,12 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{/if}}
     `);
 
-    assert.ok($('md-dialog'), 'dialog is showing');
+    assert.ok(find('md-dialog'), 'dialog is showing');
 
-    let event = new $.Event('keydown');
+    let event = new Event("keydown");
     event.keyCode = 27;
-    $('md-dialog').trigger(event);
+    
+    find('md-dialog').dispatchEvent(event);
 
   });
 
@@ -229,19 +230,19 @@ module('Integration | Component | paper dialog', function(hooks) {
       </button>
     `);
 
-    $('#theorigin').focus();
-    assert.equal(document.activeElement, $('#theorigin').get(0));
-    $('#theorigin').click();
+    focus('#theorigin')
+    assert.equal(document.activeElement, find('#theorigin'));
+    click('#theorigin')
 
     let done = assert.async();
 
     return settled().then(() => {
-      assert.equal(document.activeElement, $('#thedialogbutton').get(0));
+      assert.equal(document.activeElement, find('#thedialogbutton'));
       this.set('showDialog', false);
 
       return settled();
     }).then(() => {
-      assert.equal(document.activeElement, $('#theorigin').get(0));
+      assert.equal(document.activeElement, find('#theorigin'));
       done();
     });
 
@@ -252,8 +253,8 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{paper-dialog dialogContainerClass="flex-50 my-dialog-container"}}
     `);
 
-    assert.ok($('.md-dialog-container').hasClass('flex-50'), 'has flex-50 css class');
-    assert.ok($('.md-dialog-container').hasClass('my-dialog-container'), 'has my-dialog-container css class');
+    assert.ok(find('.md-dialog-container').classList.contains('flex-50'), 'has flex-50 css class');
+    assert.ok(find('.md-dialog-container').classList.contains('my-dialog-container'), 'has my-dialog-container css class');
   });
 
   test('can specify dialog css classes', async function(assert) {
@@ -261,7 +262,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{paper-dialog class="flex-50 my-dialog-inner"}}
     `);
 
-    assert.ok($('md-dialog').hasClass('flex-50'), 'has flex-50 css class');
-    assert.ok($('md-dialog').hasClass('my-dialog-inner'), 'has my-dialog-inner css class');
+    assert.ok(find('md-dialog').classList.contains('flex-50'), 'has flex-50 css class');
+    assert.ok(find('md-dialog').classList.contains('my-dialog-inner'), 'has my-dialog-inner css class');
   });
 });
