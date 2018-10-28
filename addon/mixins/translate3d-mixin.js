@@ -8,6 +8,7 @@ import { htmlSafe } from '@ember/string';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import { nextTick, computeTimeout } from 'ember-css-transitions/mixins/transition-mixin';
+import { getOwner } from '@ember/application';
 
 /**
  * @class Translate3dMixin
@@ -73,11 +74,19 @@ export default Mixin.create({
   willDestroyElement() {
     this._super(...arguments);
   
+    let config = getOwner(this).resolveRegistration('config:environment');
+
     let containerClone = this.element.parentElement.cloneNode(true);
     let dialogClone = containerClone.querySelector('md-dialog');
     
-    console.log(document.querySelector(this.get('defaultedParent'))) 
-    document.querySelector(this.get('defaultedParent')).parentElement.appendChild(containerClone);
+    let parent = this.get('defaultedParent');
+    
+    if (config.environment === 'test' && !this.get('parent')) {
+      parent = '#ember-testing';
+    }
+
+    document.querySelector(parent).parentElement.appendChild(containerClone);
+    
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
 
     let origin = typeof this.get('origin') === "string"
