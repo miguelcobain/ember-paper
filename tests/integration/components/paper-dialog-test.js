@@ -142,7 +142,7 @@ module('Integration | Component | paper dialog', function(hooks) {
 
     assert.dom('md-dialog').exists();
 
-    click('.md-dialog-container');
+    await click('.md-dialog-container');
   });
 
   test('click outside should not close dialog by default', async function(assert) {
@@ -153,7 +153,7 @@ module('Integration | Component | paper dialog', function(hooks) {
 
     assert.dom('md-dialog').exists();
 
-    click('.md-dialog-container');
+    await click('.md-dialog-container');
     assert.dom('md-dialog').exists();
   });
 
@@ -168,7 +168,7 @@ module('Integration | Component | paper dialog', function(hooks) {
 
     assert.dom('md-dialog').exists();
 
-    click('#the-button');
+    await click('#the-button');
     assert.dom('md-dialog').exists();
   });
 
@@ -197,7 +197,7 @@ module('Integration | Component | paper dialog', function(hooks) {
 
     assert.dom('md-dialog').exists();
   
-    triggerKeyEvent('md-dialog', 'keydown', 27);  
+    await triggerKeyEvent('md-dialog', 'keydown', 27);  
 
   });
 
@@ -224,7 +224,7 @@ module('Integration | Component | paper dialog', function(hooks) {
 
     await focus('#theorigin')
     assert.dom('#theorigin').isFocused();
-    click('#theorigin')
+    await click('#theorigin')
 
     let done = assert.async();
 
