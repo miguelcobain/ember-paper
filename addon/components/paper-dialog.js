@@ -41,7 +41,7 @@ export default Component.extend({
       return '#ember-testing';
     }
     let parent = this.get('defaultedParent');
-    let parentEle = document.querySelector(parent);
+    let parentEle = typeof parent === "string" ? document.querySelector(parent) : parent;
     // If the parentEle isn't found, assume that it is an id, but that the DOM doesn't
     // exist yet. This only happens during integration tests or if entire application
     // route is a dialog.
