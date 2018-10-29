@@ -193,7 +193,7 @@ export default Mixin.create({
                 ? document.querySelector(element)
                 : element;
                 
-    let bounds = document.querySelector(element).getBoundingClientRect();
+    let bounds = element.getBoundingClientRect();
 
     // If the event origin element has zero size, it has probably been hidden.
     return bounds && (bounds.width > 0) && (bounds.height > 0) ? this.copyRect(bounds) : null;
