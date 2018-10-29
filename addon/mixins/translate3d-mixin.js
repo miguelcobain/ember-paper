@@ -188,6 +188,11 @@ export default Mixin.create({
    * @public
    */
   clientRect(element) {
+
+    element = typeof element === "string"
+                ? document.querySelector(element)
+                : element;
+                
     let bounds = document.querySelector(element).getBoundingClientRect();
 
     // If the event origin element has zero size, it has probably been hidden.
