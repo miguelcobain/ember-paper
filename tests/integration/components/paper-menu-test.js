@@ -6,7 +6,7 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | paper menu', function(hooks) {
   setupRenderingTest(hooks);
 
-  async function clickTrigger(scope, options = {}) {
+  async function clickTrigger() {
     let selector = '.ember-basic-dropdown-trigger';
     return await click(selector);
   }
