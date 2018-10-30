@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import PowerOptions from 'ember-power-select/components/power-select/options';
 import layout from '../templates/components/paper-select-options';
 
