@@ -16,9 +16,7 @@ export default PowerOptions.extend({
       return;
     }
     let findOptionAndPerform = (action, e) => {
-      let optionItem2 = $(e.target).closest('[data-option-index]');
       let optionItem = e.target.closest('[data-option-index]')
-      
       if (!optionItem) {
         return;
       }    
