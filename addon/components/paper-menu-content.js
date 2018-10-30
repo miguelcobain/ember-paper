@@ -72,9 +72,21 @@ export default ContentComponent.extend({
       this.mutationObserver = new MutObserver((mutations) => {
         // e-b-d incorrectly counts ripples as a mutation, triggering a problematic repositon
         // convert NodeList to Array
+    
         let addedNodes = Array.prototype.slice.call(mutations[0].addedNodes)
-                          .filter((node) => !node.classList.contains('md-ripple') && (node.nodeName !== '#comment') && !(node.nodeName === '#text' && node.nodeValue === ''));
-        let removedNodes = Array.prototype.slice.call(mutations[0].removedNodes).filter((node) => !node.classList.contains('md-ripple') && (node.nodeName !== '#comment'));
+                          .filter((node) => {
+                            if(node.classList) {
+                              return !node.classList.contains('md-ripple') && (node.nodeName !== '#comment') && !(node.nodeName === '#text' && node.nodeValue === '')
+                            } 
+                            return false
+                          });
+        let removedNodes = Array.prototype.slice.call(mutations[0].removedNodes)
+                            .filter((node) => {
+                              if(node.classList) {
+                                !node.classList.contains('md-ripple') && (node.nodeName !== '#comment')
+                              }
+                              return false
+                            });
 
         if (addedNodes.length || removedNodes.length) {
           this.runloopAwareReposition();
