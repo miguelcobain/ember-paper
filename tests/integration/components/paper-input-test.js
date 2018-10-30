@@ -340,13 +340,13 @@ module('Integration | Component | paper input', function(hooks) {
 
     assert.dom('.paper-input-error').exists({count: 2});
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
-    assert.dom('.paper-input-error:last-child').hasText("You can\'t include the substring cc.");
+    assert.dom('.paper-input-error:last-child').hasText("You can't include the substring cc.");
 
     this.set('notinclude', 'bb');
 
     assert.dom('.paper-input-error').exists({count: 2});
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
-    assert.dom('.paper-input-error:last-child').hasText("You can\'t include the substring bb.");
+    assert.dom('.paper-input-error:last-child').hasText("You can't include the substring bb.");
   });
 
   test('custom validations without param work', async function(assert) {
@@ -365,7 +365,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     assert.dom('.paper-input-error').exists({count: 2});
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
-    assert.dom('.paper-input-error:last-child').hasText("You can\'t include the substring cc.");
+    assert.dom('.paper-input-error:last-child').hasText("You can't include the substring cc.");
   });
 
   test('can override any validation message', async function(assert) {
@@ -389,7 +389,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     assert.dom('.paper-input-error').exists({count: 2});
     assert.dom('.paper-input-error:first-child').hasText('Too small, baby!');
-    assert.dom('.paper-input-error:last-child').hasText("Can\'t have cc, baby!");
+    assert.dom('.paper-input-error:last-child').hasText("Can't have cc, baby!");
   });
 
   test('renders error messages from an external `errors` array', async function(assert) {
