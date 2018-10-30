@@ -24,9 +24,9 @@ export default Component.extend(ParentMixin, {
   enabledMenuItems: filterBy('childComponents', 'disabled', false),
 
   didInsertElement() {
-    run.later(() => {
-      let focusTarget = this.$().find('.md-menu-focus-target');
-      if (!focusTarget.length) {
+     run.later(() => {
+      let focusTarget = this.element.querySelector('.md-menu-focus-target');
+      if (!focusTarget) {
         focusTarget = this.get('enabledMenuItems.firstObject.element.firstElementChild');
       }
       if (focusTarget) {
@@ -54,12 +54,12 @@ export default Component.extend(ParentMixin, {
   },
 
   focusMenuItem(e, direction) {
-    let currentItem = this.$(e.target).closest('md-menu-item');
+    let currentItem = e.target.closest('md-menu-item');
 
     let children = this.get('enabledMenuItems');
     let items = children.map((child) => child.element);
 
-    let currentIndex = items.indexOf(currentItem[0]);
+    let currentIndex = items.indexOf(currentItem);
 
     // Traverse through our elements in the specified direction (+/-1) and try to
     // focus them until we find one that accepts focus
