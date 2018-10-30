@@ -17,14 +17,16 @@ export default PowerOptions.extend({
       return;
     }
     let findOptionAndPerform = (action, e) => {
-      let optionItem = $(e.target).closest('[data-option-index]');
-      if (!optionItem || !(0 in optionItem)) {
+      let optionItem2 = $(e.target).closest('[data-option-index]');
+      let optionItem = e.target.closest('[data-option-index]')
+      
+      if (!optionItem) {
         return;
-      }
-      if (optionItem.closest('[aria-disabled=true]').length) {
+      }    
+      if (optionItem.closest('[aria-disabled=true]')) {
         return;
       } // Abort if the item or an ancestor is disabled
-      let optionIndex = optionItem[0].getAttribute('data-option-index');
+      let optionIndex = optionItem.getAttribute('data-option-index');
       action(this._optionFromIndex(optionIndex), e);
     };
     this.element.addEventListener('mouseup', (e) => findOptionAndPerform(this.get('select.actions.choose'), e));
