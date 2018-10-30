@@ -1,56 +1,14 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render, settled, click, findAll, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { run } from '@ember/runloop';
-import $ from 'jquery';
 
 module('Integration | Component | paper menu', function(hooks) {
   setupRenderingTest(hooks);
 
-  function focus(el) {
-    if (!el) {
-      return;
-    }
-    let $el = $(el);
-    if ($el.is(':input, [contenteditable=true]')) {
-      let type = $el.prop('type');
-      if (type !== 'checkbox' && type !== 'radio' && type !== 'hidden') {
-        run(null, function() {
-          // Firefox does not trigger the `focusin` event if the window
-          // does not have focus. If the document doesn't have focus just
-          // use trigger('focusin') instead.
-
-          if (!document.hasFocus || document.hasFocus()) {
-            el.focus();
-          } else {
-            $el.trigger('focusin');
-          }
-        });
-      }
-    }
-  }
-
-  function nativeClick(selector, options = {}) {
-    let mousedown = new window.Event('mousedown', { bubbles: true, cancelable: true, view: window });
-    let mouseup = new window.Event('mouseup', { bubbles: true, cancelable: true, view: window });
-    let click = new window.Event('click', { bubbles: true, cancelable: true, view: window });
-    mousedown.button = mouseup.button =  click.button = options.button || 0;
-    Object.keys(options).forEach((key) => {
-      mousedown[key] = options[key];
-      mouseup[key] = options[key];
-      click[key] = options[key];
-    });
-    let element = document.querySelector(selector);
-    run(() => element.dispatchEvent(mousedown));
-    focus(element);
-    run(() => element.dispatchEvent(mouseup));
-    run(() => element.dispatchEvent(click));
-  }
-
-  function clickTrigger(scope, options = {}) {
+  async function clickTrigger(scope, options = {}) {
     let selector = '.ember-basic-dropdown-trigger';
-    nativeClick(selector, options);
+    return await click(selector);
   }
 
   test('opens on click', async function(assert) {
@@ -69,12 +27,10 @@ module('Integration | Component | paper menu', function(hooks) {
       {{/menu.content}}
     {{/paper-menu}}`);
 
-    return settled().then(() => {
-      clickTrigger();
-
+    return settled().then(async () => {
+      await clickTrigger();
       return settled().then(() => {
-        let selectors = $('.md-open-menu-container');
-        assert.ok(selectors.length, 'opened menu');
+        assert.dom('.md-open-menu-container').exists()
         return settled().then(() => {
 
         });
@@ -98,17 +54,15 @@ module('Integration | Component | paper menu', function(hooks) {
       {{/menu.content}}
     {{/paper-menu}}`);
 
-    return settled().then(() => {
-      clickTrigger();
+    return settled().then(async () => {
+      await clickTrigger();
 
-      return settled().then(() => {
+      return settled().then(async () => {
+        assert.dom('.md-open-menu-container').exists()
+        await clickTrigger();
 
-        let selectors = $('.md-open-menu-container');
-        assert.ok(selectors.length, 'opened menu');
-        clickTrigger();
         return settled().then(() => {
-          let selector = $('.md-backdrop');
-          assert.ok(!selector.length, 'backdrop removed');
+          assert.dom('.md-backdrop').doesNotExist()
         });
       });
     });
@@ -130,17 +84,17 @@ module('Integration | Component | paper menu', function(hooks) {
       {{/menu.content}}
     {{/paper-menu}}`);
 
-    return settled().then(() => {
-      clickTrigger();
+    return settled().then(async () => {
+      await clickTrigger();
 
-      return settled().then(() => {
+      return settled().then(async () => {
 
-        let selectors = $('.md-open-menu-container');
-        assert.ok(selectors.length, 'opened menu');
-        $('md-backdrop').click();
+        assert.dom('.md-open-menu-container').exists()
+
+        await click('md-backdrop')
+
         return settled().then(() => {
-          let selector = $('.md-backdrop');
-          assert.ok(!selector.length, 'backdrop removed');
+          assert.dom('.md-backdrop').doesNotExist()
         });
       });
     });
@@ -165,32 +119,29 @@ module('Integration | Component | paper menu', function(hooks) {
       {{/menu.content}}
     {{/paper-menu}}`);
 
-    return settled().then(() => {
-      clickTrigger();
+    return settled().then(async () => {
+      await clickTrigger();
 
-      return settled().then(() => {
+      return settled().then(async () => {
 
-        let selectors = $('md-menu-item');
-        assert.ok($(selectors[0].firstElementChild).hasClass('md-focused'), 'first menu item given focus');
-        let e = new $.Event('keydown');
-        let menu = $('md-menu-content');
-        e.which = 40;
-        e.target = menu[0].firstElementChild;
+        let selectors = findAll('md-menu-item')
+        assert.dom(selectors[0].firstElementChild).hasClass('md-focused')
 
-        $(menu[0].firstElementChild).trigger(e);
+        let menu = findAll('md-menu-content');
+        await triggerKeyEvent(menu[0].firstElementChild, "keydown", 40)
 
-        return settled().then(() => {
-          let first = $(selectors[0].firstElementChild);
-          let second = $(selectors[1].firstElementChild);
-          assert.ok(second.hasClass('md-focused') && !first.hasClass('md-focused'), 'focus has changed to second item');
-          let e = new $.Event('keydown');
-          e.which = 38;
-          e.target = selectors[1];
-          $(selectors[1]).trigger(e);
+        return settled().then(async () => {
+          let first = selectors[0].firstElementChild;
+          let second = selectors[1].firstElementChild;
+
+          assert.ok(second.classList.contains('md-focused') && !first.classList.contains('md-focused'), 'focus has changed to second item');
+
+          await triggerKeyEvent(selectors[1].firstElementChild, "keydown", 38)
+
           return settled().then(() => {
-            let first = $(selectors[0].firstElementChild);
-            let second = $(selectors[1].firstElementChild);
-            assert.ok(!second.hasClass('md-focused') && first.hasClass('md-focused'), 'focus has changed to first item');
+            let first = selectors[0].firstElementChild;
+            let second = selectors[1].firstElementChild;
+            assert.ok(!second.classList.contains('md-focused') && first.classList.contains('md-focused'), 'focus has changed to first item');
 
           });
         });
@@ -216,7 +167,6 @@ module('Integration | Component | paper menu', function(hooks) {
         {{/menu.content}}
       {{/paper-menu}}
     `);
-
-    assert.equal(this.$('md-menu').attr('tabindex'), '-1', 'no tabindex present');
+    assert.dom('md-menu').hasAttribute('tabindex', '-1')
   });
 });
