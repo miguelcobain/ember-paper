@@ -62,7 +62,7 @@ export default Component.extend({
         this.get('onInput')({ target: { value: '' } });
       }
       this.get('onFocus')(e);
-      this.$('input').focus();
+      this.element.querySelector('input').focus();
     },
 
     handleKeydown(e) {
