@@ -23,7 +23,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input icon="person" onChange=dummyOnChange}}`);
 
-    assert.dom('md-input-container md-icon').exists()
+    assert.dom('md-input-container md-icon').exists({count: 1}, 'renders with left icon');
     assert.dom('md-input-container').hasClass('md-icon-left');
   });
 
@@ -32,7 +32,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input label="name" iconRight="person" onChange=dummyOnChange}}`);
 
-    assert.dom('md-input-container md-icon').exists()
+    assert.dom('md-input-container md-icon').exists({count: 1}, 'renders with right icon');
     assert.dom('md-input-container').hasClass('md-icon-right');
   });
 
@@ -45,8 +45,8 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input iconComponent="custom-icon" icon="person" onChange=dummyOnChange}}`);
 
-    assert.dom('md-input-container md-icon').doesNotExist()
-    assert.dom('md-input-container .custom-icon').exists()
+    assert.dom('md-input-container md-icon').doesNotExist('default icon component is not rendered');
+    assert.dom('md-input-container .custom-icon').exists({count: 1}, 'custom icon component rendered');
     
   });
 
@@ -59,8 +59,8 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input iconComponent="custom-icon" iconRight="person" onChange=dummyOnChange}}`);
 
-    assert.dom('md-input-container md-icon').doesNotExist()
-    assert.dom('md-input-container .custom-icon').exists()
+    assert.dom('md-input-container md-icon').doesNotExist('default icon component is not rendered');
+    assert.dom('md-input-container .custom-icon').exists({count: 1}, 'custom icon component rendered');
     
   });
 
@@ -262,7 +262,7 @@ module('Integration | Component | paper input', function(hooks) {
       {{paper-input value=value onChange=(action (mut value)) maxlength=8}}
     `);
 
-    assert.dom('.md-char-counter').exists();
+    assert.dom('.md-char-counter').exists({count: 1}, 'renders char counter');
     assert.dom('.md-char-counter').hasText('6/8');
     this.set('value', 'aa');
 
@@ -279,7 +279,7 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8}}
     `);
 
-    assert.dom('.paper-input-error').exists();
+    assert.dom('.paper-input-error').exists({count: 1}, 'renders one error');
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
   });
 
@@ -298,7 +298,7 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8 customValidations=customValidations notinclude="cc"}}
     `);
 
-    assert.dom('.paper-input-error').exists({count: 2});
+    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
     assert.dom('.paper-input-error:last-child').hasText("You can't include the substring cc.");
   });
@@ -314,11 +314,11 @@ module('Integration | Component | paper input', function(hooks) {
         required=required}}
     `);
 
-    assert.dom('.paper-input-error').doesNotExist();
+    assert.dom('.paper-input-error').doesNotExist('no errors');
 
     this.set('required', true);
 
-    assert.dom('.paper-input-error').exists();
+    assert.dom('.paper-input-error').exists({count: 1}, 'renders one error');
     assert.dom('.paper-input-error:first-child').hasText('This is required.');
   });
 
@@ -338,7 +338,7 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8 customValidations=customValidations notinclude=notinclude}}
     `);
 
-    assert.dom('.paper-input-error').exists({count: 2});
+    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
     assert.dom('.paper-input-error:last-child').hasText("You can't include the substring cc.");
 
@@ -363,7 +363,7 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8 customValidations=customValidations}}
     `);
 
-    assert.dom('.paper-input-error').exists({count: 2});
+    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
     assert.dom('.paper-input-error:last-child').hasText("You can't include the substring cc.");
   });
@@ -387,7 +387,7 @@ module('Integration | Component | paper input', function(hooks) {
         )}}
     `);
 
-    assert.dom('.paper-input-error').exists({count: 2});
+    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('Too small, baby!');
     assert.dom('.paper-input-error:last-child').hasText("Can't have cc, baby!");
   });
@@ -405,7 +405,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
 
-    assert.dom('.paper-input-error').exists({count: 2});
+    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('foo should be a number.');
     assert.dom('.paper-input-error:last-child').hasText("foo should be smaller than 12.");
   });
@@ -420,7 +420,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
 
-    assert.dom('.paper-input-error').exists({count: 2});
+    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('foo should be a number.');
     assert.dom('.paper-input-error:last-child').hasText("foo should be smaller than 12.");
 
@@ -451,19 +451,17 @@ module('Integration | Component | paper input', function(hooks) {
     input.value = '12345';
 
     await triggerEvent(input, 'input');
+    await settled();
+    assert.dom(input).hasValue('123');
+    assert.equal(this.value, '123', 'component value should be 123');
 
-    return settled().then(async () => {
-      assert.dom(input).hasValue('123');
-      assert.equal(this.value, '123', 'component value should be 123');
+    input.value = 'abcdefg';
+    await triggerEvent(input, 'input');
 
-      input.value = 'abcdefg';
-      await triggerEvent(input, 'input');
-
-      return settled();
-    }).then(() => {
-      assert.dom(input).hasValue('123');
-      assert.equal(this.value, '123', 'component value should be 123');
-    });
+    await settled();
+    assert.dom(input).hasValue('123');
+    assert.equal(this.value, '123', 'component value should be 123');
+    
   });
 
   test('displayed input value matches actual input value with no onChange method', async function(assert) {
