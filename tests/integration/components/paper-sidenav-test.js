@@ -119,7 +119,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
       {{/paper-sidenav}}
     `);
 
-    await click('md-sidenav')
+    await click('md-sidenav');
   });
 
   test('should trigger an action when clicking inside sidenav with `closeOnClick=true` (default)', async function(assert) {
@@ -135,7 +135,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
       {{/paper-sidenav}}
     `);
 
-    await click('md-sidenav')
+    await click('md-sidenav');
   });
 
   test('sidenav "locks open" when specified matchMedia test passes', async function(assert) {
@@ -223,7 +223,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
       {{/paper-sidenav-toggle}}
     `);
 
-    await click('#toggle-button')
+    await click('#toggle-button');
   });
 
   test('should trigger an action when clicking sidenav-toggle (custom name)', async function(assert) {
