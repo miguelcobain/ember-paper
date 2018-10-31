@@ -34,6 +34,14 @@ module.exports = {
     app.import('vendor/hammerjs/hammer.js');
     app.import('vendor/matchmedia-polyfill/matchMedia.js');
     app.import('vendor/propagating-hammerjs/propagating.js');
+
+    // Respect app's autoprefix ops
+    this.autoprefixOptions = Object.assign({
+      browsers: ['last 2 versions'],
+      enabled: true }, app.options.autoprefixer);
+
+    this.enableAutoprefix = this.autoprefixOptions.enabled;
+    delete this.autoprefixOptions.enabled;
   },
 
   config() {
@@ -228,8 +236,9 @@ module.exports = {
   },
 
   postprocessTree(type, tree) {
-    if (type === 'all' || type === 'styles') {
-      tree = autoprefixer(tree, this.app.options.autoprefixer || { browsers: ['last 2 versions'] });
+
+    if ((type === 'all' || type === 'styles') && this.enableAutoprefix) {
+      tree = autoprefixer(tree, this.autoprefixOptions);
     }
     return tree;
   }
