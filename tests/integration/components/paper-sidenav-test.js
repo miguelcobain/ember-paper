@@ -85,9 +85,9 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     this.set('isOpen', true);
 
-    return settled().then(() => {
-      assert.dom('md-sidenav').doesNotHaveClass('md-closed');
-    });
+    await settled();
+    assert.dom('md-sidenav').doesNotHaveClass('md-closed');
+
   });
 
   test('sidenav closes when `open` is changed to `false`', async function(assert) {
@@ -101,9 +101,9 @@ module('Integration | Component | paper sidenav', function(hooks) {
     
     this.set('isOpen', false);
 
-    return settled().then(() => {
-      assert.dom('md-sidenav').hasClass('md-closed');
-    });
+    await settled();
+    assert.dom('md-sidenav').hasClass('md-closed');
+    
   });
 
   test('should trigger an action when clicking inside sidenav with `closeOnClick=true` (default)', async function(assert) {
@@ -200,9 +200,9 @@ module('Integration | Component | paper sidenav', function(hooks) {
     };
     window.dispatchEvent(new window.Event('resize'));
 
-    return settled().then(() => {
-      assert.dom('md-sidenav').doesNotHaveClass('md-locked-open');
-    });
+    await settled();
+    assert.dom('md-sidenav').doesNotHaveClass('md-locked-open');
+    
   });
 
   test('should trigger an action when clicking sidenav-toggle ("default" name)', async function(assert) {

@@ -47,7 +47,7 @@ export default Component.extend(TransitionMixin, {
 
   didInsertElement() {
     this._super(...arguments);
-    this._updateOnResize = run.bind(this, 'updateLockedOpen')
+    this._updateOnResize = run.bind(this, this.updateLockedOpen)
     window.addEventListener('resize', this._updateOnResize);
     this.updateLockedOpen();
   },
