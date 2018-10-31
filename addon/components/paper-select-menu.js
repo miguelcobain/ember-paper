@@ -30,15 +30,15 @@ export default PaperMenu.extend({
   triggerComponent: 'paper-select-menu-trigger',
 
   calculatePosition(trigger, content, destination, { dropdown }) {
-    let _dropdown = content;
+
     let opts = {
       target: trigger,
       parent: document.body,
-      selectEl: _dropdown.querySelector('md-select-menu'),
-      contentEl: _dropdown.querySelector('md-content')
+      selectEl: content.querySelector('md-select-menu'),
+      contentEl: content.querySelector('md-content')
     };
 
-    let containerNode = _dropdown;
+    let containerNode = content;
     let targetNode = opts.target.firstElementChild; // target the label
     let parentNode = opts.parent;
     let selectNode = opts.selectEl;
