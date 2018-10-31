@@ -89,7 +89,8 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   didInsertElement() {
     this._super(...arguments);
     if (this.get('textarea')) {
-      window.addEventListener('resize', run.bind(this, this.growTextarea));
+      this._growTextareaOnResize = run.bind(this, this.growTextarea)
+      window.addEventListener('resize', this._growTextareaOnResize);
     }
   },
 
@@ -103,7 +104,8 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   willDestroyElement() {
     this._super(...arguments);
     if (this.get('textarea')) {
-      window.removeEventListener('resize', run.bind(this, this.growTextarea));
+      window.removeEventListener('resize', this._growTextareaOnResize);
+      this._growTextareaOnResize = null;
     }
   },
 
@@ -131,7 +133,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
         inputElement.style.height = `${this.lineHeight * rowsToSet}px`;
         inputElement.setAttribute('rows', rowsToSet);
         
-        if(proposedHeight >= maxRows) {
+        if (proposedHeight >= maxRows) {
           inputElement.classList.add('md-textarea-scrollable');
         } else {
           inputElement.classList.remove('md-textarea-scrollable');
