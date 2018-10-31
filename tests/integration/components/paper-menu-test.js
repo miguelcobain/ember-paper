@@ -27,11 +27,11 @@ module('Integration | Component | paper menu', function(hooks) {
       {{/menu.content}}
     {{/paper-menu}}`);
 
-    await settled()
-    await clickTrigger()
-    await settled()
-    assert.dom('.md-open-menu-container').exists()
-    await settled()
+    await settled();
+    await clickTrigger();
+    await settled();
+    assert.dom('.md-open-menu-container').exists();
+    await settled();
   
   });
 
@@ -51,13 +51,13 @@ module('Integration | Component | paper menu', function(hooks) {
       {{/menu.content}}
     {{/paper-menu}}`);
 
-    await settled()
-    await clickTrigger()
-    await settled()
-    assert.dom('.md-open-menu-container').exists()
-    await clickTrigger()
-    await settled()
-    assert.dom('.md-backdrop').doesNotExist()
+    await settled();
+    await clickTrigger();
+    await settled();
+    assert.dom('.md-open-menu-container').exists();
+    await clickTrigger();
+    await settled();
+    assert.dom('.md-backdrop').doesNotExist();
    
   });
 
@@ -77,13 +77,13 @@ module('Integration | Component | paper menu', function(hooks) {
       {{/menu.content}}
     {{/paper-menu}}`);
 
-    await settled()
-    await clickTrigger()
-    await settled()
-    assert.dom('.md-open-menu-container').exists()
-    await click('md-backdrop')
-    await settled()
-    assert.dom('.md-backdrop').doesNotExist()
+    await settled();
+    await clickTrigger();
+    await settled();
+    assert.dom('.md-open-menu-container').exists();
+    await click('md-backdrop');
+    await settled();
+    assert.dom('.md-backdrop').doesNotExist();
 
   });
 
@@ -110,22 +110,22 @@ module('Integration | Component | paper menu', function(hooks) {
     await clickTrigger();
     await settled();
 
-    let selectors = findAll('md-menu-item')
-    assert.dom(selectors[0].firstElementChild).hasClass('md-focused')
+    let selectors = findAll('md-menu-item');
+    assert.dom(selectors[0].firstElementChild).hasClass('md-focused');
 
     let menu = findAll('md-menu-content');
-    await triggerKeyEvent(menu[0].firstElementChild, "keydown", 40)
+    await triggerKeyEvent(menu[0].firstElementChild, "keydown", 40);
 
-    await settled()
+    await settled();
 
     let first = selectors[0].firstElementChild;
     let second = selectors[1].firstElementChild;
 
     assert.ok(second.classList.contains('md-focused') && !first.classList.contains('md-focused'), 'focus has changed to second item');
 
-    await triggerKeyEvent(selectors[1].firstElementChild, "keydown", 38)
+    await triggerKeyEvent(selectors[1].firstElementChild, "keydown", 38);
 
-    await settled()
+    await settled();
 
     first = selectors[0].firstElementChild;
     second = selectors[1].firstElementChild;
@@ -153,6 +153,6 @@ module('Integration | Component | paper menu', function(hooks) {
         {{/menu.content}}
       {{/paper-menu}}
     `);
-    assert.dom('md-menu').hasAttribute('tabindex', '-1')
+    assert.dom('md-menu').hasAttribute('tabindex', '-1');
   });
 });
