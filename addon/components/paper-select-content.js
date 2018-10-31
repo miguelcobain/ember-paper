@@ -46,16 +46,15 @@ export default PaperMenuContent.extend({
     let parentElement = this.get('renderInPlace') ? dropdownElement.parentElement.parentElement : dropdownElement.parentElement;
     let clone = dropdownElement.cloneNode(true);
     clone.id = `${clone.id}--clone`;
-    let _clone = clone;
     parentElement.appendChild(clone);
     
     clone.children[0].children[0].scrollTop = dropdownElement.children[0].children[0].scrollTop;
     window.requestAnimationFrame(() => {
       if (!this.get('isDestroyed')) {
         this.set('isActive', false);
-        _clone.classList.add('md-leave');
+        clone.classList.add('md-leave');
         waitForAnimations(clone, function() {
-          _clone.classList.remove('md-active');
+          clone.classList.remove('md-active');
           parentElement.removeChild(clone);
         });
       }
