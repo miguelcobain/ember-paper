@@ -3,7 +3,6 @@
 const path = require('path');
 const resolve = require('resolve');
 const version = require('./package.json').version;
-const autoprefixer = require('broccoli-autoprefixer');
 const BroccoliMergeTrees = require('broccoli-merge-trees');
 const writeFile = require('broccoli-file-creator');
 const Funnel = require('broccoli-funnel');
@@ -225,12 +224,5 @@ module.exports = {
   */
   pathBase(packageName) {
     return path.dirname(resolve.sync(`${packageName}/package.json`, { basedir: __dirname }));
-  },
-
-  postprocessTree(type, tree) {
-    if (type === 'all' || type === 'styles') {
-      tree = autoprefixer(tree, this.app.options.autoprefixer || { browsers: ['last 2 versions'] });
-    }
-    return tree;
   }
 };
