@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render, settled, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { next } from '@ember/runloop';
 
@@ -30,7 +30,8 @@ module('Integration | Component | paper virtual repeat', function(hooks) {
       {{/paper-virtual-repeat}}
       </div>`);
 
-    assert.equal(this.$('.md-virtual-repeat-offsetter').children().length, 10 + NUM_EXTRA);
+    assert.equal(find('.md-virtual-repeat-offsetter').children.length, 10 + NUM_EXTRA);
+    
 
   });
 
@@ -48,7 +49,9 @@ module('Integration | Component | paper virtual repeat', function(hooks) {
         {{/each}}
       {{/paper-virtual-repeat}}
       </div>`);
-    assert.equal(this.$('.md-virtual-repeat-offsetter').children().length, 10 + NUM_EXTRA);
+
+    assert.equal(find('.md-virtual-repeat-offsetter').children.length, 10 + NUM_EXTRA);
+  
   });
 
   test('should reposition items when scrolled so that there is still only enough items to fit + 3', async function(assert) {
@@ -70,7 +73,7 @@ module('Integration | Component | paper virtual repeat', function(hooks) {
 
     assert.dom('.md-virtual-repeat-offsetter').hasAttribute('style', 'transform: translateY(0px);');
 
-    this.$('.md-virtual-repeat-scroller').scrollTop(30);
+    find('.md-virtual-repeat-scroller').scrollTop = 30;
 
     await settled();
 
@@ -97,7 +100,7 @@ module('Integration | Component | paper virtual repeat', function(hooks) {
         {{/each}}
       {{/paper-virtual-repeat}}
       </div>`);
-    this.$('.md-virtual-repeat-scroller')[0].scrollTop = 2970;
+    find('.md-virtual-repeat-scroller').scrollTop = 2970;
     return settled();
   });
 });
