@@ -188,11 +188,11 @@ export default Component.extend({
     let current = this.get('activeChip');
     let chips = this.get('content');
     let input = this.getInput();
-
+    
     if (['ArrowLeft', 'Left'].includes(key) || (key === 'Backspace' && current === -1)) {
       if (current === -1) {
         input.blur();
-        this.$('md-chips-wrap', this.element).focus();
+        this.element.querySelector('md-chips-wrap').focus();
         this.set('activeChip', chips.length - 1);
       } else if (current > 0) {
         this.decrementProperty('activeChip');
