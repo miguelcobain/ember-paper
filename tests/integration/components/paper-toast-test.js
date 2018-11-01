@@ -1,8 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import $ from 'jquery';
 
 module('Integration | Component | paper toast', function(hooks) {
   setupRenderingTest(hooks);
@@ -14,7 +13,7 @@ module('Integration | Component | paper toast', function(hooks) {
 
     await render(hbs`{{paper-toast}}`);
 
-    assert.equal(this.$().text().trim(), '');
+    assert.dom(this.element).hasText('');
 
     // Template block usage:
     await render(hbs`
@@ -59,8 +58,7 @@ module('Integration | Component | paper toast', function(hooks) {
     await render(hbs`
       {{paper-toast}}
     `);
-
-    assert.ok($().find('#ember-testing md-toast'), 'rendered in default');
+    assert.dom('#ember-testing md-toast').exists({count: 1}, 'rendered in default');
   });
 
   test('should render in specific wormhole if parent is defined', async function(assert) {
@@ -70,8 +68,9 @@ module('Integration | Component | paper toast', function(hooks) {
         So this is singularity, eh?
       {{/paper-toast}}
     `);
-    assert.ok(!$('#ember-testing > md-toast').length, 'did not render in default');
-    assert.ok($('#sagittarius-a md-toast').length, 'rendered in parent');
+    assert.dom('#ember-testing > md-toast').doesNotExist('did not render in default');
+    assert.dom('#sagittarius-a md-toast').exists({count: 1}, 'rendered in parent');
+    
   });
 
   test('capsule sets the correct class', async function(assert) {
@@ -79,9 +78,7 @@ module('Integration | Component | paper toast', function(hooks) {
       {{paper-toast capsule=true}}
     `);
 
-    let toast = $('md-toast');
-
-    assert.ok(toast.hasClass('md-capsule'), 'rendered in default');
+    assert.dom('md-toast').hasClass('md-capsule', 'rendered in default');
   });
 
   ['bottom left', 'bottom right', 'top left', 'top right'].forEach((position) => {
@@ -94,9 +91,11 @@ module('Integration | Component | paper toast', function(hooks) {
         {{paper-toast position=position}}
       `);
 
-      assert.ok($('#ember-testing > md-toast').hasClass(`md-${x}`));
-      assert.ok($('#ember-testing > md-toast').hasClass(`md-${y}`));
-      assert.ok($('#ember-testing').hasClass(`md-toast-open-${y}`));
+      assert.dom('#ember-testing > md-toast').hasClass(`md-${x}`);
+      assert.dom('#ember-testing > md-toast').hasClass(`md-${y}`);
+      //weird, it doesnt work with plain string selector?
+      assert.dom(find('#ember-testing')).hasClass(`md-toast-open-${y}`);
+      
     });
   });
 });
