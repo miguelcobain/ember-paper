@@ -34,7 +34,7 @@ module('Integration | Component | paper dialog', function(hooks) {
         Lorem ipsum.
       {{/paper-dialog}}
     `);
-    assert.dom('md-dialog').hasText('Lorem ipsum.')
+    assert.dom('md-dialog').hasText('Lorem ipsum.');
   });
 
   test('should render in ember-testing if no parent is defined', async function(assert) {
@@ -53,9 +53,9 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{/paper-dialog}}
     `);
 
-    assert.dom('#paper-wormhole md-dialog').doesNotExist()
-    assert.dom('#sagittarius-a md-dialog').exists()
-    assert.dom('#ember-testing md-dialog').exists()
+    assert.dom('#paper-wormhole md-dialog').doesNotExist();
+    assert.dom('#sagittarius-a md-dialog').exists();
+    assert.dom('#ember-testing md-dialog').exists();
 
   });
 
@@ -65,7 +65,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{paper-dialog parent="#sagittarius-a"}}
     `);
   
-    assert.equal(window.getComputedStyle(find('md-backdrop')).getPropertyValue("position"), 'absolute', 'backdrop is absolute');
+    assert.equal(window.getComputedStyle(find('md-backdrop')).getPropertyValue('position'), 'absolute', 'backdrop is absolute');
   });
 
   test('backdrop is opaque by default', async function(assert) {
@@ -113,17 +113,13 @@ module('Integration | Component | paper dialog', function(hooks) {
     let dialogTransform = getDialogTransform();
     assert.ok(dialogTransform.indexOf('translate3d') !== -1, 'open translate was added');
 
-    return settled().then(() => {
-      let dialogTransform = getDialogTransform();
-      assert.ok(!dialogTransform, 'open translate was removed');
-      this.set('dialogOpen', false);
+    await settled();
+    dialogTransform = getDialogTransform();
+    assert.ok(!dialogTransform, 'open translate was removed');
+    this.set('dialogOpen', false);
 
-      return settled();
-    }).then(() => {
-      // TODO test that close translate is applied
-      // let dialogTransform = getDialogTransform();
-      // assert.ok(dialogTransform.indexOf('translate3d') !== -1, 'close translate was added');
-    });
+    await settled();
+
   });
 
   test('click outside should close dialog if clickOutsideToClose', async function(assert) {
@@ -222,21 +218,19 @@ module('Integration | Component | paper dialog', function(hooks) {
       </button>
     `);
 
-    await focus('#theorigin')
+    await focus('#theorigin');
     assert.dom('#theorigin').isFocused();
-    await click('#theorigin')
+    await click('#theorigin');
 
     let done = assert.async();
 
-    return settled().then(() => {
-      assert.dom('#thedialogbutton').isFocused();
-      this.set('showDialog', false);
+    await settled();
+    assert.dom('#thedialogbutton').isFocused();
+    this.set('showDialog', false);
 
-      return settled();
-    }).then(() => {
-      assert.dom('#theorigin').isFocused();
-      done();
-    });
+    await settled();
+    assert.dom('#theorigin').isFocused();
+    done();
 
   });
   
