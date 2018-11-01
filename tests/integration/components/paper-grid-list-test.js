@@ -59,7 +59,7 @@ module('Integration | Component | paper grid list', function(hooks) {
       {{/paper-grid-list}}
     `);
 
-    assert.equal(this.$('md-grid-tile').length, 1);
+    assert.dom('md-grid-tile').exists({count: 1})
   });
 
   test('it renders tiles with footer', async function(assert) {
@@ -73,7 +73,7 @@ module('Integration | Component | paper grid list', function(hooks) {
       {{/paper-grid-list}}
     `);
 
-    assert.equal(findAll('md-grid-tile-footer').length, 1);
+    assert.dom('md-grid-tile-footer').exists({count: 1})
   });
 
   test('it applies a gutter', async function(assert) {
