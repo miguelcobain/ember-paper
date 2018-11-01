@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper card', function(hooks) {
@@ -28,13 +28,13 @@ module('Integration | Component | paper card', function(hooks) {
       {{/paper-card}}
     `);
 
-    let img = this.$('img');
+    let img = find('img');
 
-    assert.equal(img.get(0).tagName, 'IMG');
-    assert.ok(/image.png$/.test(img.prop('src')));
-    assert.equal(img.prop('alt'), 'imagealt');
-    assert.equal(img.prop('title'), 'imagetitle');
-    assert.ok(img.hasClass('md-media-xl'));
+    assert.equal(img.tagName, 'IMG');
+    assert.dom(img).hasAttribute('src', /image.png$/);
+    assert.dom(img).hasAttribute('alt', 'imagealt');
+    assert.dom(img).hasAttribute('title', 'imagetitle');
+    assert.dom(img).hasClass('md-media-xl');
   });
 
   test('block media renders div with correct class', async function(assert) {
@@ -61,9 +61,9 @@ module('Integration | Component | paper card', function(hooks) {
       {{/paper-card}}
     `);
 
-    let div = this.$('#çup').parent();
+    let div = find('#çup').parentNode;
 
-    assert.equal(div.get(0).tagName, 'DIV');
-    assert.ok(div.hasClass('md-media-xl'));
+    assert.equal(div.tagName, 'DIV');
+    assert.dom(div).hasClass('md-media-xl');
   });
 });
