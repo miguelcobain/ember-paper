@@ -75,8 +75,8 @@ export default Mixin.create({
     this._super(...arguments);
   
     let config = getOwner(this).resolveRegistration('config:environment');
-
-    let containerClone = this.element.parentElement.cloneNode(true);
+    
+    let containerClone = this.element.parentNode.cloneNode(true);
     let dialogClone = containerClone.querySelector('md-dialog');
     
     let parent = this.get('defaultedParent');
@@ -85,7 +85,7 @@ export default Mixin.create({
       parent = '#ember-testing';
     }
 
-    document.querySelector(parent).parentElement.appendChild(containerClone);
+    document.querySelector(parent).parentNode.appendChild(containerClone);
     
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
 
@@ -94,7 +94,7 @@ export default Mixin.create({
                     : this.get('origin');
 
     nextTick().then(() => {
-      dialogClone.classList.remove('md-transition-in')
+      dialogClone.classList.remove('md-transition-in');
       dialogClone.classList.add('md-transition-out');
       dialogClone.style.cssText = toStyle;
       nextTick().then(() => {
