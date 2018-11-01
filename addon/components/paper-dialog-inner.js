@@ -41,8 +41,9 @@ export default Component.extend(Translate3dMixin, {
     this.checkContentOverflow();
     // content overflow might change depending on load of images inside dialog.
     let imageElements = this.element.querySelectorAll('img');
+    this._checkContentOverflowOnLoad = run.bind(this, this.checkContentOverflow) 
     imageElements.forEach( image => {
-      image.addEventListener('load', run.bind(this, this.checkContentOverflow))
+      image.addEventListener('load', this._checkContentOverflowOnLoad)
     });
   
   },
@@ -51,8 +52,9 @@ export default Component.extend(Translate3dMixin, {
     this._super(...arguments);
     let imageElements = this.element.querySelectorAll('img');
     imageElements.forEach( image => {
-      image.removeEventListener('load', run.bind(this, this.checkContentOverflow))
+      image.removeEventListener('load', this._checkContentOverflowOnLoad)
     });
+    this._checkContentOverflowOnLoad = null;
   },
 
   checkContentOverflow() {
