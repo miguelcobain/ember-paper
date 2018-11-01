@@ -22,7 +22,7 @@ module('Integration | Component | paper toast', function(hooks) {
       {{/paper-toast}}
     `);
 
-    assert.equal($('md-toast').text().trim(), 'Toast was shown successfully!');
+    assert.dom('md-toast').hasText('Toast was shown successfully!')
   });
 
   test('duration triggers onClose', async function(assert) {
