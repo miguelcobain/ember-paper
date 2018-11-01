@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render, settled, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper progress circular', function(hooks) {
@@ -9,22 +9,23 @@ module('Integration | Component | paper progress circular', function(hooks) {
   test('should auto-set the md-mode to "indeterminate" if not specified', async function(assert) {
     assert.expect(1);
     await render(hbs`{{paper-progress-circular}}`);
-    assert.equal(this.$('md-progress-circular').attr('md-mode').trim(), 'indeterminate');
+    assert.dom('md-progress-circular').hasAttribute('md-mode', 'indeterminate');
   });
 
   test('should auto-set the md-mode to "determinate" if a value is specified', async function(assert) {
     assert.expect(1);
     await render(hbs`{{paper-progress-circular value=12}}`);
-    assert.equal(this.$('md-progress-circular').attr('md-mode').trim(), 'determinate');
+
+    assert.dom('md-progress-circular').hasAttribute('md-mode', 'determinate');
   });
 
   test('should set correct size based on diameter', async function(assert) {
     assert.expect(2);
     await render(hbs`{{paper-progress-circular diameter=25}}`);
 
-    let $el = this.$('md-progress-circular');
-    assert.ok(/height:.*25px/.test($el.attr('style')));
-    assert.ok(/width:.*25px/.test($el.attr('style')));
+    assert.dom('md-progress-circular').hasAttribute('style', /height:.*25px/)
+    assert.dom('md-progress-circular').hasAttribute('style', /width:.*25px/)
+
   });
 
   test('renders correctly with explicit value and diameter', async function(assert) {
@@ -34,13 +35,17 @@ module('Integration | Component | paper progress circular', function(hooks) {
 
     await settled();
 
-    let $el = this.$('md-progress-circular');
-    assert.ok(/height:.*25px/.test($el.attr('style')));
-    assert.ok(/width:.*25px/.test($el.attr('style')));
+    assert.dom('md-progress-circular').hasAttribute('style', /height:.*25px/)
+    assert.dom('md-progress-circular').hasAttribute('style', /width:.*25px/)
 
-    let $svgPath = $el.find('path');
-    assert.equal('rotate(0 12.5 12.5)', $svgPath.attr('transform'), 'rotated halfway');
-    assert.ok(parseFloat($svgPath.attr('stroke-dashoffset')), 'stroke-dashoffset has a number');
-    assert.ok(parseFloat($svgPath.attr('stroke-dasharray')), 'stroke-dasharray has a number');
+    let path = find('md-progress-circular > svg > path');
+
+    assert.dom(path).hasAttribute('transform', 'rotate(0 12.5 12.5)', 'rotated halfway');
+    
+    let strokeOffset = path.getAttribute('stroke-dashoffset');
+    let strokeDashArray = path.getAttribute('stroke-dasharray');
+    
+    assert.ok(parseFloat(strokeOffset), 'stroke-dashoffset has a number');
+    assert.ok(parseFloat(strokeDashArray), 'stroke-dasharray has a number');
   });
 });
