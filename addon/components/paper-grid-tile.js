@@ -22,6 +22,12 @@ const unitCSS = (units) => {
   return `${units.share}% - (${units.gutter} * ${units.gutterShare})`;
 };
 
+const applyStyles = (el, styles) => {
+  for (let key in styles) {
+    el.style[key] = styles[key];
+  }
+}
+
 /**
  * @class PaperGridTile
  * @extends Ember.Component
@@ -41,7 +47,7 @@ export default Component.extend(ChildMixin, {
   },
 
   updateTile() {
-    this.$().css(this._tileStyle());
+    applyStyles(this.element, this._tileStyle());
     invokeAction(this, 'onUpdate');
   },
 
