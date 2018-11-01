@@ -70,6 +70,9 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   willDestroyElement() {
     this._super(...arguments);
     this._teardownSwitch();
+    this.element.querySelector('.md-container')
+      .removeEventListener('click', this._onClickHandleNativeClick)
+    this._onClickHandleNativeClick = null;
   },
 
   didUpdateAttrs() {
