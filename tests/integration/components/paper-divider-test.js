@@ -13,8 +13,9 @@ module('Integration | Component | paper divider', function(hooks) {
       {{/paper-divider}}
     `);
 
-    assert.ok(this.$('md-divider').hasClass('paper-divider'));
-    assert.ok(this.$('md-divider').hasClass('md-default-theme'));
+    assert.dom('md-divider').hasClass('paper-divider')
+    assert.dom('md-divider').hasClass('md-default-theme')
+    
   });
 
   test('uses md-inset attribute when passed inset=true', async function(assert) {
@@ -25,7 +26,7 @@ module('Integration | Component | paper divider', function(hooks) {
       {{/paper-divider}}
     `);
 
-    assert.ok(this.$('md-divider').attr('md-inset'));
+    assert.dom('md-divider').hasAttribute('md-inset');
   });
 
   test('no md-inset attribute when passed inset=false', async function(assert) {
@@ -36,7 +37,7 @@ module('Integration | Component | paper divider', function(hooks) {
       {{/paper-divider}}
     `);
 
-    assert.notOk(this.$('md-divider').attr('md-inset'));
+    assert.dom('md-divider').doesNotHaveAttribute('md-inset');
   });
 
   test('md-inset attribute is not present when inset is not passed', async function(assert) {
@@ -47,6 +48,6 @@ module('Integration | Component | paper divider', function(hooks) {
       {{/paper-divider}}
     `);
     // Attribute should NOT be present in md-divider
-    assert.notOk(this.$('md-divider').attr('md-inset'));
+    assert.dom('md-divider').doesNotHaveAttribute('md-inset');
   });
 });
