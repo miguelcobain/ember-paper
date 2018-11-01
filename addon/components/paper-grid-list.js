@@ -31,6 +31,12 @@ const mediaListenerName = (name) => {
   return `${name.replace('-', '')}Listener`;
 };
 
+const applyStyles = (el, styles) => {
+  for (let key in styles) {
+    el.style[key] = styles[key];
+  }
+}
+
 /**
  * @class PaperGridList
  * @extends Ember.Component
@@ -106,7 +112,8 @@ export default Component.extend(ParentMixin, {
 
   // Updates styles and triggers onUpdate callbacks
   updateGrid() {
-    this.$().css(this._gridStyle());
+    applyStyles(this.element, this._gridStyle());
+    
     this.get('tiles').forEach((tile) => tile.updateTile());
     invokeAction(this, 'onUpdate');
   },
@@ -160,7 +167,9 @@ export default Component.extend(ParentMixin, {
 
   // Sorts tiles by their order in the dom
   orderedTiles() {
-    let domTiles = this.$('md-grid-tile').toArray();
+    //Convert NodeList to native javascript array, to be able to use indexOf.
+    let domTiles = Array.prototype.slice.call(this.element.querySelectorAll('md-grid-tile'));
+
     return this.get('tiles').sort((a, b) => {
       return domTiles.indexOf(a.get('element')) > domTiles.indexOf(b.get('element')) ? 1 : -1;
     });
