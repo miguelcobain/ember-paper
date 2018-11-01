@@ -10,9 +10,11 @@ module('Integration | Component | base focusable', function(hooks) {
 
     this.set('value', true);
     await render(hbs`{{base-focusable id="base-focusable" disabled=value}}`);
-    assert.equal(this.$('#base-focusable').attr('disabled').trim(), 'disabled');
+    
+    assert.dom('#base-focusable').isDisabled();
 
     this.set('value', false);
-    assert.ok(!this.$('md-checkbox').attr('disabled'));
+    
+    assert.dom('md-checkbox').isNotDisabled();
   });
 });
