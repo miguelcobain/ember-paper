@@ -1,12 +1,10 @@
 import Service from '@ember/service';
-import $ from 'jquery';
 
 let Util = Service.extend({
 
   // Disables scroll around the passed element.
   disableScrollAround() {
     let util = this;
-    let $document = $(window.document);
 
     util.disableScrollAround._count = util.disableScrollAround._count || 0;
     ++util.disableScrollAround._count;
@@ -14,7 +12,7 @@ let Util = Service.extend({
       return util.disableScrollAround._enableScrolling;
     }
 
-    let { body } = $document.get(0);
+    let { body } = document;
     let restoreBody = disableBodyScroll();
     let restoreElement = disableElementScroll();
 
@@ -29,28 +27,29 @@ let Util = Service.extend({
     // Creates a virtual scrolling mask to absorb touchmove, keyboard, scrollbar clicking, and wheel events
     function disableElementScroll() {
       let zIndex = 50;
-      let scrollMask = $(
-        `<div class="md-scroll-mask" style="z-index: ${zIndex}">
-          <div class="md-scroll-mask-bar"></div>
-        </div>`);
-      body.appendChild(scrollMask[0]);
+      
+      let scrollMask = document.createElement('div');
+      scrollMask.classList.add('md-scroll-mask');
 
-      scrollMask.on('wheel', preventDefault);
-      scrollMask.on('touchmove', preventDefault);
-      $document.on('keydown', disableKeyNav);
+      applyStyles(body, {
+        'z-index': zIndex
+      });
+      
+      let scrollMaskBar = document.createElement('div');
+      scrollMaskBar.classList.add('md-scroll-mask-bar');
+      scrollMask.appendChild(scrollMaskBar);
+      
+      body.appendChild(scrollMask);
 
-      return function restoreScroll() {
-        scrollMask.off('wheel');
-        scrollMask.off('touchmove');
-        scrollMask[0].parentNode.removeChild(scrollMask[0]);
-        $document.off('keydown', disableKeyNav);
-        delete util.disableScrollAround._enableScrolling;
-      };
+      scrollMask.addEventListener('wheel', this._preventDefault);
+      scrollMask.addEventListener('touchmove', this._preventDefault);
+      document.addEventListener('keydown', this._disableKeyNav);
 
+      
       // Prevent keypresses from elements inside the body
       // used to stop the keypresses that could cause the page to scroll
       // (arrow keys, spacebar, tab, etc).
-      function disableKeyNav() {
+      this._disableKeyNav = function disableKeyNav() {
         // -- temporarily removed this logic, will possibly re-add at a later date
         return;
         /* if (!element[0].contains(e.target)) {
@@ -59,9 +58,22 @@ let Util = Service.extend({
         } */
       }
 
-      function preventDefault(e) {
+      this._preventDefault = function preventDefault(e) {
         e.preventDefault();
       }
+
+      return function restoreScroll() {
+        scrollMask.removeEventListener('wheel', this._preventDefault);
+        scrollMask.removeEventListener('touchmove', this._preventDefault);
+
+        scrollMask[0].parentNode.removeChild(scrollMask[0]);
+
+        document.removeEventListener('keydown', this._disableKeyNav);
+        
+        delete util.disableScrollAround._enableScrolling;
+      };
+
+     
     }
 
     // Converts the body to a position fixed block and translate it to the proper scroll
