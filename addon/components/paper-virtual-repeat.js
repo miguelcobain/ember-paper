@@ -63,7 +63,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     let style = this.get('positionStyle');
 
     if (height !== null && !isNaN(height)) {
-      style += ` height: ${height}px;`;
+      style += ` height: em{height}px;`;
     }
     return htmlSafe(style);
   }).readOnly(),
@@ -71,12 +71,17 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
   calculateVisibleItems(positionIndex) {
     run(() => {
       let startAt = get(this, '_startAt');
-      let scrolledAmount = this.get('horizontal') ? this.$('.md-virtual-repeat-scroller').scrollLeft() : this.$('.md-virtual-repeat-scroller').scrollTop();
+      let scroller = this.element.querySelector('.md-virtual-repeat-scroller');
+      
+      let scrolledAmount = this.get('horizontal') 
+            ? scroller.scrollLeft : scroller.scrollTop;
+
       let visibleStart = isNaN(positionIndex) ? Math.floor(scrolledAmount / this.get('itemHeight')) : Math.max(positionIndex);
 
       if (visibleStart !== startAt) {
         set(this, '_startAt', visibleStart);
       }
+
     });
   },
 
@@ -118,7 +123,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     this._super(...arguments);
 
     run.scheduleOnce('afterRender', this, function() {
-      let element = this.$().get(0);
+      let element = this.element;
       let initSize = this.get('horizontal') ? element.clientWidth : element.clientHeight;
       this.set('initialSize', initSize);
     });
@@ -152,7 +157,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
   didRender() {
     let itemHeight = this.get('itemHeight');
     let selector = this.getWithDefault('containerSelector', '.md-virtual-repeat-offsetter');
-    let offsetter = this.$(selector).get(0);
+    let offsetter = this.element.querySelector(selector);
     if (!offsetter) {
       return;
     }
@@ -241,10 +246,13 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     if (toTop) {
       offset = newIndex * itemHeight;
     }
+
+    let scroller = this.element.querySelector('.md-virtual-repeat-scroller');
+
     if (this.get('horizontal')) {
-      this.$('.md-virtual-repeat-scroller').scrollLeft(offset);
+      scroller.scrollLeft = offset;
     } else {
-      this.$('.md-virtual-repeat-scroller').scrollTop(offset);
+      scroller.scrollTop = offset;
     }
   },
 
