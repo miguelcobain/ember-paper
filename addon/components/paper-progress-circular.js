@@ -186,13 +186,15 @@ export default Component.extend(ColorMixin, {
     let rotation = -90 * iterationCount;
 
     let renderFrame = (value, diameter, strokeWidth, dashLimit) => {
-      if (!this.isDestroyed && !this.isDestroying) {
-        let $path = this.$('path');
-        if (!$path) {
+      if (!this.isDestroyed && !this.isDestroying && this.element) {
+       
+        let path = this.element.querySelector('path');
+        if (!path) {
           return;
         }
-        $path.attr('stroke-dashoffset', this.getDashLength(diameter, strokeWidth, value, dashLimit));
-        $path.attr('transform', `rotate(${rotation} ${diameter / 2} ${diameter / 2})`);
+        path.setAttribute('stroke-dashoffset', this.getDashLength(diameter, strokeWidth, value, dashLimit));        
+        path.setAttribute('transform', `rotate(${rotation} ${diameter / 2} ${diameter / 2})`);
+
       }
     };
 
