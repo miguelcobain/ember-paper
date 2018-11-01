@@ -41,11 +41,11 @@ export default Component.extend({
       return '#ember-testing';
     }
     let parent = this.get('defaultedParent');
-    let parentEle = typeof parent === "string" ? document.querySelector(parent) : parent;
+    let parentEle = typeof parent === 'string' ? document.querySelector(parent) : parent;
     // If the parentEle isn't found, assume that it is an id, but that the DOM doesn't
     // exist yet. This only happens during integration tests or if entire application
     // route is a dialog.
-    if (!parentEle && parent.charAt(0) === '#') {
+    if (typeof parent === 'string' && parent.charAt(0) === '#') {
       return `#${parent.substring(1)}`;
     } else {
       let id = parentEle.getAttribute('id');
@@ -69,7 +69,7 @@ export default Component.extend({
     this._super(...arguments);
     if (this.get('escapeToClose')) {
 
-      this._destinationEle = document.querySelector(this.destinationId);
+      this._destinationEle = document.querySelector(this.get('destinationId'));
       this._onKeyDown = (e) => {
         if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.get('onClose')) {
           invokeAction(this, 'onClose');
