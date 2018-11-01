@@ -1,30 +1,11 @@
 import Component from '@ember/component';
-import { run } from '@ember/runloop';
-import jQuery from 'jquery';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper radio group', function(hooks) {
   setupRenderingTest(hooks);
-
-  function triggerKeydown(domElement, k) {
-    let oEvent = document.createEvent('Events');
-    oEvent.initEvent('keydown', true, true);
-    jQuery.extend(oEvent, {
-      view: window,
-      ctrlKey: false,
-      altKey: false,
-      shiftKey: false,
-      metaKey: false,
-      keyCode: k,
-      charCode: k
-    });
-    run(() => {
-      domElement.dispatchEvent(oEvent);
-    });
-  }
 
   test('should set and remove checked css class', async function(assert) {
     assert.expect(2);
@@ -43,10 +24,12 @@ module('Integration | Component | paper radio group', function(hooks) {
         {{/group.radio}}
       {{/paper-radio-group}}
     `);
-    assert.ok(this.$('md-radio-button').hasClass('md-checked'));
+
+    assert.dom('md-radio-button').hasClass('md-checked');
 
     this.set('groupValue', null);
-    assert.ok(!this.$('md-radio-button').hasClass('md-checked'));
+    assert.dom('md-radio-button').doesNotHaveClass('md-checked');
+    
   });
 
   test('should trigger an action when checking', async function(assert) {
@@ -70,7 +53,7 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    this.$('md-radio-button').first().click();
+    await click('md-radio-button:first-child')
   });
 
   test('should trigger an action when unchecking (toggle is true)', async function(assert) {
@@ -95,7 +78,7 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    this.$('md-radio-button').first().click();
+    await click('md-radio-button:first-child')
   });
 
   test('shouldn\'t trigger an action when disabled', async function(assert) {
@@ -119,7 +102,8 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    this.$('md-radio-button').click();
+    await click('md-radio-button')
+    
   });
 
   test('should be possible to select next with down/right arrow in a paper-radio-group', async function(assert) {
@@ -139,11 +123,11 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    triggerKeydown(this.$('md-radio-group').get(0), 40);
+    await triggerKeyEvent('md-radio-group', 'keydown', 40);
 
     assert.equal(this.get('groupValue'), '1');
 
-    triggerKeydown(this.$('md-radio-group').get(0), 39);
+    await triggerKeyEvent('md-radio-group', 'keydown', 39);
 
     assert.equal(this.get('groupValue'), '2');
   });
@@ -165,11 +149,11 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    triggerKeydown(this.$('md-radio-group').get(0), 38);
+    await triggerKeyEvent('md-radio-group', 'keydown', 38);
 
     assert.equal(this.get('groupValue'), '1');
 
-    triggerKeydown(this.$('md-radio-group').get(0), 37);
+    await triggerKeyEvent('md-radio-group', 'keydown', 37);
 
     assert.equal(this.get('groupValue'), '3');
   });
@@ -191,11 +175,11 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    triggerKeydown(this.$('md-radio-group').get(0), 40);
+    await triggerKeyEvent('md-radio-group', 'keydown', 40);
 
     assert.equal(this.get('groupValue'), 0);
 
-    triggerKeydown(this.$('md-radio-group').get(0), 39);
+    await triggerKeyEvent('md-radio-group', 'keydown', 39);
 
     assert.equal(this.get('groupValue'), '2');
   });
@@ -227,6 +211,7 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    assert.equal(this.$('.custom-radio').length, 1, 'custom radio component is displayed');
+    assert.dom('.custom-radio').exists({count: 1}, 'custom radio component is displayed');
+    
   });
 });
