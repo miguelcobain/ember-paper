@@ -85,9 +85,9 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   },
 
   _setupSwitch() {
-    this.set('switchWidth', this.$('.md-thumb-container').innerWidth());
+    this.set('switchWidth', this.element.querySelector('.md-thumb-container').offsetWidth);
 
-    let switchContainer = this.$('.md-container').get(0);
+    let switchContainer = this.element.querySelector('.md-container');
     let switchHammer = new Hammer(switchContainer);
     this._switchContainerHammer = switchHammer;
 
@@ -100,7 +100,12 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
     // Enable tapping gesture on the switch
     this._switchHammer = new Hammer(this.element);
     this._switchHammer.on('tap', run.bind(this, this._dragEnd));
-    this.$('.md-container').on('click', run.bind(this, this._handleNativeClick));
+
+    this._onClickHandleNativeClick = run.bind(this, this._handleNativeClick);
+
+    this.element.querySelector('.md-container')
+      .addEventListener('click', this._onClickHandleNativeClick);
+
   },
 
   _handleNativeClick() {
@@ -112,6 +117,9 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
       this._switchContainerHammer.destroy();
       this._switchHammer.destroy();
     }
+    this.element.querySelector('.md-container')
+      .removeEventListener('click', this._onClickHandleNativeClick)
+    this._onClickHandleNativeClick = null;
   },
 
   _dragStart() {
