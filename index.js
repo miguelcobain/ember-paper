@@ -10,6 +10,146 @@ const Funnel = require('broccoli-funnel');
 const AngularScssFilter = require('./lib/angular-scss-filter');
 const fastbootTransform = require('fastboot-transform');
 
+/** 
+ * Component dependencies, extracted from ember-bootstrap 
+ * https://github.com/kaliber5/ember-bootstrap/blob/master/index.js 
+*/
+const componentDependencies = {
+
+  'paper-autocomplete': [
+    'paper-autocomplete-trigger', 
+    'paper-autocomplete-options', 
+    'paper-autocomplete-highlight', 
+    'paper-autocomplete-content'
+  ],
+  'paper-autocomplete-content': [
+    'paper-virtual-repeat'
+  ],
+  'paper-autocomplete-trigger': [
+    'paper-progress-linear',
+    'paper-input',
+    'paper-reset-button',
+    'paper-icon'
+  ],
+  'paper-card': [
+    'paper-card-title', 
+    'paper-card-content', 
+    'paper-card-actions', 
+    'paper-card-header', 
+    'paper-card-image', 
+    'paper-card-media',
+  ],
+  'paper-card-actions': [
+    'paper-card-icon-actions'
+  ],
+  'paper-card-title': [
+    'paper-card-title-text',
+    'paper-card-title-media'
+  ],
+  'paper-card-title-text': [
+    'paper-card-header-headline',
+    'paper-card-header-subhead'
+  ],
+  'paper-card-header': [
+    'paper-card-header-text',
+    'paper-card-avatar'
+  ],
+  'paper-card-header-text': [
+    'paper-card-header-title',
+    'paper-card-header-subhead',
+  ],
+  'paper-chips': ['paper-autocomplete', 'paper-icon'],
+  'papar-contact-chips': ['paper-autocomplete', 'paper-icon'],
+  'paper-dialog': [
+    'paper-dialog-actions',
+    'paper-backdrop', 
+    'paper-dialog-container',
+    'paper-dialog-content', 
+    'paper-dialog-inner',
+  ],
+  'paper-form': [
+    'paper-input',
+    'paper-select',
+    'paper-autocomplete',
+    'paper-button'
+  ],
+  'paper-grid-list': [
+    'paper-grid-tile'
+  ],
+  'paper-grid-tile': [
+    'paper-grid-tile-footer'
+  ],
+  'paper-item': [
+    'paper-checkbox',
+    'paper-button',
+    'paper-switch',
+    'paper-radio-proxiable'
+  ],
+  'paper-menu': [
+    'paper-menu-content'
+  ],
+  'paper-menu-content': [
+    'paper-menu-content-inner',
+    'paper-backdrop',
+  ],
+  'paper-menu-content-inner': [
+    'paper-menu-item'
+  ],
+  'paper-menu-item': [
+    'paper-button'
+  ],
+  'paper-radio-group': [
+    'paper-radio'
+  ],
+  'paper-select': [
+    'paper-select-menu',
+    'paper-select-options',
+    'paper-select-trigger',
+    'paper-select-search'
+  ],
+  'paper-select-menu': [
+    'paper-select-menu-trigger',
+    'paper-select-content'
+  ],
+  'paper-select-content': [
+    'paper-backdrop',
+    'paper-select-menu-inner'
+  ],
+  'paper-sidenav': [
+    'paper-backdrop',
+    'paper-sidenav-inner'
+  ],
+  'paper-speed-dial': [
+    'paper-speed-dial-trigger',
+    'paper-speed-dial-actions'
+  ],
+  'paper-speed-dial-actions': [
+    'paper-speed-dial-actions-action'
+  ],
+  'paper-tabs': [
+    'paper-tab',
+    'paper-ink-bar',
+    'paper-icon'
+  ],
+  'paper-toast': [
+    'paper-toast-inner',
+    'paper-toast-text'
+  ],
+  'paper-toaster': [
+    'paper-toast',
+    'paper-button'
+  ],
+  'paper-toolbar': [
+    'paper-toolbar-tools'
+  ],
+  'paper-tooltip': [
+    'paper-tooltip-inner'
+  ],
+  'paper-virtual-repeat': [
+    'paper-virtual-repeat-scroller'
+  ]
+};
+
 module.exports = {
   name: 'ember-paper',
 
@@ -29,6 +169,9 @@ module.exports = {
         app = current.app || app;
       } while (current.parent.parent && (current = current.parent));
     }
+
+
+    this.emberPaperOptions = Object.assign({}, app.options['ember-paper']);;
 
     app.import('vendor/ember-paper/register-version.js');
     app.import('vendor/hammerjs/hammer.js');
@@ -232,5 +375,88 @@ module.exports = {
       tree = autoprefixer(tree, this.app.options.autoprefixer || { browsers: ['last 2 versions'] });
     }
     return tree;
+  },
+
+
+
+  treeForApp(tree) {
+    tree = this.filterComponents(tree);
+    return this._super.treeForApp.call(this, tree);
+  },
+
+  treeForAddon(tree) {
+    tree = this.filterComponents(tree);
+    return this._super.treeForAddon.call(this, tree);
+  },
+
+  treeForAddonTemplates(tree) {
+    tree = this.filterComponents(tree);
+    return this._super.treeForAddonTemplates.call(this, tree);
+  },
+
+
+  filterComponents(tree) {
+    let whitelist = this.generateWhitelist(this.emberPaperOptions.whitelist);
+    let blacklist = this.emberPaperOptions.blacklist || [];
+
+    // exit early if no opts defined
+    if (whitelist.length === 0 && blacklist.length === 0) {
+      return tree;
+    }
+
+    return new Funnel(tree, {
+      exclude: [(name) => this.excludeComponent(name, whitelist, blacklist)]
+    });
+  },
+
+  excludeComponent(name, whitelist, blacklist) {
+    let regex = /^(templates\/)?components\/(base\/)?/;
+    let isComponent = regex.test(name);
+    if (!isComponent) {
+      return false;
+    }
+
+    let baseName = name.replace(regex, '');
+    let firstSeparator = baseName.indexOf('/');
+    if (firstSeparator !== -1) {
+      baseName = baseName.substring(0, firstSeparator);
+    } else {
+      baseName = baseName.substring(0, baseName.lastIndexOf('.'));
+    }
+
+    let isWhitelisted = whitelist.indexOf(baseName) !== -1;
+    let isBlacklisted = blacklist.indexOf(baseName) !== -1;
+
+    if (whitelist.length === 0 && blacklist.length === 0) {
+      return false;
+    }
+
+    if (whitelist.length && blacklist.length === 0) {
+      return !isWhitelisted;
+    }
+
+    return isBlacklisted;
+  },
+
+  generateWhitelist(whitelist) {
+    let list = [];
+
+    if (!whitelist) {
+      return list;
+    }
+
+    function _addToWhitelist(item) {
+      if (list.indexOf(item) === -1) {
+        list.push(item);
+
+        if (componentDependencies[item]) {
+          componentDependencies[item].forEach(_addToWhitelist);
+        }
+      }
+    }
+
+    whitelist.forEach(_addToWhitelist);
+    return list;
   }
+
 };
