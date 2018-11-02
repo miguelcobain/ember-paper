@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, click, findAll } from '@ember/test-helpers';
+import { render, settled, click, findAll, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper item', function(hooks) {
@@ -207,8 +207,8 @@ module('Integration | Component | paper item', function(hooks) {
     assert.notOk(this.get('primaryValue'));
     assert.notOk(this.get('secondaryValue'));
 
-    await click('.md-button.md-no-style');
-
+    await click('button');
+    
     assert.ok(this.get('checked'));
     assert.ok(this.get('primaryValue'));
     assert.notOk(this.get('secondaryValue'));
