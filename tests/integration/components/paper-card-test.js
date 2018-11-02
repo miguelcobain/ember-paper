@@ -1,9 +1,9 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | paper card', function(hooks) {
+module('Integration | Component | paper-card', function(hooks) {
   setupRenderingTest(hooks);
 
   test('blockless media renders image', async function(assert) {
@@ -28,17 +28,15 @@ module('Integration | Component | paper card', function(hooks) {
       {{/paper-card}}
     `);
 
-    let img = find('img');
-
-    assert.equal(img.tagName, 'IMG');
-    assert.dom(img).hasAttribute('src', /image.png$/);
-    assert.dom(img).hasAttribute('alt', 'imagealt');
-    assert.dom(img).hasAttribute('title', 'imagetitle');
-    assert.dom(img).hasClass('md-media-xl');
+    assert.dom('img').exists({ count: 1 });
+    assert.dom('img').hasAttribute('src', /image.png$/);
+    assert.dom('img').hasAttribute('alt', 'imagealt');
+    assert.dom('img').hasAttribute('title', 'imagetitle');
+    assert.dom('img').hasClass('md-media-xl');
   });
 
   test('block media renders div with correct class', async function(assert) {
-    assert.expect(2);
+    assert.expect(1);
 
     await render(hbs`
       {{#paper-card as |card|}}
@@ -61,9 +59,6 @@ module('Integration | Component | paper card', function(hooks) {
       {{/paper-card}}
     `);
 
-    let div = find('#çup').parentNode;
-
-    assert.equal(div.tagName, 'DIV');
-    assert.dom(div).hasClass('md-media-xl');
+    assert.dom('div.md-media-xl').exists({ count: 1 });
   });
 });
