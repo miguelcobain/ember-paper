@@ -293,7 +293,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
     `);
 
     assert.throws(() => {
-      this.$('#toggle-button').click();
+      await click('#toggle-button');
     }, /You tried to toggle a sidenav named 'çup' but no such sidenav is registered/);
   });*/
 });
