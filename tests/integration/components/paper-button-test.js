@@ -1,9 +1,9 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | paper button', function(hooks) {
+module('Integration | Component | paper-button', function(hooks) {
   setupRenderingTest(hooks);
 
   test('renders block label', async function(assert) {
@@ -12,21 +12,22 @@ module('Integration | Component | paper button', function(hooks) {
         Block label
       {{/paper-button}}
     `);
-    assert.equal(this.$('button').text().trim(), 'Block label');
+    assert.dom('button').hasText('Block label');
   });
 
   test('renders inline label', async function(assert) {
     await render(hbs`
-      {{paper-button label='Inline label'}}
+      {{paper-button label="Inline label"}}
     `);
-    assert.equal(this.$('button').text().trim(), 'Inline label');
+    assert.dom('button').hasText('Inline label');
   });
 
   test('renders type button by default', async function(assert) {
     await render(hbs`
-      {{paper-button label='Inline label'}}
+      {{paper-button label="Inline label"}}
     `);
-    assert.equal(this.$('button').attr('type'), 'button');
+
+    assert.dom('button').hasAttribute('type', 'button');
   });
 
   test('triggers onClick function when attribute is present', async function(assert) {
@@ -40,7 +41,9 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    this.$('.md-button').click();
+
+    await click('.md-button');
+
   });
 
   test('does nothing onClick if attribute is not present', async function(assert) {
@@ -51,7 +54,7 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    this.$('.md-button').click();
+    await click('.md-button');
   });
 
   test('uses md-raised class when raised=true', async function(assert) {
@@ -60,7 +63,8 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    assert.ok(this.$('.md-button').hasClass('md-raised'));
+
+    assert.dom('.md-button').hasClass('md-raised');
   });
 
   test('uses md-icon-button class when iconButton=true', async function(assert) {
@@ -69,7 +73,8 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    assert.ok(this.$('.md-button').hasClass('md-icon-button'));
+
+    assert.dom('.md-button').hasClass('md-icon-button');
   });
 
   test('uses md-fab class when fab=true', async function(assert) {
@@ -78,16 +83,21 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    assert.ok(this.$('.md-button').hasClass('md-fab'));
+
+    assert.dom('.md-button').hasClass('md-fab');
   });
 
   test('uses md-mini and md-fab class when mini=true', async function(assert) {
+    assert.expect(2);
     await render(hbs`
       {{#paper-button mini=true}}
         A label
       {{/paper-button}}
     `);
-    assert.ok(this.$('.md-button').is('.md-fab', '.md-mini'));
+
+    assert.dom('.md-button').hasClass('md-fab');
+    assert.dom('.md-button').hasClass('md-mini');
+
   });
 
   test('uses a tag when href is specified', async function(assert) {
@@ -96,8 +106,9 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    assert.ok(this.$('.md-button').is('a'));
-    assert.ok(this.$('.md-button').attr('href') === 'http://example.com');
+
+    assert.dom('a.md-button').exists({ count: 1 });
+    assert.dom('a.md-button').hasAttribute('href', 'http://example.com');
   });
 
   test('renders target', async function(assert) {
@@ -106,7 +117,8 @@ module('Integration | Component | paper button', function(hooks) {
         A label
       {{/paper-button}}
     `);
-    assert.ok(this.$('.md-button').is('a'));
-    assert.ok(this.$('.md-button').attr('target') === '_blank');
+
+    assert.dom('a.md-button').exists({ count: 1 });
+    assert.dom('a.md-button').hasAttribute('target', '_blank');
   });
 });
