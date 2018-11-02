@@ -14,7 +14,7 @@ module('Integration | Component | paper toolbar', function(hooks) {
       {{/paper-toolbar}}
     `);
 
-    assert.ok(this.$('md-toolbar').hasClass('md-tall'));
+    assert.dom('md-toolbar').hasClass('md-tall');
   });
 
   test('paper-toolbar-tools uses .md-toolbar-tools class', async function(assert) {
@@ -27,6 +27,6 @@ module('Integration | Component | paper toolbar', function(hooks) {
       {{/paper-toolbar}}
     `);
 
-    assert.equal(this.$('.md-toolbar-tools').length, 1);
+    assert.dom('.md-toolbar-tools').exists({ count: 1 });
   });
 });
