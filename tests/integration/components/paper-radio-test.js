@@ -82,7 +82,7 @@ module('Integration | Component | paper radio', function(hooks) {
 
     await render(hbs`{{paper-radio value="1" onChange=(action (mut value)) label="çup?"}}`);
 
-    assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
+    assert.dom('.md-label > span').hasText('çup?');
   });
 
   test('block version should set label inside', async function(assert) {
