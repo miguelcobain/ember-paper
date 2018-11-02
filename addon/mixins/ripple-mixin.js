@@ -1,12 +1,11 @@
 /**
  * @module ember-paper
  */
-import { inject as service } from '@ember/service';
-
 import { computed } from '@ember/object';
 import Mixin from '@ember/object/mixin';
 import { run } from '@ember/runloop';
 import { supportsPassiveEventListeners } from 'ember-paper/utils/browser-features';
+import { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
 
 /* global window */
 
@@ -18,7 +17,6 @@ const DURATION = 400;
  * @extends Ember.Mixin
  */
 export default Mixin.create({
-  util: service(),
   rippleContainerSelector: '.md-container',
 
   center: false,
@@ -39,7 +37,7 @@ export default Mixin.create({
 
   didInsertElement() {
     this._super(...arguments);
-    
+
     let rippleContainerSelector = this.get('rippleContainerSelector');
 
     if (rippleContainerSelector) {
@@ -47,7 +45,7 @@ export default Mixin.create({
     } else {
       this.rippleElement = this.element;
     }
-    this.mousedown = false; 
+    this.mousedown = false;
     this.ripples = [];
     this.timeout = null; // Stores a reference to the most-recent ripple timeout
     this.lastRipple = null;
@@ -61,7 +59,9 @@ export default Mixin.create({
   autoCleanup(self, cleanupFn) {
     if (self.mousedown || self.lastRipple) {
       self.mousedown = false;
-      self.get('util').nextTick(cleanupFn.bind(self), false);
+      nextTick().then(() => {
+        cleanupFn.bind(self)();
+      });
     }
   },
 
@@ -220,7 +220,7 @@ export default Mixin.create({
       }
       element = element.parentNode;
     } while (element);
-    
+
     return true;
   },
   createRipple(left, top) {
@@ -231,7 +231,7 @@ export default Mixin.create({
     let ctrl = this;
     let ripple = document.createElement('div');
     ripple.classList.add('md-ripple');
-    
+
     let width = this.rippleElement.clientWidth;
     let height = this.rippleElement.clientHeight;
     let x = Math.max(Math.abs(width - left), left) * 2;
@@ -240,13 +240,13 @@ export default Mixin.create({
     let color = this.calculateColor();
 
     let rippleCss = `
-          left: ${left}px; 
-          top: ${top}px; 
-          background: 'black'; 
-          width: ${size}px; 
-          height: ${size}px; 
-          background-color: ${rgbaToRGB(color)}; 
-          border-color: ${rgbaToRGB(color)}
+      left: ${left}px;
+      top: ${top}px;
+      background: 'black';
+      width: ${size}px;
+      height: ${size}px;
+      background-color: ${rgbaToRGB(color)};
+      border-color: ${rgbaToRGB(color)}
     `;
 
     ripple.style.cssText = rippleCss;
@@ -269,14 +269,12 @@ export default Mixin.create({
     this.ripples.push(ripple);
     ripple.classList.add('md-ripple-placed');
 
-    this.get('util').nextTick(function() {
-
+    nextTick().then(() => {
       ripple.classList.add('md-ripple-scaled', 'md-ripple-active');
       run.later(this, function() {
         ctrl.clearRipples();
       }, {}, DURATION);
-
-    }, false);
+    });
 
     function rgbaToRGB(color) {
       return color ? color.replace('rgba', 'rgb').replace(/,[^),]+\)/, ')') : 'rgb(0,0,0)';
@@ -298,7 +296,7 @@ export default Mixin.create({
   removeRipple(ripple) {
     let ctrl = this;
     let index = this.ripples.indexOf(ripple);
-    
+
     if (index < 0) {
       return;
     }
@@ -315,7 +313,7 @@ export default Mixin.create({
     }, {}, DURATION);
   },
   fadeOutComplete(ripple) {
-    ripple.parentNode.removeChild(ripple)
+    ripple.parentNode.removeChild(ripple);
     this.lastRipple = null;
   }
 });
