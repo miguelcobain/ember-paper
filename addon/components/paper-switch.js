@@ -85,7 +85,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   },
 
   _setupSwitch() {
-    this.set('switchWidth', this.element.querySelector('.md-thumb-container').innerWidth);
+    this.set('switchWidth', this.element.querySelector('.md-thumb-container').offsetWidth);
 
     let switchContainer = this.element.querySelector('.md-container');
     let switchHammer = new Hammer(switchContainer);
