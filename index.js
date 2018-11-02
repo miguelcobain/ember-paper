@@ -170,6 +170,8 @@ module.exports = {
       } while (current.parent.parent && (current = current.parent));
     }
 
+    this.emberPaperOptions = Object.assign({}, app.options['ember-paper']);
+    
     app.import('vendor/ember-paper/register-version.js');
     app.import('vendor/hammerjs/hammer.js');
     app.import('vendor/matchmedia-polyfill/matchMedia.js');
