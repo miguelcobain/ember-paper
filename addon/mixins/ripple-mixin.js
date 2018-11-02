@@ -1,13 +1,11 @@
 /**
  * @module ember-paper
  */
-import { inject as service } from '@ember/service';
-
 import { computed } from '@ember/object';
 import Mixin from '@ember/object/mixin';
 import { run } from '@ember/runloop';
-import $ from 'jquery';
 import { supportsPassiveEventListeners } from 'ember-paper/utils/browser-features';
+import { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
 
 /* global window */
 
@@ -19,7 +17,6 @@ const DURATION = 400;
  * @extends Ember.Mixin
  */
 export default Mixin.create({
-  util: service(),
   rippleContainerSelector: '.md-container',
 
   center: false,
@@ -40,7 +37,14 @@ export default Mixin.create({
 
   didInsertElement() {
     this._super(...arguments);
-    this.rippleElement = this.$(this.get('rippleContainerSelector'));
+
+    let rippleContainerSelector = this.get('rippleContainerSelector');
+
+    if (rippleContainerSelector) {
+      this.rippleElement = this.element.querySelector(rippleContainerSelector);
+    } else {
+      this.rippleElement = this.element;
+    }
     this.mousedown = false;
     this.ripples = [];
     this.timeout = null; // Stores a reference to the most-recent ripple timeout
@@ -48,14 +52,16 @@ export default Mixin.create({
 
     this._container = this.createContainer();
 
-    this.rippleElement.addClass('md-ink-ripple');
+    this.rippleElement.classList.add('md-ink-ripple');
     this.bindEvents();
   },
 
   autoCleanup(self, cleanupFn) {
     if (self.mousedown || self.lastRipple) {
       self.mousedown = false;
-      self.get('util').nextTick(cleanupFn.bind(self), false);
+      nextTick().then(() => {
+        cleanupFn.bind(self)();
+      });
     }
   },
 
@@ -76,7 +82,7 @@ export default Mixin.create({
      */
     function getElementColor() {
       let items = self.get('colorElement') ? self.get('colorElement') : [];
-      let elem = items.length ? items[0] : self.rippleElement[0];
+      let elem = items.length ? items[0] : self.rippleElement;
 
       return elem ? window.getComputedStyle(elem).color : 'rgb(0,0,0)';
     }
@@ -132,7 +138,7 @@ export default Mixin.create({
 
   },
   bindEvents() {
-    let re = this.rippleElement.get(0);
+    let re = this.rippleElement;
     re.addEventListener('mousedown', run.bind(this, this.handleMousedown));
     re.addEventListener('mouseup', run.bind(this, this.handleMouseup));
     re.addEventListener('mouseleave', run.bind(this, this.handleMouseup));
@@ -153,12 +159,12 @@ export default Mixin.create({
     }
     this.mousedown = true;
     if (this.get('center')) {
-      this.createRipple(this._container.prop('clientWidth') / 2, this._container.prop('clientWidth') / 2);
+      this.createRipple(this._container.clientWidth / 2, this._container.clientWidth / 2);
     } else {
 
       // We need to calculate the relative coordinates if the target is a sublayer of the ripple element
-      if (event.srcElement !== this.rippleElement[0]) {
-        let layerRect = this.rippleElement[0].getBoundingClientRect();
+      if (event.srcElement !== this.rippleElement) {
+        let layerRect = this.rippleElement.getBoundingClientRect();
         let layerX = event.clientX - layerRect.left;
         let layerY = event.clientY - layerRect.top;
 
@@ -185,8 +191,9 @@ export default Mixin.create({
     }
   },
   createContainer() {
-    let container = $('<div class="md-ripple-container"></div>');
-    this.rippleElement.append(container);
+    let container = document.createElement('div');
+    container.classList.add('md-ripple-container');
+    this.rippleElement.appendChild(container);
     return container;
   },
   clearTimeout() {
@@ -196,13 +203,14 @@ export default Mixin.create({
     }
   },
   isRippleAllowed() {
-    let element = this.rippleElement.get(0);
+    let element = this.rippleElement;
+
     do {
       if (!element.tagName || element.tagName === 'BODY') {
         break;
       }
 
-      if (element && $.isFunction(element.hasAttribute)) {
+      if (element && typeof element.hasAttribute === 'function') {
         if (element.hasAttribute('disabled')) {
           return false;
         }
@@ -221,23 +229,28 @@ export default Mixin.create({
     }
 
     let ctrl = this;
-    let ripple = $('<div class="md-ripple"></div>');
-    let width = this.rippleElement.prop('clientWidth');
-    let height = this.rippleElement.prop('clientHeight');
+    let ripple = document.createElement('div');
+    ripple.classList.add('md-ripple');
+
+    let width = this.rippleElement.clientWidth;
+    let height = this.rippleElement.clientHeight;
     let x = Math.max(Math.abs(width - left), left) * 2;
     let y = Math.max(Math.abs(height - top), top) * 2;
     let size = getSize(this.get('fitRipple'), x, y);
     let color = this.calculateColor();
 
-    ripple.css({
-      left: `${left}px`,
-      top: `${top}px`,
-      background: 'black',
-      width: `${size}px`,
-      height: `${size}px`,
-      backgroundColor: rgbaToRGB(color),
-      borderColor: rgbaToRGB(color)
-    });
+    let rippleCss = `
+      left: ${left}px;
+      top: ${top}px;
+      background: 'black';
+      width: ${size}px;
+      height: ${size}px;
+      background-color: ${rgbaToRGB(color)};
+      border-color: ${rgbaToRGB(color)}
+    `;
+
+    ripple.style.cssText = rippleCss;
+
     this.lastRipple = ripple;
 
     // we only want one timeout to be running at a time
@@ -250,20 +263,18 @@ export default Mixin.create({
     }, {}, DURATION * 0.35);
 
     if (this.get('dimBackground')) {
-      this._container.css({ backgroundColor: color });
+      this._container.style.cssText = `background-color: ${color}`;
     }
-    this._container.append(ripple);
+    this._container.appendChild(ripple);
     this.ripples.push(ripple);
-    ripple.addClass('md-ripple-placed');
+    ripple.classList.add('md-ripple-placed');
 
-    this.get('util').nextTick(function() {
-
-      ripple.addClass('md-ripple-scaled md-ripple-active');
+    nextTick().then(() => {
+      ripple.classList.add('md-ripple-scaled', 'md-ripple-active');
       run.later(this, function() {
         ctrl.clearRipples();
       }, {}, DURATION);
-
-    }, false);
+    });
 
     function rgbaToRGB(color) {
       return color ? color.replace('rgba', 'rgb').replace(/,[^),]+\)/, ')') : 'rgb(0,0,0)';
@@ -285,14 +296,15 @@ export default Mixin.create({
   removeRipple(ripple) {
     let ctrl = this;
     let index = this.ripples.indexOf(ripple);
+
     if (index < 0) {
       return;
     }
     this.ripples.splice(this.ripples.indexOf(ripple), 1);
-    ripple.removeClass('md-ripple-active');
-    ripple.addClass('md-ripple-remove');
+    ripple.classList.remove('md-ripple-active');
+    ripple.classList.add('md-ripple-remove');
     if (this.ripples.length === 0) {
-      this._container.css({ backgroundColor: '' });
+      this._container.style.cssText = `backgroundColor: ''`;
     }
     // use a 2-second timeout in order to allow for the animation to finish
     // we don't actually care how long the animation takes
@@ -301,7 +313,7 @@ export default Mixin.create({
     }, {}, DURATION);
   },
   fadeOutComplete(ripple) {
-    ripple.remove();
+    ripple.parentNode.removeChild(ripple);
     this.lastRipple = null;
   }
 });

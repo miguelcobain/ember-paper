@@ -3,7 +3,6 @@
 const path = require('path');
 const resolve = require('resolve');
 const version = require('./package.json').version;
-const autoprefixer = require('broccoli-autoprefixer');
 const BroccoliMergeTrees = require('broccoli-merge-trees');
 const writeFile = require('broccoli-file-creator');
 const Funnel = require('broccoli-funnel');
