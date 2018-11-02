@@ -55,7 +55,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
     await render(hbs`{{paper-sidenav open=false lockedOpen=false}}`);
 
     assert.dom('md-sidenav').hasClass('md-closed');
-    
+
   });
 
   test('should trigger an action when clicking on backdrop', async function(assert) {
@@ -98,12 +98,12 @@ module('Integration | Component | paper sidenav', function(hooks) {
     await render(hbs`{{paper-sidenav open=isOpen lockedOpen=false}}`);
 
     assert.dom('md-sidenav').doesNotHaveClass('md-closed');
-    
+
     this.set('isOpen', false);
 
     await settled();
     assert.dom('md-sidenav').hasClass('md-closed');
-    
+
   });
 
   test('should trigger an action when clicking inside sidenav with `closeOnClick=true` (default)', async function(assert) {
@@ -202,7 +202,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
 
     await settled();
     assert.dom('md-sidenav').doesNotHaveClass('md-locked-open');
-    
+
   });
 
   test('should trigger an action when clicking sidenav-toggle ("default" name)', async function(assert) {
@@ -247,7 +247,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
       {{/paper-sidenav-toggle}}
     `);
 
-    await click('#toggle-button')
+    await click('#toggle-button');
   });
 
   test('should trigger an action on all named sidenavs when clicking sidenav-toggle', async function(assert) {
@@ -271,17 +271,18 @@ module('Integration | Component | paper sidenav', function(hooks) {
       {{/paper-sidenav-toggle}}
     `);
 
-    await click('#toggle-button')
+    await click('#toggle-button');
   });
 
-  /* test('clicking sidenav-toggle for unregistered sidenav should throw', function(assert) {
+  /*
+  test('clicking sidenav-toggle for unregistered sidenav should throw', async function(assert) {
     assert.expect(1);
 
     this.set('sidenavToggle', (value) => {
       assert.notOk(value);
     });
 
-    this.render(hbs`
+    await render(hbs`
       {{#paper-sidenav name="balele" open=true onToggle=(action sidenavToggle) lockedOpen=false}}
         Hi!
       {{/paper-sidenav}}
@@ -292,8 +293,10 @@ module('Integration | Component | paper sidenav', function(hooks) {
       {{/paper-sidenav-toggle}}
     `);
 
-    assert.throws(() => {
+    assert.throws(async () => {
       await click('#toggle-button');
     }, /You tried to toggle a sidenav named 'çup' but no such sidenav is registered/);
-  });*/
+  });
+*/
+
 });
