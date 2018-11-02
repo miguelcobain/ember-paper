@@ -13,9 +13,9 @@ module('Integration | Component | paper divider', function(hooks) {
       {{/paper-divider}}
     `);
 
-    assert.dom('md-divider').hasClass('paper-divider')
-    assert.dom('md-divider').hasClass('md-default-theme')
-    
+    assert.dom('md-divider').hasClass('paper-divider');
+    assert.dom('md-divider').hasClass('md-default-theme');
+
   });
 
   test('uses md-inset attribute when passed inset=true', async function(assert) {
