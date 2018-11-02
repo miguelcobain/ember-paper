@@ -49,6 +49,22 @@
       Consuming apps can specify this option to prevent the insertion of google fonts links
       inside the head tag. This is especially useful if you want to include your own fonts.
     </dd>
+      <dt><code>ENV['ember-paper'].whitelist</code> (defaults to <code>[]</code>)</dt>
+    <dd>
+      Consuming apps can optionally specify this array to only include these components into the build.
+      You should use either whitelist or blacklist, not both.
+       {{code-snippet name="whitelist.js"}}
+       The dependencies of the specified components will be included as well.
+      This is the recommended approach, blacklist is harder to get right. 
+     </dd>
+    <dt><code>ENV['ember-paper'].blacklist</code> (defaults to <code>[]</code>)</dt>
+    <dd>
+      
+      Consuming apps can optionally specify this array to exclude these components from the build.
+       {{code-snippet name="blacklist.js"}}
+       This only bans from the build the specified components, not its dependencies.
+      whitelist is easier to maintain.
+     </dd>
   </dl>
 
   <h2 class="md-headline">Documentation for Previous Versions</h2>
