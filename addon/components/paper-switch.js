@@ -70,9 +70,6 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   willDestroyElement() {
     this._super(...arguments);
     this._teardownSwitch();
-    this.element.querySelector('.md-container')
-      .removeEventListener('click', this._onClickHandleNativeClick)
-    this._onClickHandleNativeClick = null;
   },
 
   didUpdateAttrs() {
@@ -107,8 +104,8 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
     this._onClickHandleNativeClick = run.bind(this, this._handleNativeClick);
 
     this.element.querySelector('.md-container')
-      .addEventListener('click', this._onClickHandleNativeClick)
-    
+      .addEventListener('click', this._onClickHandleNativeClick);
+
   },
 
   _handleNativeClick() {
@@ -120,6 +117,9 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
       this._switchContainerHammer.destroy();
       this._switchHammer.destroy();
     }
+    this.element.querySelector('.md-container')
+      .removeEventListener('click', this._onClickHandleNativeClick)
+    this._onClickHandleNativeClick = null;
   },
 
   _dragStart() {
