@@ -85,6 +85,9 @@ const componentDependencies = {
     'paper-switch',
     'paper-radio-proxiable'
   ],
+  'paper-radio-proxiable': [
+    'paper-radio-base'
+  ],
   'paper-menu': [
     'paper-menu-content'
   ],
