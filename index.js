@@ -190,10 +190,23 @@ module.exports = {
   },
 
   contentFor(type, config) {
+
     if (type === 'head') {
+
       if (config['ember-paper'].insertFontLinks) {
-        return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">'
-          + '<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">';
+
+        let { whitelist = [], blacklist = [] } = this.emberPaperOptions;
+        let links = '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">';
+
+        let paperIconNotWhitelisted = whitelist.length && !whitelist.includes('paper-icon');
+        let paperIconBlacklisted = blacklist.length && blacklist.includes('paper-icon');
+        
+        if ( paperIconNotWhitelisted || paperIconBlacklisted ) {
+          return links;
+        } 
+        
+        return `${links} <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">`;
+
       }
     } else if (type === 'body-footer') {
       let response = null;
