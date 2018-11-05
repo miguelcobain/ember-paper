@@ -195,7 +195,9 @@ module.exports = {
 
       if (config['ember-paper'].insertFontLinks) {
 
-        let { whitelist = [], blacklist = [] } = this.emberPaperOptions;
+        let whitelist = this.emberPaperOptions.whitelist || [];
+        let blacklist = this.emberPaperOptions.blacklist || [];
+        
         let links = '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">';
 
         let paperIconNotWhitelisted = whitelist.length && !whitelist.includes('paper-icon');
@@ -204,7 +206,7 @@ module.exports = {
         if ( paperIconNotWhitelisted || paperIconBlacklisted ) {
           return links;
         } 
-        
+
         return `${links} <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">`;
 
       }
