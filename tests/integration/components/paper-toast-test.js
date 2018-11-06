@@ -1,31 +1,25 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | paper toast', function(hooks) {
+module('Integration | Component | paper-toast', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
+    assert.expect(1);
 
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
-    await render(hbs`{{paper-toast}}`);
-
-    assert.dom(this.element).hasText('');
-
-    // Template block usage:
     await render(hbs`
       {{#paper-toast}}
         Toast was shown successfully!
       {{/paper-toast}}
     `);
 
-    assert.dom('md-toast').hasText('Toast was shown successfully!')
+    assert.dom('md-toast').hasText('Toast was shown successfully!');
   });
 
   test('duration triggers onClose', async function(assert) {
+    assert.expect(1);
     let done = assert.async();
 
     this.set('closeAction', () => {
@@ -58,7 +52,7 @@ module('Integration | Component | paper toast', function(hooks) {
     await render(hbs`
       {{paper-toast}}
     `);
-    assert.dom('#ember-testing md-toast').exists({count: 1}, 'rendered in default');
+    assert.dom('#ember-testing md-toast').exists({ count: 1 }, 'rendered in default');
   });
 
   test('should render in specific wormhole if parent is defined', async function(assert) {
@@ -69,8 +63,8 @@ module('Integration | Component | paper toast', function(hooks) {
       {{/paper-toast}}
     `);
     assert.dom('#ember-testing > md-toast').doesNotExist('did not render in default');
-    assert.dom('#sagittarius-a md-toast').exists({count: 1}, 'rendered in parent');
-    
+    assert.dom('#sagittarius-a md-toast').exists({ count: 1 }, 'rendered in parent');
+
   });
 
   test('capsule sets the correct class', async function(assert) {
@@ -88,14 +82,13 @@ module('Integration | Component | paper toast', function(hooks) {
       this.position = position;
 
       await render(hbs`
-        {{paper-toast position=position}}
+        <div id="sagittarius-a"></div>
+        {{paper-toast position=position parent="#sagittarius-a"}}
       `);
 
-      assert.dom('#ember-testing > md-toast').hasClass(`md-${x}`);
-      assert.dom('#ember-testing > md-toast').hasClass(`md-${y}`);
-      //weird, it doesnt work with plain string selector?
-      assert.dom(find('#ember-testing')).hasClass(`md-toast-open-${y}`);
-      
+      assert.dom('#sagittarius-a > md-toast').hasClass(`md-${x}`);
+      assert.dom('#sagittarius-a > md-toast').hasClass(`md-${y}`);
+      assert.dom('#sagittarius-a').hasClass(`md-toast-open-${y}`);
     });
   });
 });

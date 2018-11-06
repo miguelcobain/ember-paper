@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | paper toaster', function(hooks) {
+module('Integration | Component | paper-toaster', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
@@ -13,7 +13,7 @@ module('Integration | Component | paper toaster', function(hooks) {
     });
   });
 
-  test('it can shows an action', async function(assert) {
+  test('it can show an action', async function(assert) {
     assert.expect(2);
 
     this.set('paperToaster.activeToast', {
