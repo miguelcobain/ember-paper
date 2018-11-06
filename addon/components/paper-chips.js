@@ -71,19 +71,19 @@ export default Component.extend({
       let input = this.getInput();
 
       this.set('focusedElement', 'input');
-      
-      if (!this.get('content').length && input === document.activeElement) {
+
+      if (!this.get('content').length && input !== document.activeElement) {
         input.focus();
       } else {
         this.set('activeChip', -1);
       }
 
       // Keep track of the autocomplete, so we can force it to close when navigating to chips.
-  
+
       if (isEmpty(this.get('autocomplete')) && input.classList.contains('ember-paper-autocomplete-search-input')) {
         this.set('autocomplete', autocomplete);
       }
-  
+
 
       // We don't want the autocomplete to open on focus - it'll open when the user starts typing.
       if (isPresent(autocomplete)) {
@@ -188,7 +188,7 @@ export default Component.extend({
     let current = this.get('activeChip');
     let chips = this.get('content');
     let input = this.getInput();
-    
+
     if (['ArrowLeft', 'Left'].includes(key) || (key === 'Backspace' && current === -1)) {
       if (current === -1) {
         input.blur();
@@ -225,8 +225,8 @@ export default Component.extend({
   },
 
   focusMovingTo(selector, event) {
-    
-    if (!isEmpty(event) && !isEmpty(event.relatedTarget) && event.relatedTarget === selector) {
+    let el = this.element.querySelector(selector);
+    if (!isEmpty(event) && !isEmpty(event.relatedTarget) && event.relatedTarget === el) {
       return true;
     }
 
