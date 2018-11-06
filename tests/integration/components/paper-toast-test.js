@@ -2,31 +2,24 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import $ from 'jquery';
 
-module('Integration | Component | paper toast', function(hooks) {
+module('Integration | Component | paper-toast', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
+    assert.expect(1);
 
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
-    await render(hbs`{{paper-toast}}`);
-
-    assert.equal(this.$().text().trim(), '');
-
-    // Template block usage:
     await render(hbs`
       {{#paper-toast}}
         Toast was shown successfully!
       {{/paper-toast}}
     `);
 
-    assert.equal($('md-toast').text().trim(), 'Toast was shown successfully!');
+    assert.dom('md-toast').hasText('Toast was shown successfully!');
   });
 
   test('duration triggers onClose', async function(assert) {
+    assert.expect(1);
     let done = assert.async();
 
     this.set('closeAction', () => {
@@ -59,8 +52,7 @@ module('Integration | Component | paper toast', function(hooks) {
     await render(hbs`
       {{paper-toast}}
     `);
-
-    assert.ok($().find('#ember-testing md-toast'), 'rendered in default');
+    assert.dom('#ember-testing md-toast').exists({ count: 1 }, 'rendered in default');
   });
 
   test('should render in specific wormhole if parent is defined', async function(assert) {
@@ -70,8 +62,9 @@ module('Integration | Component | paper toast', function(hooks) {
         So this is singularity, eh?
       {{/paper-toast}}
     `);
-    assert.ok(!$('#ember-testing > md-toast').length, 'did not render in default');
-    assert.ok($('#sagittarius-a md-toast').length, 'rendered in parent');
+    assert.dom('#ember-testing > md-toast').doesNotExist('did not render in default');
+    assert.dom('#sagittarius-a md-toast').exists({ count: 1 }, 'rendered in parent');
+
   });
 
   test('capsule sets the correct class', async function(assert) {
@@ -79,9 +72,7 @@ module('Integration | Component | paper toast', function(hooks) {
       {{paper-toast capsule=true}}
     `);
 
-    let toast = $('md-toast');
-
-    assert.ok(toast.hasClass('md-capsule'), 'rendered in default');
+    assert.dom('md-toast').hasClass('md-capsule', 'rendered in default');
   });
 
   ['bottom left', 'bottom right', 'top left', 'top right'].forEach((position) => {
@@ -91,12 +82,13 @@ module('Integration | Component | paper toast', function(hooks) {
       this.position = position;
 
       await render(hbs`
-        {{paper-toast position=position}}
+        <div id="sagittarius-a"></div>
+        {{paper-toast position=position parent="#sagittarius-a"}}
       `);
 
-      assert.ok($('#ember-testing > md-toast').hasClass(`md-${x}`));
-      assert.ok($('#ember-testing > md-toast').hasClass(`md-${y}`));
-      assert.ok($('#ember-testing').hasClass(`md-toast-open-${y}`));
+      assert.dom('#sagittarius-a > md-toast').hasClass(`md-${x}`);
+      assert.dom('#sagittarius-a > md-toast').hasClass(`md-${y}`);
+      assert.dom('#sagittarius-a').hasClass(`md-toast-open-${y}`);
     });
   });
 });
