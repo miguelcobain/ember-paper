@@ -63,7 +63,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     let style = this.get('positionStyle');
 
     if (height !== null && !isNaN(height)) {
-      style += ` height: em{height}px;`;
+      style += ` height: ${height}px;`;
     }
     return htmlSafe(style);
   }).readOnly(),
