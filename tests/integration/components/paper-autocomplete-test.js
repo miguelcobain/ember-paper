@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { click, render, settled, find, focus, triggerEvent, findAll, fillIn } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | paper autocomplete', function(hooks) {
+module('Integration | Component | paper-autocomplete', function(hooks) {
   setupRenderingTest(hooks);
 
   /* test('either `onSearchTextChange` or `onSelectionChange` functions are provided provided', function(assert) {
