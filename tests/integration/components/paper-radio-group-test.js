@@ -4,7 +4,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | paper radio group', function(hooks) {
+module('Integration | Component | paper-radio-group', function(hooks) {
   setupRenderingTest(hooks);
 
   test('should set and remove checked css class', async function(assert) {
@@ -29,7 +29,7 @@ module('Integration | Component | paper radio group', function(hooks) {
 
     this.set('groupValue', null);
     assert.dom('md-radio-button').doesNotHaveClass('md-checked');
-    
+
   });
 
   test('should trigger an action when checking', async function(assert) {
@@ -53,7 +53,7 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    await click('md-radio-button:first-child')
+    await click('md-radio-button:first-child');
   });
 
   test('should trigger an action when unchecking (toggle is true)', async function(assert) {
@@ -78,7 +78,7 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    await click('md-radio-button:first-child')
+    await click('md-radio-button:first-child');
   });
 
   test('shouldn\'t trigger an action when disabled', async function(assert) {
@@ -102,8 +102,8 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    await click('md-radio-button')
-    
+    await click('md-radio-button');
+
   });
 
   test('should be possible to select next with down/right arrow in a paper-radio-group', async function(assert) {
@@ -211,7 +211,7 @@ module('Integration | Component | paper radio group', function(hooks) {
       {{/paper-radio-group}}
     `);
 
-    assert.dom('.custom-radio').exists({count: 1}, 'custom radio component is displayed');
-    
+    assert.dom('.custom-radio').exists({ count: 1 }, 'custom radio component is displayed');
+
   });
 });
