@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, find, findAll, click, focus, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | paper dialog', function(hooks) {
+module('Integration | Component | paper-dialog', function(hooks) {
   setupRenderingTest(hooks);
 
   test('should render proper dialog wrapping selectors', async function(assert) {
@@ -41,7 +41,7 @@ module('Integration | Component | paper dialog', function(hooks) {
     await render(hbs`
       {{paper-dialog}}
     `);
-    assert.dom('#ember-testing md-dialog').exists()
+    assert.dom('#ember-testing md-dialog').exists({ count: 1 });
   });
 
   test('should render in specific wormhole if parent is defined', async function(assert) {
@@ -64,7 +64,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       <div id="sagittarius-a"></div>
       {{paper-dialog parent="#sagittarius-a"}}
     `);
-  
+
     assert.equal(window.getComputedStyle(find('md-backdrop')).getPropertyValue('position'), 'absolute', 'backdrop is absolute');
   });
 
@@ -91,9 +91,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{paper-dialog}}
     `);
 
-    assert.equal(
-      find('md-backdrop').style.position, 'fixed', 'backdrop is fixed'
-    );
+    assert.equal(find('md-backdrop').style.position, 'fixed', 'backdrop is fixed');
   });
 
   test('applies transitions when opening and closing', async function(assert) {
@@ -107,11 +105,11 @@ module('Integration | Component | paper dialog', function(hooks) {
     let getDialogTransform = () => {
       let dialog = find('md-dialog');
       assert.ok(dialog, 'dialog found');
-      return dialog && (dialog.style.webkitTransform || dialog.style.transform);
+      return dialog && dialog.style.transform;
     };
 
     let dialogTransform = getDialogTransform();
-    assert.ok(dialogTransform.indexOf('translate3d') !== -1, 'open translate was added');
+    assert.ok(dialogTransform.includes('translate3d'), 'open translate was added');
 
     await settled();
     dialogTransform = getDialogTransform();
@@ -119,7 +117,6 @@ module('Integration | Component | paper dialog', function(hooks) {
     this.set('dialogOpen', false);
 
     await settled();
-
   });
 
   test('click outside should close dialog if clickOutsideToClose', async function(assert) {
@@ -136,7 +133,7 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{/if}}
     `);
 
-    assert.dom('md-dialog').exists();
+    assert.dom('md-dialog').exists({ count: 1 });
 
     await click('.md-dialog-container');
   });
@@ -150,7 +147,7 @@ module('Integration | Component | paper dialog', function(hooks) {
     assert.dom('md-dialog').exists();
 
     await click('.md-dialog-container');
-    assert.dom('md-dialog').exists();
+    assert.dom('md-dialog').exists({ count: 1 });
   });
 
   test('dialog shouldn\'t swallow click events', async function(assert) {
@@ -162,10 +159,10 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{/paper-dialog}}
     `);
 
-    assert.dom('md-dialog').exists();
+    assert.dom('md-dialog').exists({ count: 1 });
 
     await click('#the-button');
-    assert.dom('md-dialog').exists();
+    assert.dom('md-dialog').exists({ count: 1 });
   });
 
   test('has opt-in support for fullscreen at responsive breakpoint', async function(assert) {
@@ -177,12 +174,10 @@ module('Integration | Component | paper dialog', function(hooks) {
 
   test('pressing escape triggers close action', async function(assert) {
     assert.expect(2);
-    let done = assert.async();
 
     this.set('showDialog', true);
     this.set('closeDialog', () => {
       assert.ok(true, 'dialog closing handler fired');
-      done();
     });
 
     await render(hbs`
@@ -191,14 +186,13 @@ module('Integration | Component | paper dialog', function(hooks) {
       {{/if}}
     `);
 
-    assert.dom('md-dialog').exists();
-  
-    await triggerKeyEvent('md-dialog', 'keydown', 27);  
+    assert.dom('md-dialog').exists({ count: 1 });
 
+    await triggerKeyEvent('md-dialog', 'keydown', 27);
   });
 
   test('opening gives focus', async function(assert) {
-  
+
     assert.expect(3);
 
     this.set('openDialog', () => {
@@ -222,18 +216,14 @@ module('Integration | Component | paper dialog', function(hooks) {
     assert.dom('#theorigin').isFocused();
     await click('#theorigin');
 
-    let done = assert.async();
-
     await settled();
     assert.dom('#thedialogbutton').isFocused();
     this.set('showDialog', false);
 
     await settled();
     assert.dom('#theorigin').isFocused();
-    done();
-
   });
-  
+
   test('can specify dialog container classes', async function(assert) {
     await render(hbs`
       {{paper-dialog dialogContainerClass="flex-50 my-dialog-container"}}
@@ -241,7 +231,6 @@ module('Integration | Component | paper dialog', function(hooks) {
 
     assert.dom('.md-dialog-container').hasClass('flex-50');
     assert.dom('.md-dialog-container').hasClass('my-dialog-container');
-    
   });
 
   test('can specify dialog css classes', async function(assert) {

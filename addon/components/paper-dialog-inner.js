@@ -24,7 +24,7 @@ export default Component.extend(Translate3dMixin, {
         let focusableButtons = this.element.querySelectorAll('md-dialog-actions button');
         toFocus = focusableButtons[focusableButtons.length - 1];
       }
-      if(toFocus) {
+      if (toFocus) {
         toFocus.focus();
       }
     }
@@ -41,18 +41,18 @@ export default Component.extend(Translate3dMixin, {
     this.checkContentOverflow();
     // content overflow might change depending on load of images inside dialog.
     let imageElements = this.element.querySelectorAll('img');
-    this._checkContentOverflowOnLoad = run.bind(this, this.checkContentOverflow) 
-    imageElements.forEach( image => {
-      image.addEventListener('load', this._checkContentOverflowOnLoad)
+    this._checkContentOverflowOnLoad = run.bind(this, this.checkContentOverflow)
+    imageElements.forEach((image) => {
+      image.addEventListener('load', this._checkContentOverflowOnLoad);
     });
-  
+
   },
 
   willDestroyElement() {
     this._super(...arguments);
     let imageElements = this.element.querySelectorAll('img');
-    imageElements.forEach( image => {
-      image.removeEventListener('load', this._checkContentOverflowOnLoad)
+    imageElements.forEach((image) => {
+      image.removeEventListener('load', this._checkContentOverflowOnLoad);
     });
     this._checkContentOverflowOnLoad = null;
   },

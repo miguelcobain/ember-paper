@@ -1,8 +1,6 @@
 /**
  * @module ember-paper
  */
-import { inject as service } from '@ember/service';
-
 import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
@@ -63,15 +61,13 @@ export default Component.extend({
     return document.querySelector(this.get('destinationId'));
   }),
 
-  constants: service(),
-
   didInsertElement() {
     this._super(...arguments);
     if (this.get('escapeToClose')) {
 
       this._destinationEle = document.querySelector(this.get('destinationId'));
       this._onKeyDown = (e) => {
-        if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.get('onClose')) {
+        if (e.keyCode === 27 && this.get('onClose')) {
           invokeAction(this, 'onClose');
         }
       }
@@ -82,8 +78,9 @@ export default Component.extend({
 
   willDestroyElement() {
     this._super(...arguments);
-    if (this.get('escapeToClose')) {
+    if (this.get('escapeToClose') && this._destinationEle) {
       this._destinationEle.removeEventListener('keydown', this._onKeyDown);
+      this._onKeyDown = null;
     }
   },
 

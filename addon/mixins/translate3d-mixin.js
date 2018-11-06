@@ -1,8 +1,6 @@
 /**
  * @module ember-paper
  */
-import { inject as service } from '@ember/service';
-
 import Mixin from '@ember/object/mixin';
 import { htmlSafe } from '@ember/string';
 import { computed } from '@ember/object';
@@ -15,7 +13,6 @@ import { getOwner } from '@ember/application';
  * @extends Ember.Mixin
  */
 export default Mixin.create({
-  constants: service(),
 
   attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],
@@ -73,23 +70,23 @@ export default Mixin.create({
    */
   willDestroyElement() {
     this._super(...arguments);
-  
+
     let config = getOwner(this).resolveRegistration('config:environment');
-    
+
     let containerClone = this.element.parentNode.cloneNode(true);
     let dialogClone = containerClone.querySelector('md-dialog');
-    
+
     let parent = this.get('defaultedParent');
-    
+
     if (config.environment === 'test' && !this.get('parent')) {
       parent = '#ember-testing';
     }
 
     document.querySelector(parent).parentNode.appendChild(containerClone);
-    
+
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
 
-    let origin = typeof this.get('origin') === "string"
+    let origin = typeof this.get('origin') === 'string'
                     ? document.querySelector(this.get('origin'))
                     : this.get('origin');
 
@@ -120,7 +117,7 @@ export default Mixin.create({
    */
   calculateZoomToOrigin(element, originator) {
     let zoomStyle;
-    originator = typeof originator === "string"
+    originator = typeof originator === 'string'
                     ? document.querySelector(originator)
                     : originator;
     if (originator) {
@@ -147,17 +144,8 @@ export default Mixin.create({
    *
    * @public
    */
-  toTransformCss(transform, addTransition) {
-    let styles = '';
-    this.get('constants').get('CSS').TRANSFORM.split(' ').forEach((key) => {
-      styles += `${key}:${transform};`;
-    });
-
-    if (addTransition) {
-      styles += 'transform: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;';
-    }
-
-    return styles;
+  toTransformCss(transform) {
+    return `transform: ${transform};`;
   },
 
   /**
@@ -180,23 +168,6 @@ export default Mixin.create({
     destination.height = destination.height || (destination.bottom - destination.top);
 
     return destination;
-  },
-
-  /**
-   * Calculate ClientRect of element; return null if hidden or zero size
-   *
-   * @public
-   */
-  clientRect(element) {
-
-    element = typeof element === "string"
-                ? document.querySelector(element)
-                : element;
-                
-    let bounds = element.getBoundingClientRect();
-
-    // If the event origin element has zero size, it has probably been hidden.
-    return bounds && (bounds.width > 0) && (bounds.height > 0) ? this.copyRect(bounds) : null;
   },
 
   /**
