@@ -72,16 +72,18 @@ export default Component.extend({
 
       this.set('focusedElement', 'input');
 
-      if (!this.get('content').length && !input.is(':focus')) {
+      if (!this.get('content').length && input !== document.activeElement) {
         input.focus();
       } else {
         this.set('activeChip', -1);
       }
 
       // Keep track of the autocomplete, so we can force it to close when navigating to chips.
-      if (isEmpty(this.get('autocomplete')) && input.is('.ember-paper-autocomplete-search-input')) {
+
+      if (isEmpty(this.get('autocomplete')) && input.classList.contains('ember-paper-autocomplete-search-input')) {
         this.set('autocomplete', autocomplete);
       }
+
 
       // We don't want the autocomplete to open on focus - it'll open when the user starts typing.
       if (isPresent(autocomplete)) {
@@ -124,7 +126,7 @@ export default Component.extend({
       // If we have a valid chip index, make it active.
       if (!isEmpty(index) && !this.get('readOnly')) {
         // Shift actual focus to wrap so that subsequent blur events work as expected.
-        this.$('md-chips-wrap').focus();
+        this.element.querySelector('md-chips-wrap').focus();
 
         // Update state to reflect the clicked chip being active.
         this.set('focusedElement', 'chips');
@@ -156,7 +158,7 @@ export default Component.extend({
     },
 
     keyDown(event) {
-      let input = this.getInput().get(0);
+      let input = this.getInput();
       if (!this.get('readOnly') && isEmpty(input.value) && isPresent(this.get('content'))) {
         this.keyboardNavigation(event);
         if (this.get('activeChip') >= 0) {
@@ -190,7 +192,7 @@ export default Component.extend({
     if (['ArrowLeft', 'Left'].includes(key) || (key === 'Backspace' && current === -1)) {
       if (current === -1) {
         input.blur();
-        this.$('md-chips-wrap', this.element).focus();
+        this.element.querySelector('md-chips-wrap').focus();
         this.set('activeChip', chips.length - 1);
       } else if (current > 0) {
         this.decrementProperty('activeChip');
@@ -219,11 +221,12 @@ export default Component.extend({
   },
 
   getInput() {
-    return this.$('.md-chip-input-container input');
+    return this.element.querySelector('.md-chip-input-container input');
   },
 
   focusMovingTo(selector, event) {
-    if (!isEmpty(event) && !isEmpty(event.relatedTarget) && this.$().find(event.relatedTarget).is(selector)) {
+    let el = this.element.querySelector(selector);
+    if (!isEmpty(event) && !isEmpty(event.relatedTarget) && event.relatedTarget === el) {
       return true;
     }
 
