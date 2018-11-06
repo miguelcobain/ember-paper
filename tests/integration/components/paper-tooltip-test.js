@@ -1,10 +1,9 @@
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, triggerEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | paper tooltip', function(hooks) {
+module('Integration | Component | paper-tooltip', function(hooks) {
   setupRenderingTest(hooks);
 
   ['focus', 'touchstart', 'mouseenter'].forEach((openEvent) => {
@@ -45,9 +44,9 @@ module('Integration | Component | paper tooltip', function(hooks) {
 
       await triggerEvent('.md-button', 'mouseenter');
 
-      assert.dom('md-tooltip').exists({count: 1}, 'tooltip was rendered');
+      assert.dom('md-tooltip').exists({ count: 1 }, 'tooltip was rendered');
 
-      run(() => window.dispatchEvent(new window.Event(closeEvent)));
+      await triggerEvent(window, closeEvent);
 
       await settled();
 
