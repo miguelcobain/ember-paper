@@ -113,7 +113,7 @@ export default Component.extend(ParentMixin, {
   // Updates styles and triggers onUpdate callbacks
   updateGrid() {
     applyStyles(this.element, this._gridStyle());
-    
+
     this.get('tiles').forEach((tile) => tile.updateTile());
     invokeAction(this, 'onUpdate');
   },
@@ -167,7 +167,7 @@ export default Component.extend(ParentMixin, {
 
   // Sorts tiles by their order in the dom
   orderedTiles() {
-    //Convert NodeList to native javascript array, to be able to use indexOf.
+    // Convert NodeList to native javascript array, to be able to use indexOf.
     let domTiles = Array.prototype.slice.call(this.element.querySelectorAll('md-grid-tile'));
 
     return this.get('tiles').sort((a, b) => {
