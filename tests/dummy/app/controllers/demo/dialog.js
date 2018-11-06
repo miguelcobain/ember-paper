@@ -1,12 +1,11 @@
 import Controller from '@ember/controller';
-import $ from 'jquery';
 
 export default Controller.extend({
   actions: {
 
     /* Dialog with parent */
     openDialogWithParent(event) {
-      this.set('dialogOrigin', $(event.currentTarget));
+      this.set('dialogOrigin', event.currentTarget);
       this.set('showDialogWithParent', true);
     },
 
@@ -17,7 +16,7 @@ export default Controller.extend({
 
     /* Dialog */
     openDialog(event) {
-      this.set('dialogOrigin', $(event.currentTarget));
+      this.set('dialogOrigin', event.currentTarget);
       this.set('showDialog', true);
     },
 

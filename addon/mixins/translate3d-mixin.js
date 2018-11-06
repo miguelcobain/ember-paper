@@ -1,21 +1,18 @@
 /**
  * @module ember-paper
  */
-import { inject as service } from '@ember/service';
-
-import $ from 'jquery';
 import Mixin from '@ember/object/mixin';
 import { htmlSafe } from '@ember/string';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import { nextTick, computeTimeout } from 'ember-css-transitions/mixins/transition-mixin';
+import { getOwner } from '@ember/application';
 
 /**
  * @class Translate3dMixin
  * @extends Ember.Mixin
  */
 export default Mixin.create({
-  constants: service(),
 
   attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],
@@ -74,21 +71,35 @@ export default Mixin.create({
   willDestroyElement() {
     this._super(...arguments);
 
-    let containerClone = this.$().parent().clone();
-    let dialogClone = containerClone.find('md-dialog');
-    $(this.get('defaultedParent')).parent().append(containerClone);
+    let config = getOwner(this).resolveRegistration('config:environment');
+
+    let containerClone = this.element.parentNode.cloneNode(true);
+    let dialogClone = containerClone.querySelector('md-dialog');
+
+    let parent = this.get('defaultedParent');
+
+    if (config.environment === 'test' && !this.get('parent')) {
+      parent = '#ember-testing';
+    }
+
+    document.querySelector(parent).parentNode.appendChild(containerClone);
 
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
 
+    let origin = typeof this.get('origin') === 'string'
+                    ? document.querySelector(this.get('origin'))
+                    : this.get('origin');
+
     nextTick().then(() => {
-      dialogClone.removeClass('md-transition-in');
-      dialogClone.addClass('md-transition-out');
-      dialogClone.attr('style', toStyle);
+      dialogClone.classList.remove('md-transition-in');
+      dialogClone.classList.add('md-transition-out');
+      dialogClone.style.cssText = toStyle;
       nextTick().then(() => {
         run.later(() => {
-          containerClone.remove();
-          this.onTranslateToEnd($(this.get('origin')));
-        }, computeTimeout(dialogClone.get(0)) || 0);
+          containerClone.parentNode.removeChild(containerClone);
+          this.onTranslateToEnd(origin);
+
+        }, computeTimeout(dialogClone) || 0);
       });
     });
   },
@@ -106,9 +117,10 @@ export default Mixin.create({
    */
   calculateZoomToOrigin(element, originator) {
     let zoomStyle;
-
+    originator = typeof originator === 'string'
+                    ? document.querySelector(originator)
+                    : originator;
     if (originator) {
-      originator = $(originator).get(0);
       let originBnds = this.copyRect(originator.getBoundingClientRect());
       let dialogRect = this.copyRect(element.getBoundingClientRect());
       let dialogCenterPt = this.centerPointFor(dialogRect);
@@ -132,17 +144,8 @@ export default Mixin.create({
    *
    * @public
    */
-  toTransformCss(transform, addTransition) {
-    let styles = '';
-    this.get('constants').get('CSS').TRANSFORM.split(' ').forEach((key) => {
-      styles += `${key}:${transform};`;
-    });
-
-    if (addTransition) {
-      styles += 'transform: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;';
-    }
-
-    return styles;
+  toTransformCss(transform) {
+    return `transform: ${transform};`;
   },
 
   /**
@@ -165,18 +168,6 @@ export default Mixin.create({
     destination.height = destination.height || (destination.bottom - destination.top);
 
     return destination;
-  },
-
-  /**
-   * Calculate ClientRect of element; return null if hidden or zero size
-   *
-   * @public
-   */
-  clientRect(element) {
-    let bounds = $(element)[0].getBoundingClientRect();
-
-    // If the event origin element has zero size, it has probably been hidden.
-    return bounds && (bounds.width > 0) && (bounds.height > 0) ? this.copyRect(bounds) : null;
   },
 
   /**

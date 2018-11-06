@@ -18,17 +18,21 @@ export default Component.extend(Translate3dMixin, {
 
   onTranslateFromEnd() {
     if (this.get('focusOnOpen')) {
-      let toFocus = this.$('[autofocus]').last();
-      if (toFocus.length === 0) {
-        toFocus = this.$('md-dialog-actions button').last();
+      let focusableElements = this.element.querySelectorAll('[autofocus]');
+      let toFocus = focusableElements[focusableElements.length - 1];
+      if (!toFocus) {
+        let focusableButtons = this.element.querySelectorAll('md-dialog-actions button');
+        toFocus = focusableButtons[focusableButtons.length - 1];
       }
-      toFocus.focus();
+      if (toFocus) {
+        toFocus.focus();
+      }
     }
   },
 
-  onTranslateToEnd($origin) {
-    if ($origin) {
-      $origin.focus();
+  onTranslateToEnd(origin) {
+    if (origin) {
+      origin.focus();
     }
   },
 
@@ -36,14 +40,21 @@ export default Component.extend(Translate3dMixin, {
     this._super(...arguments);
     this.checkContentOverflow();
     // content overflow might change depending on load of images inside dialog.
-    let images = this.$().find('img');
-    images.on(`load.${this.elementId}`, run.bind(this, this.checkContentOverflow));
+    let imageElements = this.element.querySelectorAll('img');
+    this._checkContentOverflowOnLoad = run.bind(this, this.checkContentOverflow)
+    imageElements.forEach((image) => {
+      image.addEventListener('load', this._checkContentOverflowOnLoad);
+    });
+
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    let images = this.$().find('img');
-    images.off(`load.${this.elementId}`);
+    let imageElements = this.element.querySelectorAll('img');
+    imageElements.forEach((image) => {
+      image.removeEventListener('load', this._checkContentOverflowOnLoad);
+    });
+    this._checkContentOverflowOnLoad = null;
   },
 
   checkContentOverflow() {
