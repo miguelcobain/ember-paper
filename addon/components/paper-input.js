@@ -89,7 +89,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   didInsertElement() {
     this._super(...arguments);
     if (this.get('textarea')) {
-      this._growTextareaOnResize = run.bind(this, this.growTextarea)
+      this._growTextareaOnResize = run.bind(this, this.growTextarea);
       window.addEventListener('resize', this._growTextareaOnResize);
     }
   },
@@ -129,10 +129,10 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
         let proposedHeight = Math.round(height / this.lineHeight);
         let maxRows = this.get('passThru.maxRows') || Number.MAX_VALUE;
         let rowsToSet = Math.min(proposedHeight, maxRows);
-        
+
         inputElement.style.height = `${this.lineHeight * rowsToSet}px`;
         inputElement.setAttribute('rows', rowsToSet);
-        
+
         if (proposedHeight >= maxRows) {
           inputElement.classList.add('md-textarea-scrollable');
         } else {

@@ -4,7 +4,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, fillIn, triggerEvent, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | paper input', function(hooks) {
+module('Integration | Component | paper-input', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
@@ -23,7 +23,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input icon="person" onChange=dummyOnChange}}`);
 
-    assert.dom('md-input-container md-icon').exists({count: 1}, 'renders with left icon');
+    assert.dom('md-input-container md-icon').exists({ count: 1 }, 'renders with left icon');
     assert.dom('md-input-container').hasClass('md-icon-left');
   });
 
@@ -32,7 +32,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input label="name" iconRight="person" onChange=dummyOnChange}}`);
 
-    assert.dom('md-input-container md-icon').exists({count: 1}, 'renders with right icon');
+    assert.dom('md-input-container md-icon').exists({ count: 1 }, 'renders with right icon');
     assert.dom('md-input-container').hasClass('md-icon-right');
   });
 
@@ -46,8 +46,8 @@ module('Integration | Component | paper input', function(hooks) {
     await render(hbs`{{paper-input iconComponent="custom-icon" icon="person" onChange=dummyOnChange}}`);
 
     assert.dom('md-input-container md-icon').doesNotExist('default icon component is not rendered');
-    assert.dom('md-input-container .custom-icon').exists({count: 1}, 'custom icon component rendered');
-    
+    assert.dom('md-input-container .custom-icon').exists({ count: 1 }, 'custom icon component rendered');
+
   });
 
   test('renders with a custom icon component when `iconComponent` is specified and icon should be displayed on the right', async function(assert) {
@@ -60,8 +60,8 @@ module('Integration | Component | paper input', function(hooks) {
     await render(hbs`{{paper-input iconComponent="custom-icon" iconRight="person" onChange=dummyOnChange}}`);
 
     assert.dom('md-input-container md-icon').doesNotExist('default icon component is not rendered');
-    assert.dom('md-input-container .custom-icon').exists({count: 1}, 'custom icon component rendered');
-    
+    assert.dom('md-input-container .custom-icon').exists({ count: 1 }, 'custom icon component rendered');
+
   });
 
   test('renders input with id', async function(assert) {
@@ -69,8 +69,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input inputElementId="testId" onChange=dummyOnChange}}`);
 
-    let expected = 'testId';
-    assert.dom('md-input-container input').hasAttribute('id', expected);
+    assert.dom('md-input-container input').hasAttribute('id', 'testId');
 
   });
 
@@ -79,8 +78,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input placeholder="Enter value here" onChange=dummyOnChange}}`);
 
-    let expected = 'Enter value here';
-    assert.dom('md-input-container input').hasAttribute('placeholder', expected);
+    assert.dom('md-input-container input').hasAttribute('placeholder', 'Enter value here');
 
   });
 
@@ -121,8 +119,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash accept="audio/*|video/*|image/*") onChange=dummyOnChange}}`);
 
-    let expected = 'audio/*|video/*|image/*';
-    assert.dom('md-input-container input').hasAttribute('accept', expected);
+    assert.dom('md-input-container input').hasAttribute('accept', 'audio/*|video/*|image/*');
   });
 
   test('renders input with attribute autocomplete', async function(assert) {
@@ -130,8 +127,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash autocomplete="autocomplete") onChange=dummyOnChange}}`);
 
-    let expected = 'autocomplete';
-    assert.dom('md-input-container input').hasAttribute('autocomplete', expected);
+    assert.dom('md-input-container input').hasAttribute('autocomplete', 'autocomplete');
   });
 
   test('renders input with attribute autocorrect', async function(assert) {
@@ -139,9 +135,8 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash autocorrect="autocorrect") onChange=dummyOnChange}}`);
 
-    let expected = 'autocorrect';
-    assert.dom('md-input-container input').hasAttribute('autocorrect', expected);
-    
+    assert.dom('md-input-container input').hasAttribute('autocorrect', 'autocorrect');
+
   });
 
   test('renders input with attribute autocapitalize', async function(assert) {
@@ -149,17 +144,15 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash autocapitalize="autocapitalize") onChange=dummyOnChange}}`);
 
-    let expected = 'autocapitalize';
-    assert.dom('md-input-container input').hasAttribute('autocapitalize', expected);
+    assert.dom('md-input-container input').hasAttribute('autocapitalize', 'autocapitalize');
   });
 
   test('renders input with attribute form', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{paper-input passThru=(hash form="myform") onChange=dummyOnChange onChange=dummyOnChange}}`);
-    
-    let expected = 'myform';
-    assert.dom('md-input-container input').hasAttribute('form', expected);
+
+    assert.dom('md-input-container input').hasAttribute('form', 'myform');
   });
 
   test('renders input with attribute formnovalidate', async function(assert) {
@@ -167,8 +160,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash formnovalidate="formnovalidate") onChange=dummyOnChange}}`);
 
-    let expected = 'formnovalidate';
-    assert.dom('md-input-container input').hasAttribute('formnovalidate', expected);
+    assert.dom('md-input-container input').hasAttribute('formnovalidate', 'formnovalidate');
   });
 
   test('renders input with attribute formtarget', async function(assert) {
@@ -176,8 +168,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash formtarget="_blank") onChange=dummyOnChange}}`);
 
-    let expected = '_blank';
-    assert.dom('md-input-container input').hasAttribute('formtarget', expected);
+    assert.dom('md-input-container input').hasAttribute('formtarget', '_blank');
   });
 
   test('renders input with attribute formenctype', async function(assert) {
@@ -185,8 +176,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash formenctype="multipart/form-data") onChange=dummyOnChange}}`);
 
-    let expected = 'multipart/form-data';
-    assert.dom('md-input-container input').hasAttribute('formenctype', expected);
+    assert.dom('md-input-container input').hasAttribute('formenctype', 'multipart/form-data');
   });
 
   test('renders input with multiple passThru attributes', async function(assert) {
@@ -196,13 +186,11 @@ module('Integration | Component | paper input', function(hooks) {
       hbs`{{paper-input type="submit" passThru=(hash form="myform" formnovalidate="formnovalidate" formtarget="_blank" formenctype="multipart/form-data") onChange=dummyOnChange}}`
     );
 
-    let inputSelector = 'md-input-container input'
-
-    assert.dom(inputSelector).hasAttribute('type', 'submit');
-    assert.dom(inputSelector).hasAttribute('form', 'myform');
-    assert.dom(inputSelector).hasAttribute('formnovalidate', 'formnovalidate');
-    assert.dom(inputSelector).hasAttribute('formtarget', '_blank');
-    assert.dom(inputSelector).hasAttribute('formenctype', 'multipart/form-data');
+    assert.dom('md-input-container input').hasAttribute('type', 'submit');
+    assert.dom('md-input-container input').hasAttribute('form', 'myform');
+    assert.dom('md-input-container input').hasAttribute('formnovalidate', 'formnovalidate');
+    assert.dom('md-input-container input').hasAttribute('formtarget', '_blank');
+    assert.dom('md-input-container input').hasAttribute('formenctype', 'multipart/form-data');
 
   });
 
@@ -234,7 +222,7 @@ module('Integration | Component | paper input', function(hooks) {
         onChange=dummyOnChange
       }}`);
 
-    let input = find('md-input-container input')
+    let input = find('md-input-container input');
 
     assert.dom(input).hasAttribute('type', 'submit');
     assert.dom(input).hasAttribute('min', '2');
@@ -249,7 +237,7 @@ module('Integration | Component | paper input', function(hooks) {
     assert.dom(input).hasAttribute('spellcheck', 'true');
     assert.dom(input).hasAttribute('step', '2');
     assert.dom(input).hasAttribute('tabindex', '1138');
-    
+
 
   });
 
@@ -262,7 +250,7 @@ module('Integration | Component | paper input', function(hooks) {
       {{paper-input value=value onChange=(action (mut value)) maxlength=8}}
     `);
 
-    assert.dom('.md-char-counter').exists({count: 1}, 'renders char counter');
+    assert.dom('.md-char-counter').exists({ count: 1 }, 'renders char counter');
     assert.dom('.md-char-counter').hasText('6/8');
     this.set('value', 'aa');
 
@@ -279,7 +267,7 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8}}
     `);
 
-    assert.dom('.paper-input-error').exists({count: 1}, 'renders one error');
+    assert.dom('.paper-input-error').exists({ count: 1 }, 'renders one error');
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
   });
 
@@ -298,7 +286,7 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8 customValidations=customValidations notinclude="cc"}}
     `);
 
-    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
+    assert.dom('.paper-input-error').exists({ count: 2 }, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
     assert.dom('.paper-input-error:last-child').hasText("You can't include the substring cc.");
   });
@@ -318,7 +306,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     this.set('required', true);
 
-    assert.dom('.paper-input-error').exists({count: 1}, 'renders one error');
+    assert.dom('.paper-input-error').exists({ count: 1 }, 'renders one error');
     assert.dom('.paper-input-error:first-child').hasText('This is required.');
   });
 
@@ -338,13 +326,13 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8 customValidations=customValidations notinclude=notinclude}}
     `);
 
-    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
+    assert.dom('.paper-input-error').exists({ count: 2 }, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
     assert.dom('.paper-input-error:last-child').hasText("You can't include the substring cc.");
 
     this.set('notinclude', 'bb');
 
-    assert.dom('.paper-input-error').exists({count: 2});
+    assert.dom('.paper-input-error').exists({ count: 2 });
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
     assert.dom('.paper-input-error:last-child').hasText("You can't include the substring bb.");
   });
@@ -363,7 +351,7 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8 customValidations=customValidations}}
     `);
 
-    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
+    assert.dom('.paper-input-error').exists({ count: 2 }, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
     assert.dom('.paper-input-error:last-child').hasText("You can't include the substring cc.");
   });
@@ -387,7 +375,7 @@ module('Integration | Component | paper input', function(hooks) {
         )}}
     `);
 
-    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
+    assert.dom('.paper-input-error').exists({ count: 2 }, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('Too small, baby!');
     assert.dom('.paper-input-error:last-child').hasText("Can't have cc, baby!");
   });
@@ -405,7 +393,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
 
-    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
+    assert.dom('.paper-input-error').exists({ count: 2 }, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('foo should be a number.');
     assert.dom('.paper-input-error:last-child').hasText("foo should be smaller than 12.");
   });
@@ -420,7 +408,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
 
-    assert.dom('.paper-input-error').exists({count: 2}, 'renders two errors');
+    assert.dom('.paper-input-error').exists({ count: 2 }, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('foo should be a number.');
     assert.dom('.paper-input-error:last-child').hasText("foo should be smaller than 12.");
 
@@ -461,7 +449,7 @@ module('Integration | Component | paper input', function(hooks) {
     await settled();
     assert.dom(input).hasValue('123');
     assert.equal(this.value, '123', 'component value should be 123');
-    
+
   });
 
   test('displayed input value matches actual input value with no onChange method', async function(assert) {
