@@ -110,6 +110,9 @@ const componentDependencies = {
     'paper-select-trigger',
     'paper-select-search'
   ],
+  'paper-select-options': [
+    'paper-option'
+  ],
   'paper-select-menu': [
     'paper-select-menu-trigger',
     'paper-select-content'
