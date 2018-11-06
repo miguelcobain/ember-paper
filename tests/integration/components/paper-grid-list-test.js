@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, findAll, waitUntil } from '@ember/test-helpers';
+import { render, find, waitUntil } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { run } from '@ember/runloop';
 import { A } from "@ember/array"
@@ -47,7 +47,7 @@ function createTiles() {
   return A(['ONE', 'TWO', 'THREE']);
 }
 
-module('Integration | Component | paper grid list', function(hooks) {
+module('Integration | Component | paper-grid-list', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders tiles with tag name', async function(assert) {
@@ -59,7 +59,7 @@ module('Integration | Component | paper grid list', function(hooks) {
       {{/paper-grid-list}}
     `);
 
-    assert.equal(this.$('md-grid-tile').length, 1);
+    assert.dom('md-grid-tile').exists({ count: 1 });
   });
 
   test('it renders tiles with footer', async function(assert) {
@@ -73,7 +73,7 @@ module('Integration | Component | paper grid list', function(hooks) {
       {{/paper-grid-list}}
     `);
 
-    assert.equal(findAll('md-grid-tile-footer').length, 1);
+    assert.dom('md-grid-tile-footer').exists({ count: 1 });
   });
 
   test('it applies a gutter', async function(assert) {
