@@ -31,7 +31,6 @@ module.exports = {
 
     app.import('vendor/ember-paper/register-version.js');
     app.import('vendor/hammerjs/hammer.js');
-    app.import('vendor/matchmedia-polyfill/matchMedia.js');
     app.import('vendor/propagating-hammerjs/propagating.js');
   },
 
@@ -80,17 +79,12 @@ module.exports = {
       destDir: 'hammerjs'
     }));
 
-    let matchMediaPolyfill = fastbootTransform(new Funnel(this.pathBase('matchmedia-polyfill'), {
-      files: ['matchMedia.js'],
-      destDir: 'matchmedia-polyfill'
-    }));
-
     let propagatingHammerJs = fastbootTransform(new Funnel(this.pathBase('propagating-hammerjs'), {
       files: ['propagating.js'],
       destDir: 'propagating-hammerjs'
     }));
 
-    trees = trees.concat([hammerJs, matchMediaPolyfill, propagatingHammerJs, versionTree]);
+    trees = trees.concat([hammerJs, propagatingHammerJs, versionTree]);
 
     if (tree) {
       trees.push(tree);
