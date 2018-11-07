@@ -32,7 +32,7 @@ module.exports = {
     app.import('vendor/ember-paper/register-version.js');
     app.import('vendor/hammerjs/hammer.js');
     app.import('vendor/propagating-hammerjs/propagating.js');
-    app.import('vendor/element-closest/element-closest.js');
+
   },
 
   config() {
