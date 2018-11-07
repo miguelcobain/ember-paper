@@ -68,6 +68,7 @@
     "ember-auto-import": "^1.2.13",
     "ember-basic-dropdown": "^1.0.0",
     "ember-cli-babel": "^6.6.0",
+    "ember-cli-classlist-polyfill": "^0.1.0",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-matchmedia-polyfill": "^0.0.1",
     "ember-cli-sass": "^7.2.0",
