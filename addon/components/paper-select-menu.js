@@ -1,7 +1,6 @@
 /**
  * @module ember-paper
  */
-import $ from 'jquery';
 
 import PaperMenu from './paper-menu';
 import layout from '../templates/components/paper-select-menu';
@@ -31,19 +30,19 @@ export default PaperMenu.extend({
   triggerComponent: 'paper-select-menu-trigger',
 
   calculatePosition(trigger, content, destination, { dropdown }) {
-    let $dropdown = $(content);
+
     let opts = {
-      target: $(trigger),
-      parent: $('body'),
-      selectEl: $dropdown.find('md-select-menu'),
-      contentEl: $dropdown.find('md-content')
+      target: trigger,
+      parent: document.body,
+      selectEl: content.querySelector('md-select-menu'),
+      contentEl: content.querySelector('md-content')
     };
 
-    let containerNode = $dropdown.get(0);
-    let targetNode = opts.target[0].firstElementChild; // target the label
-    let parentNode = opts.parent.get(0);
-    let selectNode = opts.selectEl.get(0);
-    let contentNode = opts.contentEl.get(0);
+    let containerNode = content;
+    let targetNode = opts.target.firstElementChild; // target the label
+    let parentNode = opts.parent;
+    let selectNode = opts.selectEl;
+    let contentNode = opts.contentEl;
     let parentRect = parentNode.getBoundingClientRect();
     let targetRect = targetNode.getBoundingClientRect();
     let shouldOpenAroundTarget = false;
