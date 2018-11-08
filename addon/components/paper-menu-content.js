@@ -1,7 +1,6 @@
 /**
  * @module ember-paper
  */
-import $ from 'jquery';
 
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
@@ -73,8 +72,19 @@ export default ContentComponent.extend({
       this.mutationObserver = new MutObserver((mutations) => {
         // e-b-d incorrectly counts ripples as a mutation, triggering a problematic repositon
         // convert NodeList to Array
-        let addedNodes = Array.prototype.slice.call(mutations[0].addedNodes).filter((node) => !$(node).hasClass('md-ripple') && (node.nodeName !== '#comment') && !(node.nodeName === '#text' && node.nodeValue === ''));
-        let removedNodes = Array.prototype.slice.call(mutations[0].removedNodes).filter((node) => !$(node).hasClass('md-ripple') && (node.nodeName !== '#comment'));
+
+        let addedNodes = Array.prototype.slice.call(mutations[0].addedNodes).filter((node) => {
+          if (node.classList) {
+            return !node.classList.contains('md-ripple') && (node.nodeName !== '#comment') && !(node.nodeName === '#text' && node.nodeValue === '');
+          }
+          return false;
+        });
+        let removedNodes = Array.prototype.slice.call(mutations[0].removedNodes).filter((node) => {
+          if (node.classList) {
+            !node.classList.contains('md-ripple') && (node.nodeName !== '#comment');
+          }
+          return false;
+        });
 
         if (addedNodes.length || removedNodes.length) {
           this.runloopAwareReposition();
@@ -99,14 +109,13 @@ export default ContentComponent.extend({
     let parentElement = this.get('renderInPlace') ? dropdownElement.parentElement.parentElement : dropdownElement.parentElement;
     let clone = dropdownElement.cloneNode(true);
     clone.id = `${clone.id}--clone`;
-    let $clone = $(clone);
     parentElement.appendChild(clone);
     nextTick().then(() => {
       if (!this.get('isDestroyed')) {
         this.set('isActive', false);
-        $clone.addClass('md-leave');
+        clone.classList.add('md-leave');
         waitForAnimations(clone, function() {
-          $clone.removeClass('md-active');
+          clone.classList.remove('md-active');
           parentElement.removeChild(clone);
         });
       } else {
