@@ -19,7 +19,7 @@ export default PowerOptions.extend({
       let optionItem = e.target.closest('[data-option-index]')
       if (!optionItem) {
         return;
-      }    
+      }
       if (optionItem.closest('[aria-disabled=true]')) {
         return;
       } // Abort if the item or an ancestor is disabled
