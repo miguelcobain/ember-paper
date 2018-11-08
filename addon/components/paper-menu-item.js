@@ -30,7 +30,7 @@ export default Component.extend(ChildMixin, {
   mouseEnter() {
     if (!this.get('disabled')) {
       let button = this.element.querySelector('button');
-      if(button) {
+      if (button) {
         button.focus();
       }
     }
