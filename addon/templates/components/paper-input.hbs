@@ -8,6 +8,7 @@
 
 {{#if textarea}}
   <textarea
+    aria-describedby={{concat elementId '-char-count ' elementId '-error-messages'}}
     class="md-input {{if isInvalid "ng-invalid"}} {{if isTouched "ng-dirty"}}"
     id={{inputElementId}}
     placeholder={{if shouldAddPlaceholder placeholder}}
@@ -49,6 +50,7 @@
     oninput={{action "handleInput"}}
 
     accept={{passThru.accept}}
+    aria-describedby={{concat elementId '-char-count ' elementId '-error-messages'}}
     autocomplete={{passThru.autocomplete}}
     autocorrect={{passThru.autocorrect}}
     autocapitalize={{passThru.autocapitalize}}
@@ -78,13 +80,13 @@
 {{/if}}
 
 {{#unless hideAllMessages}}
-  <div class="md-errors-spacer">
+  <div class="md-errors-spacer" id={{concat elementId '-char-count'}}>
     {{#if maxlength}}
       <div class="md-char-counter">{{renderCharCount}}</div>
     {{/if}}
   </div>
   {{#if isInvalidAndTouched}}
-    <div class="md-input-messages-animation md-auto-hide">
+    <div class="md-input-messages-animation md-auto-hide" id={{concat elementId '-error-messages'}}>
       {{#each validationErrorMessages as |error index|}}
         <div id="error-{{inputElementId}}-{{index}}"
         class="paper-input-error ng-enter ng-enter-active md-input-message-animation"

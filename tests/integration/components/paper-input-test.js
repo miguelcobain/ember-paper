@@ -518,4 +518,31 @@ module('Integration | Component | paper-input', function(hooks) {
 
     assert.dom('.other-stuff').exists();
   });
+
+  test('aria-describedby on input elements is set properly', async function(assert) {
+
+    let errors = [{
+      message: 'foo is required.',
+      attribute: 'foo'
+    }];
+    this.set('errors', errors);
+
+    await render(hbs`{{paper-input onChange=null errors=errors}}`);
+    await triggerEvent('input', 'blur');
+
+    let input = find('.md-input');
+    let aria_describedby_values = input.getAttribute('aria-describedby').split(' ');
+
+    assert.equal(aria_describedby_values.length, 2);
+
+    assert.ok(aria_describedby_values[0].includes('-char-count'));
+
+    assert.dom('#' + aria_describedby_values[0]).exists();
+
+    assert.ok(aria_describedby_values[1].includes('-error-messages'));
+
+    assert.dom('#' + aria_describedby_values[1]).exists();
+  });
+
+
 });
