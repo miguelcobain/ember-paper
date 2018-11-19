@@ -531,17 +531,17 @@ module('Integration | Component | paper-input', function(hooks) {
     await triggerEvent('input', 'blur');
 
     let input = find('.md-input');
-    let aria_describedby_values = input.getAttribute('aria-describedby').split(' ');
+    let ariaDescribedbyValues = input.getAttribute('aria-describedby').split(' ');
 
-    assert.equal(aria_describedby_values.length, 2);
+    assert.equal(ariaDescribedbyValues.length, 2);
 
-    assert.ok(aria_describedby_values[0].includes('-char-count'));
+    assert.ok(ariaDescribedbyValues[0].includes('-char-count'));
 
-    assert.dom('#' + aria_describedby_values[0]).exists();
+    assert.dom('#' + ariaDescribedbyValues[0]).exists();
 
-    assert.ok(aria_describedby_values[1].includes('-error-messages'));
+    assert.ok(ariaDescribedbyValues[1].includes('-error-messages'));
 
-    assert.dom('#' + aria_describedby_values[1]).exists();
+    assert.dom('#' + ariaDescribedbyValues[1]).exists();
   });
 
 
