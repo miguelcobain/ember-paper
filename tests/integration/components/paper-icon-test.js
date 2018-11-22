@@ -128,4 +128,13 @@ module('Integration | Component | paper-icon', function(hooks) {
 
     assert.dom('md-icon').hasAttribute('md-font-icon', 'check');
   });
+
+  test('it renders with a provided aria-hidden attribute', async function(assert) {
+    assert.expect(1);
+
+    this.set('ariaHidden', true);
+    await render(hbs`{{paper-icon "check" aria-hidden=ariaHidden}}`);
+
+    assert.dom('md-icon').hasAttribute('aria-hidden');
+  });
 });
