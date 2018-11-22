@@ -84,7 +84,6 @@ export default Component.extend({
         this.set('autocomplete', autocomplete);
       }
 
-
       // We don't want the autocomplete to open on focus - it'll open when the user starts typing.
       if (isPresent(autocomplete)) {
         autocomplete.actions.close();
@@ -113,7 +112,7 @@ export default Component.extend({
     },
 
     chipsBlur(event) {
-      if (!this.focusMovingTo(this.getInput(), event)) {
+      if (!this.focusMovingTo('.md-chip-input-container input', event)) {
         this.set('focusedElement', 'none');
         this.set('activeChip', -1);
       }

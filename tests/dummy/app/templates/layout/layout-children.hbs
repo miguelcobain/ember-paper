@@ -12,13 +12,13 @@
 
   {{#paper-card as |card|}}
     <div class="example example-1">
-    {{! BEGIN-SNIPPET layout-children.example1 }}
+      {{! BEGIN-SNIPPET layout-children.example1 }}
       <div class="layout-row">
         <div class="flex-20">flex-20</div>
         <div class="flex-70">flex-70</div>
         <div class="flex">flex</div>
       </div>
-    {{! END-SNIPPET }}
+      {{! END-SNIPPET }}
     </div>
     {{#card.content}}
       {{code-snippet name="layout-children.example1.hbs"}}
@@ -33,7 +33,7 @@
 
   {{#paper-card as |card|}}
     <div class="example example-2">
-    {{! BEGIN-SNIPPET layout-children.example2 }}
+      {{! BEGIN-SNIPPET layout-children.example2 }}
       <div class="layout-row layout-wrap">
         <div class="flex-30">flex-30</div>
         <div class="flex-45">flex-45</div>
@@ -43,7 +43,7 @@
         <div class="flex-50">flex-50</div>
         <div class="flex">flex</div>
       </div>
-    {{! END-SNIPPET }}
+      {{! END-SNIPPET }}
     </div>
     {{#card.content}}
       {{code-snippet name="layout-children.example2.hbs"}}
@@ -62,7 +62,7 @@
 
   {{#paper-card as |card|}}
     <div class="example example-3">
-    {{! BEGIN-SNIPPET layout-children.example3 }}
+      {{! BEGIN-SNIPPET layout-children.example3 }}
       <div class="layout-row">
         <div class="flex-gt-sm-66 flex-33">
           flex 33% on mobile, <br>and 66% on gt-sm devices.
@@ -71,7 +71,7 @@
           flex 66%  on mobile, <br>and 33% on gt-sm devices.
         </div>
       </div>
-    {{! END-SNIPPET }}
+      {{! END-SNIPPET }}
     </div>
     {{#card.content}}
       {{code-snippet name="layout-children.example3.hbs"}}
@@ -87,7 +87,7 @@
 
   {{#paper-card as |card|}}
     <div class="example example-4">
-    {{! BEGIN-SNIPPET layout-children.example4 }}
+      {{! BEGIN-SNIPPET layout-children.example4 }}
       <div class="layout-row layout-wrap">
         <div class="flex-none">flex-none</div>
         <div class="flex">flex</div>
@@ -97,7 +97,7 @@
         <div class="flex-auto">flex-auto</div>
         <div class="flex-noshrink">flex-noshrink</div>
       </div>
-    {{! END-SNIPPET }}
+      {{! END-SNIPPET }}
     </div>
     {{#card.content}}
       {{code-snippet name="layout-children.example4.hbs"}}
@@ -119,19 +119,21 @@
 
   <h2>Ordering HTML Elements</h2>
 
-  <p>Add the <code>flex-order</code> class to a layout child to set its order position within the layout container.
-  Any integer parameter value from -20 to 20 is accepted.</p>
+  <p>
+    Add the <code>flex-order</code> class to a layout child to set its order position within the layout container.
+    Any integer parameter value from -20 to 20 is accepted.
+  </p>
 
   {{#paper-card as |card|}}
     <div class="example example-5">
-    {{! BEGIN-SNIPPET layout-children.example5 }}
+      {{! BEGIN-SNIPPET layout-children.example5 }}
       <div class="layout-row">
         <div class="flex flex-order-2">flex-order-2</div>
         <div class="flex flex-order-3">flex-order-3</div>
         <div class="flex flex-order-1">flex-order-1</div>
         <div class="flex flex-order--1">flex-order--1</div>
       </div>
-    {{! END-SNIPPET }}
+      {{! END-SNIPPET }}
     </div>
     {{#card.content}}
       {{code-snippet name="layout-children.example5.hbs"}}

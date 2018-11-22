@@ -292,5 +292,3 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
     assert.dom('md-autocomplete .paper-input-error').hasText('validation error!');
   });
 });
-
-

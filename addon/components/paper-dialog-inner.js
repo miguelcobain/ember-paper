@@ -41,7 +41,7 @@ export default Component.extend(Translate3dMixin, {
     this.checkContentOverflow();
     // content overflow might change depending on load of images inside dialog.
     let imageElements = this.element.querySelectorAll('img');
-    this._checkContentOverflowOnLoad = run.bind(this, this.checkContentOverflow)
+    this._checkContentOverflowOnLoad = run.bind(this, this.checkContentOverflow);
     imageElements.forEach((image) => {
       image.addEventListener('load', this._checkContentOverflowOnLoad);
     });

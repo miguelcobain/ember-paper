@@ -1,36 +1,33 @@
-import { map, filter } from '@ember/object/computed';
+import { filter } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
+import faker from 'faker';
 
 export default Controller.extend({
   fruitNames: A(['Apple', 'Banana', 'Orange']),
 
   customFruitNames: A(['Apple', 'Banana', 'Orange']),
 
-  names: [
-    'Marina Augustine',
-    'Oddr Sarno',
-    'Nick Giannopoulos',
-    'Narayana Garner',
-    'Anita Gros',
-    'Megan Smith',
-    'Tsvetko Metzger',
-    'Hector Simek',
-    'Some-guy withalongalastaname'
-  ],
+  numOfContacts: 10,
 
-  contacts: map('names', function(c, index) {
-    let [firstName, lastName] = c.split(' ');
-    return {
-      name: c,
-      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
-      image: `http://lorempixel.com/50/50/people?${index}`
-    };
+  contacts: computed('numOfContacts', function() {
+    let contacts = [];
+    let numOfContacts = this.get('numOfContacts');
+
+    for (let i = 0; i < numOfContacts; i++) {
+      contacts.push({
+        name: faker.name.findName(),
+        email: faker.internet.email(),
+        image: faker.internet.avatar()
+      });
+    }
+
+    return contacts;
   }),
 
-  selectedContacts: filter('contacts', function(c) {
-    return c.name.startsWith('N');
+  selectedContacts: filter('contacts', function(c, index) {
+    return index % 2 === 0;
   }),
 
   remainingContacts: computed('contacts.[]', 'selectedContacts.[]', function() {
@@ -39,18 +36,26 @@ export default Controller.extend({
     });
   }),
 
-  altContacts: map('names', function(c, index) {
-    let [firstName, lastName] = c.split(' ');
-    let [lastInitial] = lastName; // Grab first letter of last name.
-    return {
-      shortName: `${firstName} ${lastInitial}`,
-      emailAddress: `${firstName.toLowerCase()}.${lastInitial.toLowerCase()}@example.com`,
-      profileImage: `http://lorempixel.com/50/50/abstract?${index}`
-    };
+  altContacts: computed('numOfContacts', function() {
+    let contacts = [];
+    let numOfContacts = this.get('numOfContacts');
+
+    for (let i = 0; i < numOfContacts; i++) {
+      let firstName = faker.name.firstName();
+      let lastName = faker.name.lastName();
+
+      contacts.push({
+        shortName: `${firstName} ${lastName[0]}`,
+        emailAddress: `${firstName.toLowerCase()}.${lastName[0].toLowerCase()}@example.com`,
+        profileImage: faker.internet.avatar()
+      });
+    }
+
+    return contacts;
   }),
 
-  selectedAltContacts: filter('altContacts', function(c) {
-    return c.shortName.startsWith('N');
+  selectedAltContacts: filter('altContacts', function(c, index) {
+    return index % 2 === 0;
   }),
 
   remainingAltContacts: computed('altContacts.[]', 'selectedAltContacts.[]', function() {

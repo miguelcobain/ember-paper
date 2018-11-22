@@ -21,17 +21,15 @@ Navigate through the docs to understand how to use each component.
 
 ## Resources
 
-- The team can often be found on the [#e-paper channel on discord](https://discord.gg/zT3asNS). Features and designs are discussed there prior to implementation.
+- Contributors can often be found on the [#e-paper channel on discord](https://discord.gg/zT3asNS).
 
 - The [GitHub milestone issue](https://github.com/miguelcobain/ember-paper/issues/249) tracks our progress to version 1.0.
 
-- Building the `ember-paper` demo application will give you your own up-to-date reference. This can be accomplished by installing ember-paper as if it were an application and running `ember server`.
-
-- **Ready to help?** Read our [Contributing Guide](CONTRIBUTING.md).
+- Building the `ember-paper` demo application will give you your own up-to-date reference. This can be accomplished by cloning ember-paper as if it were an application and running `ember server`.
 
 ## Contributing
 
-This is a very ambitious project. Google's design specs are extensive, and non-trivial to implement. If you can port or fix a component or two, please drop a pull request or issue on GitHub or join us on Discord.
+This is an ambitious project. Google's design specs are extensive, and non-trivial to implement. If you can port or fix a component or two, please drop a pull request or issue on GitHub or join us on Discord.
 
 With everyone's help, we can bring this amazing design spec to Ember in a modular and elegant way. The Ember way.
 

@@ -228,7 +228,7 @@ module('Integration | Component | paper-input', function(hooks) {
     assert.dom(input).hasAttribute('min', '2');
     assert.dom(input).hasAttribute('maxlength', '20');
     assert.dom(input).hasAttribute('max', '42');
-    //not sure why hasAttribute doesn't work for multiple
+    // not sure why hasAttribute doesn't work for multiple
     assert.equal(input.multiple, true);
     assert.dom(input).hasAttribute('name', 'elementname');
     assert.dom(input).hasAttribute('pattern', '(999)999-9999');
@@ -237,7 +237,6 @@ module('Integration | Component | paper-input', function(hooks) {
     assert.dom(input).hasAttribute('spellcheck', 'true');
     assert.dom(input).hasAttribute('step', '2');
     assert.dom(input).hasAttribute('tabindex', '1138');
-
 
   });
 
@@ -395,7 +394,7 @@ module('Integration | Component | paper-input', function(hooks) {
 
     assert.dom('.paper-input-error').exists({ count: 2 }, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('foo should be a number.');
-    assert.dom('.paper-input-error:last-child').hasText("foo should be smaller than 12.");
+    assert.dom('.paper-input-error:last-child').hasText('foo should be smaller than 12.');
   });
 
   test('renders error messages from an external `errors` string array', async function(assert) {
@@ -410,7 +409,7 @@ module('Integration | Component | paper-input', function(hooks) {
 
     assert.dom('.paper-input-error').exists({ count: 2 }, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('foo should be a number.');
-    assert.dom('.paper-input-error:last-child').hasText("foo should be smaller than 12.");
+    assert.dom('.paper-input-error:last-child').hasText('foo should be smaller than 12.');
 
   });
 
@@ -492,8 +491,7 @@ module('Integration | Component | paper-input', function(hooks) {
     await fillIn('input', 'abc');
 
     assert.dom('md-input-container')
-      .hasClass('md-input-has-value', 'should have md-input-has-value class if input has value'
-    );
+      .hasClass('md-input-has-value', 'should have md-input-has-value class if input has value');
   });
 
   test('hasValue works when `value` updated programatically', async function(assert) {
@@ -537,12 +535,11 @@ module('Integration | Component | paper-input', function(hooks) {
 
     assert.ok(ariaDescribedbyValues[0].includes('-char-count'));
 
-    assert.dom('#' + ariaDescribedbyValues[0]).exists();
+    assert.dom(`#${ariaDescribedbyValues[0]}`).exists();
 
     assert.ok(ariaDescribedbyValues[1].includes('-error-messages'));
 
-    assert.dom('#' + ariaDescribedbyValues[1]).exists();
+    assert.dom(`#${ariaDescribedbyValues[1]}`).exists();
   });
-
 
 });

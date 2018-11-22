@@ -1,23 +1,26 @@
-import { map } from '@ember/object/computed';
 import Controller from '@ember/controller';
+import { computed } from '@ember/object';
+import faker from 'faker';
 
 export default Controller.extend({
-  names: [
-    'Marina Augustine',
-    'Oddr Sarno',
-    'Nick Giannopoulos'
-  ],
+  numOfRows: 3,
 
-  listData: map('names', function(c, index) {
-    let [firstName, lastName] = c.split(' ');
-    return {
-      name: c,
-      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
-      img: `http://lorempixel.com/50/50/people?${index}`
-    };
+  listData: computed('numOfRows', function() {
+    let contacts = [];
+    let numOfRows = this.get('numOfRows');
+
+    for (let i = 0; i < numOfRows; i++) {
+      contacts.push({
+        name: faker.name.findName(),
+        email: faker.internet.email(),
+        img: faker.internet.avatar()
+      });
+    }
+
+    return contacts;
   }),
 
-  phoneNumbers: [
+  phoneNumbers: Object.freeze([
     {
       number: '(555) 251-1234',
       type: 'Home'
@@ -30,9 +33,9 @@ export default Controller.extend({
       number: '(555) 314-1592',
       type: 'Office'
     }
-  ],
+  ]),
 
-  toppings: [
+  toppings: Object.freeze([
     {
       name: 'Pepperoni',
       enabled: false
@@ -46,15 +49,15 @@ export default Controller.extend({
       name: 'Green Peppers',
       enabled: false
     }
-  ],
+  ]),
 
-  messageData: [{
+  messageData: Object.freeze([{
     message: 'Message A'
   }, {
     message: 'Message B'
   }, {
     message: 'Message C'
-  }],
+  }]),
 
   actions: {
     transitionTo(value) {

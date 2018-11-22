@@ -1,224 +1,224 @@
 {{page-toolbar pageTitle="Themes & Colors" isDemo=false}}
 
 {{#paper-content class="md-padding"}}
-<div class="doc-content">
+  <div class="doc-content">
 
-  <p>
-    Color is a big part of any application. Ember paper allows you to customize how your app
-    is colored based on your configuration. Sensible defaults are included.
-  </p>
+    <p>
+      Color is a big part of any application. Ember paper allows you to customize how your app
+      is colored based on your configuration. Sensible defaults are included.
+    </p>
 
-  <h3>Changing default theme</h3>
+    <h3>Changing default theme</h3>
 
-  <p>
-    A theme is a collection of palettes. Each palette corresponds to an "intention".
-    An ember-paper theme has palettes for <code>primary</code>, <code>accent</code> and <code>warn</code>
-    intentions.
-  </p>
+    <p>
+      A theme is a collection of palettes. Each palette corresponds to an "intention".
+      An ember-paper theme has palettes for <code>primary</code>, <code>accent</code> and <code>warn</code>
+      intentions.
+    </p>
 
-  <p>
-    To customize the default theme, you can override the sass variables for each intention:
-  </p>
+    <p>
+      To customize the default theme, you can override the sass variables for each intention:
+    </p>
 
-  {{code-snippet name="theme.import.scss"}}
+    {{code-snippet name="theme.import.scss"}}
 
-  <p>
-    As you can see, you can just specify a name string for the palette you want, if that palette
-    is one of the included ones. If the default included palettes are all you care about,
-    this is all you need.
-  </p>
+    <p>
+      As you can see, you can just specify a name string for the palette you want, if that palette
+      is one of the included ones. If the default included palettes are all you care about,
+      this is all you need.
+    </p>
 
-  <h3>Included palettes</h3>
+    <h3>Included palettes</h3>
 
-  <p>
-    By default, Ember paper ships with all palettes from the material design spec built in. Valid palettes include:
-  </p>
+    <p>
+      By default, Ember paper ships with all palettes from the material design spec built in. Valid palettes include:
+    </p>
 
-  <ul>
-    <li>red</li>
-    <li>pink</li>
-    <li>purple</li>
-    <li>deep-purple</li>
-    <li>indigo</li>
-    <li>blue</li>
-    <li>light-blue</li>
-    <li>cyan</li>
-    <li>teal</li>
-    <li>green</li>
-    <li>light-green</li>
-    <li>lime</li>
-    <li>yellow</li>
-    <li>amber</li>
-    <li>orange</li>
-    <li>deep-orange</li>
-    <li>brown</li>
-    <li>grey</li>
-    <li>blue-grey</li>
-  </ul>
+    <ul>
+      <li>red</li>
+      <li>pink</li>
+      <li>purple</li>
+      <li>deep-purple</li>
+      <li>indigo</li>
+      <li>blue</li>
+      <li>light-blue</li>
+      <li>cyan</li>
+      <li>teal</li>
+      <li>green</li>
+      <li>light-green</li>
+      <li>lime</li>
+      <li>yellow</li>
+      <li>amber</li>
+      <li>orange</li>
+      <li>deep-orange</li>
+      <li>brown</li>
+      <li>grey</li>
+      <li>blue-grey</li>
+    </ul>
 
-  <h3>Creating custom palettes</h3>
+    <h3>Creating custom palettes</h3>
 
-  <p>
-    A palette is a collection of hues of a color. You can create such a collection yourself using sass maps.
-    ember-paper expects a palette color map to have the keys <code>50</code>, <code>100</code>,
-    <code>200</code>, <code>300</code>, <code>400</code>, <code>500</code>, <code>600</code>,
-    <code>700</code>, <code>800</code>, <code>900</code>, <code>A100</code>, <code>A200</code>,
-    <code>A400</code> and <code>A700</code>.
-  </p>
+    <p>
+      A palette is a collection of hues of a color. You can create such a collection yourself using sass maps.
+      ember-paper expects a palette color map to have the keys <code>50</code>, <code>100</code>,
+      <code>200</code>, <code>300</code>, <code>400</code>, <code>500</code>, <code>600</code>,
+      <code>700</code>, <code>800</code>, <code>900</code>, <code>A100</code>, <code>A200</code>,
+      <code>A400</code> and <code>A700</code>.
+    </p>
 
-  <p>
-    Each number means a "stronger" shade of the palette, and the "A" prefixed keys are used when
-    the palette is the accent palette.
-  </p>
+    <p>
+      Each number means a "stronger" shade of the palette, and the "A" prefixed keys are used when
+      the palette is the accent palette.
+    </p>
 
-  <p>
-    A palette should also have the contrast information. You can do that using the <code>contrastDefaultColor</code>,
-    <code>contrastLightColors</code> and <code>contrastStrongLightColors</code> keys. <code>contrastLightColors</code>
-    has a list of the keys where a <strong>light</strong> color contrast is applied. <code>contrastStrongLightColors</code>
-    has a list of the keys where a <strong>dark</strong> color contrast is applied. Any other key will use
-    the color on the <code>contrastDefaultColor</code> key.
-  </p>
+    <p>
+      A palette should also have the contrast information. You can do that using the <code>contrastDefaultColor</code>,
+      <code>contrastLightColors</code> and <code>contrastStrongLightColors</code> keys. <code>contrastLightColors</code>
+      has a list of the keys where a <strong>light</strong> color contrast is applied. <code>contrastStrongLightColors</code>
+      has a list of the keys where a <strong>dark</strong> color contrast is applied. Any other key will use
+      the color on the <code>contrastDefaultColor</code> key.
+    </p>
 
-   <p>
-    Here is the definition of the "teal" palette, applied to the primary intention:
-  </p>
+    <p>
+      Here is the definition of the "teal" palette, applied to the primary intention:
+    </p>
 
-  {{code-snippet name="theme.custom-palette.scss"}}
+    {{code-snippet name="theme.custom-palette.scss"}}
 
-  <blockquote>
-    You can find some material palette generators online. Example: <a href="http://mcg.mbitson.com/">http://mcg.mbitson.com/</a>.
-  </blockquote>
+    <blockquote>
+      You can find some material palette generators online. Example: <a href="http://mcg.mbitson.com/">http://mcg.mbitson.com/</a>.
+    </blockquote>
 
-  <h3>Using colors in your styles</h3>
+    <h3>Using colors in your styles</h3>
 
-  <p>
-    <code>ember-paper</code> provides two sass functions that you can use to hook
-    more easily into the provided palettes:
-  </p>
-  <p>
-    <code>paper-color($palette, $shade)</code> sass function takes a palette or palette name
-    and a shade/tint and returns its color. If no shade is specified, the default is
-    <code>'500'</code>.
-  </p>
-  <p>
-    <code>paper-contrast-color($palette, $shade)</code> sass function works very similarly,
-    but returns the correct contrast color instead of the color itself. This is useful
-    for placing text on top of a color or whenever you need a color for legibility/contrast
-    purposes.
-  </p>
+    <p>
+      <code>ember-paper</code> provides two sass functions that you can use to hook
+      more easily into the provided palettes:
+    </p>
+    <p>
+      <code>paper-color($palette, $shade)</code> sass function takes a palette or palette name
+      and a shade/tint and returns its color. If no shade is specified, the default is
+      <code>'500'</code>.
+    </p>
+    <p>
+      <code>paper-contrast-color($palette, $shade)</code> sass function works very similarly,
+      but returns the correct contrast color instead of the color itself. This is useful
+      for placing text on top of a color or whenever you need a color for legibility/contrast
+      purposes.
+    </p>
 
-  <p>
-    Here is an example of using these functions:
-  </p>
+    <p>
+      Here is an example of using these functions:
+    </p>
 
-  {{code-snippet name="theme.color-function.scss"}}
+    {{code-snippet name="theme.color-function.scss"}}
 
 
-  <h3>Changing themes at runtime</h3>
+    <h3>Changing themes at runtime</h3>
 
-  <p>
-    Sometimes we have more complex requirements for when or where to use colors in our app.
-    ember-paper provides a <code>paper-theme</code> service that allows you to install or uninstall themes
-    at runtime.
-  </p>
+    <p>
+      Sometimes we have more complex requirements for when or where to use colors in our app.
+      ember-paper provides a <code>paper-theme</code> service that allows you to install or uninstall themes
+      at runtime.
+    </p>
 
-  <p>
-    You can use these controls to change the theme at runtime. Feel from to navigate to other
-    routes of the demo after installing a custom theme.
-  </p>
+    <p>
+      You can use these controls to change the theme at runtime. Feel from to navigate to other
+      routes of the demo after installing a custom theme.
+    </p>
 
-  {{#paper-card as |card|}}
-    {{#card.content class="layout-row"}}
-      {{#paper-select
-        label="Primary palette"
-        class="flex"
-        required=true
-        options=palettes
-        selected=primary
-        onChange=(action (mut primary))
-        as |p|}}
-        {{p.name}}
-      {{/paper-select}}
+    {{#paper-card as |card|}}
+      {{#card.content class="layout-row"}}
+        {{#paper-select
+          label="Primary palette"
+          class="flex"
+          required=true
+          options=palettes
+          selected=primary
+          onChange=(action (mut primary))
+          as |p|}}
+          {{p.name}}
+        {{/paper-select}}
 
-      {{#paper-select
-        label="Accent palette"
-        class="flex"
-        required=true
-        options=palettes
-        selected=accent
-        onChange=(action (mut accent))
-        as |p|}}
-        {{p.name}}
-      {{/paper-select}}
+        {{#paper-select
+          label="Accent palette"
+          class="flex"
+          required=true
+          options=palettes
+          selected=accent
+          onChange=(action (mut accent))
+          as |p|}}
+          {{p.name}}
+        {{/paper-select}}
 
-      {{#paper-select
-        label="Warn palette"
-        class="flex"
-        required=true
-        options=palettes
-        selected=warn
-        onChange=(action (mut warn))
-        as |p|}}
-        {{p.name}}
-      {{/paper-select}}
+        {{#paper-select
+          label="Warn palette"
+          class="flex"
+          required=true
+          options=palettes
+          selected=warn
+          onChange=(action (mut warn))
+          as |p|}}
+          {{p.name}}
+        {{/paper-select}}
 
-    {{/card.content}}
+      {{/card.content}}
 
-    {{#card.actions}}
-      {{#paper-button primary=true raised=true disabled=isInvalid onClick=(action "installTheme")}}
-        Install Theme
-      {{/paper-button}}
+      {{#card.actions}}
+        {{#paper-button primary=true raised=true disabled=isInvalid onClick=(action "installTheme")}}
+          Install Theme
+        {{/paper-button}}
 
-      {{#paper-button accent=true raised=true onClick=(action "uninstallTheme")}}
-        Uninstall Theme
-      {{/paper-button}}
-    {{/card.actions}}
-  {{/paper-card}}
+        {{#paper-button accent=true raised=true onClick=(action "uninstallTheme")}}
+          Uninstall Theme
+        {{/paper-button}}
+      {{/card.actions}}
+    {{/paper-card}}
 
-  <p>Here is the code used for these actions:</p>
+    <p>Here is the code used for these actions:</p>
 
-  {{code-snippet name="theme.service.js"}}
+    {{code-snippet name="theme.service.js"}}
 
-  <h3>Browser support</h3>
+    <h3>Browser support</h3>
 
-  <p>
-    Ember-paper uses css variables under the hood for dynamically installed themes. While
-    <a href="https://caniuse.com/#feat=css-variables">most browsers support this feature</a>, IE does not.
-    Ember-paper always uses fallback css rules with values from the sass defined theme, so it degrades gracefully to
-    the default theme on IE.
-  </p>
+    <p>
+      Ember-paper uses css variables under the hood for dynamically installed themes. While
+      <a href="https://caniuse.com/#feat=css-variables">most browsers support this feature</a>, IE does not.
+      Ember-paper always uses fallback css rules with values from the sass defined theme, so it degrades gracefully to
+      the default theme on IE.
+    </p>
 
-  <p>
-    With that being said, you are encouraged to always provide fallback values yourself on your own custom styles.
-    For this purpose, ember-paper provides a <code>paper-var(--var-name)</code> function. Here is an example of using
-    such fallback values:
-  </p>
+    <p>
+      With that being said, you are encouraged to always provide fallback values yourself on your own custom styles.
+      For this purpose, ember-paper provides a <code>paper-var(--var-name)</code> function. Here is an example of using
+      such fallback values:
+    </p>
 
-  {{code-snippet name="theme.paper-var.scss"}}
+    {{code-snippet name="theme.paper-var.scss"}}
 
-  <h3>Generating palettes based on a color</h3>
+    <h3>Generating palettes based on a color</h3>
 
-  <p>
-    Ember-paper provides an utility to automatically generate palettes based on
-    a single color. This can be very useful if, for example, you want to allow the
-    user to customize the app's colors but still want to abstract away the complexity
-    of creating a palette with all its hues.
-  </p>
+    <p>
+      Ember-paper provides an utility to automatically generate palettes based on
+      a single color. This can be very useful if, for example, you want to allow the
+      user to customize the app's colors but still want to abstract away the complexity
+      of creating a palette with all its hues.
+    </p>
 
-  <p>
-    While nothing beats a manual color selection and tuning, this tool does a pretty
-    decent job in the vast majority of the cases.
-  </p>
+    <p>
+      While nothing beats a manual color selection and tuning, this tool does a pretty
+      decent job in the vast majority of the cases.
+    </p>
 
-  <p>
-    To use the utility simply import the function
-    <code>import generatePalette from 'ember-paper/utils/generate-theme';</code>. You
-    can then use the function to create a palette like <code>generatePalette('#326eb6');</code>.
-  </p>
+    <p>
+      To use the utility simply import the function
+      <code>import generatePalette from 'ember-paper/utils/generate-theme';</code>. You
+      can then use the function to create a palette like <code>generatePalette('#326eb6');</code>.
+    </p>
 
-  <p>
-    Generated themes are of course compatible with the paper-theme service method <code>installTheme</code>.
-    So you can install any generated palette right away!
-  </p>
-</div>
+    <p>
+      Generated themes are of course compatible with the paper-theme service method <code>installTheme</code>.
+      So you can install any generated palette right away!
+    </p>
+  </div>
 {{/paper-content}}

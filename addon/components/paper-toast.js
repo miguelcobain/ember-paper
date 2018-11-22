@@ -52,8 +52,8 @@ export default Component.extend({
     let parent = this.get('defaultedParent');
 
     let parentEle = typeof parent === 'string'
-                  ? document.querySelector(parent)
-                  : parent;
+      ? document.querySelector(parent)
+      : parent;
 
     // If the parent isn't found, assume that it is an id, but that the DOM doesn't
     // exist yet. This only happens during integration tests or if entire application
@@ -61,7 +61,7 @@ export default Component.extend({
     if (typeof parent === 'string' && parent.charAt(0) === '#') {
       return `#${parent.substring(1)}`;
     } else {
-      let id = parentEle.id;
+      let { id } = parentEle;
       if (!id) {
         id = `${this.uniqueId}-parent`;
         parentEle.id = id;
@@ -107,7 +107,7 @@ export default Component.extend({
           this._destroyMessage();
         }
       });
-      document.body.addEventListener('keydown', this._escapeToClose );
+      document.body.addEventListener('keydown', this._escapeToClose);
     }
 
     let y = this.get('top') ? 'top' : 'bottom';
@@ -124,7 +124,6 @@ export default Component.extend({
 
     let y = this.get('top') ? 'top' : 'bottom';
     document.querySelector(this.get('destinationId')).classList.remove(`md-toast-open-${y}`, 'md-toast-animating');
-    
   },
 
   swipeAction()  {

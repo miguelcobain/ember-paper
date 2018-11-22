@@ -41,7 +41,7 @@ module('Integration | Component | paper radio', function(hooks) {
     `);
 
     await click('md-radio-button:first-child');
-    
+
   });
 
   test('should trigger an action when unchecking (toggle is true)', async function(assert) {

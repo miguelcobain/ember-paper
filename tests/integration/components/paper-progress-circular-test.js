@@ -23,8 +23,8 @@ module('Integration | Component | paper progress circular', function(hooks) {
     assert.expect(2);
     await render(hbs`{{paper-progress-circular diameter=25}}`);
 
-    assert.dom('md-progress-circular').hasAttribute('style', /height:.*25px/)
-    assert.dom('md-progress-circular').hasAttribute('style', /width:.*25px/)
+    assert.dom('md-progress-circular').hasAttribute('style', /height:.*25px/);
+    assert.dom('md-progress-circular').hasAttribute('style', /width:.*25px/);
 
   });
 
@@ -35,16 +35,18 @@ module('Integration | Component | paper progress circular', function(hooks) {
 
     await settled();
 
-    assert.dom('md-progress-circular').hasAttribute('style', /height:.*25px/)
-    assert.dom('md-progress-circular').hasAttribute('style', /width:.*25px/)
+    assert.dom('md-progress-circular').hasAttribute('style', /height:.*25px/);
+    assert.dom('md-progress-circular').hasAttribute('style', /width:.*25px/);
 
     let path = find('md-progress-circular > svg > path');
 
+    await settled();
+
     assert.dom(path).hasAttribute('transform', 'rotate(0 12.5 12.5)', 'rotated halfway');
-    
+
     let strokeOffset = path.getAttribute('stroke-dashoffset');
     let strokeDashArray = path.getAttribute('stroke-dasharray');
-    
+
     assert.ok(parseFloat(strokeOffset), 'stroke-dashoffset has a number');
     assert.ok(parseFloat(strokeDashArray), 'stroke-dasharray has a number');
   });

@@ -115,7 +115,7 @@ export default Component.extend(TransitionMixin, {
       active: false,
       dragging: false
     });
-    
+
     invokeAction(this, 'onClose');
   }
 }

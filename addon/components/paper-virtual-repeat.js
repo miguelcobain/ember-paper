@@ -74,7 +74,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
       let scroller = this.element.querySelector('.md-virtual-repeat-scroller');
 
       let scrolledAmount = this.get('horizontal')
-            ? scroller.scrollLeft : scroller.scrollTop;
+        ? scroller.scrollLeft : scroller.scrollTop;
 
       let visibleStart = isNaN(positionIndex) ? Math.floor(scrolledAmount / this.get('itemHeight')) : Math.max(positionIndex);
 

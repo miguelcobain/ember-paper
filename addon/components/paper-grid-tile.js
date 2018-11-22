@@ -26,7 +26,7 @@ const applyStyles = (el, styles) => {
   for (let key in styles) {
     el.style[key] = styles[key];
   }
-}
+};
 
 /**
  * @class PaperGridTile

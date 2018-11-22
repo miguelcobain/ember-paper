@@ -11,7 +11,6 @@ import { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
 
 const DURATION = 400;
 
-
 /**
  * @class RippleMixin
  * @extends Ember.Mixin
@@ -304,7 +303,7 @@ export default Mixin.create({
     ripple.classList.remove('md-ripple-active');
     ripple.classList.add('md-ripple-remove');
     if (this.ripples.length === 0) {
-      this._container.style.cssText = `backgroundColor: ''`;
+      this._container.style.cssText = 'backgroundColor: \'\'';
     }
     // use a 2-second timeout in order to allow for the animation to finish
     // we don't actually care how long the animation takes

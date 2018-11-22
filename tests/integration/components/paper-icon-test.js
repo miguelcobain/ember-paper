@@ -11,7 +11,7 @@ module('Integration | Component | paper-icon', function(hooks) {
 
     await render(hbs`{{paper-icon icon="check"}}`);
 
-    assert.dom('md-icon').exists({ count: 1 })
+    assert.dom('md-icon').exists({ count: 1 });
   });
 
   test('it renders with classes', async function(assert) {

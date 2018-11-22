@@ -27,15 +27,15 @@ export default Component.extend({
     }
     let parent = this.get('defaultedParent');
     let parentEle = typeof parent === 'string'
-                  ? document.querySelector(parent)
-                  : parent;
+      ? document.querySelector(parent)
+      : parent;
     // If the parent isn't found, assume that it is an id, but that the DOM doesn't
     // exist yet. This only happens during integration tests or if entire application
     // route is a dialog.
     if (typeof parent === 'string' && parent.charAt(0) === '#') {
       return `#${parent.substring(1)}`;
     } else {
-      let id = parentEle.id;
+      let { id } = parentEle;
       if (!id) {
         id = `${this.elementId}-parent`;
         parentEle.id = id;

@@ -10,8 +10,8 @@ export default Component.extend({
 
     this._onScroll = (e) => {
       this.get('onScroll')(e);
-    }
-    this.element.addEventListener('scroll', this._onScroll)
+    };
+    this.element.addEventListener('scroll', this._onScroll);
   },
 
   willDestroyElement() {

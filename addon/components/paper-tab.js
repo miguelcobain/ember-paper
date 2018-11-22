@@ -64,11 +64,9 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
   },
 
   click() {
-
-    if(!this.get('disabled')) {
+    if (!this.get('disabled')) {
       invokeAction(this, 'onClick', ...arguments);
       invokeAction(this, 'onSelect', this);
     }
-    
   }
 });

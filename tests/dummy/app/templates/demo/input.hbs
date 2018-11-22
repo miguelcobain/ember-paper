@@ -200,15 +200,17 @@
     )
       title="Input Text Helpers"
   }}
-    <p>You can pass in a helper text to the paper-input's block. Some useful properties are yieled to the block to help you
-    conditionally render the text.</p>
+    <p>
+      You can pass in a helper text to the paper-input's block. Some useful properties are yieled to the block to help you
+      conditionally render the text.
+    </p>
     <div>
-    {{! BEGIN-SNIPPET input.textHelper }}
-    {{#paper-input
-      value=emailValue
-      onChange=(action (mut emailValue))
-      label="Email"
-      type="email" as |input|}}
+      {{! BEGIN-SNIPPET input.textHelper }}
+      {{#paper-input
+        value=emailValue
+        onChange=(action (mut emailValue))
+        label="Email"
+        type="email" as |input|}}
         {{#unless input.hasValue}}
           <div class="hint">How can we reach you?</div>
         {{/unless}}
@@ -216,7 +218,7 @@
       {{! END-SNIPPET }}
       {{code-snippet name="input.textHelper.hbs"}}
     </div>
-    {{/paper-api}}
+  {{/paper-api}}
 
   {{#paper-api validationApi title="Custom Validations"}}
     <p>

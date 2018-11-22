@@ -70,7 +70,7 @@ export default Component.extend({
         if (e.keyCode === 27 && this.get('onClose')) {
           invokeAction(this, 'onClose');
         }
-      }
+      };
       this._destinationEle.addEventListener('keydown', this._onKeyDown);
 
     }

@@ -12,7 +12,7 @@
   as |menu|}}
 
   {{#if shouldShowLabel}}
-    <label for={{concat "ember-basic-dropdown-trigger-" publicAPI.uniqueId}} class="{{if required "md-required"}}">{{label}}</label>
+    <label for={{concat "ember-basic-dropdown-trigger-" publicAPI.uniqueId}} class={{if required "md-required"}}>{{label}}</label>
   {{/if}}
 
   {{#menu.trigger

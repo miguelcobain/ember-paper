@@ -187,12 +187,12 @@ export default Component.extend(ColorMixin, {
 
     let renderFrame = (value, diameter, strokeWidth, dashLimit) => {
       if (!this.isDestroyed && !this.isDestroying && this.element) {
-       
+
         let path = this.element.querySelector('path');
         if (!path) {
           return;
         }
-        path.setAttribute('stroke-dashoffset', this.getDashLength(diameter, strokeWidth, value, dashLimit));        
+        path.setAttribute('stroke-dashoffset', this.getDashLength(diameter, strokeWidth, value, dashLimit));
         path.setAttribute('transform', `rotate(${rotation} ${diameter / 2} ${diameter / 2})`);
 
       }

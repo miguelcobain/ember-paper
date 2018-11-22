@@ -143,7 +143,7 @@ module('Integration | Component | paper item', function(hooks) {
     `);
     await settled();
 
-    await click('.md-list-item-inner')
+    await click('.md-list-item-inner');
     assert.ok(this.get('checked'));
     assert.notOk(this.get('secondaryValue'));
 
@@ -170,7 +170,6 @@ module('Integration | Component | paper item', function(hooks) {
       {{/paper-list}}
     `);
     await settled();
-
 
     await click('button.md-secondary');
     assert.ok(this.get('secondaryValue'));

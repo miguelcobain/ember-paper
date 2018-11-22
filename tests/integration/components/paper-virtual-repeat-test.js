@@ -4,6 +4,8 @@ import { render, settled, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { next } from '@ember/runloop';
 
+const NUM_EXTRA = 3;
+
 module('Integration | Component | paper-virtual-repeat', function(hooks) {
   setupRenderingTest(hooks);
 
@@ -11,8 +13,6 @@ module('Integration | Component | paper-virtual-repeat', function(hooks) {
   // function getTransform(target) {
   //   return target[0].style.webkitTransform || target.css('transform');
   // }
-
-  const NUM_EXTRA = 3;
 
   test('should render only enough items to fill the viewport + 3 (vertical)', async function(assert) {
     assert.expect(1);

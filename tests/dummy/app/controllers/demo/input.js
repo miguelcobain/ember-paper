@@ -1,11 +1,12 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  validationApi: [
+  validationApi: Object.freeze([
     ['message', 'string', 'The text you want to display to the user when there is an error.'],
     ['validate', 'function', "A validator that returns a falsy value when the validation message should be displayed. The function receives one argument: the input's value."]
-  ],
+  ]),
 
+  /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
   // BEGIN-SNIPPET input.controller.multiple-constraints
   multipleConstraints: [{
     message: 'Value is not even',
@@ -34,6 +35,7 @@ export default Controller.extend({
   // END-SNIPPET
 
   user: {},
+  /* eslint-enable ember/avoid-leaking-state-in-ember-objects */
 
   eventName: '',
   actions: {

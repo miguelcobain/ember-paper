@@ -11,12 +11,12 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     this.set('value', true);
     await render(hbs`{{paper-checkbox value=value label="Blue" onChange=(action (mut value))}}`);
-    
+
     assert.dom('md-checkbox').hasClass('md-checked');
 
     this.set('value', false);
     assert.dom('md-checkbox').doesNotHaveClass('md-checked');
-    
+
   });
 
   test('should trigger an action when unchecking', async function(assert) {
@@ -43,7 +43,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
     await render(hbs`{{paper-checkbox value=value onChange=handleChange}}`);
 
     await click('md-checkbox');
-    
+
   });
 
   test('shouldn\'t trigger an action when disabled', async function(assert) {
@@ -68,9 +68,8 @@ module('Integration | Component | paper checkbox', function(hooks) {
       await render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
       assert.equal(this.get('value'), false);
 
-      
       await triggerKeyEvent('md-checkbox', 'keypress', keyCode);
-      
+
       assert.equal(this.get('value'), true);
     });
 

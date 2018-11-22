@@ -47,7 +47,7 @@ export default PaperMenuContent.extend({
     let clone = dropdownElement.cloneNode(true);
     clone.id = `${clone.id}--clone`;
     parentElement.appendChild(clone);
-    
+
     clone.children[0].children[0].scrollTop = dropdownElement.children[0].children[0].scrollTop;
     window.requestAnimationFrame(() => {
       if (!this.get('isDestroyed')) {

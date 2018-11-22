@@ -10,7 +10,7 @@ const AngularScssFilter = require('./lib/angular-scss-filter');
 const fastbootTransform = require('fastboot-transform');
 
 module.exports = {
-  name: 'ember-paper',
+  name: require('./package').name,
 
   included() {
     this._super.included.apply(this, arguments);

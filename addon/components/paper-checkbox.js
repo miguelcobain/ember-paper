@@ -49,7 +49,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
 
   click() {
     if (!this.get('disabled')) {
-      invokeAction(this, 'onChange', !this.get('value'))
+      invokeAction(this, 'onChange', !this.get('value'));
     }
     // Prevent bubbling, if specified. If undefined, the event will bubble.
     return this.get('bubbles');
@@ -63,6 +63,6 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   },
 
   processProxy() {
-    invokeAction(this, 'onChange', !this.get('value'))
+    invokeAction(this, 'onChange', !this.get('value'));
   }
 });

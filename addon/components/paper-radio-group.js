@@ -68,12 +68,12 @@ export default Component.extend(FocusableMixin, ParentMixin, {
 
     let childRadio = this.get('enabledChildRadios').objectAt(index);
     childRadio.set('focused', true);
-    invokeAction(this, 'onChange', childRadio.get('value'))
+    invokeAction(this, 'onChange', childRadio.get('value'));
   },
 
   actions: {
     onChange(value) {
-      invokeAction(this, 'onChange', value)
+      invokeAction(this, 'onChange', value);
     }
   }
 });

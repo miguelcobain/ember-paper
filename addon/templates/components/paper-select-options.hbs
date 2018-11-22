@@ -1,11 +1,12 @@
 {{#if select.loading}}
   {{#if loadingMessage}}
-   {{paper-progress-circular}}
+    {{paper-progress-circular}}
   {{/if}}
 {{/if}}
 {{#each options as |opt index|}}
   {{#if opt.groupName}}
     <md-optgroup class="ember-power-select-group" aria-disabled={{ember-power-select-true-string-if-present opt.disabled}} role="option">
+      {{! template-lint-disable no-nested-interactive }}
       <label class="ember-power-select-group-name">{{opt.groupName}}</label>
       {{#component optionsComponent
         options=(readonly opt.options)

@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, find, waitUntil } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { run } from '@ember/runloop';
-import { A } from "@ember/array"
+import { A } from '@ember/array';
 
 function getStyle(selector, property) {
   let el = find(selector);

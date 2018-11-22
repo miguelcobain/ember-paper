@@ -87,8 +87,8 @@ export default Mixin.create({
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
 
     let origin = typeof this.get('origin') === 'string'
-                    ? document.querySelector(this.get('origin'))
-                    : this.get('origin');
+      ? document.querySelector(this.get('origin'))
+      : this.get('origin');
 
     nextTick().then(() => {
       dialogClone.classList.remove('md-transition-in');
@@ -118,8 +118,8 @@ export default Mixin.create({
   calculateZoomToOrigin(element, originator) {
     let zoomStyle;
     originator = typeof originator === 'string'
-                    ? document.querySelector(originator)
-                    : originator;
+      ? document.querySelector(originator)
+      : originator;
     if (originator) {
       let originBnds = this.copyRect(originator.getBoundingClientRect());
       let dialogRect = this.copyRect(element.getBoundingClientRect());
