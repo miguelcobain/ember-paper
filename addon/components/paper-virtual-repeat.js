@@ -72,8 +72,8 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     run(() => {
       let startAt = get(this, '_startAt');
       let scroller = this.element.querySelector('.md-virtual-repeat-scroller');
-      
-      let scrolledAmount = this.get('horizontal') 
+
+      let scrolledAmount = this.get('horizontal')
             ? scroller.scrollLeft : scroller.scrollTop;
 
       let visibleStart = isNaN(positionIndex) ? Math.floor(scrolledAmount / this.get('itemHeight')) : Math.max(positionIndex);
@@ -123,8 +123,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     this._super(...arguments);
 
     run.scheduleOnce('afterRender', this, function() {
-      let element = this.element;
-      let initSize = this.get('horizontal') ? element.clientWidth : element.clientHeight;
+      let initSize = this.get('horizontal') ? this.element.clientWidth : this.element.clientHeight;
       this.set('initialSize', initSize);
     });
   },
