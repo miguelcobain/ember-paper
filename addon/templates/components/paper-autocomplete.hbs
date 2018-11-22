@@ -86,7 +86,14 @@
         optionsComponent=(readonly optionsComponent)
         select=(readonly publicAPI)
         as |option term|}}
-        {{yield option term}}
+        {{#if hasBlock}}
+          {{yield option term}}
+        {{else}}
+          {{paper-autocomplete-highlight
+            label=(if labelPath (get option labelPath) option)
+            searchText=term.searchText
+            flags="i"}}
+        {{/if}}
       {{/component}}
     {{/if}}
   {{/dropdown.content}}
