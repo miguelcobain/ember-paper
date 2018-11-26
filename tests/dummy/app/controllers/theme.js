@@ -15,7 +15,7 @@ export default Controller.extend({
         name: key,
         palette
       };
-    })
+    });
   }),
 
   isValid: and('primary', 'accent', 'warn'),

@@ -1,8 +1,6 @@
 /**
  * @module ember-paper
  */
-import { inject as service } from '@ember/service';
-
 import { alias } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { isNone } from '@ember/utils';
@@ -22,8 +20,6 @@ export default PowerSelect.extend(ValidationMixin, ChildMixin, {
   layout,
   calculatePosition,
 
-  util: service(),
-  constants: service(),
   triggerComponent: 'paper-autocomplete-trigger',
   contentComponent: 'paper-autocomplete-content',
   optionsComponent: 'paper-autocomplete-options',

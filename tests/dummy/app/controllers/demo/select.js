@@ -57,8 +57,8 @@ export default Controller.extend({
 
     });
   }),
-  groupedToppings: [
+  groupedToppings: Object.freeze([
     { groupName: 'Meats', options: ['Pepperoni', 'Sausage', 'Ground Beef', 'Bacon'] },
     { groupName: 'Veg', options: ['Mushrooms', 'Onion', 'Green Pepper', 'Green Olives'] }
-  ]
+  ])
 });

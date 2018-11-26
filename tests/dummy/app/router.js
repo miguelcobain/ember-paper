@@ -41,7 +41,6 @@ Router.map(function() {
     this.route('toast');
     this.route('toolbar');
     this.route('tooltip');
-    this.route('virtual-repeat');
   });
 
   this.route('layout', function() {

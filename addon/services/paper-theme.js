@@ -57,12 +57,7 @@ export default Service.extend({
    * @param {Palette} palette
    * @param {string} hue
    */
-  getContrastColor(palette, hue) {
-    let contrastDarkColors = palette.contrastDarkColors;
-    let contrastLightColors = palette.contrastLightColors;
-    let contrastStrongLightColors = palette.contrastStrongLightColors;
-    let contrastDefaultColor = palette.contrastDefaultColor;
-
+  getContrastColor({ contrastDarkColors, contrastLightColors, contrastStrongLightColors, contrastDefaultColor }, hue) {
     if (contrastDarkColors && contrastDarkColors.includes(hue)) {
       return CONTRASTS['dark-contrast-color'];
     } else if (contrastLightColors && contrastLightColors.includes(hue)) {

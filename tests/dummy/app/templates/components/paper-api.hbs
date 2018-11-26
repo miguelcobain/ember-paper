@@ -4,6 +4,7 @@
 
 {{yield}}
 <div class="table-wrapper">
+  {{! template-lint-disable table-groups }}
   <table class="paper-api">
     {{#if header}}
       <thead>
@@ -24,11 +25,11 @@
           {{else}}
             <tr>
               {{#each row as |cell index|}}
-                {{#unless index}}
-                  <td><code>{{cell}}</code></td>
-                {{else}}
+                {{#if index}}
                   <td>{{cell}}</td>
-                {{/unless}}
+                {{else}}
+                  <td><code>{{cell}}</code></td>
+                {{/if}}
               {{/each}}
             </tr>
           {{/if}}

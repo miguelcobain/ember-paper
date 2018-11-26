@@ -11,7 +11,7 @@ module('Integration | Component | paper-icon', function(hooks) {
 
     await render(hbs`{{paper-icon icon="check"}}`);
 
-    assert.dom('md-icon').exists({ count: 1 })
+    assert.dom('md-icon').exists({ count: 1 });
   });
 
   test('it renders with classes', async function(assert) {
@@ -127,5 +127,14 @@ module('Integration | Component | paper-icon', function(hooks) {
     await render(hbs`{{paper-icon iconName}}`);
 
     assert.dom('md-icon').hasAttribute('md-font-icon', 'check');
+  });
+
+  test('it renders with a provided aria-hidden attribute', async function(assert) {
+    assert.expect(1);
+
+    this.set('ariaHidden', true);
+    await render(hbs`{{paper-icon "check" aria-hidden=ariaHidden}}`);
+
+    assert.dom('md-icon').hasAttribute('aria-hidden');
   });
 });

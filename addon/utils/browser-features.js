@@ -1,9 +1,9 @@
- // Taken from https://github.com/Modernizr/Modernizr/blob/master/feature-detects/dom/passiveeventlisteners.js
- export const supportsPassiveEventListeners = (function() {
+// Taken from https://github.com/Modernizr/Modernizr/blob/master/feature-detects/dom/passiveeventlisteners.js
+export const supportsPassiveEventListeners = (function() {
   let supportsPassiveOption = false;
   try {
-    const opts = Object.defineProperty({}, 'passive', {
-      get: function() {
+    let opts = Object.defineProperty({}, 'passive', {
+      get() {
         supportsPassiveOption = true;
       }
     });

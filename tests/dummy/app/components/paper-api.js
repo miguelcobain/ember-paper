@@ -19,16 +19,16 @@ export default Component.extend({
   // As statically-declared properties, these are shared amongst all instances
   // of `ember-api`.
   title: 'Usage',
-  header: ['Option', 'Type', 'Description'],
-  categorySpec: [],
+  header: Object.freeze(['Option', 'Type', 'Description']),
+  categorySpec: Object.freeze([]),
   sort: true,
 
   // Predefined categories.
-  color: [
+  color: Object.freeze([
     'Theme colors',
     ['warn', 'boolean', 'Displays the button in the theme\'s warn color.'],
     ['accent', 'boolean', 'Displays the button in the theme\'s Accent color.']
-  ],
+  ]),
 
   categories: computed('categorySpec', function() {
     let categories = [];

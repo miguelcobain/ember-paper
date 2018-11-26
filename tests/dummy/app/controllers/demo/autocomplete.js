@@ -11,7 +11,7 @@ const escapeRegExp = (input) => {
 };
 
 export default Controller.extend({
-  myModel: { name: 'United States', code: 'US' },
+  myModel: Object.freeze({ name: 'United States', code: 'US' }),
 
   searchText: '',
 
@@ -46,7 +46,7 @@ export default Controller.extend({
     }
   },
 
-  arrayOfItems: ['Ember1.0', 'Ember2.0', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'],
+  arrayOfItems: Object.freeze(['Ember1.0', 'Ember2.0', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']),
 
   /*
    * Array of static Objects.

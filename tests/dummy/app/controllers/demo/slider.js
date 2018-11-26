@@ -2,14 +2,16 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
 
-export default Controller.extend({
-  color: {
-    red: Math.floor(Math.random() * 255),
-    green: Math.floor(Math.random() * 255),
-    blue: Math.floor(Math.random() * 255)
-  },
+let color = {
+  red: Math.floor(Math.random() * 255),
+  green: Math.floor(Math.random() * 255),
+  blue: Math.floor(Math.random() * 255)
+};
 
-  colorStyle: computed('color.red', 'color.green', 'color.blue', function() {
+export default Controller.extend({
+  color,
+
+  colorStyle: computed('color.{red,green,blue}', function() {
     return htmlSafe(`border: 1px solid #333; background: rgb(${this.get('color.red')}, ${this.get('color.green')}, ${this.get('color.blue')})`);
   }),
 

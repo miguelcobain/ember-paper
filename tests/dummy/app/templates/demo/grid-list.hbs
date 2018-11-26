@@ -30,7 +30,7 @@
 
       {{#grid.tile class="blue" rowspan="2" as |tile|}}
         {{#tile.footer}}
-            <h3>#4: (2r x 1c)</h3>
+          <h3>#4: (2r x 1c)</h3>
         {{/tile.footer}}
       {{/grid.tile}}
 
@@ -63,7 +63,7 @@
       gutter="8px gt-sm-4px" as |grid|}}
 
       {{#each tiles as |dynamicTile|}}
-        {{#grid.tile rowspan=dynamicTile.span.row colspan=(concat dynamicTile.span.col ' xs-1')  class=dynamicTile.background as |tile|}}
+        {{#grid.tile rowspan=dynamicTile.span.row colspan=(concat dynamicTile.span.col " xs-1")  class=dynamicTile.background as |tile|}}
           <md-icon></md-icon>
           {{#tile.footer}}
             <h3>{{dynamicTile.title}}</h3>

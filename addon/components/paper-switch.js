@@ -118,7 +118,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
       this._switchHammer.destroy();
     }
     this.element.querySelector('.md-container')
-      .removeEventListener('click', this._onClickHandleNativeClick)
+      .removeEventListener('click', this._onClickHandleNativeClick);
     this._onClickHandleNativeClick = null;
   },
 

@@ -71,7 +71,7 @@
         {{yield to="inverse"}}
       {{else if noMatchesMessage}}
         <ul class="ember-power-select-options md-autocomplete-suggestions" role="listbox">
-          <li class="ember-power-select-option ember-power-select-option--no-matches-message" role="option" {{action 'onCreate' publicAPI.searchText}}>
+          <li class="ember-power-select-option ember-power-select-option--no-matches-message" role="option" {{action "onCreate" publicAPI.searchText}}>
             {{noMatchesMessage}}
           </li>
         </ul>
@@ -86,7 +86,14 @@
         optionsComponent=(readonly optionsComponent)
         select=(readonly publicAPI)
         as |option term|}}
+        {{#if hasBlock}}
           {{yield option term}}
+        {{else}}
+          {{paper-autocomplete-highlight
+            label=(if labelPath (get option labelPath) option)
+            searchText=term.searchText
+            flags="i"}}
+        {{/if}}
       {{/component}}
     {{/if}}
   {{/dropdown.content}}

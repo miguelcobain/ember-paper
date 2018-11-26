@@ -1,5 +1,5 @@
 {{#if label}}
-  <label for={{inputElementId}} class="{{if required "md-required"}}">{{label}}</label>
+  <label for={{inputElementId}} class={{if required "md-required"}}>{{label}}</label>
 {{/if}}
 
 {{#if icon}}
@@ -13,6 +13,7 @@
     placeholder={{if shouldAddPlaceholder placeholder}}
     disabled={{disabled}}
     autofocus={{autofocus}}
+    aria-describedby={{concat elementId "-char-count " elementId "-error-messages"}}
     onfocus={{onFocus}}
     onblur={{action "handleBlur"}}
     onkeydown={{onKeyDown}}
@@ -41,6 +42,7 @@
     type={{type}}
     disabled={{disabled}}
     autofocus={{autofocus}}
+    aria-describedby={{concat elementId "-char-count " elementId "-error-messages"}}
     onfocus={{onFocus}}
     onblur={{action "handleBlur"}}
     onkeydown={{onKeyDown}}
@@ -78,13 +80,13 @@
 {{/if}}
 
 {{#unless hideAllMessages}}
-  <div class="md-errors-spacer">
+  <div class="md-errors-spacer" id={{concat elementId "-char-count"}}>
     {{#if maxlength}}
       <div class="md-char-counter">{{renderCharCount}}</div>
     {{/if}}
   </div>
   {{#if isInvalidAndTouched}}
-    <div class="md-input-messages-animation md-auto-hide">
+    <div class="md-input-messages-animation md-auto-hide" id={{concat elementId "-error-messages"}}>
       {{#each validationErrorMessages as |error index|}}
         <div id="error-{{inputElementId}}-{{index}}"
         class="paper-input-error ng-enter ng-enter-active md-input-message-animation"

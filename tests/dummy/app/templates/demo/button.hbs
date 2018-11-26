@@ -18,11 +18,11 @@
     {{#paper-button raised=true accent=true}}accent{{/paper-button}}
   </p>
   {{#custom-button}}
-  <p>
-    {{#paper-button raised=true onClick=(action "targetButton")}}Button with target{{/paper-button}}
-    {{#paper-button raised=true primary=true onClick=(action "targetButton")}}Button with bubble{{/paper-button}}
-    {{#paper-button raised=true primary=true onClick=(action "targetButton") bubbles=false}}Button no bubble{{/paper-button}}
-  </p>
+    <p>
+      {{#paper-button raised=true onClick=(action "targetButton")}}Button with target{{/paper-button}}
+      {{#paper-button raised=true primary=true onClick=(action "targetButton")}}Button with bubble{{/paper-button}}
+      {{#paper-button raised=true primary=true onClick=(action "targetButton") bubbles=false}}Button no bubble{{/paper-button}}
+    </p>
   {{/custom-button}}
 
   <p>
@@ -46,14 +46,14 @@
   {{paper-api
     (p-section
       (p-row "onClick" "closure" "Action sent when the button is clicked.")
-      (p-row "type" "string" 'Sets the html5 `type` attribute. Defaults to `"button"`, except for `<a>` link buttons.')
+      (p-row "type" "string" "Sets the html5 `type` attribute. Defaults to `\"button\"`, except for `<a>` link buttons.")
       (p-row "bubbles" "boolean" "Determines whether the Ember click event handler bubbles. Default is `undefined`, which bubbles.")
       (p-row "disabled" "boolean" "Whether the button is displayed as disabled and does not accept clicks.")
     )
     (p-section
       "Link buttons"
       (p-row "href" "string" "Displays the button as an `<a>` link to the specified destination URL.")
-      (p-row "target" "string" 'Sets the `<a>` link target attribute, such as `"_blank"`.')
+      (p-row "target" "string" "Sets the `<a>` link target attribute, such as `\"_blank\"`.")
     )
     (p-section
       "Appearance"

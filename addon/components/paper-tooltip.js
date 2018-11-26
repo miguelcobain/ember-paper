@@ -5,7 +5,6 @@ import { run } from '@ember/runloop';
 import { htmlSafe } from '@ember/string';
 import { getOwner } from '@ember/application';
 import layout from '../templates/components/paper-tooltip';
-import $ from 'jquery';
 import getParent from 'ember-paper/utils/get-parent';
 import { supportsPassiveEventListeners } from 'ember-paper/utils/browser-features';
 
@@ -27,17 +26,19 @@ export default Component.extend({
       return '#ember-testing';
     }
     let parent = this.get('defaultedParent');
-    let $parent = $(parent);
+    let parentEle = typeof parent === 'string'
+      ? document.querySelector(parent)
+      : parent;
     // If the parent isn't found, assume that it is an id, but that the DOM doesn't
     // exist yet. This only happens during integration tests or if entire application
     // route is a dialog.
-    if ($parent.length === 0 && parent.charAt(0) === '#') {
+    if (typeof parent === 'string' && parent.charAt(0) === '#') {
       return `#${parent.substring(1)}`;
     } else {
-      let id = $parent.attr('id');
+      let { id } = parentEle;
       if (!id) {
         id = `${this.elementId}-parent`;
-        $parent.get(0).id = id;
+        parentEle.id = id;
       }
       return `#${id}`;
     }
@@ -57,7 +58,7 @@ export default Component.extend({
   anchorElement: computed('attachTo', function() {
     let attachTo = this.get('attachTo');
     if (attachTo) {
-      return $(attachTo).get(0);
+      return document.querySelector(attachTo);
     } else {
       return getParent(this);
     }

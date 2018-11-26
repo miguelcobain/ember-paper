@@ -4,6 +4,10 @@
 - [#794](https://github.com/miguelcobain/ember-paper/pull/794) forward primary/warn arguments to the toasts' paper-button.
 - [dd7979e](https://github.com/miguelcobain/ember-paper/commit/dd7979ec08a94be6470aa355c6da12db5b2ec20b) correctly escape paper-autocomplete-highlight output (fixes [#985](https://github.com/miguelcobain/ember-paper/issues/985)).
 - [#997](https://github.com/miguelcobain/ember-paper/pull/997) remove autoprefixer. *Users should install ember-cli-autoprefixer on their apps from now on.* This makes autoprefixer to run according to your target browsers in your project.
+- This ember-paper version no longer relies on jQuery. Credits to @betocantu93 for the inumerous PRs to refactor this.
+- [#1024](https://github.com/miguelcobain/ember-paper/pull/1024) Associate input field with corresponding info messages for better a11y
+- [#1026](https://github.com/miguelcobain/ember-paper/pull/1026) support `aria-hidden` argument on paper-icon
+- [#588](https://github.com/miguelcobain/ember-paper/pull/588) Allow paper-autocomplete to be blockless
 
 ### 1.0.0-beta.18
 - [68ca72e](https://github.com/miguelcobain/ember-paper/commit/d931d1918e9ddd208cecf045bb6378b39148d7d1) not using ember-cli-sass-variables-export addon anymore since it doesn't output the generated files when using `ember build` (just `ember s`). We're manually including the generated files until we find a better solution. The palettes aren't likely to change anyway.

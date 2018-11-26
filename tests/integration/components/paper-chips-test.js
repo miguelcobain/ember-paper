@@ -50,7 +50,9 @@ module('Integration | Component | paper-chips', function(hooks) {
     this.items = ['Two', 'Three', 'Ten', 'Thirtneen'];
     this.selectedItems = [];
     this.defaultHighlighted = (a) => a.results[0];
-    this.addItems = (item) => { this.set('selectedItems', [...this.selectedItems, item])};
+    this.addItems = (item) => {
+      this.set('selectedItems', [...this.selectedItems, item]);
+    };
 
     await render(hbs`
     {{paper-chips

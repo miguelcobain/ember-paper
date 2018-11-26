@@ -9,19 +9,21 @@ module.exports = {
   ],
   extends: [
     'eslint:recommended',
-    'plugin:ember/recommended'
+    'plugin:ember/recommended',
+    'plugin:ember-suave/recommended'
   ],
   env: {
     browser: true
   },
   rules: {
-    'ember-suave/require-access-in-comments': 'off',
-    'ember/closure-actions': 'off'
+    'ember-suave/require-access-in-comments': 'off'
   },
   overrides: [
     // node files
     {
       files: [
+        '.eslintrc.js',
+        '.template-lintrc.js',
         'ember-cli-build.js',
         'index.js',
         'testem.js',
@@ -47,6 +49,8 @@ module.exports = {
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         // add your custom rules and overrides for node files here
+        'ember-suave/prefer-destructuring': 'off',
+        'camelcase': 'off'
       })
     }
   ]

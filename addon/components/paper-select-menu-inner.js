@@ -28,7 +28,9 @@ export default PaperMenuContentInner.extend({
   enabledOptions: filterBy('childComponents', 'disabled', false),
   didInsertElement() {
     run.next(() => {
-      let focusTarget = this.$('md-option[aria-selected="true"]');
+
+      let focusTarget = this.element.querySelector('md-option[aria-selected="true"]');
+
       if (!focusTarget || !focusTarget.length) {
         focusTarget = this.get('enabledOptions.firstObject.element');
         let newHighlighted = advanceSelectableOption(this.dropdown.results, this.dropdown.highlighted, -1);
@@ -39,6 +41,7 @@ export default PaperMenuContentInner.extend({
       if (focusTarget) {
         focusTarget.focus();
       }
+
     });
   },
 
@@ -75,7 +78,7 @@ export default PaperMenuContentInner.extend({
   },
 
   focusOption(e, direction) {
-    let currentItem = this.$(e.target).closest('md-option');
+    let currentItem = e.target.closest('md-option');
 
     let children = this.get('enabledMenuItems');
     let items = children.map((child) => child.element);
