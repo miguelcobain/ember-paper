@@ -110,4 +110,22 @@ module('Integration | Component | paper select', function(hooks) {
 
     assert.dom('md-select-menu md-option').hasText('small (12-inch)');
   });
+
+  test('it shows search message before entering search string', async function(assert) {
+    this.search = (value) => this.sizes.filter((size) => size.includes(value));
+
+    await render(hbs`{{#paper-select
+      search=search
+      searchEnabled=true
+      selected=selectedSize
+      onChange=(action (mut selectedSize))
+      as |size|
+    }}
+      {{size}}
+    {{/paper-select}}`);
+
+    await clickTrigger('md-input-container');
+    assert.dom('md-select-menu > md-content').exists();
+    assert.dom('md-select-menu > md-content').hasText('Type to search');
+  });
 });

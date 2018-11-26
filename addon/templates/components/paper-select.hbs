@@ -85,10 +85,12 @@
     {{/if}}
 
     {{#if mustShowSearchMessage}}
-      {{component searchMessageComponent
-        searchMessage=(readonly searchMessage)
-        select=(readonly publicAPI)
-      }}
+      <md-content>
+        {{component searchMessageComponent
+          searchMessage=(readonly searchMessage)
+          select=(readonly publicAPI)
+        }}
+      </md-content>
     {{else if mustShowNoMessages}}
       {{#if (hasBlock "inverse")}}
         {{yield to="inverse"}}
