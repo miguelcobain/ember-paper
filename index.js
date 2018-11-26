@@ -9,17 +9,16 @@ const Funnel = require('broccoli-funnel');
 const AngularScssFilter = require('./lib/angular-scss-filter');
 const fastbootTransform = require('fastboot-transform');
 
-
-/** 
- * Component dependencies, extracted from ember-bootstrap 
- * https://github.com/kaliber5/ember-bootstrap/blob/master/index.js 
+/**
+ * Component dependencies, extracted from ember-bootstrap
+ * https://github.com/kaliber5/ember-bootstrap/blob/master/index.js
 */
 const componentDependencies = {
 
   'paper-autocomplete': [
-    'paper-autocomplete-trigger', 
-    'paper-autocomplete-options', 
-    'paper-autocomplete-highlight', 
+    'paper-autocomplete-trigger',
+    'paper-autocomplete-options',
+    'paper-autocomplete-highlight',
     'paper-autocomplete-content'
   ],
   'paper-autocomplete-content': [
@@ -32,12 +31,12 @@ const componentDependencies = {
     'paper-icon'
   ],
   'paper-card': [
-    'paper-card-title', 
-    'paper-card-content', 
-    'paper-card-actions', 
-    'paper-card-header', 
-    'paper-card-image', 
-    'paper-card-media',
+    'paper-card-title',
+    'paper-card-content',
+    'paper-card-actions',
+    'paper-card-header',
+    'paper-card-image',
+    'paper-card-media'
   ],
   'paper-card-actions': [
     'paper-card-icon-actions'
@@ -56,16 +55,16 @@ const componentDependencies = {
   ],
   'paper-card-header-text': [
     'paper-card-header-title',
-    'paper-card-header-subhead',
+    'paper-card-header-subhead'
   ],
   'paper-chips': ['paper-autocomplete', 'paper-icon'],
   'papar-contact-chips': ['paper-autocomplete', 'paper-icon'],
   'paper-dialog': [
     'paper-dialog-actions',
-    'paper-backdrop', 
+    'paper-backdrop',
     'paper-dialog-container',
-    'paper-dialog-content', 
-    'paper-dialog-inner',
+    'paper-dialog-content',
+    'paper-dialog-inner'
   ],
   'paper-form': [
     'paper-input',
@@ -93,7 +92,7 @@ const componentDependencies = {
   ],
   'paper-menu-content': [
     'paper-menu-content-inner',
-    'paper-backdrop',
+    'paper-backdrop'
   ],
   'paper-menu-content-inner': [
     'paper-menu-item'
@@ -177,7 +176,7 @@ module.exports = {
     }
 
     this.emberPaperOptions = Object.assign({}, app.options['ember-paper']);
-    
+
     app.import('vendor/ember-paper/register-version.js');
     app.import('vendor/hammerjs/hammer.js');
     app.import('vendor/propagating-hammerjs/propagating.js');
@@ -200,15 +199,15 @@ module.exports = {
 
         let whitelist = this.emberPaperOptions.whitelist || [];
         let blacklist = this.emberPaperOptions.blacklist || [];
-        
+
         let links = '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">';
 
         let paperIconNotWhitelisted = whitelist.length && !whitelist.includes('paper-icon');
         let paperIconBlacklisted = blacklist.length && blacklist.includes('paper-icon');
-        
-        if ( paperIconNotWhitelisted || paperIconBlacklisted ) {
+
+        if (paperIconNotWhitelisted || paperIconBlacklisted) {
           return links;
-        } 
+        }
 
         return `${links} <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">`;
 
@@ -261,10 +260,10 @@ module.exports = {
   treeForStyles(tree) {
     let scssFiles = [
       // core styles
-      'core/style/typography.scss',
       'core/style/mixins.scss',
       'core/style/variables.scss',
       'core/style/structure.scss',
+      'core/style/typography.scss',
       'core/style/layout.scss',
       'core/services/layout/layout.scss',
 
@@ -365,7 +364,12 @@ module.exports = {
 
     angularScssFiles = new AngularScssFilter(angularScssFiles);
 
-    let mergedTrees = new BroccoliMergeTrees([angularScssFiles, tree], { overwrite: true });
+    let importer = writeFile(
+      'ember-paper-components.scss',
+      scssFiles.map((path) => `@import './angular-material/${path}';`).join('\n')
+    );
+
+    let mergedTrees = new BroccoliMergeTrees([angularScssFiles, importer, tree], { overwrite: true });
     return this._super.treeForStyles(mergedTrees);
   },
 
@@ -399,7 +403,6 @@ module.exports = {
     tree = this.filterComponents(tree);
     return this._super.treeForAddonTemplates.call(this, tree);
   },
-
 
   filterComponents(tree) {
     let whitelist = this.generateWhitelist(this.emberPaperOptions.whitelist);
