@@ -20,8 +20,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
   selected: 0, // select first tab by default
 
-  _selectedTab: computed('childComponents.@each.value', 'selected', function() {
-    return this.get('childComponents').findBy('value', this.get('selected'));
+  _selectedTab: computed('childComponents.@each.isSelected', function() {
+    return this.get('childComponents').findBy('isSelected');
   }),
 
   _selectedTabDidChange: observer('_selectedTab', function() {

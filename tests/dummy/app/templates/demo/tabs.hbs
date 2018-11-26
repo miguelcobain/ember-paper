@@ -228,7 +228,7 @@
           </em>
         </p>
         <p>
-          <b>Hint:</b>for Ember versions less than 2.15, use the <code>ember-router-service-polyfill</code> addon to easily retrieve
+          <b>Hint:</b> for Ember versions less than 2.15, use the <code>ember-router-service-polyfill</code> addon to easily retrieve
           the current route name and use it as the selected value to <code>paper-tabs</code>.
         </p>
       {{/paper-card-content}}
@@ -248,6 +248,7 @@
       (p-section
         "`tabs.tab` API"
         (p-row "value" "string" "Value associated with the tab. To activate the tab, `selected` needs to have this value. Each tab gets a value automatically set to its index, so you don't need to use this property unless you need specific values for some special case.")
+        (p-row "isSelected" "boolean" "Optionally you can set a specific tab as selected directly without relying on the global tabs value.")
         (p-row "disabled" "boolean" "Pass `true` to disable the tab button.")
         (p-row "href" "string" "You can pass an href to the tab button to render a link. Hint: use `ember-href-to` to generate route urls.")
         (p-row "onClick" "action" "An action triggered when the tab button is clicked.")
