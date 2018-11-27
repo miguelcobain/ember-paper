@@ -495,9 +495,6 @@ module.exports = {
     ];
 
     let filteredScssFiles = this.addStyles(coreScssFiles) || coreScssFiles;
-    // console.log('EMPIEZA STYLES');
-    // console.log(filteredScssFiles);
-    // console.log('____________________________________________')
 
     let angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {
       files: filteredScssFiles,
@@ -617,10 +614,7 @@ module.exports = {
     }
 
     return new Funnel(tree, {
-      exclude: [(name) => {
-        // console.log(name);
-        return this.excludeComponent(name, whitelist, blacklist)
-      }]
+      exclude: [(name) => this.excludeComponent(name, whitelist, blacklist)]
     });
   },
 
