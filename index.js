@@ -29,7 +29,7 @@ const componentDependencies = {
   'paper-autocomplete-content': {
     dependencies: [
       'paper-virtual-repeat'
-    ],
+    ]
   },
   'paper-autocomplete-trigger': {
     dependencies: [
@@ -65,7 +65,7 @@ const componentDependencies = {
       'paper-card-media'
     ]
   },
-  'paper-card-actions': { 
+  'paper-card-actions': {
     dependencies: [
       'paper-card-icon-actions'
     ]
@@ -363,7 +363,7 @@ const componentDependencies = {
   },
   'paper-virtual-repeat': {
     styles: [
-      'components/virtualRepeat/virtual-repeater.scss',
+      'components/virtualRepeat/virtual-repeater.scss'
     ],
     dependencies: [
       'paper-virtual-repeat-scroller'
@@ -586,7 +586,7 @@ module.exports = {
   /**
    * Validate if the object exists in componentDependencies and has any styles
    * if so, add them to the arr
-   * 
+   *
    * @param {Array} arr - Styles array
    * @param {Object} component - componentDependencies[key]
    */
@@ -596,7 +596,7 @@ module.exports = {
         if (!arr.includes(scss)) {
           arr.push(scss);
         }
-      })
+      });
     }
 
   },
