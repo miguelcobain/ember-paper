@@ -17,7 +17,7 @@ const componentDependencies = {
   'paper-autocomplete': {
     styles: [
       'components/autocomplete/autocomplete.scss',
-      'components/autocomplete/autocomplete-theme.scss',
+      'components/autocomplete/autocomplete-theme.scss'
     ],
     dependencies: [
       'paper-autocomplete-trigger',
@@ -32,29 +32,29 @@ const componentDependencies = {
     ],
   },
   'paper-autocomplete-trigger': {
-      dependencies: [
-        'paper-progress-linear',
-        'paper-input',
-        'paper-reset-button',
-        'paper-icon'
-      ]
+    dependencies: [
+      'paper-progress-linear',
+      'paper-input',
+      'paper-reset-button',
+      'paper-icon'
+    ]
   },
   'paper-backdrop': {
     styles: [
       'components/backdrop/backdrop.scss',
-      'components/backdrop/backdrop-theme.scss',
+      'components/backdrop/backdrop-theme.scss'
     ]
   },
   'paper-button': {
     styles: [
       'components/button/button.scss',
-      'components/button/button-theme.scss',
+      'components/button/button-theme.scss'
     ]
   },
   'paper-card': {
     style: [
       'components/card/card.scss',
-      'components/card/card-theme.scss',
+      'components/card/card-theme.scss'
     ],
     dependencies: [
       'paper-card-title',
@@ -73,7 +73,7 @@ const componentDependencies = {
   'paper-card-title': {
     dependencies: [
       'paper-card-title-text',
-     'paper-card-title-media'
+      'paper-card-title-media'
     ]
   },
   'paper-card-title-text': {
@@ -97,16 +97,16 @@ const componentDependencies = {
   'paper-checkbox': {
     styles: [
       'components/checkbox/checkbox.scss',
-      'components/checkbox/checkbox-theme.scss',
+      'components/checkbox/checkbox-theme.scss'
     ]
   },
-  'paper-chips': { 
+  'paper-chips': {
     styles: [
       'components/chips/chips.scss',
-      'components/chips/chips-theme.scss',
+      'components/chips/chips-theme.scss'
     ],
     dependencies: [
-      'paper-autocomplete', 
+      'paper-autocomplete',
       'paper-icon'
     ]
   },
@@ -118,13 +118,13 @@ const componentDependencies = {
   'paper-content': {
     styles: [
       'components/content/content.scss',
-      'components/content/content-theme.scss',
+      'components/content/content-theme.scss'
     ]
   },
   'paper-dialog': {
     styles: [
       'components/dialog/dialog.scss',
-      'components/dialog/dialog-theme.scss',
+      'components/dialog/dialog-theme.scss'
     ],
     dependencies: [
       'paper-dialog-actions',
@@ -137,7 +137,7 @@ const componentDependencies = {
   'paper-divider': {
     styles: [
       'components/divider/divider.scss',
-      'components/divider/divider-theme.scss',
+      'components/divider/divider-theme.scss'
     ]
   },
   'paper-form': {
@@ -150,7 +150,7 @@ const componentDependencies = {
   },
   'paper-grid-list': {
     styles: [
-      'components/gridList/grid-list.scss',
+      'components/gridList/grid-list.scss'
     ],
     dependencies: [
       'paper-grid-tile'
@@ -170,7 +170,7 @@ const componentDependencies = {
   'paper-input': {
     styles: [
       'components/input/input.scss',
-      'components/input/input-theme.scss',
+      'components/input/input-theme.scss'
     ]
   },
   'paper-item': {
@@ -179,33 +179,33 @@ const componentDependencies = {
       'paper-button',
       'paper-switch',
       'paper-radio-proxiable'
-    ] 
+    ]
   },
   'paper-list': {
     styles: [
       'components/list/list.scss',
-      'components/list/list-theme.scss',
+      'components/list/list-theme.scss'
     ]
   },
   'paper-radio-proxiable': {
     dependencies: [
       'paper-radio-base'
-    ]  
+    ]
   },
-  'paper-menu': { 
+  'paper-menu': {
     styles: [
       'components/menu/menu.scss',
-      'components/menu/menu-theme.scss',
+      'components/menu/menu-theme.scss'
     ],
     dependencies: [
       'paper-menu-content'
-    ] 
+    ]
   },
   'paper-menu-content': {
     dependencies: [
       'paper-menu-content-inner',
       'paper-backdrop'
-    ]  
+    ]
   },
   'paper-menu-content-inner': {
     dependencies: [
@@ -215,18 +215,18 @@ const componentDependencies = {
   'paper-menu-item': {
     dependencies: [
       'paper-button'
-    ] 
+    ]
   },
   'paper-progress-circular': {
     styles: [
       'components/progressCircular/progress-circular.scss',
-      'components/progressCircular/progress-circular-theme.scss',
+      'components/progressCircular/progress-circular-theme.scss'
     ]
   },
   'paper-progress-linear': {
     styles: [
       'components/progressLinear/progress-linear.scss',
-      'components/progressLinear/progress-linear-theme.scss',
+      'components/progressLinear/progress-linear-theme.scss'
     ]
   },
   'paper-radio': {
@@ -237,57 +237,57 @@ const componentDependencies = {
   'paper-radio-base': {
     styles: [
       'components/radioButton/radio-button.scss',
-      'components/radioButton/radio-button-theme.scss',
+      'components/radioButton/radio-button-theme.scss'
     ]
   },
-  'paper-radio-group': { 
+  'paper-radio-group': {
     dependencies: [
       'paper-radio'
-    ] 
+    ]
   },
   'paper-select': {
     styles: [
       'components/select/select.scss',
-      'components/select/select-theme.scss',
+      'components/select/select-theme.scss'
     ],
     dependencies: [
       'paper-select-menu',
       'paper-select-options',
       'paper-select-trigger',
       'paper-select-search'
-    ] 
+    ]
   },
   'paper-select-options': {
     dependencies: [
       'paper-option'
-    ] 
+    ]
   },
   'paper-select-menu': {
     dependencies: [
       'paper-select-menu-trigger',
       'paper-select-content'
-    ] 
+    ]
   },
   'paper-select-content': {
     dependencies: [
       'paper-backdrop',
       'paper-select-menu-inner'
-    ] 
+    ]
   },
   'paper-sidenav': {
     styles: [
       'components/sidenav/sidenav.scss',
-      'components/sidenav/sidenav-theme.scss',
+      'components/sidenav/sidenav-theme.scss'
     ],
     dependencies: [
       'paper-backdrop',
       'paper-sidenav-inner'
-    ] 
+    ]
   },
   'paper-slider': {
     styles: [
       'components/slider/slider.scss',
-      'components/slider/slider-theme.scss',
+      'components/slider/slider-theme.scss'
     ]
   },
   'paper-speed-dial': {
@@ -297,69 +297,69 @@ const componentDependencies = {
     dependencies: [
       'paper-speed-dial-trigger',
       'paper-speed-dial-actions'
-    ]  
+    ]
   },
   'paper-subheader': {
     styles: [
       'components/subheader/subheader.scss',
-      'components/subheader/subheader-theme.scss',
+      'components/subheader/subheader-theme.scss'
     ]
   },
   'paper-speed-dial-actions': {
     dependencies: [
       'paper-speed-dial-actions-action'
-    ]   
+    ]
   },
   'paper-switch': {
     styles: [
       'components/switch/switch.scss',
-      'components/switch/switch-theme.scss',
+      'components/switch/switch-theme.scss'
     ]
   },
   'paper-tabs': {
     styles: [
       'components/tabs/tabs.scss',
-      'components/tabs/tabs-theme.scss',
+      'components/tabs/tabs-theme.scss'
     ],
     dependencies: [
       'paper-tab',
       'paper-ink-bar',
       'paper-icon'
-    ]   
+    ]
   },
   'paper-toast': {
     styles: [
       'components/toast/toast.scss',
-      'components/toast/toast-theme.scss',
+      'components/toast/toast-theme.scss'
     ],
     dependencies: [
       'paper-toast-inner',
       'paper-toast-text'
-    ] 
+    ]
   },
   'paper-toaster': {
     dependencies: [
       'paper-toast',
       'paper-button'
-    ] 
+    ]
   },
   'paper-toolbar': {
     styles: [
       'components/toolbar/toolbar.scss',
-      'components/toolbar/toolbar-theme.scss',
+      'components/toolbar/toolbar-theme.scss'
     ],
     dependencies: [
       'paper-toolbar-tools'
-    ] 
+    ]
   },
   'paper-tooltip': {
     styles: [
       'components/tooltip/tooltip.scss',
-      'components/tooltip/tooltip-theme.scss',
+      'components/tooltip/tooltip-theme.scss'
     ],
     dependencies: [
       'paper-tooltip-inner'
-    ]  
+    ]
   },
   'paper-virtual-repeat': {
     styles: [
@@ -367,7 +367,7 @@ const componentDependencies = {
     ],
     dependencies: [
       'paper-virtual-repeat-scroller'
-    ]  
+    ]
   }
 };
 module.exports = {
@@ -482,16 +482,15 @@ module.exports = {
       'core/style/layout.scss',
       'core/services/layout/layout.scss',
 
-      //TODO: Move to core, if we don't import menu, it breaks.
+      // TODO: Move to core, if we don't import menu, it breaks.
       'components/menu/menu.scss',
       'components/menu/menu-theme.scss',
 
-      //Need to find which components rely on this, otherwise, move to core.
+      // Need to find which components rely on this, otherwise, move to core.
       'components/whiteframe/whiteframe.scss',
 
       'components/panel/panel.scss',
-      'components/panel/panel-theme.scss',
-      
+      'components/panel/panel-theme.scss'
     ];
 
     let filteredScssFiles = this.addStyles(coreScssFiles) || coreScssFiles;
@@ -546,7 +545,7 @@ module.exports = {
   },
 
   /**
-   * This function will push styles using whitelist and blacklist 
+   * This function will push styles using whitelist and blacklist
    * @param {Array} core - The core scss files
    * @return {Array} - New array with styles appended
    */
@@ -559,24 +558,23 @@ module.exports = {
 
     // add everything if no opts defined
     if (whitelist.length === 0 && blacklist.length === 0) {
-      Object.keys(componentDependencies).forEach( key => {
-        this.addComponentStyle(styles, componentDependencies[key]); 
+      Object.keys(componentDependencies).forEach((key) => {
+        this.addComponentStyle(styles, componentDependencies[key]);
       });
     }
 
     // build array from whitelist
     if (whitelist.length && blacklist.length === 0) {
-      whitelist.forEach( component => {
+      whitelist.forEach((component) => {
         this.addComponentStyle(styles, componentDependencies[component]);
       });
-      
     }
 
     // add all but blacklisted
     if (blacklist.length && whitelist.length === 0) {
-      Object.keys(componentDependencies).forEach( key => {
+      Object.keys(componentDependencies).forEach((key) => {
         if (!blacklist.includes(key)) {
-          this.addComponentStyle(styles, componentDependencies[key]); 
+          this.addComponentStyle(styles, componentDependencies[key]);
         }
       });
     }
@@ -589,19 +587,18 @@ module.exports = {
    * Validate if the object exists in componentDependencies and has any styles
    * if so, add them to the arr
    * 
-   * @param {Array} arr - Styles array 
+   * @param {Array} arr - Styles array
    * @param {Object} component - componentDependencies[key]
    */
   addComponentStyle(arr, component) {
-    
     if (component && component.styles) {
-      component.styles.forEach( scss => {
-        if ( !arr.includes(scss) ) {
+      component.styles.forEach((scss) => {
+        if (!arr.includes(scss)) {
           arr.push(scss);
         }
       })
     }
-    
+
   },
 
   filterComponents(tree) {
