@@ -542,4 +542,9 @@ module('Integration | Component | paper-input', function(hooks) {
     assert.dom(`#${ariaDescribedbyValues[1]}`).exists();
   });
 
+  test('title attribute is set properly', async function(assert) {
+    await render(hbs`{{paper-input onChange=null title="important title"}}`);
+
+    assert.dom('input').hasAttribute('title');
+  });
 });
