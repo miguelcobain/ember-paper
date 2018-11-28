@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click, triggerKeyEvent } from '@ember/test-helpers';
+import { render, click, triggerKeyEvent, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper checkbox', function(hooks) {
@@ -130,7 +130,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
     assert.dom('md-checkbox').hasClass('md-indeterminate');
   });
 
-  test('it correctly set aria-checked attribute', async function(assert) {
+  test('it correctly sets aria-checked attribute', async function(assert) {
     assert.expect(3);
 
     this.set('value', false);
@@ -144,5 +144,25 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     this.set('indeterminate', true);
     assert.dom('md-checkbox').hasAttribute('aria-checked', 'mixed');
+  });
+
+  test('it sets correct aria-labelledby for label passed as property', async function(assert) {
+    await render(hbs`{{paper-checkbox onChange=null value=true label="important label"}}`);
+
+    let labelId = find('md-checkbox').getAttribute('aria-labelledby');
+
+    assert.dom(`#${labelId}`).hasText('important label');
+  });
+
+  test('it sets correct aria-labelledby for yielded label', async function(assert) {
+    await render(hbs`
+      {{#paper-checkbox onChange=null value=true}}
+        yielded label
+      {{/paper-checkbox}}
+    `);
+
+    let labelId = find('md-checkbox').getAttribute('aria-labelledby');
+
+    assert.dom(`#${labelId}`).hasText('yielded label');
   });
 });

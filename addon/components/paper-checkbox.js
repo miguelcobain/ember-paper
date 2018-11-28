@@ -26,7 +26,10 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
   classNameBindings: ['isChecked:md-checked', 'indeterminate:md-indeterminate'],
-  attributeBindings: ['ariaChecked:aria-checked'],
+  attributeBindings: [
+    'labelId:aria-labelledby',
+    'ariaChecked:aria-checked'
+  ],
 
   /* RippleMixin Overrides */
   rippleContainerSelector: '.md-container',
@@ -44,8 +47,14 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   notIndeterminate: not('indeterminate'),
   isChecked: and('notIndeterminate', 'value'),
   ariaChecked: computed('isChecked', 'indeterminate', function() {
-    if (this.get('indeterminate')) return 'mixed';
+    if (this.get('indeterminate')) {
+      return 'mixed';
+    }
+
     return this.get('isChecked') ? 'true' : 'false';
+  }),
+  labelId: computed('elementId', function() {
+    return `${this.elementId}-label`;
   }),
 
   init() {
