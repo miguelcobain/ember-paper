@@ -88,12 +88,11 @@
       {{! BEGIN-SNIPPET select.select-header }}
       {{#paper-select
         placeholder="Vegetable"
-        value=selectedVegetable
+        selected=selectedVegetable
         options=vegetables
         searchField="name"
         searchPlaceholder="Search for a vegetable.."
         searchEnabled=true
-        closeOnSelect=false
         onChange=(action (mut selectedVegetable))
         as |vegetable|
       }}
