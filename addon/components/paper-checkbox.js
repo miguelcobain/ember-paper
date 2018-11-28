@@ -27,8 +27,10 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   classNames: ['md-checkbox', 'md-default-theme'],
   classNameBindings: ['isChecked:md-checked', 'indeterminate:md-indeterminate'],
   attributeBindings: [
-    'labelId:aria-labelledby',
-    'ariaChecked:aria-checked'
+    'role:role',
+    'ariaLabel:aria-label',
+    'ariaChecked:aria-checked',
+    'labelId:aria-labelledby'
   ],
 
   /* RippleMixin Overrides */
@@ -43,6 +45,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   constants: service(),
 
   value: false,
+  role: 'checkbox',
 
   notIndeterminate: not('indeterminate'),
   isChecked: and('notIndeterminate', 'value'),

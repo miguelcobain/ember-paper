@@ -165,4 +165,16 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     assert.dom(`#${labelId}`).hasText('yielded label');
   });
+
+  test('it has correct role', async function(assert) {
+    await render(hbs`{{paper-checkbox onChange=null value=true}}`);
+
+    assert.dom('md-checkbox').hasAttribute('role');
+  });
+
+  test('it sets aria-label when ariaLabel is passed', async function(assert) {
+    await render(hbs`{{paper-checkbox onChange=null value=true ariaLabel='checkbox aria label'}}`);
+
+    assert.dom('md-checkbox').hasAttribute('aria-label', 'checkbox aria label');
+  });
 });
