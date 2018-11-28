@@ -3,6 +3,7 @@
  */
 import { inject as service } from '@ember/service';
 
+import { computed } from '@ember/object';
 import { not, and } from '@ember/object/computed';
 import Component from '@ember/component';
 import { assert } from '@ember/debug';
@@ -25,6 +26,7 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
   classNameBindings: ['isChecked:md-checked', 'indeterminate:md-indeterminate'],
+  attributeBindings: ['ariaChecked:aria-checked'],
 
   /* RippleMixin Overrides */
   rippleContainerSelector: '.md-container',
@@ -41,6 +43,10 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
 
   notIndeterminate: not('indeterminate'),
   isChecked: and('notIndeterminate', 'value'),
+  ariaChecked: computed('isChecked', 'indeterminate', function() {
+    if (this.get('indeterminate')) return 'mixed';
+    return this.get('isChecked') ? 'true' : 'false';
+  }),
 
   init() {
     this._super(...arguments);

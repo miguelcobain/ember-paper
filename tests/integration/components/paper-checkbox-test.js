@@ -129,4 +129,20 @@ module('Integration | Component | paper checkbox', function(hooks) {
     assert.dom('md-checkbox').doesNotHaveClass('md-checked');
     assert.dom('md-checkbox').hasClass('md-indeterminate');
   });
+
+  test('it correctly set aria-checked attribute', async function(assert) {
+    assert.expect(3);
+
+    this.set('value', false);
+    this.set('indeterminate', false);
+
+    await render(hbs`{{paper-checkbox onChange=null value=value indeterminate=indeterminate}}`);
+    assert.dom('md-checkbox').hasAttribute('aria-checked', 'false');
+
+    this.set('value', true);
+    assert.dom('md-checkbox').hasAttribute('aria-checked', 'true');
+
+    this.set('indeterminate', true);
+    assert.dom('md-checkbox').hasAttribute('aria-checked', 'mixed');
+  });
 });
