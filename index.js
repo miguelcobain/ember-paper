@@ -52,7 +52,7 @@ const componentDependencies = {
     ]
   },
   'paper-card': {
-    style: [
+    styles: [
       'components/card/card.scss',
       'components/card/card-theme.scss'
     ],
