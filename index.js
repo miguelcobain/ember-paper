@@ -14,147 +14,362 @@ const fastbootTransform = require('fastboot-transform');
  * https://github.com/kaliber5/ember-bootstrap/blob/master/index.js
 */
 const componentDependencies = {
-
-  'paper-autocomplete': [
-    'paper-autocomplete-trigger',
-    'paper-autocomplete-options',
-    'paper-autocomplete-highlight',
-    'paper-autocomplete-content'
-  ],
-  'paper-autocomplete-content': [
-    'paper-virtual-repeat'
-  ],
-  'paper-autocomplete-trigger': [
-    'paper-progress-linear',
-    'paper-input',
-    'paper-reset-button',
-    'paper-icon'
-  ],
-  'paper-card': [
-    'paper-card-title',
-    'paper-card-content',
-    'paper-card-actions',
-    'paper-card-header',
-    'paper-card-image',
-    'paper-card-media'
-  ],
-  'paper-card-actions': [
-    'paper-card-icon-actions'
-  ],
-  'paper-card-title': [
-    'paper-card-title-text',
-    'paper-card-title-media'
-  ],
-  'paper-card-title-text': [
-    'paper-card-header-headline',
-    'paper-card-header-subhead'
-  ],
-  'paper-card-header': [
-    'paper-card-header-text',
-    'paper-card-avatar'
-  ],
-  'paper-card-header-text': [
-    'paper-card-header-title',
-    'paper-card-header-subhead'
-  ],
-  'paper-chips': ['paper-autocomplete', 'paper-icon'],
-  'papar-contact-chips': ['paper-autocomplete', 'paper-icon'],
-  'paper-dialog': [
-    'paper-dialog-actions',
-    'paper-backdrop',
-    'paper-dialog-container',
-    'paper-dialog-content',
-    'paper-dialog-inner'
-  ],
-  'paper-form': [
-    'paper-input',
-    'paper-select',
-    'paper-autocomplete',
-    'paper-button'
-  ],
-  'paper-grid-list': [
-    'paper-grid-tile'
-  ],
-  'paper-grid-tile': [
-    'paper-grid-tile-footer'
-  ],
-  'paper-item': [
-    'paper-checkbox',
-    'paper-button',
-    'paper-switch',
-    'paper-radio-proxiable'
-  ],
-  'paper-radio-proxiable': [
-    'paper-radio-base'
-  ],
-  'paper-menu': [
-    'paper-menu-content'
-  ],
-  'paper-menu-content': [
-    'paper-menu-content-inner',
-    'paper-backdrop'
-  ],
-  'paper-menu-content-inner': [
-    'paper-menu-item'
-  ],
-  'paper-menu-item': [
-    'paper-button'
-  ],
-  'paper-radio-group': [
-    'paper-radio'
-  ],
-  'paper-select': [
-    'paper-select-menu',
-    'paper-select-options',
-    'paper-select-trigger',
-    'paper-select-search'
-  ],
-  'paper-select-options': [
-    'paper-option'
-  ],
-  'paper-select-menu': [
-    'paper-select-menu-trigger',
-    'paper-select-content'
-  ],
-  'paper-select-content': [
-    'paper-backdrop',
-    'paper-select-menu-inner'
-  ],
-  'paper-sidenav': [
-    'paper-backdrop',
-    'paper-sidenav-inner'
-  ],
-  'paper-speed-dial': [
-    'paper-speed-dial-trigger',
-    'paper-speed-dial-actions'
-  ],
-  'paper-speed-dial-actions': [
-    'paper-speed-dial-actions-action'
-  ],
-  'paper-tabs': [
-    'paper-tab',
-    'paper-ink-bar',
-    'paper-icon'
-  ],
-  'paper-toast': [
-    'paper-toast-inner',
-    'paper-toast-text'
-  ],
-  'paper-toaster': [
-    'paper-toast',
-    'paper-button'
-  ],
-  'paper-toolbar': [
-    'paper-toolbar-tools'
-  ],
-  'paper-tooltip': [
-    'paper-tooltip-inner'
-  ],
-  'paper-virtual-repeat': [
-    'paper-virtual-repeat-scroller'
-  ]
+  'paper-autocomplete': {
+    styles: [
+      'components/autocomplete/autocomplete.scss',
+      'components/autocomplete/autocomplete-theme.scss'
+    ],
+    dependencies: [
+      'paper-autocomplete-trigger',
+      'paper-autocomplete-options',
+      'paper-autocomplete-highlight',
+      'paper-autocomplete-content'
+    ]
+  },
+  'paper-autocomplete-content': {
+    dependencies: [
+      'paper-virtual-repeat'
+    ]
+  },
+  'paper-autocomplete-trigger': {
+    dependencies: [
+      'paper-progress-linear',
+      'paper-input',
+      'paper-reset-button',
+      'paper-icon'
+    ]
+  },
+  'paper-backdrop': {
+    styles: [
+      'components/backdrop/backdrop.scss',
+      'components/backdrop/backdrop-theme.scss'
+    ]
+  },
+  'paper-button': {
+    styles: [
+      'components/button/button.scss',
+      'components/button/button-theme.scss'
+    ]
+  },
+  'paper-card': {
+    styles: [
+      'components/card/card.scss',
+      'components/card/card-theme.scss'
+    ],
+    dependencies: [
+      'paper-card-title',
+      'paper-card-content',
+      'paper-card-actions',
+      'paper-card-header',
+      'paper-card-image',
+      'paper-card-media'
+    ]
+  },
+  'paper-card-actions': {
+    dependencies: [
+      'paper-card-icon-actions'
+    ]
+  },
+  'paper-card-title': {
+    dependencies: [
+      'paper-card-title-text',
+      'paper-card-title-media'
+    ]
+  },
+  'paper-card-title-text': {
+    dependencies: [
+      'paper-card-header-headline',
+      'paper-card-header-subhead'
+    ]
+  },
+  'paper-card-header': {
+    dependencies: [
+      'paper-card-header-text',
+      'paper-card-avatar'
+    ]
+  },
+  'paper-card-header-text': {
+    dependencies: [
+      'paper-card-header-title',
+      'paper-card-header-subhead'
+    ]
+  },
+  'paper-checkbox': {
+    styles: [
+      'components/checkbox/checkbox.scss',
+      'components/checkbox/checkbox-theme.scss'
+    ]
+  },
+  'paper-chips': {
+    styles: [
+      'components/chips/chips.scss',
+      'components/chips/chips-theme.scss'
+    ],
+    dependencies: [
+      'paper-autocomplete',
+      'paper-icon'
+    ]
+  },
+  'paper-contact-chips': {
+    dependencies: [
+      'paper-chips'
+    ]
+  },
+  'paper-content': {
+    styles: [
+      'components/content/content.scss',
+      'components/content/content-theme.scss'
+    ]
+  },
+  'paper-dialog': {
+    styles: [
+      'components/dialog/dialog.scss',
+      'components/dialog/dialog-theme.scss'
+    ],
+    dependencies: [
+      'paper-dialog-actions',
+      'paper-backdrop',
+      'paper-dialog-container',
+      'paper-dialog-content',
+      'paper-dialog-inner'
+    ]
+  },
+  'paper-divider': {
+    styles: [
+      'components/divider/divider.scss',
+      'components/divider/divider-theme.scss'
+    ]
+  },
+  'paper-form': {
+    dependencies: [
+      'paper-input',
+      'paper-select',
+      'paper-autocomplete',
+      'paper-button'
+    ]
+  },
+  'paper-grid-list': {
+    styles: [
+      'components/gridList/grid-list.scss'
+    ],
+    dependencies: [
+      'paper-grid-tile'
+    ]
+  },
+  'paper-grid-tile': {
+    dependencies: [
+      'paper-grid-tile-footer'
+    ]
+  },
+  'paper-icon': {
+    styles: [
+      'components/icon/icon.scss',
+      'components/icon/icon-theme.scss'
+    ]
+  },
+  'paper-input': {
+    styles: [
+      'components/input/input.scss',
+      'components/input/input-theme.scss'
+    ]
+  },
+  'paper-item': {
+    dependencies: [
+      'paper-checkbox',
+      'paper-button',
+      'paper-switch',
+      'paper-radio-proxiable'
+    ]
+  },
+  'paper-list': {
+    styles: [
+      'components/list/list.scss',
+      'components/list/list-theme.scss'
+    ]
+  },
+  'paper-radio-proxiable': {
+    dependencies: [
+      'paper-radio-base'
+    ]
+  },
+  'paper-menu': {
+    styles: [
+      'components/menu/menu.scss',
+      'components/menu/menu-theme.scss'
+    ],
+    dependencies: [
+      'paper-menu-content'
+    ]
+  },
+  'paper-menu-content': {
+    dependencies: [
+      'paper-menu-content-inner',
+      'paper-backdrop'
+    ]
+  },
+  'paper-menu-content-inner': {
+    dependencies: [
+      'paper-menu-item'
+    ]
+  },
+  'paper-menu-item': {
+    dependencies: [
+      'paper-button'
+    ]
+  },
+  'paper-progress-circular': {
+    styles: [
+      'components/progressCircular/progress-circular.scss',
+      'components/progressCircular/progress-circular-theme.scss'
+    ]
+  },
+  'paper-progress-linear': {
+    styles: [
+      'components/progressLinear/progress-linear.scss',
+      'components/progressLinear/progress-linear-theme.scss'
+    ]
+  },
+  'paper-radio': {
+    dependencies: [
+      'paper-radio-base'
+    ]
+  },
+  'paper-radio-base': {
+    styles: [
+      'components/radioButton/radio-button.scss',
+      'components/radioButton/radio-button-theme.scss'
+    ]
+  },
+  'paper-radio-group': {
+    dependencies: [
+      'paper-radio'
+    ]
+  },
+  'paper-select': {
+    styles: [
+      'components/select/select.scss',
+      'components/select/select-theme.scss'
+    ],
+    dependencies: [
+      'paper-select-menu',
+      'paper-select-options',
+      'paper-select-trigger',
+      'paper-select-search'
+    ]
+  },
+  'paper-select-options': {
+    dependencies: [
+      'paper-option'
+    ]
+  },
+  'paper-select-menu': {
+    dependencies: [
+      'paper-select-menu-trigger',
+      'paper-select-content'
+    ]
+  },
+  'paper-select-content': {
+    dependencies: [
+      'paper-backdrop',
+      'paper-select-menu-inner'
+    ]
+  },
+  'paper-sidenav': {
+    styles: [
+      'components/sidenav/sidenav.scss',
+      'components/sidenav/sidenav-theme.scss'
+    ],
+    dependencies: [
+      'paper-backdrop',
+      'paper-sidenav-inner'
+    ]
+  },
+  'paper-slider': {
+    styles: [
+      'components/slider/slider.scss',
+      'components/slider/slider-theme.scss'
+    ]
+  },
+  'paper-speed-dial': {
+    styles: [
+      'components/fabSpeedDial/fabSpeedDial.scss'
+    ],
+    dependencies: [
+      'paper-speed-dial-trigger',
+      'paper-speed-dial-actions'
+    ]
+  },
+  'paper-subheader': {
+    styles: [
+      'components/subheader/subheader.scss',
+      'components/subheader/subheader-theme.scss'
+    ]
+  },
+  'paper-speed-dial-actions': {
+    dependencies: [
+      'paper-speed-dial-actions-action'
+    ]
+  },
+  'paper-switch': {
+    styles: [
+      'components/switch/switch.scss',
+      'components/switch/switch-theme.scss'
+    ]
+  },
+  'paper-tabs': {
+    styles: [
+      'components/tabs/tabs.scss',
+      'components/tabs/tabs-theme.scss'
+    ],
+    dependencies: [
+      'paper-tab',
+      'paper-ink-bar',
+      'paper-icon'
+    ]
+  },
+  'paper-toast': {
+    styles: [
+      'components/toast/toast.scss',
+      'components/toast/toast-theme.scss'
+    ],
+    dependencies: [
+      'paper-toast-inner',
+      'paper-toast-text'
+    ]
+  },
+  'paper-toaster': {
+    dependencies: [
+      'paper-toast',
+      'paper-button'
+    ]
+  },
+  'paper-toolbar': {
+    styles: [
+      'components/toolbar/toolbar.scss',
+      'components/toolbar/toolbar-theme.scss'
+    ],
+    dependencies: [
+      'paper-toolbar-tools'
+    ]
+  },
+  'paper-tooltip': {
+    styles: [
+      'components/tooltip/tooltip.scss',
+      'components/tooltip/tooltip-theme.scss'
+    ],
+    dependencies: [
+      'paper-tooltip-inner'
+    ]
+  },
+  'paper-virtual-repeat': {
+    styles: [
+      'components/virtualRepeat/virtual-repeater.scss'
+    ],
+    dependencies: [
+      'paper-virtual-repeat-scroller'
+    ]
+  }
 };
-
 module.exports = {
   name: require('./package').name,
 
@@ -258,7 +473,7 @@ module.exports = {
   },
 
   treeForStyles(tree) {
-    let scssFiles = [
+    let coreScssFiles = [
       // core styles
       'core/style/mixins.scss',
       'core/style/variables.scss',
@@ -267,96 +482,21 @@ module.exports = {
       'core/style/layout.scss',
       'core/services/layout/layout.scss',
 
-      // component styles
-      'components/content/content.scss',
-      'components/content/content-theme.scss',
-
-      'components/card/card.scss',
-      'components/card/card-theme.scss',
-
-      'components/button/button.scss',
-      'components/button/button-theme.scss',
-
-      'components/checkbox/checkbox.scss',
-      'components/checkbox/checkbox-theme.scss',
-
-      'components/radioButton/radio-button.scss',
-      'components/radioButton/radio-button-theme.scss',
-
-      'components/switch/switch.scss',
-      'components/switch/switch-theme.scss',
-
-      'components/input/input.scss',
-      'components/input/input-theme.scss',
-
-      'components/list/list.scss',
-      'components/list/list-theme.scss',
-
-      'components/divider/divider.scss',
-      'components/divider/divider-theme.scss',
-
-      'components/whiteframe/whiteframe.scss',
-
-      'components/toolbar/toolbar.scss',
-      'components/toolbar/toolbar-theme.scss',
-
-      'components/icon/icon.scss',
-      'components/icon/icon-theme.scss',
-
-      'components/slider/slider.scss',
-      'components/slider/slider-theme.scss',
-
-      'components/subheader/subheader.scss',
-      'components/subheader/subheader-theme.scss',
-
-      'components/autocomplete/autocomplete.scss',
-      'components/autocomplete/autocomplete-theme.scss',
-
-      'components/progressLinear/progress-linear.scss',
-      'components/progressLinear/progress-linear-theme.scss',
-
-      'components/progressCircular/progress-circular.scss',
-      'components/progressCircular/progress-circular-theme.scss',
-
+      // TODO: Move to core, if we don't import menu, it breaks.
       'components/menu/menu.scss',
       'components/menu/menu-theme.scss',
 
-      'components/select/select.scss',
-      'components/select/select-theme.scss',
-
-      'components/gridList/grid-list.scss',
-
-      'components/sidenav/sidenav.scss',
-      'components/sidenav/sidenav-theme.scss',
-
-      'components/backdrop/backdrop.scss',
-      'components/backdrop/backdrop-theme.scss',
-
-      'components/dialog/dialog.scss',
-      'components/dialog/dialog-theme.scss',
-
-      'components/virtualRepeat/virtual-repeater.scss',
-
-      'components/chips/chips.scss',
-      'components/chips/chips-theme.scss',
+      // Need to find which components rely on this, otherwise, move to core.
+      'components/whiteframe/whiteframe.scss',
 
       'components/panel/panel.scss',
-      'components/panel/panel-theme.scss',
-
-      'components/tooltip/tooltip.scss',
-      'components/tooltip/tooltip-theme.scss',
-
-      'components/toast/toast.scss',
-      'components/toast/toast-theme.scss',
-
-      'components/tabs/tabs.scss',
-      'components/tabs/tabs-theme.scss',
-
-      'components/fabSpeedDial/fabSpeedDial.scss'
+      'components/panel/panel-theme.scss'
     ];
 
+    let filteredScssFiles = this.addStyles(coreScssFiles) || coreScssFiles;
+
     let angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {
-      files: scssFiles,
+      files: filteredScssFiles,
       srcDir: '/src',
       destDir: 'angular-material',
       annotation: 'AngularScssFunnel'
@@ -366,7 +506,7 @@ module.exports = {
 
     let importer = writeFile(
       'ember-paper-components.scss',
-      scssFiles.map((path) => `@import './angular-material/${path}';`).join('\n')
+      filteredScssFiles.map((path) => `@import './angular-material/${path}';`).join('\n')
     );
 
     let mergedTrees = new BroccoliMergeTrees([angularScssFiles, importer, tree], { overwrite: true });
@@ -402,6 +542,63 @@ module.exports = {
   treeForAddonTemplates(tree) {
     tree = this.filterComponents(tree);
     return this._super.treeForAddonTemplates.call(this, tree);
+  },
+
+  /**
+   * This function will push styles using whitelist and blacklist
+   * @param {Array} core - The core scss files
+   * @return {Array} - New array with styles appended
+   */
+  addStyles(core = []) {
+
+    let whitelist = this.generateWhitelist(this.emberPaperOptions.whitelist);
+    let blacklist = this.emberPaperOptions.blacklist || [];
+
+    let styles = core.slice();
+
+    // add everything if no opts defined
+    if (whitelist.length === 0 && blacklist.length === 0) {
+      Object.keys(componentDependencies).forEach((key) => {
+        this.addComponentStyle(styles, componentDependencies[key]);
+      });
+    }
+
+    // build array from whitelist
+    if (whitelist.length && blacklist.length === 0) {
+      whitelist.forEach((component) => {
+        this.addComponentStyle(styles, componentDependencies[component]);
+      });
+    }
+
+    // add all but blacklisted
+    if (blacklist.length && whitelist.length === 0) {
+      Object.keys(componentDependencies).forEach((key) => {
+        if (!blacklist.includes(key)) {
+          this.addComponentStyle(styles, componentDependencies[key]);
+        }
+      });
+    }
+
+    return styles;
+
+  },
+
+  /**
+   * Validate if the object exists in componentDependencies and has any styles
+   * if so, add them to the arr
+   *
+   * @param {Array} arr - Styles array
+   * @param {Object} component - componentDependencies[key]
+   */
+  addComponentStyle(arr, component) {
+    if (component && component.styles) {
+      component.styles.forEach((scss) => {
+        if (!arr.includes(scss)) {
+          arr.push(scss);
+        }
+      });
+    }
+
   },
 
   filterComponents(tree) {
@@ -458,8 +655,8 @@ module.exports = {
       if (list.indexOf(item) === -1) {
         list.push(item);
 
-        if (componentDependencies[item]) {
-          componentDependencies[item].forEach(_addToWhitelist);
+        if (componentDependencies[item] && componentDependencies[item].dependencies) {
+          componentDependencies[item].dependencies.forEach(_addToWhitelist);
         }
       }
     }
