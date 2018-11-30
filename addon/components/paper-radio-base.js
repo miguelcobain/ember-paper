@@ -23,10 +23,12 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, {
   tagName: 'md-radio-button',
   classNames: ['md-default-theme'],
   classNameBindings: ['checked:md-checked'],
+  attributeBindings: ['role', 'ariaChecked:aria-checked'],
 
   tabindex: null,
 
   toggle: false,
+  role: 'radio',
 
   /* Ripple Overrides */
   rippleContainerSelector: '.md-container',
@@ -45,6 +47,10 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, {
 
   checked: computed('groupValue', 'value', function() {
     return this.get('groupValue') === this.get('value');
+  }),
+
+  ariaChecked: computed('checked', function() {
+    return this.get('checked') ? 'true' : 'false';
   }),
 
   click() {
