@@ -13,6 +13,7 @@
 - [#1029](https://github.com/miguelcobain/ember-paper/pull/1029) add title attribute to paper-input 
 - [#1031](https://github.com/miguelcobain/ember-paper/pull/1031) a11y for paper-checkbox
 - [7abaeaa](https://github.com/miguelcobain/ember-paper/commit/7abaeaac953446e348f09400a108497e0909526e) fix paper-tabs ink bar placement when using `isSelected` on `{{tabs.tab}}` (partially reverts [#980](https://github.com/miguelcobain/ember-paper/pull/980))
+- [14e3f0f](https://github.com/miguelcobain/ember-paper/commit/14e3f0ffcaff3c4cfb9b93ff44f989da2a9a64dd) update project's ember and ember-cli and fix linting errors. **update AM to 1.1.10**.
 
 ### 1.0.0-beta.18
 - [68ca72e](https://github.com/miguelcobain/ember-paper/commit/d931d1918e9ddd208cecf045bb6378b39148d7d1) not using ember-cli-sass-variables-export addon anymore since it doesn't output the generated files when using `ember build` (just `ember s`). We're manually including the generated files until we find a better solution. The palettes aren't likely to change anyway.
