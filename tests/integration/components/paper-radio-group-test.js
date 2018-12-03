@@ -212,34 +212,5 @@ module('Integration | Component | paper-radio-group', function(hooks) {
     `);
 
     assert.dom('.custom-radio').exists({ count: 1 }, 'custom radio component is displayed');
-
   });
-
-  test('it has role attribute', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`
-      {{#paper-radio-group onChange=null as |group|}}
-        {{group.radio}}
-      {{/paper-radio-group}}
-    `);
-
-    assert.dom('md-radio-button').hasAttribute('role');
-  }),
-
-  test('it correctly sets aria-checked attribute', async function(assert) {
-    this.set('groupValue', null);
-
-    await render(hbs`
-      {{#paper-radio-group groupValue=groupValue onChange=null as |group|}}
-        {{group.radio value="1"}}
-      {{/paper-radio-group}}
-    `);
-
-    assert.dom('md-radio-button').hasAttribute('aria-checked', 'false');
-
-    this.set('groupValue', '1');
-
-    assert.dom('md-radio-button').hasAttribute('aria-checked', 'true');
-  })
 });
