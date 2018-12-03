@@ -249,4 +249,16 @@ module('Integration | Component | paper-radio-group', function(hooks) {
 
     assert.dom('md-radio-group').doesNotHaveAttribute('aria-labelledby');
   });
+
+  test('it has role attribute', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{#paper-radio-group onChange=null as |group|}}
+        {{group.radio}}
+      {{/paper-radio-group}}
+    `);
+
+    assert.dom('md-radio-group').hasAttribute('role');
+  });
 });

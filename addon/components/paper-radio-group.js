@@ -28,6 +28,7 @@ export default Component.extend(FocusableMixin, ParentMixin, {
   focusOnlyOnKey: true,
 
   radioComponent: 'paper-radio',
+  role: 'radiogroup',
 
   constants: service(),
 
@@ -44,7 +45,10 @@ export default Component.extend(FocusableMixin, ParentMixin, {
     this.set('labelNode', labelNode);
   },
 
-  attributeBindings: ['ariaLabelledby:aria-labelledby'],
+  attributeBindings: [
+    'role',
+    'ariaLabelledby:aria-labelledby'
+  ],
 
   enabledChildRadios: filterBy('childComponents', 'disabled', false),
   childValues: mapBy('enabledChildRadios', 'value'),
