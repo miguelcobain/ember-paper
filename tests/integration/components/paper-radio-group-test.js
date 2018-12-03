@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click, triggerKeyEvent } from '@ember/test-helpers';
+import { render, click, triggerKeyEvent, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper-radio-group', function(hooks) {
@@ -212,5 +212,41 @@ module('Integration | Component | paper-radio-group', function(hooks) {
     `);
 
     assert.dom('.custom-radio').exists({ count: 1 }, 'custom radio component is displayed');
+  });
+
+  test('it yields labelId property', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{#paper-radio-group onChange=null as |group|}}
+        <md-label id={{group.labelId}}></md-label>
+      {{/paper-radio-group}}
+    `);
+
+    assert.dom('md-label').hasAttribute('id');
+  });
+
+  test('it sets aira-labelled property when group is labeled', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{#paper-radio-group onChange=null as |group|}}
+        <md-label id={{group.labelId}}>group label</md-label>
+      {{/paper-radio-group}}
+    `);
+    let labelId = find('md-radio-group').getAttribute('aria-labelledby');
+    assert.dom(`#${labelId}`).hasText('group label');
+  });
+
+  test('it doesn\'t show aria-labelled property when group does not have label element', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{#paper-radio-group onChange=null as |group|}}
+        {{group.radio}}
+      {{/paper-radio-group}}
+    `);
+
+    assert.dom('md-radio-group').doesNotHaveAttribute('aria-labelledby');
   });
 });
