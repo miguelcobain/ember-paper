@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.20
+- [9503337](https://github.com/miguelcobain/ember-paper/commit/95033370c720244fcc0ed07a55a93bbbbd1cc0d4) fix changing paper-input value to empty string
+
 ### 1.0.0-beta.19
 - [#794](https://github.com/miguelcobain/ember-paper/pull/794) forward primary/warn arguments to the toasts' paper-button.
 - [dd7979e](https://github.com/miguelcobain/ember-paper/commit/dd7979ec08a94be6470aa355c6da12db5b2ec20b) correctly escape paper-autocomplete-highlight output (fixes [#985](https://github.com/miguelcobain/ember-paper/issues/985)).
