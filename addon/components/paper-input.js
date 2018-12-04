@@ -159,7 +159,10 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   },
 
   setValue(value) {
-    if (this.element.querySelector('input, textarea').value !== value && value) {
+    // normalize falsy values to empty string
+    value = isEmpty(value) ? '' : value;
+
+    if (this.element.querySelector('input, textarea').value !== value) {
       this.element.querySelector('input, textarea').value = value;
     }
   },
