@@ -11,7 +11,6 @@ import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import { ParentMixin } from 'ember-composability-tools';
 import { isPresent } from '@ember/utils';
 import { invokeAction } from 'ember-invoke-action';
-import { computed } from '@ember/object';
 
 /**
  * @class PaperRadioGroup
@@ -28,6 +27,7 @@ export default Component.extend(FocusableMixin, ParentMixin, {
   focusOnlyOnKey: true,
 
   radioComponent: 'paper-radio',
+  labelComponent: 'paper-radio-group-label',
   role: 'radiogroup',
 
   constants: service(),
@@ -38,13 +38,6 @@ export default Component.extend(FocusableMixin, ParentMixin, {
     assert('{{paper-radio-group}} requires an `onChange` action or null for no action', this.get('onChange') !== undefined);
   },
 
-  didInsertElement() {
-    this._super(...arguments);
-
-    let labelNode = this.element.querySelector(`#${this.get('labelId')}`);
-    this.set('labelNode', labelNode);
-  },
-
   attributeBindings: [
     'role',
     'ariaLabelledby:aria-labelledby'
@@ -53,14 +46,6 @@ export default Component.extend(FocusableMixin, ParentMixin, {
   enabledChildRadios: filterBy('childComponents', 'disabled', false),
   childValues: mapBy('enabledChildRadios', 'value'),
   hasLabel: notEmpty('labelNode'),
-
-  ariaLabelledby: computed('hasLabel', 'labelId', function() {
-    return this.get('hasLabel') ? this.get('labelId') : false;
-  }),
-
-  labelId: computed('elementId', function() {
-    return `${this.elementId}-label`;
-  }),
 
   keyDown(ev) {
 

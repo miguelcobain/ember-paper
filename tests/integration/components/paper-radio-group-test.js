@@ -214,24 +214,28 @@ module('Integration | Component | paper-radio-group', function(hooks) {
     assert.dom('.custom-radio').exists({ count: 1 }, 'custom radio component is displayed');
   });
 
-  test('it yields labelId property', async function(assert) {
+  test('it yields label component', async function(assert) {
     assert.expect(1);
 
     await render(hbs`
       {{#paper-radio-group onChange=null as |group|}}
-        <md-label id={{group.labelId}}></md-label>
+        {{#group.label}}
+          group label
+        {{/group.label}}
       {{/paper-radio-group}}
     `);
 
-    assert.dom('md-label').hasAttribute('id');
+    assert.dom('md-label').exists();
   });
 
-  test('it sets aira-labelled property when group is labeled', async function(assert) {
+  test('it sets aira-labelled property when label is present', async function(assert) {
     assert.expect(1);
 
     await render(hbs`
       {{#paper-radio-group onChange=null as |group|}}
-        <md-label id={{group.labelId}}>group label</md-label>
+        {{#group.label}}
+          group label
+        {{/group.label}}
       {{/paper-radio-group}}
     `);
     let labelId = find('md-radio-group').getAttribute('aria-labelledby');
