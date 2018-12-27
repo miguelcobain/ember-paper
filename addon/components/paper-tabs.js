@@ -87,8 +87,10 @@ export default Component.extend(ParentMixin, ColorMixin, {
       next(() => {
         // here the previous and next buttons should already be renderd
         // and hence the offsets are correctly calculated
-        this.updateDimensions();
-        this.fixOffsetIfNeeded();
+        if (!this.isDestroyed && !this.isDestroying) {
+          this.updateDimensions();
+          this.fixOffsetIfNeeded();
+        }
       });
     });
   },
