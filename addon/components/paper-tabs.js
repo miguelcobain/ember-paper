@@ -87,8 +87,10 @@ export default Component.extend(ParentMixin, ColorMixin, {
       next(() => {
         // here the previous and next buttons should already be renderd
         // and hence the offsets are correctly calculated
-        this.updateDimensions();
-        this.fixOffsetIfNeeded();
+        if (!this.isDestroyed && !this.isDestroying) {
+          this.updateDimensions();
+          this.fixOffsetIfNeeded();
+        }
       });
     });
   },
@@ -123,18 +125,27 @@ export default Component.extend(ParentMixin, ColorMixin, {
     let canvasWidth = this.get('canvasWidth');
     let currentOffset = this.get('currentOffset');
 
-    let tabRight = this.get('_selectedTab.left') + this.get('_selectedTab.width');
-    if (tabRight - currentOffset > canvasWidth) {
-      let newOffset = tabRight - canvasWidth;
-      this.set('currentOffset', newOffset);
-      this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
+    let tabLeftOffset = this.get('_selectedTab.left');
+    let tabRightOffset = tabLeftOffset + this.get('_selectedTab.width');
+
+    let newOffset;
+    if (canvasWidth < this.get('_selectedTab.width')) {
+      // align with selectedTab if canvas smaller than selected tab
+      newOffset = tabLeftOffset;
+    } else if (tabRightOffset - currentOffset > canvasWidth) {
+      // ensure selectedTab is not partially hidden on the right side
+      newOffset = tabRightOffset - canvasWidth;
+    } else if (tabLeftOffset < currentOffset) {
+      // ensure selectedTab is not partially hidden on the left side
+      newOffset = tabLeftOffset;
     }
 
-    if (this.get('_selectedTab.left') < currentOffset) {
-      let newOffset = this.get('_selectedTab.left');
-      this.set('currentOffset', newOffset);
-      this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
+    if (newOffset === currentOffset) {
+      return;
     }
+
+    this.set('currentOffset', newOffset);
+    this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
   },
 
   updateDimensions() {
