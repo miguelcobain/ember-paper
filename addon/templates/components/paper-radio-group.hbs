@@ -1,4 +1,7 @@
 {{yield (hash
+  label=(component labelComponent
+    setAriaLabelledby=(action (mut ariaLabelledby))
+  )
   radio=(component radioComponent
     toggle=toggle
     disabled=disabled
