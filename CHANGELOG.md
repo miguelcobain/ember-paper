@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### master
+- [#1036](https://github.com/miguelcobain/ember-paper/pull/1036) Fix infinite rendering issue with paper-tabs (fixes [#990](https://github.com/miguelcobain/ember-paper/issues/990))
+
 ### 1.0.0-beta.20
 - [9503337](https://github.com/miguelcobain/ember-paper/commit/95033370c720244fcc0ed07a55a93bbbbd1cc0d4) fix changing paper-input value to empty string
 
