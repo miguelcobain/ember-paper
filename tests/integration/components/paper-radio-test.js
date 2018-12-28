@@ -104,4 +104,36 @@ module('Integration | Component | paper radio', function(hooks) {
       this.render(hbs`{{paper-radio value="1"}}`);
     }, /requires an `onChange` action/);
   });*/
+
+  test('it has role attribute', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{paper-radio onChange=null}}
+    `);
+
+    assert.dom('md-radio-button').hasAttribute('role');
+  });
+
+  test('it correctly sets aria-checked attribute', async function(assert) {
+    assert.expect(2);
+
+    this.set('groupValue', null);
+
+    await render(hbs`{{paper-radio value="1" groupValue=groupValue onChange=null}}`);
+
+    assert.dom('md-radio-button').hasAttribute('aria-checked', 'false');
+
+    this.set('groupValue', '1');
+
+    assert.dom('md-radio-button').hasAttribute('aria-checked', 'true');
+  });
+
+  test('it sets aria-label when ariaLabel is passed', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{paper-radio onChange=null ariaLabel="first radio button"}}`);
+
+    assert.dom('md-radio-button').hasAttribute('aria-label', 'first radio button');
+  });
 });
