@@ -68,9 +68,9 @@ module('Integration | Component | paper-menu', function(hooks) {
           {{/paper-button}}
         {{/menu.trigger}}
         {{#menu.content width=4 as |content|}}
-            {{#content.menu-item onClick="openSomething"}}
-              <span id="menu-item">Test</span>
-            {{/content.menu-item}}
+          {{#content.menu-item onClick="openSomething"}}
+            <span id="menu-item">Test</span>
+          {{/content.menu-item}}
         {{/menu.content}}
       {{/paper-menu}}
     `);
