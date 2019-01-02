@@ -1,8 +1,9 @@
 # Ember Paper Changelog
 
-### master
+### 1.0.0-beta.21
 - [#1036](https://github.com/miguelcobain/ember-paper/pull/1036) Fix infinite rendering issue with paper-tabs (fixes [#990](https://github.com/miguelcobain/ember-paper/issues/990))
 - [#1032](https://github.com/miguelcobain/ember-paper/pull/1032) Make paper-radio and paper-radio-group button accessible. paper-radio-group now yields a label component.
+- [01229ae](https://github.com/miguelcobain/ember-paper/commit/01229aec64dce6a9d2859e39a0d0402a974408ba) fix paper-menu not closing when backdrop is clicked
 
 ### 1.0.0-beta.20
 - [9503337](https://github.com/miguelcobain/ember-paper/commit/95033370c720244fcc0ed07a55a93bbbbd1cc0d4) fix changing paper-input value to empty string
