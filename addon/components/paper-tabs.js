@@ -138,6 +138,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
     } else if (tabLeftOffset < currentOffset) {
       // ensure selectedTab is not partially hidden on the left side
       newOffset = tabLeftOffset;
+    } else {
+      newOffset = 0;
     }
 
     if (newOffset === currentOffset) {
