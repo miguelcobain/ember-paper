@@ -35,7 +35,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
     this.setMovingRight();
 
-    this.fixOffsetIfNeeded();
+    this.scheduleAfterRender(() =>
+      this.fixOffsetIfNeeded());
 
     this.set('_previousSelectedTab', selectedTab);
   }),
@@ -83,15 +84,11 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
     // trigger updateDimensions to calculate shouldPaginate early on
     this.updateDimensions();
-    scheduleOnce('afterRender', () => {
-      next(() => {
-        // here the previous and next buttons should already be renderd
-        // and hence the offsets are correctly calculated
-        if (!this.isDestroyed && !this.isDestroying) {
-          this.updateDimensions();
-          this.fixOffsetIfNeeded();
-        }
-      });
+    this.scheduleAfterRender(() => {
+      // here the previous and next buttons should already be rendered
+      // and hence the offsets are correctly calculated
+      this.updateDimensions();
+      this.fixOffsetIfNeeded();
     });
   },
 
@@ -105,6 +102,16 @@ export default Component.extend(ParentMixin, ColorMixin, {
     this._super(...arguments);
     window.removeEventListener('resize', this.updateCanvasWidth);
     window.removeEventListener('orientationchange', this.updateCanvasWidth);
+  },
+
+  scheduleAfterRender(fct) {
+    scheduleOnce('afterRender', () => {
+      next(() => {
+        if (!this.isDestroying && !this.isDestroyed) {
+          fct();
+        }
+      });
+    });
   },
 
   registerChild(childComponent) {
