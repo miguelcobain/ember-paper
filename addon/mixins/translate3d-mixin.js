@@ -82,7 +82,10 @@ export default Mixin.create({
       parent = '#ember-testing';
     }
 
-    document.querySelector(parent).parentNode.appendChild(containerClone);
+    let parentNode = document.querySelector(parent);
+    if (parentNode && parentNode.parentNode !== null) {
+      parentNode.parentNode.appendChild(containerClone);
+    }
 
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
 
