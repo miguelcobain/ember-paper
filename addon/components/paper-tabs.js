@@ -43,7 +43,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
   noInkBar: false,
   noInk: false,
   ariaLabel: null,
-  previousInkBarPosition: 0,
   stretch: 'sm',
 
   inkBarLeft: computed('_selectedTab.left', function() {
@@ -52,10 +51,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
   inkBarRight: computed('wrapperWidth', '_selectedTab.currentWidth', 'inkBarLeft', function() {
     return this.get('wrapperWidth') - this.get('inkBarLeft') - (this.get('_selectedTab.currentWidth') || 0);
-  }),
-
-  tabsWidth: computed('childComponents.@each.width', function() {
-    return this.get('childComponents').reduce((prev, t) => prev + t.get('width'), 0);
   }),
 
   shouldPaginate: false,
