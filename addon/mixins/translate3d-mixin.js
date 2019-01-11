@@ -96,7 +96,9 @@ export default Mixin.create({
       dialogClone.style.cssText = toStyle;
       nextTick().then(() => {
         run.later(() => {
-          containerClone.parentNode.removeChild(containerClone);
+          if (containerClone.parentNode !== null) {
+            containerClone.parentNode.removeChild(containerClone);
+          }
           this.onTranslateToEnd(origin);
 
         }, computeTimeout(dialogClone) || 0);
