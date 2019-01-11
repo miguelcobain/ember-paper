@@ -82,7 +82,10 @@ export default Mixin.create({
       parent = '#ember-testing';
     }
 
-    document.querySelector(parent).parentNode.appendChild(containerClone);
+    let parentNode = document.querySelector(parent);
+    if (parentNode && parentNode.parentNode !== null) {
+      parentNode.parentNode.appendChild(containerClone);
+    }
 
     let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
 
@@ -96,7 +99,9 @@ export default Mixin.create({
       dialogClone.style.cssText = toStyle;
       nextTick().then(() => {
         run.later(() => {
-          containerClone.parentNode.removeChild(containerClone);
+          if (containerClone.parentNode !== null) {
+            containerClone.parentNode.removeChild(containerClone);
+          }
           this.onTranslateToEnd(origin);
 
         }, computeTimeout(dialogClone) || 0);
