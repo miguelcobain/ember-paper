@@ -45,12 +45,20 @@ export default Component.extend(ParentMixin, ColorMixin, {
   ariaLabel: null,
   stretch: 'sm',
 
-  inkBarLeft: computed('_selectedTab.left', function() {
-    return this.get('_selectedTab.left') || 0;
-  }),
+  inkBar: computed('noInkBar', '_selectedTab.{currentWidth,left}', 'wrapperWidth', function() {
+    if (this.get('noInkBar')) {
+      return null;
+    }
 
-  inkBarRight: computed('wrapperWidth', '_selectedTab.currentWidth', 'inkBarLeft', function() {
-    return this.get('wrapperWidth') - this.get('inkBarLeft') - (this.get('_selectedTab.currentWidth') || 0);
+    let selectedTab = this.get('_selectedTab');
+    if (!selectedTab || selectedTab.get('left') === undefined) {
+      return null;
+    }
+
+    return {
+      left: selectedTab.get('left'),
+      right: this.get('wrapperWidth') - selectedTab.get('left') - selectedTab.get('currentWidth')
+    };
   }),
 
   shouldPaginate: false,
