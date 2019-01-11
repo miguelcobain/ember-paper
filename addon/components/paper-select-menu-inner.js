@@ -28,6 +28,9 @@ export default PaperMenuContentInner.extend({
   enabledOptions: filterBy('childComponents', 'disabled', false),
   didInsertElement() {
     run.next(() => {
+      if (this.isDestroying || this.isDestroyed) {
+        return;
+      }
 
       let focusTarget = this.element.querySelector('md-option[aria-selected="true"]');
 
