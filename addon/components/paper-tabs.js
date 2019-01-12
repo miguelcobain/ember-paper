@@ -74,28 +74,14 @@ export default Component.extend(ParentMixin, ColorMixin, {
   didInsertElement() {
     this._super(...arguments);
 
-    let updateCanvasWidth = () => {
+    this.updateCanvasWidth = () => {
       this.updateDimensions();
       this.updateStretchTabs();
       this.fixOffsetIfNeeded();
     };
 
-    window.addEventListener('resize', updateCanvasWidth);
-    window.addEventListener('orientationchange', updateCanvasWidth);
-    this.updateCanvasWidth = updateCanvasWidth;
-
-    // trigger updateDimensions to calculate shouldPaginate early on
-    this.updateDimensions();
-    scheduleOnce('afterRender', () => {
-      next(() => {
-        // here the previous and next buttons should already be renderd
-        // and hence the offsets are correctly calculated
-        if (!this.isDestroyed && !this.isDestroying) {
-          this.updateDimensions();
-          this.fixOffsetIfNeeded();
-        }
-      });
-    });
+    window.addEventListener('resize', this.updateCanvasWidth);
+    window.addEventListener('orientationchange', this.updateCanvasWidth);
   },
 
   didRender() {
