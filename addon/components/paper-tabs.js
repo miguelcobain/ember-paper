@@ -159,10 +159,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
     this.get('childComponents').invoke('updateDimensions');
     this.set('canvasWidth', canvasWidth);
     this.set('wrapperWidth', wrapperWidth);
-
-    if (wrapperWidth <= canvasWidth) {
-      this.set('shouldPaginate', false);
-    }
+    this.set('shouldPaginate', wrapperWidth > canvasWidth);
   },
 
   updateStretchTabs() {
