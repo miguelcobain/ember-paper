@@ -87,6 +87,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
   didRender() {
     this._super(...arguments);
     // this makes sure that the tabs react to stretch and center changes
+    // this method is also called whenever one of the tab is re-rendered (content changes)
     this.updateCanvasWidth();
   },
 
