@@ -61,7 +61,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
     };
   }),
 
-  shouldPaginate: false,
+  shouldPaginate: true,
 
   shouldCenter: computed('shouldPaginate', 'center', function() {
     return !this.get('shouldPaginate') && this.get('center');
@@ -160,8 +160,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
     this.set('canvasWidth', canvasWidth);
     this.set('wrapperWidth', wrapperWidth);
 
-    if (wrapperWidth > canvasWidth) {
-      this.set('shouldPaginate', true);
+    if (wrapperWidth <= canvasWidth) {
+      this.set('shouldPaginate', false);
     }
   },
 
