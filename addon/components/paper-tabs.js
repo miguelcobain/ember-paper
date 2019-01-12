@@ -35,8 +35,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
     this.setMovingRight();
 
-    this.fixOffsetIfNeeded();
-
     this.set('_previousSelectedTab', selectedTab);
   }),
 
