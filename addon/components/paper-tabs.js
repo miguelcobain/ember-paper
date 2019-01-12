@@ -26,15 +26,13 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
   _selectedTabDidChange: observer('_selectedTab', function() {
     let selectedTab = this.get('_selectedTab');
-
     let previousSelectedTab = this.get('_previousSelectedTab');
 
-    if (selectedTab === previousSelectedTab) {
+    if (!selectedTab || selectedTab === previousSelectedTab) {
       return;
     }
 
-    this.setMovingRight();
-
+    this.set('movingRight', !previousSelectedTab || previousSelectedTab.get('left') < selectedTab.get('left'));
     this.set('_previousSelectedTab', selectedTab);
   }),
 
@@ -42,6 +40,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
   noInk: false,
   ariaLabel: null,
   stretch: 'sm',
+  movingRight: true,
 
   inkBar: computed('noInkBar', '_selectedTab.{width,left}', 'wrapperWidth', function() {
     if (this.get('noInkBar')) {
@@ -102,11 +101,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
       let length = this.childComponents.get('length');
       childComponent.set('value', length - 1);
     }
-  },
-
-  setMovingRight() {
-    let movingRight = this.get('_previousSelectedTab.left') < this.get('_selectedTab.left');
-    this.set('movingRight', movingRight);
   },
 
   fixOffsetIfNeeded() {
