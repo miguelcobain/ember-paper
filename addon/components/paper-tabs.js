@@ -45,7 +45,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
   ariaLabel: null,
   stretch: 'sm',
 
-  inkBar: computed('noInkBar', '_selectedTab.{currentWidth,left}', 'wrapperWidth', function() {
+  inkBar: computed('noInkBar', '_selectedTab.{width,left}', 'wrapperWidth', function() {
     if (this.get('noInkBar')) {
       return null;
     }
@@ -57,7 +57,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
     return {
       left: selectedTab.get('left'),
-      right: this.get('wrapperWidth') - selectedTab.get('left') - selectedTab.get('currentWidth')
+      right: this.get('wrapperWidth') - selectedTab.get('left') - selectedTab.get('width')
     };
   }),
 

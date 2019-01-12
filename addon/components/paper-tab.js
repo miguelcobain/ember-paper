@@ -57,11 +57,12 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
 
   // this method is also called by the parent
   updateDimensions() {
-    let left = this.element.offsetLeft;
     // this is the true current width
-    // it is used to calculate the ink bar position
-    let currentWidth = this.element.offsetWidth;
-    this.setProperties({ left, currentWidth });
+    // it is used to calculate the ink bar position & pagination offset
+    this.setProperties({
+      left: this.element.offsetLeft,
+      width: this.element.offsetWidth
+    });
   },
 
   click() {
