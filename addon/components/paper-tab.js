@@ -41,12 +41,7 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
     }
   },
 
-  didRender() {
-    this._super(...arguments);
-    this.updateDimensions();
-  },
-
-  // this method is also called by the parent
+  // this method is called by the parent
   updateDimensions() {
     // this is the true current width
     // it is used to calculate the ink bar position & pagination offset
