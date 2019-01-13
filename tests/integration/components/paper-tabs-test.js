@@ -160,6 +160,27 @@ module('Integration | Component | paper tabs', function(hooks) {
     assert.notOk(find('md-ink-bar'));
   });
 
+  test('ink bar has md-left or md-right class', async function(assert) {
+      await render(hbs`
+        {{#paper-tabs as |tabs|}}
+          {{tabs.tab name="Tab one"}}
+          {{tabs.tab name="Tab two"}}
+          {{tabs.tab name="Tab three"}}
+        {{/paper-tabs}}
+      `);
+
+    assert.dom('md-ink-bar').hasClass('md-right');
+
+    await click('.md-tab:nth-child(2)');
+
+    assert.dom('md-ink-bar').hasClass('md-right');
+
+    await click('.md-tab:nth-child(1)');
+
+    assert.dom('md-ink-bar').hasClass('md-left');
+
+  });
+
   test('borderBottom true adds border', async function(assert) {
     await render(hbs`
       {{#paper-tabs borderBottom=true as |tabs|}}
