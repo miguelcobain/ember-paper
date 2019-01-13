@@ -1,6 +1,6 @@
 import { inject as service } from '@ember/service';
 import { gt } from '@ember/object/computed';
-import { computed, observer } from '@ember/object';
+import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-tabs';
@@ -18,18 +18,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
   constants: service(),
 
   selected: 0, // select first tab by default
-
-  _selectedTabDidChange: observer('_selectedTab', function() {
-    let selectedTab = this.get('_selectedTab');
-    let previousSelectedTab = this.get('_previousSelectedTab');
-
-    if (!selectedTab || selectedTab === previousSelectedTab) {
-      return;
-    }
-
-    this.set('movingRight', !previousSelectedTab || previousSelectedTab.get('left') < selectedTab.get('left'));
-    this.set('_previousSelectedTab', selectedTab);
-  }),
 
   noInkBar: false,
   noInk: false,
@@ -92,7 +80,15 @@ export default Component.extend(ParentMixin, ColorMixin, {
    * invalidate their 'isSelected' property.
    */
   updateSelectedTab() {
-    this.set('_selectedTab', this.get('childComponents').findBy('isSelected'));
+    let selectedTab = this.get('childComponents').findBy('isSelected');
+    let previousSelectedTab = this.get('_selectedTab');
+
+    if (selectedTab === previousSelectedTab) {
+      return;
+    }
+
+    this.set('movingRight', !selectedTab || !previousSelectedTab || previousSelectedTab.get('left') < selectedTab.get('left'));
+    this.set('_selectedTab', selectedTab);
   },
 
   willDestroyElement() {
