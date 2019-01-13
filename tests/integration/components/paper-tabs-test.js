@@ -161,7 +161,7 @@ module('Integration | Component | paper tabs', function(hooks) {
   });
 
   test('ink bar has md-left or md-right class', async function(assert) {
-      await render(hbs`
+    await render(hbs`
         {{#paper-tabs as |tabs|}}
           {{tabs.tab name="Tab one"}}
           {{tabs.tab name="Tab two"}}
