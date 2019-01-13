@@ -3,7 +3,6 @@ import { gt } from '@ember/object/computed';
 import { computed, observer } from '@ember/object';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
-import { scheduleOnce, next } from '@ember/runloop';
 import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
