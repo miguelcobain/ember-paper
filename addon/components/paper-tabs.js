@@ -19,10 +19,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
   selected: 0, // select first tab by default
 
-  _selectedTab: computed('childComponents.@each.isSelected', function() {
-    return this.get('childComponents').findBy('isSelected');
-  }),
-
   _selectedTabDidChange: observer('_selectedTab', function() {
     let selectedTab = this.get('_selectedTab');
     let previousSelectedTab = this.get('_previousSelectedTab');
@@ -84,7 +80,19 @@ export default Component.extend(ParentMixin, ColorMixin, {
     this._super(...arguments);
     // this makes sure that the tabs react to stretch and center changes
     // this method is also called whenever one of the tab is re-rendered (content changes)
+    this.updateSelectedTab();
     this.updateCanvasWidth();
+  },
+
+  /**
+   * Updates the currently selected tab only once all the <paper-tab> has rendered.
+   *
+   * If we were to use a computed property the observer would get triggered once per
+   * nested <paper-tab> because we pass the 'selected' property to them that will
+   * invalidate their 'isSelected' property.
+   */
+  updateSelectedTab() {
+    this.set('_selectedTab', this.get('childComponents').findBy('isSelected'));
   },
 
   willDestroyElement() {
