@@ -115,6 +115,10 @@ export default Component.extend(ParentMixin, ColorMixin, {
   },
 
   fixOffsetIfNeeded() {
+    if (this.isDestroying || this.isDestroyed) {
+      return;
+    }
+
     let canvasWidth = this.get('canvasWidth');
     let currentOffset = this.get('currentOffset');
 
