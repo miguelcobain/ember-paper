@@ -192,7 +192,11 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
     nextPage() {
       let tab = this.get('childComponents').find((t) => {
-        return t.get('left') + t.get('width') - this.get('currentOffset') > this.get('canvasWidth');
+        // ensure tab's offset is greater than current
+        // otherwise if the tab's width is greater than canvas we cannot paginate through it
+        return t.get('left') > this.get('currentOffset')
+          // paginate until the first partially hidden tab
+          && t.get('left') + t.get('width') - this.get('currentOffset') > this.get('canvasWidth');
       });
       if (tab) {
         this.set('currentOffset', tab.get('left'));
