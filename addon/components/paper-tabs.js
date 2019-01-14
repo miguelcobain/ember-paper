@@ -3,7 +3,7 @@ import { gt } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
-import { scheduleOnce } from '@ember/runloop';
+import { scheduleOnce, join } from '@ember/runloop';
 import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
@@ -60,8 +60,10 @@ export default Component.extend(ParentMixin, ColorMixin, {
     this._super(...arguments);
 
     this.updateCanvasWidth = () => {
-      this.updateDimensions();
-      this.updateStretchTabs();
+      join(() => {
+        this.updateDimensions();
+        this.updateStretchTabs();
+      });
     };
 
     window.addEventListener('resize', this.updateCanvasWidth);
