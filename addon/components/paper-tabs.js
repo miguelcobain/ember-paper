@@ -41,6 +41,10 @@ export default Component.extend(ParentMixin, ColorMixin, {
     };
   }),
 
+  paginationStyle: computed('currentOffset', function() {
+    return htmlSafe(`transform: translate3d(-${this.get('currentOffset')}px, 0px, 0px);`);
+  }),
+
   shouldPaginate: true,
 
   shouldCenter: computed('shouldPaginate', 'center', function() {
@@ -132,7 +136,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
     }
 
     this.set('currentOffset', newOffset);
-    this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
   },
 
   updateDimensions() {
@@ -174,7 +177,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
       if (tab) {
         let left = Math.max(0, tab.get('left') - this.get('canvasWidth'));
         this.set('currentOffset', left);
-        this.set('paginationStyle', htmlSafe(`transform: translate3d(-${left}px, 0px, 0px);`));
       }
     },
 
@@ -184,7 +186,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
       });
       if (tab) {
         this.set('currentOffset', tab.get('left'));
-        this.set('paginationStyle', htmlSafe(`transform: translate3d(-${tab.get('left')}px, 0px, 0px);`));
       }
     },
 
