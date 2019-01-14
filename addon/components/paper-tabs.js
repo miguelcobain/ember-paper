@@ -182,7 +182,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
   actions: {
     previousPage() {
       let tab = this.get('childComponents').find((t) => {
-        return t.get('left') >= this.get('currentOffset');
+        // ensure we are no stuck because of a tab with a width > canvasWidth
+        return (t.get('left') + t.get('width')) >= this.get('currentOffset');
       });
       if (tab) {
         let left = Math.max(0, tab.get('left') - this.get('canvasWidth'));
