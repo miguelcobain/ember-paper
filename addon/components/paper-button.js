@@ -36,7 +36,10 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
     'target',
     'title',
     'download',
-    'rel'
+    'rel',
+    'ariaLabel:aria-label',
+    'labelId:aria-labelledby',
+    'descriptionId:aria-describedby'
   ],
   classNameBindings: [
     'raised:md-raised',

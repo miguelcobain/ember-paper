@@ -121,4 +121,20 @@ module('Integration | Component | paper-button', function(hooks) {
     assert.dom('a.md-button').exists({ count: 1 });
     assert.dom('a.md-button').hasAttribute('target', '_blank');
   });
+
+  test('it sets aria-label when ariaLabel is passed', async function(assert) {
+    await render(hbs`{{paper-button onChange=null value=true ariaLabel="test label"}}`);
+    assert.dom('.md-button').hasAttribute('aria-label', 'test label');
+  });
+
+  test('it sets aria-labelledby when labelId is passed', async function(assert) {
+    await render(hbs`{{paper-button onChange=null value=true labelId="buttonTestLabel"}}`);
+    assert.dom('.md-button').hasAttribute('aria-labelledby', 'buttonTestLabel');
+  });
+
+  test('it sets aria-describedby when descriptionId is passed', async function(assert) {
+    await render(hbs`{{paper-button onChange=null value=true descriptionId="buttonDescription"}}`);
+    assert.dom('.md-button').hasAttribute('aria-describedby', 'buttonDescription');
+  });
+
 });
