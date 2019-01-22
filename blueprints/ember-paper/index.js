@@ -6,8 +6,6 @@ const path = require('path');
 const writeFile = rsvp.denodeify(fs.writeFile);
 const isModuleUnificationProject = require('../module-unification').isModuleUnificationProject;
 
-
-
 module.exports = {
   description: 'Installs ember-cli-sass',
 
@@ -25,7 +23,7 @@ module.exports = {
       stylePath = path.join('src', 'ui', 'styles');
     }
 
-    let file = path.join(stylePath, `app.scss`);
+    let file = path.join(stylePath, 'app.scss');
 
     if (!fs.existsSync(stylePath)) {
       fs.mkdirSync(stylePath);
