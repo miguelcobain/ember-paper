@@ -9,12 +9,21 @@ export default function calculateTooltipPosition(tooltip, target, position) {
   let targetRight = targetBounds.right;
   let targetWidth = targetBounds.width;
 
+  let viewportRight = window.innerWidth;
+
   let positionStyle = {};
 
   switch (position) {
     case 'top':
     case 'bottom':
       positionStyle.left = targetLeft + (0.5 * targetWidth) - (0.5 * panelWidth);
+
+      if (positionStyle.left < 0) {
+        positionStyle.left = 0;
+      } else if ((positionStyle.left + panelWidth) > viewportRight) {
+        positionStyle.left = viewportRight - panelWidth;
+      }
+
       break;
     case 'right':
       positionStyle.left = targetRight;
