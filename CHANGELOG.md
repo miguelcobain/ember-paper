@@ -1,5 +1,10 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.22
+- [444c762](https://github.com/miguelcobain/ember-paper/commit/444c7629f8fe6b137cffd67a2f5002558eaec241) bump ember-composability-tools to remove `new A()` deprecation
+- [#1044](https://github.com/miguelcobain/ember-paper/pull/1044) ensure `parentNode` is not null in translate3d
+- [#1045](https://github.com/miguelcobain/ember-paper/pull/1045) ensure component is not destroyed in next() callback in paper-select
+
 ### 1.0.0-beta.21
 - [#1036](https://github.com/miguelcobain/ember-paper/pull/1036) Fix infinite rendering issue with paper-tabs (fixes [#990](https://github.com/miguelcobain/ember-paper/issues/990))
 - [#1032](https://github.com/miguelcobain/ember-paper/pull/1032) Make paper-radio and paper-radio-group button accessible. paper-radio-group now yields a label component.
