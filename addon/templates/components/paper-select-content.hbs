@@ -1,11 +1,6 @@
 {{#if dropdown.isOpen}}
   {{#maybe-in-element destinationEl renderInPlace}}
-    {{!-- we already have our own paper-backdrop
-      {{#if overlay}}
-        <div class="ember-basic-dropdown-overlay"></div>
-      {{/if}}
-    --}}
-    {{paper-backdrop class="md-select-backdrop md-click-catcher"}}
+    {{paper-backdrop class="md-select-backdrop md-click-catcher" onClick=(action dropdown.actions.close)}}
     <div
       id={{dropdownId}}
       class="ember-basic-dropdown-content {{class}} {{if renderInPlace "ember-basic-dropdown-content--in-place"}} {{if hPosition (concat "ember-basic-dropdown-content--" hPosition)}} {{if vPosition (concat "ember-basic-dropdown-content--" vPosition)}}
