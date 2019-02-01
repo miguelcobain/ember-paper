@@ -185,6 +185,24 @@ md-toolbar.md-default-theme.page-main-toolbar {
   }
 }
 
+.nav-github {
+  vertical-align: middle;
+  display: inline-block;
+
+  &, &-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  &, &:hover {
+    border-bottom: 0;
+    text-underline: none;
+  }
+
+  opacity: .7;
+  &:hover { opacity: 1; }
+}
+
 
 .demo-header-searchbox {
   border: none;
