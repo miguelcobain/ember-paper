@@ -7,6 +7,17 @@
       Material Design <a href="https://material.google.com/components/text-fields.html#text-fields-character-counter">requires that a character count is displayed</a> for input elements which have a length restriction. However, when forms have many input elements, some may prefer to display the count only when the element is focused or invalid. This CSS achieves this.
     </p>
     {{code-snippet name="cookbook.no-char-count.scss"}}
+    <h3>Disabling animations during testing</h3>
+    <p>
+      Various components extend the <code>RippleMixin</code> including <code>\{{paper-button}}</code>, <code>\{{paper-tab}}</code>, <code>\{{paper-checkbox}}</code>, and a few others, which introduces 400 ms of animation on click. You can opt out on a per component basis via the <code>noink</code> property
+    </p>
+    {{code-snippet name="cookbook.disable-ripple-component.hbs"}}
+    <p>Or, more globably by reopening the <code>RippleMixin</code> from your <code>test-helper.js</code></p>
+    {{code-snippet name="cookbook.disable-ripple-component.js"}}
+    <p>
+      Other components rely on CSS transitions and must be disabled via CSS overrides. Currently, Ember Paper is using styles defined in Angular Material, which must be overriden in your app. Take the dialog <a href="https://github.com/angular/material/blob/master/src/components/dialog/dialog.scss#L20">for example</a>. In your app define an override that takes the testing container class into account:
+    </p>
+    {{code-snippet name="cookbook.disable-modal-animation.scss"}}
     <h3>Recipe contributions</h3>
     <p>
       Have a great tip or solution for <code>ember-paper</code>? <a href="https://github.com/miguelcobain/ember-paper/pulls">Submit a pull request</a> on GitHub or discuss it with the team on <a href="https://discord.gg/zT3asNS"> Discord #e-paper</a> for inclusion here.
