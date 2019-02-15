@@ -370,8 +370,43 @@ const componentDependencies = {
     ]
   }
 };
+
+const fastbootTransformation = {
+  using: [
+    {
+      transformation: 'fastbootShim'
+    }
+  ]
+};
+
 module.exports = {
   name: require('./package').name,
+
+  options: {
+    polyfills: {
+      'polyfill-nodelist-foreach': {
+        files: ['index.js'],
+        // compatibility from https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach
+        browsers: ['ie > 0', 'chrome < 52', 'ff < 50', 'opera < 38', 'safari < 10', 'edge < 16', 'android < 51', 'and_chr < 51', 'and_ff < 50', 'ios_saf < 10', 'Samsung < 5'],
+        importOptions: fastbootTransformation
+      },
+      'classlist-polyfill': {
+        files: ['src/index.js'],
+        caniuse: 'classlist',
+        importOptions: fastbootTransformation
+      },
+      'element-closest': {
+        files: ['browser.js'],
+        caniuse: 'element-closest',
+        importOptions: fastbootTransformation
+      },
+      'matchmedia-polyfill': {
+        files: ['matchMedia.js'],
+        caniuse: 'matchmedia',
+        importOptions: fastbootTransformation
+      }
+    }
+  },
 
   included() {
     this._super.included.apply(this, arguments);
@@ -395,7 +430,6 @@ module.exports = {
     app.import('vendor/ember-paper/register-version.js');
     app.import('vendor/hammerjs/hammer.js');
     app.import('vendor/propagating-hammerjs/propagating.js');
-
   },
 
   config() {
