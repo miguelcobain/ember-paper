@@ -1,5 +1,7 @@
 'use strict';
 
+const isModuleUnificationProject = require('../module-unification').isModuleUnificationProject;
+
 module.exports = {
   description: 'Installs ember-cli-sass',
 
@@ -7,6 +9,22 @@ module.exports = {
     // this prevents an error when the entityName is
     // not specified (since that doesn't actually matter
     // to us
+  },
+
+  fileMapTokens() {
+    if (isModuleUnificationProject(this.project)) {
+      return {
+        __path__() {
+          return 'src/ui';
+        }
+      };
+    } else {
+      return {
+        __path__() {
+          return 'app';
+        }
+      };
+    }
   },
 
   afterInstall() {
