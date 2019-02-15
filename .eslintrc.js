@@ -33,6 +33,7 @@ module.exports = {
         'lib/**/*.js'
       ],
       excludedFiles: [
+        'blueprints/module-unification.js',
         'addon/**',
         'addon-test-support/**',
         'app/**',
