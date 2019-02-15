@@ -14,13 +14,13 @@ module.exports = {
   fileMapTokens() {
     if (isModuleUnificationProject(this.project)) {
       return {
-        __path__(options) {
+        __path__() {
           return 'src/ui';
         }
       };
     } else {
       return {
-        __path__(options) {
+        __path__() {
           return 'app';
         }
       };
