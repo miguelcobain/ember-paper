@@ -371,14 +371,6 @@ const componentDependencies = {
   }
 };
 
-const fastbootTransformation = {
-  using: [
-    {
-      transformation: 'fastbootShim'
-    }
-  ]
-};
-
 module.exports = {
   name: require('./package').name,
 
@@ -387,23 +379,19 @@ module.exports = {
       'polyfill-nodelist-foreach': {
         files: ['index.js'],
         // compatibility from https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach
-        browsers: ['ie > 0', 'chrome < 52', 'ff < 50', 'opera < 38', 'safari < 10', 'edge < 16', 'android < 51', 'and_chr < 51', 'and_ff < 50', 'ios_saf < 10', 'Samsung < 5'],
-        importOptions: fastbootTransformation
+        browsers: ['ie > 0', 'chrome < 52', 'ff < 50', 'opera < 38', 'safari < 10', 'edge < 16', 'android < 51', 'and_chr < 51', 'and_ff < 50', 'ios_saf < 10', 'Samsung < 5']
       },
       'classlist-polyfill': {
         files: ['src/index.js'],
-        caniuse: 'classlist',
-        importOptions: fastbootTransformation
+        caniuse: 'classlist'
       },
       'element-closest': {
         files: ['browser.js'],
-        caniuse: 'element-closest',
-        importOptions: fastbootTransformation
+        caniuse: 'element-closest'
       },
       'matchmedia-polyfill': {
         files: ['matchMedia.js'],
-        caniuse: 'matchmedia',
-        importOptions: fastbootTransformation
+        caniuse: 'matchmedia'
       }
     }
   },
