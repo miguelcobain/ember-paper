@@ -16,6 +16,7 @@ module.exports = {
     browser: true
   },
   rules: {
+    'ember/no-jquery': 'error',
     'ember-suave/require-access-in-comments': 'off'
   },
   overrides: [
