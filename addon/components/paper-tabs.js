@@ -74,7 +74,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
     let updateCanvasWidth = () => {
       this.updateDimensions();
       this.updateStretchTabs();
-      this.fixOffsetIfNeeded();
     };
 
     window.addEventListener('resize', updateCanvasWidth);
@@ -128,7 +127,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
     let tabLeftOffset = this.get('_selectedTab.left');
     let tabRightOffset = tabLeftOffset + this.get('_selectedTab.width');
 
-    let newOffset;
+    let newOffset = currentOffset;
     if (canvasWidth < this.get('_selectedTab.width')) {
       // align with selectedTab if canvas smaller than selected tab
       newOffset = tabLeftOffset;
