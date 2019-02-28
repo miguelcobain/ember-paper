@@ -108,8 +108,14 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
 
   },
 
-  _handleNativeClick() {
-    return get(this, 'bubbles');
+  _handleNativeClick(ev) {
+    let bubbles = get(this, 'bubbles');
+
+    if (!bubbles) {
+      ev.stopPropagation();
+    }
+
+    return bubbles;
   },
 
   _teardownSwitch() {
