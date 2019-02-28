@@ -1,5 +1,11 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.23
+- [#1050](https://github.com/miguelcobain/ember-paper/pull/1050) Fix paper select click-catcher to call dropdown.actions.close on click
+- [55858e8](https://github.com/miguelcobain/ember-paper/commit/55858e8d7a94106c4d88fe1969276c075e136cf9) add nodelist forEach polyfill to fix paper-dialogs on IE11  (fixes [1058](https://github.com/miguelcobain/ember-paper/issues/1058))
+- [#1064](https://github.com/miguelcobain/ember-paper/pull/1064) support module unification blueprint
+- [ebbeaef](https://github.com/miguelcobain/ember-paper/commit/ebbeaefc10687aa76cd667da5a65bda6b6c8639e) fix paper-switch not working when used in paper-item (fixes [#1051](https://github.com/miguelcobain/ember-paper/issues/1051))
+
 ### 1.0.0-beta.22
 - [444c762](https://github.com/miguelcobain/ember-paper/commit/444c7629f8fe6b137cffd67a2f5002558eaec241) bump ember-composability-tools to remove `new A()` deprecation
 - [#1044](https://github.com/miguelcobain/ember-paper/pull/1044) ensure `parentNode` is not null in translate3d
