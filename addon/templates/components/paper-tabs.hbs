@@ -20,9 +20,9 @@
         )
       )}}
 
-      {{#unless noInkBar}}
-        {{paper-ink-bar movingRight=movingRight left=inkBarLeft right=inkBarRight}}
-      {{/unless}}
+      {{#if inkBar}}
+        {{paper-ink-bar movingRight=movingRight left=inkBar.left right=inkBar.right}}
+      {{/if}}
 
     </md-pagination-wrapper>
   </md-tabs-canvas>

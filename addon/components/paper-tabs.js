@@ -1,9 +1,9 @@
 import { inject as service } from '@ember/service';
 import { gt } from '@ember/object/computed';
-import { computed, observer } from '@ember/object';
+import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
-import { scheduleOnce, next } from '@ember/runloop';
+import { scheduleOnce, join } from '@ember/runloop';
 import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
@@ -20,45 +20,33 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
   selected: 0, // select first tab by default
 
-  _selectedTab: computed('childComponents.@each.isSelected', function() {
-    return this.get('childComponents').findBy('isSelected');
-  }),
-
-  _selectedTabDidChange: observer('_selectedTab', function() {
-    let selectedTab = this.get('_selectedTab');
-
-    let previousSelectedTab = this.get('_previousSelectedTab');
-
-    if (selectedTab === previousSelectedTab) {
-      return;
-    }
-
-    this.setMovingRight();
-
-    this.fixOffsetIfNeeded();
-
-    this.set('_previousSelectedTab', selectedTab);
-  }),
-
   noInkBar: false,
   noInk: false,
   ariaLabel: null,
-  previousInkBarPosition: 0,
   stretch: 'sm',
+  movingRight: true,
 
-  inkBarLeft: computed('_selectedTab.left', function() {
-    return this.get('_selectedTab.left') || 0;
+  inkBar: computed('noInkBar', '_selectedTab.{width,left}', 'wrapperWidth', function() {
+    if (this.get('noInkBar')) {
+      return null;
+    }
+
+    let selectedTab = this.get('_selectedTab');
+    if (!selectedTab || selectedTab.get('left') === undefined) {
+      return null;
+    }
+
+    return {
+      left: selectedTab.get('left'),
+      right: this.get('wrapperWidth') - selectedTab.get('left') - selectedTab.get('width')
+    };
   }),
 
-  inkBarRight: computed('wrapperWidth', '_selectedTab.currentWidth', 'inkBarLeft', function() {
-    return this.get('wrapperWidth') - this.get('inkBarLeft') - (this.get('_selectedTab.currentWidth') || 0);
+  paginationStyle: computed('currentOffset', function() {
+    return htmlSafe(`transform: translate3d(-${this.get('currentOffset')}px, 0px, 0px);`);
   }),
 
-  tabsWidth: computed('childComponents.@each.width', function() {
-    return this.get('childComponents').reduce((prev, t) => prev + t.get('width'), 0);
-  }),
-
-  shouldPaginate: false,
+  shouldPaginate: true,
 
   shouldCenter: computed('shouldPaginate', 'center', function() {
     return !this.get('shouldPaginate') && this.get('center');
@@ -71,34 +59,46 @@ export default Component.extend(ParentMixin, ColorMixin, {
   didInsertElement() {
     this._super(...arguments);
 
-    let updateCanvasWidth = () => {
-      this.updateDimensions();
-      this.updateStretchTabs();
-      this.fixOffsetIfNeeded();
+    this.updateCanvasWidth = () => {
+      join(() => {
+        this.updateDimensions();
+        this.updateStretchTabs();
+      });
     };
 
-    window.addEventListener('resize', updateCanvasWidth);
-    window.addEventListener('orientationchange', updateCanvasWidth);
-    this.updateCanvasWidth = updateCanvasWidth;
+    window.addEventListener('resize', this.updateCanvasWidth);
+    window.addEventListener('orientationchange', this.updateCanvasWidth);
 
-    // trigger updateDimensions to calculate shouldPaginate early on
-    this.updateDimensions();
-    scheduleOnce('afterRender', () => {
-      next(() => {
-        // here the previous and next buttons should already be renderd
-        // and hence the offsets are correctly calculated
-        if (!this.isDestroyed && !this.isDestroying) {
-          this.updateDimensions();
-          this.fixOffsetIfNeeded();
-        }
-      });
-    });
+    scheduleOnce('afterRender', this, this.fixOffsetIfNeeded);
   },
 
   didRender() {
     this._super(...arguments);
     // this makes sure that the tabs react to stretch and center changes
+    // this method is also called whenever one of the tab is re-rendered (content changes)
+    this.updateSelectedTab();
     this.updateCanvasWidth();
+  },
+
+  /**
+   * Updates the currently selected tab only once all the <paper-tab> has rendered.
+   *
+   * If we were to use a computed property the observer would get triggered once per
+   * nested <paper-tab> because we pass the 'selected' property to them that will
+   * invalidate their 'isSelected' property.
+   */
+  updateSelectedTab() {
+    let selectedTab = this.get('childComponents').findBy('isSelected');
+    let previousSelectedTab = this.get('_selectedTab');
+
+    if (selectedTab === previousSelectedTab) {
+      return;
+    }
+
+    this.set('movingRight', !selectedTab || !previousSelectedTab || previousSelectedTab.get('left') < selectedTab.get('left'));
+    this.set('_selectedTab', selectedTab);
+
+    scheduleOnce('afterRender', this, this.fixOffsetIfNeeded);
   },
 
   willDestroyElement() {
@@ -116,12 +116,11 @@ export default Component.extend(ParentMixin, ColorMixin, {
     }
   },
 
-  setMovingRight() {
-    let movingRight = this.get('_previousSelectedTab.left') < this.get('_selectedTab.left');
-    this.set('movingRight', movingRight);
-  },
-
   fixOffsetIfNeeded() {
+    if (this.isDestroying || this.isDestroyed) {
+      return;
+    }
+
     let canvasWidth = this.get('canvasWidth');
     let currentOffset = this.get('currentOffset');
 
@@ -138,6 +137,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
     } else if (tabLeftOffset < currentOffset) {
       // ensure selectedTab is not partially hidden on the left side
       newOffset = tabLeftOffset;
+    } else {
+      newOffset = currentOffset;
     }
 
     if (newOffset === currentOffset) {
@@ -145,7 +146,6 @@ export default Component.extend(ParentMixin, ColorMixin, {
     }
 
     this.set('currentOffset', newOffset);
-    this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
   },
 
   updateDimensions() {
@@ -154,10 +154,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
     this.get('childComponents').invoke('updateDimensions');
     this.set('canvasWidth', canvasWidth);
     this.set('wrapperWidth', wrapperWidth);
-
-    if (wrapperWidth > canvasWidth) {
-      this.set('shouldPaginate', true);
-    }
+    this.set('shouldPaginate', wrapperWidth > canvasWidth);
   },
 
   updateStretchTabs() {
@@ -185,22 +182,25 @@ export default Component.extend(ParentMixin, ColorMixin, {
   actions: {
     previousPage() {
       let tab = this.get('childComponents').find((t) => {
-        return t.get('left') >= this.get('currentOffset');
+        // ensure we are no stuck because of a tab with a width > canvasWidth
+        return (t.get('left') + t.get('width')) >= this.get('currentOffset');
       });
       if (tab) {
         let left = Math.max(0, tab.get('left') - this.get('canvasWidth'));
         this.set('currentOffset', left);
-        this.set('paginationStyle', htmlSafe(`transform: translate3d(-${left}px, 0px, 0px);`));
       }
     },
 
     nextPage() {
       let tab = this.get('childComponents').find((t) => {
-        return t.get('left') + t.get('width') - this.get('currentOffset') > this.get('canvasWidth');
+        // ensure tab's offset is greater than current
+        // otherwise if the tab's width is greater than canvas we cannot paginate through it
+        return t.get('left') > this.get('currentOffset')
+          // paginate until the first partially hidden tab
+          && t.get('left') + t.get('width') - this.get('currentOffset') > this.get('canvasWidth');
       });
       if (tab) {
         this.set('currentOffset', tab.get('left'));
-        this.set('paginationStyle', htmlSafe(`transform: translate3d(-${tab.get('left')}px, 0px, 0px);`));
       }
     },
 

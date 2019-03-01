@@ -41,26 +41,14 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
     }
   },
 
-  didInsertElement() {
-    this._super(...arguments);
-    let width = this.element.offsetWidth;
-    // this is the initial tab width
-    // it is used to calculate if we need pagination or not
-    this.set('width', width);
-  },
-
-  didRender() {
-    this._super(...arguments);
-    this.updateDimensions();
-  },
-
-  // this method is also called by the parent
+  // this method is called by the parent
   updateDimensions() {
-    let left = this.element.offsetLeft;
     // this is the true current width
-    // it is used to calculate the ink bar position
-    let currentWidth = this.element.offsetWidth;
-    this.setProperties({ left, currentWidth });
+    // it is used to calculate the ink bar position & pagination offset
+    this.setProperties({
+      left: this.element.offsetLeft,
+      width: this.element.offsetWidth
+    });
   },
 
   click() {
