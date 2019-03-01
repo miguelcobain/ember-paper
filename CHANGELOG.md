@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### master
+- [#1048](https://github.com/miguelcobain/ember-paper/pull/1048) fix paper-tabs issues (fixes (#858)[https://github.com/miguelcobain/ember-paper/issues/858], (#759)[https://github.com/miguelcobain/ember-paper/issues/759], (#893)[https://github.com/miguelcobain/ember-paper/issues/893])
+
 ### 1.0.0-beta.23
 - [#1050](https://github.com/miguelcobain/ember-paper/pull/1050) Fix paper select click-catcher to call dropdown.actions.close on click
 - [55858e8](https://github.com/miguelcobain/ember-paper/commit/55858e8d7a94106c4d88fe1969276c075e136cf9) add nodelist forEach polyfill to fix paper-dialogs on IE11  (fixes [1058](https://github.com/miguelcobain/ember-paper/issues/1058))
