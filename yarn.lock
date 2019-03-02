@@ -1032,9 +1032,10 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
-"angular-material-source@github:angular/material#v1.1.10":
-  version "1.1.10"
-  resolved "https://codeload.github.com/angular/material/tar.gz/40c7853f738102ec1c68a8ce787fa90c04e9e2d8"
+angular-material-styles@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/angular-material-styles/-/angular-material-styles-1.1.13.tgz#0005e58ee74ffb3039ae4e0bab2aeab8904565f4"
+  integrity sha512-pdpl5OOSMuCZRS9bE1XgpmNTxtuiKZ5syLQ+LguU8B/gDNWUSDWuUBNQMA+/5yq07Oc5/BVFMIPvHtYbY0dbxA==
 
 ansi-escapes@^1.1.0:
   version "1.4.0"

@@ -46,7 +46,7 @@ export default Controller.extend({
     }
   },
 
-  arrayOfItems: Object.freeze(['Ember1.0', 'Ember2.0', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']),
+  arrayOfItems: A(['Ember1.0', 'Ember2.0', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']),
 
   /*
    * Array of static Objects.

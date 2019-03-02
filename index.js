@@ -517,7 +517,7 @@ module.exports = {
 
     let filteredScssFiles = this.addStyles(coreScssFiles) || coreScssFiles;
 
-    let angularScssFiles = new Funnel(this.pathBase('angular-material-source'), {
+    let angularScssFiles = new Funnel(this.pathBase('angular-material-styles'), {
       files: filteredScssFiles,
       srcDir: '/src',
       destDir: 'angular-material',
