@@ -1,7 +1,8 @@
 # Ember Paper Changelog
 
-### master
-- [#1048](https://github.com/miguelcobain/ember-paper/pull/1048) fix paper-tabs issues (fixes (#858)[https://github.com/miguelcobain/ember-paper/issues/858], (#759)[https://github.com/miguelcobain/ember-paper/issues/759], (#893)[https://github.com/miguelcobain/ember-paper/issues/893])
+### 1.0.0-beta.24
+- [#1048](https://github.com/miguelcobain/ember-paper/pull/1048) fix paper-tabs issues (fixes [#858](https://github.com/miguelcobain/ember-paper/issues/858), [#759](https://github.com/miguelcobain/ember-paper/issues/759), [#893](https://github.com/miguelcobain/ember-paper/issues/893))
+- [6a1fff3](https://github.com/miguelcobain/ember-paper/commit/6a1fff377059a6e396ae0af28d46a38febd3a2b3) depend on `angular-material-styles` npm package instead of `angular-material-source` git dependency (fixes [#1069](https://github.com/miguelcobain/ember-paper/issues/1069))
 
 ### 1.0.0-beta.23
 - [#1050](https://github.com/miguelcobain/ember-paper/pull/1050) Fix paper select click-catcher to call dropdown.actions.close on click
