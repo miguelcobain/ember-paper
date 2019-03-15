@@ -1,3 +1,3 @@
-import PaperAutocompleteDropdown from 'ember-paper/components/paper-autocomplete-dropdown';
+import PaperAutocompleteDropdown from 'ember-paper/components/paper-autocomplete/dropdown/component';
 
 export default PaperAutocompleteDropdown;

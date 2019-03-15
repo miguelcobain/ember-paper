@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-select-search';
+export { default } from 'ember-paper/components/paper-select/search/component';

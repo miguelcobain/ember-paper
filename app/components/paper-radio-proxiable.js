@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-radio-proxiable';
+export { default } from 'ember-paper/components/paper-radio/proxiable/component';

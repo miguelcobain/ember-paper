@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-progress-circular';
+export { default } from 'ember-paper/components/paper-progress/circular/component';

@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-tooltip';
+export { default } from 'ember-paper/components/paper-tooltip/component';

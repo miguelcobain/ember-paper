@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-reset-button';
+export { default } from 'ember-paper/components/paper-reset-button/component';

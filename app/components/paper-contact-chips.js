@@ -1,3 +1,3 @@
-import PaperContactChips from 'ember-paper/components/paper-contact-chips';
+import PaperContactChips from 'ember-paper/components/paper-contact-chips/component';
 
 export default PaperContactChips;
