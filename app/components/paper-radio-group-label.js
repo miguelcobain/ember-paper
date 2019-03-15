@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-radio-group-label';
+export { default } from 'ember-paper/components/paper-radio/group/label/component';

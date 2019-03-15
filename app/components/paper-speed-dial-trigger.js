@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-speed-dial-trigger';
+export { default } from 'ember-paper/components/paper-speed-dial/trigger/component';

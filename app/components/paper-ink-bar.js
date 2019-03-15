@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-ink-bar';
+export { default } from 'ember-paper/components/paper-ink-bar/component';

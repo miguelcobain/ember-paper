@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-grid-list';
+export { default } from 'ember-paper/components/paper-grid/list/component';

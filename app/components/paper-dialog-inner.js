@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-dialog-inner';
+export { default } from 'ember-paper/components/paper-dialog/inner/component';

@@ -1,3 +1,3 @@
-import PaperSwitch from 'ember-paper/components/paper-switch';
+import PaperSwitch from 'ember-paper/components/paper-switch/component';
 
 export default PaperSwitch;

@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-select-trigger';
+export { default } from 'ember-paper/components/paper-select/trigger/component';

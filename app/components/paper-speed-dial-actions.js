@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-speed-dial-actions';
+export { default } from 'ember-paper/components/paper-speed-dial/actions/component';

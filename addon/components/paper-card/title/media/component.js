@@ -1,0 +1,16 @@
+/**
+ * @module ember-paper
+ */
+import Component from '@ember/component';
+
+import layout from 'ember-paper/templates/components/paper-card/title/media/template';
+
+/**
+ * @class PaperCardTitleMedia
+ * @extends Ember.Component
+ */
+export default Component.extend({
+  layout,
+  tagName: 'md-card-title-media',
+  size: 'md'
+});

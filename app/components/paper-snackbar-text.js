@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-snackbar-text';
+export { default } from 'ember-paper/components/paper-snackbar/text/component';
