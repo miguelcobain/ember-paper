@@ -1,7 +1,7 @@
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
-import layout from 'ember-paper/templates/components/paper-tab/template';
+import layout from './template';
 import { ChildMixin } from 'ember-composability-tools';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';

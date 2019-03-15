@@ -1,7 +1,7 @@
 import { inject as service } from '@ember/service';
 import { reads } from '@ember/object/computed';
 import Component from '@ember/component';
-import layout from 'ember-paper/templates/components/paper-toaster/template';
+import layout from './template';
 
 export default Component.extend({
   layout,

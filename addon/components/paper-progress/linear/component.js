@@ -7,7 +7,7 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { isPresent } from '@ember/utils';
 import { htmlSafe } from '@ember/string';
-import layout from 'ember-paper/templates/components/paper-progress/linear/template';
+import layout from './template';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 function makeTransform(value) {

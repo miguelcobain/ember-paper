@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import { htmlSafe } from '@ember/string';
 import { getOwner } from '@ember/application';
-import layout from 'ember-paper/templates/components/paper-tooltip/template';
+import layout from './template';
 import getParent from 'ember-paper/utils/get-parent';
 import { supportsPassiveEventListeners } from 'ember-paper/utils/browser-features';
 

@@ -8,7 +8,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import { htmlSafe } from '@ember/string';
-import layout from 'ember-paper/templates/components/paper-slider/template';
+import layout from './template';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import clamp from 'ember-paper/utils/clamp';

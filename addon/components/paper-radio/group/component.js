@@ -6,7 +6,7 @@ import { inject as service } from '@ember/service';
 import { filterBy, mapBy, notEmpty } from '@ember/object/computed';
 import Component from '@ember/component';
 import { assert } from '@ember/debug';
-import layout from 'ember-paper/templates/components/paper-radio/group/template';
+import layout from './template';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import { ParentMixin } from 'ember-composability-tools';
 import { isPresent } from '@ember/utils';

@@ -6,7 +6,7 @@ import { assert } from '@ember/debug';
 import { isNone } from '@ember/utils';
 import { defineProperty, computed } from '@ember/object';
 import PowerSelect from 'ember-power-select/components/power-select';
-import layout from 'ember-paper/templates/components/paper-autocomplete/template';
+import layout from './template';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';

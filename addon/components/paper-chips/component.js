@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { isPresent, isEmpty } from '@ember/utils';
 import { observer, computed } from '@ember/object';
-import layout from 'ember-paper/templates/components/paper-chips/template';
+import layout from './template';
 import { invokeAction } from 'ember-invoke-action';
 
 export default Component.extend({

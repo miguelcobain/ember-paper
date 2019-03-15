@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
 import { scheduleOnce, join } from '@ember/runloop';
-import layout from 'ember-paper/templates/components/paper-tabs/template';
+import layout from './template';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import { invokeAction } from 'ember-invoke-action';

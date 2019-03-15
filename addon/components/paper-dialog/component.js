@@ -5,7 +5,7 @@ import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { getOwner } from '@ember/application';
-import layout from 'ember-paper/templates/components/paper-dialog/template';
+import layout from './template';
 import { invokeAction } from 'ember-invoke-action';
 
 /**

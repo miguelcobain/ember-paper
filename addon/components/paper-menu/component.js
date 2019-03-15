@@ -4,7 +4,7 @@
 import { assert } from '@ember/debug';
 
 import { computed } from '@ember/object';
-import layout from 'ember-paper/templates/components/paper-menu/template';
+import layout from './template';
 import BasicDropdownComponent from 'ember-basic-dropdown/components/basic-dropdown';
 
 const MENU_EDGE_MARGIN = 8;

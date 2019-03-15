@@ -9,7 +9,7 @@ import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import { guidFor } from '@ember/object/internals';
 import { getOwner } from '@ember/application';
-import layout from 'ember-paper/templates/components/paper-toast/template';
+import layout from './template';
 import { invokeAction } from 'ember-invoke-action';
 
 /**

@@ -7,7 +7,7 @@ import { computed } from '@ember/object';
 import { not, and } from '@ember/object/computed';
 import Component from '@ember/component';
 import { assert } from '@ember/debug';
-import layout from 'ember-paper/templates/components/paper-checkbox/template';
+import layout from './template';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';

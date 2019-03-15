@@ -6,7 +6,7 @@ import RSVP from 'rsvp';
 import { A as emberArray } from '@ember/array';
 import { htmlSafe } from '@ember/string';
 import VirtualEachComponent from 'virtual-each/components/virtual-each/component';
-import layout from 'ember-paper/templates/components/paper-virtual-repeat/template';
+import layout from './template';
 
 const EXTRA_ROW_PADDING = 3;
 

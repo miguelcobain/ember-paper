@@ -1,6 +1,6 @@
 import { filterBy } from '@ember/object/computed';
 import { run } from '@ember/runloop';
-import layout from 'ember-paper/templates/components/paper-select/menu/inner/template';
+import layout from './template';
 import PaperMenuContentInner from 'ember-paper/components/paper-menu/content/inner/component';
 import {
   indexOfOption,

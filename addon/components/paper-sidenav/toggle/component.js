@@ -4,7 +4,7 @@
 import { inject as service } from '@ember/service';
 
 import Component from '@ember/component';
-import layout from 'ember-paper/templates/components/paper-sidenav/toggle/template';
+import layout from './template';
 
 /**
  * @class PaperSidenavToggle

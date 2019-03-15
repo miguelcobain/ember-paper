@@ -7,7 +7,7 @@ import { computed } from '@ember/object';
 import { reads } from '@ember/object/computed';
 import { htmlSafe } from '@ember/string';
 
-import layout from 'ember-paper/templates/components/paper-icon/template';
+import layout from './template';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 /**

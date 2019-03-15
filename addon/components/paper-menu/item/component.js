@@ -4,7 +4,7 @@
 import Component from '@ember/component';
 import { or } from '@ember/object/computed';
 
-import layout from 'ember-paper/templates/components/paper-menu/item/template';
+import layout from './template';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import { invokeAction } from 'ember-invoke-action';
 

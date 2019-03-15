@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import layout from 'ember-paper/templates/components/paper-radio/group/label/template';
+import layout from './template';
 
 export default Component.extend({
   layout,

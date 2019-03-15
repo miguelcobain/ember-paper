@@ -8,7 +8,7 @@ import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import { run } from '@ember/runloop';
 import { assert } from '@ember/debug';
-import layout from 'ember-paper/templates/components/paper-input/template';
+import layout from './template';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';

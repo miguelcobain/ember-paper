@@ -1,6 +1,6 @@
 import { get } from '@ember/object';
 import PowerOptions from 'ember-power-select/components/power-select/options';
-import layout from 'ember-paper/templates/components/paper-autocomplete/options/template';
+import layout from './template';
 
 export default PowerOptions.extend({
   layout,

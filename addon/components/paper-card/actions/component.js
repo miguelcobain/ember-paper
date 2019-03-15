@@ -3,7 +3,7 @@
  */
 import Component from '@ember/component';
 
-import layout from 'ember-paper/templates/components/paper-card/actions/template';
+import layout from './template';
 
 /**
  * @class PaperCardActions

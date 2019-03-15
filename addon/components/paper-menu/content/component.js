@@ -4,7 +4,7 @@
 
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
-import layout from 'ember-paper/templates/components/paper-menu/content/template';
+import layout from './template';
 import ContentComponent from 'ember-basic-dropdown/components/basic-dropdown/content';
 import { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
 const MutObserver = window.MutationObserver || window.WebKitMutationObserver;

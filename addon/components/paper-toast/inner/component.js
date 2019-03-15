@@ -6,7 +6,7 @@ import Component from '@ember/component';
 import { run } from '@ember/runloop';
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
-import layout from 'ember-paper/templates/components/paper-toast/inner/template';
+import layout from './template';
 import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 import { invokeAction } from 'ember-invoke-action';
 

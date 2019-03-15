@@ -4,7 +4,7 @@
 import { not } from '@ember/object/computed';
 
 import Component from '@ember/component';
-import layout from 'ember-paper/templates/components/paper-sidenav/template';
+import layout from './template';
 import { invokeAction } from 'ember-invoke-action';
 
 /**

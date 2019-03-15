@@ -1,5 +1,5 @@
 import ContentComponent from 'ember-basic-dropdown/components/basic-dropdown/content';
-import layout from 'ember-paper/templates/components/paper-autocomplete/content/template';
+import layout from './template';
 import { computed } from '@ember/object';
 
 export default ContentComponent.extend({

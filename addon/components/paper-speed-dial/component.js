@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
-import layout from 'ember-paper/templates/components/paper-speed-dial/template';
+import layout from './template';
 import { invokeAction } from 'ember-invoke-action';
 
 export default Component.extend({

@@ -6,7 +6,7 @@ import { inject as service } from '@ember/service';
 import { filterBy } from '@ember/object/computed';
 import Component from '@ember/component';
 import { run } from '@ember/runloop';
-import layout from 'ember-paper/templates/components/paper-menu/content/inner/template';
+import layout from './template';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
 
 /**

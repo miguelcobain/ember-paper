@@ -4,7 +4,7 @@
 import { reads, readOnly, not } from '@ember/object/computed';
 
 import Component from '@ember/component';
-import layout from 'ember-paper/templates/components/paper-button/template';
+import layout from './template';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';

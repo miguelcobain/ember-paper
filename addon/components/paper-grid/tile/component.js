@@ -6,7 +6,7 @@ import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
-import layout from 'ember-paper/templates/components/paper-grid/tile/template';
+import layout from './template';
 import { ChildMixin } from 'ember-composability-tools';
 import { invokeAction } from 'ember-invoke-action';
 

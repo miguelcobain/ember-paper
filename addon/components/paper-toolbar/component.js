@@ -3,7 +3,7 @@
  */
 import Component from '@ember/component';
 
-import layout from 'ember-paper/templates/components/paper-toolbar/template';
+import layout from './template';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 /**

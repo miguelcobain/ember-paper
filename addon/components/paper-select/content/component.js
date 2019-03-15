@@ -4,7 +4,7 @@
 import { run } from '@ember/runloop';
 
 import PaperMenuContent from 'ember-paper/components/paper-menu/content/component';
-import layout from 'ember-paper/templates/components/paper-select/content/template';
+import layout from './template';
 
 function waitForAnimations(element, callback) {
   let computedStyle = window.getComputedStyle(element);

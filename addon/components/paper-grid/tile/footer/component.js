@@ -3,7 +3,7 @@
  */
 import Component from '@ember/component';
 
-import layout from 'ember-paper/templates/components/paper-grid/tile/footer/template';
+import layout from './template';
 
 /**
  * @class PaperGridTileFooter

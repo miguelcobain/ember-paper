@@ -8,7 +8,7 @@ import { assert } from '@ember/debug';
 import { get, computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import { htmlSafe } from '@ember/string';
-import layout from 'ember-paper/templates/components/paper-switch/template';
+import layout from './template';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';

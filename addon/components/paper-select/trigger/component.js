@@ -4,7 +4,7 @@
 import { computed } from '@ember/object';
 
 import TriggerComponent from 'ember-power-select/components/power-select/trigger';
-import layout from 'ember-paper/templates/components/paper-select/trigger/template';
+import layout from './template';
 
 /**
  * @class PaperSelectTrigger

@@ -7,7 +7,7 @@ import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
-import layout from 'ember-paper/templates/components/paper-grid/list/template';
+import layout from './template';
 import { ParentMixin } from 'ember-composability-tools';
 import gridLayout from 'ember-paper/utils/grid-layout';
 import { invokeAction } from 'ember-invoke-action';

@@ -4,7 +4,7 @@
 import Component from '@ember/component';
 
 import { computed } from '@ember/object';
-import layout from 'ember-paper/templates/components/paper-autocomplete/highlight/template';
+import layout from './template';
 
 /**
  * @class PaperAutocompleteHighlight

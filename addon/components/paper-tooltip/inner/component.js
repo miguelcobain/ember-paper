@@ -3,7 +3,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import { htmlSafe } from '@ember/string';
-import layout from 'ember-paper/templates/components/paper-tooltip/inner/template';
+import layout from './template';
 import TransitionMixin, { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
 import calculateTooltipPosition from 'ember-paper/utils/calculate-tooltip-position';
 

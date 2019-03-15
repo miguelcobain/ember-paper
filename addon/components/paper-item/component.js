@@ -5,7 +5,7 @@ import { filter, bool, or } from '@ember/object/computed';
 
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import layout from 'ember-paper/templates/components/paper-item/template';
+import layout from './template';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import { ParentMixin } from 'ember-composability-tools';
 import { invokeAction } from 'ember-invoke-action';

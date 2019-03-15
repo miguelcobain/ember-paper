@@ -1,5 +1,5 @@
 import PaperChips from 'ember-paper/components/paper-chips/component';
-import layout from 'ember-paper/templates/components/paper-contact-chips/template';
+import layout from './template';
 
 export default PaperChips.extend({
   layout,

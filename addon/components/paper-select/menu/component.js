@@ -3,7 +3,7 @@
  */
 
 import PaperMenu from 'ember-paper/components/paper-menu/component';
-import layout from 'ember-paper/templates/components/paper-select/menu/template';
+import layout from './template';
 
 const SELECT_EDGE_MARGIN = 8;
 

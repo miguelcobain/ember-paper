@@ -4,7 +4,7 @@
 import { alias, and } from '@ember/object/computed';
 
 import { computed } from '@ember/object';
-import layout from 'ember-paper/templates/components/paper-select/template';
+import layout from './template';
 import PowerSelect from 'ember-power-select/components/power-select';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';

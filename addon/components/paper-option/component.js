@@ -3,7 +3,7 @@
  */
 import { readOnly, not } from '@ember/object/computed';
 
-import layout from 'ember-paper/templates/components/paper-option/template';
+import layout from './template';
 import PaperMenuItem from 'ember-paper/components/paper-menu/item/component';
 import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 
