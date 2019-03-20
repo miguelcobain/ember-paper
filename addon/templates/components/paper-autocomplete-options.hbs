@@ -1,6 +1,7 @@
 {{#each options as |opt|}}
   <li
-    class="ember-power-select-option {{if (eq opt.raw select.highlighted) "selected"}}"
+    id={{if (eq opt.raw select.highlighted) "selected_option"}}
+    class="ember-power-select-option"
     aria-selected={{ember-power-select-is-selected opt.raw select.selected}}
     aria-disabled={{ember-power-select-true-string-if-present opt.disabled}}
     aria-current={{eq opt.raw select.highlighted}}
