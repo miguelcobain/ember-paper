@@ -43,7 +43,7 @@ module('Integration | Component | paper-chips', function(hooks) {
       content=selectedItems}}`);
 
     await fillIn('md-chips input', 'T');
-    assert.dom('.md-autocomplete-suggestions li.selected').exists({ count: 1 });
+    assert.dom('.md-autocomplete-suggestions li#selected_option').exists({ count: 1 });
   });
 
   test('pressing ENTER key, sets defaultHighlighted item as selected', async function(assert) {
@@ -62,7 +62,7 @@ module('Integration | Component | paper-chips', function(hooks) {
       content=selectedItems}}`);
 
     await fillIn('md-chips input', 'T');
-    assert.dom('.md-autocomplete-suggestions li.selected').exists({ count: 1 });
+    assert.dom('.md-autocomplete-suggestions li#selected_option').exists({ count: 1 });
 
     await triggerKeyEvent('md-chips input', 'keydown', 13);
     assert.dom('md-chip').exists({ count: this.selectedItems.length });
