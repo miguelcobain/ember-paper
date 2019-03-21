@@ -21,7 +21,10 @@ export default Component.extend(TransitionMixin, {
   attributeBindings: ['backdropStyle:style'],
 
   // TransitionMixin:
-  transitionName: 'ng',
+  transitionName: computed('shouldTransition', function() {
+    // TransitionMixin is NoOp if transitionName is not given
+    return this.get('shouldTransition') ? 'ng' : null;
+  }),
   shouldTransition: bool('opaque'),
 
   backdropStyle: computed('fixed', function() {
