@@ -74,7 +74,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
     let updateCanvasWidth = () => {
       this.updateDimensions();
       this.updateStretchTabs();
-      this.fixOffsetIfNeeded();
+      this.fixOffsetIfNeeded(true);
     };
 
     window.addEventListener('resize', updateCanvasWidth);
@@ -119,21 +119,23 @@ export default Component.extend(ParentMixin, ColorMixin, {
     this.set('movingRight', movingRight);
   },
 
-  fixOffsetIfNeeded() {
+  fixOffsetIfNeeded(skipFocus = false) {
     let canvasWidth = this.get('canvasWidth');
     let currentOffset = this.get('currentOffset');
 
-    let tabRight = this.get('_selectedTab.left') + this.get('_selectedTab.width');
-    if (tabRight - currentOffset > canvasWidth) {
-      let newOffset = tabRight - canvasWidth;
-      this.set('currentOffset', newOffset);
-      this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
-    }
+    if (!skipFocus) {
+      let tabRight = this.get('_selectedTab.left') + this.get('_selectedTab.width');
+      if (tabRight - currentOffset > canvasWidth) {
+        let newOffset = tabRight - canvasWidth;
+        this.set('currentOffset', newOffset);
+        this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
+      }
 
-    if (this.get('_selectedTab.left') < currentOffset) {
-      let newOffset = this.get('_selectedTab.left');
-      this.set('currentOffset', newOffset);
-      this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
+      if (this.get('_selectedTab.left') < currentOffset) {
+        let newOffset = this.get('_selectedTab.left');
+        this.set('currentOffset', newOffset);
+        this.set('paginationStyle', htmlSafe(`transform: translate3d(-${newOffset}px, 0px, 0px);`));
+      }
     }
   },
 
