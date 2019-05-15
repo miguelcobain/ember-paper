@@ -10,10 +10,10 @@ export function required(value, required) {
 }
 export default {
   param: 'required',
-  message: config['ember-paper'] &&
-    config['ember-paper'].errorMessages &&
-    config['ember-paper'].errorMessages.required ?
-    config['ember-paper'].errorMessages.required : 'This is required.',
+  message: config['ember-paper']
+  && config['ember-paper'].errorMessages
+  && config['ember-paper'].errorMessages.required
+    ? config['ember-paper'].errorMessages.required : 'This is required.',
   // required can be a boolean or 'style' for just required asterisk styling.
   validate: required
 };
