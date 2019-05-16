@@ -74,11 +74,12 @@ module('Integration | Component | paper-input', function(hooks) {
   });
 
   test('renders input with placeholder', async function(assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     await render(hbs`{{paper-input placeholder="Enter value here" onChange=dummyOnChange}}`);
 
     assert.dom('md-input-container input').hasAttribute('placeholder', 'Enter value here');
+    assert.dom('md-input-container').hasClass('md-input-has-placeholder');
 
   });
 
@@ -515,6 +516,24 @@ module('Integration | Component | paper-input', function(hooks) {
     `);
 
     assert.dom('.other-stuff').exists();
+  });
+
+  test('does not have md-input-has-placeholder class when no placeholder', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{paper-input onChange=dummyOnChange}}`);
+
+    assert.dom('md-input-container').doesNotHaveClass('md-input-has-placeholder');
+
+  });
+
+  test('does not have md-input-has-placeholder class when there is a label', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{paper-input label="Label here" onChange=dummyOnChange}}`);
+
+    assert.dom('md-input-container').doesNotHaveClass('md-input-has-placeholder');
+
   });
 
   test('aria-describedby on input elements is set properly', async function(assert) {

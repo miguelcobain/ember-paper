@@ -33,7 +33,8 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
     'hasLeftIcon:md-icon-left',
     'hasRightIcon:md-icon-right',
     'focused:md-input-focused',
-    'block:md-block'
+    'block:md-block',
+    'placeholder:md-input-has-placeholder'
   ],
   type: 'text',
   autofocus: false,
