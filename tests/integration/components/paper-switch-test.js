@@ -1,6 +1,11 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerKeyEvent, click, focus } from '@ember/test-helpers';
+import {
+  render,
+  triggerKeyEvent,
+  click,
+  focus
+} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper switch', function(hooks) {

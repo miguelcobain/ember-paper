@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, click, triggerEvent } from '@ember/test-helpers';
+import { render, click, triggerEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper speed dial', function(hooks) {
@@ -11,7 +11,7 @@ module('Integration | Component | paper speed dial', function(hooks) {
       this.animation = animation;
       await render(hbs`{{paper-speed-dial animation=animation}}`);
 
-      assert.ok(find('md-fab-speed-dial').classList.contains(`md-${animation}`));
+      assert.dom('md-fab-speed-dial').hasClass(`md-${animation}`);
     });
   });
 
@@ -20,14 +20,14 @@ module('Integration | Component | paper speed dial', function(hooks) {
       this.direction = direction;
       await render(hbs`{{paper-speed-dial direction=direction}}`);
 
-      assert.ok(find('md-fab-speed-dial').classList.contains(`md-${direction}`));
+      assert.dom('md-fab-speed-dial').hasClass(`md-${direction}`);
     });
   });
 
   test('hoverFull=true adds the correct md-hover-full class', async function(assert) {
     await render(hbs`{{paper-speed-dial hoverFull=true}}`);
 
-    assert.ok(find('md-fab-speed-dial').classList.contains('md-hover-full'));
+    assert.dom('md-fab-speed-dial').hasClass('md-hover-full');
   });
 
   test('clicking the trigger opens the speed dial', async function(assert) {
@@ -37,11 +37,11 @@ module('Integration | Component | paper speed dial', function(hooks) {
       {{/paper-speed-dial}}
     `);
 
-    assert.notOk(find('md-fab-speed-dial').classList.contains('md-is-open'));
+    assert.dom('md-fab-speed-dial').hasNoClass('md-is-open');
 
     await click('md-fab-trigger');
 
-    assert.ok(find('md-fab-speed-dial').classList.contains('md-is-open'));
+    assert.dom('md-fab-speed-dial').hasClass('md-is-open');
   });
 
   test('focusing out the speed dial trigger closes it', async function(assert) {
@@ -51,11 +51,11 @@ module('Integration | Component | paper speed dial', function(hooks) {
       {{/paper-speed-dial}}
     `);
 
-    assert.ok(find('md-fab-speed-dial').classList.contains('md-is-open'));
+    assert.dom('md-fab-speed-dial').hasClass('md-is-open');
 
     await triggerEvent('md-fab-trigger', 'blur');
 
-    assert.notOk(find('md-fab-speed-dial').classList.contains('md-is-open'));
+    assert.dom('md-fab-speed-dial').hasNoClass('md-is-open');
   });
 
   test('toggling `open` opens/closes the speed dial', async function(assert) {
@@ -67,15 +67,15 @@ module('Integration | Component | paper speed dial', function(hooks) {
       {{/paper-speed-dial}}
     `);
 
-    assert.notOk(find('md-fab-speed-dial').classList.contains('md-is-open'));
+    assert.dom('md-fab-speed-dial').hasNoClass('md-is-open');
 
     this.set('open', true);
 
-    assert.ok(find('md-fab-speed-dial').classList.contains('md-is-open'));
+    assert.dom('md-fab-speed-dial').hasClass('md-is-open');
 
     this.set('open', false);
 
-    assert.notOk(find('md-fab-speed-dial').classList.contains('md-is-open'));
+    assert.dom('md-fab-speed-dial').hasNoClass('md-is-open');
   });
 
   test('clicking the trigger triggers the `onToggle` action', async function(assert) {

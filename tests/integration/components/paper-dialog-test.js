@@ -1,6 +1,14 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, find, findAll, click, focus, triggerKeyEvent } from '@ember/test-helpers';
+import {
+  render,
+  settled,
+  find,
+  findAll,
+  click,
+  focus,
+  triggerKeyEvent
+} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper-dialog', function(hooks) {
