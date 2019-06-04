@@ -566,4 +566,22 @@ module('Integration | Component | paper-input', function(hooks) {
 
     assert.dom('input').hasAttribute('title');
   });
+
+  test('renders with tooltip', async function(assert) {
+    await render(hbs`{{paper-input onChange=null label="test" tooltip="Test tooltip"}}`);
+
+    await triggerEvent('md-icon', 'mouseenter');
+    assert.dom('md-tooltip').hasText('Test tooltip');
+  });
+
+  ['bottom', 'top', 'left', 'right'].forEach((position) => {
+    test(`renders with tooltip position ${position}`, async function(assert) {
+      this.position = position;
+      await render(hbs`{{paper-input onChange=null label="test" tooltip="Test tooltip" tooltipPosition=position}}`);
+
+      await triggerEvent('md-icon', 'mouseenter');
+      assert.dom('md-tooltip').hasClass(`md-origin-${position}`);
+    });
+  });
+
 });
