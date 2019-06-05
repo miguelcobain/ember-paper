@@ -3,7 +3,8 @@ import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
 export default Component.extend(TransitionMixin, {
   tagName: 'button',
-  attributeBindings: ['tabindex'],
+  type: 'button',
+  attributeBindings: ['tabindex', 'type'],
   transitionClass: 'ng',
   onReset: null,
 

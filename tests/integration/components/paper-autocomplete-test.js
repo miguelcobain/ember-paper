@@ -291,4 +291,30 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
     assert.dom('md-input-container').hasClass('md-input-invalid');
     assert.dom('md-autocomplete .paper-input-error').hasText('validation error!');
   });
+
+  test('it does not submit a form when clear is clicked', async function(assert) {
+    assert.expect(3);
+
+    this.set('selectedItem', '1');
+    this.set('items', ['1', '2']);
+    this.set('submitForm', () => {
+      this.set('formSubmitted', true);
+    });
+
+    await render(hbs`
+      {{#paper-form onSubmit=(action submitForm) as |form|}}
+        {{form.autocomplete
+          allowClear=true
+          options=items
+          selected=selectedItem
+          onSelectionChange=(action (mut selectedItem))
+        }}
+      {{/paper-form}}
+    `);
+
+    assert.dom('form md-autocomplete button').hasAttribute('type', 'button', 'Clear has type="button"');
+    await click('form md-autocomplete button');
+    assert.notOk(this.get('selectedItem'), 'The selected item is cleared');
+    assert.notOk(this.get('formSubmitted'), 'The outer form should not be submitted when the clear button is clicked');
+  });
 });
