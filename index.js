@@ -20,6 +20,7 @@ const componentDependencies = {
       'components/autocomplete/autocomplete-theme.scss'
     ],
     dependencies: [
+      'paper-autocomplete-trigger-container',
       'paper-autocomplete-trigger',
       'paper-autocomplete-options',
       'paper-autocomplete-highlight',
