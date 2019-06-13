@@ -255,6 +255,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     }
   },
 
+  // eslint-disable-next-line ember/no-observers
   lengthObserver: observer('items.length', function() {
     let totalLength = this.get('length') ? this.get('length') : this.get('items.length');
     this.set('_totalHeight', Math.max(totalLength * this.get('itemHeight'), 0));

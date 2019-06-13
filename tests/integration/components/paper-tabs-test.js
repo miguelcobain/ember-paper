@@ -15,7 +15,7 @@ module('Integration | Component | paper tabs', function(hooks) {
       {{/paper-tabs}}
     `);
 
-    assert.ok(find('.md-tab:nth-child(1)').classList.contains('md-active'));
+    assert.dom('.md-tab:nth-child(1)').hasClass('md-active');
   });
 
   test('can set default selected tab', async function(assert) {
@@ -27,7 +27,7 @@ module('Integration | Component | paper tabs', function(hooks) {
       {{/paper-tabs}}
     `);
 
-    assert.ok(find('.md-tab:nth-child(2)').classList.contains('md-active'));
+    assert.dom('.md-tab:nth-child(2)').hasClass('md-active');
   });
 
   test('block nav bar items renders block', async function(assert) {
@@ -61,11 +61,11 @@ module('Integration | Component | paper tabs', function(hooks) {
       {{/paper-tabs}}
     `);
 
-    assert.ok(find('.md-tab:nth-child(2)').classList.contains('md-active'));
+    assert.dom('.md-tab:nth-child(2)').hasClass('md-active');
 
     this.set('selected', 2);
 
-    assert.ok(find('.md-tab:nth-child(3)').classList.contains('md-active'));
+    assert.dom('.md-tab:nth-child(3)').hasClass('md-active');
 
   });
 
@@ -80,7 +80,7 @@ module('Integration | Component | paper tabs', function(hooks) {
 
     await click('.md-tab:nth-child(3)');
 
-    assert.ok(find('.md-tab:nth-child(3)').classList.contains('md-active'));
+    assert.dom('.md-tab:nth-child(3)').hasClass('md-active');
   });
 
   test('clicking on multiple tabs works', async function(assert) {
@@ -96,7 +96,7 @@ module('Integration | Component | paper tabs', function(hooks) {
     await click('.md-tab:nth-child(3)');
     await click('.md-tab:nth-child(1)');
 
-    assert.ok(find('.md-tab:nth-child(1)').classList.contains('md-active'));
+    assert.dom('.md-tab:nth-child(1)').hasClass('md-active');
   });
 
   test('onChange is triggered', async function(assert) {
@@ -144,7 +144,7 @@ module('Integration | Component | paper tabs', function(hooks) {
       {{/paper-tabs}}
     `);
 
-    assert.ok(find('md-ink-bar'));
+    assert.dom('md-ink-bar').exists();
   });
 
   test('noInkBar disables ink bar', async function(assert) {
@@ -157,7 +157,7 @@ module('Integration | Component | paper tabs', function(hooks) {
       {{/paper-tabs}}
     `);
 
-    assert.notOk(find('md-ink-bar'));
+    assert.dom('md-ink-bar').doesNotExist();
   });
 
   test('ink bar has md-left or md-right class', async function(assert) {
@@ -202,7 +202,7 @@ module('Integration | Component | paper tabs', function(hooks) {
       {{/paper-tabs}}
     `);
 
-    assert.ok(find('md-tabs-wrapper').classList.contains('md-stretch-tabs'));
+    assert.dom('md-tabs-wrapper').hasClass('md-stretch-tabs');
   });
 
   test('using href renders anchor tags', async function(assert) {
@@ -228,8 +228,8 @@ module('Integration | Component | paper tabs', function(hooks) {
       {{/paper-tabs}}
     `);
 
-    assert.ok(find('md-tabs-canvas').classList.contains('md-center-tabs'));
-    assert.ok(find('md-pagination-wrapper').classList.contains('md-center-tabs'));
+    assert.dom('md-tabs-canvas').hasClass('md-center-tabs');
+    assert.dom('md-pagination-wrapper').hasClass('md-center-tabs');
   });
 
   test('disabled tab cannot be accessed', async function(assert) {
@@ -249,7 +249,7 @@ module('Integration | Component | paper tabs', function(hooks) {
 
     await click('.md-tab:nth-child(2)');
 
-    assert.ok(find('.md-tab:nth-child(1)').classList.contains('md-active'));
+    assert.dom('.md-tab:nth-child(1)').hasClass('md-active');
   });
 
   test('using href and disabled does not render anchor tags', async function(assert) {

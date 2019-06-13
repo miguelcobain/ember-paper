@@ -19,6 +19,7 @@ export default Component.extend({
   }),
   lastItemChosen: false,
 
+  // eslint-disable-next-line ember/no-observers
   handleFocusChange: observer('focusedElement', 'activeChip', function() {
     let element = this.get('focusedElement');
 
@@ -224,6 +225,11 @@ export default Component.extend({
   },
 
   focusMovingTo(selector, event) {
+
+    // for some reason, this.element seems to be null on latest ember versions
+    if (!this.element) {
+      return;
+    }
     let el = this.element.querySelector(selector);
     if (!isEmpty(event) && !isEmpty(event.relatedTarget) && event.relatedTarget === el) {
       return true;
