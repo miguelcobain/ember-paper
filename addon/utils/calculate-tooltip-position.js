@@ -1,3 +1,5 @@
+import clamp from './clamp';
+
 export default function calculateTooltipPosition(tooltip, target, position) {
   let panelBounds = tooltip.getBoundingClientRect();
   let panelWidth = panelBounds.width;
@@ -40,6 +42,18 @@ export default function calculateTooltipPosition(tooltip, target, position) {
       positionStyle.top = targetBottom;
       break;
   }
+
+  // clamp position to the visible area of the viewport
+
+  let tooltipBounds = tooltip.getBoundingClientRect();
+
+  // account for negative margins
+  let { marginTop: tooltipMarginTop, marginLeft: tooltipMarginLeft } = window.getComputedStyle(tooltip);
+  tooltipMarginTop = parseInt(tooltipMarginTop);
+  tooltipMarginLeft = parseInt(tooltipMarginLeft);
+
+  positionStyle.top = clamp(positionStyle.top, 0 - tooltipMarginTop, window.innerHeight - tooltipBounds.height - tooltipMarginTop);
+  positionStyle.left = clamp(positionStyle.left, 0 - tooltipMarginLeft, window.innerWidth - tooltipBounds.width - tooltipMarginLeft);
 
   return positionStyle;
 }
