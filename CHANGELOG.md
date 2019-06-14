@@ -1,7 +1,13 @@
 # Ember Paper Changelog
 
-### master
+### 1.0.0-beta.25
 - [#1073](https://github.com/miguelcobain/ember-paper/issues/1073) fixed paper-autocomplete options highlighting style
+- [2652581](https://github.com/miguelcobain/ember-paper/commit/265258171b44101ec2ad8566b4e7db2085f75071) update angular material styles
+- [#1083](https://github.com/miguelcobain/ember-paper/pull/1083) Add md-input-has-placeholder class to input with placeholder
+- [#1089](https://github.com/miguelcobain/ember-paper/pull/1089) Prevent submitting a form when clicking clear in paper-autocomplete
+- [#1076](https://github.com/miguelcobain/ember-paper/pull/1076) Fix paper-autocomplete value being overriden when changed
+- [c9022e9](https://github.com/miguelcobain/ember-paper/commit/c9022e90f5b461cdd18a204e16b2d477d5d74928) clamp tooltip position to the visible area of the viewport. closes [#1041](https://github.com/miguelcobain/ember-paper/issues/1041)
+- [#1084](https://github.com/miguelcobain/ember-paper/pull/1084) Add guard against missing original.parentNode (fixes backdrop error in tests)
 
 ### 1.0.0-beta.24
 - [#1048](https://github.com/miguelcobain/ember-paper/pull/1048) fix paper-tabs issues (fixes [#858](https://github.com/miguelcobain/ember-paper/issues/858), [#759](https://github.com/miguelcobain/ember-paper/issues/759), [#893](https://github.com/miguelcobain/ember-paper/issues/893))
