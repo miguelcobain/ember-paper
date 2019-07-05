@@ -568,7 +568,7 @@ module('Integration | Component | paper-input', function(hooks) {
   });
 
   test('renders with tooltip', async function(assert) {
-    await render(hbs`{{paper-input onChange=null label="test" tooltip="Test tooltip"}}`);
+    await render(hbs`{{paper-input onChange=null labelComponent=(component "tooltip-label" label="test" tooltip="Test tooltip")}}`);
 
     await triggerEvent('md-icon', 'mouseenter');
     assert.dom('md-tooltip').hasText('Test tooltip');
@@ -577,7 +577,7 @@ module('Integration | Component | paper-input', function(hooks) {
   ['bottom', 'top', 'left', 'right'].forEach((position) => {
     test(`renders with tooltip position ${position}`, async function(assert) {
       this.position = position;
-      await render(hbs`{{paper-input onChange=null label="test" tooltip="Test tooltip" tooltipPosition=position}}`);
+      await render(hbs`{{paper-input onChange=null labelComponent=(component "tooltip-label" label="test" tooltip="Test tooltip" tooltipPosition=position)}}`);
 
       await triggerEvent('md-icon', 'mouseenter');
       assert.dom('md-tooltip').hasClass(`md-origin-${position}`);

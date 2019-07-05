@@ -65,7 +65,7 @@
             {{/paper-icon}}
           </div>
           
-          {{paper-input label="Input with tooltip" tooltip="This is a tooltip" tooltipPosition=position value=inputTooltip onChange=(action (mut inputTooltip))}}
+          {{paper-input class="flex" labelComponent=(component "tooltip-label" label="Input with tooltip" tooltip="This is a tooltip") value=inputTooltip onChange=(action (mut inputTooltip))}}
           {{! END-SNIPPET tooltip }}
         </div>
 

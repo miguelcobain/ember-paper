@@ -1,13 +1,8 @@
-{{#if label}}
+{{#if labelComponent}}
+  {{component labelComponent inputElementId=inputElementId required=required}}
+{{else if label}}
   <label for={{inputElementId}} class={{if required "md-required"}}>
     {{label}}
-    {{#if tooltip}}
-      {{#paper-icon "info"}}
-        {{#paper-tooltip position=tooltipPosition}}
-          {{tooltip}}
-        {{/paper-tooltip}}
-      {{/paper-icon}}
-    {{/if}}
   </label>
 {{/if}}
 
