@@ -1,6 +1,7 @@
 /**
  * @module ember-paper
  */
+import config from 'ember-get-config';
 import { isNone, isEmpty } from '@ember/utils';
 
 export function minlength(value, minlength) {
@@ -9,6 +10,9 @@ export function minlength(value, minlength) {
 
 export default {
   param: 'minlength',
-  message: 'Must have at least %@ characters.',
+  message: config['ember-paper'] &&
+    config['ember-paper'].errorMessages &&
+    config['ember-paper'].errorMessages.minlength ?
+    config['ember-paper'].errorMessages.minlength : 'Must have at least %@ characters.',
   validate: minlength
 };
