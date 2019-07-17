@@ -10,9 +10,9 @@ export function min(value, min) {
 
 export default {
   param: 'min',
-  message: config['ember-paper'] &&
-    config['ember-paper'].errorMessages &&
-    config['ember-paper'].errorMessages.min ?
-    config['ember-paper'].errorMessages.min : 'Must be at least %@.',
+  message: config['ember-paper']
+  && config['ember-paper'].errorMessages
+  && config['ember-paper'].errorMessages.min
+    ? config['ember-paper'].errorMessages.min : 'Must be at least %@.',
   validate: min
 };

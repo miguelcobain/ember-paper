@@ -10,9 +10,9 @@ export function minlength(value, minlength) {
 
 export default {
   param: 'minlength',
-  message: config['ember-paper'] &&
-    config['ember-paper'].errorMessages &&
-    config['ember-paper'].errorMessages.minlength ?
-    config['ember-paper'].errorMessages.minlength : 'Must have at least %@ characters.',
+  message: config['ember-paper']
+  && config['ember-paper'].errorMessages
+  && config['ember-paper'].errorMessages.minlength
+    ? config['ember-paper'].errorMessages.minlength : 'Must have at least %@ characters.',
   validate: minlength
 };

@@ -10,9 +10,9 @@ export function maxlength(value, maxlength) {
 
 export default {
   param: 'maxlength',
-  message: config['ember-paper'] &&
-    config['ember-paper'].errorMessages &&
-    config['ember-paper'].errorMessages.maxlength ?
-    config['ember-paper'].errorMessages.maxlength : 'Must not exceed %@ characters.',
+  message: config['ember-paper']
+  && config['ember-paper'].errorMessages
+  && config['ember-paper'].errorMessages.maxlength
+    ? config['ember-paper'].errorMessages.maxlength : 'Must not exceed %@ characters.',
   validate: maxlength
 };
