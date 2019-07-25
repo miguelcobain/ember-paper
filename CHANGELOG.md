@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.26
+- [f117ca0](https://github.com/miguelcobain/ember-paper/commit/f117ca0d4c6395a8fc941552b2a8a9492e157505) fix paper-input not clearing text
+
 ### 1.0.0-beta.25
 - [#1073](https://github.com/miguelcobain/ember-paper/issues/1073) fixed paper-autocomplete options highlighting style
 - [2652581](https://github.com/miguelcobain/ember-paper/commit/265258171b44101ec2ad8566b4e7db2085f75071) update angular material styles
