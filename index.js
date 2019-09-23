@@ -387,7 +387,7 @@ module.exports = {
         caniuse: 'classlist'
       },
       'element-closest': {
-        files: ['browser.js'],
+        files: ['element-closest.js'],
         caniuse: 'element-closest'
       },
       'matchmedia-polyfill': {
