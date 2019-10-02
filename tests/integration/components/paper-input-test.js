@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, fillIn, triggerEvent } from '@ember/test-helpers';
+import { render, settled, fillIn, triggerEvent, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper input', function(hooks) {
@@ -16,7 +16,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input label="Name" onChange=dummyOnChange}}`);
 
-    assert.equal(this.$('md-input-container label').text(), 'Name');
+    assert.equal(find('md-input-container label').textContent, 'Name');
   });
 
   test('renders with left icon', async function(assert) {
@@ -24,8 +24,8 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input icon="person" onChange=dummyOnChange}}`);
 
-    assert.ok(this.$('md-input-container md-icon').length);
-    assert.ok(this.$('md-input-container').hasClass('md-icon-left'));
+    assert.ok(findAll('md-input-container md-icon').length);
+    assert.ok(find('md-input-container').classList.contains('md-icon-left'));
   });
 
   test('renders with right icon', async function(assert) {
@@ -33,8 +33,8 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input label="name" iconRight="person" onChange=dummyOnChange}}`);
 
-    assert.ok(this.$('md-input-container md-icon').length);
-    assert.ok(this.$('md-input-container').hasClass('md-icon-right'));
+    assert.ok(findAll('md-input-container md-icon').length);
+    assert.ok(find('md-input-container').classList.contains('md-icon-right'));
   });
 
   test('renders with a custom icon component when `iconComponent` is specified', async function(assert) {
@@ -46,8 +46,8 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input iconComponent="custom-icon" icon="person" onChange=dummyOnChange}}`);
 
-    assert.equal(this.$('md-input-container md-icon').length, 0, 'default icon component is not rendered');
-    assert.equal(this.$('md-input-container .custom-icon').length, 1, 'custom icon component rendered');
+    assert.equal(findAll('md-input-container md-icon').length, 0, 'default icon component is not rendered');
+    assert.equal(findAll('md-input-container .custom-icon').length, 1, 'custom icon component rendered');
   });
 
   test('renders with a custom icon component when `iconComponent` is specified and icon should be displayed on the right', async function(assert) {
@@ -59,8 +59,8 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input iconComponent="custom-icon" iconRight="person" onChange=dummyOnChange}}`);
 
-    assert.equal(this.$('md-input-container md-icon').length, 0, 'default icon component is not rendered');
-    assert.equal(this.$('md-input-container .custom-icon').length, 1, 'custom icon component rendered');
+    assert.equal(findAll('md-input-container md-icon').length, 0, 'default icon component is not rendered');
+    assert.equal(findAll('md-input-container .custom-icon').length, 1, 'custom icon component rendered');
   });
 
   test('renders input with id', async function(assert) {
@@ -68,7 +68,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input inputElementId="testId" onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('id');
+    let actual = find('md-input-container input').id;
     let expected = 'testId';
     assert.equal(actual, expected);
   });
@@ -78,7 +78,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input placeholder="Enter value here" onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('placeholder');
+    let actual = find('md-input-container input').getAttribute('placeholder');
     let expected = 'Enter value here';
     assert.equal(actual, expected);
   });
@@ -88,7 +88,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input value="current value" onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').val();
+    let actual = find('md-input-container input').value;
     let expected = 'current value';
     assert.equal(actual, expected);
   });
@@ -98,7 +98,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input disabled=true onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('disabled');
+    let actual = find('md-input-container input').getAttribute('disabled');
     let expected = 'disabled';
     assert.equal(actual, expected);
   });
@@ -108,7 +108,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash required="required") onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('required');
+    let actual = find('md-input-container input').getAttribute('required');
     let expected = 'required';
     assert.equal(actual, expected);
   });
@@ -118,7 +118,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input autofocus=true onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('autofocus');
+    let actual = find('md-input-container input').getAttribute('autofocus');
     let expected = 'autofocus';
     assert.equal(actual, expected);
   });
@@ -128,7 +128,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash accept="audio/*|video/*|image/*") onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('accept');
+    let actual = find('md-input-container input').getAttribute('accept');
     let expected = 'audio/*|video/*|image/*';
     assert.equal(actual, expected);
   });
@@ -138,7 +138,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash autocomplete="autocomplete") onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('autocomplete');
+    let actual = find('md-input-container input').getAttribute('autocomplete');
     let expected = 'autocomplete';
 
     assert.equal(actual, expected);
@@ -149,7 +149,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash autocorrect="autocorrect") onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('autocorrect');
+    let actual = find('md-input-container input').getAttribute('autocorrect');
     let expected = 'autocorrect';
 
     assert.equal(actual, expected);
@@ -160,7 +160,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash autocapitalize="autocapitalize") onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('autocapitalize');
+    let actual = find('md-input-container input').getAttribute('autocapitalize');
     let expected = 'autocapitalize';
 
     assert.equal(actual, expected);
@@ -171,7 +171,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash form="myform") onChange=dummyOnChange onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('form');
+    let actual = find('md-input-container input').getAttribute('form');
     let expected = 'myform';
 
     assert.equal(actual, expected);
@@ -182,7 +182,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash formnovalidate="formnovalidate") onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('formnovalidate');
+    let actual = find('md-input-container input').getAttribute('formnovalidate');
     let expected = 'formnovalidate';
 
     assert.equal(actual, expected);
@@ -193,7 +193,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash formtarget="_blank") onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('formtarget');
+    let actual = find('md-input-container input').getAttribute('formtarget');
     let expected = '_blank';
 
     assert.equal(actual, expected);
@@ -204,7 +204,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input passThru=(hash formenctype="multipart/form-data") onChange=dummyOnChange}}`);
 
-    let actual = this.$('md-input-container input').attr('formenctype');
+    let actual = find('md-input-container input').getAttribute('formenctype');
     let expected = 'multipart/form-data';
 
     assert.equal(actual, expected);
@@ -334,12 +334,12 @@ module('Integration | Component | paper input', function(hooks) {
       {{paper-input value=value onChange=(action (mut value)) maxlength=8}}
     `);
 
-    assert.equal(this.$('.md-char-counter').length, 1, 'renders the char counter');
-    assert.equal(this.$('.md-char-counter').text().trim(), '6/8');
+    assert.equal(findAll('.md-char-counter').length, 1, 'renders the char counter');
+    assert.equal(find('.md-char-counter').textContent.trim(), '6/8');
 
     this.set('value', 'aa');
 
-    assert.equal(this.$('.md-char-counter').text().trim(), '2/8');
+    assert.equal(find('.md-char-counter').textContent.trim(), '2/8');
   });
 
   test('built-in validations work', async function(assert) {
@@ -352,7 +352,7 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8}}
     `);
 
-    assert.equal(this.$('.paper-input-error').length, 1, 'renders one error');
+    assert.equal(findAll('.paper-input-error').length, 1, 'renders one error');
     assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
   });
 
@@ -371,7 +371,7 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8 customValidations=customValidations notinclude="cc"}}
     `);
 
-    assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+    assert.equal(findAll('.paper-input-error').length, 2, 'renders two errors');
     assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
     assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
   });
@@ -387,11 +387,11 @@ module('Integration | Component | paper input', function(hooks) {
         required=required}}
     `);
 
-    assert.equal(this.$('.paper-input-error').length, 0, 'no errors');
+    assert.equal(findAll('.paper-input-error').length, 0, 'no errors');
 
     this.set('required', true);
 
-    assert.equal(this.$('.paper-input-error').length, 1, 'renders one error');
+    assert.equal(findAll('.paper-input-error').length, 1, 'renders one error');
     assert.equal(this.$('.paper-input-error').first().text().trim(), 'This is required.');
   });
 
@@ -411,13 +411,13 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8 customValidations=customValidations notinclude=notinclude}}
     `);
 
-    assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+    assert.equal(findAll('.paper-input-error').length, 2, 'renders two errors');
     assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
     assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
 
     this.set('notinclude', 'bb');
 
-    assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+    assert.equal(findAll('.paper-input-error').length, 2, 'renders two errors');
     assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
     assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring bb.');
   });
@@ -436,7 +436,7 @@ module('Integration | Component | paper input', function(hooks) {
         maxlength=8 customValidations=customValidations}}
     `);
 
-    assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+    assert.equal(findAll('.paper-input-error').length, 2, 'renders two errors');
     assert.equal(this.$('.paper-input-error').first().text().trim(), 'Must not exceed 8 characters.');
     assert.equal(this.$('.paper-input-error').last().text().trim(), 'You can\'t include the substring cc.');
   });
@@ -460,7 +460,7 @@ module('Integration | Component | paper input', function(hooks) {
         )}}
     `);
 
-    assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+    assert.equal(findAll('.paper-input-error').length, 2, 'renders two errors');
     assert.equal(this.$('.paper-input-error').first().text().trim(), 'Too small, baby!');
     assert.equal(this.$('.paper-input-error').last().text().trim(), 'Can\'t have cc, baby!');
   });
@@ -478,7 +478,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
 
-    assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+    assert.equal(findAll('.paper-input-error').length, 2, 'renders two errors');
     assert.equal(this.$('.paper-input-error').first().text().trim(), 'foo should be a number.');
     assert.equal(this.$('.paper-input-error').last().text().trim(), 'foo should be smaller than 12.');
   });
@@ -493,7 +493,7 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
 
-    assert.equal(this.$('.paper-input-error').length, 2, 'renders two errors');
+    assert.equal(findAll('.paper-input-error').length, 2, 'renders two errors');
     assert.equal(this.$('.paper-input-error').first().text().trim(), 'foo should be a number.');
     assert.equal(this.$('.paper-input-error').last().text().trim(), 'foo should be smaller than 12.');
   });
@@ -518,17 +518,17 @@ module('Integration | Component | paper input', function(hooks) {
 
     await render(hbs`{{paper-input onChange=onChange value=value}}`);
 
-    this.$('input, textarea').val('12345').trigger('input');
+    await fillIn('input, textarea', '12345');
 
-    return settled().then(() => {
-      assert.equal(this.$('input, textarea').val(), '123', 'input value should be 123');
+    return settled().then(async () => {
+      assert.equal(find('input, textarea').value, '123', 'input value should be 123');
       assert.equal(this.value, '123', 'component value should be 123');
 
-      this.$('input, textarea').val('abcdefg').trigger('input');
+      await fillIn('input, textarea', 'abcdefg');
 
       return settled();
     }).then(() => {
-      assert.equal(this.$('input, textarea').val(), '123', 'input values do not match');
+      assert.equal(find('input, textarea').value, '123', 'input values do not match');
       assert.equal(this.value, '123', 'component value should be 123');
     });
   });
@@ -582,14 +582,14 @@ module('Integration | Component | paper input', function(hooks) {
     await render(hbs`{{paper-input value=foo onChange=(action (mut foo))}}`);
 
     assert.notOk(
-      this.$('md-input-container').hasClass('md-input-has-value'),
+      find('md-input-container').classList.contains('md-input-has-value'),
       'should not have md-input-has-value class if input does not have value'
     );
 
     this.set('foo', 'abc');
 
     assert.ok(
-      this.$('md-input-container').hasClass('md-input-has-value'),
+      find('md-input-container').classList.contains('md-input-has-value'),
       'should have md-input-has-value class if input has value'
     );
   });
@@ -602,6 +602,6 @@ module('Integration | Component | paper input', function(hooks) {
       {{/paper-input}}
     `);
 
-    assert.equal(this.$('.other-stuff').length, 1);
+    assert.equal(findAll('.other-stuff').length, 1);
   });
 });

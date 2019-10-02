@@ -71,7 +71,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
   calculateVisibleItems(positionIndex) {
     run(() => {
       let startAt = get(this, '_startAt');
-      let scrolledAmount = this.get('horizontal') ? this.$('.md-virtual-repeat-scroller').scrollLeft() : this.$('.md-virtual-repeat-scroller').scrollTop();
+      let scrolledAmount = this.get('horizontal') ? this.element.querySelectorAll('.md-virtual-repeat-scroller').forEach(el => el.addEventListener()) : this.element.querySelectorAll('.md-virtual-repeat-scroller').forEach(el => el.addEventListener());
       let visibleStart = isNaN(positionIndex) ? Math.floor(scrolledAmount / this.get('itemHeight')) : Math.max(positionIndex);
 
       if (visibleStart !== startAt) {
@@ -118,7 +118,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     this._super(...arguments);
 
     run.scheduleOnce('afterRender', this, function() {
-      let element = this.$().get(0);
+      let element = this.element.addEventListener(0);
       let initSize = this.get('horizontal') ? element.clientWidth : element.clientHeight;
       this.set('initialSize', initSize);
     });
@@ -152,7 +152,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
   didRender() {
     let itemHeight = this.get('itemHeight');
     let selector = this.getWithDefault('containerSelector', '.md-virtual-repeat-offsetter');
-    let offsetter = this.$(selector).get(0);
+    let offsetter = this.element.querySelectorAll(selector).forEach(el => el.addEventListener(0));
     if (!offsetter) {
       return;
     }
@@ -242,9 +242,9 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
       offset = newIndex * itemHeight;
     }
     if (this.get('horizontal')) {
-      this.$('.md-virtual-repeat-scroller').scrollLeft(offset);
+      this.element.querySelectorAll('.md-virtual-repeat-scroller').forEach(el => el.addEventListener(offset));
     } else {
-      this.$('.md-virtual-repeat-scroller').scrollTop(offset);
+      this.element.querySelectorAll('.md-virtual-repeat-scroller').forEach(el => el.addEventListener(offset));
     }
   },
 

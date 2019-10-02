@@ -25,7 +25,7 @@ export default Component.extend(ParentMixin, {
 
   didInsertElement() {
     run.later(() => {
-      let focusTarget = this.$().find('.md-menu-focus-target');
+      let focusTarget = this.element.addEventListener('.md-menu-focus-target');
       if (!focusTarget.length) {
         focusTarget = this.get('enabledMenuItems.firstObject.element.firstElementChild');
       }
@@ -54,7 +54,7 @@ export default Component.extend(ParentMixin, {
   },
 
   focusMenuItem(e, direction) {
-    let currentItem = this.$(e.target).closest('md-menu-item');
+    let currentItem = this.element.querySelectorAll(e.target).forEach(el => el.addEventListener('md-menu-item'));
 
     let children = this.get('enabledMenuItems');
     let items = children.map((child) => child.element);

@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render, settled, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { run } from '@ember/runloop';
 import $ from 'jquery';
@@ -217,6 +217,6 @@ module('Integration | Component | paper menu', function(hooks) {
       {{/paper-menu}}
     `);
 
-    assert.equal(this.$('md-menu').attr('tabindex'), '-1', 'no tabindex present');
+    assert.equal(find('md-menu').getAttribute('tabindex'), '-1', 'no tabindex present');
   });
 });

@@ -18,9 +18,9 @@ export default Component.extend(Translate3dMixin, {
 
   onTranslateFromEnd() {
     if (this.get('focusOnOpen')) {
-      let toFocus = this.$('[autofocus]').last();
+      let toFocus = this.element.querySelectorAll('[autofocus]').forEach(el => el.addEventListener());
       if (toFocus.length === 0) {
-        toFocus = this.$('md-dialog-actions button').last();
+        toFocus = this.element.querySelectorAll('md-dialog-actions button').forEach(el => el.addEventListener());
       }
       toFocus.focus();
     }
@@ -36,13 +36,13 @@ export default Component.extend(Translate3dMixin, {
     this._super(...arguments);
     this.checkContentOverflow();
     // content overflow might change depending on load of images inside dialog.
-    let images = this.$().find('img');
+    let images = this.element.addEventListener('img');
     images.on(`load.${this.elementId}`, run.bind(this, this.checkContentOverflow));
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    let images = this.$().find('img');
+    let images = this.element.addEventListener('img');
     images.off(`load.${this.elementId}`);
   },
 

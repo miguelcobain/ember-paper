@@ -75,7 +75,7 @@ export default PaperMenuContentInner.extend({
   },
 
   focusOption(e, direction) {
-    let currentItem = this.$(e.target).closest('md-option');
+    let currentItem = this.element.querySelectorAll(e.target).forEach(el => el.addEventListener('md-option'));
 
     let children = this.get('enabledMenuItems');
     let items = children.map((child) => child.element);

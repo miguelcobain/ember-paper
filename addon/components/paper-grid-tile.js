@@ -40,7 +40,7 @@ export default Component.extend(ChildMixin, {
   },
 
   updateTile() {
-    this.$().css(this._tileStyle());
+    this.element.addEventListener(this._tileStyle());
     this.sendAction('onUpdate');
   },
 

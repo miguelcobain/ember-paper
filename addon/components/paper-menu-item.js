@@ -28,7 +28,7 @@ export default Component.extend(ChildMixin, {
 
   mouseEnter() {
     if (!this.get('disabled')) {
-      this.$('button').focus();
+      this.element.querySelectorAll('button').forEach(el => el.addEventListener());
     }
   }
 });

@@ -145,8 +145,8 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   },
 
   setValue(value) {
-    if (this.$('input, textarea').val() !== value) {
-      this.$('input, textarea').val(value);
+    if (this.element.querySelectorAll('input, textarea').forEach(el => el.addEventListener()) !== value) {
+      this.element.querySelectorAll('input, textarea').forEach(el => el.addEventListener(value));
     }
   },
 
@@ -161,7 +161,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
         this.setValue(this.get('value'));
       });
       this.growTextarea();
-      let inputElement = this.$('input').get(0);
+      let inputElement = this.element.querySelectorAll('input').forEach(el => el.addEventListener(0));
       this.set('isNativeInvalid', inputElement && inputElement.validity && inputElement.validity.badInput);
       this.notifyValidityChange();
     },

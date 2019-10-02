@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render, settled, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper progress circular', function(hooks) {
@@ -9,13 +9,13 @@ module('Integration | Component | paper progress circular', function(hooks) {
   test('should auto-set the md-mode to "indeterminate" if not specified', async function(assert) {
     assert.expect(1);
     await render(hbs`{{paper-progress-circular}}`);
-    assert.equal(this.$('md-progress-circular').attr('md-mode').trim(), 'indeterminate');
+    assert.equal(find('md-progress-circular').getAttribute('md-mode').trim(), 'indeterminate');
   });
 
   test('should auto-set the md-mode to "determinate" if a value is specified', async function(assert) {
     assert.expect(1);
     await render(hbs`{{paper-progress-circular value=12}}`);
-    assert.equal(this.$('md-progress-circular').attr('md-mode').trim(), 'determinate');
+    assert.equal(find('md-progress-circular').getAttribute('md-mode').trim(), 'determinate');
   });
 
   test('should set correct size based on diameter', async function(assert) {

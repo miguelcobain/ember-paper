@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper icon', function(hooks) {
@@ -11,7 +11,7 @@ module('Integration | Component | paper icon', function(hooks) {
 
     await render(hbs`{{paper-icon icon="check"}}`);
 
-    assert.ok(this.$('md-icon').length);
+    assert.ok(findAll('md-icon').length);
   });
 
   test('it renders with classes', async function(assert) {

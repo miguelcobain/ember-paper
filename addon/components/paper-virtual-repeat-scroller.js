@@ -7,13 +7,13 @@ export default Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    this.$().scroll((e) => {
+    this.element.addEventListener((e) => {
       this.get('onScroll')(e);
     });
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    this.$().off('scroll');
+    this.element.addEventListener('scroll');
   }
 });

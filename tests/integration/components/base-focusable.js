@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | base focusable', function(hooks) {
@@ -10,9 +10,9 @@ module('Integration | Component | base focusable', function(hooks) {
 
     this.set('value', true);
     await render(hbs`{{base-focusable id="base-focusable" disabled=value}}`);
-    assert.equal(this.$('#base-focusable').attr('disabled').trim(), 'disabled');
+    assert.equal(find('#base-focusable').getAttribute('disabled').trim(), 'disabled');
 
     this.set('value', false);
-    assert.ok(!this.$('md-checkbox').attr('disabled'));
+    assert.ok(!find('md-checkbox').getAttribute('disabled'));
   });
 });

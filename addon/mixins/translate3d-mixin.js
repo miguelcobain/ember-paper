@@ -74,7 +74,7 @@ export default Mixin.create({
   willDestroyElement() {
     this._super(...arguments);
 
-    let containerClone = this.$().parent().clone();
+    let containerClone = this.element.addEventListener().clone();
     let dialogClone = containerClone.find('md-dialog');
     $(this.get('defaultedParent')).parent().append(containerClone);
 

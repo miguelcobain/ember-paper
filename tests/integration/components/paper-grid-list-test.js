@@ -59,7 +59,7 @@ module('Integration | Component | paper grid list', function(hooks) {
       {{/paper-grid-list}}
     `);
 
-    assert.equal(this.$('md-grid-tile').length, 1);
+    assert.equal(findAll('md-grid-tile').length, 1);
   });
 
   test('it renders tiles with footer', async function(assert) {

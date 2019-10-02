@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper toolbar', function(hooks) {
@@ -14,7 +14,7 @@ module('Integration | Component | paper toolbar', function(hooks) {
       {{/paper-toolbar}}
     `);
 
-    assert.ok(this.$('md-toolbar').hasClass('md-tall'));
+    assert.ok(find('md-toolbar').classList.contains('md-tall'));
   });
 
   test('paper-toolbar-tools uses .md-toolbar-tools class', async function(assert) {
@@ -27,6 +27,6 @@ module('Integration | Component | paper toolbar', function(hooks) {
       {{/paper-toolbar}}
     `);
 
-    assert.equal(this.$('.md-toolbar-tools').length, 1);
+    assert.equal(findAll('.md-toolbar-tools').length, 1);
   });
 });

@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import $ from 'jquery';
 
@@ -12,10 +12,10 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     this.set('value', true);
     await render(hbs`{{paper-checkbox value=value label="Blue" onChange=(action (mut value))}}`);
-    assert.ok(this.$('md-checkbox').hasClass('md-checked'));
+    assert.ok(find('md-checkbox').classList.contains('md-checked'));
 
     this.set('value', false);
-    assert.ok(!this.$('md-checkbox').hasClass('md-checked'));
+    assert.ok(!find('md-checkbox').classList.contains('md-checked'));
   });
 
   test('should trigger an action when unchecking', async function(assert) {
@@ -28,7 +28,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     await render(hbs`{{paper-checkbox value=value onChange=handleChange}}`);
 
-    this.$('md-checkbox').click();
+    await click('md-checkbox');
   });
 
   test('should trigger an action when checking', async function(assert) {
@@ -41,7 +41,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     await render(hbs`{{paper-checkbox value=value onChange=handleChange}}`);
 
-    this.$('md-checkbox').click();
+    await click('md-checkbox');
   });
 
   test('shouldn\'t trigger an action when disabled', async function(assert) {
@@ -54,7 +54,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     await render(hbs`{{paper-checkbox disabled=true value=value onChange=handleChange}}`);
 
-    this.$('md-checkbox').click();
+    await click('md-checkbox');
   });
 
   // space and enter key codes
@@ -93,7 +93,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     await render(hbs`{{paper-checkbox value=value onChange=(action (mut value)) label="çup?"}}`);
 
-    assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
+    assert.equal(find('.md-label > span').textContent.trim(), 'çup?');
   });
 
   test('block version should set label inside', async function(assert) {
@@ -105,7 +105,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
       {{/paper-checkbox}}
     `);
 
-    assert.equal(this.$('.md-label > span').text().trim(), 'çup?');
+    assert.equal(find('.md-label > span').textContent.trim(), 'çup?');
   });
 
   /* test('the `onChange` action is mandatory', function(assert) {
@@ -124,10 +124,10 @@ module('Integration | Component | paper checkbox', function(hooks) {
       {{paper-checkbox value=value indeterminate=indeterminate
         label="Blue" onChange=(action (mut value))}}
     `);
-    assert.ok(this.$('md-checkbox').hasClass('md-checked'));
+    assert.ok(find('md-checkbox').classList.contains('md-checked'));
 
     this.set('indeterminate', true);
-    assert.ok(!this.$('md-checkbox').hasClass('md-checked'));
-    assert.ok(this.$('md-checkbox').hasClass('md-indeterminate'));
+    assert.ok(!find('md-checkbox').classList.contains('md-checked'));
+    assert.ok(find('md-checkbox').classList.contains('md-indeterminate'));
   });
 });

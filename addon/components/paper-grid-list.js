@@ -105,7 +105,7 @@ export default Component.extend(ParentMixin, {
 
   // Updates styles and triggers onUpdate callbacks
   updateGrid() {
-    this.$().css(this._gridStyle());
+    this.element.addEventListener(this._gridStyle());
     this.get('tiles').forEach((tile) => tile.updateTile());
     this.sendAction('onUpdate');
   },
@@ -159,7 +159,7 @@ export default Component.extend(ParentMixin, {
 
   // Sorts tiles by their order in the dom
   orderedTiles() {
-    let domTiles = this.$('md-grid-tile').toArray();
+    let domTiles = this.element.querySelectorAll('md-grid-tile').forEach(el => el.addEventListener());
     return this.get('tiles').sort((a, b) => {
       return domTiles.indexOf(a.get('element')) > domTiles.indexOf(b.get('element')) ? 1 : -1;
     });

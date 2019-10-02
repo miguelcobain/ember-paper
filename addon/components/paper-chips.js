@@ -123,7 +123,7 @@ export default Component.extend({
       // If we have a valid chip index, make it active.
       if (!isEmpty(index) && !this.get('readOnly')) {
         // Shift actual focus to wrap so that subsequent blur events work as expected.
-        this.$('md-chips-wrap').focus();
+        this.element.querySelectorAll('md-chips-wrap').forEach(el => el.addEventListener());
 
         // Update state to reflect the clicked chip being active.
         this.set('focusedElement', 'chips');
@@ -189,7 +189,7 @@ export default Component.extend({
     if (['ArrowLeft', 'Left'].includes(key) || (key === 'Backspace' && current === -1)) {
       if (current === -1) {
         input.blur();
-        this.$('md-chips-wrap', this.element).focus();
+        this.element.querySelectorAll('md-chips-wrap', this.element).forEach(el => el.addEventListener());
         this.set('activeChip', chips.length - 1);
       } else if (current > 0) {
         this.decrementProperty('activeChip');
@@ -222,7 +222,7 @@ export default Component.extend({
   },
 
   focusMovingTo(selector, event) {
-    if (!isEmpty(event) && !isEmpty(event.relatedTarget) && this.$().find(event.relatedTarget).is(selector)) {
+    if (!isEmpty(event) && !isEmpty(event.relatedTarget) && this.element.addEventListener(event.relatedTarget).is(selector)) {
       return true;
     }
 
