@@ -80,7 +80,7 @@ module('Integration | Component | paper-virtual-repeat', function(hooks) {
 
     await settled();
     await waitUntil(() => find(".md-virtual-repeat-offsetter[style='transform: translateY(0px);']"));
-    
+
     assert.dom('.md-virtual-repeat-offsetter').hasAttribute('style', 'transform: translateY(0px);');
 
     find('.md-virtual-repeat-scroller').scrollTop = 30;
