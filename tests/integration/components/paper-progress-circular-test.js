@@ -38,9 +38,10 @@ module('Integration | Component | paper progress circular', function(hooks) {
     assert.dom('md-progress-circular').hasAttribute('style', /height:.*25px/);
     assert.dom('md-progress-circular').hasAttribute('style', /width:.*25px/);
 
+    await waitUntil(() => find('md-progress-circular > svg > path[transform]'));
     let path = find('md-progress-circular > svg > path');
 
-    await waitUntil(() => find('md-progress-circular > svg > path[transform]'));
+    await settled();
 
     assert.dom(path).hasAttribute('transform', 'rotate(0 12.5 12.5)', 'rotated halfway');
 
