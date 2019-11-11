@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, find } from '@ember/test-helpers';
+import { render, settled, find, waitUntil } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper progress circular', function(hooks) {
@@ -38,6 +38,7 @@ module('Integration | Component | paper progress circular', function(hooks) {
     assert.dom('md-progress-circular').hasAttribute('style', /height:.*25px/);
     assert.dom('md-progress-circular').hasAttribute('style', /width:.*25px/);
 
+    await waitUntil(() => find('md-progress-circular > svg > path[transform]'));
     let path = find('md-progress-circular > svg > path');
 
     await settled();
