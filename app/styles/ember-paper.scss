@@ -1,3 +1,8 @@
+// Tooltip with input
+md-input-container label md-icon {
+  pointer-events: auto;
+}
+
 .md-searchbox {
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
   padding-left: 10.667px;

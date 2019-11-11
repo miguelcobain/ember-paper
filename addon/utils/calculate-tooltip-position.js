@@ -15,6 +15,7 @@ export default function calculateTooltipPosition(tooltip, target, position) {
 
   switch (position) {
     case 'top':
+    default:
     case 'bottom':
       positionStyle.left = targetLeft + (0.5 * targetWidth) - (0.5 * panelWidth);
       break;
@@ -38,6 +39,7 @@ export default function calculateTooltipPosition(tooltip, target, position) {
     case 'top':
       positionStyle.top = targetTop - panelHeight;
       break;
+    default:
     case 'bottom':
       positionStyle.top = targetBottom;
       break;

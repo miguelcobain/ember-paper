@@ -10,6 +10,7 @@
   <div class="layout layout-sm-column">
     {{paper-input class="flex" label="Submission date" type="date" value=date onChange=(action (mut date))}}
     {{paper-input class="flex" label="Company (disabled)" type="text" value="Google" disabled=true onChange=(action (mut foo))}}
+    {{paper-input class="flex" labelComponent=(component "tooltip-label" label="Input with tooltip" tooltip="This is a tooltip") value=inputTooltip onChange=(action (mut inputTooltip))}}
   </div>
 
   {{paper-input textarea=true block=true label="Biography" maxlength=150 passThru=(hash rows=5 maxRows=5)

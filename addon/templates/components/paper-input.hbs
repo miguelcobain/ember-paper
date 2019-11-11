@@ -1,5 +1,9 @@
-{{#if label}}
-  <label for={{inputElementId}} class={{if required "md-required"}}>{{label}}</label>
+{{#if labelComponent}}
+  {{component labelComponent inputElementId=inputElementId required=required}}
+{{else if label}}
+  <label for={{inputElementId}} class={{if required "md-required"}}>
+    {{label}}
+  </label>
 {{/if}}
 
 {{#if icon}}
