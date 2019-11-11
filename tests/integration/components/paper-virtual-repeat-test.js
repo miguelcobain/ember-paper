@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, find } from '@ember/test-helpers';
+import { render, settled, find, waitUntil } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { next } from '@ember/runloop';
 
@@ -79,12 +79,14 @@ module('Integration | Component | paper-virtual-repeat', function(hooks) {
     `);
 
     await settled();
+    await waitUntil(() => find(".md-virtual-repeat-offsetter[style='transform: translateY(0px);']"));
 
     assert.dom('.md-virtual-repeat-offsetter').hasAttribute('style', 'transform: translateY(0px);');
 
     find('.md-virtual-repeat-scroller').scrollTop = 30;
 
     await settled();
+    await waitUntil(() => find(".md-virtual-repeat-offsetter[style='transform: translateY(30px);']"));
 
     await next(() => {
       assert.dom('.md-virtual-repeat-offsetter > *').exists({ count: 10 + NUM_EXTRA });
