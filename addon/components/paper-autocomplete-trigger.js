@@ -5,6 +5,7 @@ import Component from '@ember/component';
 import { not } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import layout from '../templates/components/paper-autocomplete-trigger';
+import unwrapProxy from 'ember-paper/utils/unwrap-proxy';
 
 /**
  * @class PaperAutocompleteTrigger
@@ -26,7 +27,7 @@ export default Component.extend({
   }),
 
   text: computed('select.{searchText,selected}', function() {
-    let selected = this.get('select.selected');
+    let selected = unwrapProxy(this.get('select.selected'));
     if (selected) {
       return this.getSelectedAsText();
     }

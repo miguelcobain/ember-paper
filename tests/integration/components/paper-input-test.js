@@ -91,6 +91,17 @@ module('Integration | Component | paper-input', function(hooks) {
     assert.dom('md-input-container input').hasValue('current value');
   });
 
+  test('renders input with value that can be cleared', async function(assert) {
+    assert.expect(2);
+
+    this.set('value', 'current value');
+    await render(hbs`{{paper-input value=value onChange=dummyOnChange}}`);
+    assert.dom('md-input-container input').hasValue('current value');
+
+    this.set('value', '');
+    assert.dom('md-input-container input').hasValue('');
+  });
+
   test('renders input as disabled', async function(assert) {
     assert.expect(1);
 

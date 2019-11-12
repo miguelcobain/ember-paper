@@ -46,7 +46,7 @@ export default Component.extend({
 
     let opacity = open ? 1 : 0;
     let transform = open ? 'scale(1)' : 'scale(0)';
-    let transitionDelay = `${open ? offsetDelay : items.length - offsetDelay}ms`;
+    let transitionDelay = `${open ? offsetDelay : (items.length * delay) - offsetDelay}ms`;
 
     // Make the items closest to the trigger have the highest z-index
     let zIndex = (items.length - index) + startZIndex;
