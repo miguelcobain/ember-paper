@@ -91,7 +91,7 @@ export default Component.extend({
       }
     },
 
-    inputBlur(_, event) {
+    inputBlur(value, event) {
       if (this.focusMovingTo('.ember-power-select-option', event)) {
         // Focus has shifted to an item - don't mess with this event.
         return true;
@@ -105,6 +105,10 @@ export default Component.extend({
 
       if (!this.focusMovingTo('md-chips-wrap', event)) {
         this.set('focusedElement', 'none');
+      }
+      if (value && this.get('addItemOnFocusOut')) {
+        this.send("addItem", value);
+        return true;
       }
     },
 
