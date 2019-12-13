@@ -27,7 +27,9 @@ function firstVisibleChild(node) {
  * @extends BasicDropdownComponent
  */
 export default BasicDropdownComponent.extend({
-  layout,
+  layout
+
+  /*
 
   close() {
     this._super(...arguments);
@@ -179,4 +181,5 @@ export default BasicDropdownComponent.extend({
 
     return { style, horizontalPosition: '', verticalPosition: '' };
   }
+  */
 });

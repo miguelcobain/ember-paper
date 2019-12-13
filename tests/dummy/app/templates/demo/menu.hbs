@@ -19,6 +19,12 @@
 
       <div class="layout-column layout-align-center-center">
         {{! BEGIN-SNIPPET menu.simple-dropdown }}
+        <BasicDropdown as |dd|>
+          <dd.Trigger>Click me</dd.Trigger>
+          <dd.Content>Content of the trigger</dd.Content>
+        </BasicDropdown>
+
+
         {{#paper-menu as |menu|}}
           {{#menu.trigger}}
             {{#paper-button iconButton=true}}
