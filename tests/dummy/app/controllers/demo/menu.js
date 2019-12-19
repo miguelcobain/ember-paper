@@ -1,11 +1,12 @@
 import Controller from '@ember/controller';
 import { A } from '@ember/array';
+import { action } from '@ember/object';
 
-export default Controller.extend({
+export default class MenuController extends Controller {
 
-  options: A([1, 2, 3, 4, 5]),
+  options = A([1, 2, 3, 4, 5]);
 
-  items: A([
+  items = A([
     {
       icon: 'access_alarms',
       title: 'Alarm',
@@ -20,11 +21,10 @@ export default Controller.extend({
       icon: 'airplanemode_active',
       title: 'Airplane mode'
     }
-  ]),
+  ]);
 
-  actions: {
-    openSomething() {
-      alert('Some action handler.');
-    }
+  @action
+  openSomething() {
+    alert('Some action handler.');
   }
-});
+}

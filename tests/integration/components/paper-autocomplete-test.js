@@ -98,7 +98,7 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     assert.dom('.md-autocomplete-suggestions').exists('opened menu');
 
-    await triggerEvent('#other-div', 'mousedown');
+    await click('#other-div');
 
     assert.dom('.md-autocomplete-suggestions').doesNotExist('backdrop removed');
   });
@@ -121,6 +121,8 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
     await settled();
 
     await focus('md-autocomplete-wrap input');
+
+    await settled();
 
     assert.dom('.md-autocomplete-suggestions').exists('opened menu');
 
@@ -151,6 +153,8 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
     assert.dom('.md-autocomplete-suggestions li').exists({ count: 8 }, 'only rendered 8 items');
 
     await fillIn('md-autocomplete-wrap input', 'four');
+
+    await settled();
 
     assert.dom('.md-autocomplete-suggestions li').exists({ count: 1 }, 'only render searched item');
   });

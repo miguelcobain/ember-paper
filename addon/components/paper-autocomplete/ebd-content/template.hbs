@@ -1,0 +1,25 @@
+<BasicDropdownContent
+  {{!-- proxy all the things that ebd gives us --}}
+  @dropdown={{@dropdown}}
+  @hPosition={{@hPosition}}
+  @renderInPlace={{@renderInPlace}}
+  @preventScroll={{@preventScroll}}
+  @rootEventType={{@rootEventType}}
+  @vPosition={{@vPosition}}
+  @destination={{@destination}}
+  @top={{@top}}
+  @left={{@left}}
+  @right={{@right}}
+  @width={{@width}}
+  @height={{@height}}
+  @otherStyles={{this.customStyles}}
+
+  @htmlTag="md-virtual-repeat-container"
+  @shouldReposition={{fn this.shouldReposition}}
+  class="md-virtual-repeat-container md-autocomplete-suggestions-container"
+
+  ...attributes>
+
+  {{yield}}
+
+</BasicDropdownContent>

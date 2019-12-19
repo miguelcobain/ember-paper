@@ -27,11 +27,6 @@ const componentDependencies = {
       'paper-autocomplete-content'
     ]
   },
-  'paper-autocomplete-content': {
-    dependencies: [
-      'paper-virtual-repeat'
-    ]
-  },
   'paper-autocomplete-trigger': {
     dependencies: [
       'paper-progress-linear',
@@ -271,8 +266,7 @@ const componentDependencies = {
   },
   'paper-select-content': {
     dependencies: [
-      'paper-backdrop',
-      'paper-select-menu-inner'
+      'paper-backdrop'
     ]
   },
   'paper-sidenav': {
@@ -360,14 +354,6 @@ const componentDependencies = {
     ],
     dependencies: [
       'paper-tooltip-inner'
-    ]
-  },
-  'paper-virtual-repeat': {
-    styles: [
-      'components/virtualRepeat/virtual-repeater.scss'
-    ],
-    dependencies: [
-      'paper-virtual-repeat-scroller'
     ]
   }
 };

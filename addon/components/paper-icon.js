@@ -39,6 +39,8 @@ let PaperIconComponent = Component.extend(ColorMixin, {
       return 'md-spin';
     } else if (this.get('reverseSpin')) {
       return 'md-spin-reverse';
+    } else {
+      return null;
     }
   }),
 
@@ -47,6 +49,8 @@ let PaperIconComponent = Component.extend(ColorMixin, {
 
     if (size) {
       return htmlSafe(`height: ${size}px; min-height: ${size}px; min-width: ${size}px; font-size: ${size}px; line-height: ${size}px;`);
+    } else {
+      return null;
     }
   })
 });

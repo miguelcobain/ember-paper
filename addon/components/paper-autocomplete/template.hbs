@@ -1,0 +1,43 @@
+<PowerSelect
+  @selected={{@selected}}
+  @options={{@options}}
+  @onChange={{fn this._onChange}}
+  @disabled={{@disabled}}
+  @placeholder={{@placeholder}}
+  @searchEnabled={{@searchEnabled}}
+  @searchField={{@searchField}}
+  @searchPlaceholder={{@searchPlaceholder}}
+  @search={{@search}}
+  @registerAPI={{action (mut this.publicAPI)}}
+  @allowClear={{@allowClear}}
+  @noMatchesMessage={{@noMatchesMessage}}
+  @defaultHighlighted={{@defaultHighlighted}}
+  @triggerClass={{@triggerClass}}
+  @dropdownClass={{@dropdownClass}}
+  @closeOnSelect={{@closeOnSelect}}
+  @matcher={{@matcher}}
+
+  @calculatePosition={{fn this.calculatePosition}}
+  @extra={{hash label=@label labelPath=@labelPath required=@required passThru=@passThru}}
+  @_ebdTriggerComponent={{component "paper-autocomplete/ebd-trigger" label=@label disabled=@disabled}}
+  @triggerComponent={{component "paper-autocomplete/eps-trigger" isTouched=this.isTouched hideAllMessages=@hideAllMessages validationErrorMessages=@validationErrorMessages errors=@errors}}
+
+  @_ebdContentComponent={{component "paper-autocomplete/ebd-content" select=this.publicAPI}}
+  @optionsComponent="paper-autocomplete/options"
+  @noMatchesMessageComponent={{component "paper-autocomplete/no-matches-message" onCreate=(fn this._onCreate)}}
+  @onClose={{fn this.close}}
+  @onOpen={{fn this.open}}
+  @onFocus={{fn this.focus}}
+  @onBlur={{fn this.blur}}
+  @onInput={{fn this._onInput}}
+  @scrollTo={{fn this.scrollTo}}
+  as |option term|>
+  {{#if hasBlock}}
+    {{yield option term}}
+  {{else}}
+    <PaperAutocomplete::Highlight
+      @label={{if @labelPath (get option @labelPath) option}}
+      @searchText={{term.searchText}}
+      @flags="i"/>
+  {{/if}}
+</PowerSelect>

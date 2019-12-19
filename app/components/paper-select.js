@@ -1,2 +1,1 @@
-import PaperSelect from 'ember-paper/components/paper-select';
-export default PaperSelect;
+export { default } from 'ember-paper/components/paper-select/component';

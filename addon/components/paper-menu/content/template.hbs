@@ -1,0 +1,33 @@
+{{!-- send the backdrop to the same place as the content --}}
+{{#if @dropdown.isOpen}}
+  {{#maybe-in-element this.destinationElement @renderInPlace}}
+    <PaperBackdrop class="md-menu-backdrop md-click-catcher" @onClick={{action @dropdown.actions.close}}/>
+  {{/maybe-in-element}}
+{{/if}}
+
+<BasicDropdownContent
+  class="md-open-menu-container md-whiteframe-z2 md-clickable {{if this.isActive "md-active"}}"
+  {{did-insert this.animateIn}}
+  {{will-destroy this.animateOut}}
+  {{!-- proxy all the things that ebd gives us --}}
+  @dropdown={{@dropdown}}
+  @hPosition={{@hPosition}}
+  @renderInPlace={{@renderInPlace}}
+  @preventScroll={{@preventScroll}}
+  @rootEventType={{@rootEventType}}
+  @vPosition={{@vPosition}}
+  @destination={{@destination}}
+  @top={{@top}}
+  @left={{@left}}
+  @right={{@right}}
+  {{!-- @width={{@width}} don't proxy with because we're using our own width value --}}
+  @height={{@height}}
+  @otherStyles={{this.customStyles}}
+  ...attributes>
+  {{! template-lint-disable no-invalid-interactive }}
+  <md-menu-content width={{@width}} class={{if @dense "md-dense"}} {{did-insert this.focusItem}} {{on "keydown" this.handleKeyDown}}>
+    {{yield (hash
+      menu-item=(component "paper-menu/item" dropdown=@dropdown parentComponent=this)
+    )}}
+  </md-menu-content>
+</BasicDropdownContent>

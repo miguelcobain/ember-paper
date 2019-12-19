@@ -1,0 +1,26 @@
+
+{{#if this.shouldShowLabel}}
+  <label
+    for="ember-basic-dropdown-trigger-{{@dropdown.uniqueId}}"
+    class={{if @required "md-required"}}>
+    {{@label}}
+  </label>
+{{/if}}
+
+<BasicDropdownTrigger
+  @htmlTag="md-select"
+  @eventType="click"
+
+  {{!-- proxy all the things that ebd gives us --}}
+  @dropdown={{@dropdown}}
+  @hPosition={{@hPosition}}
+  @renderInPlace={{@renderInPlace}}
+  @vPosition={{@this.vPosition}}
+
+  ...attributes
+
+  id="ember-basic-dropdown-trigger-{{@dropdown.uniqueId}}"
+  disabled={{@disabled}}
+  required={{@required}}>
+  {{yield}}
+</BasicDropdownTrigger>

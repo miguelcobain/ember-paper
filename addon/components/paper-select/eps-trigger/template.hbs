@@ -1,0 +1,15 @@
+<md-select-value class="md-select-value {{if this.isPlaceholder "md-select-placeholder"}}">
+  {{#if @select.selected}}
+    <span class="ember-power-select-selected-item">{{yield @select.selected @select}}</span>
+
+    {{#if (and @allowClear (not @select.disabled))}}
+      <span class="ember-power-select-clear-btn" {{on "mousedown" this.clear}} {{on "touchstart" this.clear}} role="button">&times;</span>
+    {{/if}}
+
+  {{else if @placeholder}}
+    <span class="ember-power-select-placeholder">{{@placeholder}}</span>
+  {{else if @extra.label}}
+    <span class="ember-power-select-placeholder">{{@extra.label}}</span>
+  {{/if}}
+  <span class="md-select-icon" aria-hidden="true"></span>
+</md-select-value>

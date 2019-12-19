@@ -16,7 +16,7 @@ module('Integration | Component | paper-menu', function(hooks) {
           {{/paper-button}}
         {{/menu.trigger}}
         {{#menu.content width=4 as |content|}}
-          {{#content.menu-item onClick="openSomething"}}
+          {{#content.menu-item}}
             <span id="menu-item">Test</span>
           {{/content.menu-item}}
         {{/menu.content}}
@@ -41,7 +41,7 @@ module('Integration | Component | paper-menu', function(hooks) {
           {{/paper-button}}
         {{/menu.trigger}}
         {{#menu.content width=4 as |content|}}
-            {{#content.menu-item onClick="openSomething"}}
+            {{#content.menu-item}}
               <span id="menu-item">Test</span>
             {{/content.menu-item}}
         {{/menu.content}}
@@ -68,7 +68,7 @@ module('Integration | Component | paper-menu', function(hooks) {
           {{/paper-button}}
         {{/menu.trigger}}
         {{#menu.content width=4 as |content|}}
-          {{#content.menu-item onClick="openSomething"}}
+          {{#content.menu-item}}
             <span id="menu-item">Test</span>
           {{/content.menu-item}}
         {{/menu.content}}
@@ -87,6 +87,9 @@ module('Integration | Component | paper-menu', function(hooks) {
 
   test('keydown changes focused element', async function(assert) {
     assert.expect(3);
+
+    this.openSomething = () => {};
+
     await render(hbs`
       {{#paper-menu as |menu|}}
         {{#menu.trigger}}
@@ -95,10 +98,10 @@ module('Integration | Component | paper-menu', function(hooks) {
           {{/paper-button}}
         {{/menu.trigger}}
         {{#menu.content width=4 as |content|}}
-            {{#content.menu-item onClick="openSomething"}}
+            {{#content.menu-item onClick=(action this.openSomething)}}
               <span id="menu-item">Test</span>
             {{/content.menu-item}}
-            {{#content.menu-item onClick="openSomething"}}
+            {{#content.menu-item onClick=(action this.openSomething)}}
               <span id="menu-item2">Test 2</span>
             {{/content.menu-item}}
         {{/menu.content}}
@@ -141,10 +144,10 @@ module('Integration | Component | paper-menu', function(hooks) {
           {{/paper-button}}
         {{/menu.trigger}}
         {{#menu.content width=4 as |content|}}
-            {{#content.menu-item onClick="openSomething"}}
+            {{#content.menu-item onClick=(action this.openSomething)}}
               <span id="menu-item">Test</span>
             {{/content.menu-item}}
-            {{#content.menu-item onClick="openSomething"}}
+            {{#content.menu-item onClick=(action this.openSomething)}}
               <span id="menu-item2">Test 2</span>
             {{/content.menu-item}}
         {{/menu.content}}

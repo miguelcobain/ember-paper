@@ -1,0 +1,12 @@
+<BasicDropdown
+  @triggerComponent="paper-menu/trigger"
+  @contentComponent="paper-menu/content"
+  @calculatePosition={{fn this.calculatePosition}}
+  @onClose={{fn this.close}}
+  @onOpen={{fn this.open}}
+  as |dd|>
+  {{yield (hash
+    trigger=dd.Trigger
+    content=dd.Content
+  )}}
+</BasicDropdown>

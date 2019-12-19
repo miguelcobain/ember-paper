@@ -1,23 +1,26 @@
 module.exports = {
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true
+    }
   },
   plugins: [
     'ember'
   ],
   extends: [
     'eslint:recommended',
-    'plugin:ember/recommended',
-    'plugin:ember-suave/recommended'
+    'plugin:ember/recommended'
   ],
   env: {
     browser: true
   },
   rules: {
     'ember/no-jquery': 'error',
-    'ember-suave/require-access-in-comments': 'off'
+    'ember/no-new-mixins': 'off'
   },
   overrides: [
     // node files
@@ -40,8 +43,7 @@ module.exports = {
         'tests/dummy/app/**'
       ],
       parserOptions: {
-        sourceType: 'script',
-        ecmaVersion: 2015
+        sourceType: 'script'
       },
       env: {
         browser: false,
@@ -50,8 +52,6 @@ module.exports = {
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         // add your custom rules and overrides for node files here
-        'ember-suave/prefer-destructuring': 'off',
-        'camelcase': 'off'
       })
     }
   ]

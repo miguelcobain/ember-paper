@@ -29,6 +29,8 @@ export default Component.extend({
     } else if (animation === 'scale') {
       return this.scaleClosed();
     }
+
+    return undefined;
   }),
 
   didRender() {

@@ -1,0 +1,9 @@
+<span ...attributes>
+  {{#each this.tokens as |token|~}}
+    {{~#if token.isMatch~}}
+      <span class="highlight">{{token.text}}</span>
+    {{~else~}}
+      {{token.text}}
+    {{~/if~}}
+  {{~/each}}
+</span>

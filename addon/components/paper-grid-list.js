@@ -243,6 +243,8 @@ export default Component.extend(ParentMixin, {
         return 0;
       }
     }
+
+    return undefined;
   }),
 
   _getRowMode(rowHeight) {

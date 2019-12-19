@@ -21,12 +21,16 @@ export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
   style: computed('href', function() {
     if (this.get('href')) {
       return htmlSafe('text-decoration: none; border: none;');
+    } else {
+      return undefined;
     }
   }),
 
   maybeHref: computed('href', 'disabled', function() {
     if (this.get('href') && !this.get('disabled')) {
       return this.get('href');
+    } else {
+      return undefined;
     }
   }),
 

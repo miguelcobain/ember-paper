@@ -1,0 +1,24 @@
+{{! template-lint-disable no-unnecessary-concat }}
+<VerticalCollection
+  @items={{@options}}
+  @tagName="ul"
+  class="md-autocomplete-suggestions"
+  @containerSelector=".md-autocomplete-suggestions-container"
+  @estimateHeight={{48}}
+  @staticHeight={{true}}
+  @bufferSize={{3}}
+  role="listbox"
+  aria-controls="ember-power-select-trigger-{{@select.uniqueId}}"
+  {{did-insert this.addHandlers}}
+  ...attributes
+  as |opt index|>
+  <li class="ember-power-select-option md-autocomplete-suggestion {{if (eq opt @select.highlighted) "selected"}}"
+    aria-selected="{{ember-power-select-is-selected opt @select.selected}}"
+    aria-disabled={{if opt.disabled "true"}}
+    aria-current="{{eq opt @select.highlighted}}"
+    data-option-index="{{@groupIndex}}{{index}}"
+    role="option"
+    tabindex={{if opt.disabled "-1" "0"}}>
+    {{yield opt @select}}
+  </li>
+</VerticalCollection>

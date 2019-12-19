@@ -1,0 +1,28 @@
+
+{{#if this.shouldShowLabel}}
+  <label
+    for="ember-basic-dropdown-trigger-{{@dropdown.uniqueId}}"
+    class={{if @required "md-required"}}>
+    {{@label}}
+  </label>
+{{/if}}
+
+<BasicDropdownTrigger
+  @htmlTag="md-autocomplete"
+  @eventType={{@eventType}}
+
+  {{!-- proxy all the things that ebd gives us --}}
+  @dropdown={{@dropdown}}
+  @hPosition={{@hPosition}}
+  @renderInPlace={{@renderInPlace}}
+  @vPosition={{@this.vPosition}}
+
+  ...attributes
+
+  md-floating-label={{if @label @label}}
+  class={{if @label "md-floating-label"}}
+  id="ember-basic-dropdown-trigger-{{@dropdown.uniqueId}}"
+  disabled={{@disabled}}
+  tabindex="-1">
+  {{yield}}
+</BasicDropdownTrigger>

@@ -19,27 +19,23 @@
 
       <div class="layout-column layout-align-center-center">
         {{! BEGIN-SNIPPET menu.simple-dropdown }}
-        <BasicDropdown as |dd|>
-          <dd.Trigger>Click me</dd.Trigger>
-          <dd.Content>Content of the trigger</dd.Content>
-        </BasicDropdown>
-
-
         {{#paper-menu as |menu|}}
+
           {{#menu.trigger}}
             {{#paper-button iconButton=true}}
               {{paper-icon "local_phone"}}
             {{/paper-button}}
           {{/menu.trigger}}
+
           {{#menu.content width=4 as |content|}}
             {{#each items as |item|}}
-              {{#content.menu-item onClick="openSomething"}}
+              {{#content.menu-item onClick=(action this.openSomething)}}
                 {{paper-icon item.icon}}
                 <span>{{item.title}}</span>
               {{/content.menu-item}}
             {{/each}}
 
-            {{#content.menu-item onClick="openSomething" disabled=true}}
+            {{#content.menu-item onClick=(action this.openSomething) disabled=true}}
               {{paper-icon "adb"}}
               <span>This is disabled.</span>
             {{/content.menu-item}}
@@ -47,7 +43,7 @@
             {{paper-divider}}
 
             {{#each items as |item|}}
-              {{#content.menu-item onClick="openSomething"}}
+              {{#content.menu-item onClick=(action this.openSomething)}}
                 {{paper-icon item.icon}} {{item.title}}
               {{/content.menu-item}}
             {{/each}}
@@ -86,7 +82,7 @@
 
               {{#menu.content as |content|}}
                 {{#each items as |item|}}
-                  {{#content.menu-item onClick="openSomething"}}
+                  {{#content.menu-item onClick=(action this.openSomething)}}
                     {{paper-icon item.icon class="md-menu-align-target"}}
                     <span>{{item.title}}</span>
                   {{/content.menu-item}}
@@ -98,7 +94,7 @@
 
           <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
             <p>Target mode with <code class="paper">offset</code></p>
-            {{#paper-menu isOpen=menuThreeIsOpen offset="0 -5" as |menu|}}
+            {{#paper-menu isOpen=menuThreeIsOpen offset="0 50" as |menu|}}
               {{#menu.trigger}}
                 {{#paper-button onClick=null iconButton=true}}
                   {{paper-icon "local_phone" class="md-menu-origin"}}
@@ -107,7 +103,7 @@
 
               {{#menu.content as |content|}}
                 {{#each items as |item|}}
-                  {{#content.menu-item onClick="openSomething"}}
+                  {{#content.menu-item onClick=(action this.openSomething)}}
                     {{paper-icon item.icon class="md-menu-align-target"}}
                     <span>{{item.title}}</span>
                   {{/content.menu-item}}
@@ -127,7 +123,19 @@
 
               {{#menu.content as |content|}}
                 {{#each items as |item|}}
-                  {{#content.menu-item onClick="openSomething"}}
+                  {{#content.menu-item onClick=(action this.openSomething)}}
+                    <p style="width: 190px;">{{item.title}}</p>
+                    {{paper-icon item.icon class="md-menu-align-target"}}
+                  {{/content.menu-item}}
+                {{/each}}
+                {{#each items as |item|}}
+                  {{#content.menu-item onClick=(action this.openSomething)}}
+                    <p style="width: 190px;">{{item.title}}</p>
+                    {{paper-icon item.icon class="md-menu-align-target"}}
+                  {{/content.menu-item}}
+                {{/each}}
+                {{#each items as |item|}}
+                  {{#content.menu-item onClick=(action this.openSomething)}}
                     <p style="width: 190px;">{{item.title}}</p>
                     {{paper-icon item.icon class="md-menu-align-target"}}
                   {{/content.menu-item}}
