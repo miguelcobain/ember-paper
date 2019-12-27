@@ -20,21 +20,24 @@ const componentDependencies = {
       'components/autocomplete/autocomplete-theme.scss'
     ],
     dependencies: [
-      'paper-autocomplete-trigger-container',
-      'paper-autocomplete-trigger',
-      'paper-autocomplete-options',
-      'paper-autocomplete-highlight',
-      'paper-autocomplete-content'
+      'paper-autocomplete/ebd-trigger',
+      'paper-autocomplete/eps-trigger',
+      'paper-autocomplete/ebd-content',
+      'paper-autocomplete/options',
+      'paper-autocomplete/no-matches-message',
+      'paper-autocomplete/highlight'
     ]
   },
-  'paper-autocomplete-trigger': {
+
+  'paper-autocomplete/eps-trigger': {
     dependencies: [
       'paper-progress-linear',
       'paper-input',
-      'paper-reset-button',
+      'paper-autocomplete/reset-button',
       'paper-icon'
     ]
   },
+
   'paper-backdrop': {
     styles: [
       'components/backdrop/backdrop.scss',
@@ -188,31 +191,31 @@ const componentDependencies = {
       'paper-radio-base'
     ]
   },
+
   'paper-menu': {
     styles: [
       'components/menu/menu.scss',
       'components/menu/menu-theme.scss'
     ],
     dependencies: [
-      'paper-menu-content'
+      'paper-menu/trigger',
+      'paper-menu/content'
     ]
   },
-  'paper-menu-content': {
+
+  'paper-menu/content': {
     dependencies: [
-      'paper-menu-content-inner',
-      'paper-backdrop'
+      'paper-backdrop',
+      'paper-menu/item'
     ]
   },
-  'paper-menu-content-inner': {
-    dependencies: [
-      'paper-menu-item'
-    ]
-  },
-  'paper-menu-item': {
+
+  'paper-menu/item': {
     dependencies: [
       'paper-button'
     ]
   },
+
   'paper-progress-circular': {
     styles: [
       'components/progressCircular/progress-circular.scss',
@@ -241,34 +244,36 @@ const componentDependencies = {
       'paper-radio'
     ]
   },
+
   'paper-select': {
     styles: [
       'components/select/select.scss',
       'components/select/select-theme.scss'
     ],
     dependencies: [
-      'paper-select-menu',
-      'paper-select-options',
-      'paper-select-trigger',
-      'paper-select-search'
+      'paper-select/ebd-trigger',
+      'paper-select/eps-trigger',
+      'paper-select/ebd-content',
+      'paper-select/options',
+      'paper-select/search',
+      'paper-select/no-matches-message',
+      'paper-select/search-message',
     ]
   },
-  'paper-select-options': {
+
+  'paper-select/options': {
     dependencies: [
-      'paper-option'
+      'paper-progress-circular',
+      'paper-select/option'
     ]
   },
-  'paper-select-menu': {
-    dependencies: [
-      'paper-select-menu-trigger',
-      'paper-select-content'
-    ]
-  },
-  'paper-select-content': {
+
+  'paper-select/ebd-content': {
     dependencies: [
       'paper-backdrop'
     ]
   },
+
   'paper-sidenav': {
     styles: [
       'components/sidenav/sidenav.scss',
@@ -632,13 +637,8 @@ module.exports = {
     }
 
     let baseName = name.replace(regex, '');
-    let firstSeparator = baseName.indexOf('/');
-    if (firstSeparator !== -1) {
-      baseName = baseName.substring(0, firstSeparator);
-    } else {
-      baseName = baseName.substring(0, baseName.lastIndexOf('.'));
-    }
-
+    baseName = baseName.replace(/(\/component|\/template\b)/, '');
+    baseName = baseName.substring(0, baseName.lastIndexOf('.')); 
     let isWhitelisted = whitelist.indexOf(baseName) !== -1;
     let isBlacklisted = blacklist.indexOf(baseName) !== -1;
 
