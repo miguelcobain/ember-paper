@@ -72,7 +72,6 @@
     "ember-composability-tools": "^0.0.12",
     "ember-css-transitions": "^0.1.16",
     "ember-decorators": "^6.1.1",
-    "ember-element-helper": "^0.2.0",
     "ember-get-config": "^0.2.4",
     "ember-invoke-action": "^1.5.1",
     "ember-maybe-in-element": "^0.4.0",
