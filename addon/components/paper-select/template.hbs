@@ -1,4 +1,4 @@
-<md-input-container class="{{if @selected "md-input-has-value"}} {{if this.isInvalidAndTouched "md-input-invalid"}} {{if this.isFocusedAndSelected "md-input-focused"}}" ...attributes>
+<md-input-container class="{{@class}} {{if @selected "md-input-has-value"}} {{if this.isInvalidAndTouched "md-input-invalid"}} {{if this.isFocusedAndSelected "md-input-focused"}}" ...attributes>
 
   <PowerSelect
     @selected={{@selected}}
