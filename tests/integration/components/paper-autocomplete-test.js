@@ -148,6 +148,8 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     await focus('md-autocomplete-wrap input');
 
+    await settled();
+
     assert.dom('.md-autocomplete-suggestions').exists('opened menu');
 
     assert.dom('.md-autocomplete-suggestions li').exists({ count: 8 }, 'only rendered 8 items');

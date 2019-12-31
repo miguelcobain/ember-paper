@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerKeyEvent, fillIn } from '@ember/test-helpers';
+import { render, triggerKeyEvent, fillIn, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper-chips', function(hooks) {
@@ -28,6 +28,9 @@ module('Integration | Component | paper-chips', function(hooks) {
       content=selectedItems}}`);
 
     await fillIn('md-chips input', 'T');
+
+    await settled();
+
     assert.dom('.md-autocomplete-suggestions li.selected').doesNotExist();
   });
 
