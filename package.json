@@ -75,7 +75,7 @@
     "ember-get-config": "^0.2.4",
     "ember-invoke-action": "^1.5.1",
     "ember-maybe-in-element": "^0.4.0",
-    "ember-power-select": "miguelcobain/ember-power-select#v3",
+    "ember-power-select": "^3.0.6",
     "fastboot-transform": "^0.1.3",
     "hammerjs": "^2.0.8",
     "matchmedia-polyfill": "^0.3.2",
