@@ -1,76 +1,33 @@
 <md-contact-chips class="md-default-theme {{@class}}" ...attributes>
-  <md-chips
-    class="md-contact-chips {{if (and (not @readOnly) this.isFocused) "md-focused"}}">
+  <PaperChips
+    class="md-contact-chips"
+    @readOnly={{@readOnly}}
+    @addItem={{@addItem}}
+    @removeItem={{@removeItem}}
+    @requireMatch={{true}}
+    @searchField={{this.searchField}}
+    @content={{@content}}
+    @options={{@options}}
+    @defaultHighlighted={{@defaultHighlighted}}
+    @placeholder={{@placeholder}}
+    @search={{@search}}
+    @matcher={{@matcher}}
+    @noMatchesMessage={{@noMatchesMessage}} as |item type|>
 
-    <md-chips-wrap
-      class="md-chips md-contact-chips {{if (and (not @readOnly) this.isFocused) "md-focused"}} {{if @readOnly "md-readonly"}}"
-      tabindex="-1"
-      {{on "focusin" this.handleFocusIn}}
-      {{on "focusout" this.handleFocusOut}}
-      {{on "click" this.handleClick}}
-      {{on "keydown" this.handleKeydown}}>
+    {{#if (eq type "suggestion")}}
+      <div class="md-contact-suggestion">
+        <img src={{get item this.imageField}} alt={{get item this.nameField}} class="md-contact-avatar">
+        <span class="md-contact-name">{{get item this.nameField}}</span>
+        <span class="md-contact-email">{{get item this.emailField}}</span>
+      </div>
+    {{/if}}
 
-      {{#each @content as |item index|}}
+    {{#if (eq type "chip")}}
+      <div class="md-contact-avatar">
+        <img src={{get item imageField}} alt={{get item nameField}}>
+      </div>
+      <span class="md-contact-name">{{get item nameField}}</span>
+    {{/if}}
 
-        {{! template-lint-disable no-invalid-interactive }}
-        <md-chip
-          class="md-chip md-default-theme {{if @readOnly "md-readonly"}} {{if (eq this.activeChip index) "md-focused"}}"
-          {{on "click" (fn this.handleChipClick index)}}>
-
-          <div class="md-chip-content" tabindex="-1" aria-hidden="true">
-            <div class="md-contact-avatar">
-              <img src={{get item imageField}} alt={{get item nameField}}>
-            </div>
-            <span class="md-contact-name">{{get item nameField}}</span>
-          </div>
-
-          <div class="md-chip-remove-container">
-            {{#unless @readOnly}}
-              <button
-                class="md-chip-remove"
-                type="button"
-                aria-hidden="true"
-                tabindex="-1"
-                {{on "click" (fn this.handleRemoveItem item)}}>
-                <PaperIcon @icon="clear" @size={{18}}/>
-                <span class="md-visually-hidden"> Remove </span>
-              </button>
-            {{/unless}}
-          </div>
-
-          {{#unless @readOnly}}
-            <span class="md-visually-hidden"> Press delete to remove this chip. </span>
-          {{/unless}}
-        </md-chip>
-      {{/each}}
-
-      {{#unless @readOnly}}
-        <div class="md-chip-input-container">
-          <PaperAutocomplete
-            @inputClass="md-input"
-            @options={{@options}}
-            @closeOnSelect={{true}}
-            @defaultHighlighted={{@defaultHighlighted}}
-            @placeholder={{@placeholder}}
-            @searchField={{this.searchField}}
-            @search={{@search}}
-            @matcher={{@matcher}}
-            @noMatchesMessage={{@noMatchesMessage}}
-            @searchText={{this.searchText}}
-            @onSelectionChange={{fn this.handleAutocompleteChange}}
-            @onSearchTextChange={{fn this.handleSearchTextChange}}
-            @onOpen={{fn this.handleAutocompleteOpen}}
-            as |item|>
-            <div class="md-contact-suggestion">
-              <img src={{get item this.imageField}} alt={{get item this.nameField}} class="md-contact-avatar">
-              <span class="md-contact-name">{{get item this.nameField}}</span>
-              <span class="md-contact-email">{{get item this.emailField}}</span>
-            </div>
-          </PaperAutocomplete>
-        </div>
-      {{/unless}}
-    </md-chips-wrap>
-
-  </md-chips>
-
+  </PaperChips>
 </md-contact-chips>

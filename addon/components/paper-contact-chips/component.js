@@ -1,11 +1,11 @@
-import PaperChips from 'ember-paper/components/paper-chips/component';
+import Component from '@ember/component';
 import template from './template';
 
 import { tagName, layout } from '@ember-decorators/component';
 
 @tagName('')
 @layout(template)
-class PaperContactChips extends PaperChips {
+class PaperContactChips extends Component {
   requireMatch = true;
   searchField = 'email';
   emailField = 'email';

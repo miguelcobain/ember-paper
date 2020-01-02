@@ -16,7 +16,7 @@
 
         <div class="md-chip-content" tabindex="-1" aria-hidden="true">
           {{#if hasBlock}}
-            {{yield item}}
+            {{yield item "chip"}}
           {{else}}
             <span>{{item}}</span>
           {{/if}}
@@ -64,7 +64,7 @@
             @onKeydown={{fn this.handleAutocompleteKeydown}}
             as |item|>
             {{#if hasBlock}}
-              {{yield item}}
+              {{yield item "suggestion"}}
             {{else}}
               <span>{{item}}</span>
             {{/if}}
