@@ -61,7 +61,7 @@ class PaperAutocomplete extends Component.extend(ValidationMixin) {
     this.notifyValidityChange();
 
     if (this.onClose) {
-      this.onClose(...arguments);
+      return this.onClose(...arguments);
     }
   }
 
@@ -74,7 +74,7 @@ class PaperAutocomplete extends Component.extend(ValidationMixin) {
     this.notifyValidityChange();
 
     if (this.onOpen) {
-      this.onOpen(...arguments);
+      return this.onOpen(...arguments);
     }
   }
 
@@ -87,6 +87,10 @@ class PaperAutocomplete extends Component.extend(ValidationMixin) {
       )
       && !select.selected) {
       select.actions.open(e);
+    }
+
+    if (this.onFocus) {
+      return this.onFocus(...arguments);
     }
   }
 
@@ -128,7 +132,7 @@ class PaperAutocomplete extends Component.extend(ValidationMixin) {
   _onCreate() {
     let text = this.publicAPI.searchText;
     if (this.onCreate) {
-      this.onCreate(text);
+      this.onCreate(text, this.publicAPI);
     }
     this.publicAPI.actions.close();
   }

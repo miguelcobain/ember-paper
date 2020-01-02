@@ -37,7 +37,7 @@ module('Integration | Component | paper-chips', function(hooks) {
   test('providing defaultHighlighted, opens dropdown where that option is highlighted', async function(assert) {
     this.items = ['Two', 'Three', 'Ten', 'Thirtneen'];
     this.selectedItems = [];
-    this.defaultHighlighted = (a) => a.results[0];
+    this.defaultHighlighted = (a) => a.results[1];
 
     await render(hbs`
     {{paper-chips
@@ -47,12 +47,13 @@ module('Integration | Component | paper-chips', function(hooks) {
 
     await fillIn('md-chips input', 'T');
     assert.dom('.md-autocomplete-suggestions li[aria-current="true"]').exists({ count: 1 });
+    assert.dom('.md-autocomplete-suggestions li[aria-current="true"]').hasText('Three');
   });
 
   test('pressing ENTER key, sets defaultHighlighted item as selected', async function(assert) {
     this.items = ['Two', 'Three', 'Ten', 'Thirtneen'];
     this.selectedItems = [];
-    this.defaultHighlighted = (a) => a.results[0];
+    this.defaultHighlighted = (a) => a.results[1];
     this.addItems = (item) => {
       this.set('selectedItems', [...this.selectedItems, item]);
     };
@@ -66,11 +67,12 @@ module('Integration | Component | paper-chips', function(hooks) {
 
     await fillIn('md-chips input', 'T');
     assert.dom('.md-autocomplete-suggestions li[aria-current="true"]').exists({ count: 1 });
+    assert.dom('.md-autocomplete-suggestions li[aria-current="true"]').hasText('Three');
 
     await triggerKeyEvent('md-chips input', 'keydown', 13);
     assert.dom('md-chip').exists({ count: this.selectedItems.length });
-    assert.dom('md-chip .md-chip-content').hasText('Two');
-    assert.equal(this.selectedItems[0], this.items[0]);
+    assert.dom('md-chip .md-chip-content').hasText('Three');
+    assert.equal(this.selectedItems[0], this.items[1]);
   });
 
 });

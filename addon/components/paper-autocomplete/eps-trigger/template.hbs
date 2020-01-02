@@ -5,7 +5,7 @@
     <PaperInput
       @label={{@extra.label}}
       @value={{this.text}}
-      class="ember-paper-autocomplete-search-input flex"
+      class="ember-paper-autocomplete-search-input flex {{@extra.inputClass}}"
       @isTouched={{@isTouched}}
       @required={{@extra.required}}
       @passThru={{@extra.passThru}}
@@ -19,7 +19,7 @@
   {{else}}
     <input type="search"
       value={{this.text}}
-      class="ember-paper-autocomplete-search-input flex"
+      class="ember-paper-autocomplete-search-input flex {{@extra.inputClass}}"
       placeholder={{@placeholder}}
       disabled={{@select.disabled}}
       accept={{@extra.passThru.accept}}

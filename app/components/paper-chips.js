@@ -1,3 +1,1 @@
-import PaperChips from 'ember-paper/components/paper-chips';
-
-export default PaperChips;
+export { default } from 'ember-paper/components/paper-chips/component';

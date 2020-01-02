@@ -16,9 +16,10 @@
   @dropdownClass={{@dropdownClass}}
   @closeOnSelect={{@closeOnSelect}}
   @matcher={{@matcher}}
+  @eventType={{@eventType}}
 
   @calculatePosition={{fn this.calculatePosition}}
-  @extra={{hash label=@label labelPath=@labelPath required=@required passThru=@passThru}}
+  @extra={{hash label=@label labelPath=@labelPath required=@required passThru=@passThru inputClass=@inputClass}}
   @_ebdTriggerComponent={{component "paper-autocomplete/ebd-trigger" label=@label disabled=@disabled}}
   @triggerComponent={{component "paper-autocomplete/eps-trigger" isTouched=this.isTouched hideAllMessages=@hideAllMessages validationErrorMessages=@validationErrorMessages errors=@errors}}
 
@@ -31,6 +32,7 @@
   @onBlur={{fn this.blur}}
   @onInput={{fn this._onInput}}
   @scrollTo={{fn this.scrollTo}}
+  @onKeydown={{@onKeydown}}
   as |option term|>
   {{#if hasBlock}}
     {{yield option term}}
