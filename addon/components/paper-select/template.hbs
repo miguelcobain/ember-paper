@@ -12,7 +12,7 @@
     @searchPlaceholder={{@searchPlaceholder}}
     @registerAPI={{action (mut this.publicAPI)}}
 
-    @calculatePosition={{fn this.calculatePosition}}
+    @calculatePosition={{this.calculatePosition}}
     @extra={{hash label=@label}}
     @_ebdTriggerComponent={{component "paper-select/ebd-trigger" label=@label selected=@selected required=@required disabled=@disabled}}
     @triggerComponent="paper-select/eps-trigger"
@@ -23,10 +23,10 @@
     @beforeOptionsComponent="paper-select/search"
     @noMatchesMessageComponent="paper-select/no-matches-message"
     @searchMessageComponent="paper-select/search-message"
-    @onClose={{fn this.close}}
-    @onOpen={{fn this.open}}
-    @onFocus={{fn this.focus}}
-    @onBlur={{fn this.blur}}
+    @onClose={{this.close}}
+    @onOpen={{this.open}}
+    @onFocus={{this.focus}}
+    @onBlur={{this.blur}}
     as |opt term|>
     {{yield opt term}}
   </PowerSelect>

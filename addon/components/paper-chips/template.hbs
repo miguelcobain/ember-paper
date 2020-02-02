@@ -57,11 +57,11 @@
             @matcher={{@matcher}}
             @noMatchesMessage={{@noMatchesMessage}}
             @searchText={{this.searchText}}
-            @onSelectionChange={{fn this.handleAutocompleteChange}}
-            @onSearchTextChange={{fn this.handleSearchTextChange}}
-            @onOpen={{fn this.handleAutocompleteOpen}}
-            @onCreate={{fn this.handleAddItem}}
-            @onKeydown={{fn this.handleAutocompleteKeydown}}
+            @onSelectionChange={{this.handleAutocompleteChange}}
+            @onSearchTextChange={{this.handleSearchTextChange}}
+            @onOpen={{this.handleAutocompleteOpen}}
+            @onCreate={{this.handleAddItem}}
+            @onKeydown={{this.handleAutocompleteKeydown}}
             as |item|>
             {{#if hasBlock}}
               {{yield item "suggestion"}}

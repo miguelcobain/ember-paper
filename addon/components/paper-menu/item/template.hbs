@@ -1,7 +1,7 @@
 {{! template-lint-disable no-invalid-interactive }}
 <md-menu-item {{on "mouseenter" this.handleMouseEnter}} disabled={{@disabled}}>
   {{#if this.shouldRenderButton}}
-    <PaperButton @onClick={{fn this.handleClick}} @href={{@href}} @target={{@target}} @disabled={{@disabled}}>
+    <PaperButton @onClick={{this.handleClick}} @href={{@href}} @target={{@target}} @disabled={{@disabled}}>
       {{yield}}
     </PaperButton>
   {{else}}
