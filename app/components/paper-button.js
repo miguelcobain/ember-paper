@@ -1,3 +1,1 @@
-import PaperButton from 'ember-paper/components/paper-button';
-
-export default PaperButton;
+export { default } from 'ember-paper/components/paper-button';

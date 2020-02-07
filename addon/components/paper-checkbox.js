@@ -9,7 +9,6 @@ import Component from '@ember/component';
 import { assert } from '@ember/debug';
 import layout from '../templates/components/paper-checkbox';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import { invokeAction } from 'ember-invoke-action';
@@ -17,11 +16,10 @@ import { invokeAction } from 'ember-invoke-action';
  * @class PaperCheckbox
  * @extends Ember.Component
  * @uses FocusableMixin
- * @uses RippleMixin
  * @uses ColorMixin
  * @uses ProxiableMixin
  */
-export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
+export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
   layout,
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
@@ -32,12 +30,6 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
     'ariaChecked:aria-checked',
     'labelId:aria-labelledby'
   ],
-
-  /* RippleMixin Overrides */
-  rippleContainerSelector: '.md-container',
-  center: true,
-  dimBackground: false,
-  fitRipple: true,
 
   /* FocusableMixin Overrides */
   focusOnlyOnKey: true,

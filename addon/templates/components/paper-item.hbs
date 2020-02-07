@@ -15,10 +15,16 @@
       <div class="md-list-item-inner">
         {{yield controls}}
       </div>
+      <PaperRipple
+        @noink={{this.noink}}
+        @dimBackground={{true}}/>
     </div>
   {{else}}
     <div class="md-no-style md-list-item-inner">
       {{yield controls}}
+      <PaperRipple
+        @noink={{this.noink}}
+        @dimBackground={{true}}/>
     </div>
   {{/if}}
 

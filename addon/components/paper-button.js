@@ -1,12 +1,11 @@
 /**
  * @module ember-paper
  */
-import { reads, readOnly, not } from '@ember/object/computed';
+import { reads } from '@ember/object/computed';
 
 import Component from '@ember/component';
 import layout from '../templates/components/paper-button';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import { invokeAction } from 'ember-invoke-action';
@@ -15,11 +14,10 @@ import { invokeAction } from 'ember-invoke-action';
  * @class PaperButton
  * @extends Ember.Component
  * @uses FocusableMixin
- * @uses RippleMixin
  * @uses ColorMixin
  * @uses ProxiableMixin
  */
-export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
+export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
   layout,
   tagName: 'button',
   classNames: ['md-default-theme', 'md-button'],
@@ -44,12 +42,6 @@ export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, Proxiab
     'fab:md-fab',
     'mini:md-mini'
   ],
-
-  // Ripple Overrides
-  rippleContainerSelector: null,
-  fitRipple: readOnly('iconButton'),
-  center: readOnly('iconButton'),
-  dimBackground: not('iconButton'),
 
   init() {
     this._super(...arguments);

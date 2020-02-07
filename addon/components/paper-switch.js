@@ -10,7 +10,6 @@ import { run } from '@ember/runloop';
 import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-switch';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import { invokeAction } from 'ember-invoke-action';
@@ -21,23 +20,16 @@ import { invokeAction } from 'ember-invoke-action';
  * @class PaperSwitch
  * @extends Ember.Component
  * @uses FocusableMixin
- * @uses RippleMixin
  * @uses ColorMixin
  * @uses ProxiableMixin
  */
-export default Component.extend(FocusableMixin, RippleMixin, ColorMixin, ProxiableMixin, {
+export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
   layout,
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
   classNameBindings: ['value:md-checked', 'dragging:md-dragging'],
   toggle: true,
   constants: service(),
-
-  /* Ripple Overrides */
-  rippleContainerSelector: '.md-thumb',
-  center: true,
-  dimBackground: false,
-  fitRipple: true,
 
   value: false,
   disabled: false,

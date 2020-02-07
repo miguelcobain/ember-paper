@@ -6,29 +6,22 @@ import { filter, bool, or } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import layout from '../templates/components/paper-item';
-import RippleMixin from '../mixins/ripple-mixin';
 import { ParentMixin } from 'ember-composability-tools';
 import { invokeAction } from 'ember-invoke-action';
 /**
  * @class PaperItem
  * @extends Ember.Component
  * @uses ParentMixin
- * @uses RippleMixin
  */
-export default Component.extend(RippleMixin, ParentMixin, {
+export default Component.extend(ParentMixin, {
   layout,
   tagName: 'md-list-item',
 
   // Ripple Overrides
-  rippleContainerSelector: '.md-no-style',
   // disable ripple when we have a primary action or when we don't have a proxied component
   noink: computed('hasPrimaryAction', 'hasProxiedComponent', function() {
     return this.get('hasPrimaryAction') || !this.get('hasProxiedComponent');
   }),
-
-  center: false,
-  dimBackground: true,
-  outline: false,
 
   classNameBindings: [
     'hasProxiedComponent:md-proxy-focus', 'shouldBeClickable:md-clickable',

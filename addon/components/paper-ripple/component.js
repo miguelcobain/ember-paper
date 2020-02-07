@@ -1,95 +1,127 @@
-/**
- * @module ember-paper
- */
-import { computed } from '@ember/object';
-import Mixin from '@ember/object/mixin';
-import { run } from '@ember/runloop';
+import Component from '@ember/component';
+import template from './template';
+import { tagName, layout } from '@ember-decorators/component';
+import { bind, later, cancel } from '@ember/runloop';
+import { computed, action } from '@ember/object';
 import { supportsPassiveEventListeners } from 'ember-paper/utils/browser-features';
 import { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
 
-/* global window */
-
 const DURATION = 400;
 
-/**
- * @class RippleMixin
- * @extends Ember.Mixin
- */
-export default Mixin.create({
-  rippleContainerSelector: '.md-container',
+@tagName('')
+@layout(template)
+class PaperRipple extends Component {
+  _parentFinder = self.document ? self.document.createTextNode('') : '';
 
-  center: false,
-  dimBackground: false,
-  fitRipple: false,
-  colorElement: false,
-  noink: false,
+  center = false;
+  dimBackground = false;
+  fitRipple = false;
+  colorElement = false;
+  noink = false;
 
-  rippleInk: computed('noink', 'rippleInkColor', function() {
-    if (this.get('noink')) {
+  ripples = [];
+  timeout = null; // Stores a reference to the most-recent ripple timeout
+  lastRipple = null;
+  mousedown = false;
+
+  @computed('noink', 'rippleInkColor')
+  get rippleInk() {
+    if (this.noink) {
       return false;
     }
-    if (this.get('rippleInkColor')) {
-      return this.get('rippleInkColor');
+
+    if (this.rippleInkColor) {
+      return this.rippleInkColor;
     }
     return '';
-  }),
+  }
 
-  didInsertElement() {
-    this._super(...arguments);
+  @action
+  setupContainer(container) {
+    this.parentNode = this._parentFinder.parentNode;
 
-    let rippleContainerSelector = this.get('rippleContainerSelector');
+    this.rippleElement = this.parentNode;
 
-    if (rippleContainerSelector) {
-      this.rippleElement = this.element.querySelector(rippleContainerSelector);
-    } else {
-      this.rippleElement = this.element;
-    }
-    this.mousedown = false;
-    this.ripples = [];
-    this.timeout = null; // Stores a reference to the most-recent ripple timeout
-    this.lastRipple = null;
-
-    this._container = this.createContainer();
+    this._container = container;
 
     this.rippleElement.classList.add('md-ink-ripple');
     this.bindEvents();
-  },
+  }
 
-  autoCleanup(self, cleanupFn) {
-    if (self.mousedown || self.lastRipple) {
-      self.mousedown = false;
-      nextTick().then(() => {
-        cleanupFn.bind(self)();
-      });
+  clearTimeout() {
+    if (this.timeout) {
+      cancel(this.timeout);
+      this.timeout = null;
     }
-  },
+  }
+
+  bindEvents() {
+    let re = this.rippleElement;
+    re.addEventListener('mousedown', bind(this, this.handleMousedown));
+    re.addEventListener('mouseup', bind(this, this.handleMouseup));
+    re.addEventListener('mouseleave', bind(this, this.handleMouseup));
+
+    let options = supportsPassiveEventListeners ? { passive: true } : false;
+    re.addEventListener('touchend', bind(this, this.handleMouseup), options);
+    re.addEventListener('touchmove', bind(this, this.handleTouchmove), options);
+  }
+
+  handleMousedown(event) {
+    if (this.mousedown) {
+      return;
+    }
+
+    // When jQuery is loaded, we have to get the original event
+    if (event.hasOwnProperty('originalEvent')) {
+      event = event.originalEvent;
+    }
+
+    this.mousedown = true;
+
+    if (this.center) {
+      this.createRipple(this._container.clientWidth / 2, this._container.clientWidth / 2);
+    } else {
+      // We need to calculate the relative coordinates if the target is a sublayer of the ripple element
+      if (event.srcElement !== this.rippleElement) {
+        let layerRect = this.rippleElement.getBoundingClientRect();
+        let layerX = event.clientX - layerRect.left;
+        let layerY = event.clientY - layerRect.top;
+
+        this.createRipple(layerX, layerY);
+      } else {
+        this.createRipple(event.offsetX, event.offsetY);
+      }
+    }
+  }
+
+  async autoCleanup(cleanupFn) {
+    if (this.mousedown || this.lastRipple) {
+      this.mousedown = false;
+      await nextTick();
+      cleanupFn.bind(this)();
+    }
+  }
 
   color(value) {
-    let self = this;
-
-    // If assigning a color value, apply it to background and the ripple color
-    if (typeof value !== 'undefined') {
-      self._color = self._parseColor(value);
-    }
-
-    // If color lookup, use assigned, defined, or inherited
-    return self._color || self._parseColor(self.get('rippleInk')) || self._parseColor(getElementColor());
-
     /*
      * Finds the color element and returns its text color for use as default ripple color
      * @returns {string}
      */
-    function getElementColor() {
-      let items = self.get('colorElement') ? self.get('colorElement') : [];
-      let elem = items.length ? items[0] : self.rippleElement;
+    let getElementColor = () => {
+      let items = this.colorElement ? this.colorElement : [];
+      let elem = items.length ? items[0] : this.rippleElement;
 
       return elem ? window.getComputedStyle(elem).color : 'rgb(0,0,0)';
-    }
-  },
+    };
 
-  calculateColor() {
-    return this.color();
-  },
+    // If assigning a color value, apply it to background and the ripple color
+    if (typeof value !== 'undefined') {
+      this._color = this._parseColor(value);
+    }
+
+    // If color lookup, use assigned, defined, or inherited
+    return this._color || this._parseColor(this.rippleInk) || this._parseColor(getElementColor());
+  }
 
   _parseColor(color, multiplier) {
     multiplier = multiplier || 1;
@@ -134,73 +166,28 @@ export default Mixin.create({
     function rgbToRGBA(color) {
       return color.replace(')', ', 0.1)').replace('(', 'a(');
     }
+  }
 
-  },
-  bindEvents() {
-    let re = this.rippleElement;
-    re.addEventListener('mousedown', run.bind(this, this.handleMousedown));
-    re.addEventListener('mouseup', run.bind(this, this.handleMouseup));
-    re.addEventListener('mouseleave', run.bind(this, this.handleMouseup));
-
-    let options = supportsPassiveEventListeners ? { passive: true } : false;
-    re.addEventListener('touchend', run.bind(this, this.handleMouseup), options);
-    re.addEventListener('touchmove', run.bind(this, this.handleTouchmove), options);
-  },
-
-  handleMousedown(event) {
-    if (this.mousedown) {
-      return;
-    }
-
-    // When jQuery is loaded, we have to get the original event
-    if (event.hasOwnProperty('originalEvent')) {
-      event = event.originalEvent;
-    }
-    this.mousedown = true;
-    if (this.get('center')) {
-      this.createRipple(this._container.clientWidth / 2, this._container.clientWidth / 2);
-    } else {
-
-      // We need to calculate the relative coordinates if the target is a sublayer of the ripple element
-      if (event.srcElement !== this.rippleElement) {
-        let layerRect = this.rippleElement.getBoundingClientRect();
-        let layerX = event.clientX - layerRect.left;
-        let layerY = event.clientY - layerRect.top;
-
-        this.createRipple(layerX, layerY);
-      } else {
-        this.createRipple(event.offsetX, event.offsetY);
-      }
-    }
-  },
   handleMouseup() {
-    this.autoCleanup(this, this.clearRipples);
-  },
+    this.autoCleanup(this.clearRipples);
+  }
+
   handleTouchmove() {
-    this.autoCleanup(this, this.deleteRipples);
-  },
+    this.autoCleanup(this.deleteRipples);
+  }
+
   deleteRipples() {
     for (let i = 0; i < this.ripples.length; i++) {
       this.ripples[i].remove();
     }
-  },
+  }
+
   clearRipples() {
     for (let i = 0; i < this.ripples.length; i++) {
       this.fadeInComplete(this.ripples[i]);
     }
-  },
-  createContainer() {
-    let container = document.createElement('div');
-    container.classList.add('md-ripple-container');
-    this.rippleElement.appendChild(container);
-    return container;
-  },
-  clearTimeout() {
-    if (this.timeout) {
-      run.cancel(this.timeout);
-      this.timeout = null;
-    }
-  },
+  }
+
   isRippleAllowed() {
     let element = this.rippleElement;
 
@@ -213,7 +200,7 @@ export default Mixin.create({
         if (element.hasAttribute('disabled')) {
           return false;
         }
-        if (this.get('rippleInk') === false) {
+        if (this.rippleInk === false) {
           return false;
         }
       }
@@ -221,13 +208,13 @@ export default Mixin.create({
     } while (element);
 
     return true;
-  },
-  createRipple(left, top) {
+  }
+
+  async createRipple(left, top) {
     if (!this.isRippleAllowed()) {
       return;
     }
 
-    let ctrl = this;
     let ripple = document.createElement('div');
     ripple.classList.add('md-ripple');
 
@@ -236,7 +223,7 @@ export default Mixin.create({
     let x = Math.max(Math.abs(width - left), left) * 2;
     let y = Math.max(Math.abs(height - top), top) * 2;
     let size = getSize(this.get('fitRipple'), x, y);
-    let color = this.calculateColor();
+    let color = this.color();
 
     let rippleCss = `
       left: ${left}px;
@@ -254,26 +241,26 @@ export default Mixin.create({
 
     // we only want one timeout to be running at a time
     this.clearTimeout();
-    this.timeout = run.later(this, function() {
-      ctrl.clearTimeout();
-      if (!ctrl.mousedown) {
-        ctrl.fadeInComplete(ripple);
+    this.timeout = later(() => {
+      this.clearTimeout();
+      if (!this.mousedown) {
+        this.fadeInComplete(ripple);
       }
-    }, {}, DURATION * 0.35);
+    }, DURATION * 0.35);
 
-    if (this.get('dimBackground')) {
+    if (this.dimBackground) {
       this._container.style.cssText = `background-color: ${color}`;
     }
+
     this._container.appendChild(ripple);
     this.ripples.push(ripple);
     ripple.classList.add('md-ripple-placed');
 
-    nextTick().then(() => {
-      ripple.classList.add('md-ripple-scaled', 'md-ripple-active');
-      run.later(this, function() {
-        ctrl.clearRipples();
-      }, {}, DURATION);
-    });
+    await nextTick();
+    ripple.classList.add('md-ripple-scaled', 'md-ripple-active');
+    later(() => {
+      this.clearRipples();
+    }, DURATION);
 
     function rgbaToRGB(color) {
       return color ? color.replace('rgba', 'rgb').replace(/,[^),]+\)/, ')') : 'rgb(0,0,0)';
@@ -282,7 +269,8 @@ export default Mixin.create({
     function getSize(fit, x, y) {
       return fit ? Math.max(x, y) : Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
-  },
+  }
+
   fadeInComplete(ripple) {
     if (this.lastRipple === ripple) {
       if (!this.timeout && !this.mousedown) {
@@ -291,28 +279,34 @@ export default Mixin.create({
     } else {
       this.removeRipple(ripple);
     }
-  },
+  }
+
   removeRipple(ripple) {
-    let ctrl = this;
     let index = this.ripples.indexOf(ripple);
 
     if (index < 0) {
       return;
     }
+
     this.ripples.splice(this.ripples.indexOf(ripple), 1);
     ripple.classList.remove('md-ripple-active');
     ripple.classList.add('md-ripple-remove');
+
     if (this.ripples.length === 0) {
       this._container.style.cssText = 'backgroundColor: \'\'';
     }
+
     // use a 2-second timeout in order to allow for the animation to finish
     // we don't actually care how long the animation takes
-    run.later(this, function() {
-      ctrl.fadeOutComplete(ripple);
-    }, {}, DURATION);
-  },
+    later(() => {
+      this.fadeOutComplete(ripple);
+    }, DURATION);
+  }
+
   fadeOutComplete(ripple) {
     ripple.parentNode.removeChild(ripple);
     this.lastRipple = null;
   }
-});
+}
+
+export default PaperRipple;

@@ -3,21 +3,17 @@
  */
 
 import Component from '@ember/component';
-import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import template from './template';
 
 import { tagName, layout } from '@ember-decorators/component';
 
-
 /**
  * @class PaperOption
- * @extends PaperMenuItem
- * @uses RippleMixin
+ * @extends Component
  */
-@tagName('md-option')
+@tagName('')
 @layout(template)
-class PaperSelectOption extends Component.extend(RippleMixin) {
-  rippleContainerSelector = null;
+class PaperSelectOption extends Component {
 }
 
 export default PaperSelectOption;

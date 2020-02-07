@@ -3,18 +3,15 @@ import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-tab';
 import { ChildMixin } from 'ember-composability-tools';
-import RippleMixin from 'ember-paper/mixins/ripple-mixin';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import { invokeAction } from 'ember-invoke-action';
 
-export default Component.extend(ChildMixin, RippleMixin, FocusableMixin, {
+export default Component.extend(ChildMixin, FocusableMixin, {
   layout,
   tagName: 'md-tab-item',
   classNames: ['md-tab'],
   classNameBindings: ['isSelected:md-active'],
   attributeBindings: ['isSelected:aria-selected', 'style', 'maybeHref:href'],
-
-  rippleContainerSelector: null,
 
   // <a> tags have browser styles or are usually styled by the user
   // this makes sure that tab item still looks good with an anchor tag
