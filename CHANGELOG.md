@@ -5,6 +5,7 @@
 - refactor paper-select, paper-autocomplete and paper-chips to use new ember-power-select version
 - replace RippleMixin with a `<PaperRipple/>` component
 - remove paper-virtual-repeat (paper autocomplete uses html-next/vertical-collection internally)
+- because of these updates, ember-paper now requires Ember 3.11.0+.
 
 ### 1.0.0-beta.26
 - [f117ca0](https://github.com/miguelcobain/ember-paper/commit/f117ca0d4c6395a8fc941552b2a8a9492e157505) fix paper-input not clearing text
