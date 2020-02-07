@@ -1,5 +1,10 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.27
+- refactor paper-menu to use new ember-basic-dropdown version
+- refactor paper-select, paper-autocomplete and paper-chips to use new ember-power-select version
+- replace RippleMixin with a `<RippleMixin/>` component
+
 ### 1.0.0-beta.26
 - [f117ca0](https://github.com/miguelcobain/ember-paper/commit/f117ca0d4c6395a8fc941552b2a8a9492e157505) fix paper-input not clearing text
 
