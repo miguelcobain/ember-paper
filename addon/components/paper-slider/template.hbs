@@ -1,0 +1,37 @@
+<md-slider
+  class="md-default-theme {{@class}}
+    {{if this.isMinimum "md-min"}} {{if this.active "md-active"}} {{if this.dragging "md-dragging"}}
+    {{if @warn "md-warn"}} {{if @accent "md-accent"}} {{if @primary "md-primary"}}"
+  min={{this.min}}
+  max={{this.max}}
+  step={{this.step}}
+  md-discrete={{this.discrete}}
+  disabled={{@disabled}}
+  {{did-insert this.onDidInsert}}
+  {{did-update this.onDidUpdate @disabled}}
+  {{will-destroy this.onWillDestroy}}
+  ...attributes>
+  <div
+    class="md-slider-wrapper {{if this.focused "md-focused"}}"
+    tabindex={{this.tabindex}}
+    {{on "keydown" this.handleKeyDown}}
+    {{on "focusin" this.handleFocusIn}}
+    {{on "focusout" this.handleFocusOut}}>
+    <div class="md-slider-content">
+      <div class="md-track-container">
+        <div class="md-track"></div>
+        <div class="md-track md-track-fill" style={{this.activeTrackStyle}}></div>
+        <div class="md-track-ticks"></div>
+      </div>
+      <div class="md-thumb-container" style={{this.thumbContainerStyle}}>
+        <div class="md-thumb" style="touch-action: none"></div>
+        <div class="md-focus-thumb"></div>
+        <div class="md-focus-ring"></div>
+        <div class="md-sign">
+          <span class="md-thumb-text">{{@value}}</span>
+        </div>
+        <div class="md-disabled-thumb"></div>
+      </div>
+    </div>
+  </div>
+</md-slider>

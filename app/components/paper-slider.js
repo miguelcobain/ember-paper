@@ -1,3 +1,1 @@
-import paperSlider from 'ember-paper/components/paper-slider';
-
-export default paperSlider;
+export { default } from 'ember-paper/components/paper-slider/component';
