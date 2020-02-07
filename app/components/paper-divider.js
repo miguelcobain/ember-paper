@@ -1,3 +1,1 @@
-import PaperDivider from 'ember-paper/components/paper-divider';
-
-export default PaperDivider;
+export { default} from 'ember-paper/components/paper-divider/component';
