@@ -1,7 +1,7 @@
 <PowerSelect
   @selected={{@selected}}
   @options={{@options}}
-  @onChange={{fn this._onChange}}
+  @onChange={{this._onChange}}
   @disabled={{@disabled}}
   @placeholder={{@placeholder}}
   @searchEnabled={{@searchEnabled}}
@@ -18,20 +18,20 @@
   @matcher={{@matcher}}
   @eventType={{@eventType}}
 
-  @calculatePosition={{fn this.calculatePosition}}
+  @calculatePosition={{this.calculatePosition}}
   @extra={{hash label=@label labelPath=@labelPath required=@required passThru=@passThru inputClass=@inputClass}}
   @_ebdTriggerComponent={{component "paper-autocomplete/ebd-trigger" label=@label disabled=@disabled}}
   @triggerComponent={{component "paper-autocomplete/eps-trigger" isTouched=this.isTouched hideAllMessages=@hideAllMessages validationErrorMessages=@validationErrorMessages errors=@errors}}
 
   @_ebdContentComponent={{component "paper-autocomplete/ebd-content" select=this.publicAPI}}
   @optionsComponent="paper-autocomplete/options"
-  @noMatchesMessageComponent={{component "paper-autocomplete/no-matches-message" onCreate=(fn this._onCreate)}}
-  @onClose={{fn this.close}}
-  @onOpen={{fn this.open}}
-  @onFocus={{fn this.focus}}
-  @onBlur={{fn this.blur}}
-  @onInput={{fn this._onInput}}
-  @scrollTo={{fn this.scrollTo}}
+  @noMatchesMessageComponent={{component "paper-autocomplete/no-matches-message" onCreate=this._onCreate}}
+  @onClose={{this.close}}
+  @onOpen={{this.open}}
+  @onFocus={{this.focus}}
+  @onBlur={{this.blur}}
+  @onInput={{this._onInput}}
+  @scrollTo={{this.scrollTo}}
   @onKeydown={{@onKeydown}}
   as |option term|>
   {{#if hasBlock}}
