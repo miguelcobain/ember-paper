@@ -1,7 +1,7 @@
 {
   "name": "ember-paper",
   "description": "The Ember approach to Material Design.",
-  "version": "1.0.0-beta.26",
+  "version": "1.0.0-beta.27",
   "scripts": {
     "build": "ember build",
     "lint:hbs": "ember-template-lint .",
