@@ -100,13 +100,6 @@ class PaperChips extends Component {
   }
 
   @action
-  handleAutocompleteKeydown(select, e) {
-    if (e.key === 'Enter') {
-      this.handleAddItem(e.target.value, select);
-    }
-  }
-
-  @action
   handleAddItem(newItem, select) {
     if (this.requireMatch) {
       // Don't add a new item - we're set to require a match.

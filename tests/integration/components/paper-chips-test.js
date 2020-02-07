@@ -70,7 +70,7 @@ module('Integration | Component | paper-chips', function(hooks) {
     assert.dom('.md-autocomplete-suggestions li[aria-current="true"]').hasText('Three');
 
     await triggerKeyEvent('md-chips input', 'keydown', 13);
-    assert.dom('md-chip').exists({ count: this.selectedItems.length });
+    assert.dom('md-chip').exists({ count: 1 });
     assert.dom('md-chip .md-chip-content').hasText('Three');
     assert.equal(this.selectedItems[0], this.items[1]);
   });

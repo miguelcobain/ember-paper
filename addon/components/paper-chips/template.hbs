@@ -50,7 +50,7 @@
             @inputClass="md-input"
             @options={{@options}}
             @closeOnSelect={{true}}
-            @defaultHighlighted={{@defaultHighlighted}}
+            @defaultHighlighted={{if @defaultHighlighted @defaultHighlighted null}}
             @placeholder={{@placeholder}}
             @searchField={{@searchField}}
             @search={{@search}}
@@ -61,7 +61,6 @@
             @onSearchTextChange={{this.handleSearchTextChange}}
             @onOpen={{this.handleAutocompleteOpen}}
             @onCreate={{this.handleAddItem}}
-            @onKeydown={{this.handleAutocompleteKeydown}}
             as |item|>
             {{#if hasBlock}}
               {{yield item "suggestion"}}
