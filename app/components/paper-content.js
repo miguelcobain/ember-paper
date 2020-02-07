@@ -1,3 +1,1 @@
-import PaperContent from 'ember-paper/components/paper-content';
-
-export default PaperContent;
+export { default } from 'ember-paper/components/paper-content/component';
