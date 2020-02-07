@@ -3,7 +3,7 @@
 ### 1.0.0-beta.27
 - refactor paper-menu to use new ember-basic-dropdown version
 - refactor paper-select, paper-autocomplete and paper-chips to use new ember-power-select version
-- replace RippleMixin with a `<RippleMixin/>` component
+- replace RippleMixin with a `<PaperRipple/>` component
 - remove paper-virtual-repeat (paper autocomplete uses html-next/vertical-collection internally)
 
 ### 1.0.0-beta.26
