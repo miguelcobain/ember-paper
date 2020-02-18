@@ -80,7 +80,7 @@ class PaperMenuContent extends Component {
 
     // default to first non disabled item
     if (!focusTarget) {
-      let menuItem = element.querySelector('md-menu-item:not([disabled])')
+      let menuItem = element.querySelector('md-menu-item:not([disabled])');
       focusTarget = menuItem && menuItem.firstElementChild;
     }
 
