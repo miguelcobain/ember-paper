@@ -6,18 +6,6 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | paper divider', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('has required classes by default', async function(assert) {
-    assert.expect(2);
-    await render(hbs`
-      {{#paper-divider}}
-      {{/paper-divider}}
-    `);
-
-    assert.dom('md-divider').hasClass('paper-divider');
-    assert.dom('md-divider').hasClass('md-default-theme');
-
-  });
-
   test('uses md-inset attribute when passed inset=true', async function(assert) {
     assert.expect(1);
 

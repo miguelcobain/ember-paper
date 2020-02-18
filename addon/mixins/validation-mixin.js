@@ -43,7 +43,7 @@ function buildComputedValidationMessages(property, validations = [], customValid
     // execute validations
     let currentValue = this.get(property);
     validations.forEach((validation) => {
-      assert('validation must include an `validate(value)` function', validation && validation.validate && typeof validation.validate === 'function');
+      assert('validation must include a `validate(value)` function', validation && validation.validate && typeof validation.validate === 'function');
       try {
         let valParam = get(validation, 'param');
         let paramValue = valParam ? this.get(valParam) : undefined;
