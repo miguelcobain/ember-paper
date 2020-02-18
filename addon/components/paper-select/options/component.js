@@ -9,6 +9,22 @@ import { computed } from '@ember/object';
 @layout(template)
 class PaperSelectOptions extends PowerSelectOptions {
 
+  get select() {
+    return this._select;
+  }
+
+  /**
+   * This is an ugly hack to avoid eps from ignoring
+   * a selection if the cursor didn't move. There is currently no
+   * public way way to avoid this check. By not passing in the select event
+   * this check is not done.
+   */
+  set select(value) {
+    let originalChoose = value.actions.choose;
+    value.actions.choose = (selected) => originalChoose(selected);
+    this._select = value;
+  }
+
   attributeBindings = ['role:role', 'ariaControls:aria-controls'];
 
   role = 'listbox';
