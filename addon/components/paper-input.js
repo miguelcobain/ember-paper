@@ -4,7 +4,7 @@
 import { or, bool, and } from '@ember/object/computed';
 
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, set } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import { run } from '@ember/runloop';
 import { assert } from '@ember/debug';
@@ -58,9 +58,20 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
     return isEmpty(this.get('label')) || this.get('focused');
   }),
 
-  inputElementId: computed('elementId', function() {
-    return `input-${this.get('elementId')}`;
+  inputElementId: computed('elementId', {
+    get() {
+      return `input-${this.get('elementId')}`;
+    },
+    // elementId can be set from outside and it will override the computed value.
+    // Please check the deprecations for further details
+    // https://deprecations.emberjs.com/v3.x/#toc_computed-property-override
+    set(key, value) {
+      // To make sure the context updates properly, We are manually set value using @ember/object#set as recommended.
+      return set(this, "elementId", value);
+    }
   }),
+
+
 
   renderCharCount: computed('value', function() {
     let currentLength = this.get('value') ? this.get('value').length : 0;

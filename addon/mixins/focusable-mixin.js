@@ -38,6 +38,18 @@ export default Mixin.create(EventsMixin, {
   // keyboard navigation.
   focusOnlyOnKey: false,
 
+  didInsertElement() {
+    this._super(...arguments);
+    this.element.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
+    this.element.addEventListener('mouseleave', this.handleMouseLeave.bind(this));
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    this.element.removeEventListener('mouseenter', this.handleMouseEnter.bind(this));
+    this.element.removeEventListener('mouseleave', this.handleMouseLeave.bind(this));
+  },
+
   /*
    * Listen to `focusIn` and `focusOut` events instead of `focus` and `blur`.
    * This way we don't need to explicitly bubble the events.
@@ -53,12 +65,12 @@ export default Mixin.create(EventsMixin, {
     this.set('focused', false);
   },
 
-  mouseEnter(e) {
+  handleMouseEnter(e) {
     this.set('hover', true);
     invokeAction(this, 'onMouseEnter', e);
   },
 
-  mouseLeave(e) {
+  handleMouseLeave(e) {
     this.set('hover', false);
     this._super(e);
     invokeAction(this, 'onMouseLeave', e);
