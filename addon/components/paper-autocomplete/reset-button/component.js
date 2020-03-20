@@ -15,6 +15,14 @@ class PaperAutocompleteResetButton extends Component.extend(TransitionMixin) {
   transitionClass = 'ng';
   onReset = null;
 
+  touchEnd(e) {
+    let onReset = this.get('onReset');
+    if (onReset === null) {
+      return;
+    }
+    onReset(e);
+  } 
+
   mouseUp(e) {
     let onReset = this.get('onReset');
     if (onReset === null) {
