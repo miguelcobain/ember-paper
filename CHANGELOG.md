@@ -1,5 +1,13 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.29
+- [#1135](https://github.com/miguelcobain/ember-paper/pull/1135) fix some mouseEnter/Leave/Move deprecations by adding event listeners
+
+### 1.0.0-beta.28
+- [27b24d4](https://github.com/miguelcobain/ember-paper/commit/27b24d44b7765edc351ff73fcf398615bcd39bff), [be0ff0d](https://github.com/miguelcobain/ember-paper/commit/be0ff0df5f5b692931d39e6692d182a33858e83c), [9626f71](https://github.com/miguelcobain/ember-paper/commit/9626f71c00d16ef603bc8e79ef15ff0e0d2bc911) update `<PaperSlider/>`, `<PaperContent/>` and `<PaperDivider/>` to "pseudo-octane"
+- [#1126](https://github.com/miguelcobain/ember-paper/pull/1126) Use splattributes for paper-menu/item
+- [ff9843a](https://github.com/miguelcobain/ember-paper/commit/ff9843a5c6c462aa1e15adc2cbec826e7a87ea99) prevent `<PaperSelect/>` from ignoring selections when the cursor did not move
+
 ### 1.0.0-beta.27
 - refactor paper-menu to use new ember-basic-dropdown version
 - refactor paper-select, paper-autocomplete and paper-chips to use new ember-power-select version
