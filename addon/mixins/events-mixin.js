@@ -8,6 +8,18 @@ import Mixin from '@ember/object/mixin';
  * @extends Ember.Mixin
  */
 export default Mixin.create({
+  didInsertElement() {
+    this._super(...arguments);
+    // Avoid attaching mouse events directly to component and it has been deprecated due to performance issue.
+    // Please check https://deprecations.emberjs.com/v3.x/#toc_action-mouseenter-leave-move
+    this.element.addEventListener('mouseMove', this.handleMouseMove.bind(this));
+    this.element.addEventListener('mouseleave', this.handleMouseLeave.bind(this));
+  },
+  willDestroyElement() {
+    this._super(...arguments);
+    this.element.removeEventListener('mouseMove', this.handleMouseMove.bind(this));
+    this.element.removeEventListener('mouseleave', this.handleMouseLeave.bind(this));
+  },
   touchStart(e) {
     return this.down(e);
   },
@@ -23,7 +35,7 @@ export default Mixin.create({
   touchCancel(e) {
     return this.up(e);
   },
-  mouseLeave(e) {
+  handleMouseLeave(e) {
     return this.up(e);
   },
   up() {},
@@ -34,7 +46,7 @@ export default Mixin.create({
    * Move events
    */
 
-  mouseMove(e) {
+  handleMouseMove(e) {
     return this.move(e);
   },
 

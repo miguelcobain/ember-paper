@@ -29,6 +29,17 @@ export default Component.extend({
     return this.get('animation') === 'fling' && !this.get('elementDidRender');
   }),
 
+  didInsertElement() {
+    this._super(...arguments);
+    this.element.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
+    this.element.addEventListener('mouseleave', this.handleMouseLeave.bind(this));
+  },
+  willDestroyElement() {
+    this._super(...arguments);
+    this.element.removeEventListener('mouseenter', this.handleMouseEnter.bind(this));
+    this.element.removeEventListener('mouseleave', this.handleMouseLeave.bind(this));
+  },
+
   didRender() {
     this._super(...arguments);
     run.next(() => {
@@ -38,11 +49,11 @@ export default Component.extend({
     });
   },
 
-  mouseEnter() {
+  handleMouseEnter() {
     invokeAction(this, 'onMouseEnter');
   },
 
-  mouseLeave() {
+  handleMouseLeave() {
     invokeAction(this, 'onMouseLeave');
   },
 
