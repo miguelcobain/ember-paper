@@ -145,7 +145,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
     }
   },
 
-  focusIn() {
+  handleFocusIn() {
     // Focusing in w/o being pressed should use the default behavior
     if (!this.get('pressed')) {
       this._super(...arguments);
