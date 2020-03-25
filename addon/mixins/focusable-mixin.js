@@ -42,12 +42,16 @@ export default Mixin.create(EventsMixin, {
     this._super(...arguments);
     this.element.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
     this.element.addEventListener('mouseleave', this.handleMouseLeave.bind(this));
+    this.element.addEventListener('focusin', this.handleFocusIn.bind(this));
+    this.element.addEventListener('focusout', this.handleFocusOut.bind(this));
   },
 
   willDestroyElement() {
     this._super(...arguments);
     this.element.removeEventListener('mouseenter', this.handleMouseEnter.bind(this));
     this.element.removeEventListener('mouseleave', this.handleMouseLeave.bind(this));
+    this.element.removeEventListener('focusin', this.handleFocusIn.bind(this));
+    this.element.removeEventListener('focusout', this.handleFocusOut.bind(this));
   },
 
   /*
@@ -55,13 +59,13 @@ export default Mixin.create(EventsMixin, {
    * This way we don't need to explicitly bubble the events.
    * They bubble by default.
    */
-  focusIn() {
+  handleFocusIn() {
     if (!this.get('disabled') && !this.get('focusOnlyOnKey') || !this.get('pressed')) {
       this.set('focused', true);
     }
   },
 
-  focusOut() {
+  handleFocusOut() {
     this.set('focused', false);
   },
 
