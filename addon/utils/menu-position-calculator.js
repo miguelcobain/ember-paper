@@ -1,3 +1,6 @@
+
+import { assert } from '@ember/debug';
+
 const MENU_EDGE_MARGIN = 8;
 
 function firstVisibleChild(node) {
@@ -15,7 +18,7 @@ class MenuPositionCalculator {
 
     /**
      * Creates an instance of menu position calculator.
-     * @param trigger HTMLElement of menu's trigger 
+     * @param trigger HTMLElement of menu's trigger
      * @param content  HTMLElement of the menu's content
      * @param positionMode Mode to use when calculating position {top: string, left: string}
      * @param offsets Top and left offsets {top: number, left: number}
@@ -65,7 +68,7 @@ class MenuPositionCalculator {
         return this.content.firstElementChild;
     }
 
-    /** 
+    /**
      * Client rect of open menu
      */
     get openMenuNodeRect() {
@@ -213,7 +216,7 @@ class MenuPositionCalculator {
                 break;
             }
             default: {
-                assert(`Invalid target mode '${positionMode.left}' specified for paper-menu on X axis.`);
+                assert(`Invalid target mode '${this.positionMode.left}' specified for paper-menu on X axis.`);
             }
         }
     }
