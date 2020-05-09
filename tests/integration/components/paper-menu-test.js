@@ -31,6 +31,31 @@ module('Integration | Component | paper-menu', function(hooks) {
 
   });
 
+  test('opens with all items disabled', async function(assert) {
+    assert.expect(1);
+    await render(hbs`
+      {{#paper-menu as |menu|}}
+        {{#menu.trigger}}
+          {{#paper-button iconButton=true}}
+            {{paper-icon "local_phone"}}
+          {{/paper-button}}
+        {{/menu.trigger}}
+        {{#menu.content width=4 as |content|}}
+          {{#content.menu-item disabled=true}}
+            <span id="menu-item">Test</span>
+          {{/content.menu-item}}
+        {{/menu.content}}
+      {{/paper-menu}}
+    `);
+
+    await settled();
+    await click('.ember-basic-dropdown-trigger');
+    await settled();
+    assert.dom('.md-open-menu-container').exists({ count: 1 });
+    await settled();
+
+  });
+
   test('backdrop removed if menu closed', async function(assert) {
     assert.expect(2);
     await render(hbs`
