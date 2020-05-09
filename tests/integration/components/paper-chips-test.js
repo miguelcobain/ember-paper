@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerKeyEvent, fillIn, settled } from '@ember/test-helpers';
+import { render, triggerKeyEvent, fillIn, settled, waitFor } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper-chips', function(hooks) {
@@ -15,6 +15,7 @@ module('Integration | Component | paper-chips', function(hooks) {
       content=selectedItems}}`);
 
     await fillIn('md-chips input', 'T');
+    await waitFor('.md-autocomplete-suggestions li', { timeout: 2000 });
     assert.dom('.md-autocomplete-suggestions li').exists({ count: this.items.length });
   });
 
@@ -46,6 +47,7 @@ module('Integration | Component | paper-chips', function(hooks) {
       content=selectedItems}}`);
 
     await fillIn('md-chips input', 'T');
+    await waitFor('.md-autocomplete-suggestions li', { timeout: 2000 });
     assert.dom('.md-autocomplete-suggestions li[aria-current="true"]').exists({ count: 1 });
     assert.dom('.md-autocomplete-suggestions li[aria-current="true"]').hasText('Three');
   });
@@ -59,13 +61,15 @@ module('Integration | Component | paper-chips', function(hooks) {
     };
 
     await render(hbs`
-    {{paper-chips
-      addItem=(action addItems)
-      defaultHighlighted=defaultHighlighted
-      options=items
-      content=selectedItems}}`);
+      {{paper-chips
+        addItem=(action addItems)
+        defaultHighlighted=defaultHighlighted
+        options=items
+        content=selectedItems}}
+    `);
 
     await fillIn('md-chips input', 'T');
+    await waitFor('.md-autocomplete-suggestions li', { timeout: 2000 });
     assert.dom('.md-autocomplete-suggestions li[aria-current="true"]').exists({ count: 1 });
     assert.dom('.md-autocomplete-suggestions li[aria-current="true"]').hasText('Three');
 

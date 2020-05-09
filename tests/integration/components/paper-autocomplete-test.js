@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { click, render, settled, focus, triggerEvent, fillIn } from '@ember/test-helpers';
+import { click, render, settled, focus, triggerEvent, fillIn, waitFor } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper-autocomplete', function(hooks) {
@@ -56,17 +56,19 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
   test('opens on click', async function(assert) {
     assert.expect(1);
     this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
-    await render(hbs`{{#paper-autocomplete
-      placeholder="Item"
-      options=items
-      searchText=searchText
-      onSearchTextChange=(action (mut searchText))
-      selected=selectedItem
-      onSelectionChange=(action (mut selectedItem))
-      as |item|
-    }}
-      {{item}}
-    {{/paper-autocomplete}}`);
+    await render(hbs`
+      {{#paper-autocomplete
+        placeholder="Item"
+        options=items
+        searchText=searchText
+        onSearchTextChange=(action (mut searchText))
+        selected=selectedItem
+        onSelectionChange=(action (mut selectedItem))
+        as |item|
+      }}
+        {{item}}
+      {{/paper-autocomplete}}
+    `);
 
     await settled();
 
@@ -106,17 +108,19 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
   test('should render only enough items to fill the menu + 3', async function(assert) {
     assert.expect(2);
     this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
-    await render(hbs`{{#paper-autocomplete
-      placeholder="Item"
-      options=items
-      searchText=searchText
-      onSearchTextChange=(action (mut searchText))
-      selected=selectedItem
-      onSelectionChange=(action (mut selectedItem))
-      as |item|
-    }}
-      {{item}}
-    {{/paper-autocomplete}}`);
+    await render(hbs`
+      {{#paper-autocomplete
+        placeholder="Item"
+        options=items
+        searchText=searchText
+        onSearchTextChange=(action (mut searchText))
+        selected=selectedItem
+        onSelectionChange=(action (mut selectedItem))
+        as |item|
+      }}
+        {{item}}
+      {{/paper-autocomplete}}
+    `);
 
     await settled();
 
@@ -126,23 +130,27 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     assert.dom('.md-autocomplete-suggestions').exists('opened menu');
 
+    await waitFor('.md-autocomplete-suggestions li', { timeout: 2000 });
+
     assert.dom('.md-autocomplete-suggestions li').exists({ count: 8 }, 'only rendered 8 items');
   });
 
   test('should filter list by search term', async function(assert) {
     assert.expect(3);
     this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
-    await render(hbs`{{#paper-autocomplete
-      placeholder="Item"
-      options=items
-      searchText=searchText
-      onSearchTextChange=(action (mut searchText))
-      selected=selectedItem
-      onSelectionChange=(action (mut selectedItem))
-      as |item|
-    }}
-      {{item}}
-    {{/paper-autocomplete}}`);
+    await render(hbs`
+      {{#paper-autocomplete
+        placeholder="Item"
+        options=items
+        searchText=searchText
+        onSearchTextChange=(action (mut searchText))
+        selected=selectedItem
+        onSelectionChange=(action (mut selectedItem))
+        as |item|
+      }}
+        {{item}}
+      {{/paper-autocomplete}}
+    `);
 
     await settled();
 
@@ -166,17 +174,19 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     this.set('items', ['Ember', 'Paper', 'One', 'Two']);
     this.set('selectedItem', 'Paper');
-    await render(hbs`{{#paper-autocomplete
-      placeholder="Item"
-      options=items
-      searchText=searchText
-      onSearchTextChange=(action (mut searchText))
-      selected=selectedItem
-      onSelectionChange=(action (mut selectedItem))
-      as |item|
-    }}
-      {{item}}
-    {{/paper-autocomplete}}`);
+    await render(hbs`
+      {{#paper-autocomplete
+        placeholder="Item"
+        options=items
+        searchText=searchText
+        onSearchTextChange=(action (mut searchText))
+        selected=selectedItem
+        onSelectionChange=(action (mut selectedItem))
+        as |item|
+      }}
+        {{item}}
+      {{/paper-autocomplete}}
+    `);
 
     await settled();
 
@@ -190,17 +200,19 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     this.set('items', ['Ember', 'Paper', 'One', 'Two']);
     this.set('selectedItem', 'Paper');
-    await render(hbs`{{#paper-autocomplete
-      placeholder="Item"
-      options=items
-      searchText=searchText
-      onSearchTextChange=(action (mut searchText))
-      selected=selectedItem
-      onSelectionChange=(action (mut selectedItem))
-      as |item|
-    }}
-      {{item}}
-    {{/paper-autocomplete}}`);
+    await render(hbs`
+      {{#paper-autocomplete
+        placeholder="Item"
+        options=items
+        searchText=searchText
+        onSearchTextChange=(action (mut searchText))
+        selected=selectedItem
+        onSelectionChange=(action (mut selectedItem))
+        as |item|
+      }}
+        {{item}}
+      {{/paper-autocomplete}}
+    `);
 
     await settled();
 
@@ -220,20 +232,22 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     this.items = ['1', '2', '3', '4'];
     this.selectedItem = 1;
-    await render(hbs`{{#paper-autocomplete
-      placeholder="Item"
-      options=items
-      searchText=searchText
-      onSearchTextChange=(action (mut searchText))
-      selected=selectedItem
-      onSelectionChange=(action (mut selectedItem))
-      as |item autocomplete|
-    }}
-      {{paper-autocomplete-highlight
-          label=item
-          searchText=autocomplete.searchText
-          flags="i"}}
-    {{/paper-autocomplete}}`);
+    await render(hbs`
+      {{#paper-autocomplete
+        placeholder="Item"
+        options=items
+        searchText=searchText
+        onSearchTextChange=(action (mut searchText))
+        selected=selectedItem
+        onSelectionChange=(action (mut selectedItem))
+        as |item autocomplete|
+      }}
+        {{paper-autocomplete-highlight
+            label=item
+            searchText=autocomplete.searchText
+            flags="i"}}
+      {{/paper-autocomplete}}
+    `);
 
     await settled();
 
@@ -249,16 +263,18 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
   test('dropdown can be customized using dropdownClass', async function(assert) {
     assert.expect(1);
     this.items = ['1', '2', '3'];
-    await render(hbs`{{#paper-autocomplete
-      dropdownClass="custom-dropdown-class"
-      placeholder="Item"
-      options=items
-      selected=selectedItem
-      onSelectionChange=(action (mut selectedItem))
-      as |item|
-    }}
-      {{item}}
-    {{/paper-autocomplete}}`);
+    await render(hbs`
+      {{#paper-autocomplete
+        dropdownClass="custom-dropdown-class"
+        placeholder="Item"
+        options=items
+        selected=selectedItem
+        onSelectionChange=(action (mut selectedItem))
+        as |item|
+      }}
+        {{item}}
+      {{/paper-autocomplete}}
+    `);
 
     await settled();
 
@@ -277,15 +293,17 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
       }
     }
     this.v = new DummyValidation();
-    await render(hbs`{{#paper-autocomplete
-      label="Fooo"
-      options=items
-      selected=selectedItem
-      errors=v.errors
-      onSelectionChange=(action (mut selectedItem))
-      as |item|}}
-      {{item}}
-    {{/paper-autocomplete}}`);
+    await render(hbs`
+      {{#paper-autocomplete
+        label="Fooo"
+        options=items
+        selected=selectedItem
+        errors=v.errors
+        onSelectionChange=(action (mut selectedItem))
+        as |item|}}
+        {{item}}
+      {{/paper-autocomplete}}
+    `);
 
     await settled();
 
