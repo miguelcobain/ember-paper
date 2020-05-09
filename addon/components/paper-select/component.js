@@ -4,6 +4,7 @@ import template from './template';
 import { tagName, layout } from '@ember-decorators/component';
 import { action } from '@ember/object';
 import { and } from '@ember/object/computed';
+import ChildMixin from 'ember-paper/mixins/child-mixin';
 
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
 
@@ -22,7 +23,7 @@ function getOffsetRect(node) {
 
 @tagName('')
 @layout(template)
-class PaperSelect extends Component.extend(ValidationMixin) {
+class PaperSelect extends Component.extend(ValidationMixin, ChildMixin) {
 
   validationProperty = 'selected';
   isTouched = false;
