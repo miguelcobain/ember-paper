@@ -17,6 +17,9 @@ export default Component.extend(ParentMixin, {
   layout,
   tagName: 'md-list-item',
 
+  _mouseEnterHandler: undefined,
+  _mouseLeaveHandler: undefined,
+
   // Ripple Overrides
   // disable ripple when we have a primary action or when we don't have a proxied component
   noink: computed('hasPrimaryAction', 'hasProxiedComponent', function() {
@@ -49,6 +52,26 @@ export default Component.extend(ParentMixin, {
     return proxiedComponents.objectAt(0);
   }),
 
+  didInsertElement() {
+    this._super(...arguments);
+
+    this._mouseEnterHandler = this.handleMouseEnter.bind(this);
+    this._mouseLeaveHandler = this.handleMouseLeave.bind(this);
+
+    this.element.addEventListener('mouseenter', this._mouseEnterHandler);
+    this.element.addEventListener('mouseleave', this._mouseLeaveHandler);
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+
+    this.element.removeEventListener('mouseenter', this._mouseEnterHandler);
+    this.element.removeEventListener('mouseleave', this._mouseLeaveHandler);
+
+    this._mouseEnterHandler = undefined;
+    this._mouseLeaveHandler = undefined;
+  },
+
   click() {
     this.get('proxiedComponents').forEach((component) => {
       if (component.processProxy && !component.get('disabled') && (component.get('bubbles') | !this.get('hasPrimaryAction'))) {
@@ -57,11 +80,11 @@ export default Component.extend(ParentMixin, {
     });
   },
 
-  mouseEnter(e) {
+  handleMouseEnter(e) {
     invokeAction(this, 'onMouseEnter', e);
   },
 
-  mouseLeave(e) {
+  handleMouseLeave(e) {
     invokeAction(this, 'onMouseLeave', e);
   }
 });

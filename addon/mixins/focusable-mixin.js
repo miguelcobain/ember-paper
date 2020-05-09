@@ -38,16 +38,27 @@ export default Mixin.create(EventsMixin, {
   // keyboard navigation.
   focusOnlyOnKey: false,
 
+  _mouseEnterHandler: undefined,
+  _mouseLeaveHandler: undefined,
+
   didInsertElement() {
     this._super(...arguments);
-    this.element.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
-    this.element.addEventListener('mouseleave', this.handleMouseLeave.bind(this));
+
+    this._mouseEnterHandler = this.handleMouseEnter.bind(this);
+    this._mouseLeaveHandler = this.handleMouseLeave.bind(this);
+
+    this.element.addEventListener('mouseenter', this._mouseEnterHandler);
+    this.element.addEventListener('mouseleave', this._mouseLeaveHandler);
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    this.element.removeEventListener('mouseenter', this.handleMouseEnter.bind(this));
-    this.element.removeEventListener('mouseleave', this.handleMouseLeave.bind(this));
+
+    this.element.removeEventListener('mouseenter', this._mouseEnterHandler);
+    this.element.removeEventListener('mouseleave', this._mouseLeaveHandler);
+
+    this._mouseEnterHandler = undefined;
+    this._mouseLeaveHandler = undefined;
   },
 
   /*
