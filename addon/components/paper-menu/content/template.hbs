@@ -23,6 +23,7 @@
   {{!-- @width={{@width}} don't proxy with because we're using our own width value --}}
   @height={{@height}}
   @otherStyles={{this.customStyles}}
+  @animationEnabled={{false}}
   ...attributes>
   {{! template-lint-disable no-invalid-interactive }}
   <md-menu-content width={{@width}} class={{if @dense "md-dense"}} {{did-insert this.focusItem}} {{on "keydown" this.handleKeyDown}}>
