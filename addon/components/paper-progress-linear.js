@@ -35,18 +35,27 @@ export default Component.extend(ColorMixin, {
 
   constants: service(),
 
-  mode: computed('value', function() {
-    let value = this.get('value');
-    let bufferValue = this.get('bufferValue');
-
-    if (isPresent(value)) {
-      if (isPresent(bufferValue)) {
-        return MODE_BUFFER;
-      } else {
-        return MODE_DETERMINATE;
+  mode: computed('value', {
+    get() {
+      if (this._mode !== undefined) {
+        return this._mode;
       }
-    } else {
-      return MODE_INDETERMINATE;
+
+      let value = this.get('value');
+      let bufferValue = this.get('bufferValue');
+
+      if (isPresent(value)) {
+        if (isPresent(bufferValue)) {
+          return MODE_BUFFER;
+        } else {
+          return MODE_DETERMINATE;
+        }
+      } else {
+        return MODE_INDETERMINATE;
+      }
+    },
+    set(key, value) {
+      return this._mode = value;
     }
   }),
 

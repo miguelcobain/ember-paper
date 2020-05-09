@@ -16,8 +16,18 @@ export default Mixin.create({
   parentClass: ParentMixin,
 
   // this will typically be overriden when yielding a contextual component
-  parentComponent: computed(function() {
-    return this.nearestOfType(this.get('parentClass'));
+  parentComponent: computed({
+    get() {
+      if (this._parentComponent !== undefined) {
+        return this._parentComponent;
+      }
+
+      return this.nearestOfType(this.get('parentClass'));
+    },
+
+    set(key, value) {
+      return this._parentComponent = value;
+    }
   }),
 
   init() {
