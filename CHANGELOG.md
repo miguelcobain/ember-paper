@@ -1,5 +1,11 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.30
+- [#1144](https://github.com/miguelcobain/ember-paper/pull/1144) fix paper menu positioning
+- [#1143](https://github.com/miguelcobain/ember-paper/pull/1143) fix paper-item mouseEnter/mouseLeave deprecations
+- [#1129](https://github.com/miguelcobain/ember-paper/pull/1129) protect against null querySelector in PaperMenu#focusItem
+- [52dd556](https://github.com/miguelcobain/ember-paper/commit/52dd556c09eb2bc6222f2ef52f45862812b536c7) fix computed property overrides deprecations (fixes [#1146](https://github.com/miguelcobain/ember-paper/issues/1146))
+
 ### 1.0.0-beta.29
 - [#1135](https://github.com/miguelcobain/ember-paper/pull/1135) fix some mouseEnter/Leave/Move deprecations by adding event listeners
 
