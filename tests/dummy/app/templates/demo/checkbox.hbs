@@ -38,4 +38,12 @@
   <h3>Template</h3>
   {{code-snippet name="checkbox.hbs"}}
 
+  {{paper-api
+    (p-section
+    "Accessibility"
+      (p-row "ariaLabel" "string" "Sets aria-label on the checkbox. It's only reasonable if the new label is not visible on the page.")
+      (p-row "labelId" "string" "Sets aria-labelledby on the checkbox. It usually contains one or more Ids of the elements that have the text needed for labeling.")
+    )
+  }}
+
 {{/doc-content}}

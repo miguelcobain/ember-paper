@@ -74,6 +74,35 @@
       <h3>Template</h3>
       {{code-snippet name="radio.images.hbs"}}
 
+
+      <p>
+        Accessible radio group
+      </p>
+      {{! BEGIN-SNIPPET radio.accessibility }}
+      {{#paper-radio-group
+         groupValue=selectedAccessibilityLevel
+         onChange=(action (mut selectedAccessibilityLevel)) as |group|}}
+        {{group.label text="Accessibility level"}}
+        {{#group.radio
+            toggle=true
+            tabindex=0
+            value="middle"
+        }}Middle
+          {{/group.radio}}
+        {{#group.radio
+          toggle=true
+          tabindex=0
+          value="high"
+        }}High
+          {{/group.radio}}
+      {{/paper-radio-group}}
+      {{! END-SNIPPET }}
+
+      <h3>Template</h3>
+      {{code-snippet name="radio.accessibility.hbs"}}
+
+      In order to make a radio group accessible, make sure to set tabindex=0 on each option and include a label element into the group.
+
     {{/paper-card-content}}
   {{/paper-card}}
 {{/doc-content}}
