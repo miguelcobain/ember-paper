@@ -1,0 +1,17 @@
+#ember-testing-container md-dialog {
+  &.md-transition-in {
+    transition: none !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+  &.md-transition-out {
+    transition: none !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+}
+  
+md-backdrop{
+  transition: none !important;
+  -webkit-transition: none !important;
+}
