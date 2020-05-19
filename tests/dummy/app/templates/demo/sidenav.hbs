@@ -1,40 +1,36 @@
-{{page-toolbar pageTitle="Sidenav" isDemo=true}}
+<PageToolbar @pageTitle="Sidenav" @isDemo={{true}} />
 
-{{#doc-content}}
+<DocContent>
 
-  {{#paper-card}}
-    {{#paper-toolbar as |toolbar|}}
-      {{#toolbar.tools}}
+  <PaperCard>
+    <PaperToolbar as |toolbar|>
+      <toolbar.tools>
         <h2>Basic Usage</h2>
         <span class="flex"></span>
-        {{#paper-button onClick=(action "toggle" "showSourceCode") iconButton=true}}
-          {{paper-icon icon="code"}}
-        {{/paper-button}}
-      {{/toolbar.tools}}
-    {{/paper-toolbar}}
+        <PaperButton @onClick={{action "toggle" "showSourceCode"}} @iconButton={{true}}>
+          <PaperIcon @icon="code" />
+        </PaperButton>
+      </toolbar.tools>
+    </PaperToolbar>
 
     <div class="doc-code-example {{if showSourceCode "is-visible"}}">
-      {{code-snippet name="sidenav.basic-usage.hbs"}}
+      <CodeSnippet @name="sidenav.basic-usage.hbs" />
     </div>
 
     <div class="doc-content-example">
       {{! BEGIN-SNIPPET sidenav.basic-usage }}
-      {{#paper-sidenav-container class="inner-sidenav"}}
+      <PaperSidenavContainer @class="inner-sidenav">
 
-        {{#paper-sidenav
-          class="md-whiteframe-z2"
-          name="left"
-          open=leftSideBarOpen
-          onToggle=(action (mut leftSideBarOpen))}}
-          {{#paper-toolbar as |toolbar|}}
-            {{#toolbar.tools}}Left Sidenav{{/toolbar.tools}}
-          {{/paper-toolbar}}
-          {{#paper-content padding=true}}
+        <PaperSidenav @class="md-whiteframe-z2" @name="left" @open={{leftSideBarOpen}} @onToggle={{action (mut leftSideBarOpen)}}>
+          <PaperToolbar as |toolbar|>
+            <toolbar.tools>Left Sidenav</toolbar.tools>
+          </PaperToolbar>
+          <PaperContent @padding={{true}}>
             Çup?
-          {{/paper-content}}
-        {{/paper-sidenav}}
+          </PaperContent>
+        </PaperSidenav>
 
-        {{#paper-card-content class="flex"}}
+        <PaperCardContent @class="flex">
           <div class="layout-fill layout-align-start-center layout-column" style="height: 500px">
             <p>
               The left sidenav will "lock open" on a medium (>=960px wide) device.
@@ -47,76 +43,65 @@
               Right sidenav is <strong>{{if rightSideBarOpen "opened" "closed"}}</strong>.
             </p>
 
-            {{#paper-sidenav-toggle name="left" as |toggleAction|}}
-              {{#paper-button raised=true classNames="hide-gt-sm" onClick=(action toggleAction)}}
+            <PaperSidenavToggle @name="left" as |toggleAction|>
+              <PaperButton @raised={{true}} @classNames="hide-gt-sm" @onClick={{action toggleAction}}>
                 Toggle left sidenav
-              {{/paper-button}}
-            {{/paper-sidenav-toggle}}
+              </PaperButton>
+            </PaperSidenavToggle>
 
-            {{#paper-sidenav-toggle name="right" as |toggleAction|}}
-              {{#paper-button raised=true onClick=(action toggleAction)}}
+            <PaperSidenavToggle @name="right" as |toggleAction|>
+              <PaperButton @raised={{true}} @onClick={{action toggleAction}}>
                 Toggle right sidenav
-              {{/paper-button}}
-            {{/paper-sidenav-toggle}}
+              </PaperButton>
+            </PaperSidenavToggle>
 
           </div>
-        {{/paper-card-content}}
+        </PaperCardContent>
 
-        {{#paper-sidenav
-          class="md-whiteframe-z2"
-          name="right"
-          position="right"
-          open=rightSideBarOpen
-          lockedOpen=false
-          onToggle=(action (mut rightSideBarOpen))}}
-          {{#paper-toolbar as |toolbar|}}
-            {{#toolbar.tools}}Right Sidenav{{/toolbar.tools}}
-          {{/paper-toolbar}}
-          {{#paper-content padding=true}}
+        <PaperSidenav @class="md-whiteframe-z2" @name="right" @position="right" @open={{rightSideBarOpen}} @lockedOpen={{false}} @onToggle={{action (mut rightSideBarOpen)}}>
+          <PaperToolbar as |toolbar|>
+            <toolbar.tools>Right Sidenav</toolbar.tools>
+          </PaperToolbar>
+          <PaperContent @padding={{true}}>
             Çup? I'm on the right side.
-          {{/paper-content}}
-        {{/paper-sidenav}}
+          </PaperContent>
+        </PaperSidenav>
 
-      {{/paper-sidenav-container}}
+      </PaperSidenavContainer>
       {{! END-SNIPPET sidenav.basic-usage }}
     </div>
 
-  {{/paper-card}}
+  </PaperCard>
 
-  {{#paper-card}}
-    {{#paper-toolbar as |toolbar|}}
-      {{#toolbar.tools}}
+  <PaperCard>
+    <PaperToolbar as |toolbar|>
+      <toolbar.tools>
         <h2>Persistent Sidenav</h2>
         <span class="flex"></span>
-        {{#paper-button onClick=(action "toggle" "persistentCode") iconButton=true}}
+        <PaperButton @onClick={{action "toggle" "persistentCode"}} @iconButton={{true}}>
           {{paper-icon "code"}}
-        {{/paper-button}}
-      {{/toolbar.tools}}
-    {{/paper-toolbar}}
+        </PaperButton>
+      </toolbar.tools>
+    </PaperToolbar>
 
     <div class="doc-code-example {{if persistentCode "is-visible"}}">
-      {{code-snippet name="sidenav.persistent.hbs"}}
+      <CodeSnippet @name="sidenav.persistent.hbs" />
     </div>
 
     <div class="doc-content-example">
       {{! BEGIN-SNIPPET sidenav.persistent }}
-      {{#paper-sidenav-container class="inner-sidenav"}}
+      <PaperSidenavContainer @class="inner-sidenav">
 
-        {{#paper-sidenav
-          class="md-whiteframe-z2"
-          name="left2"
-          open=leftSideBarOpen2
-          lockedOpen=leftSideBarLockedOpen
-          onToggle=(action (mut leftSideBarOpen2))}}
-          {{#paper-toolbar as |toolbar|}}
-            {{#toolbar.tools}}Left Sidenav{{/toolbar.tools}}
-          {{/paper-toolbar}}
-          {{#paper-content padding=true}}
+        <PaperSidenav @class="md-whiteframe-z2" @name="left2" @open={{leftSideBarOpen2}} @lockedOpen={{leftSideBarLockedOpen}} @onToggle={{action (mut leftSideBarOpen2)}}>
+          <PaperToolbar as |toolbar|>
+            <toolbar.tools>Left Sidenav</toolbar.tools>
+          </PaperToolbar>
+          <PaperContent @padding={{true}}>
             Çup?
-          {{/paper-content}}
-        {{/paper-sidenav}}
+          </PaperContent>
+        </PaperSidenav>
 
-        {{#paper-card-content class="flex"}}
+        <PaperCardContent @class="flex">
           <div class="layout-fill layout-align-start-center layout-column" style="height: 500px">
             <p>
               Another way of using the sidenav is to toggle the <code>lockedOpen</code> state.
@@ -126,18 +111,18 @@
               Left sidenav is <strong>{{if leftSideBarLockedOpen "locked" "unlocked"}}</strong>.
             </p>
 
-            {{#paper-button raised=true onClick=(action "toggle" "leftSideBarLockedOpen")}}
+            <PaperButton @raised={{true}} @onClick={{action "toggle" "leftSideBarLockedOpen"}}>
               {{if leftSideBarLockedOpen "Unlock" "Lock"}} left sidenav
-            {{/paper-button}}
+            </PaperButton>
 
           </div>
-        {{/paper-card-content}}
+        </PaperCardContent>
 
-      {{/paper-sidenav-container}}
+      </PaperSidenavContainer>
       {{! END-SNIPPET sidenav.persistent }}
     </div>
 
-  {{/paper-card}}
+  </PaperCard>
 
   {{paper-api
     (p-section
@@ -152,4 +137,4 @@
     )
   }}
 
-{{/doc-content}}
+</DocContent>

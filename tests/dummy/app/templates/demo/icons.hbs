@@ -1,6 +1,6 @@
-{{page-toolbar pageTitle="Icons" isDemo=true}}
+<PageToolbar @pageTitle="Icons" @isDemo={{true}} />
 
-{{#doc-content}}
+<DocContent>
 
   <h2>Available Icons</h2>
   <p>
@@ -16,7 +16,7 @@
     {{paper-icon "check-circle"}}
     {{! END-SNIPPET }}
   </div>
-  {{code-snippet name="icons.basic-usage.hbs"}}
+  <CodeSnippet @name="icons.basic-usage.hbs" />
 
   <h3>Changing Sizes</h3>
   <div class="layout-row">
@@ -28,7 +28,7 @@
     {{paper-icon "check-circle" size=48}}
     {{! END-SNIPPET }}
   </div>
-  {{code-snippet name="icons.sizes.hbs"}}
+  <CodeSnippet @name="icons.sizes.hbs" />
 
   <h3>Spinners</h3>
   <div>
@@ -37,5 +37,5 @@
     {{paper-icon "rotate-left" reverseSpin=true}}
     {{! END-SNIPPET }}
   </div>
-  {{code-snippet name="icons.spinners.hbs"}}
-{{/doc-content}}
+  <CodeSnippet @name="icons.spinners.hbs" />
+</DocContent>

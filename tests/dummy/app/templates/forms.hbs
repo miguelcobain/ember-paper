@@ -1,72 +1,61 @@
-{{page-toolbar pageTitle="Forms" isDemo=false}}
+<PageToolbar @pageTitle="Forms" @isDemo={{false}} />
 
-{{#doc-content class="card-demo"}}
+<DocContent @class="card-demo">
 
-  {{#paper-card}}
-    {{#paper-toolbar}}
-      {{#paper-toolbar-tools}}
+  <PaperCard>
+    <PaperToolbar>
+      <PaperToolbarTools>
         <h2>Basic usage</h2>
-      {{/paper-toolbar-tools}}
-    {{/paper-toolbar}}
+      </PaperToolbarTools>
+    </PaperToolbar>
 
-    {{#paper-card-content}}
+    <PaperCardContent>
       <p>
         ember-paper provides a <code>paper-form</code> to help you build forms
         and keep track of the form's global validity state. This component uses
         the html form tag by default, so expected form behavior will occur.
         (For example, pressing the enter key from within one of the form's
         inputs will submit the form.)
-        <code>paper-form</code> yields <code>{{#link-to "demo.input"}}paper-input{{/link-to}}</code>,
-        <code>{{#link-to "demo.select"}}paper-select{{/link-to}}</code>
-        and <code>{{#link-to "demo.autocomplete"}}paper-autocomplete{{/link-to}}</code> controls.
+        <code>paper-form</code> yields <code><LinkTo @route="demo.input">paper-input</LinkTo></code>,
+        <code><LinkTo @route="demo.select">paper-select</LinkTo></code>
+        and <code><LinkTo @route="demo.autocomplete">paper-autocomplete</LinkTo></code> controls.
         In the following example you can see how we use the yielded form controls:
       </p>
 
       {{! BEGIN-SNIPPET form.basic-usage }}
-      {{#paper-form onSubmit=(action "basicSubmitAction") as |form|}}
+      <PaperForm @onSubmit={{action "basicSubmitAction"}} as |form|>
         <div class="layout-row">
           <div class="layout-column flex-50">
-            {{form.input label="First Name" value=firstName onChange=(action (mut firstName)) required=true}}
-            {{form.input label="Last Name" value=lastName onChange=(action (mut lastName))}}
+            <form.input @label="First Name" @value={{firstName}} @onChange={{action (mut firstName)}} @required={{true}} />
+            <form.input @label="Last Name" @value={{lastName}} @onChange={{action (mut lastName)}} />
           </div>
           <div class="layout-column flex-50">
-            {{#form.autocomplete
-              required=true
-              options=items
-              selected=selectedCountry
-              searchField="name"
-              labelPath="name"
-              label="Country"
-              noMatchesMessage="Oops this country doesn't exist."
-              onSelectionChange=(action (mut selectedCountry)) as |country select|}}
-              {{paper-autocomplete-highlight
-                label=country.name
-                searchText=select.searchText
-                flags="i"}}
-            {{/form.autocomplete}}
-            {{form.input type="number" label="Age" value=age onChange=(action (mut age)) min=13 max=65 required=true}}
+            <form.autocomplete @required={{true}} @options={{items}} @selected={{selectedCountry}} @searchField="name" @labelPath="name" @label="Country" @noMatchesMessage="Oops this country doesn't exist." @onSelectionChange={{action (mut selectedCountry)}} as |country select|>
+              <PaperAutocompleteHighlight @label={{country.name}} @searchText={{select.searchText}} @flags="i" />
+            </form.autocomplete>
+            <form.input @type="number" @label="Age" @value={{age}} @onChange={{action (mut age)}} @min={{13}} @max={{65}} @required={{true}} />
           </div>
         </div>
         <div class="layout-row">
-          {{#form.submit-button raised=true primary=true}}Submit{{/form.submit-button}}
+          <form.submit-button @raised={{true}} @primary={{true}}>Submit</form.submit-button>
         </div>
-      {{/paper-form}}
+      </PaperForm>
       {{! END-SNIPPET }}
 
       <h3>Template</h3>
-      {{code-snippet name="form.basic-usage.hbs"}}
-    {{/paper-card-content}}
+      <CodeSnippet @name="form.basic-usage.hbs" />
+    </PaperCardContent>
 
-  {{/paper-card}}
+  </PaperCard>
 
-  {{#paper-card}}
-    {{#paper-toolbar}}
-      {{#paper-toolbar-tools}}
+  <PaperCard>
+    <PaperToolbar>
+      <PaperToolbarTools>
         <h2>Using the form validity state</h2>
-      {{/paper-toolbar-tools}}
-    {{/paper-toolbar}}
+      </PaperToolbarTools>
+    </PaperToolbar>
 
-    {{#paper-card-content}}
+    <PaperCardContent>
 
       <p>
         A typical use case for the global validity state is to toggle the submit button
@@ -75,32 +64,32 @@
       </p>
 
       {{! BEGIN-SNIPPET form.disabled-submit }}
-      {{#paper-form onSubmit=(action "disabledSubmitAction") as |form|}}
+      <PaperForm @onSubmit={{action "disabledSubmitAction"}} as |form|>
         <div class="layout-row">
-          {{form.input label="Favorite Letter" value=favoriteLetter onChange=(action (mut favoriteLetter)) required=true maxlength=1}}
+          <form.input @label="Favorite Letter" @value={{favoriteLetter}} @onChange={{action (mut favoriteLetter)}} @required={{true}} @maxlength={{1}} />
         </div>
         <div class="layout-row">
-          {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+          <form.submit-button @raised={{true}} @primary={{true}} @disabled={{form.isInvalid}}>
             Submit
-          {{/form.submit-button}}
+          </form.submit-button>
         </div>
-      {{/paper-form}}
+      </PaperForm>
       {{! END-SNIPPET }}
 
       <h3>Template</h3>
-      {{code-snippet name="form.disabled-submit.hbs"}}
-    {{/paper-card-content}}
+      <CodeSnippet @name="form.disabled-submit.hbs" />
+    </PaperCardContent>
 
-  {{/paper-card}}
+  </PaperCard>
 
-  {{#paper-card}}
-    {{#paper-toolbar}}
-      {{#paper-toolbar-tools}}
+  <PaperCard>
+    <PaperToolbar>
+      <PaperToolbarTools>
         <h2>Advanced usage</h2>
-      {{/paper-toolbar-tools}}
-    {{/paper-toolbar}}
+      </PaperToolbarTools>
+    </PaperToolbar>
 
-    {{#paper-card-content}}
+    <PaperCardContent>
 
       <p>
         If you prefer, you can trigger the submit action without using a submit button.
@@ -121,21 +110,21 @@
       </p>
 
       {{! BEGIN-SNIPPET form.custom-components }}
-      {{#paper-form onSubmit=(action "customSubmitAction") as |form|}}
+      <PaperForm @onSubmit={{action "customSubmitAction"}} as |form|>
         <div class="layout-row">
-          {{paper-input label="Favorite Number" value=favoriteNumber onChange=(action (mut favoriteNumber)) required=true min=1 max=10}}
+          <PaperInput @label="Favorite Number" @value={{favoriteNumber}} @onChange={{action (mut favoriteNumber)}} @required={{true}} @min={{1}} @max={{10}} />
         </div>
         <div class="layout-row">
-          {{#form.submit-button raised=true primary=true}}Submit{{/form.submit-button}}
+          <form.submit-button @raised={{true}} @primary={{true}}>Submit</form.submit-button>
         </div>
-      {{/paper-form}}
+      </PaperForm>
       {{! END-SNIPPET }}
 
       <h3>Template</h3>
-      {{code-snippet name="form.custom-components.hbs"}}
+      <CodeSnippet @name="form.custom-components.hbs" />
 
-    {{/paper-card-content}}
+    </PaperCardContent>
 
-  {{/paper-card}}
+  </PaperCard>
 
-{{/doc-content}}
+</DocContent>

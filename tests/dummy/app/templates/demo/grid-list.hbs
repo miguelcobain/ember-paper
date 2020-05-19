@@ -1,103 +1,94 @@
-{{page-toolbar pageTitle="Grid List" isDemo=true}}
+<PageToolbar @pageTitle="Grid List" @isDemo={{true}} />
 
-{{#doc-content}}
+<DocContent>
   <h2>Basic Usage</h2>
   {{! BEGIN-SNIPPET grid-list.basic-usage }}
-  {{#paper-content class="md-whiteframe-z1 grid-list-demo1"}}
+  <PaperContent @class="md-whiteframe-z1 grid-list-demo1">
 
-    {{#paper-grid-list
-      cols="1 md-2 gt-md-6"
-      rowHeight="gt-md-1:1 2:2"
-      gutter="12px gt-sm-8px" as |grid|}}
+    <PaperGridList @cols="1 md-2 gt-md-6" @rowHeight="gt-md-1:1 2:2" @gutter="12px gt-sm-8px" as |grid|>
 
-      {{#grid.tile class="gray" rowspan="2" colspan="sm-1 gt-sm-2" as |tile|}}
-        {{#tile.footer}}
+      <grid.tile @class="gray" @rowspan="2" @colspan="sm-1 gt-sm-2" as |tile|>
+        <tile.footer>
           <h3>#1: (3r x 2c)</h3>
-        {{/tile.footer}}
-      {{/grid.tile}}
+        </tile.footer>
+      </grid.tile>
 
-      {{#grid.tile class="green" as |tile|}}
-        {{#tile.footer}}
+      <grid.tile @class="green" as |tile|>
+        <tile.footer>
           <h3>#2: (1r x 1c)</h3>
-        {{/tile.footer}}
-      {{/grid.tile}}
+        </tile.footer>
+      </grid.tile>
 
-      {{#grid.tile class="yellow" as |tile|}}
-        {{#tile.footer}}
+      <grid.tile @class="yellow" as |tile|>
+        <tile.footer>
           <h3>#3: (1r x 1c)</h3>
-        {{/tile.footer}}
-      {{/grid.tile}}
+        </tile.footer>
+      </grid.tile>
 
-      {{#grid.tile class="blue" rowspan="2" as |tile|}}
-        {{#tile.footer}}
+      <grid.tile @class="blue" @rowspan="2" as |tile|>
+        <tile.footer>
           <h3>#4: (2r x 1c)</h3>
-        {{/tile.footer}}
-      {{/grid.tile}}
+        </tile.footer>
+      </grid.tile>
 
-      {{#grid.tile class="red" rowspan="2" colspan="sm-1 gt-sm-2" as |tile|}}
-        {{#tile.footer}}
+      <grid.tile @class="red" @rowspan="2" @colspan="sm-1 gt-sm-2" as |tile|>
+        <tile.footer>
           <h3>#5: (2r x 2c)</h3>
-        {{/tile.footer}}
-      {{/grid.tile}}
+        </tile.footer>
+      </grid.tile>
 
-      {{#grid.tile class="green" rowspan="2" as |tile|}}
-        {{#tile.footer}}
+      <grid.tile @class="green" @rowspan="2" as |tile|>
+        <tile.footer>
           <h3>#6: (2r x 1c)</h3>
-        {{/tile.footer}}
-      {{/grid.tile}}
+        </tile.footer>
+      </grid.tile>
 
-    {{/paper-grid-list}}
+    </PaperGridList>
 
-  {{/paper-content}}
+  </PaperContent>
   {{ END-SNIPPET }}
 
   <h3>Template</h3>
-  {{code-snippet name="grid-list.basic-usage.hbs"}}
+  <CodeSnippet @name="grid-list.basic-usage.hbs" />
 
   <h2>Dynamic Tiles</h2>
   {{! BEGIN-SNIPPET grid-list.dynamic-tiles }}
-  {{#paper-content class="md-whiteframe-z1 grid-list-demo-dynamicTiles"}}
-    {{#paper-grid-list
-      cols="sm-2 md-4 gt-md-6"
-      rowHeight="4:3 gt-md-1:1"
-      gutter="8px gt-sm-4px" as |grid|}}
+  <PaperContent @class="md-whiteframe-z1 grid-list-demo-dynamicTiles">
+    <PaperGridList @cols="sm-2 md-4 gt-md-6" @rowHeight="4:3 gt-md-1:1" @gutter="8px gt-sm-4px" as |grid|>
 
       {{#each tiles as |dynamicTile|}}
-        {{#grid.tile rowspan=dynamicTile.span.row colspan=(concat dynamicTile.span.col " xs-1")  class=dynamicTile.background as |tile|}}
+        <grid.tile @rowspan={{dynamicTile.span.row}} @colspan={{concat dynamicTile.span.col " xs-1"}} @class={{dynamicTile.background}} as |tile|>
           <md-icon></md-icon>
-          {{#tile.footer}}
+          <tile.footer>
             <h3>{{dynamicTile.title}}</h3>
-          {{/tile.footer}}
-        {{/grid.tile}}
+          </tile.footer>
+        </grid.tile>
       {{/each}}
 
-    {{/paper-grid-list}}
-  {{/paper-content}}
+    </PaperGridList>
+  </PaperContent>
   {{! END-SNIPPET }}
 
   <h3>Template</h3>
-  {{code-snippet name="grid-list.dynamic-tiles.hbs"}}
+  <CodeSnippet @name="grid-list.dynamic-tiles.hbs" />
 
   <h2>Responsive and Animated Usage</h2>
   {{! BEGIN-SNIPPET grid-list.responsive }}
-  {{#paper-content class="md-whiteframe-z1 grid-list-demo-responsiveTiles"}}
+  <PaperContent @class="md-whiteframe-z1 grid-list-demo-responsiveTiles">
 
-    {{#paper-grid-list
-      cols="3 md-8 gt-md-12"
-      rowHeight="4:3 gt-md-1:1"
-      gutter="4px md-8px gt-md-16px" as |grid|}}
+    <PaperGridList @cols="3 md-8 gt-md-12" @rowHeight="4:3 gt-md-1:1" @gutter="4px md-8px gt-md-16px" as |grid|>
 
       {{#each colorTiles as |tile|}}
 
-        {{#grid.tile colspan=tile.colspan rowspan=tile.rowspan class=tile.style}}
-        {{/grid.tile}}
+        <grid.tile @colspan={{tile.colspan}} @rowspan={{tile.rowspan}} @class={{tile.style}}>
+        </grid.tile>
 
       {{/each}}
-    {{/paper-grid-list}}
-  {{/paper-content}}
+    </PaperGridList>
+  </PaperContent>
   {{! END-SNIPPET }}
 
   <h3>Template</h3>
-  {{code-snippet name="grid-list.responsive.hbs"}}
+  <CodeSnippet @name="grid-list.responsive.hbs" />
 
-{{/doc-content}}
+</DocContent>

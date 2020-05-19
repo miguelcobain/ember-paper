@@ -1,69 +1,69 @@
-{{page-toolbar pageTitle="Divider" isDemo=true}}
+<PageToolbar @pageTitle="Divider" @isDemo={{true}} />
 
-{{#doc-content}}
+<DocContent>
 
-  {{#paper-card}}
-    {{#paper-toolbar}}
-      {{#paper-toolbar-tools}}
+  <PaperCard>
+    <PaperToolbar>
+      <PaperToolbarTools>
         <h2>Full Bleed</h2>
         <span class="flex"></span>
-        {{#paper-button onClick=(action "toggleSourceCodeFull") iconButton=true}}
-          {{paper-icon icon="code"}}
-        {{/paper-button}}
-      {{/paper-toolbar-tools}}
-    {{/paper-toolbar}}
-    {{#paper-content}}
+        <PaperButton @onClick={{action "toggleSourceCodeFull"}} @iconButton={{true}}>
+          <PaperIcon @icon="code" />
+        </PaperButton>
+      </PaperToolbarTools>
+    </PaperToolbar>
+    <PaperContent>
       <div class="doc-code-example {{if showSourceCodeFull "is-visible"}}">
-        {{code-snippet name="divider.full.hbs"}}
+        <CodeSnippet @name="divider.full.hbs" />
       </div>
       {{! BEGIN-SNIPPET divider.full }}
-      {{#paper-list}}
+      <PaperList>
         {{#each messages as |item|}}
-          {{#paper-item class="md-3-line"}}
+          <PaperItem @class="md-3-line">
             <div class="md-list-item-text">
               <h3>{{item.what}}</h3>
               <h4>{{item.who}}</h4>
               <p>{{item.notes}}</p>
             </div>
-            {{paper-divider}}
-            {{#paper-button}}Respond{{/paper-button}}
-          {{/paper-item}}
+            <PaperDivider />
+            <PaperButton>Respond</PaperButton>
+          </PaperItem>
         {{/each}}
-      {{/paper-list}}
+      </PaperList>
       {{! END-SNIPPET }}
-    {{/paper-content}}
+    </PaperContent>
 
-  {{/paper-card}}
+  </PaperCard>
 
-  {{#paper-card}}
-    {{#paper-toolbar}}
-      {{#paper-toolbar-tools}}
+  <PaperCard>
+    <PaperToolbar>
+      <PaperToolbarTools>
         <h2>Inset</h2>
         <span class="flex"></span>
-        {{#paper-button onClick=(action "toggleSourceCodeInset") iconButton=true}}
-          {{paper-icon icon="code"}}
-        {{/paper-button}}
-      {{/paper-toolbar-tools}}
-    {{/paper-toolbar}}
-    {{#paper-content}}
+        <PaperButton @onClick={{action "toggleSourceCodeInset"}} @iconButton={{true}}>
+          <PaperIcon @icon="code" />
+        </PaperButton>
+      </PaperToolbarTools>
+    </PaperToolbar>
+    <PaperContent>
       <div class="doc-code-example {{if showSourceCodeInset "is-visible"}}">
-        {{code-snippet name="divider.inset.hbs"}}
+        <CodeSnippet @name="divider.inset.hbs" />
       </div>
       {{! BEGIN-SNIPPET divider.inset }}
-      {{#paper-list classNames="list-demo"}}
+      <PaperList @classNames="list-demo">
         {{#each messages as |item|}}
-          {{#paper-item class="md-3-line"}}
+          <PaperItem @class="md-3-line">
             <img src="{{item.face}}?{{$index}}" class="face" alt={{item.who}}>
             <div class="md-list-item-text">
               <h3>{{item.what}}</h3>
               <h4>{{item.who}}</h4>
               <p>{{item.notes}}</p>
             </div>
-            {{paper-divider inset=true}}
-          {{/paper-item}}
+            <PaperDivider @inset={{true}} />
+          </PaperItem>
         {{/each}}
-      {{/paper-list}}
+      </PaperList>
       {{! END-SNIPPET }}
-    {{/paper-content}}
-  {{/paper-card}}
-{{/doc-content}}
+    </PaperContent>
+  </PaperCard>
+</DocContent>

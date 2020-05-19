@@ -1,10 +1,10 @@
-{{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
-  {{#toolbar.tools}}
-    {{#paper-sidenav-toggle as |toggleAction|}}
-      {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
+<PaperToolbar @class="md-whiteframe-1dp page-main-toolbar" as |toolbar|>
+  <toolbar.tools>
+    <PaperSidenavToggle as |toggleAction|>
+      <PaperButton @class="hide-gt-sm" @onClick={{action toggleAction}} @iconButton={{true}}>
         {{paper-icon "menu"}}
-      {{/paper-button}}
-    {{/paper-sidenav-toggle}}
+      </PaperButton>
+    </PaperSidenavToggle>
     <div class="layout-row flex">
       <h2>
         {{#if isDemo}}
@@ -29,5 +29,5 @@
         </a>
       </div>
     </div>
-  {{/toolbar.tools}}
-{{/paper-toolbar}}
+  </toolbar.tools>
+</PaperToolbar>

@@ -1,27 +1,27 @@
-{{page-toolbar pageTitle="Switch" isDemo=true}}
+<PageToolbar @pageTitle="Switch" @isDemo={{true}} />
 
-{{#doc-content}}
+<DocContent>
   <p>
     {{! BEGIN-SNIPPET switch }}
-    {{#paper-switch value=booleanProp1 onChange=(action (mut booleanProp1))}}
+    <PaperSwitch @value={{booleanProp1}} @onChange={{action (mut booleanProp1)}}>
       {{booleanProp1}}
-    {{/paper-switch}}
+    </PaperSwitch>
 
-    {{#paper-switch value=booleanProp2 onChange=(action (mut booleanProp2))}}
+    <PaperSwitch @value={{booleanProp2}} @onChange={{action (mut booleanProp2)}}>
       {{booleanProp2}}
-    {{/paper-switch}}
+    </PaperSwitch>
 
-    {{#paper-switch value=booleanProp3 onChange=(action "changeBooleanProp" "3") disabled=true}}
+    <PaperSwitch @value={{booleanProp3}} @onChange={{action "changeBooleanProp" "3"}} @disabled={{true}}>
       Disabled switch
-    {{/paper-switch}}
+    </PaperSwitch>
 
-    {{#paper-switch value=booleanProp4 onChange=(action "changeBooleanProp" "4") noink=true}}
+    <PaperSwitch @value={{booleanProp4}} @onChange={{action "changeBooleanProp" "4"}} @noink={{true}}>
       Noink switch
-    {{/paper-switch}}
+    </PaperSwitch>
 
-    {{paper-switch label="Blockless version" value=booleanProp5 onChange=(action "changeBooleanProp" "5")}}
+    <PaperSwitch @label="Blockless version" @value={{booleanProp5}} @onChange={{action "changeBooleanProp" "5"}} />
     {{! END-SNIPPET }}
   </p>
   <h3>Template</h3>
-  {{code-snippet name="switch.hbs"}}
-{{/doc-content}}
+  <CodeSnippet @name="switch.hbs" />
+</DocContent>

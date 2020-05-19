@@ -1,29 +1,24 @@
-{{page-toolbar pageTitle="Radio" isDemo=true}}
-{{#doc-content}}
-  {{#paper-card class="radio-button-demo"}}
-    {{#paper-card-content}}
+<PageToolbar @pageTitle="Radio" @isDemo={{true}} />
+<DocContent>
+  <PaperCard @class="radio-button-demo">
+    <PaperCardContent>
       <h2>Basic Usage</h2>
       <p>
         Stand alone
       </p>
       <div class="layout-row layout-align-space-around">
         {{! BEGIN-SNIPPET radio.standalone-usage }}
-        {{#paper-radio toggle=true value="Toggable" groupValue=toggleValue
-          onChange=(action (mut toggleValue))}}
+        <PaperRadio @toggle={{true}} @value="Toggable" @groupValue={{toggleValue}} @onChange={{action (mut toggleValue)}}>
           Toggable
-        {{/paper-radio}}
-        {{paper-radio label="Blockless"
-          toggle=true
-          value="Blockless"
-          groupValue=blocklessValue
-          onChange=(action (mut blocklessValue))}}
-        {{#paper-radio value=false disabled=true onChange=null}}
+        </PaperRadio>
+        <PaperRadio @label="Blockless" @toggle={{true}} @value="Blockless" @groupValue={{blocklessValue}} @onChange={{action (mut blocklessValue)}} />
+        <PaperRadio @value={{false}} @disabled={{true}} @onChange={{null}}>
           Disabled
-        {{/paper-radio}}
+        </PaperRadio>
         {{! END-SNIPPET }}
       </div>
       <h3>Template</h3>
-      {{code-snippet name="radio.standalone-usage.hbs"}}
+      <CodeSnippet @name="radio.standalone-usage.hbs" />
       <hr>
 
       <p>
@@ -31,49 +26,45 @@
       </p>
 
       {{! BEGIN-SNIPPET radio.basic-group-usage}}
-      {{#paper-radio-group
-        groupValue=(readonly selectedFruit)
-        onChange=(action (mut selectedFruit)) as |group|}}
-        {{#group.radio value="Apple" primary=true}} Apple {{/group.radio}}
-        {{#group.radio value="Banana" warn=true}} Banana {{/group.radio}}
-        {{#group.radio value="Mango"}} Mango {{/group.radio}}
-      {{/paper-radio-group}}
+      <PaperRadioGroup @groupValue={{readonly selectedFruit}} @onChange={{action (mut selectedFruit)}} as |group|>
+        <group.radio @value="Apple" @primary={{true}}> Apple </group.radio>
+        <group.radio @value="Banana" @warn={{true}}> Banana </group.radio>
+        <group.radio @value="Mango"> Mango </group.radio>
+      </PaperRadioGroup>
       {{! END-SNIPPET }}
 
       <h3>Template</h3>
-      {{code-snippet name="radio.basic-group-usage.hbs"}}
+      <CodeSnippet @name="radio.basic-group-usage.hbs" />
       <hr>
 
       <p>
         Graphic radio buttons
       </p>
       {{! BEGIN-SNIPPET radio.images }}
-      {{#paper-radio-group
-        groupValue=selectedGraphic
-        onChange=(action (mut selectedGraphic)) as |group|}}
+      <PaperRadioGroup @groupValue={{selectedGraphic}} @onChange={{action (mut selectedGraphic)}} as |group|>
 
-        {{#group.label}}
+        <group.label>
           <p>Selected Value: <span class="radio-value">{{selectedGraphic}}</span></p>
-        {{/group.label}}
+        </group.label>
 
-        {{#group.radio value="graphic-1" primary=true}}
+        <group.radio @value="graphic-1" @primary={{true}}>
           <img src="http://tinyurl.com/zwvmqz8" alt="example1">
-        {{/group.radio}}
+        </group.radio>
 
-        {{#group.radio value="graphic-2" warn=true}}
+        <group.radio @value="graphic-2" @warn={{true}}>
           <img src="http://tinyurl.com/jdcepzm" alt="example2">
-        {{/group.radio}}
+        </group.radio>
 
-        {{#group.radio value="graphic-3"}}
+        <group.radio @value="graphic-3">
           <img src="http://tinyurl.com/j55t8cd" alt="example3">
-        {{/group.radio}}
+        </group.radio>
 
-      {{/paper-radio-group}}
+      </PaperRadioGroup>
       {{! END-SNIPPET }}
 
       <h3>Template</h3>
-      {{code-snippet name="radio.images.hbs"}}
+      <CodeSnippet @name="radio.images.hbs" />
 
-    {{/paper-card-content}}
-  {{/paper-card}}
-{{/doc-content}}
+    </PaperCardContent>
+  </PaperCard>
+</DocContent>

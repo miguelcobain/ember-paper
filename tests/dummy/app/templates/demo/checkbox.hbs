@@ -1,41 +1,41 @@
-{{page-toolbar pageTitle="Checkbox" isDemo=true}}
+<PageToolbar @pageTitle="Checkbox" @isDemo={{true}} />
 
-{{#doc-content}}
+<DocContent>
   {{! BEGIN-SNIPPET checkbox }}
   <div class="layout-column">
-    {{#paper-checkbox value=value1 onChange=(action (mut value1))}}
+    <PaperCheckbox @value={{value1}} @onChange={{action (mut value1)}}>
       A checkbox: {{value1}}
-    {{/paper-checkbox}}
+    </PaperCheckbox>
 
-    {{#paper-checkbox value=value2 onChange=(action (mut value2))}}
+    <PaperCheckbox @value={{value2}} @onChange={{action (mut value2)}}>
       A checkbox: {{if value2 "yep" "nope"}}
-    {{/paper-checkbox}}
+    </PaperCheckbox>
 
-    {{#paper-checkbox value=value3 onChange=(action (mut value3)) disabled=true}}
+    <PaperCheckbox @value={{value3}} @onChange={{action (mut value3)}} @disabled={{true}}>
       Checkbox (disabled)
-    {{/paper-checkbox}}
+    </PaperCheckbox>
 
-    {{#paper-checkbox value=true onChange=(action (mut value4)) disabled=true}}
+    <PaperCheckbox @value={{true}} @onChange={{action (mut value4)}} @disabled={{true}}>
       Checkbox (disabled and value)
-    {{/paper-checkbox}}
+    </PaperCheckbox>
 
-    {{#paper-checkbox value=value5 onChange=(action (mut value5)) noink=true}}
+    <PaperCheckbox @value={{value5}} @onChange={{action (mut value5)}} @noink={{true}}>
       Checkbox (no ink)
-    {{/paper-checkbox}}
+    </PaperCheckbox>
 
-    {{paper-checkbox label="Blockless version" value=value6 onChange=(action "toggleValue6")}}
+    <PaperCheckbox @label="Blockless version" @value={{value6}} @onChange={{action "toggleValue6"}} />
 
-    {{#paper-checkbox indeterminate=isIndeterminate value=value7 onChange=(action (mut value7))}}
+    <PaperCheckbox @indeterminate={{isIndeterminate}} @value={{value7}} @onChange={{action (mut value7)}}>
       Indeterminate checkbox
-    {{/paper-checkbox}}
+    </PaperCheckbox>
 
-    {{#paper-checkbox disabled=true indeterminate=isIndeterminate value=value7 onChange=null}}
+    <PaperCheckbox @disabled={{true}} @indeterminate={{isIndeterminate}} @value={{value7}} @onChange={{null}}>
       Indeterminate checkbox (disabled)
-    {{/paper-checkbox}}
+    </PaperCheckbox>
   </div>
   {{! END-SNIPPET }}
 
   <h3>Template</h3>
-  {{code-snippet name="checkbox.hbs"}}
+  <CodeSnippet @name="checkbox.hbs" />
 
-{{/doc-content}}
+</DocContent>

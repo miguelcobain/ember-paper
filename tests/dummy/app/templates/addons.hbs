@@ -1,6 +1,6 @@
-{{page-toolbar pageTitle="Addons" isDemo=false}}
+<PageToolbar @pageTitle="Addons" @isDemo={{false}} />
 
-{{#paper-content class="md-padding"}}
+<PaperContent @class="md-padding">
   <div class="doc-content">
     <p>
       <code>ember-paper</code> does not include every component mentioned in the material design specifications.
@@ -14,28 +14,28 @@
       Note that addons are maintained by third-party developers and may not necessarily be kept up to date.
     </p>
 
-    {{#paper-card}}
-      {{#paper-toolbar}}
-        {{#paper-toolbar-tools}}
+    <PaperCard>
+      <PaperToolbar>
+        <PaperToolbarTools>
           <h2>Ember paper addons</h2>
-        {{/paper-toolbar-tools}}
-      {{/paper-toolbar}}
-      {{#paper-list}}
+        </PaperToolbarTools>
+      </PaperToolbar>
+      <PaperList>
 
-        {{#paper-subheader}}
+        <PaperSubheader>
           Material design components
-        {{/paper-subheader}}
+        </PaperSubheader>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a target="_blank" rel="noopener" href="https://github.com/CoachLogix/ember-paper-stepper">ember-paper-stepper</a></h3>
             <p>
               Provides an implementation of <a target="_blank" rel="noopener" href="https://material.io/guidelines/components/steppers.html">material steppers</a>.
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3>
               <a target="_blank" rel="noopener" href="https://github.com/CoachLogix/ember-paper-selection-dialog">ember-paper-selection-dialog</a>
@@ -44,9 +44,9 @@
               Provides dialogs for selections. Think of it as a select component, but using dialogs.
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a target="_blank" rel="noopener" href="https://github.com/CoachLogix/ember-paper-swiper">ember-paper-swiper</a></h3>
             <p>
@@ -59,9 +59,9 @@
               </a>.
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a href="https://github.com/miguelcobain/ember-paper-expansion-panel">ember-paper-expansion-panel</a></h3>
             <p>
@@ -71,36 +71,36 @@
               </a>.
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a href="https://github.com/ibarrick/paper-data-table">paper-data-table</a></h3>
             <p>
               Provides an implementation of <a target="_blank" rel="noopener" href="https://material.io/guidelines/components/data-tables.html">material data tables</a>.
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a href="https://github.com/devotox/ember-paper-pikaday">ember-paper-pikaday</a></h3>
             <p>
               Ember Pikaday wrapped as a Paper Item
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a href="https://github.com/devotox/ember-paper-time-picker">ember-paper-time-picker</a></h3>
             <p>
               Time Picker attached to an input field that allows both keyboard and mouse entry
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a href="https://github.com/betocantu93/ember-paper-flatpickr">ember-paper-flatpickr</a></h3>
             <p>
@@ -108,18 +108,18 @@
               it wraps <a href="https://github.com/shipshapecode/ember-flatpickr">ember-flatpickr </a>
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a href="https://github.com/devotox/ember-paper-password">ember-paper-password</a></h3>
             <p>
               Simple paper input field with type password with an eye icon on the right that when clicked toggles between showing the password and not
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a href="https://github.com/devotox/ember-paper-input-mask">ember-paper-input-mask</a></h3>
             <p>
@@ -127,52 +127,52 @@
               Look to Input mask to see possible options along with Paper Input options
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{paper-divider}}
-        {{#paper-subheader}}
+        <PaperDivider />
+        <PaperSubheader>
           Components adding additional functionality
-        {{/paper-subheader}}
+        </PaperSubheader>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a href="https://github.com/NLincoln/ember-paper-dual-slider">ember-paper-dual-slider</a></h3>
             <p>
               A slider component which supports <code>to</code> and <code>from</code> values.
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a href="https://github.com/Subtletree/ember-paper-link">ember-paper-link</a></h3>
             <p>
               A <code>link-to</code> component with <code>paper-button</code> styling that handles active route state and query params.
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a href="https://github.com/betocantu93/ember-paper-mobile-autocomplete">ember-paper-mobile-autocomplete</a></h3>
             <p>
               A component to enhance autocomplete experience in mobile, local filtering or remote, mimics a radio or checkbox, with UX close to Google Calendar mobile "invite people" to event dialog.
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{#paper-item class="md-2-line"}}
+        <PaperItem @class="md-2-line">
           <div class="md-list-item-text">
             <h3><a href="https://github.com/onechiporenko/ember-paper-modals-manager">ember-paper-modals-manager</a></h3>
             <p>
               Modals-manager with predefined modals like `alert`, `prompt`, `confirm` etc. Any modal window can be created using `paper-dialog` and processed in the page with `modals-manager`-service.
             </p>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
 
-      {{/paper-list}}
-    {{/paper-card}}
+      </PaperList>
+    </PaperCard>
 
     <h3>Contributing an addon</h3>
 
@@ -180,4 +180,4 @@
       If you have an <code>ember-paper</code> specific component, service etc that you think would be usable by others, please feel free to create an ember addon, publish to npm then <a href="https://github.com/miguelcobain/ember-paper/pulls">submit a pull request</a> on GitHub for it to be included here.
     </p>
   </div>
-{{/paper-content}}
+</PaperContent>

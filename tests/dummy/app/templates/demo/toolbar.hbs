@@ -1,63 +1,63 @@
-{{page-toolbar pageTitle="Toolbar" isDemo=true}}
+<PageToolbar @pageTitle="Toolbar" @isDemo={{true}} />
 
-{{#doc-content}}
+<DocContent>
   {{! BEGIN-SNIPPET toolbar }}
   {{! without contextual components }}
-  {{#paper-toolbar}}
-    {{#paper-toolbar-tools}}
-      {{#paper-button iconButton=true}}
+  <PaperToolbar>
+    <PaperToolbarTools>
+      <PaperButton @iconButton={{true}}>
         {{paper-icon "menu"}}
-      {{/paper-button}}
+      </PaperButton>
       <h2>
         Toolbar with Icon Buttons
       </h2>
       <span class="flex"></span>
-      {{#paper-button iconButton=true}}
+      <PaperButton @iconButton={{true}}>
         {{paper-icon "favorite"}}
-      {{/paper-button}}
-      {{#paper-button iconButton=true}}
+      </PaperButton>
+      <PaperButton @iconButton={{true}}>
         {{paper-icon "more_vert"}}
-      {{/paper-button}}
-    {{/paper-toolbar-tools}}
-  {{/paper-toolbar}}
+      </PaperButton>
+    </PaperToolbarTools>
+  </PaperToolbar>
 
   <br>
   {{! with contextual components }}
-  {{#paper-toolbar as |toolbar|}}
-    {{#toolbar.tools}}
-      {{#paper-button}}
+  <PaperToolbar as |toolbar|>
+    <toolbar.tools>
+      <PaperButton>
         Go Back
-      {{/paper-button}}
+      </PaperButton>
       <h2>Toolbar with Standard Buttons</h2>
       <span class="flex"></span>
-      {{#paper-button raised=true}}
+      <PaperButton @raised={{true}}>
         Learn More
-      {{/paper-button}}
-      {{#paper-button mini=true aria-label="Favorite"}}
+      </PaperButton>
+      <PaperButton @mini={{true}} @aria-label="Favorite">
         {{paper-icon "favorite"}}
-      {{/paper-button}}
-    {{/toolbar.tools}}
-  {{/paper-toolbar}}
+      </PaperButton>
+    </toolbar.tools>
+  </PaperToolbar>
 
   <br>
 
-  {{#paper-toolbar tall=true accent=true}}
-    {{#paper-toolbar-tools}}
+  <PaperToolbar @tall={{true}} @accent={{true}}>
+    <PaperToolbarTools>
       <h2>Toolbar: tall=true, accent=true</h2>
-    {{/paper-toolbar-tools}}
-  {{/paper-toolbar}}
+    </PaperToolbarTools>
+  </PaperToolbar>
 
   <br>
 
-  {{#paper-toolbar tall=true warn=true}}
+  <PaperToolbar @tall={{true}} @warn={{true}}>
     <span class="flex"></span>
-    {{#paper-toolbar-tools}}
+    <PaperToolbarTools>
       <h2>Toolbar: tall with actions pin to the bottom (tall=true warn=true)</h2>
-    {{/paper-toolbar-tools}}
-  {{/paper-toolbar}}
+    </PaperToolbarTools>
+  </PaperToolbar>
   {{! END-SNIPPET }}
 
   <h3>Template</h3>
-  {{code-snippet name="toolbar.hbs"}}
+  <CodeSnippet @name="toolbar.hbs" />
 
-{{/doc-content}}
+</DocContent>
