@@ -1,6 +1,6 @@
-{{page-toolbar pageTitle="Layout Containers" isLayout=true}}
+<PageToolbar @pageTitle="Layout Containers" @isLayout={{true}} />
 
-{{#doc-content class="layout-docs containers"}}
+<DocContent @class="layout-docs containers">
   <h2>Layout and Containers</h2>
   <p>
     Use the <code>layout</code> class on a container element to specify the layout direction for its
@@ -17,7 +17,7 @@
     header=(p-row "Class" "Effect")
   }}
 
-  {{#paper-card as |card|}}
+  <PaperCard as |card|>
     <div class="example example-1 layout-row">
       {{! BEGIN-SNIPPET layout-containers.example1 }}
       <div class="layout-row flex">
@@ -30,10 +30,10 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    {{#card.content}}
-      {{code-snippet name="layout-containers.example1.hbs"}}
-    {{/card.content}}
-  {{/paper-card}}
+    <card.content>
+      <CodeSnippet @name="layout-containers.example1.hbs" />
+    </card.content>
+  </PaperCard>
 
   <p>
     Note that <code>layout</code> only affects the flow direction for that container's immediate children.
@@ -42,7 +42,7 @@
   <h2>Layouts and Responsive Breakpoints</h2>
 
   <p>
-    As discussed in the {{#link-to "layout.introduction"}}Layout Introduction{{/link-to}} page you can make
+    As discussed in the <LinkTo @route="layout.introduction">Layout Introduction</LinkTo> page you can make
     your layout change depending upon the device view size by using breakpoint alias suffixes.
   </p>
   <p>
@@ -73,7 +73,7 @@
     it will reset to <code>row</code> for <code>gt-sm</code> view sizes.
   </p>
 
-  {{#paper-card as |card|}}
+  <PaperCard as |card|>
     <div class="example example-2">
       {{! BEGIN-SNIPPET layout-containers.example2 }}
       <div class="layout-row layout-xs-column">
@@ -82,9 +82,9 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    {{#card.content}}
-      {{code-snippet name="layout-containers.example2.hbs"}}
-    {{/card.content}}
-  {{/paper-card}}
+    <card.content>
+      <CodeSnippet @name="layout-containers.example2.hbs" />
+    </card.content>
+  </PaperCard>
 
-{{/doc-content}}
+</DocContent>

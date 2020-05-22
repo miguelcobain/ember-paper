@@ -1,48 +1,43 @@
-{{page-toolbar pageTitle="Tabs" isDemo=true}}
+<PageToolbar @pageTitle="Tabs" @isDemo={{true}} />
 
-{{#doc-content class="tabs-demo"}}
+<DocContent @class="tabs-demo">
 
   <div class="md-padding">
-    {{#paper-card}}
-      {{#paper-toolbar}}
-        {{#paper-toolbar-tools}}
+    <PaperCard>
+      <PaperToolbar>
+        <PaperToolbarTools>
           <h2>Basic Usage</h2>
           <span class="flex"></span>
-          {{#paper-button onClick=(action "toggle" "showBasicUsageSourceCode") iconButton=true}}
-            {{paper-icon icon="code"}}
-          {{/paper-button}}
-        {{/paper-toolbar-tools}}
-      {{/paper-toolbar}}
+          <PaperButton @onClick={{action "toggle" "showBasicUsageSourceCode"}} @iconButton={{true}}>
+            <PaperIcon @icon="code" />
+          </PaperButton>
+        </PaperToolbarTools>
+      </PaperToolbar>
 
       <div class="doc-code-example {{if showBasicUsageSourceCode "is-visible"}}">
-        {{code-snippet name="basic-usage.hbs"}}
+        <CodeSnippet @name="basic-usage.hbs" />
       </div>
 
       <div class="doc-content-example">
-        {{#paper-content}}
+        <PaperContent>
           {{! BEGIN-SNIPPET basic-usage}}
-          {{#paper-tabs
-            center=center
-            stretch=stretch
-            borderBottom=borderBottom
-            selected=selectedBasicTab
-            onChange=(action (mut selectedBasicTab)) as |tabs|}}
-            {{#tabs.tab}}
+          <PaperTabs @center={{center}} @stretch={{stretch}} @borderBottom={{borderBottom}} @selected={{selectedBasicTab}} @onChange={{action (mut selectedBasicTab)}} as |tabs|>
+            <tabs.tab>
               Page One
-            {{/tabs.tab}}
-            {{#tabs.tab disabled=true}}
+            </tabs.tab>
+            <tabs.tab @disabled={{true}}>
               Page Two (disabled)
-            {{/tabs.tab}}
-            {{#tabs.tab}}
+            </tabs.tab>
+            <tabs.tab>
               Page Three
-            {{/tabs.tab}}
-            {{#tabs.tab}}
+            </tabs.tab>
+            <tabs.tab>
               Page Four
-            {{/tabs.tab}}
-            {{#tabs.tab}}
+            </tabs.tab>
+            <tabs.tab>
               Page Five
-            {{/tabs.tab}}
-          {{/paper-tabs}}
+            </tabs.tab>
+          </PaperTabs>
 
           {{#liquid-bind (hash tab=selectedBasicTab) class="md-padding" as |current|}}
             <h1 class="md-display-2">Tab {{current.tab}}</h1>
@@ -54,25 +49,25 @@
             </p>
           {{/liquid-bind}}
           {{! END-SNIPPET }}
-        {{/paper-content}}
-        {{#paper-card-content}}
+        </PaperContent>
+        <PaperCardContent>
 
-          {{#paper-checkbox value=center onChange=(action (mut center))}}
+          <PaperCheckbox @value={{center}} @onChange={{action (mut center)}}>
             Center tabs
-          {{/paper-checkbox}}
+          </PaperCheckbox>
 
-          {{#paper-checkbox value=stretch onChange=(action (mut stretch))}}
+          <PaperCheckbox @value={{stretch}} @onChange={{action (mut stretch)}}>
             Stretch tabs
-          {{/paper-checkbox}}
+          </PaperCheckbox>
 
-          {{#paper-checkbox value=borderBottom onChange=(action (mut borderBottom))}}
+          <PaperCheckbox @value={{borderBottom}} @onChange={{action (mut borderBottom)}}>
             Border bottom
-          {{/paper-checkbox}}
+          </PaperCheckbox>
 
-        {{/paper-card-content}}
+        </PaperCardContent>
       </div>
-      {{paper-divider}}
-      {{#paper-card-content}}
+      <PaperDivider />
+      <PaperCardContent>
         <p>
           <em><b>Note:</b> transitions were implemented using liquid-fire.</em>
         </p>
@@ -99,65 +94,58 @@
         <p>
           To test tab pagination resize the browser.
         </p>
-      {{/paper-card-content}}
-    {{/paper-card}}
+      </PaperCardContent>
+    </PaperCard>
   </div>
 
   <div class="md-padding">
-    {{#paper-card}}
-      {{#paper-toolbar}}
-        {{#paper-toolbar-tools}}
+    <PaperCard>
+      <PaperToolbar>
+        <PaperToolbarTools>
           <h2>Dynamic Usage</h2>
           <span class="flex"></span>
-          {{#paper-button onClick=(action "toggle" "showDynamicUsageSourceCode") iconButton=true}}
+          <PaperButton @onClick={{action "toggle" "showDynamicUsageSourceCode"}} @iconButton={{true}}>
             {{paper-icon "code"}}
-          {{/paper-button}}
-        {{/paper-toolbar-tools}}
-      {{/paper-toolbar}}
+          </PaperButton>
+        </PaperToolbarTools>
+      </PaperToolbar>
 
       <div class="doc-code-example {{if showDynamicUsageSourceCode "is-visible"}}">
-        {{code-snippet name="dynamic-usage.hbs"}}
+        <CodeSnippet @name="dynamic-usage.hbs" />
       </div>
 
       <div class="doc-content-example">
-        {{#paper-content}}
+        <PaperContent>
           {{! BEGIN-SNIPPET dynamic-usage}}
-          {{#paper-tabs primary=true
-            borderBottom=true
-            selected=selectedChapter
-            onChange=(action (mut selectedChapter)) as |tabs|}}
+          <PaperTabs @primary={{true}} @borderBottom={{true}} @selected={{selectedChapter}} @onChange={{action (mut selectedChapter)}} as |tabs|>
             {{#each chapters as |chapter|}}
-              {{#tabs.tab value=chapter}}
+              <tabs.tab @value={{chapter}}>
                 {{chapter.title}}
-              {{/tabs.tab}}
+              </tabs.tab>
             {{/each}}
-          {{/paper-tabs}}
+          </PaperTabs>
 
           {{#liquid-bind (hash tab=selectedChapter.index m=selectedChapter) class="md-padding dynamic-animation" as |current|}}
             <h1 class="md-display-2">{{current.m.title}}</h1>
             <p>{{current.m.body}}</p>
-            {{#paper-button
-              primary=true raised=true disabled=(eq chapters.length 1)
-              onClick=(action "removeChapter" current.m)}}
+            <PaperButton @primary={{true}} @raised={{true}} @disabled={{eq chapters.length 1}} @onClick={{action "removeChapter" current.m}}>
               Remove chapter
-            {{/paper-button}}
+            </PaperButton>
           {{/liquid-bind}}
 
           {{! END-SNIPPET }}
-        {{/paper-content}}
+        </PaperContent>
       </div>
-      {{paper-divider}}
+      <PaperDivider />
 
-      {{#paper-card-content}}
+      <PaperCardContent>
         <div class="md-padding layout-row layout-align-space-around-start">
-          {{paper-input class="flex-20" label="Title" value=newTitle required=true onChange=(action (mut newTitle))}}
-          {{paper-input class="flex-60" label="Content" textarea=true value=newContent required=true onChange=(action (mut newContent))}}
+          <PaperInput @class="flex-20" @label="Title" @value={{newTitle}} @required={{true}} @onChange={{action (mut newTitle)}} />
+          <PaperInput @class="flex-60" @label="Content" @textarea={{true}} @value={{newContent}} @required={{true}} @onChange={{action (mut newContent)}} />
           <div class="flex-20 layout-row layout-align-center-start">
-            {{#paper-button
-              primary=true raised=true disabled=(not (and newTitle newContent))
-              onClick=(action "addChapter")}}
+            <PaperButton @primary={{true}} @raised={{true}} @disabled={{not (and newTitle newContent)}} @onClick={{action "addChapter"}}>
               Add chapter
-            {{/paper-button}}
+            </PaperButton>
           </div>
         </div>
 
@@ -174,45 +162,45 @@
           new selected tab. No problem, just set the <code>selected</code> property
           to the newly selected chapter.
         </p>
-      {{/paper-card-content}}
-    {{/paper-card}}
+      </PaperCardContent>
+    </PaperCard>
   </div>
 
   <div class="md-padding">
-    {{#paper-card}}
-      {{#paper-toolbar}}
-        {{#paper-toolbar-tools}}
+    <PaperCard>
+      <PaperToolbar>
+        <PaperToolbarTools>
           <h2>Routable Usage</h2>
           <span class="flex"></span>
-          {{#paper-button onClick=(action "toggle" "showRoutableUsageSourceCode") iconButton=true}}
-            {{paper-icon icon="code"}}
-          {{/paper-button}}
-        {{/paper-toolbar-tools}}
-      {{/paper-toolbar}}
+          <PaperButton @onClick={{action "toggle" "showRoutableUsageSourceCode"}} @iconButton={{true}}>
+            <PaperIcon @icon="code" />
+          </PaperButton>
+        </PaperToolbarTools>
+      </PaperToolbar>
 
       <div class="doc-code-example {{if showRoutableUsageSourceCode "is-visible"}}">
-        {{code-snippet name="routable-usage.hbs"}}
+        <CodeSnippet @name="routable-usage.hbs" />
       </div>
 
       <div class="doc-content-example">
-        {{#paper-content}}
+        <PaperContent>
           {{! BEGIN-SNIPPET routable-usage}}
-          {{#paper-tabs selected=currentRouteName borderBottom=true onChange=(action "noop") as |tabs|}}
-            {{#tabs.tab value="demo.tabs.index" href=(href-to "demo.tabs.index")}}
+          <PaperTabs @selected={{currentRouteName}} @borderBottom={{true}} @onChange={{action "noop"}} as |tabs|>
+            <tabs.tab @value="demo.tabs.index" @href={{href-to "demo.tabs.index"}}>
               Index
-            {{/tabs.tab}}
-            {{#tabs.tab value="demo.tabs.nested-route" href=(href-to "demo.tabs.nested-route")}}
+            </tabs.tab>
+            <tabs.tab @value="demo.tabs.nested-route" @href={{href-to "demo.tabs.nested-route"}}>
               Nested Route
-            {{/tabs.tab}}
-          {{/paper-tabs}}
+            </tabs.tab>
+          </PaperTabs>
 
           {{liquid-outlet class="md-padding"}}
           {{! END-SNIPPET }}
-        {{/paper-content}}
+        </PaperContent>
       </div>
-      {{paper-divider}}
+      <PaperDivider />
 
-      {{#paper-card-content}}
+      <PaperCardContent>
         <p>
           <em><b>Note:</b> transitions were implemented using liquid-fire.</em>
         </p>
@@ -231,8 +219,8 @@
           <b>Hint:</b> for Ember versions less than 2.15, use the <code>ember-router-service-polyfill</code> addon to easily retrieve
           the current route name and use it as the selected value to <code>paper-tabs</code>.
         </p>
-      {{/paper-card-content}}
-    {{/paper-card}}
+      </PaperCardContent>
+    </PaperCard>
   </div>
 
   <div class="md-padding">
@@ -256,4 +244,4 @@
     }}
   </div>
 
-{{/doc-content}}
+</DocContent>

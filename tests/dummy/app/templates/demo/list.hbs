@@ -1,46 +1,46 @@
-{{page-toolbar pageTitle="List" isDemo=true}}
+<PageToolbar @pageTitle="List" @isDemo={{true}} />
 
-{{#doc-content}}
+<DocContent>
 
-  {{#paper-card}}
-    {{#paper-toolbar}}
-      {{#paper-toolbar-tools}}
+  <PaperCard>
+    <PaperToolbar>
+      <PaperToolbarTools>
         <h2>Basic Usage</h2>
-      {{/paper-toolbar-tools}}
-    {{/paper-toolbar}}
-    {{#paper-content}}
+      </PaperToolbarTools>
+    </PaperToolbar>
+    <PaperContent>
       {{! BEGIN-SNIPPET list }}
-      {{#paper-list}}
-        {{#paper-subheader}}3 line item{{/paper-subheader}}
+      <PaperList>
+        <PaperSubheader>3 line item</PaperSubheader>
         {{#each listData as |item|}}
-          {{#paper-item class="md-3-line"}}
+          <PaperItem @class="md-3-line">
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <div class="md-list-item-text">
               <h3>{{item.name}}</h3>
               <h4>{{item.email}}</h4>
               <p>Some longer notes here could be here. But they aren't.</p>
             </div>
-          {{/paper-item}}
+          </PaperItem>
         {{/each}}
 
-        {{paper-divider}}
+        <PaperDivider />
 
-        {{#paper-subheader}}2 line item{{/paper-subheader}}
+        <PaperSubheader>2 line item</PaperSubheader>
         {{#each listData as |item|}}
-          {{#paper-item class="md-2-line"}}
+          <PaperItem @class="md-2-line">
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <div class="md-list-item-text">
               <h3>{{item.name}}</h3>
               <p>{{item.email}}</p>
             </div>
-          {{/paper-item}}
+          </PaperItem>
         {{/each}}
 
-        {{paper-divider}}
+        <PaperDivider />
 
-        {{#paper-subheader}}3 line item, long paragraph{{/paper-subheader}}
+        <PaperSubheader>3 line item, long paragraph</PaperSubheader>
         {{#each listData as |item|}}
-          {{#paper-item class="md-3-line md-long-text"}}
+          <PaperItem @class="md-3-line md-long-text">
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <div class="md-list-item-text">
               <h3>{{item.name}}</h3>
@@ -50,183 +50,176 @@
                 velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
               </p>
             </div>
-          {{/paper-item}}
+          </PaperItem>
         {{/each}}
 
-        {{paper-divider}}
+        <PaperDivider />
 
-        {{#paper-subheader}}Icons{{/paper-subheader}}
+        <PaperSubheader>Icons</PaperSubheader>
         {{#each phoneNumbers as |phone|}}
-          {{#paper-item class="md-2-line"}}
+          <PaperItem @class="md-2-line">
             {{paper-icon "phone" class="md-avatar-icon"}}
             <div class="md-list-item-text">
               <h3>{{phone.number}}</h3>
               <p>{{phone.type}}</p>
             </div>
-          {{/paper-item}}
+          </PaperItem>
         {{/each}}
 
-      {{/paper-list}}
+      </PaperList>
       {{! END-SNIPPET }}
-    {{/paper-content}}
-  {{/paper-card}}
+    </PaperContent>
+  </PaperCard>
 
   <h3>Template</h3>
-  {{code-snippet name="list.hbs"}}
+  <CodeSnippet @name="list.hbs" />
 
-  {{#paper-card}}
-    {{#paper-toolbar}}
-      {{#paper-toolbar-tools}}
+  <PaperCard>
+    <PaperToolbar>
+      <PaperToolbarTools>
         <h2>List Controls</h2>
-      {{/paper-toolbar-tools}}
-    {{/paper-toolbar}}
-    {{#paper-content}}
+      </PaperToolbarTools>
+    </PaperToolbar>
+    <PaperContent>
       {{! BEGIN-SNIPPET list-controls }}
-      {{#paper-list}}
+      <PaperList>
 
-        {{#paper-subheader}}Single Action Checkboxes{{/paper-subheader}}
+        <PaperSubheader>Single Action Checkboxes</PaperSubheader>
         {{#each toppings as |topping|}}
-          {{#paper-item as |controls|}}
+          <PaperItem as |controls|>
             <p>{{topping.name}}</p>
             <div class="md-secondary-container">
-              {{controls.checkbox
-                value=topping.enabled
-                secondary=true
-                onChange=(action (mut topping.enabled))}}
+              <controls.checkbox @value={{topping.enabled}} @secondary={{true}} @onChange={{action (mut topping.enabled)}} />
             </div>
-          {{/paper-item}}
+          </PaperItem>
         {{/each}}
 
-        {{paper-divider}}
+        <PaperDivider />
 
-        {{#paper-subheader}}Secondary Buttons{{/paper-subheader}}
-        {{#paper-item as |controls|}}
+        <PaperSubheader>Secondary Buttons</PaperSubheader>
+        <PaperItem as |controls|>
           <p>Clicking the button to the right will fire the secondary action</p>
           <div class="md-secondary-container">
-            {{#controls.button secondary=true onClick=(action "transitionTo" "more info")}}
+            <controls.button @secondary={{true}} @onClick={{action "transitionTo" "more info"}}>
               More Info
-            {{/controls.button}}
+            </controls.button>
           </div>
-        {{/paper-item}}
-        {{#paper-item onClick=(action "transitionTo" "primary action") as |controls|}}
+        </PaperItem>
+        <PaperItem @onClick={{action "transitionTo" "primary action"}} as |controls|>
           <p>Click anywhere to fire the primary action, or the button to fire the secondary</p>
           <div class="md-secondary-container">
-            {{#controls.button secondary=true onClick=(action "transitionTo" "secondary action")}}
+            <controls.button @secondary={{true}} @onClick={{action "transitionTo" "secondary action"}}>
               More Info
-            {{/controls.button}}
+            </controls.button>
           </div>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{paper-divider}}
+        <PaperDivider />
 
-        {{#paper-subheader}}Clickable Items with Secondary Controls{{/paper-subheader}}
-        {{#paper-item onClick=(action "transitionToWifiMenu") as |controls|}}
+        <PaperSubheader>Clickable Items with Secondary Controls</PaperSubheader>
+        <PaperItem @onClick={{action "transitionToWifiMenu"}} as |controls|>
           {{paper-icon "network-wifi"}}
           <p>Wi-Fi</p>
           <div class="md-secondary-container">
-            {{controls.switch secondary=true value=wifiEnabled onChange=(action (mut wifiEnabled))}}
+            <controls.switch @secondary={{true}} @value={{wifiEnabled}} @onChange={{action (mut wifiEnabled)}} />
           </div>
-        {{/paper-item}}
-        {{#paper-item onClick=(action "transitionToBluetoothMenu") as |controls|}}
+        </PaperItem>
+        <PaperItem @onClick={{action "transitionToBluetoothMenu"}} as |controls|>
           {{paper-icon "bluetooth"}}
           <p>Bluetooth</p>
           <div class="md-secondary-container">
-            {{controls.switch secondary=true value=bluetoothEnabled onChange=(action (mut bluetoothEnabled))}}
+            <controls.switch @secondary={{true}} @value={{bluetoothEnabled}} @onChange={{action (mut bluetoothEnabled)}} />
           </div>
-        {{/paper-item}}
-        {{#paper-item onClick=(action "transitionToDataUsage")}}
+        </PaperItem>
+        <PaperItem @onClick={{action "transitionToDataUsage"}}>
           {{paper-icon "data-usage"}}
           <p>Data Usage</p>
-        {{/paper-item}}
+        </PaperItem>
 
-        {{paper-divider}}
+        <PaperDivider />
 
-        {{#paper-subheader}}Checkbox with Secondary Action{{/paper-subheader}}
+        <PaperSubheader>Checkbox with Secondary Action</PaperSubheader>
         {{#each messageData as |item|}}
-          {{#paper-item as |controls|}}
-            {{controls.checkbox value=item.checked onChange=(action (mut item.checked))}}
+          <PaperItem as |controls|>
+            <controls.checkbox @value={{item.checked}} @onChange={{action (mut item.checked)}} />
             <p>{{item.message}}</p>
             <div class="md-secondary-container">
-              {{#controls.button secondary=true iconButton=true onClick=(action "secondaryMessageClick" item)}}
+              <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryMessageClick" item}}>
                 {{paper-icon "message"}}
-              {{/controls.button}}
+              </controls.button>
             </div>
-          {{/paper-item}}
+          </PaperItem>
         {{/each}}
 
-        {{paper-divider}}
+        <PaperDivider />
 
-        {{#paper-subheader}}Avatar with Secondary Action Icon{{/paper-subheader}}
+        <PaperSubheader>Avatar with Secondary Action Icon</PaperSubheader>
         {{#each listData as |item|}}
-          {{#paper-item onClick=(action "goToPerson" item) as |controls|}}
+          <PaperItem @onClick={{action "goToPerson" item}} as |controls|>
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <p>{{item.name}}</p>
             <div class="md-secondary-container">
-              {{controls.checkbox value=item.checked onChange=(action (mut item.checked))}}
-              {{#controls.button secondary=true iconButton=true onClick=(action "secondaryMessageClick" item)}}
+              <controls.checkbox @value={{item.checked}} @onChange={{action (mut item.checked)}} />
+              <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryMessageClick" item}}>
                 {{paper-icon "email"}}
-              {{/controls.button}}
-              {{#controls.button secondary=true iconButton=true onClick=(action "secondaryMessageClick" item)}}
+              </controls.button>
+              <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryMessageClick" item}}>
                 {{paper-icon "message"}}
-              {{/controls.button}}
+              </controls.button>
             </div>
-          {{/paper-item}}
+          </PaperItem>
         {{/each}}
 
-        {{paper-divider}}
+        <PaperDivider />
 
-        {{#paper-subheader}}Clickable Avatars{{/paper-subheader}}
+        <PaperSubheader>Clickable Avatars</PaperSubheader>
         {{#each listData as |item|}}
-          {{#paper-item class="md-3-line" onClick=(action "goToPerson" item)}}
+          <PaperItem @class="md-3-line" @onClick={{action "goToPerson" item}}>
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <div class="md-list-item-text">
               <h3>{{item.name}}</h3>
               <h4>{{item.email}}</h4>
               <p>Some notes here.</p>
             </div>
-          {{/paper-item}}
+          </PaperItem>
         {{/each}}
 
-        {{paper-divider}}
+        <PaperDivider />
 
-        {{#paper-subheader}}Avatar with Secondary Action Icon{{/paper-subheader}}
+        <PaperSubheader>Avatar with Secondary Action Icon</PaperSubheader>
         {{#each listData as |item|}}
-          {{#paper-item class="md-3-line" onClick=(action "goToPerson" item) as |controls|}}
+          <PaperItem @class="md-3-line" @onClick={{action "goToPerson" item}} as |controls|>
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <div class="md-list-item-text">
               <h3>{{item.name}}</h3>
               <h4>{{item.email}}</h4>
               <p>Some notes here.</p>
             </div>
-            {{#controls.button secondary=true iconButton=true onClick=(action "secondaryPersonClick" item)}}
+            <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryPersonClick" item}}>
               {{paper-icon "phone"}}
-            {{/controls.button}}
-          {{/paper-item}}
+            </controls.button>
+          </PaperItem>
         {{/each}}
 
-        {{#paper-subheader}}Single Action Radios{{/paper-subheader}}
+        <PaperSubheader>Single Action Radios</PaperSubheader>
         {{#each toppings as |topping|}}
-          {{#paper-item as |controls|}}
+          <PaperItem as |controls|>
             <p>{{topping.name}}</p>
             <div class="md-secondary-container">
-              {{controls.radio
-                groupValue=radioSelectedTopping
-                value=topping
-                secondary=true
-                onChange=(action (mut radioSelectedTopping))}}
+              <controls.radio @groupValue={{radioSelectedTopping}} @value={{topping}} @secondary={{true}} @onChange={{action (mut radioSelectedTopping)}} />
             </div>
-          {{/paper-item}}
+          </PaperItem>
         {{/each}}
 
-      {{/paper-list}}
+      </PaperList>
       {{! END-SNIPPET }}
-    {{/paper-content}}
-  {{/paper-card}}
+    </PaperContent>
+  </PaperCard>
 
   <h3>Template</h3>
-  {{code-snippet name="list-controls.hbs"}}
+  <CodeSnippet @name="list-controls.hbs" />
 
-{{/doc-content}}
+</DocContent>
 
 
 

@@ -1,6 +1,6 @@
-{{page-toolbar pageTitle="Introduction" isLayout=true}}
+<PageToolbar @pageTitle="Introduction" @isLayout={{true}} />
 
-{{#doc-content class="layout-docs"}}
+<DocContent @class="layout-docs">
 
   <h2>Overview</h2>
 
@@ -90,7 +90,7 @@
 
   <p>Below is an example of the usage of the responsive layout classes:</p>
 
-  {{#paper-card as |card|}}
+  <PaperCard as |card|>
     {{! BEGIN-SNIPPET layout-introduction }}
     <div class="layout-column example introduction-example">
       <div class="flex-33 flex-md-{{box1Height}} box-one"></div>
@@ -102,34 +102,28 @@
       <div class="flex box-three"></div>
     </div>
     {{! END-SNIPPET }}
-    {{#card.content}}
+    <card.content>
 
       <div class="layout-row layout-align-space-between-start">
-        {{paper-input
-        value=box1Height
-        label="box1Height"
-        type="number"
-        passThru=(hash min="0" max="100" step="5")
-        onChange=(action (mut box1Height))
-        }}
+        <PaperInput @value={{box1Height}} @label="box1Height" @type="number" @passThru={{hash min="0" max="100" step="5"}} @onChange={{action (mut box1Height)}} />
 
         <div class="demo-group">
           <h4>direction</h4>
-          {{#paper-radio-group groupValue=direction onChange=(action (mut direction)) as |group|}}
-            {{#group.radio value="row"}}
+          <PaperRadioGroup @groupValue={{direction}} @onChange={{action (mut direction)}} as |group|>
+            <group.radio @value="row">
               row
-            {{/group.radio}}
-            {{#group.radio value="column"}}
+            </group.radio>
+            <group.radio @value="column">
               column
-            {{/group.radio}}
-          {{/paper-radio-group}}
+            </group.radio>
+          </PaperRadioGroup>
         </div>
 
-        {{#paper-switch value=hideBox onChange=(action (mut hideBox))}}hideBox{{/paper-switch}}
+        <PaperSwitch @value={{hideBox}} @onChange={{action (mut hideBox)}}>hideBox</PaperSwitch>
       </div>
 
-      {{code-snippet name="layout-introduction.hbs"}}
-    {{/card.content}}
-  {{/paper-card}}
+      <CodeSnippet @name="layout-introduction.hbs" />
+    </card.content>
+  </PaperCard>
 
-{{/doc-content}}
+</DocContent>

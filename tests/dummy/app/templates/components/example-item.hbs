@@ -2,6 +2,6 @@
 {{! app/templates/components/example-item.hbs }}
 <span class="item-title">
   {{paper-icon "star"}}
-  <span>{{paper-autocomplete-highlight searchText=searchText label=item}} (index {{index}} )</span>
+  <span><PaperAutocompleteHighlight @searchText={{searchText}} @label={{item}} /> (index {{index}} )</span>
 </span>
 {{! END-SNIPPET }}

@@ -1,93 +1,91 @@
-{{page-toolbar pageTitle="Speed Dial" isDemo=true}}
+<PageToolbar @pageTitle="Speed Dial" @isDemo={{true}} />
 
-{{#doc-content}}
+<DocContent>
   <div class="md-padding">
-    {{#paper-card}}
-      {{#paper-toolbar}}
-        {{#paper-toolbar-tools}}
+    <PaperCard>
+      <PaperToolbar>
+        <PaperToolbarTools>
           <h2>Basic Usage</h2>
           <span class="flex"></span>
-          {{#paper-button onClick=(action "toggle" "showBasicUsageSourceCode") iconButton=true}}
+          <PaperButton @onClick={{action "toggle" "showBasicUsageSourceCode"}} @iconButton={{true}}>
             {{paper-icon "code"}}
-          {{/paper-button}}
-        {{/paper-toolbar-tools}}
-      {{/paper-toolbar}}
+          </PaperButton>
+        </PaperToolbarTools>
+      </PaperToolbar>
 
       <div class="doc-code-example {{if showBasicUsageSourceCode "is-visible"}}">
-        {{code-snippet name="speed-dial-basic-usage.hbs"}}
+        <CodeSnippet @name="speed-dial-basic-usage.hbs" />
       </div>
 
       <div class="doc-content-example">
-        {{#paper-content}}
+        <PaperContent>
           <div class="layout-align-center-center layout-row" style="min-height: 300px; overflow: hidden">
             {{! BEGIN-SNIPPET speed-dial-basic-usage}}
-            {{#paper-speed-dial
-              animation=animation direction=direction
-              open=open onToggle=(action (mut open)) as |dial|}}
-              {{#dial.trigger}}
-                {{#paper-button fab=true}}
+            <PaperSpeedDial @animation={{animation}} @direction={{direction}} @open={{open}} @onToggle={{action (mut open)}} as |dial|>
+              <dial.trigger>
+                <PaperButton @fab={{true}}>
                   {{paper-icon "menu"}}
-                {{/paper-button}}
-              {{/dial.trigger}}
+                </PaperButton>
+              </dial.trigger>
 
-              {{#dial.actions as |actions|}}
-                {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
+              <dial.actions as |actions|>
+                <actions.action>
+                  <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
                     {{paper-icon "people"}}
-                  {{/paper-button}}
-                {{/actions.action}}
+                  </PaperButton>
+                </actions.action>
 
-                {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
+                <actions.action>
+                  <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
                     {{paper-icon "accessibility"}}
-                  {{/paper-button}}
-                {{/actions.action}}
+                  </PaperButton>
+                </actions.action>
 
-                {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
+                <actions.action>
+                  <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
                     {{paper-icon "check-circle"}}
-                  {{/paper-button}}
-                {{/actions.action}}
-              {{/dial.actions}}
-            {{/paper-speed-dial}}
+                  </PaperButton>
+                </actions.action>
+              </dial.actions>
+            </PaperSpeedDial>
             {{! END-SNIPPET }}
           </div>
-        {{/paper-content}}
-        {{#paper-card-content}}
+        </PaperContent>
+        <PaperCardContent>
 
           <div class="layout-align-space-around-stretch layout-row">
 
             <div class="layout-column layout-align-start-center">
               <h4>Direction</h4>
-              {{#paper-radio-group groupValue=direction onChange=(action (mut direction)) as |group|}}
-                {{#group.radio value="up"}}Up{{/group.radio}}
-                {{#group.radio value="down"}}Down{{/group.radio}}
-                {{#group.radio value="left"}}Left{{/group.radio}}
-                {{#group.radio value="right"}}Right{{/group.radio}}
-              {{/paper-radio-group}}
+              <PaperRadioGroup @groupValue={{direction}} @onChange={{action (mut direction)}} as |group|>
+                <group.radio @value="up">Up</group.radio>
+                <group.radio @value="down">Down</group.radio>
+                <group.radio @value="left">Left</group.radio>
+                <group.radio @value="right">Right</group.radio>
+              </PaperRadioGroup>
             </div>
 
             <div class="layout-column layout-align-start-center">
               <h4>Open/Closed</h4>
-              {{#paper-checkbox value=open onChange=(action (mut open))}}
+              <PaperCheckbox @value={{open}} @onChange={{action (mut open)}}>
                 open
-              {{/paper-checkbox}}
+              </PaperCheckbox>
             </div>
 
             <div class="layout-column layout-align-start-center">
               <h4>Animation</h4>
-              {{#paper-radio-group groupValue=animation onChange=(action (mut animation)) as |group|}}
-                {{#group.radio value="fling"}}Fling{{/group.radio}}
-                {{#group.radio value="scale"}}Scale{{/group.radio}}
-              {{/paper-radio-group}}
+              <PaperRadioGroup @groupValue={{animation}} @onChange={{action (mut animation)}} as |group|>
+                <group.radio @value="fling">Fling</group.radio>
+                <group.radio @value="scale">Scale</group.radio>
+              </PaperRadioGroup>
             </div>
 
           </div>
 
-        {{/paper-card-content}}
+        </PaperCardContent>
       </div>
-      {{paper-divider}}
-      {{#paper-card-content}}
+      <PaperDivider />
+      <PaperCardContent>
         <p>
           You may supply a direction of <code>left</code>, <code>up</code>, <code>down</code>, or
           <code>right</code> through the <code>direction</code> attribute. Default value is <code>down</code>.
@@ -100,65 +98,63 @@
           The component can also take a <code>open</code> attribute and an <code>onToggle</code> pair, much like
           <code>paper-sidenav</code>. Use the pair to control the open status of the speed dial.
         </p>
-      {{/paper-card-content}}
-    {{/paper-card}}
+      </PaperCardContent>
+    </PaperCard>
   </div>
 
   <div class="md-padding">
-    {{#paper-card}}
-      {{#paper-toolbar}}
-        {{#paper-toolbar-tools}}
+    <PaperCard>
+      <PaperToolbar>
+        <PaperToolbarTools>
           <h2>Advanced Usage</h2>
           <span class="flex"></span>
-          {{#paper-button onClick=(action "toggle" "showAdvancedUsageSourceCode") iconButton=true}}
+          <PaperButton @onClick={{action "toggle" "showAdvancedUsageSourceCode"}} @iconButton={{true}}>
             {{paper-icon "code"}}
-          {{/paper-button}}
-        {{/paper-toolbar-tools}}
-      {{/paper-toolbar}}
+          </PaperButton>
+        </PaperToolbarTools>
+      </PaperToolbar>
 
       <div class="doc-code-example {{if showAdvancedUsageSourceCode "is-visible"}}">
-        {{code-snippet name="speed-dial-advanced-usage.hbs"}}
+        <CodeSnippet @name="speed-dial-advanced-usage.hbs" />
       </div>
 
       <div class="doc-content-example">
-        {{#paper-content}}
+        <PaperContent>
           <div class="layout-align-center-center layout-row" style="min-height: 300px; overflow: hidden">
             {{! BEGIN-SNIPPET speed-dial-advanced-usage}}
-            {{#paper-speed-dial
-              onMouseEnter=(action (mut open2) true) onMouseLeave=(action (mut open2) false)
-              open=open2 onToggle=(action (mut open2)) hoverFull=hoverFull as |dial|}}
-              {{#dial.trigger}}
-                {{#paper-button fab=true}}
+            <PaperSpeedDial @onMouseEnter={{action (mut open2) true}} @onMouseLeave={{action (mut open2) false}} @open={{open2}} @onToggle={{action (mut open2)}} @hoverFull={{hoverFull}} as |dial|>
+              <dial.trigger>
+                <PaperButton @fab={{true}}>
                   {{paper-icon "menu"}}
-                {{/paper-button}}
-              {{/dial.trigger}}
+                </PaperButton>
+              </dial.trigger>
 
-              {{#dial.actions as |actions|}}
-                {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
+              <dial.actions as |actions|>
+                <actions.action>
+                  <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
                     {{paper-icon "people"}}
-                  {{/paper-button}}
-                {{/actions.action}}
+                  </PaperButton>
+                </actions.action>
 
-                {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
+                <actions.action>
+                  <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
                     {{paper-icon "accessibility"}}
-                  {{/paper-button}}
-                {{/actions.action}}
+                  </PaperButton>
+                </actions.action>
 
-                {{#actions.action}}
-                  {{#paper-button mini=true onClick=(action (mut showDialog) true)}}
+                <actions.action>
+                  <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
                     {{paper-icon "check-circle"}}
-                  {{/paper-button}}
-                {{/actions.action}}
-              {{/dial.actions}}
-            {{/paper-speed-dial}}
+                  </PaperButton>
+                </actions.action>
+              </dial.actions>
+            </PaperSpeedDial>
             {{! END-SNIPPET }}
           </div>
-        {{/paper-content}}
+        </PaperContent>
       </div>
-      {{paper-divider}}
-      {{#paper-card-content}}
+      <PaperDivider />
+      <PaperCardContent>
         <p>
           You can use the <code>onMouseEnter</code> and <code>onMouseLeave</code> actions to control
           the <code>open</code> attribute. This results in a speed dial that opens when you hover it.
@@ -169,27 +165,27 @@
           <code>hoverFull=true</code>. Try it with the following checkbox:
         </p>
         <p>
-          {{#paper-checkbox value=hoverFull onChange=(action (mut hoverFull))}}
+          <PaperCheckbox @value={{hoverFull}} @onChange={{action (mut hoverFull)}}>
             hoverFull
-          {{/paper-checkbox}}
+          </PaperCheckbox>
         </p>
-      {{/paper-card-content}}
-    {{/paper-card}}
+      </PaperCardContent>
+    </PaperCard>
   </div>
-{{/doc-content}}
+</DocContent>
 
 {{#if showDialog}}
-  {{#paper-dialog fullscreen=fullscreen onClose=(action (mut showDialog) false)}}
+  <PaperDialog @fullscreen={{fullscreen}} @onClose={{action (mut showDialog) false}}>
 
-    {{#paper-dialog-content}}
+    <PaperDialogContent>
       <h2 class="md-title">An action was clicked!</h2>
       <p>Close this dialog and try another button.</p>
-    {{/paper-dialog-content}}
+    </PaperDialogContent>
 
-    {{#paper-dialog-actions class="layout-row"}}
+    <PaperDialogActions @class="layout-row">
       <span class="flex"></span>
-      {{#paper-button primary=true onClick=(action (mut showDialog) false)}}Okay!{{/paper-button}}
-    {{/paper-dialog-actions}}
+      <PaperButton @primary={{true}} @onClick={{action (mut showDialog) false}}>Okay!</PaperButton>
+    </PaperDialogActions>
 
-  {{/paper-dialog}}
+  </PaperDialog>
 {{/if}}

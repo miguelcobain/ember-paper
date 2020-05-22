@@ -1,28 +1,28 @@
-{{page-toolbar pageTitle="Tooltip" isDemo=true}}
+<PageToolbar @pageTitle="Tooltip" @isDemo={{true}} />
 
-{{#doc-content}}
+<DocContent>
 
-  {{#paper-card}}
-    {{#paper-toolbar}}
-      {{#paper-toolbar-tools}}
+  <PaperCard>
+    <PaperToolbar>
+      <PaperToolbarTools>
         <h2>Basic Usage</h2>
         <span class="flex"></span>
-        {{#paper-button onClick=(action "toggle" "showSourceCode") iconButton=true}}
-          {{paper-icon icon="code"}}
-          {{#paper-tooltip}}
+        <PaperButton @onClick={{action "toggle" "showSourceCode"}} @iconButton={{true}}>
+          <PaperIcon @icon="code" />
+          <PaperTooltip>
             {{if showSourceCode "Hide" "Show"}} code
-          {{/paper-tooltip}}
-        {{/paper-button}}
-      {{/paper-toolbar-tools}}
-    {{/paper-toolbar}}
+          </PaperTooltip>
+        </PaperButton>
+      </PaperToolbarTools>
+    </PaperToolbar>
 
     <div class="doc-code-example {{if showSourceCode "is-visible"}}">
-      {{code-snippet name="tooltip.hbs"}}
+      <CodeSnippet @name="tooltip.hbs" />
     </div>
 
     <div class="doc-content-example">
 
-      {{#paper-card-content}}
+      <PaperCardContent>
         <p>
           You can render tooltips using the paper-tooltip component. This component
           will attach to the immediate parent element and use it for positioning.
@@ -36,51 +36,51 @@
 
         <div class="layout-row layout-align-space-around-center md-padding">
           {{! BEGIN-SNIPPET tooltip }}
-          {{#paper-button raised=true}}
+          <PaperButton @raised={{true}}>
             A button
-            {{#paper-tooltip position=position}}
+            <PaperTooltip @position={{position}}>
               Hey! I'm a tooltip. Çup?
-            {{/paper-tooltip}}
-          {{/paper-button}}
+            </PaperTooltip>
+          </PaperButton>
 
-          {{#paper-button iconButton=true raised=true}}
+          <PaperButton @iconButton={{true}} @raised={{true}}>
             {{paper-icon "create"}}
-            {{#paper-tooltip position=position}}
+            <PaperTooltip @position={{position}}>
               Create
-            {{/paper-tooltip}}
-          {{/paper-button}}
+            </PaperTooltip>
+          </PaperButton>
 
-          {{#paper-button fab=true raised=true accent=true}}
+          <PaperButton @fab={{true}} @raised={{true}} @accent={{true}}>
             {{paper-icon "delete"}}
-            {{#paper-tooltip position=position}}
+            <PaperTooltip @position={{position}}>
               Delete
-            {{/paper-tooltip}}
-          {{/paper-button}}
+            </PaperTooltip>
+          </PaperButton>
 
           <div>
             {{#paper-icon "info"}}
-              {{#paper-tooltip position=position}}
+              <PaperTooltip @position={{position}}>
                 Icon tooltip
-              {{/paper-tooltip}}
+              </PaperTooltip>
             {{/paper-icon}}
           </div>
           {{! END-SNIPPET tooltip }}
         </div>
 
-        {{#paper-radio-group groupValue=position onChange=(action (mut position)) as |group|}}
-          {{#group.radio value="bottom"}}
+        <PaperRadioGroup @groupValue={{position}} @onChange={{action (mut position)}} as |group|>
+          <group.radio @value="bottom">
             Bottom
-          {{/group.radio}}
-          {{#group.radio value="top"}}
+          </group.radio>
+          <group.radio @value="top">
             Top
-          {{/group.radio}}
-          {{#group.radio value="left"}}
+          </group.radio>
+          <group.radio @value="left">
             Left
-          {{/group.radio}}
-          {{#group.radio value="right"}}
+          </group.radio>
+          <group.radio @value="right">
             Right
-          {{/group.radio}}
-        {{/paper-radio-group}}
+          </group.radio>
+        </PaperRadioGroup>
 
         {{paper-api
           (p-section
@@ -91,7 +91,7 @@
           )
         }}
 
-      {{/paper-card-content}}
+      </PaperCardContent>
     </div>
-  {{/paper-card}}
-{{/doc-content}}
+  </PaperCard>
+</DocContent>

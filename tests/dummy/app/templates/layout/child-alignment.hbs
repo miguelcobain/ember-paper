@@ -1,6 +1,6 @@
-{{page-toolbar pageTitle="Child Alignment" isLayout=true}}
+<PageToolbar @pageTitle="Child Alignment" @isLayout={{true}} />
 
-{{#doc-content class="layout-docs alignment"}}
+<DocContent @class="layout-docs alignment">
 
   <p>
     The <code>layout-align</code> class takes two words. The first word says how the children
@@ -23,15 +23,15 @@
     settings:
   </p>
 
-  {{#paper-card as |card|}}
-    {{#paper-toolbar as |toolbar|}}
-      {{#toolbar.tools}}
+  <PaperCard as |card|>
+    <PaperToolbar as |toolbar|>
+      <toolbar.tools>
         <h2>
           <span class="layout-class">{{layoutClass}}</span>
           <span class="layout-align-class">{{layoutAlignClass}}</span>
         </h2>
-      {{/toolbar.tools}}
-    {{/paper-toolbar}}
+      </toolbar.tools>
+    </PaperToolbar>
     <div class="example interactive-demo">
       {{! BEGIN-SNIPPET child-alignment }}
       <div class="{{layoutClass}} {{layoutAlignClass}}">
@@ -41,69 +41,69 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    {{#card.content}}
+    <card.content>
       <div class="layout-row layout-align-space-between-start">
         <div class="demo-group">
           <h4>Layout Direction</h4>
-          {{#paper-radio-group groupValue=layoutDirection onChange=(action (mut layoutDirection)) as |group|}}
-            {{#group.radio value="row"}}
+          <PaperRadioGroup @groupValue={{layoutDirection}} @onChange={{action (mut layoutDirection)}} as |group|>
+            <group.radio @value="row">
               row
-            {{/group.radio}}
-            {{#group.radio value="column"}}
+            </group.radio>
+            <group.radio @value="column">
               column
-            {{/group.radio}}
-          {{/paper-radio-group}}
+            </group.radio>
+          </PaperRadioGroup>
         </div>
 
         <div class="demo-group">
           <h4>Alignment in Layout Direction</h4>
-          {{#paper-radio-group groupValue=mainDirection onChange=(action (mut mainDirection)) as |group|}}
-            {{#group.radio value=""}}
+          <PaperRadioGroup @groupValue={{mainDirection}} @onChange={{action (mut mainDirection)}} as |group|>
+            <group.radio @value="">
               none
-            {{/group.radio}}
-            {{#group.radio value="start"}}
+            </group.radio>
+            <group.radio @value="start">
               start (default)
-            {{/group.radio}}
-            {{#group.radio value="center"}}
+            </group.radio>
+            <group.radio @value="center">
               center
-            {{/group.radio}}
-            {{#group.radio value="end"}}
+            </group.radio>
+            <group.radio @value="end">
               end
-            {{/group.radio}}
-            {{#group.radio value="space-around"}}
+            </group.radio>
+            <group.radio @value="space-around">
               space-around
-            {{/group.radio}}
-            {{#group.radio value="space-between"}}
+            </group.radio>
+            <group.radio @value="space-between">
               space-between
-            {{/group.radio}}
-          {{/paper-radio-group}}
+            </group.radio>
+          </PaperRadioGroup>
         </div>
 
         <div class="demo-group">
           <h4>Alignment in Perpendicular Direction</h4>
-          {{#paper-radio-group groupValue=perpDirection onChange=(action (mut perpDirection)) as |group|}}
-            {{#group.radio value=""}}
+          <PaperRadioGroup @groupValue={{perpDirection}} @onChange={{action (mut perpDirection)}} as |group|>
+            <group.radio @value="">
               <em>none</em>
-            {{/group.radio}}
-            {{#group.radio value="start"}}
+            </group.radio>
+            <group.radio @value="start">
               start
-            {{/group.radio}}
-            {{#group.radio value="center"}}
+            </group.radio>
+            <group.radio @value="center">
               center
-            {{/group.radio}}
-            {{#group.radio value="end"}}
+            </group.radio>
+            <group.radio @value="end">
               end
-            {{/group.radio}}
-            {{#group.radio value="stretch"}}
+            </group.radio>
+            <group.radio @value="stretch">
               stretch (default)
-            {{/group.radio}}
-          {{/paper-radio-group}}
+            </group.radio>
+          </PaperRadioGroup>
         </div>
       </div>
 
-      {{code-snippet name="child-alignment.hbs"}}
-    {{/card.content}}
-  {{/paper-card}}
+      <CodeSnippet @name="child-alignment.hbs" />
+    </card.content>
+  </PaperCard>
 
 
-{{/doc-content}}
+</DocContent>

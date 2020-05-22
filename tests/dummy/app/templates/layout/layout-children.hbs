@@ -1,6 +1,6 @@
-{{page-toolbar pageTitle="Layout Children" isLayout=true}}
+<PageToolbar @pageTitle="Layout Children" @isLayout={{true}} />
 
-{{#doc-content class="layout-docs children"}}
+<DocContent @class="layout-docs children">
 
   <h2>Children within a Layout Container</h2>
 
@@ -10,7 +10,7 @@
     on the container's child elements:
   </p>
 
-  {{#paper-card as |card|}}
+  <PaperCard as |card|>
     <div class="example example-1">
       {{! BEGIN-SNIPPET layout-children.example1 }}
       <div class="layout-row">
@@ -20,10 +20,10 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    {{#card.content}}
-      {{code-snippet name="layout-children.example1.hbs"}}
-    {{/card.content}}
-  {{/paper-card}}
+    <card.content>
+      <CodeSnippet @name="layout-children.example1.hbs" />
+    </card.content>
+  </PaperCard>
 
   <p>
     Add the <code>flex</code> class to a layout's child element and the element will flex (grow or shrink)
@@ -31,7 +31,7 @@
     with respect to its parent container and the other elements within the container.
   </p>
 
-  {{#paper-card as |card|}}
+  <PaperCard as |card|>
     <div class="example example-2">
       {{! BEGIN-SNIPPET layout-children.example2 }}
       <div class="layout-row layout-wrap">
@@ -45,10 +45,10 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    {{#card.content}}
-      {{code-snippet name="layout-children.example2.hbs"}}
-    {{/card.content}}
-  {{/paper-card}}
+    <card.content>
+      <CodeSnippet @name="layout-children.example2.hbs" />
+    </card.content>
+  </PaperCard>
 
   <p>
     A layout child's <code>flex</code> class can be given an integer parameter from 0-100.
@@ -60,7 +60,7 @@
     <code>flex-50</code>, <code>flex-66</code>, <code>flex-75</code>, ... <code>flex-100</code>.
   </p>
 
-  {{#paper-card as |card|}}
+  <PaperCard as |card|>
     <div class="example example-3">
       {{! BEGIN-SNIPPET layout-children.example3 }}
       <div class="layout-row">
@@ -73,10 +73,10 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    {{#card.content}}
-      {{code-snippet name="layout-children.example3.hbs"}}
-    {{/card.content}}
-  {{/paper-card}}
+    <card.content>
+      <CodeSnippet @name="layout-children.example3.hbs" />
+    </card.content>
+  </PaperCard>
 
   <h2>Additional Flex Parameters</h2>
 
@@ -85,7 +85,7 @@
     API easier to understand.
   </p>
 
-  {{#paper-card as |card|}}
+  <PaperCard as |card|>
     <div class="example example-4">
       {{! BEGIN-SNIPPET layout-children.example4 }}
       <div class="layout-row layout-wrap">
@@ -99,8 +99,8 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    {{#card.content}}
-      {{code-snippet name="layout-children.example4.hbs"}}
+    <card.content>
+      <CodeSnippet @name="layout-children.example4.hbs" />
 
       {{paper-api
         (p-section
@@ -114,8 +114,8 @@
         )
         header=(p-row "Class" "Effect")
       }}
-    {{/card.content}}
-  {{/paper-card}}
+    </card.content>
+  </PaperCard>
 
   <h2>Ordering HTML Elements</h2>
 
@@ -124,7 +124,7 @@
     Any integer parameter value from -20 to 20 is accepted.
   </p>
 
-  {{#paper-card as |card|}}
+  <PaperCard as |card|>
     <div class="example example-5">
       {{! BEGIN-SNIPPET layout-children.example5 }}
       <div class="layout-row">
@@ -135,9 +135,9 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    {{#card.content}}
-      {{code-snippet name="layout-children.example5.hbs"}}
-    {{/card.content}}
-  {{/paper-card}}
+    <card.content>
+      <CodeSnippet @name="layout-children.example5.hbs" />
+    </card.content>
+  </PaperCard>
 
-{{/doc-content}}
+</DocContent>

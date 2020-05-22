@@ -1,6 +1,6 @@
-{{page-toolbar pageTitle="Introduction" isDemo=false}}
+<PageToolbar @pageTitle="Introduction" @isDemo={{false}} />
 
-{{#paper-content scroll-y=true class="layout-padding flex"}}
+<PaperContent @scroll-y={{true}} @class="layout-padding flex">
   <div class="doc-content">
 
     <h2 class="md-headline" style="margin-top: 24px;">Welcome to Ember Paper.</h2>
@@ -11,7 +11,7 @@
     <p>
       To install run:
     </p>
-    {{code-snippet name="install.sh"}}
+    <CodeSnippet @name="install.sh" />
 
     <p>This should also automatically create an scss file under <code>app/styles/app.scss</code> with <code>@import 'ember-paper';</code> and install <code>ember-cli-sass</code>.</p>
     <p>Sass is an important part of Ember-paper. Using sass you can override default variables and easily change the default behavior of Ember-paper.</p>
@@ -27,7 +27,7 @@
       You can set this by adding to the Content Security Policy defined in <code>config/environment.js</code> like so:
     </p>
 
-    {{code-snippet name="content-security-policy.js"}}
+    <CodeSnippet @name="content-security-policy.js" />
 
     <p>
       You can find out more information on the CSP addon page <a href="https://github.com/rwjblue/ember-cli-content-security-policy#ember-cli-content-security-policy">here</a>.
@@ -53,14 +53,14 @@
       <dd>
         Consuming apps can optionally specify this array to only include these components into the build.
         You should use either whitelist or blacklist, not both.
-        {{code-snippet name="whitelist.js"}}
+        <CodeSnippet @name="whitelist.js" />
         The dependencies of the specified components will be included as well.
         This is the recommended approach, blacklist is harder to get right.
       </dd>
       <dt><code>ENV['ember-paper'].blacklist</code> (defaults to <code>[]</code>)</dt>
       <dd>
         Consuming apps can optionally specify this array to exclude these components from the build.
-        {{code-snippet name="blacklist.js"}}
+        <CodeSnippet @name="blacklist.js" />
         This only bans from the build the specified components, not its dependencies.
         whitelist is easier to maintain.
       </dd>
@@ -83,4 +83,4 @@
       <a class="github-button" href="https://github.com/miguelcobain/ember-paper" data-style="mega" data-count-href="/miguelcobain/ember-paper/network" data-count-api="/repos/miguelcobain/ember-paper#forks_count">Fork</a>
     </p>
   </div>
-{{/paper-content}}
+</PaperContent>

@@ -1,6 +1,6 @@
-{{page-toolbar pageTitle="Themes & Colors" isDemo=false}}
+<PageToolbar @pageTitle="Themes & Colors" @isDemo={{false}} />
 
-{{#paper-content class="md-padding"}}
+<PaperContent @class="md-padding">
   <div class="doc-content">
 
     <p>
@@ -20,7 +20,7 @@
       To customize the default theme, you can override the sass variables for each intention:
     </p>
 
-    {{code-snippet name="theme.import.scss"}}
+    <CodeSnippet @name="theme.import.scss" />
 
     <p>
       As you can see, you can just specify a name string for the palette you want, if that palette
@@ -83,7 +83,7 @@
       Here is the definition of the "teal" palette, applied to the primary intention:
     </p>
 
-    {{code-snippet name="theme.custom-palette.scss"}}
+    <CodeSnippet @name="theme.custom-palette.scss" />
 
     <blockquote>
       You can find some material palette generators online. Example: <a href="http://mcg.mbitson.com/">http://mcg.mbitson.com/</a>.
@@ -111,7 +111,7 @@
       Here is an example of using these functions:
     </p>
 
-    {{code-snippet name="theme.color-function.scss"}}
+    <CodeSnippet @name="theme.color-function.scss" />
 
 
     <h3>Changing themes at runtime</h3>
@@ -127,57 +127,36 @@
       routes of the demo after installing a custom theme.
     </p>
 
-    {{#paper-card as |card|}}
-      {{#card.content class="layout-row"}}
-        {{#paper-select
-          label="Primary palette"
-          class="flex"
-          required=true
-          options=palettes
-          selected=primary
-          onChange=(action (mut primary))
-          as |p|}}
+    <PaperCard as |card|>
+      <card.content @class="layout-row">
+        <PaperSelect @label="Primary palette" @class="flex" @required={{true}} @options={{palettes}} @selected={{primary}} @onChange={{action (mut primary)}} as |p|>
           {{p.name}}
-        {{/paper-select}}
+        </PaperSelect>
 
-        {{#paper-select
-          label="Accent palette"
-          class="flex"
-          required=true
-          options=palettes
-          selected=accent
-          onChange=(action (mut accent))
-          as |p|}}
+        <PaperSelect @label="Accent palette" @class="flex" @required={{true}} @options={{palettes}} @selected={{accent}} @onChange={{action (mut accent)}} as |p|>
           {{p.name}}
-        {{/paper-select}}
+        </PaperSelect>
 
-        {{#paper-select
-          label="Warn palette"
-          class="flex"
-          required=true
-          options=palettes
-          selected=warn
-          onChange=(action (mut warn))
-          as |p|}}
+        <PaperSelect @label="Warn palette" @class="flex" @required={{true}} @options={{palettes}} @selected={{warn}} @onChange={{action (mut warn)}} as |p|>
           {{p.name}}
-        {{/paper-select}}
+        </PaperSelect>
 
-      {{/card.content}}
+      </card.content>
 
-      {{#card.actions}}
-        {{#paper-button primary=true raised=true disabled=isInvalid onClick=(action "installTheme")}}
+      <card.actions>
+        <PaperButton @primary={{true}} @raised={{true}} @disabled={{isInvalid}} @onClick={{action "installTheme"}}>
           Install Theme
-        {{/paper-button}}
+        </PaperButton>
 
-        {{#paper-button accent=true raised=true onClick=(action "uninstallTheme")}}
+        <PaperButton @accent={{true}} @raised={{true}} @onClick={{action "uninstallTheme"}}>
           Uninstall Theme
-        {{/paper-button}}
-      {{/card.actions}}
-    {{/paper-card}}
+        </PaperButton>
+      </card.actions>
+    </PaperCard>
 
     <p>Here is the code used for these actions:</p>
 
-    {{code-snippet name="theme.service.js"}}
+    <CodeSnippet @name="theme.service.js" />
 
     <h3>Browser support</h3>
 
@@ -194,7 +173,7 @@
       such fallback values:
     </p>
 
-    {{code-snippet name="theme.paper-var.scss"}}
+    <CodeSnippet @name="theme.paper-var.scss" />
 
     <h3>Generating palettes based on a color</h3>
 
@@ -221,4 +200,4 @@
       So you can install any generated palette right away!
     </p>
   </div>
-{{/paper-content}}
+</PaperContent>
