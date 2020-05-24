@@ -97,20 +97,23 @@ $default-color: '500' !default;
   );
 
   @each $paletteName, $palette in $palettes {
-
-    @each $hue, $color in paper-get-palette($palette) {
-      @if str-index($hue, 'contrast') == null {
-        --#{$paletteName}-#{$hue}: #{red($color)}, #{green($color)}, #{blue($color)};
-        $contrast-color: paper-contrast-color($palette, $hue);
-        --#{$paletteName}-#{$hue}-contrast: #{red($contrast-color)}, #{green($contrast-color)}, #{blue($contrast-color)};
-      }
-    }
+    @include create-paper-theme-variables($paletteName, $palette)
   }
 
   @each $name, $value in paper-get-palette($foreground) {
     --foreground-#{$name}: #{$value};
   }
 
+}
+
+@mixin create-paper-theme-variables($paletteName, $palette) {
+  @each $hue, $color in paper-get-palette($palette) {
+    @if str-index($hue, 'contrast') == null {
+      --#{$paletteName}-#{$hue}: #{red($color)}, #{green($color)}, #{blue($color)};
+      $contrast-color: paper-contrast-color($palette, $hue);
+      --#{$paletteName}-#{$hue}-contrast: #{red($contrast-color)}, #{green($contrast-color)}, #{blue($contrast-color)};
+    }
+  }
 }
 
 :root {
