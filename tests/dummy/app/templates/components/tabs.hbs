@@ -1,7 +1,4 @@
-<PageToolbar @pageTitle="Tabs" @isDemo={{true}} />
-
 <DocContent @class="tabs-demo">
-
   <div class="md-padding">
     <PaperCard>
       <PaperToolbar>
@@ -186,10 +183,10 @@
         <PaperContent>
           {{! BEGIN-SNIPPET routable-usage}}
           <PaperTabs @selected={{currentRouteName}} @borderBottom={{true}} @onChange={{action "noop"}} as |tabs|>
-            <tabs.tab @value="demo.tabs.index" @href={{href-to "demo.tabs.index"}}>
+            <tabs.tab @value="components.tabs.index" @href={{href-to "components.tabs.index"}}>
               Index
             </tabs.tab>
-            <tabs.tab @value="demo.tabs.nested-route" @href={{href-to "demo.tabs.nested-route"}}>
+            <tabs.tab @value="components.tabs.nested-route" @href={{href-to "components.tabs.nested-route"}}>
               Nested Route
             </tabs.tab>
           </PaperTabs>

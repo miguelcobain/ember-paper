@@ -3,7 +3,6 @@
  ***************/
 @import 'highlight-overrides';
 @import 'modules/all';
-@import 'layout-demo';
 
 html {
   font-size: 62.5%;
@@ -175,16 +174,6 @@ ul li:first-child {
   padding: 20px;
 }
 
-md-toolbar.md-default-theme.page-main-toolbar {
-  background-color: paper-color('grey', '100');
-  color: $dark-contrast-color;
-
-  md-icon, .md-button md-icon {
-    color: $dark-contrast-color;
-    margin-top: -2px;
-  }
-}
-
 .nav-github {
   vertical-align: middle;
   display: inline-block;
@@ -237,95 +226,6 @@ md-toolbar.md-default-theme.page-main-toolbar {
 
 *::-webkit-scrollbar-thumb {
   background: paper-color($color-grey, '500');
-}
-
-.site-sidenav,
-.site-sidenav.md-locked-open-add-active,
-.site-sidenav.md-locked-open {
-  width:     272px;
-  min-width: 272px;
-  max-width: 272px;
-}
-.site-sidenav > * {
-  min-width: 218px;
-}
-md-sidenav.site-sidenav {
-  background-color: paper-color($primary, '400');
-  background-color: paper-var(--primary-400);
-
-  md-toolbar.md-default-theme {
-    background: linear-gradient(to bottom, paper-color($primary, '600'), paper-color($primary, '400'));
-    background: linear-gradient(to bottom, paper-var(--primary-600), paper-var(--primary-400));
-    border-bottom: 1px solid rgba(#fff, .1);
-    color: #fff;
-
-    height: 180px;
-    min-height: 180px;
-    max-height: 180px;
-
-    .logo {
-      font-size: 54px;
-      font-weight: 500;
-      width: 100%;
-      height: 100%;
-
-      img {
-        width: 150px;
-      }
-
-      div {
-        font-weight: bold;
-        margin-top: -20px;
-      }
-    }
-  }
-
-  md-content {
-    background: transparent;
-    color: $light-contrast-color;
-    md-icon {
-      color: inherit;
-    }
-  }
-
-  .menu-item {
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: 500;
-
-    .expand-icon {
-      position: relative;
-      right: -36px;
-      transition: transform 250ms linear;
-    }
-
-    &.expanded .expand-icon {
-      transform: rotate(-180deg);
-    }
-  }
-
-  .submenu-item {
-    .md-list-item-inner {
-      padding-left: 36px;
-    }
-  }
-
-  .menu-item, .submenu-item {
-    min-height: 40px;
-
-    &.active, &:hover {
-      background-color: rgba(#fff, .1);
-    }
-
-    .md-list-item-inner {
-      min-height: 40px;
-
-      md-icon {
-        margin-top: 0;
-        margin-bottom: 0;
-      }
-    }
-  }
 }
 
 /* DEMO PAGE STYLES */

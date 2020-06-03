@@ -1,5 +1,3 @@
-<PageToolbar @pageTitle="Card" @isDemo={{true}} />
-
 <DocContent @class="card-demo">
   <h2>Basic Usage</h2>
   {{! BEGIN-SNIPPET card.basic-usage }}
@@ -11,7 +9,7 @@
             <text.headline>Card with image</text.headline>
             <text.subhead>Large</text.subhead>
           </title.text>
-          <title.media @size="lg" @src="tomster.png" @alt="Tomster" @title="Tomster" />
+          <title.media @size="lg" @src="/assets/tomster.png" @alt="Tomster" @title="Tomster" />
         </card.title>
         <card.actions>
           <PaperButton>Action 1</PaperButton>
@@ -45,7 +43,7 @@
             <text.headline>Card with image</text.headline>
             <text.subhead>Small</text.subhead>
           </title.text>
-          <title.media @size="sm" @src="tomster.png" @alt="Tomster" @title="Tomster" />
+          <title.media @size="sm" @src="/assets/tomster.png" @alt="Tomster" @title="Tomster" />
         </card.title>
         <card.actions>
           <PaperButton>Action 1</PaperButton>
@@ -80,7 +78,7 @@
   <div class="layout-row layout-xs-column">
     <div class="layout-column flex-xs flex-gt-xs-50">
       <PaperCard as |card|>
-        <card.image @src="washedout.png" @alt="Washed Out" @title="Washed Out" />
+        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
         <card.title as |title|>
           <title.text as |text|>
             <text.headline>Action buttons</text.headline>
@@ -107,7 +105,7 @@
       </PaperCard>
 
       <PaperCard as |card|>
-        <card.image @src="washedout.png" @alt="Washed Out" @title="Washed Out" />
+        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
         <card.title as |title|>
           <title.text as |text|>
             <text.headline>Vertical action buttons</text.headline>
@@ -128,7 +126,7 @@
 
     <div class="layout-column flex-xs flex-gt-xs-50">
       <PaperCard as |card|>
-        <card.image @src="washedout.png" @alt="Washed Out" @title="Washed Out" />
+        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
         <card.title as |title|>
           <title.text as |text|>
             <text.headline>Icon action buttons</text.headline>
@@ -148,7 +146,7 @@
       </PaperCard>
 
       <PaperCard as |card|>
-        <card.image @src="washedout.png" @alt="Washed Out" @title="Washed Out" />
+        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
         <card.actions>
           <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
           <PaperButton @iconButton={{true}}>{{paper-icon "settings"}}</PaperButton>
@@ -166,7 +164,7 @@
             <text.subhead>Paper</text.subhead>
           </header.text>
         </card.header>
-        <card.image @src="washedout.png" @alt="Washed Out" @title="Washed Out" />
+        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
         <card.title as |title|>
           <title.text as |text|>
             <text.headline>Card header</text.headline>
@@ -191,7 +189,7 @@
   <div class="layout-row layout-xs-column">
     <div class="layout-column flex-xs flex-gt-xs-50">
       <PaperCard as |card|>
-        <card.image @src="washedout.png" @alt="Washed Out" @title="Washed Out" />
+        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
         <card.title as |title|>
           <title.text as |text|>
             <text.headline>In-card mixed actions</text.headline>
@@ -223,7 +221,7 @@
             <text.subhead>subhead</text.subhead>
           </header.text>
         </card.header>
-        <card.image @src="washedout.png" @alt="Washed Out" @title="Washed Out" />
+        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
         <card.title as |title|>
           <title.text as |text|>
             <text.headline>In-card mixed actions</text.headline>
@@ -257,7 +255,7 @@
             <text.subhead>subhead</text.subhead>
           </header.text>
         </card.header>
-        <card.image @src="washedout.png" @alt="Washed Out" @title="Washed Out" />
+        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
         <card.title as |title|>
           <title.text as |text|>
             <text.headline>In-card mixed actions</text.headline>

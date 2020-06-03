@@ -26,14 +26,6 @@ body > div.ember-view {
   display: flex;
 }
 
-.site-nav-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
 md-toolbar.md-warn {
   a, button {
     &.md-button.md-default-theme:not(.md-primary):not(.md-accent) {

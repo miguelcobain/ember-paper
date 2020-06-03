@@ -1,0 +1,20 @@
+<PaperSidenavContainer>
+  <PaperSidenav @class="md-whiteframe-z2" @lockedOpen={{true}}>
+    <PaperContent @scroll-y={{true}}>
+      <PaperList>
+        {{#each this.links as |link|}}
+          <PaperItem @class="md-2-line" @href={{href-to link.route}}>
+            {{paper-icon link.icon class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              {{link.text}}
+            </div>
+          </PaperItem>
+        {{/each}}
+      </PaperList>
+    </PaperContent>
+  </PaperSidenav>
+
+  <div class="flex layout-column">
+    {{outlet}}
+  </div>
+</PaperSidenavContainer>

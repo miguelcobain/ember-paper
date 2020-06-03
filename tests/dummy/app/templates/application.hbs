@@ -1,71 +1,39 @@
-<PaperSidenavContainer @class="site-nav-container">
-  <PaperSidenav @class="md-whiteframe-z2 site-sidenav" @lockedOpen="gt-sm" @open={{isSidenavOpen}} @onToggle={{action (mut isSidenavOpen)}}>
-    <PaperToolbar @class="site-content-toolbar" @tall={{true}}>
-      <div class="logo layout-column layout-align-center-center">
-        <img alt="ember" src="ember-logo-white.png">
-        <div>paper</div>
-      </div>
+<div class="layout-column flex">
+  <div class="flex-none">
+    <PaperToolbar @accent={{true}} as |toolbar|>
+      <toolbar.tools>
+        <PaperSidenavToggle as |toggleAction|>
+          <PaperButton @class="hide-gt-sm" @onClick={{action toggleAction}} @iconButton={{true}}>
+            {{paper-icon "menu"}}
+          </PaperButton>
+        </PaperSidenavToggle>
+        <div class="layout-row flex">
+          <PaperButton @noink={{true}} @raised={{is-active "index"}} @href={{href-to "index"}}>Introduction</PaperButton>
+          <PaperButton @noink={{true}} @raised={{is-active "components"}} @href={{href-to "components"}}>Components</PaperButton>
+          <PaperButton @noink={{true}} @raised={{is-active "layout"}} @href={{href-to "layout"}}>Layout</PaperButton>
+          <PaperButton @noink={{true}} @raised={{is-active "typography"}} @href={{href-to "typography"}}>Typography</PaperButton>
+          <PaperButton @noink={{true}} @raised={{is-active "theme"}} @href={{href-to "theme"}}>Theme</PaperButton>
+          <PaperButton @noink={{true}} @raised={{is-active "addons"}} @href={{href-to "addons"}}>Addons</PaperButton>
+
+          <div class="flex"></div>
+
+          <div class="flex-nogrow">
+            <a href="https://github.com/miguelcobain/ember-paper" target="_blank" rel="noopener" aria-label="GitHub" class="nav-github">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 499.36" focusable="false" class="nav-github-icon">
+                <title>GitHub</title>
+                <path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </toolbar.tools>
     </PaperToolbar>
-
-    <PaperContent>
-
-      <PaperList>
-        <MenuItem @active={{is-active "index" currentRouteName}} @href={{href-to "index"}}>Introduction</MenuItem>
-
-        <MenuItem @onClick={{action "toggleExpandedItem" "demos"}} @expanded={{demosExpanded}} @canExpand={{true}}>Components</MenuItem>
-
-        <div class="submenu">
-          {{#liquid-if demosExpanded}}
-            <SubmenuItem @active={{is-active "demo.autocomplete" currentRouteName}} @href={{href-to "demo.autocomplete"}}>Autocomplete</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.button" currentRouteName}} @href={{href-to "demo.button"}}>Button</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.card" currentRouteName}} @href={{href-to "demo.card"}}>Card</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.checkbox" currentRouteName}} @href={{href-to "demo.checkbox"}}>Checkbox</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.chips" currentRouteName}} @href={{href-to "demo.chips"}}>Chips</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.dialog" currentRouteName}} @href={{href-to "demo.dialog"}}>Dialog</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.divider" currentRouteName}} @href={{href-to "demo.divider"}}>Divider</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.grid-list" currentRouteName}} @href={{href-to "demo.grid-list"}}>Grid List</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.icons" currentRouteName}} @href={{href-to "demo.icons"}}>Icons</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.input" currentRouteName}} @href={{href-to "demo.input"}}>Input</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.list" currentRouteName}} @href={{href-to "demo.list"}}>List</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.menu" currentRouteName}} @href={{href-to "demo.menu"}}>Menu</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.progress-circular" currentRouteName}} @href={{href-to "demo.progress-circular"}}>Progress Circular</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.progress-linear" currentRouteName}} @href={{href-to "demo.progress-linear"}}>Progress Linear</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.radio" currentRouteName}} @href={{href-to "demo.radio"}}>Radio</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.select" currentRouteName}} @href={{href-to "demo.select"}}>Select</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.sidenav" currentRouteName}} @href={{href-to "demo.sidenav"}}>Sidenav</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.slider" currentRouteName}} @href={{href-to "demo.slider"}}>Slider</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.speed-dial" currentRouteName}} @href={{href-to "demo.speed-dial"}}>Speed Dial</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.switch" currentRouteName}} @href={{href-to "demo.switch"}}>Switch</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.tabs.index" currentRouteName}} @href={{href-to "demo.tabs"}}>Tabs</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.toast" currentRouteName}} @href={{href-to "demo.toast"}}>Toast</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.toolbar" currentRouteName}} @href={{href-to "demo.toolbar"}}>Toolbar</SubmenuItem>
-            <SubmenuItem @active={{is-active "demo.tooltip" currentRouteName}} @href={{href-to "demo.tooltip"}}>Tooltip</SubmenuItem>
-          {{/liquid-if}}
-        </div>
-        <MenuItem @active={{is-active "forms" currentRouteName}} @href={{href-to "forms"}}>Forms</MenuItem>
-        <MenuItem @active={{is-active "typography" currentRouteName}} @href={{href-to "typography"}}>Typography</MenuItem>
-        <MenuItem @active={{is-active "theme" currentRouteName}} @href={{href-to "theme"}}>Color & Theme</MenuItem>
-
-        <MenuItem @onClick={{action "toggleExpandedItem" "layout"}} @expanded={{layoutExpanded}} @canExpand={{true}}>Layout</MenuItem>
-        <div class="submenu">
-          {{#liquid-if layoutExpanded}}
-            <SubmenuItem @active={{is-active "layout.introduction" currentRouteName}} @href={{href-to "layout.introduction"}}>Introduction</SubmenuItem>
-            <SubmenuItem @active={{is-active "layout.layout-containers" currentRouteName}} @href={{href-to "layout.layout-containers"}}>Layout Containers</SubmenuItem>
-            <SubmenuItem @active={{is-active "layout.layout-children" currentRouteName}} @href={{href-to "layout.layout-children"}}>Layout Children</SubmenuItem>
-            <SubmenuItem @active={{is-active "layout.child-alignment" currentRouteName}} @href={{href-to "layout.child-alignment"}}>Child Alignment</SubmenuItem>
-          {{/liquid-if}}
-        </div>
-
-        <MenuItem @active={{is-active "cookbook" currentRouteName}} @href={{href-to "cookbook"}}>Cookbook</MenuItem>
-        <MenuItem @active={{is-active "addons" currentRouteName}} @href={{href-to "addons"}}>Addons</MenuItem>
-      </PaperList>
-
-    </PaperContent>
-  </PaperSidenav>
-
-  <div id="main" class="flex layout-column" tabindex="-1" role="main">
-    {{outlet}}
   </div>
-</PaperSidenavContainer>
+  <div class="flex">
+    <div id="main" class="flex" tabindex="-1" role="main">
+      {{outlet}}
+    </div>
+  </div>
+</div>
 
 <PaperToaster @parent="#main" />
