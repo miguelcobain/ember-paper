@@ -7,10 +7,6 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function() {
-  this.route('typography');
-  this.route('theme');
-  this.route('addons');
-
   this.route('components', function() {
     this.route('autocomplete');
     this.route('button');
@@ -38,11 +34,7 @@ Router.map(function() {
     this.route('toolbar');
     this.route('tooltip');
   });
-
-  this.route('layout', function() {
-    this.route('introduction');
-    this.route('layout-containers');
-    this.route('layout-children');
-    this.route('child-alignment');
-  });
+  this.route('layout');
+  this.route('theme');
+  this.route('addons');
 });

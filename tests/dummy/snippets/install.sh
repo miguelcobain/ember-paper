@@ -1,1 +1,0 @@
-$ ember install ember-paper

@@ -2,18 +2,12 @@
   <div class="flex-none">
     <PaperToolbar @accent={{true}} as |toolbar|>
       <toolbar.tools>
-        <PaperSidenavToggle as |toggleAction|>
-          <PaperButton @class="hide-gt-sm" @onClick={{action toggleAction}} @iconButton={{true}}>
-            {{paper-icon "menu"}}
-          </PaperButton>
-        </PaperSidenavToggle>
-        <div class="layout-row flex">
-          <PaperButton @noink={{true}} @raised={{is-active "index"}} @href={{href-to "index"}}>Introduction</PaperButton>
-          <PaperButton @noink={{true}} @raised={{is-active "components"}} @href={{href-to "components"}}>Components</PaperButton>
-          <PaperButton @noink={{true}} @raised={{is-active "layout"}} @href={{href-to "layout"}}>Layout</PaperButton>
-          <PaperButton @noink={{true}} @raised={{is-active "typography"}} @href={{href-to "typography"}}>Typography</PaperButton>
-          <PaperButton @noink={{true}} @raised={{is-active "theme"}} @href={{href-to "theme"}}>Theme</PaperButton>
-          <PaperButton @noink={{true}} @raised={{is-active "addons"}} @href={{href-to "addons"}}>Addons</PaperButton>
+        <div class="application-navbar layout-row flex">
+          <LinkTo @route="index">Introduction</LinkTo>
+          <LinkTo @route="components">Components</LinkTo>
+          <LinkTo @route="layout">Layout</LinkTo>
+          <LinkTo @route="theme">Theme</LinkTo>
+          <LinkTo @route="addons">Addons</LinkTo>
 
           <div class="flex"></div>
 

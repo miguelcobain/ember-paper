@@ -19,6 +19,75 @@ Sass is an important part of Ember-paper. Using sass you can override default va
 All the components and styles are ready to use in your application templates.
 Navigate through the docs to understand how to use each component.
 
+# Content Security Policy
+
+This is no longer used in newer ember-cli apps. However, here are the instructions if you need them. Ember Paper uses fonts from Google Fonts, so the URL to them has to be white listed. You can set this by adding to the Content Security Policy defined in config/environment.js like so:
+
+```js
+ENV.contentSecurityPolicy = {
+  'default-src': "'none'",
+  'script-src': "'self' 'unsafe-inline'",
+  'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
+  'font-src': "'self' fonts.gstatic.com",
+  'connect-src': "'self'",
+  'img-src': "'self' data:",
+  'media-src': "'self'"
+};
+```
+
+You can find out more information on the CSP addon page here. We also need to allow data: in img-src because of a current hack in paper-button styles.
+
+# Options
+
+Ember-paper supports the following options, specified in your ember-cli-build.js file:
+
+```
+ENV['autoprefixer'] (defaults to { browsers: ['last 2 versions'] })
+```
+
+By default ember-paper will run autoprefixer on your styles. This option allows you to override the default autoprefixer target.
+
+```
+ENV['ember-paper'].insertFontLinks (defaults to true)
+```
+
+Consuming apps can specify this option to prevent the insertion of google fonts links inside the head tag. This is especially useful if you want to include your own fonts.
+
+```
+ENV['ember-paper'].whitelist (defaults to [])
+```
+
+Consuming apps can optionally specify this array to only include these components into the build. You should use either whitelist or blacklist, not both.
+
+```js
+ENV['ember-paper'] = {
+    whitelist: [
+        'paper-card',
+        'paper-tooltip',
+        'paper-button'
+    ]
+};
+```
+
+The dependencies of the specified components will be included as well. This is the recommended approach, blacklist is harder to get right.
+
+```
+ENV['ember-paper'].blacklist (defaults to [])
+```
+
+Consuming apps can optionally specify this array to exclude these components from the build.
+
+```
+ENV['ember-paper'] = {
+    blacklist: [
+        'paper-card',
+        'paper-item'
+    ]
+};
+```
+
+This only bans from the build the specified components, not its dependencies. whitelist is easier to maintain.
+
 ## Resources
 
 - Contributors can often be found on the [#e-paper channel on discord](https://discord.gg/zT3asNS).

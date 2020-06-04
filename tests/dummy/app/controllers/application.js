@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 
 export default Controller.extend({
   actions: {
+    noop() {},
     toggleExpandedItem(value, ev) {
       if (this.get('expandedItem') === value) {
         value = null;
