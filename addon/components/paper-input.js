@@ -191,7 +191,14 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
       });
       this.growTextarea();
       let inputElement = this.element.querySelector('input');
-      this.set('isNativeInvalid', inputElement && inputElement.validity && inputElement.validity.badInput);
+      let isNativeInvalid = inputElement && inputElement.validity && inputElement.validity.badInput;
+      if (this.type === 'date' && e.target.value === '') {
+        // Chrome doesn't fire the onInput event when clearing the second and third date components.
+        // This means that we won't see another event when badInput becomes false if the user is clearing
+        // the date field.  The reported value is empty, though, so we can already mark it as valid.
+        isNativeInvalid = false;
+      }
+      this.set('isNativeInvalid', isNativeInvalid);
       this.notifyValidityChange();
     },
 
