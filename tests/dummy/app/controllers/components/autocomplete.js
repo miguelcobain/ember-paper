@@ -1,67 +1,74 @@
 import { run } from '@ember/runloop';
 import RSVP from 'rsvp';
 import Controller from '@ember/controller';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 import { A } from '@ember/array';
 
 // per MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 const escapeRegExp = (input) => {
-
   // $& means the whole matched string
   return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 };
 
-export default Controller.extend({
-  myModel: Object.freeze({ name: 'United States', code: 'US' }),
+export default class extends Controller {
+  myModel = Object.freeze({ name: 'United States', code: 'US' });
 
-  searchText: '',
+  @tracked
+  searchText = '';
+
+  @tracked
+  enableDefaultHighlighted = false;
 
   highlightFirstMatch(api) {
     if (api && api.results && api.results.length) {
       return api.results[0];
     }
     return null;
-  },
+  }
 
-  actions: {
-    updateFilter(str) {
-      this.set('searchText', str);
-    },
-    addCountry(name) {
-      this.get('items').addObject({ name, code: '' });
-    },
+  @action
+  updateFilter(str) {
+    this.searchText = str;
+  }
 
-    searchCountries(term) {
-      let XHR_TIMEOUT = Math.floor(Math.random() * 1000) + 100;
+  @action
+  addCountry(name) {
+    this.items.addObject({ name, code: '' });
+  }
 
-      return new RSVP.Promise((resolve) => {
-        run.cancel(this.searchTimer);
+  @action
+  searchCountries(term) {
+    let XHR_TIMEOUT = Math.floor(Math.random() * 1000) + 100;
 
-        this.searchTimer = run.later(this, () => {
-          let nameRegExp = new RegExp(escapeRegExp(`${term}`), 'i', 'g');
-          let countries = this.get('items');
-          let results = countries.filter((c) => nameRegExp.exec(c.name)) || [];
-          resolve(results);
-        }, XHR_TIMEOUT);
-      });
-    }
-  },
+    return new RSVP.Promise((resolve) => {
+      run.cancel(this.searchTimer);
 
-  arrayOfItems: A(['Ember1.0', 'Ember2.0', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']),
+      this.searchTimer = run.later(this, () => {
+        let nameRegExp = new RegExp(escapeRegExp(`${term}`), 'i', 'g');
+        let countries = this.get('items');
+        let results = countries.filter((c) => nameRegExp.exec(c.name)) || [];
+        resolve(results);
+      }, XHR_TIMEOUT);
+    });
+  }
+
+  arrayOfItems = A(['Ember1.0', 'Ember2.0', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
 
   /*
    * Array of static Objects.
    * When having objects, use lookupKey="name" on the paper-autocomplete component so it knows to use "name" to search in.
    */
-  shorterItems: A([
+  shorterItems = A([
     { name: 'Afghanistan', code: 'AF' },
     { name: 'Åland Islands', code: 'AX' },
     { name: 'Albania', code: 'AL' },
     { name: 'Algeria', code: 'DZ' },
     { name: 'American Samoa', code: 'AS' },
     { name: 'AndorrA', code: 'AD' }
-  ]),
+  ]);
 
-  items: A([
+  items = A([
     { name: 'Afghanistan', code: 'AF' },
     { name: 'Åland Islands', code: 'AX' },
     { name: 'Albania', code: 'AL' },
@@ -305,6 +312,6 @@ export default Controller.extend({
     { name: 'Yemen', code: 'YE' },
     { name: 'Zambia', code: 'ZM' },
     { name: 'Zimbabwe', code: 'ZW' }
-  ])
+  ]);
 
-});
+}

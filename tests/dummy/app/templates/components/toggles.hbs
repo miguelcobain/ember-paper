@@ -1,1 +1,121 @@
-// put checkbox, radiobox, switch
+<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
+
+  {{! BEGIN-SNIPPET switch }}
+  <PaperSwitch @value={{booleanProp1}} @onChange={{action (mut booleanProp1)}}>
+    {{booleanProp1}}
+  </PaperSwitch>
+
+  <PaperSwitch @value={{booleanProp2}} @onChange={{action (mut booleanProp2)}}>
+    {{booleanProp2}}
+  </PaperSwitch>
+
+  <PaperSwitch @value={{booleanProp3}} @onChange={{action "changeBooleanProp" "3"}} @disabled={{true}}>
+    Disabled switch
+  </PaperSwitch>
+
+  <PaperSwitch @value={{booleanProp4}} @onChange={{action "changeBooleanProp" "4"}} @noink={{true}}>
+    Noink switch
+  </PaperSwitch>
+
+  <PaperSwitch @label="Blockless version" @value={{booleanProp5}} @onChange={{action "changeBooleanProp" "5"}} />
+  {{! END-SNIPPET }}
+
+  {{! BEGIN-SNIPPET checkbox }}
+  <div class="layout-column">
+    <PaperCheckbox @value={{value1}} @onChange={{action (mut value1)}}>
+      A checkbox: {{value1}}
+    </PaperCheckbox>
+
+    <PaperCheckbox @value={{value2}} @onChange={{action (mut value2)}}>
+      A checkbox: {{if value2 "yep" "nope"}}
+    </PaperCheckbox>
+
+    <PaperCheckbox @value={{value3}} @onChange={{action (mut value3)}} @disabled={{true}}>
+      Checkbox (disabled)
+    </PaperCheckbox>
+
+    <PaperCheckbox @value={{true}} @onChange={{action (mut value4)}} @disabled={{true}}>
+      Checkbox (disabled and value)
+    </PaperCheckbox>
+
+    <PaperCheckbox @value={{value5}} @onChange={{action (mut value5)}} @noink={{true}}>
+      Checkbox (no ink)
+    </PaperCheckbox>
+
+    <PaperCheckbox @label="Blockless version" @value={{value6}} @onChange={{action "toggleValue6"}} />
+
+    <PaperCheckbox @indeterminate={{isIndeterminate}} @value={{value7}} @onChange={{action (mut value7)}}>
+      Indeterminate checkbox
+    </PaperCheckbox>
+
+    <PaperCheckbox @disabled={{true}} @indeterminate={{isIndeterminate}} @value={{value7}} @onChange={{null}}>
+      Indeterminate checkbox (disabled)
+    </PaperCheckbox>
+  </div>
+  {{! END-SNIPPET }}
+
+  <PaperCard @class="radio-button-demo">
+    <PaperCardContent>
+      <h2>Basic Usage</h2>
+      <p>
+        Stand alone
+      </p>
+      <div class="layout-row layout-align-space-around">
+        {{! BEGIN-SNIPPET radio.standalone-usage }}
+        <PaperRadio @toggle={{true}} @value="Toggable" @groupValue={{toggleValue}} @onChange={{action (mut toggleValue)}}>
+          Toggable
+        </PaperRadio>
+        <PaperRadio @label="Blockless" @toggle={{true}} @value="Blockless" @groupValue={{blocklessValue}} @onChange={{action (mut blocklessValue)}} />
+        <PaperRadio @value={{false}} @disabled={{true}} @onChange={{null}}>
+          Disabled
+        </PaperRadio>
+        {{! END-SNIPPET }}
+      </div>
+      <h3>Template</h3>
+      <hr>
+
+      <p>
+        Selected Value: <span class="radio-value">{{selectedFruit}}</span>
+      </p>
+
+      {{! BEGIN-SNIPPET radio.basic-group-usage}}
+      <PaperRadioGroup @groupValue={{readonly selectedFruit}} @onChange={{action (mut selectedFruit)}} as |group|>
+        <group.radio @value="Apple" @primary={{true}}> Apple </group.radio>
+        <group.radio @value="Banana" @warn={{true}}> Banana </group.radio>
+        <group.radio @value="Mango"> Mango </group.radio>
+      </PaperRadioGroup>
+      {{! END-SNIPPET }}
+
+      <h3>Template</h3>
+      <hr>
+
+      <p>
+        Graphic radio buttons
+      </p>
+      {{! BEGIN-SNIPPET radio.images }}
+      <PaperRadioGroup @groupValue={{selectedGraphic}} @onChange={{action (mut selectedGraphic)}} as |group|>
+
+        <group.label>
+          <p>Selected Value: <span class="radio-value">{{selectedGraphic}}</span></p>
+        </group.label>
+
+        <group.radio @value="graphic-1" @primary={{true}}>
+          <img src="http://tinyurl.com/zwvmqz8" alt="example1">
+        </group.radio>
+
+        <group.radio @value="graphic-2" @warn={{true}}>
+          <img src="http://tinyurl.com/jdcepzm" alt="example2">
+        </group.radio>
+
+        <group.radio @value="graphic-3">
+          <img src="http://tinyurl.com/j55t8cd" alt="example3">
+        </group.radio>
+
+      </PaperRadioGroup>
+      {{! END-SNIPPET }}
+
+      <h3>Template</h3>
+
+    </PaperCardContent>
+  </PaperCard>
+</PaperContent>

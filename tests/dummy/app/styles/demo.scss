@@ -253,12 +253,11 @@ ul li:first-child {
   width: 50px;
 }
 
-.card-demo {
-  .card-media {
-    background-color: #999999;
-    height: 100%;
-    width: 100%;
-  }
+.card-media {
+  border-radius: 5px;
+  background-color: #999999;
+  height: 100%;
+  width: 100%;
 }
 
 /************
@@ -1304,5 +1303,14 @@ ul li:first-child {
 
   .bg-78909c {
     background: #78909c;
+  }
+}
+
+md-toast {
+  &.md-accent > .md-toast-content {
+    background: paper-color($accent, '400');
+  }
+  &.md-warn > .md-toast-content {
+    background: paper-color($warn, '400');
   }
 }

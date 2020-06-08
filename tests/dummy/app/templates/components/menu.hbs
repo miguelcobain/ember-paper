@@ -1,281 +1,278 @@
-<DocContent>
-  <PaperCard>
-    <PaperToolbar>
-      <PaperToolbarTools>
-        <h2>Basic Usage</h2>
-      </PaperToolbarTools>
-    </PaperToolbar>
-    <PaperCardContent>
-      <h2>Simple dropdown menu</h2>
+<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
 
-      <p>
-        Note that applying the class <code class="paper">.md-menu-origin</code>
-        and <code class="paper">md-menu-align-target</code>attributes ensure that the menu elements align.
-      </p>
+  <h2>Simple dropdown menu</h2>
+  <p>
+    Note that applying the class <code class="paper">.md-menu-origin</code>
+    and <code class="paper">md-menu-align-target</code>attributes ensure that the menu elements align.
+  </p>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET menu.simple-dropdown }}
+    <PaperMenu as |menu|>
 
-      <div class="layout-column layout-align-center-center">
-        {{! BEGIN-SNIPPET menu.simple-dropdown }}
-        <PaperMenu as |menu|>
+      <menu.trigger>
+        <PaperButton @iconButton={{true}}>
+          {{paper-icon "local_phone"}}
+        </PaperButton>
+      </menu.trigger>
 
+      <menu.content @width={{4}} as |content|>
+        {{#each items as |item|}}
+          <content.menu-item @onClick={{this.openSomething}}>
+            {{paper-icon item.icon}}
+            <span>{{item.title}}</span>
+          </content.menu-item>
+        {{/each}}
+
+        <content.menu-item @onClick={{this.openSomething}} @disabled={{true}}>
+          {{paper-icon "adb"}}
+          <span>This is disabled.</span>
+        </content.menu-item>
+
+        <PaperDivider />
+
+        {{#each items as |item|}}
+          <content.menu-item @onClick={{this.openSomething}}>
+            {{paper-icon item.icon}} {{item.title}}
+          </content.menu-item>
+        {{/each}}
+      </menu.content>
+    </PaperMenu>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "menu.simple-dropdown.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+
+  <h2>Menu Position Modes</h2>
+
+  <p>
+    The <code class="paper">position</code> attribute can be used to specify the positioning along the
+    <code class="paper">x</code> and <code class="paper">y</code> axis.
+  </p>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET menu.position-modes }}
+
+    <div class="menus layout-fill layout-wrap layout-row layout-align-space-between-center">
+      <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
+        <p>Target Mode Positioning (default)</p>
+        <PaperMenu @isOpen={{menuTwoIsOpen}} as |menu|>
           <menu.trigger>
-            <PaperButton @iconButton={{true}}>
-              {{paper-icon "local_phone"}}
+            <PaperButton @onClick={{null}} @iconButton={{true}}>
+              {{paper-icon "local_phone" class="md-menu-origin"}}
             </PaperButton>
           </menu.trigger>
 
-          <menu.content @width={{4}} as |content|>
+          <menu.content as |content|>
             {{#each items as |item|}}
               <content.menu-item @onClick={{action this.openSomething}}>
-                {{paper-icon item.icon}}
+                {{paper-icon item.icon class="md-menu-align-target"}}
                 <span>{{item.title}}</span>
               </content.menu-item>
             {{/each}}
+          </menu.content>
 
-            <content.menu-item @onClick={{action this.openSomething}} @disabled={{true}}>
-              {{paper-icon "adb"}}
-              <span>This is disabled.</span>
-            </content.menu-item>
+        </PaperMenu>
+      </div>
 
-            <PaperDivider />
+      <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
+        <p>Target mode with <code class="paper">offset</code></p>
+        <PaperMenu @isOpen={{menuThreeIsOpen}} @offset="0 50" as |menu|>
+          <menu.trigger>
+            <PaperButton @onClick={{null}} @iconButton={{true}}>
+              {{paper-icon "local_phone" class="md-menu-origin"}}
+            </PaperButton>
+          </menu.trigger>
 
+          <menu.content as |content|>
             {{#each items as |item|}}
               <content.menu-item @onClick={{action this.openSomething}}>
-                {{paper-icon item.icon}} {{item.title}}
+                {{paper-icon item.icon class="md-menu-align-target"}}
+                <span>{{item.title}}</span>
               </content.menu-item>
             {{/each}}
           </menu.content>
         </PaperMenu>
-        {{! END-SNIPPET }}
       </div>
 
-      <h3>Template</h3>
-      <CodeSnippet @name="menu.simple-dropdown.hbs" />
+      <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
+        <p><code class="paper">position="target-right target"</code></p>
+        <PaperMenu @isOpen={{menuFourIsOpen}} @position="target-right target" as |menu|>
+          <menu.trigger>
+            <PaperButton @onClick={{null}} @iconButton={{true}}>
+              {{paper-icon "local_phone" class="md-menu-origin"}}
+            </PaperButton>
+          </menu.trigger>
 
-    </PaperCardContent>
-  </PaperCard>
+          <menu.content as |content|>
+            {{#each items as |item|}}
+              <content.menu-item @onClick={{action this.openSomething}}>
+                <p style="width: 190px;">{{item.title}}</p>
+                {{paper-icon item.icon class="md-menu-align-target"}}
+              </content.menu-item>
+            {{/each}}
+            {{#each items as |item|}}
+              <content.menu-item @onClick={{action this.openSomething}}>
+                <p style="width: 190px;">{{item.title}}</p>
+                {{paper-icon item.icon class="md-menu-align-target"}}
+              </content.menu-item>
+            {{/each}}
+            {{#each items as |item|}}
+              <content.menu-item @onClick={{action this.openSomething}}>
+                <p style="width: 190px;">{{item.title}}</p>
+                {{paper-icon item.icon class="md-menu-align-target"}}
+              </content.menu-item>
+            {{/each}}
+          </menu.content>
+        </PaperMenu>
+      </div>
+    </div>
+    {{! END-SNIPPET }}
+  </div>
 
-  <PaperCard>
-    <PaperCardContent>
-      <h2>Menu Position Modes</h2>
+  <p>
+    Use the <code class="paper">position</code> attribute to set where the menu should appear. The position attribute
+    should be used together with <code class="paper">.md-menu-origin</code> and <code class="paper">.md-menu-align-target</code>
+    classes to specify where it should position itself in respect to origin and align-target.
+  </p>
+  {{#let (get-code-snippet "menu.position-modes.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-      <p>
-        The <code class="paper">position</code> attribute can be used to specify the positioning along the
-        <code class="paper">x</code> and <code class="paper">y</code> axis.
-      </p>
 
-      <div class="layout-column layout-align-center-center">
-        {{! BEGIN-SNIPPET menu.position-modes }}
+  <h2>Different Widths</h2>
 
-        <div class="menus layout-fill layout-wrap layout-row layout-align-space-between-center">
-          <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
-            <p>Target Mode Positioning (default)</p>
-            <PaperMenu @isOpen={{menuTwoIsOpen}} as |menu|>
-              <menu.trigger>
-                <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
-                </PaperButton>
-              </menu.trigger>
+  <p>
+    <code class="paper">paper-menu-content</code> may specify a width attribute which will follow the
+    <a href="http://www.google.com/design/spec/components/menus.html#menus-specs">official spec</a>.
+  </p>
 
-              <menu.content as |content|>
-                {{#each items as |item|}}
-                  <content.menu-item @onClick={{action this.openSomething}}>
-                    {{paper-icon item.icon class="md-menu-align-target"}}
-                    <span>{{item.title}}</span>
-                  </content.menu-item>
-                {{/each}}
-              </menu.content>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET menu.different-widths }}
+    <div class="menus layout-fill layout-wrap layout-row layout-align-space-between-center">
+      <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
+        <p>Wide menu (<code class="paper">width=6</code>)</p>
+        <PaperMenu as |menu|>
+          <menu.trigger>
+            <PaperButton @onClick={{null}} @iconButton={{true}}>
+              {{paper-icon "local_phone" class="md-menu-origin"}}
+            </PaperButton>
+          </menu.trigger>
 
-            </PaperMenu>
-          </div>
-
-          <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
-            <p>Target mode with <code class="paper">offset</code></p>
-            <PaperMenu @isOpen={{menuThreeIsOpen}} @offset="0 50" as |menu|>
-              <menu.trigger>
-                <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
-                </PaperButton>
-              </menu.trigger>
-
-              <menu.content as |content|>
-                {{#each items as |item|}}
-                  <content.menu-item @onClick={{action this.openSomething}}>
-                    {{paper-icon item.icon class="md-menu-align-target"}}
-                    <span>{{item.title}}</span>
-                  </content.menu-item>
-                {{/each}}
-              </menu.content>
-            </PaperMenu>
-          </div>
-
-          <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
-            <p><code class="paper">position="target-right target"</code></p>
-            <PaperMenu @isOpen={{menuFourIsOpen}} @position="target-right target" as |menu|>
-              <menu.trigger>
-                <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
-                </PaperButton>
-              </menu.trigger>
-
-              <menu.content as |content|>
-                {{#each items as |item|}}
-                  <content.menu-item @onClick={{action this.openSomething}}>
-                    <p style="width: 190px;">{{item.title}}</p>
-                    {{paper-icon item.icon class="md-menu-align-target"}}
-                  </content.menu-item>
-                {{/each}}
-                {{#each items as |item|}}
-                  <content.menu-item @onClick={{action this.openSomething}}>
-                    <p style="width: 190px;">{{item.title}}</p>
-                    {{paper-icon item.icon class="md-menu-align-target"}}
-                  </content.menu-item>
-                {{/each}}
-                {{#each items as |item|}}
-                  <content.menu-item @onClick={{action this.openSomething}}>
-                    <p style="width: 190px;">{{item.title}}</p>
-                    {{paper-icon item.icon class="md-menu-align-target"}}
-                  </content.menu-item>
-                {{/each}}
-              </menu.content>
-            </PaperMenu>
-          </div>
-        </div>
-        {{! END-SNIPPET }}
+          <menu.content @width={{6}} as |content|>
+            {{#each options as |item|}}
+              <content.menu-item @onClick={{action "openSomething"}}>
+                <span class="md-menu-align-target">Option</span> {{item}}
+              </content.menu-item>
+            {{/each}}
+          </menu.content>
+        </PaperMenu>
       </div>
 
+      <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
+        <p>Medium menu (<code class="paper">width=4</code>)</p>
+        <PaperMenu as |menu|>
+          <menu.trigger>
+            <PaperButton @onClick={{null}} @iconButton={{true}}>
+              {{paper-icon "local_phone" class="md-menu-origin"}}
+            </PaperButton>
+          </menu.trigger>
 
-      <h3>Template</h3>
-      <p>
-        Use the <code class="paper">position</code> attribute to set where the menu should appear. The position attribute
-        should be used together with <code class="paper">.md-menu-origin</code> and <code class="paper">.md-menu-align-target</code>
-        classes to specify where it should position itself in respect to origin and align-target.
-      </p>
-
-      <CodeSnippet @name="menu.position-modes.hbs" />
-
-    </PaperCardContent>
-  </PaperCard>
-
-
-
-  <PaperCard>
-    <PaperCardContent>
-      <h2>Different Widths</h2>
-
-      <p>
-        <code class="paper">paper-menu-content</code> may specify a width attribute which will follow the
-        <a href="http://www.google.com/design/spec/components/menus.html#menus-specs">official spec</a>.
-      </p>
-
-      <div class="layout-column layout-align-center-center">
-        {{! BEGIN-SNIPPET menu.different-widths }}
-
-        <div class="menus layout-fill layout-wrap layout-row layout-align-space-between-center">
-          <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
-            <p>Wide menu (<code class="paper">width=6</code>)</p>
-            <PaperMenu as |menu|>
-              <menu.trigger>
-                <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
-                </PaperButton>
-              </menu.trigger>
-
-              <menu.content @width={{6}} as |content|>
-                {{#each options as |item|}}
-                  <content.menu-item @onClick={{action "openSomething"}}>
-                    <span class="md-menu-align-target">Option</span> {{item}}
-                  </content.menu-item>
-                {{/each}}
-              </menu.content>
-            </PaperMenu>
-          </div>
-
-          <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
-            <p>Medium menu (<code class="paper">width=4</code>)</p>
-            <PaperMenu as |menu|>
-              <menu.trigger>
-                <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
-                </PaperButton>
-              </menu.trigger>
-
-              <menu.content @width={{4}} as |content|>
-                {{#each options as |item|}}
-                  <content.menu-item @onClick={{action "openSomething"}}>
-                    <span class="md-menu-align-target">Option</span> {{item}}
-                  </content.menu-item>
-                {{/each}}
-              </menu.content>
-            </PaperMenu>
-          </div>
-
-          <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
-            <p>Small menu (<code class="paper">width=2</code>)</p>
-            <PaperMenu as |menu|>
-              <menu.trigger>
-                <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
-                </PaperButton>
-              </menu.trigger>
-
-              <menu.content @width={{2}} as |content|>
-                {{#each options as |item|}}
-                  <content.menu-item @onClick={{action "openSomething"}}>
-                    <span class="md-menu-align-target">Option</span> {{item}}
-                  </content.menu-item>
-                {{/each}}
-              </menu.content>
-            </PaperMenu>
-          </div>
-        </div>
-        {{! END-SNIPPET }}
+          <menu.content @width={{4}} as |content|>
+            {{#each options as |item|}}
+              <content.menu-item @onClick={{action "openSomething"}}>
+                <span class="md-menu-align-target">Option</span> {{item}}
+              </content.menu-item>
+            {{/each}}
+          </menu.content>
+        </PaperMenu>
       </div>
 
-      <h3>Template</h3>
-      <CodeSnippet @name="menu.different-widths.hbs" />
+      <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
+        <p>Small menu (<code class="paper">width=2</code>)</p>
+        <PaperMenu as |menu|>
+          <menu.trigger>
+            <PaperButton @onClick={{null}} @iconButton={{true}}>
+              {{paper-icon "local_phone" class="md-menu-origin"}}
+            </PaperButton>
+          </menu.trigger>
 
-    </PaperCardContent>
-  </PaperCard>
-
-
-  <PaperCard>
-    <PaperCardContent>
-      <h2>Dense menu</h2>
-
-      <p>
-        <code class="paper">paper-menu-content</code> may specify a `dense` boolean attribute.
-      </p>
-
-      <div class="layout-column layout-align-center-center">
-        {{! BEGIN-SNIPPET menu.dense }}
-
-        <div class="menus layout-fill layout-wrap layout-row layout-align-space-between-center">
-          <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
-            <p>Dense menu (<code class="paper">dense=true</code>)</p>
-            <PaperMenu as |menu|>
-              <menu.trigger>
-                <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
-                </PaperButton>
-              </menu.trigger>
-
-              <menu.content @dense={{true}} as |content|>
-                {{#each options as |item|}}
-                  <content.menu-item @onClick={{action "openSomething"}}>
-                    <span class="md-menu-align-target">Option</span> {{item}}
-                  </content.menu-item>
-                {{/each}}
-              </menu.content>
-            </PaperMenu>
-          </div>
-        </div>
-        {{! END-SNIPPET }}
+          <menu.content @width={{2}} as |content|>
+            {{#each options as |item|}}
+              <content.menu-item @onClick={{action "openSomething"}}>
+                <span class="md-menu-align-target">Option</span> {{item}}
+              </content.menu-item>
+            {{/each}}
+          </menu.content>
+        </PaperMenu>
       </div>
+    </div>
+    {{! END-SNIPPET }}
+  </div>
 
-      <h3>Template</h3>
-      <CodeSnippet @name="menu.dense.hbs" />
+  {{#let (get-code-snippet "menu.different-widths.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-    </PaperCardContent>
-  </PaperCard>
 
-</DocContent>
+  <h2>Dense menu</h2>
+
+  <p>
+    <code class="paper">paper-menu-content</code> may specify a `dense` boolean attribute.
+  </p>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET menu.dense }}
+    <div class="menus layout-fill layout-wrap layout-row layout-align-space-between-center">
+      <div class="layout-column flex-50 flex-sm-100 layout-align-center-center">
+        <p>Dense menu (<code class="paper">dense=true</code>)</p>
+        <PaperMenu as |menu|>
+          <menu.trigger>
+            <PaperButton @onClick={{null}} @iconButton={{true}}>
+              {{paper-icon "local_phone" class="md-menu-origin"}}
+            </PaperButton>
+          </menu.trigger>
+
+          <menu.content @dense={{true}} as |content|>
+            {{#each options as |item|}}
+              <content.menu-item @onClick={{action "openSomething"}}>
+                <span class="md-menu-align-target">Option</span> {{item}}
+              </content.menu-item>
+            {{/each}}
+          </menu.content>
+        </PaperMenu>
+      </div>
+      <div class="layout-column flex-50 flex-sm-100 layout-align-center-center">
+        <p>Dense menu (<code class="paper">dense=false</code>)</p>
+        <PaperMenu as |menu|>
+          <menu.trigger>
+            <PaperButton @onClick={{null}} @iconButton={{true}}>
+              {{paper-icon "local_phone" class="md-menu-origin"}}
+            </PaperButton>
+          </menu.trigger>
+
+          <menu.content @dense={{false}} as |content|>
+            {{#each options as |item|}}
+              <content.menu-item @onClick={{action "openSomething"}}>
+                <span class="md-menu-align-target">Option</span> {{item}}
+              </content.menu-item>
+            {{/each}}
+          </menu.content>
+        </PaperMenu>
+      </div>
+    </div>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "menu.dense.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+</PaperContent>

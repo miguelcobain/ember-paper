@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { A } from '@ember/array';
 import { action } from '@ember/object';
 
-export default class MenuController extends Controller {
+export default class extends Controller {
 
   options = A([1, 2, 3, 4, 5]);
 

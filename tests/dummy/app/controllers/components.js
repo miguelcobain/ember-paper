@@ -59,19 +59,14 @@ export default class extends Controller {
         icon: 'reorder'
       },
       {
-        text: 'Menu',
-        route: 'components.menu',
-        icon: 'menu'
-      },
-      {
         text: 'Loading',
         route: 'components.loading',
         icon: 'hourglass_top'
       },
       {
-        text: 'Toggles',
-        route: 'components.toggles',
-        icon: 'toggle_on'
+        text: 'Menu',
+        route: 'components.menu',
+        icon: 'menu'
       },
       {
         text: 'Select',
@@ -107,6 +102,11 @@ export default class extends Controller {
         text: 'Toast',
         route: 'components.toast',
         icon: 'notifications_active'
+      },
+      {
+        text: 'Toggles',
+        route: 'components.toggles',
+        icon: 'toggle_on'
       },
       {
         text: 'Toolbar',

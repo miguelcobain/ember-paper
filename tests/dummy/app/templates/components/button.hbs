@@ -1,6 +1,6 @@
 <PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
   <div class="layout-row layout-align-center-center">
-    {{! BEGIN-SNIPPET button.basic-usage }}
+    {{! BEGIN-SNIPPET button.basic }}
     <PaperButton @onClick={{this.click}}>Button with action</PaperButton>
     <PaperButton @noink={{true}} @primary={{true}}>Primary (noink)</PaperButton>
     <PaperButton @disabled={{true}}>disabled</PaperButton>
@@ -10,7 +10,7 @@
     {{! END-SNIPPET }}
   </div>
 
-  {{#let (get-code-snippet "button.basic-usage.hbs") as |snippet|}}
+  {{#let (get-code-snippet "button.basic.hbs") as |snippet|}}
     <CodeBlock @language="markup">
 {{snippet.source}}
     </CodeBlock>

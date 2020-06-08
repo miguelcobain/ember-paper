@@ -1,73 +1,103 @@
-<DocContent>
+<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
 
-  <PaperCard>
-    <PaperToolbar>
-      <PaperToolbarTools>
-        <h2>Basic Usage</h2>
-      </PaperToolbarTools>
-    </PaperToolbar>
-    <PaperCardContent>
-      {{! BEGIN-SNIPPET chips.example }}
-      <h2>Default Template</h2>
-      <PaperChips @content={{fruitNames}} @readOnly={{readOnly}} @removeItem={{action "removeItem"}} @addItem={{action "addItem"}} @placeholder="Add a tag" />
+  <PaperCheckbox @value={{readOnly}} @onChange={{action (mut readOnly)}}>
+    Read Only
+  </PaperCheckbox>
 
-      <h2>Custom Template</h2>
-      <PaperChips @readOnly={{readOnly}} @removeItem={{action "removeCustomItem"}} @addItem={{action "addCustomItem"}} @placeholder="Add a tag" @content={{customFruitNames}} as |item|>
-        <strong>{{item}}</strong>
-        <em>(fruit)</em>
-      </PaperChips>
+  <h2>Default Template</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.default }}
+    <PaperChips @content={{this.fruitNames}} @readOnly={{readOnly}} @removeItem={{this.removeItem}} @addItem={{this.addItem}} @placeholder="Add a tag" />
+    {{! END-SNIPPET }}
+  </div>
 
-      <h2>Chips with Autocomplete</h2>
-      <PaperChips @readOnly={{readOnly}} @removeItem={{action "removeVegetable"}} @addItem={{action "addVegetable"}} @placeholder="Add a vegetable" @content={{vegetables}} @options={{remainingVegetables}} @searchField="name" @noMatchesMessage="Not found. Click to add." as |item|>
-        <strong>{{item.name}}</strong>
-        {{#if item.family}}
-          <em>{{item.family}}</em>
-        {{/if}}
-      </PaperChips>
+  {{#let (get-code-snippet "chips.default.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-      <h2>Chips with Autocomplete (requires match)</h2>
-      <PaperChips @readOnly={{readOnly}} @removeItem={{action "removeVegeName"}} @addItem={{action "addVegeName"}} @placeholder="Add a vegetable" @content={{vegeNames}} @options={{remainingVegeNames}} @requireMatch={{true}} />
-      {{! END-SNIPPET }}
+  <h2>Custom Template</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.custom }}
+    <PaperChips @readOnly={{readOnly}} @removeItem={{action "removeCustomItem"}} @addItem={{action "addCustomItem"}} @placeholder="Add a tag" @content={{this.customFruitNames}} as |item|>
+      <strong>{{item}}</strong>
+      <em>(fruit)</em>
+    </PaperChips>
+    {{! END-SNIPPET }}
+  </div>
 
-      <h3>Template</h3>
-      <CodeSnippet @name="chips.example.hbs" />
+  {{#let (get-code-snippet "chips.custom.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-    </PaperCardContent>
-  </PaperCard>
+  <h2>Chips with Autocomplete</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.autocomplete }}
+    <PaperChips @readOnly={{readOnly}} @removeItem={{action "removeVegetable"}} @addItem={{action "addVegetable"}} @placeholder="Add a vegetable" @content={{this.vegetables}} @options={{this.remainingVegetables}} @searchField="name" @noMatchesMessage="Not found. Click to add." as |item|>
+      <strong>{{item.name}}</strong>
+      {{#if item.family}}
+        <em>{{item.family}}</em>
+      {{/if}}
+    </PaperChips>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "chips.autocomplete.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2>Chips with Autocomplete (requires match)</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.autocomplete-requires-match }}
+    <PaperChips @readOnly={{readOnly}} @removeItem={{this.removeVegeName}} @addItem={{this.addVegeName}} @placeholder="Add a vegetable" @content={{this.vegeNames}} @options={{this.remainingVegeNames}} @requireMatch={{true}} />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "chips.autocomplete-requires-match.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
 
-  <PaperCard @class="chipsdemoContactChips">
-    <PaperToolbar>
-      <PaperToolbarTools>
-        <h2>Contact chips</h2>
-      </PaperToolbarTools>
-    </PaperToolbar>
-    <PaperCardContent>
+  <h2>Contact Chips</h2>
+  <div class="layout-column layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.contact }}
+    <PaperContactChips @readOnly={{readOnly}} @removeItem={{action "removeContact"}} @addItem={{action "addContact"}} @placeholder="Add a contact" @content={{this.selectedContacts}} @options={{this.remainingContacts}} />
+    {{! END-SNIPPET }}
 
-      {{! BEGIN-SNIPPET chips.contacts-example }}
-      <h2>Contact Chips</h2>
-      <PaperContactChips @readOnly={{readOnly}} @removeItem={{action "removeContact"}} @addItem={{action "addContact"}} @placeholder="Add a contact" @content={{selectedContacts}} @options={{remainingContacts}} />
+    <blockquote>
+      <code>paper-contact-chips</code> expects the name, email address and image
+      to be supplied as <code>name</code>, <code>email</code> and <code>image</code>
+      respectively. If your field names differ from these, specify them using the
+      <code>nameField</code>, <code>emailField</code> and <code>imageField</code>
+      parameters, and specify <code>searchField</code> to configure which field the
+      autocomplete should search against:
+    </blockquote>
+  </div>
 
-      <blockquote>
-        <code>paper-contact-chips</code> expects the name, email address and image
-        to be supplied as <code>name</code>, <code>email</code> and <code>image</code>
-        respectively. If your field names differ from these, specify them using the
-        <code>nameField</code>, <code>emailField</code> and <code>imageField</code>
-        parameters, and specify <code>searchField</code> to configure which field the
-        autocomplete should search against:
-      </blockquote>
+  {{#let (get-code-snippet "chips.contact.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-      <PaperContactChips @readOnly={{readOnly}} @removeItem={{action "removeAltContact"}} @addItem={{action "addAltContact"}} @placeholder="Add a contact" @content={{selectedAltContacts}} @options={{remainingAltContacts}} @nameField="shortName" @emailField="emailAddress" @imageField="profileImage" @searchField="emailAddress" />
+  <h2>Contact Alt Chips</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.contact-alt }}
+    <PaperContactChips @readOnly={{readOnly}} @removeItem={{this.removeAltContact}} @addItem={{this.addAltContact}} @placeholder="Add a contact" @content={{this.selectedAltContacts}} @options={{this.remainingAltContacts}} @nameField="shortName" @emailField="emailAddress" @imageField="profileImage" @searchField="emailAddress" />
+    {{! END-SNIPPET }}
+  </div>
 
-      <PaperCheckbox @value={{readOnly}} @onChange={{action (mut readOnly)}}>
-        Read Only
-      </PaperCheckbox>
-      {{! END-SNIPPET }}
+  {{#let (get-code-snippet "chips.contact-alt.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-      <h3>Template</h3>
-      <CodeSnippet @name="chips.contacts-example.hbs" />
-
-    </PaperCardContent>
-  </PaperCard>
-
-</DocContent>
+</PaperContent>

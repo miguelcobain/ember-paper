@@ -1,283 +1,137 @@
-<DocContent @class="card-demo">
+<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
   <h2>Basic Usage</h2>
-  {{! BEGIN-SNIPPET card.basic-usage }}
-  <div class="layout-row layout-xs-column">
-    <div class="layout-column flex-xs flex-gt-xs-50">
-      <PaperCard as |card|>
-        <card.title as |title|>
-          <title.text as |text|>
-            <text.headline>Card with image</text.headline>
-            <text.subhead>Large</text.subhead>
-          </title.text>
-          <title.media @size="lg" @src="/assets/tomster.png" @alt="Tomster" @title="Tomster" />
-        </card.title>
-        <card.actions>
-          <PaperButton>Action 1</PaperButton>
-          <PaperButton>Action 2</PaperButton>
-        </card.actions>
-      </PaperCard>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET card.basic }}
+    <PaperCard as |card|>
+      <card.title as |title|>
+        <title.text as |text|>
+          <text.headline>Card with image</text.headline>
+          <text.subhead>Large</text.subhead>
+        </title.text>
+        <title.media @size="lg" @src="/assets/tomster.png" @alt="Tomster" @title="Tomster" />
+      </card.title>
+      <card.actions>
+        <PaperButton>Action 1</PaperButton>
+        <PaperButton>Action 2</PaperButton>
+      </card.actions>
+    </PaperCard>
 
-      <PaperCard as |card|>
-        <card.title as |title|>
-          <title.text as |text|>
-            <text.headline>Card with block</text.headline>
-            <text.subhead>Extra large</text.subhead>
-          </title.text>
-        </card.title>
-        <card.content @class="layout-row layout-align-space-between">
-          <card.media @size="xl">
-            <div class="card-media"></div>
-          </card.media>
-          <card.actions @class="layout-column">
-            <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
-            <PaperButton @iconButton={{true}}>{{paper-icon "settings"}}</PaperButton>
-            <PaperButton @iconButton={{true}}>{{paper-icon "share"}}</PaperButton>
-          </card.actions>
-        </card.content>
-      </PaperCard>
-    </div>
-    <div class="layout-column flex-xs flex-gt-xs-50">
-      <PaperCard as |card|>
-        <card.title as |title|>
-          <title.text as |text|>
-            <text.headline>Card with image</text.headline>
-            <text.subhead>Small</text.subhead>
-          </title.text>
-          <title.media @size="sm" @src="/assets/tomster.png" @alt="Tomster" @title="Tomster" />
-        </card.title>
-        <card.actions>
-          <PaperButton>Action 1</PaperButton>
-          <PaperButton>Action 2</PaperButton>
+    <PaperCard as |card|>
+      <card.title as |title|>
+        <title.text as |text|>
+          <text.headline>Card with block</text.headline>
+          <text.subhead>Extra large</text.subhead>
+        </title.text>
+      </card.title>
+      <card.content @class="layout-row layout-align-space-between">
+        <card.media @size="xl">
+          <div class="card-media"></div>
+        </card.media>
+        <card.actions @class="layout-column">
+          <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
+          <PaperButton @iconButton={{true}}>{{paper-icon "settings"}}</PaperButton>
+          <PaperButton @iconButton={{true}}>{{paper-icon "share"}}</PaperButton>
         </card.actions>
-      </PaperCard>
-
-      <PaperCard as |card|>
-        <card.title as |title|>
-          <title.text as |text|>
-            <text.headline>Card with block</text.headline>
-            <text.subhead>Medium</text.subhead>
-          </title.text>
-          <title.media @size="md">
-            <div class="card-media"></div>
-          </title.media>
-        </card.title>
-        <card.actions>
-          <PaperButton>Action 1</PaperButton>
-          <PaperButton>Action 2</PaperButton>
-        </card.actions>
-      </PaperCard>
-    </div>
+      </card.content>
+    </PaperCard>
+    {{! END-SNIPPET }}
   </div>
-  {{! END-SNIPPET }}
 
-  <h3>Template</h3>
-  <CodeSnippet @name="card.basic-usage.hbs" />
+  {{#let (get-code-snippet "card.basic.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
   <h2>Card Action Buttons</h2>
-  {{! BEGIN-SNIPPET card.action-buttons }}
-  <div class="layout-row layout-xs-column">
-    <div class="layout-column flex-xs flex-gt-xs-50">
-      <PaperCard as |card|>
-        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
-        <card.title as |title|>
-          <title.text as |text|>
-            <text.headline>Action buttons</text.headline>
-          </title.text>
-        </card.title>
-        <card.content>
-          <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-          </p>
-          <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-          </p>
-          <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-          </p>
-        </card.content>
-        <card.actions>
-          <PaperButton>Action 1</PaperButton>
-          <PaperButton>Action 2</PaperButton>
-        </card.actions>
-      </PaperCard>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET card.action-buttons }}
+    <PaperCard as |card|>
+      <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
+      <card.title as |title|>
+        <title.text as |text|>
+          <text.headline>Vertical action buttons</text.headline>
+        </title.text>
+      </card.title>
+      <card.content>
+        <p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        </p>
+      </card.content>
+      <card.actions @class="layout-column">
+        <PaperButton>Action 1</PaperButton>
+        <PaperButton>Action 2</PaperButton>
+      </card.actions>
+    </PaperCard>
 
-      <PaperCard as |card|>
-        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
-        <card.title as |title|>
-          <title.text as |text|>
-            <text.headline>Vertical action buttons</text.headline>
-          </title.text>
-        </card.title>
-        <card.content>
-          <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-          </p>
-        </card.content>
-        <card.actions @class="layout-column">
-          <PaperButton>Action 1</PaperButton>
-          <PaperButton>Action 2</PaperButton>
-        </card.actions>
-      </PaperCard>
-    </div>
-
-    <div class="layout-column flex-xs flex-gt-xs-50">
-      <PaperCard as |card|>
-        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
-        <card.title as |title|>
-          <title.text as |text|>
-            <text.headline>Icon action buttons</text.headline>
-          </title.text>
-        </card.title>
-        <card.content>
-          <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-          </p>
-        </card.content>
-        <card.actions>
-          <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
-          <PaperButton @iconButton={{true}}>{{paper-icon "settings"}}</PaperButton>
-          <PaperButton @iconButton={{true}}>{{paper-icon "share"}}</PaperButton>
-        </card.actions>
-      </PaperCard>
-
-      <PaperCard as |card|>
-        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
-        <card.actions>
-          <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
-          <PaperButton @iconButton={{true}}>{{paper-icon "settings"}}</PaperButton>
-          <PaperButton @iconButton={{true}}>{{paper-icon "share"}}</PaperButton>
-        </card.actions>
-      </PaperCard>
-
-      <PaperCard as |card|>
-        <card.header as |header|>
-          <header.avatar>
-            <img src="tomster.png" alt="tomster">
-          </header.avatar>
-          <header.text as |text|>
-            <text.title>Ember</text.title>
-            <text.subhead>Paper</text.subhead>
-          </header.text>
-        </card.header>
-        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
-        <card.title as |title|>
-          <title.text as |text|>
-            <text.headline>Card header</text.headline>
-          </title.text>
-        </card.title>
-        <card.content>
-          <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-          </p>
-        </card.content>
-      </PaperCard>
-    </div>
+    <PaperCard as |card|>
+      <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
+      <card.title as |title|>
+        <title.text as |text|>
+          <text.headline>Icon action buttons</text.headline>
+        </title.text>
+      </card.title>
+      <card.content>
+        <p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        </p>
+      </card.content>
+      <card.actions>
+        <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
+        <PaperButton @iconButton={{true}}>{{paper-icon "settings"}}</PaperButton>
+        <PaperButton @iconButton={{true}}>{{paper-icon "share"}}</PaperButton>
+      </card.actions>
+    </PaperCard>
+    {{! END-SNIPPET }}
   </div>
-  {{! END-SNIPPET }}
 
-  <h3>Template</h3>
-  <CodeSnippet @name="card.action-buttons.hbs" />
+  {{#let (get-code-snippet "card.action-buttons.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
   <h2>In Card Actions</h2>
-  {{! BEGIN-SNIPPET card.in-card-actions }}
-  <div class="layout-row layout-xs-column">
-    <div class="layout-column flex-xs flex-gt-xs-50">
-      <PaperCard as |card|>
-        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
-        <card.title as |title|>
-          <title.text as |text|>
-            <text.headline>In-card mixed actions</text.headline>
-          </title.text>
-        </card.title>
-        <card.actions @class="layout-row layout-align-start-center" as |actions|>
-          <actions.icons>
-            <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
-            <PaperButton @iconButton={{true}}>{{paper-icon "share"}}</PaperButton>
-          </actions.icons>
-          <PaperButton>Action 1</PaperButton>
-          <PaperButton>Action 2</PaperButton>
-        </card.actions>
-        <card.content>
-          <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-          </p>
-        </card.content>
-      </PaperCard>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET card.in-card-actions }}
+    <PaperCard style="width:500px;height:500px;" as |card|>
+      <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
+      <card.title as |title|>
+        <title.text as |text|>
+          <text.headline>In-card mixed actions</text.headline>
+        </title.text>
+      </card.title>
+      <card.actions @class="layout-row layout-align-start-center" as |actions|>
+        <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
+        <PaperButton @iconButton={{true}}>{{paper-icon "share"}}</PaperButton>
 
-      <PaperCard as |card|>
-        <card.header as |header|>
-          <header.avatar>
-            <img src="tomster.png" alt="tomster">
-          </header.avatar>
-          <header.text as |text|>
-            <text.title>User</text.title>
-            <text.subhead>subhead</text.subhead>
-          </header.text>
-        </card.header>
-        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
-        <card.title as |title|>
-          <title.text as |text|>
-            <text.headline>In-card mixed actions</text.headline>
-            <text.subhead>Reversed</text.subhead>
-          </title.text>
-        </card.title>
-        <card.actions @class="layout-row layout-align-start-center" as |actions|>
-          <PaperButton>Action 1</PaperButton>
-          <PaperButton>Action 2</PaperButton>
-          <actions.icons>
-            <PaperButton @iconButton={{true}}>{{paper-icon "expand-less"}}</PaperButton>
-          </actions.icons>
-        </card.actions>
-        <card.content>
-          <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-          </p>
-        </card.content>
-      </PaperCard>
-    </div>
-
-    <div class="layout-column flex-xs flex-gt-xs-50">
-      <PaperCard as |card|>
-        <card.header as |header|>
-          <header.avatar>
-            <img src="tomster.png" alt="tomster">
-          </header.avatar>
-          <header.text as |text|>
-            <text.title>Title</text.title>
-            <text.subhead>subhead</text.subhead>
-          </header.text>
-        </card.header>
-        <card.image @src="/assets/washedout.png" @alt="Washed Out" @title="Washed Out" />
-        <card.title as |title|>
-          <title.text as |text|>
-            <text.headline>In-card mixed actions</text.headline>
-            <text.subhead>Description</text.subhead>
-          </title.text>
-        </card.title>
-        <card.actions @class="layout-row layout-align-start-center">
-          <PaperButton>Action 1</PaperButton>
-          <PaperButton>Action 2</PaperButton>
-        </card.actions>
-        <card.content>
-          <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-          </p>
-        </card.content>
-      </PaperCard>
-    </div>
+        <actions.icons>
+          <PaperButton @iconButton={{true}}>{{paper-icon "expand-less"}}</PaperButton>
+        </actions.icons>
+      </card.actions>
+      <card.content>
+        <p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        </p>
+      </card.content>
+    </PaperCard>
+    {{! END-SNIPPET }}
   </div>
-  {{! END-SNIPPET }}
 
-  <h3>Template</h3>
-  <CodeSnippet @name="card.in-card-actions.hbs" />
+  {{#let (get-code-snippet "card.in-card-actions.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-</DocContent>
+  <div class="layout-column layout-align-center-center">
+    {{paper-api
+      (p-section
+        (p-row "tbd" "tbd" "tbd")
+      )
+    }}
+  </div>
+</PaperContent>

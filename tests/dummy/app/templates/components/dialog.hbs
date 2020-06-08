@@ -1,166 +1,138 @@
-<PageToolbar @pageTitle="Dialog" @isDemo={{true}} />
+<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
 
-<DocContent>
+  <div class="layout-column layout-align-center-center" id="dialog-custom" style="position: relative;height: 500px;">
+    <div id="dialog-custom"></div>
+    {{#if showDialog}}
+      {{! BEGIN-SNIPPET dialog.custom }}
+      <PaperDialog @class="flex-77" @parent="#dialog-custom" @onClose={{action "closeDialog" "cancel"}} @origin={{dialogOrigin}} @parent @clickOutsideToClose={{true}}>
+        <PaperToolbar>
+          <PaperToolbarTools>
+            <h2>Mango (Fruit)</h2>
+            <span class="flex"></span>
+            <PaperButton @iconButton={{true}} @onClick={{action "closeDialog" "cancel"}}><PaperIcon @icon="close" /></PaperButton>
+          </PaperToolbarTools>
+        </PaperToolbar>
 
-  <PaperCard>
-    <PaperToolbar>
-      <PaperToolbarTools>
-        <h2>Basic Usage</h2>
-        <span class="flex"></span>
-        <PaperButton @onClick={{action "toggleSourceCode"}} @iconButton={{true}}>
-          <PaperIcon @icon="code" />
-        </PaperButton>
-      </PaperToolbarTools>
-    </PaperToolbar>
+        <PaperDialogContent>
+          <p>
+            The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.
+          </p>
+          <img style="margin: auto; max-width: 100%;" alt="Lush mango tree" src="https://www.stockvault.net/data/2011/03/20/119586/preview16.jpg">
+        </PaperDialogContent>
 
-    <div class="doc-code-example {{if showSourceCode "is-visible"}}">
-      <CodeSnippet @name="dialog.hbs" />
-    </div>
-
-    <div class="doc-content-example">
-      <div id="paper-dialog-demo"></div>
-      <PaperCardContent>
-        <p>Open a dialog over the app's content. Press escape or click outside to close the dialog and send focus back to the triggering button.</p>
-
-        <div class="layout-row layout-wrap">
-          <PaperButton @raised={{true}} @primary={{true}} @onClick={{action "openDialogWithParent"}}>
-            Dialog with parent
-          </PaperButton>
-          <PaperButton @raised={{true}} @primary={{true}} @onClick={{action "openDialog"}}>
-            Custom dialog
-          </PaperButton>
-          <PaperButton @raised={{true}} @primary={{true}} @onClick={{action "openPromptDialog"}}>
-            Prompt dialog
-          </PaperButton>
-          <PaperButton @raised={{true}} @primary={{true}} @onClick={{action "openAnimatedDialog"}}>
-            Animated dialog
-          </PaperButton>
-        </div>
-
-        {{#if result}}
-          <p>You dismissed the dialog with a result of "{{result}}".</p>
-        {{/if}}
-
-        {{paper-api
-          (p-section
-            (p-row "parent" "element or selector" "Existing element where the modal and backdrop will be rendered")
-            (p-row "origin" "element or selector" "If present, the dialog will use it as openFrom and closeTo. Also, focus will be returned to this element once the dialog closes.")
-            (p-row "closeTo" "element or selector" "Target for closing the dialog with a transition.")
-            (p-row "openFrom" "element or selector" "Source for opening the dialog with a transition.")
-            (p-row "fullscreen" "boolean" "Causes the dialog to become fullscreen at smaller breakpoints.")
-            (p-row "opaque" "boolean" "Causes the backdrop to become opaque. Defaults to `true`.")
-            (p-row "clickOutsideToClose" "boolean" "Causes clicking on the backdrop to trigger the `onClose` handler. Defaults to `false`.")
-            (p-row "focusOnOpen" "boolean" "Causes the initial focus to be on an inner element with the autofocus attribute, rather than the last button inside `{{paper-dialog-actions}}`. Defaults to `true`.")
-            (p-row "escapeToClose" "boolean" "Causes pressing escape to close the dialog. Defaults to `true`.")
-          )
-          (p-section
-            "Actions"
-            (p-row "onClose" "action" "An action to be executed when the dialog is closed, e.g. by pressing escape.")
-          )
-        }}
-
-      </PaperCardContent>
-    </div>
-
-  </PaperCard>
-
-  <span id="bottom-of-card"></span>
-
-</DocContent>
-
-{{! BEGIN-SNIPPET dialog }}
-{{#if showDialogWithParent}}
-  <PaperDialog @class="flex-50" @onClose={{action "closeDialogWithParent" "cancel"}} @parent="#paper-dialog-demo" @origin={{dialogOrigin}} @clickOutsideToClose={{true}}>
-    <form>
-      <PaperToolbar>
-        <PaperToolbarTools>
-          <h2>Mango (Fruit)</h2>
+        <PaperDialogActions @class="layout-row">
+          <PaperButton @href="http://en.wikipedia.org/wiki/Mango" @target="_blank">More on Wikipedia</PaperButton>
           <span class="flex"></span>
-          <PaperButton @iconButton={{true}} @onClick={{action "closeDialogWithParent" "cancel"}}>
-            <PaperIcon @icon="close" />
-          </PaperButton>
-        </PaperToolbarTools>
-      </PaperToolbar>
+          <PaperButton @onClick={{action "closeDialog" "cancel"}}>Cancel</PaperButton>
+          <PaperButton @onClick={{action "closeDialog" "ok"}}>OK</PaperButton>
+        </PaperDialogActions>
+      </PaperDialog>
+      {{! END-SNIPPET }}
+    {{/if}}
 
-      <PaperDialogContent>
-        <p>
-          This is a dialog rendered into a specific element. Clicking outside the dialog will close it.
-        </p>
-      </PaperDialogContent>
+    {{#if result}}
+      <p>You dismissed the dialog with a result of "{{result}}".</p>
+    {{/if}}
 
-      <PaperDialogActions @class="layout-row">
-        <span class="flex"></span>
-        <PaperButton @onClick={{action "closeDialogWithParent" "cancel"}}>
-          Cancel
-        </PaperButton>
-        <PaperButton @onClick={{action "closeDialogWithParent" "ok"}}>
-          OK
-        </PaperButton>
-      </PaperDialogActions>
-    </form>
-  </PaperDialog>
-{{/if}}
+    <PaperButton @raised={{true}} @primary={{true}} @onClick={{action "openDialog"}}>
+      Custom dialog
+    </PaperButton>
+  </div>
 
-{{#if showDialog}}
-  <PaperDialog @class="flex-77" @onClose={{action "closeDialog" "cancel"}} @origin={{dialogOrigin}} @clickOutsideToClose={{true}}>
-    <PaperToolbar>
-      <PaperToolbarTools>
-        <h2>Mango (Fruit)</h2>
-        <span class="flex"></span>
-        <PaperButton @iconButton={{true}} @onClick={{action "closeDialog" "cancel"}}><PaperIcon @icon="close" /></PaperButton>
-      </PaperToolbarTools>
-    </PaperToolbar>
+  {{#let (get-code-snippet "dialog.custom.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-    <PaperDialogContent>
-      <p>
-        The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.
-      </p>
-      <img style="margin: auto; max-width: 100%;" alt="Lush mango tree" src="https://www.stockvault.net/data/2011/03/20/119586/preview16.jpg">
-    </PaperDialogContent>
+  <div class="layout-column layout-align-center-center" style="position: relative;height: 500px;">
+    <div id="dialog-prompt"></div>
+    {{#if showPromptDialog}}
+      {{! BEGIN-SNIPPET dialog.prompt }}
+      <PaperDialog @fullscreen={{fullscreen}} @parent="#dialog-prompt" @onClose={{action "closePromptDialog" "cancel"}} @origin={{dialogOrigin}}>
+        <PaperDialogContent>
+          <h2 class="md-title">What would you name your dog?</h2>
+          <p>Bowser is a common name.</p>
+          <PaperInput @placeholder="dog name" @autofocus={{true}} @value={{dogName}} @onChange={{action (mut dogName)}} />
+          <div>
+            <PaperCheckbox @value={{fullscreen}} @onChange={{action (mut fullscreen)}}>Display fullscreen at small window size breakpoints</PaperCheckbox>
+          </div>
+        </PaperDialogContent>
 
-    <PaperDialogActions @class="layout-row">
-      <PaperButton @href="http://en.wikipedia.org/wiki/Mango" @target="_blank">More on Wikipedia</PaperButton>
-      <span class="flex"></span>
-      <PaperButton @onClick={{action "closeDialog" "cancel"}}>Cancel</PaperButton>
-      <PaperButton @onClick={{action "closeDialog" "ok"}}>OK</PaperButton>
-    </PaperDialogActions>
-  </PaperDialog>
-{{/if}}
+        <PaperDialogActions @class="layout-row">
+          <span class="flex"></span>
+          <PaperButton @primary={{true}} @onClick={{action "closePromptDialog" "cancel"}}>I'm a cat person</PaperButton>
+          <PaperButton @primary={{true}} @onClick={{action "closePromptDialog" "ok" dogName}}>Okay!</PaperButton>
+        </PaperDialogActions>
+      </PaperDialog>
+      {{! END-SNIPPET }}
+    {{/if}}
 
-{{#if showPromptDialog}}
-  <PaperDialog @fullscreen={{fullscreen}} @onClose={{action "closePromptDialog" "cancel"}} @origin={{dialogOrigin}}>
+    {{#if result}}
+      <p>You dismissed the dialog with a result of "{{result}}".</p>
+    {{/if}}
 
-    <PaperDialogContent>
-      <h2 class="md-title">What would you name your dog?</h2>
-      <p>Bowser is a common name.</p>
-      <PaperInput @placeholder="dog name" @autofocus={{true}} @value={{dogName}} @onChange={{action (mut dogName)}} />
-      <div>
-        <PaperCheckbox @value={{fullscreen}} @onChange={{action (mut fullscreen)}}>Display fullscreen at small window size breakpoints</PaperCheckbox>
-      </div>
-    </PaperDialogContent>
+    <PaperButton @raised={{true}} @primary={{true}} @onClick={{action "openPromptDialog"}}>
+      Prompt dialog
+    </PaperButton>
+  </div>
 
-    <PaperDialogActions @class="layout-row">
-      <span class="flex"></span>
-      <PaperButton @primary={{true}} @onClick={{action "closePromptDialog" "cancel"}}>I'm a cat person</PaperButton>
-      <PaperButton @primary={{true}} @onClick={{action "closePromptDialog" "ok" dogName}}>Okay!</PaperButton>
-    </PaperDialogActions>
+  {{#let (get-code-snippet "dialog.prompt.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-  </PaperDialog>
-{{/if}}
+  <div class="layout-row layout-align-center-center" style="position: relative;height: 500px;">
+    <div id="dialog-animated"></div>
+    {{#if showAnimatedDialog}}
+      {{! BEGIN-SNIPPET dialog.animated }}
+      <PaperDialog @fullscreen={{fullscreen}} @parent="#dialog-animated" @onClose={{action "closeAnimatedDialog"}} @openFrom="#paper-dialog-demo" @closeTo="#bottom-of-card">
 
-{{#if showAnimatedDialog}}
-  <PaperDialog @fullscreen={{fullscreen}} @onClose={{action "closeAnimatedDialog"}} @openFrom="#paper-dialog-demo" @closeTo="#bottom-of-card">
+        <PaperDialogContent>
+          <h2 class="md-title">This dialog is animated!</h2>
+          <p>It opened from above, but it will close to below.</p>
+        </PaperDialogContent>
 
-    <PaperDialogContent>
-      <h2 class="md-title">This dialog is animated!</h2>
-      <p>It opened from above, but it will close to below.</p>
-    </PaperDialogContent>
+        <PaperDialogActions @class="layout-row">
+          <span class="flex"></span>
+          <PaperButton @primary={{true}} @onClick={{action "closeAnimatedDialog"}}>Okay!</PaperButton>
+        </PaperDialogActions>
 
-    <PaperDialogActions @class="layout-row">
-      <span class="flex"></span>
-      <PaperButton @primary={{true}} @onClick={{action "closeAnimatedDialog"}}>Okay!</PaperButton>
-    </PaperDialogActions>
+      </PaperDialog>
+      {{! END-SNIPPET }}
+    {{/if}}
 
-  </PaperDialog>
-{{/if}}
-{{! END-SNIPPET }}
+    <PaperButton @raised={{true}} @primary={{true}} @onClick={{action "openAnimatedDialog"}}>
+      Animated dialog
+    </PaperButton>
+  </div>
+
+  {{#let (get-code-snippet "dialog.animated.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+    <div id="bottom-of-card"></div>
+
+    <div class="layout-column layout-align-center-center">
+      {{paper-api
+        (p-section
+          (p-row "parent" "element or selector" "Existing element where the modal and backdrop will be rendered")
+          (p-row "origin" "element or selector" "If present, the dialog will use it as openFrom and closeTo. Also, focus will be returned to this element once the dialog closes.")
+          (p-row "closeTo" "element or selector" "Target for closing the dialog with a transition.")
+          (p-row "openFrom" "element or selector" "Source for opening the dialog with a transition.")
+          (p-row "fullscreen" "boolean" "Causes the dialog to become fullscreen at smaller breakpoints.")
+          (p-row "opaque" "boolean" "Causes the backdrop to become opaque. Defaults to `true`.")
+          (p-row "clickOutsideToClose" "boolean" "Causes clicking on the backdrop to trigger the `onClose` handler. Defaults to `false`.")
+          (p-row "focusOnOpen" "boolean" "Causes the initial focus to be on an inner element with the autofocus attribute, rather than the last button inside `{{paper-dialog-actions}}`. Defaults to `true`.")
+          (p-row "escapeToClose" "boolean" "Causes pressing escape to close the dialog. Defaults to `true`.")
+        )
+        (p-section
+          "Actions"
+          (p-row "onClose" "action" "An action to be executed when the dialog is closed, e.g. by pressing escape.")
+        )
+      }}
+    </div>
+</PaperContent>

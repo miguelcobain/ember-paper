@@ -1,75 +1,60 @@
-import { filter } from '@ember/object/computed';
 import Controller from '@ember/controller';
-import { computed } from '@ember/object';
+import { action } from '@ember/object';
 import { A } from '@ember/array';
 import faker from 'faker';
 
-export default Controller.extend({
-  fruitNames: A(['Apple', 'Banana', 'Orange']),
+function getContacts(amount) {
+  let contacts = [];
 
-  customFruitNames: A(['Apple', 'Banana', 'Orange']),
-
-  numOfContacts: 10,
-
-  contacts: computed('numOfContacts', function() {
-    let contacts = [];
-    let numOfContacts = this.get('numOfContacts');
-
-    for (let i = 0; i < numOfContacts; i++) {
-      contacts.push({
-        name: faker.name.findName(),
-        email: faker.internet.email(),
-        image: faker.internet.avatar()
-      });
-    }
-
-    return contacts;
-  }),
-
-  selectedContacts: filter('contacts', function(c, index) {
-    return index % 2 === 0;
-  }),
-
-  remainingContacts: computed('contacts.[]', 'selectedContacts.[]', function() {
-    return this.get('contacts').filter((c) => {
-      return this.get('selectedContacts').indexOf(c) === -1;
+  for (let i = 0; i < amount; i++) {
+    contacts.push({
+      name: faker.name.findName(),
+      email: faker.internet.email(),
+      image: faker.internet.avatar()
     });
-  }),
+  }
 
-  altContacts: computed('numOfContacts', function() {
-    let contacts = [];
-    let numOfContacts = this.get('numOfContacts');
+  return contacts;
+}
 
-    for (let i = 0; i < numOfContacts; i++) {
-      let firstName = faker.name.firstName();
-      let lastName = faker.name.lastName();
+function getAltContacts(numOfContacts) {
+  let contacts = [];
 
-      contacts.push({
-        shortName: `${firstName} ${lastName[0]}`,
-        emailAddress: `${firstName.toLowerCase()}.${lastName[0].toLowerCase()}@example.com`,
-        profileImage: faker.internet.avatar()
-      });
-    }
+  for (let i = 0; i < numOfContacts; i++) {
+    let firstName = faker.name.firstName();
+    let lastName = faker.name.lastName();
 
-    return contacts;
-  }),
-
-  selectedAltContacts: filter('altContacts', function(c, index) {
-    return index % 2 === 0;
-  }),
-
-  remainingAltContacts: computed('altContacts.[]', 'selectedAltContacts.[]', function() {
-    return this.get('altContacts').filter((c) => {
-      return this.get('selectedAltContacts').indexOf(c) === -1;
+    contacts.push({
+      shortName: `${firstName} ${lastName[0]}`,
+      emailAddress: `${firstName.toLowerCase()}.${lastName[0].toLowerCase()}@example.com`,
+      profileImage: faker.internet.avatar()
     });
-  }),
+  }
 
-  vegetables: A([{
+  return contacts;
+}
+
+export default class extends Controller {
+  numOfContacts = 10;
+
+  contacts = getContacts(10);
+
+  selectedContacts = A(this.contacts.filter((c, index) => index % 2 === 0));
+
+  altContacts = getAltContacts(10);
+
+  selectedAltContacts = A(this.altContacts.filter((c, index) => index % 2 === 0));
+
+  fruitNames = A(['Apple', 'Banana', 'Orange']);
+
+  customFruitNames = A(['Apple', 'Banana', 'Orange']);
+
+  vegetables = A([{
     name: 'Broccoli',
     family: 'Brassica'
-  }]),
+  }]);
 
-  allVegetables: A([{
+  allVegetables = A([{
     name: 'Broccoli',
     family: 'Brassica'
   }, {
@@ -84,75 +69,97 @@ export default Controller.extend({
   }, {
     name: 'Spinach',
     family: 'Goosefoot'
-  }]),
+  }]);
 
-  remainingVegetables: computed('allVegetables.@each.name', 'vegetables.@each.name', function() {
-    return this.get('allVegetables').filter((source) => {
-      return !this.get('vegetables').any(function(myVegetable) {
+  vegeNames = A(['Broccoli']);
+
+  allVegeNames = A(['Broccoli', 'Cabbage', 'Carrot', 'Lettuce', 'Spinach']);
+
+  get remainingContacts() {
+    return this.contacts.filter((c) => {
+      return this.selectedContacts.indexOf(c) === -1;
+    });
+  }
+
+  get remainingAltContacts() {
+    return this.altContacts.filter((c) => {
+      return this.selectedAltContacts.indexOf(c) === -1;
+    });
+  }
+
+  get remainingVegetables() {
+    return this.allVegetables.filter((source) => {
+      return !this.vegetables.some(function(myVegetable) {
         return source.name === myVegetable.name;
       });
     });
-  }),
+  }
 
-  vegeNames: A(['Broccoli']),
-
-  allVegeNames: A(['Broccoli', 'Cabbage', 'Carrot', 'Lettuce', 'Spinach']),
-
-  remainingVegeNames: computed('vegeNames.length', function() {
-    return this.get('allVegeNames').filter((source) => {
-      return !this.get('vegeNames').any(function(myVegeName) {
+  get remainingVegeNames() {
+    return this.allVegeNames.filter((source) => {
+      return !this.vegeNames.some(function(myVegeName) {
         return source === myVegeName;
       });
     });
-  }),
-
-  actions: {
-    removeItem(item) {
-      this.get('fruitNames').removeObject(item);
-    },
-
-    addItem(item) {
-      this.get('fruitNames').pushObject(item);
-    },
-
-    removeCustomItem(item) {
-      this.get('customFruitNames').removeObject(item);
-    },
-
-    addCustomItem(item) {
-      this.get('customFruitNames').pushObject(item);
-    },
-
-    removeVegetable(item) {
-      this.get('vegetables').removeObject(item);
-    },
-
-    addVegetable(item) {
-      this.get('vegetables').pushObject(item);
-    },
-
-    removeVegeName(item) {
-      this.get('vegeNames').removeObject(item);
-    },
-
-    addVegeName(item) {
-      this.get('vegeNames').pushObject(item);
-    },
-
-    addContact(item) {
-      this.get('selectedContacts').pushObject(item);
-    },
-
-    removeContact(item) {
-      this.get('selectedContacts').removeObject(item);
-    },
-
-    addAltContact(item) {
-      this.get('selectedAltContacts').pushObject(item);
-    },
-
-    removeAltContact(item) {
-      this.get('selectedAltContacts').removeObject(item);
-    }
   }
-});
+
+  @action
+  removeItem(item) {
+    this.fruitNames.removeObject(item);
+  }
+
+  @action
+  addItem(item) {
+    this.fruitNames.pushObject(item);
+  }
+
+  @action
+  removeCustomItem(item) {
+    this.customFruitNames.removeObject(item);
+  }
+
+  @action
+  addCustomItem(item) {
+    this.customFruitNames.pushObject(item);
+  }
+
+  @action
+  removeVegetable(item) {
+    this.vegetables.removeObject(item);
+  }
+
+  @action
+  addVegetable(item) {
+    this.vegetables.pushObject(item);
+  }
+
+  @action
+  removeVegeName(item) {
+    this.vegeNames.removeObject(item);
+  }
+
+  @action
+  addVegeName(item) {
+    this.vegeNames.pushObject(item);
+  }
+
+  @action
+  addContact(item) {
+    this.selectedContacts.pushObject(item);
+  }
+
+  @action
+  removeContact(item) {
+    this.selectedContacts.removeObject(item);
+  }
+
+  @action
+  addAltContact(item) {
+    this.selectedAltContacts.pushObject(item);
+  }
+
+  @action
+  removeAltContact(item) {
+    this.selectedAltContacts.removeObject(item);
+  }
+}

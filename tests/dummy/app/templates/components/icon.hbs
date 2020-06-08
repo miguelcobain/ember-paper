@@ -1,4 +1,4 @@
-<DocContent>
+<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
 
   <h2>Available Icons</h2>
   <p>
@@ -6,34 +6,47 @@
     available icons.
   </p>
 
-  <h2>Usage</h2>
-
   <h3>Basic Icons</h3>
-  <div>
+  <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET icons.basic-usage }}
-    {{paper-icon "check-circle"}}
+    <PaperIcon @positionalIcon="check-circle"/>
     {{! END-SNIPPET }}
   </div>
-  <CodeSnippet @name="icons.basic-usage.hbs" />
+
+  {{#let (get-code-snippet "icons.basic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
   <h3>Changing Sizes</h3>
-  <div class="layout-row">
+  <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET icons.sizes }}
-    {{paper-icon "check-circle" size=12}}
-    {{paper-icon "check-circle" size=18}}
-    {{paper-icon "check-circle" size=24}}
-    {{paper-icon "check-circle" size=36}}
-    {{paper-icon "check-circle" size=48}}
+    <PaperIcon @positionalIcon="check-circle" @size=12/>
+    <PaperIcon @positionalIcon="check-circle" @size=18/>
+    <PaperIcon @positionalIcon="check-circle" @size=24/>
+    <PaperIcon @positionalIcon="check-circle" @size=36/>
+    <PaperIcon @positionalIcon="check-circle" @size=48/>
     {{! END-SNIPPET }}
   </div>
-  <CodeSnippet @name="icons.sizes.hbs" />
+
+  {{#let (get-code-snippet "icons.sizes.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
   <h3>Spinners</h3>
-  <div>
+  <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET icons.spinners }}
-    {{paper-icon "rotate-right" spin=true}}
-    {{paper-icon "rotate-left" reverseSpin=true}}
+    <PaperIcon @positionalIcon="rotate-right" @spin=true/>
+    <PaperIcon @positionalIcon="rotate-left" @reverseSpin=true/>
     {{! END-SNIPPET }}
   </div>
-  <CodeSnippet @name="icons.spinners.hbs" />
-</DocContent>
+
+  {{#let (get-code-snippet "icons.spinners.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+</PaperContent>
