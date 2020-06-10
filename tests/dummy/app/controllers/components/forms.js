@@ -1,8 +1,9 @@
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
 import { A } from '@ember/array';
 
-export default Controller.extend({
-  items: A([
+export default class extends Controller {
+  items = A([
     { name: 'Afghanistan', code: 'AF' },
     { name: 'Åland Islands', code: 'AX' },
     { name: 'Albania', code: 'AL' },
@@ -13,20 +14,23 @@ export default Controller.extend({
     { name: 'Anguilla', code: 'AI' },
     { name: 'Antarctica', code: 'AQ' },
     { name: 'Antigua and Barbuda', code: 'AG' }
-  ]),
+  ]);
 
-  actions: {
-    basicSubmitAction() {
-      this.set('firstName', '');
-      this.set('lastName', '');
-      this.set('age', '');
-      this.set('selectedCountry', null);
-    },
-    disabledSubmitAction() {
-      this.set('favoriteLetter', '');
-    },
-    customSubmitAction() {
-      this.set('favoriteNumber', '');
-    }
+  @action
+  basicSubmitAction() {
+    this.set('firstName', '');
+    this.set('lastName', '');
+    this.set('age', '');
+    this.set('selectedCountry', null);
   }
-});
+
+  @action
+  disabledSubmitAction() {
+    this.set('favoriteLetter', '');
+  }
+
+  @action
+  customSubmitAction() {
+    this.set('favoriteNumber', '');
+  }
+}

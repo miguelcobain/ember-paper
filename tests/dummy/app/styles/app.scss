@@ -52,3 +52,38 @@ pre.code-block {
     color: #ffffff;
   }
 }
+
+.toc {
+  margin: 0;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 0;
+  list-style: none;
+  position: fixed;
+
+  li {
+    width: 100%;
+    height: auto;
+    min-height: 32px;
+    border-left: 2px solid rgba(0, 0, 0, 0.12);
+
+    a {
+      padding: 8px 0 8px 16px;
+      line-height: 1.5;
+      font-weight: 400;
+      text-decoration: none;
+      color: #616161;
+    }
+  }
+
+  .toc--selected {
+    border-left: 2px solid #212121;
+    opacity: 1;
+    font-weight: 700;
+    letter-spacing: 0;
+
+    a {
+      color: #212121;
+    }
+  }
+}

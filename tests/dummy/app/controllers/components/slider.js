@@ -1,29 +1,25 @@
 import Controller from '@ember/controller';
-import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
+import { tracked } from '@glimmer/tracking';
 
-let color = {
-  red: Math.floor(Math.random() * 255),
-  green: Math.floor(Math.random() * 255),
-  blue: Math.floor(Math.random() * 255)
-};
+export default class extends Controller {
+  @tracked red = Math.floor(Math.random() * 255);
+  @tracked green =  Math.floor(Math.random() * 255);
+  @tracked blue =  Math.floor(Math.random() * 255);
 
-export default Controller.extend({
-  color,
+  rating1 = 3;
+  rating2 = 2;
+  rating3 = 4;
 
-  colorStyle: computed('color.{red,green,blue}', function() {
-    return htmlSafe(`border: 1px solid #333; background: rgb(${this.get('color.red')}, ${this.get('color.green')}, ${this.get('color.blue')})`);
-  }),
+  disabled1 = 22;
+  disabled2 = 70;
 
-  rating1: 3,
-  rating2: 2,
-  rating3: 4,
+  descreteDisabled1 = 2;
+  discreteDisabled2 = 6;
 
-  disabled1: 22,
-  disabled2: 70,
+  isSliderDisabled = true;
 
-  descreteDisabled1: 2,
-  discreteDisabled2: 6,
-
-  isSliderDisabled: true
-});
+  get colorStyle() {
+    return htmlSafe(`border: 1px solid #333; background: rgb(${this.red}, ${this.green}, ${this.blue})`);
+  }
+}

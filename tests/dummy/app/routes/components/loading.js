@@ -4,11 +4,11 @@ import { on } from '@ember/object/evented';
 export default Route.extend({
 
   onActivate: on('activate', function() {
-    this.controllerFor('demo.progress-linear').start();
+    this.controllerFor('components.loading').start();
   }),
 
   onDeactivate: on('deactivate', function() {
-    this.controllerFor('demo.progress-linear').stop();
+    this.controllerFor('components.loading').stop();
   })
 
 });

@@ -1,5 +1,5 @@
-<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
-
+<Doc>
+  <h1 class="header">Chips</h1>
   <PaperCheckbox @value={{readOnly}} @onChange={{action (mut readOnly)}}>
     Read Only
   </PaperCheckbox>
@@ -17,10 +17,10 @@
     </CodeBlock>
   {{/let}}
 
-  <h2>Custom Template</h2>
+  <h2 class="header">Custom Template</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET chips.custom }}
-    <PaperChips @readOnly={{readOnly}} @removeItem={{action "removeCustomItem"}} @addItem={{action "addCustomItem"}} @placeholder="Add a tag" @content={{this.customFruitNames}} as |item|>
+    <PaperChips @readOnly={{readOnly}} @removeItem={{this.removeCustomItem}} @addItem={{this.addCustomItem}} @placeholder="Add a tag" @content={{this.customFruitNames}} as |item|>
       <strong>{{item}}</strong>
       <em>(fruit)</em>
     </PaperChips>
@@ -33,10 +33,10 @@
     </CodeBlock>
   {{/let}}
 
-  <h2>Chips with Autocomplete</h2>
+  <h2 class="header">Chips with Autocomplete</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET chips.autocomplete }}
-    <PaperChips @readOnly={{readOnly}} @removeItem={{action "removeVegetable"}} @addItem={{action "addVegetable"}} @placeholder="Add a vegetable" @content={{this.vegetables}} @options={{this.remainingVegetables}} @searchField="name" @noMatchesMessage="Not found. Click to add." as |item|>
+    <PaperChips @readOnly={{readOnly}} @removeItem={{this.removeVegetable}} @addItem={{this.addVegetable}} @placeholder="Add a vegetable" @content={{this.vegetables}} @options={{this.remainingVegetables}} @searchField="name" @noMatchesMessage="Not found. Click to add." as |item|>
       <strong>{{item.name}}</strong>
       {{#if item.family}}
         <em>{{item.family}}</em>
@@ -51,7 +51,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2>Chips with Autocomplete (requires match)</h2>
+  <h2 class="header">Chips with Autocomplete (requires match)</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET chips.autocomplete-requires-match }}
     <PaperChips @readOnly={{readOnly}} @removeItem={{this.removeVegeName}} @addItem={{this.addVegeName}} @placeholder="Add a vegetable" @content={{this.vegeNames}} @options={{this.remainingVegeNames}} @requireMatch={{true}} />
@@ -65,10 +65,10 @@
   {{/let}}
 
 
-  <h2>Contact Chips</h2>
+  <h2 class="header">Contact Chips</h2>
   <div class="layout-column layout-align-center-center">
     {{! BEGIN-SNIPPET chips.contact }}
-    <PaperContactChips @readOnly={{readOnly}} @removeItem={{action "removeContact"}} @addItem={{action "addContact"}} @placeholder="Add a contact" @content={{this.selectedContacts}} @options={{this.remainingContacts}} />
+    <PaperContactChips @readOnly={{readOnly}} @removeItem={{this.removeContact}} @addItem={{this.addContact}} @placeholder="Add a contact" @content={{this.selectedContacts}} @options={{this.remainingContacts}} />
     {{! END-SNIPPET }}
 
     <blockquote>
@@ -87,7 +87,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2>Contact Alt Chips</h2>
+  <h2 class="header">Contact Alt Chips</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET chips.contact-alt }}
     <PaperContactChips @readOnly={{readOnly}} @removeItem={{this.removeAltContact}} @addItem={{this.addAltContact}} @placeholder="Add a contact" @content={{this.selectedAltContacts}} @options={{this.remainingAltContacts}} @nameField="shortName" @emailField="emailAddress" @imageField="profileImage" @searchField="emailAddress" />
@@ -100,4 +100,4 @@
     </CodeBlock>
   {{/let}}
 
-</PaperContent>
+</Doc>

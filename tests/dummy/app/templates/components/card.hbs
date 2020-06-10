@@ -1,5 +1,6 @@
-<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
-  <h2>Basic Usage</h2>
+<Doc>
+  <h1 class="header">Card</h1>
+  <h2 class="header">Basic Usage</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET card.basic }}
     <PaperCard as |card|>
@@ -43,7 +44,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2>Card Action Buttons</h2>
+  <h2 class="header">Card Action Buttons</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET card.action-buttons }}
     <PaperCard as |card|>
@@ -93,7 +94,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2>In Card Actions</h2>
+  <h2 class="header">In Card Actions</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET card.in-card-actions }}
     <PaperCard style="width:500px;height:500px;" as |card|>
@@ -126,12 +127,4 @@
 {{snippet.source}}
     </CodeBlock>
   {{/let}}
-
-  <div class="layout-column layout-align-center-center">
-    {{paper-api
-      (p-section
-        (p-row "tbd" "tbd" "tbd")
-      )
-    }}
-  </div>
-</PaperContent>
+</Doc>

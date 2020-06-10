@@ -1,27 +1,40 @@
-<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
+<Doc>
+  <h1>Switch</h1>
 
-  {{! BEGIN-SNIPPET switch }}
-  <PaperSwitch @value={{booleanProp1}} @onChange={{action (mut booleanProp1)}}>
-    {{booleanProp1}}
-  </PaperSwitch>
+  <h2>Basic Usage</h2>
+  <div class="layout-column layout-align-center-center">
+    {{! BEGIN-SNIPPET switch.basic-usage }}
+    <PaperSwitch @value={{booleanProp1}} @onChange={{action (mut booleanProp1)}}>
+      {{booleanProp1}}
+    </PaperSwitch>
 
-  <PaperSwitch @value={{booleanProp2}} @onChange={{action (mut booleanProp2)}}>
-    {{booleanProp2}}
-  </PaperSwitch>
+    <PaperSwitch @value={{booleanProp2}} @onChange={{action (mut booleanProp2)}}>
+      {{booleanProp2}}
+    </PaperSwitch>
 
-  <PaperSwitch @value={{booleanProp3}} @onChange={{action "changeBooleanProp" "3"}} @disabled={{true}}>
-    Disabled switch
-  </PaperSwitch>
+    <PaperSwitch @value={{booleanProp3}} @onChange={{action "changeBooleanProp" "3"}} @disabled={{true}}>
+      Disabled switch
+    </PaperSwitch>
 
-  <PaperSwitch @value={{booleanProp4}} @onChange={{action "changeBooleanProp" "4"}} @noink={{true}}>
-    Noink switch
-  </PaperSwitch>
+    <PaperSwitch @value={{booleanProp4}} @onChange={{action "changeBooleanProp" "4"}} @noink={{true}}>
+      Noink switch
+    </PaperSwitch>
 
-  <PaperSwitch @label="Blockless version" @value={{booleanProp5}} @onChange={{action "changeBooleanProp" "5"}} />
-  {{! END-SNIPPET }}
+    <PaperSwitch @label="Blockless version" @value={{booleanProp5}} @onChange={{action "changeBooleanProp" "5"}} />
+    {{! END-SNIPPET }}
+  </div>
 
-  {{! BEGIN-SNIPPET checkbox }}
-  <div class="layout-column">
+  {{#let (get-code-snippet "switch.basic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h1>Checkbox</h1>
+
+  <h2>Basic Usage</h2>
+  <div class="layout-column layout-align-center-center">
+    {{! BEGIN-SNIPPET checkbox.basic-usage }}
     <PaperCheckbox @value={{value1}} @onChange={{action (mut value1)}}>
       A checkbox: {{value1}}
     </PaperCheckbox>
@@ -51,71 +64,85 @@
     <PaperCheckbox @disabled={{true}} @indeterminate={{isIndeterminate}} @value={{value7}} @onChange={{null}}>
       Indeterminate checkbox (disabled)
     </PaperCheckbox>
+    {{! END-SNIPPET }}
   </div>
-  {{! END-SNIPPET }}
 
-  <PaperCard @class="radio-button-demo">
-    <PaperCardContent>
-      <h2>Basic Usage</h2>
-      <p>
-        Stand alone
-      </p>
-      <div class="layout-row layout-align-space-around">
-        {{! BEGIN-SNIPPET radio.standalone-usage }}
-        <PaperRadio @toggle={{true}} @value="Toggable" @groupValue={{toggleValue}} @onChange={{action (mut toggleValue)}}>
-          Toggable
-        </PaperRadio>
-        <PaperRadio @label="Blockless" @toggle={{true}} @value="Blockless" @groupValue={{blocklessValue}} @onChange={{action (mut blocklessValue)}} />
-        <PaperRadio @value={{false}} @disabled={{true}} @onChange={{null}}>
-          Disabled
-        </PaperRadio>
-        {{! END-SNIPPET }}
-      </div>
-      <h3>Template</h3>
-      <hr>
+  {{#let (get-code-snippet "checkbox.basic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-      <p>
-        Selected Value: <span class="radio-value">{{selectedFruit}}</span>
-      </p>
+  <h1> Radio </h1>
 
-      {{! BEGIN-SNIPPET radio.basic-group-usage}}
-      <PaperRadioGroup @groupValue={{readonly selectedFruit}} @onChange={{action (mut selectedFruit)}} as |group|>
-        <group.radio @value="Apple" @primary={{true}}> Apple </group.radio>
-        <group.radio @value="Banana" @warn={{true}}> Banana </group.radio>
-        <group.radio @value="Mango"> Mango </group.radio>
-      </PaperRadioGroup>
-      {{! END-SNIPPET }}
+  <h2>Basic Usage</h2>
+  <div class="layout-column layout-align-center-center">
+    {{! BEGIN-SNIPPET radio.basic-usage }}
+    <PaperRadio @toggle={{true}} @value="Toggable" @groupValue={{toggleValue}} @onChange={{action (mut toggleValue)}}>
+      Toggable
+    </PaperRadio>
+    <PaperRadio @label="Blockless" @toggle={{true}} @value="Blockless" @groupValue={{blocklessValue}} @onChange={{action (mut blocklessValue)}} />
+    <PaperRadio @value={{false}} @disabled={{true}} @onChange={{null}}>
+      Disabled
+    </PaperRadio>
+    {{! END-SNIPPET }}
+  </div>
 
-      <h3>Template</h3>
-      <hr>
+  {{#let (get-code-snippet "radio.basic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-      <p>
-        Graphic radio buttons
-      </p>
-      {{! BEGIN-SNIPPET radio.images }}
-      <PaperRadioGroup @groupValue={{selectedGraphic}} @onChange={{action (mut selectedGraphic)}} as |group|>
+  <h2>Group Usage</h2>
+  <div class="layout-column layout-align-center-center">
+    <p>
+      Selected Value: <span class="radio-value">{{selectedFruit}}</span>
+    </p>
 
-        <group.label>
-          <p>Selected Value: <span class="radio-value">{{selectedGraphic}}</span></p>
-        </group.label>
+    {{! BEGIN-SNIPPET radio.group-usage}}
+    <PaperRadioGroup @groupValue={{readonly selectedFruit}} @onChange={{action (mut selectedFruit)}} as |group|>
+      <group.radio @value="Apple" @primary={{true}}> Apple </group.radio>
+      <group.radio @value="Banana" @warn={{true}}> Banana </group.radio>
+      <group.radio @value="Mango"> Mango </group.radio>
+    </PaperRadioGroup>
+    {{! END-SNIPPET }}
+  </div>
 
-        <group.radio @value="graphic-1" @primary={{true}}>
-          <img src="http://tinyurl.com/zwvmqz8" alt="example1">
-        </group.radio>
+  {{#let (get-code-snippet "radio.group-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
 
-        <group.radio @value="graphic-2" @warn={{true}}>
-          <img src="http://tinyurl.com/jdcepzm" alt="example2">
-        </group.radio>
+  <h2>Template</h2>
+  <div class="layout-column layout-align-center-center">
+    {{! BEGIN-SNIPPET radio.template}}
+    <PaperRadioGroup @groupValue={{selectedComponent}} @onChange={{action (mut selectedComponent)}} as |group|>
 
-        <group.radio @value="graphic-3">
-          <img src="http://tinyurl.com/j55t8cd" alt="example3">
-        </group.radio>
+      <group.label>
+        <p>Selected Component: <span class="radio-value">{{selectedComponent}}</span></p>
+      </group.label>
 
-      </PaperRadioGroup>
-      {{! END-SNIPPET }}
+      <group.radio @value="Card" @primary={{true}}>
+        {{paper-icon "view_carousel"}}
+      </group.radio>
 
-      <h3>Template</h3>
+      <group.radio @value="Chips" @warn={{true}}>
+        {{paper-icon "label" }}
+      </group.radio>
 
-    </PaperCardContent>
-  </PaperCard>
-</PaperContent>
+      <group.radio @value="Dialog">
+        {{paper-icon "call"}}
+      </group.radio>
+
+    </PaperRadioGroup>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "radio.template.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+  {{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+</Doc>

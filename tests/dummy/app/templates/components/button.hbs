@@ -1,4 +1,7 @@
-<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
+<Doc>
+  <h1 class="header"> Button </h1>
+
+  <h2 class="header"> Basic Usage </h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET button.basic }}
     <PaperButton @onClick={{this.click}}>Button with action</PaperButton>
@@ -16,6 +19,7 @@
     </CodeBlock>
   {{/let}}
 
+  <h2 class="header"> Raised </h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET button.raised }}
     <PaperButton @raised={{true}} @onClick={{this.click}}>Button with action</PaperButton>
@@ -32,6 +36,7 @@
     </CodeBlock>
   {{/let}}
 
+  <h2 class="header"> Target </h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET button.target }}
     <PaperButton @raised={{true}} @onClick={{this.click}}>Button with target</PaperButton>
@@ -46,6 +51,7 @@
     </CodeBlock>
   {{/let}}
 
+  <h2 class="header"> Fab </h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET button.fab }}
     <PaperButton @raised={{true}} @fab={{true}}>Fab</PaperButton>
@@ -88,5 +94,4 @@
       "color"
     }}
   </div>
-
-</PaperContent>
+</Doc>

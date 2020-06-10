@@ -1,68 +1,54 @@
-<DocContent @class="tabs-demo">
-  <div class="md-padding">
+<Doc>
+  <h1 class="header">Tabs</h1>
+  <h2 class="header">Basic Usage</h2>
+  <div class="layout-column layout-align-center-center">
     <PaperCard>
-      <PaperToolbar>
-        <PaperToolbarTools>
-          <h2>Basic Usage</h2>
-          <span class="flex"></span>
-          <PaperButton @onClick={{action "toggle" "showBasicUsageSourceCode"}} @iconButton={{true}}>
-            <PaperIcon @icon="code" />
-          </PaperButton>
-        </PaperToolbarTools>
-      </PaperToolbar>
+      <PaperContent>
+        {{! BEGIN-SNIPPET tabs.basic-usage}}
+        <PaperTabs @center={{center}} @stretch={{stretch}} @borderBottom={{borderBottom}} @selected={{selectedBasicTab}} @onChange={{action (mut selectedBasicTab)}} as |tabs|>
+          <tabs.tab>
+            Page One
+          </tabs.tab>
+          <tabs.tab @disabled={{true}}>
+            Page Two (disabled)
+          </tabs.tab>
+          <tabs.tab>
+            Page Three
+          </tabs.tab>
+          <tabs.tab>
+            Page Four
+          </tabs.tab>
+          <tabs.tab>
+            Page Five
+          </tabs.tab>
+        </PaperTabs>
 
-      <div class="doc-code-example {{if showBasicUsageSourceCode "is-visible"}}">
-        <CodeSnippet @name="basic-usage.hbs" />
-      </div>
+        {{#liquid-bind (hash tab=selectedBasicTab) class="md-padding" as |current|}}
+          <h1 class="md-display-2">Tab {{current.tab}}</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis
+            vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices.
+            Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.
+          </p>
+        {{/liquid-bind}}
+        {{! END-SNIPPET }}
+      </PaperContent>
+      <PaperCardContent>
 
-      <div class="doc-content-example">
-        <PaperContent>
-          {{! BEGIN-SNIPPET basic-usage}}
-          <PaperTabs @center={{center}} @stretch={{stretch}} @borderBottom={{borderBottom}} @selected={{selectedBasicTab}} @onChange={{action (mut selectedBasicTab)}} as |tabs|>
-            <tabs.tab>
-              Page One
-            </tabs.tab>
-            <tabs.tab @disabled={{true}}>
-              Page Two (disabled)
-            </tabs.tab>
-            <tabs.tab>
-              Page Three
-            </tabs.tab>
-            <tabs.tab>
-              Page Four
-            </tabs.tab>
-            <tabs.tab>
-              Page Five
-            </tabs.tab>
-          </PaperTabs>
+        <PaperCheckbox @value={{center}} @onChange={{action (mut center)}}>
+          Center tabs
+        </PaperCheckbox>
 
-          {{#liquid-bind (hash tab=selectedBasicTab) class="md-padding" as |current|}}
-            <h1 class="md-display-2">Tab {{current.tab}}</h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis
-              vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices.
-              Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.
-            </p>
-          {{/liquid-bind}}
-          {{! END-SNIPPET }}
-        </PaperContent>
-        <PaperCardContent>
+        <PaperCheckbox @value={{stretch}} @onChange={{action (mut stretch)}}>
+          Stretch tabs
+        </PaperCheckbox>
 
-          <PaperCheckbox @value={{center}} @onChange={{action (mut center)}}>
-            Center tabs
-          </PaperCheckbox>
+        <PaperCheckbox @value={{borderBottom}} @onChange={{action (mut borderBottom)}}>
+          Border bottom
+        </PaperCheckbox>
 
-          <PaperCheckbox @value={{stretch}} @onChange={{action (mut stretch)}}>
-            Stretch tabs
-          </PaperCheckbox>
-
-          <PaperCheckbox @value={{borderBottom}} @onChange={{action (mut borderBottom)}}>
-            Border bottom
-          </PaperCheckbox>
-
-        </PaperCardContent>
-      </div>
+      </PaperCardContent>
       <PaperDivider />
       <PaperCardContent>
         <p>
@@ -95,44 +81,35 @@
     </PaperCard>
   </div>
 
-  <div class="md-padding">
+  {{#let (get-code-snippet "tabs.basic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Dynamic Usage</h2>
+  <div class="layout-column layout-align-center-center">
     <PaperCard>
-      <PaperToolbar>
-        <PaperToolbarTools>
-          <h2>Dynamic Usage</h2>
-          <span class="flex"></span>
-          <PaperButton @onClick={{action "toggle" "showDynamicUsageSourceCode"}} @iconButton={{true}}>
-            {{paper-icon "code"}}
+      <PaperContent>
+        {{! BEGIN-SNIPPET tabs.dynamic-usage}}
+        <PaperTabs @primary={{true}} @borderBottom={{true}} @selected={{selectedChapter}} @onChange={{action (mut selectedChapter)}} as |tabs|>
+          {{#each chapters as |chapter|}}
+            <tabs.tab @value={{chapter}}>
+              {{chapter.title}}
+            </tabs.tab>
+          {{/each}}
+        </PaperTabs>
+
+        {{#liquid-bind (hash tab=selectedChapter.index m=selectedChapter) class="md-padding dynamic-animation" as |current|}}
+          <h1 class="md-display-2">{{current.m.title}}</h1>
+          <p>{{current.m.body}}</p>
+          <PaperButton @primary={{true}} @raised={{true}} @disabled={{eq chapters.length 1}} @onClick={{action "removeChapter" current.m}}>
+            Remove chapter
           </PaperButton>
-        </PaperToolbarTools>
-      </PaperToolbar>
+        {{/liquid-bind}}
 
-      <div class="doc-code-example {{if showDynamicUsageSourceCode "is-visible"}}">
-        <CodeSnippet @name="dynamic-usage.hbs" />
-      </div>
-
-      <div class="doc-content-example">
-        <PaperContent>
-          {{! BEGIN-SNIPPET dynamic-usage}}
-          <PaperTabs @primary={{true}} @borderBottom={{true}} @selected={{selectedChapter}} @onChange={{action (mut selectedChapter)}} as |tabs|>
-            {{#each chapters as |chapter|}}
-              <tabs.tab @value={{chapter}}>
-                {{chapter.title}}
-              </tabs.tab>
-            {{/each}}
-          </PaperTabs>
-
-          {{#liquid-bind (hash tab=selectedChapter.index m=selectedChapter) class="md-padding dynamic-animation" as |current|}}
-            <h1 class="md-display-2">{{current.m.title}}</h1>
-            <p>{{current.m.body}}</p>
-            <PaperButton @primary={{true}} @raised={{true}} @disabled={{eq chapters.length 1}} @onClick={{action "removeChapter" current.m}}>
-              Remove chapter
-            </PaperButton>
-          {{/liquid-bind}}
-
-          {{! END-SNIPPET }}
-        </PaperContent>
-      </div>
+        {{! END-SNIPPET }}
+      </PaperContent>
       <PaperDivider />
 
       <PaperCardContent>
@@ -163,38 +140,29 @@
     </PaperCard>
   </div>
 
-  <div class="md-padding">
+  {{#let (get-code-snippet "tabs.dynamic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Routable Usage</h2>
+  <div class="layout-column layout-align-center-center">
     <PaperCard>
-      <PaperToolbar>
-        <PaperToolbarTools>
-          <h2>Routable Usage</h2>
-          <span class="flex"></span>
-          <PaperButton @onClick={{action "toggle" "showRoutableUsageSourceCode"}} @iconButton={{true}}>
-            <PaperIcon @icon="code" />
-          </PaperButton>
-        </PaperToolbarTools>
-      </PaperToolbar>
+      <PaperContent>
+        {{! BEGIN-SNIPPET tabs.routable-usage}}
+        <PaperTabs @selected={{this.router.currentRouteName}} @borderBottom={{true}} @onChange={{action "noop"}} as |tabs|>
+          <tabs.tab @value="components.tabs.index" @href={{href-to "components.tabs.index"}}>
+            Index
+          </tabs.tab>
+          <tabs.tab @value="components.tabs.nested-route" @href={{href-to "components.tabs.nested-route"}}>
+            Nested Route
+          </tabs.tab>
+        </PaperTabs>
 
-      <div class="doc-code-example {{if showRoutableUsageSourceCode "is-visible"}}">
-        <CodeSnippet @name="routable-usage.hbs" />
-      </div>
-
-      <div class="doc-content-example">
-        <PaperContent>
-          {{! BEGIN-SNIPPET routable-usage}}
-          <PaperTabs @selected={{currentRouteName}} @borderBottom={{true}} @onChange={{action "noop"}} as |tabs|>
-            <tabs.tab @value="components.tabs.index" @href={{href-to "components.tabs.index"}}>
-              Index
-            </tabs.tab>
-            <tabs.tab @value="components.tabs.nested-route" @href={{href-to "components.tabs.nested-route"}}>
-              Nested Route
-            </tabs.tab>
-          </PaperTabs>
-
-          {{liquid-outlet class="md-padding"}}
-          {{! END-SNIPPET }}
-        </PaperContent>
-      </div>
+        {{liquid-outlet class="md-padding"}}
+        {{! END-SNIPPET }}
+      </PaperContent>
       <PaperDivider />
 
       <PaperCardContent>
@@ -220,19 +188,25 @@
     </PaperCard>
   </div>
 
-  <div class="md-padding">
+  {{#let (get-code-snippet "tabs.routable-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <div class="layout-column layout-align-center-center">
     {{paper-api
       (p-section
-        (p-row "selected" "string or number" "Value of the active tab. Each tab automatically gets an index as its value. Default is `0` (the first tab active).")
+        (p-row "selected" "string or number" "Value of the active tab. Each tab automatically gets an index as its value.<br/> Default is `0` (the first tab active).")
         (p-row "onChange" "action" "An action triggered when the active tab changes.")
         (p-row "accent" "boolean" "Pass `true` to enable accent color scheme.")
         (p-row "primary" "boolean" "Pass `true` to enable primary color scheme.")
-        (p-row "stretch" "boolean or matchMedia query" "Use true/false to permanently enable/disable tab stretching. You can also use a matchMedia query to enable tab stretching only at certain viewport sizes. Default value is `sm` (`(min-width: 600px) and (max-width: 959px)`).")
+        (p-row "stretch" "boolean or matchMedia query" "Use true/false to permanently enable/disable tab stretching.<br/> You can also use a matchMedia query to enable tab stretching only at certain viewport sizes.<br/> Default value is `sm` (`(min-width: 600px) and (max-width: 959px)`).")
         (p-row "borderBottom" "boolean" "Use true to enable border beneath tabs. Default is false.")
       )
       (p-section
         "`tabs.tab` API"
-        (p-row "value" "string" "Value associated with the tab. To activate the tab, `selected` needs to have this value. Each tab gets a value automatically set to its index, so you don't need to use this property unless you need specific values for some special case.")
+        (p-row "value" "string" "Value associated with the tab. To activate the tab, `selected` needs to have this value.<br/> Each tab gets a value automatically set to its index, so you don't need to use this property unless you need specific values for some special case.")
         (p-row "isSelected" "boolean" "Optionally you can set a specific tab as selected directly without relying on the global tabs value.")
         (p-row "disabled" "boolean" "Pass `true` to disable the tab button.")
         (p-row "href" "string" "You can pass an href to the tab button to render a link. Hint: use `ember-href-to` to generate route urls.")
@@ -241,4 +215,4 @@
     }}
   </div>
 
-</DocContent>
+</Doc>

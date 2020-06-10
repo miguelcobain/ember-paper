@@ -1,12 +1,11 @@
-<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
-
-  <h2>Available Icons</h2>
+<Doc>
+  <h1 class="header">Icon</h1>
   <p>
     See the <a href="https://design.google.com/icons/" rel="noopener" target="_blank">Material Icons page</a> for an overview of
     available icons.
   </p>
 
-  <h3>Basic Icons</h3>
+  <h2 class="header">Basic Icons</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET icons.basic-usage }}
     <PaperIcon @positionalIcon="check-circle"/>
@@ -19,7 +18,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h3>Changing Sizes</h3>
+  <h2 class="header">Changing Sizes</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET icons.sizes }}
     <PaperIcon @positionalIcon="check-circle" @size=12/>
@@ -36,7 +35,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h3>Spinners</h3>
+  <h2 class="header">Spinners</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET icons.spinners }}
     <PaperIcon @positionalIcon="rotate-right" @spin=true/>
@@ -49,4 +48,4 @@
 {{snippet.source}}
     </CodeBlock>
   {{/let}}
-</PaperContent>
+</Doc>

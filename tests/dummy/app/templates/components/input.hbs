@@ -1,4 +1,4 @@
-<DocContent>
+<Doc>
   {{! BEGIN-SNIPPET input.basic-usage}}
   <div class="layout layout-sm-column">
     <PaperInput @class="flex-30" @label="Name" @placeholder="Enter name" @value={{name}} @onChange={{action (mut name)}} />
@@ -45,7 +45,6 @@
   {{! END-SNIPPET }}
 
   <h3>Template</h3>
-  <CodeSnippet @name="input.basic-usage.hbs" />
 
   <p>
     <strong>About Required.</strong>
@@ -68,7 +67,6 @@
     <PaperInput @value={{numberTest}} @onChange={{action (mut numberTest)}} @label="Number of bagels" @type="number" @passThru={{hash min="0" step="13" }} />
     {{! END-SNIPPET }}
 
-    <CodeSnippet @name="input.attributes.hbs" />
   </p>
 
   <h4>Available Attributes for Text Fields</h4>
@@ -128,7 +126,6 @@
     {{#if eventName}}
       <div>The leaf controller for this route received the sent <strong>{{eventName}}</strong> action.</div>
     {{/if}}
-    <CodeSnippet @name="input.actions.hbs" />
   </p>
 
   {{#paper-api
@@ -155,7 +152,6 @@
         {{/unless}}
       </PaperInput>
       {{! END-SNIPPET }}
-      <CodeSnippet @name="input.textHelper.hbs" />
     </div>
   {{/paper-api}}
 
@@ -181,10 +177,8 @@
   </p>
 
   <h3>Template</h3>
-  <CodeSnippet @name="input.custom-validations.hbs" />
   <p>
     Define your <code>emailValidation</code> object in your controller.
-    <CodeSnippet @name="input.controller.email-validation.js" />
   </p>
   <p>
     You may also define multiple custom constraints by using an array of validation objects.
@@ -194,8 +188,6 @@
     <PaperInput @class="md-block" @label="Value should be even and equal 4." @type="email" @value={{customMultiple}} @onChange={{action (mut customMultiple)}} @customValidations={{multipleConstraints}} />
     {{! END-SNIPPET }}
   </p>
-  <CodeSnippet @name="input.multiple-constraints.hbs" />
-  <CodeSnippet @name="input.controller.multiple-constraints.js" />
 
   <h2>Setting validation messages from external validations</h2>
   <p>
@@ -223,7 +215,6 @@
   {{! END-SNIPPET }}
 
   <h3>Template</h3>
-  <CodeSnippet @name="input.external-validations.hbs" />
 
   <p>
     The <code>errors</code> argument can either be an array of messages or an array of
@@ -232,4 +223,4 @@
     The latter format is compatible with errors from <code>ember-data</code>.
   </p>
 
-</DocContent>
+</Doc>

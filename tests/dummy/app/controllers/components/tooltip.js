@@ -1,11 +1,12 @@
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  position: 'bottom',
+export default class extends Controller {
+  @tracked position = 'bottom';
 
-  actions: {
-    toggle(propName) {
-      this.toggleProperty(propName);
-    }
+  @action
+  toggle(propName) {
+    this.toggleProperty(propName);
   }
-});
+}

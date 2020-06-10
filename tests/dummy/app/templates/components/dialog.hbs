@@ -1,5 +1,7 @@
-<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
+<Doc>
+  <h1 class="header">Dialog</h1>
 
+  <h2 class="header">Custom</h2>
   <div class="layout-column layout-align-center-center" id="dialog-custom" style="position: relative;height: 500px;">
     <div id="dialog-custom"></div>
     {{#if showDialog}}
@@ -45,6 +47,7 @@
     </CodeBlock>
   {{/let}}
 
+  <h2 class="header">Prompt</h2>
   <div class="layout-column layout-align-center-center" style="position: relative;height: 500px;">
     <div id="dialog-prompt"></div>
     {{#if showPromptDialog}}
@@ -83,6 +86,7 @@
     </CodeBlock>
   {{/let}}
 
+  <h2 class="header">Animated</h2>
   <div class="layout-row layout-align-center-center" style="position: relative;height: 500px;">
     <div id="dialog-animated"></div>
     {{#if showAnimatedDialog}}
@@ -135,4 +139,4 @@
         )
       }}
     </div>
-</PaperContent>
+</Doc>

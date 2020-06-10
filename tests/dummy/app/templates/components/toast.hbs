@@ -1,8 +1,7 @@
-<PaperContent @scroll-y={{true}} @padding={{true}} @class="layout-padding flex">
+<Doc>
+  <h1>Toast</h1>
 
-  <h1>Component Usage</h1>
-
-  <h2>Playground</h2>
+  <h2>Component</h2>
   <div class="layout-column layout-align-center-center">
     {{! BEGIN-SNIPPET toast.component }}
     {{#if showToast}}
@@ -88,9 +87,7 @@
     }}
   </div>
 
-  <h1>Service Usage</h1>
-
-  <h2>Playground</h2>
+  <h2>Service</h2>
   <div class="layout-column layout-align-center-center" id="toast-example" style="position:relative;">
     <PaperToaster @parent="#toast-example" />
     <p>Open a toast via <code>paperToaster</code> service and <code>\{{paper-toaster}}</code> component.</p>
@@ -182,4 +179,4 @@
 
   <span id="bottom-of-card"></span>
 
-</PaperContent>
+</Doc>

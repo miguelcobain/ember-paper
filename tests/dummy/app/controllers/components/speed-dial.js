@@ -1,12 +1,12 @@
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
 
-export default Controller.extend({
-  animation: 'fling',
-  direction: 'down',
+export default class extends Controller {
+  animation = 'fling';
+  direction = 'down';
 
-  actions: {
-    toggle(propName) {
-      this.toggleProperty(propName);
-    }
+  @action
+  toggle(propName) {
+    this.toggleProperty(propName);
   }
-});
+}
