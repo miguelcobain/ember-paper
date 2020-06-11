@@ -32,7 +32,7 @@ export default class extends Component {
       });
     });
 
-    document.addEventListener('scroll', (e) => {
+    document.addEventListener('scroll', () => {
       const maybeSelected = this.headers.sort((a, b) => {
         return Math.abs(window.scrollY - a.top) - Math.abs(window.scrollY - b.top);
       })[0];

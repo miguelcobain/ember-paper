@@ -1,7 +1,10 @@
-<ul class="toc" {{did-insert this.onInsert}}>
-  {{#each this.headers as |header|}}
-    <li class="toc--{{header.tagName}} {{if (eq selected header.hashValue) "toc--selected"}}">
-      <a href="#{{header.hashValue}}">{{header.value}}</a>
-    </li>
-  {{/each}}
-</ul>
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <ul class="toc-list" {{did-insert this.onInsert}}>
+    {{#each this.headers as |header|}}
+      <li class="toc-list-item {{if (eq selected header.hashValue) "toc-list-item--selected"}}">
+        <a href="#{{header.hashValue}}">{{header.value}}</a>
+      </li>
+    {{/each}}
+  </ul>
+</div>

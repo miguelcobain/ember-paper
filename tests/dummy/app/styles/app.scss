@@ -1,6 +1,12 @@
 @import 'ember-paper';
 @import 'demo';
 
+$flexbox-color1: paper-color('deep-purple', '200');
+$flexbox-color2: paper-color('orange', '400');
+$flexbox-color3: paper-color('blue', '300');
+$flexbox-color4: paper-color('teal', '200');
+$flexbox-color5: paper-color('pink', '300');
+
 .application-navbar a {
   border: none;
   line-height: 64px;
@@ -54,14 +60,21 @@ pre.code-block {
 }
 
 .toc {
-  margin: 0;
-  margin-top: 10px;
-  margin-left: 10px;
-  padding: 0;
-  list-style: none;
   position: fixed;
 
-  li {
+  .toc-title {
+    margin-left: 8px;
+  }
+
+  .toc-list {
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .toc-list-item {
     width: 100%;
     height: auto;
     min-height: 32px;
@@ -76,7 +89,7 @@ pre.code-block {
     }
   }
 
-  .toc--selected {
+  .toc-list-item--selected {
     border-left: 2px solid #212121;
     opacity: 1;
     font-weight: 700;
@@ -86,4 +99,35 @@ pre.code-block {
       color: #212121;
     }
   }
+}
+
+.introduction-example {
+  height: 350px;
+
+  .box-one {
+    background-color: $flexbox-color1;
+  }
+
+  .box-two-one {
+    background-color: $flexbox-color2;
+  }
+  .box-two-two {
+    background-color: $flexbox-color3;
+  }
+  .box-two-three {
+    background-color: $flexbox-color4;
+  }
+  .box-three {
+    background-color: $flexbox-color5;
+  }
+}
+
+.one {
+  background-color: $flexbox-color1;
+}
+.two {
+  background-color: $flexbox-color2;
+}
+.three {
+  background-color: $flexbox-color3;
 }

@@ -34,7 +34,12 @@ Router.map(function() {
     this.route('toolbar');
     this.route('tooltip');
   });
-  this.route('layout');
+  this.route('layout', function() {
+    this.route('introduction');
+    this.route('child-alignment');
+    this.route('layout-children');
+    this.route('layout-containers');
+  });
   this.route('theme');
   this.route('addons');
 });

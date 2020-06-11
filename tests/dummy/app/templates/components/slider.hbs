@@ -1,6 +1,6 @@
 <Doc>
-
-  <h2>Basic Usage</h2>
+  <h1 class="header">Slider</h1>
+  <h2 class="header">Basic Usage</h2>
   <div class="layout-column layout-align-center-center">
     {{! BEGIN-SNIPPET slider.basic-usage }}
     <h2>
@@ -33,7 +33,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2>Theming</h2>
+  <h2 class="header">Theming</h2>
   <div class="layout-column layout-align-center-center">
     {{! BEGIN-SNIPPET slider.theming }}
     <div class="layout layout-align-center-center slider-container">
@@ -63,7 +63,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2>Disabled</h2>
+  <h2 class="header">Disabled</h2>
   <div class="layout-column layout-align-center-center">
     {{! BEGIN-SNIPPET slider.disabled }}
     <PaperSlider @class="flex" @value={{disabled1}} @disabled={{true}} @onChange={{action (mut disabled1)}} />
@@ -76,7 +76,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2>Disabled, Discrete</h2>
+  <h2 class="header">Disabled, Discrete</h2>
   <div class="layout-column layout-align-center-center">
     {{! BEGIN-SNIPPET slider.disabled-discrete }}
     <PaperSlider @value={{discreteDisabled1}} @disabled={{true}} @discrete={{true}} @step={{3}} @min={{0}} @max={{10}} />

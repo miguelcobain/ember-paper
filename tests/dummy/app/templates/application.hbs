@@ -1,6 +1,6 @@
 <div class="layout-column flex">
   <div class="flex-none">
-    <PaperToolbar @accent={{true}} as |toolbar|>
+    <PaperToolbar as |toolbar|>
       <toolbar.tools>
         <div class="application-navbar layout-row flex">
           <LinkTo @route="index">Introduction</LinkTo>
@@ -23,9 +23,7 @@
       </toolbar.tools>
     </PaperToolbar>
   </div>
-  <div class="flex">
-    <div id="main" class="flex" tabindex="-1" role="main">
-      {{outlet}}
-    </div>
+  <div id="main" class="flex" tabindex="-1" role="main">
+    {{outlet}}
   </div>
 </div>

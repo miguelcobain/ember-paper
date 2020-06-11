@@ -1,8 +1,8 @@
-<div class="flex layout-row">
-  <PaperContent @scroll-y={{true}} @padding={{true}} class="flex-80">
+<PaperContent class="flex layout-row">
+  <PaperContent @scroll-y={{true}} @padding={{true}} class="flex-offset-10 flex-60">
     {{yield}}
   </PaperContent>
-  <PaperContent @padding={{true}} class="flex-20">
+  <PaperContent @padding={{true}} class="flex-offset-5 flex-30">
     <Toc/>
   </PaperContent>
-</div>
+</PaperContent>

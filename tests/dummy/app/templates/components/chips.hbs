@@ -33,7 +33,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2 class="header">Chips with Autocomplete</h2>
+  <h2 class="header">Autocomplete</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET chips.autocomplete }}
     <PaperChips @readOnly={{readOnly}} @removeItem={{this.removeVegetable}} @addItem={{this.addVegetable}} @placeholder="Add a vegetable" @content={{this.vegetables}} @options={{this.remainingVegetables}} @searchField="name" @noMatchesMessage="Not found. Click to add." as |item|>
@@ -51,7 +51,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2 class="header">Chips with Autocomplete (requires match)</h2>
+  <h2 class="header">Autocomplete (requires match)</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET chips.autocomplete-requires-match }}
     <PaperChips @readOnly={{readOnly}} @removeItem={{this.removeVegeName}} @addItem={{this.addVegeName}} @placeholder="Add a vegetable" @content={{this.vegeNames}} @options={{this.remainingVegeNames}} @requireMatch={{true}} />
@@ -65,7 +65,7 @@
   {{/let}}
 
 
-  <h2 class="header">Contact Chips</h2>
+  <h2 class="header">Contact</h2>
   <div class="layout-column layout-align-center-center">
     {{! BEGIN-SNIPPET chips.contact }}
     <PaperContactChips @readOnly={{readOnly}} @removeItem={{this.removeContact}} @addItem={{this.addContact}} @placeholder="Add a contact" @content={{this.selectedContacts}} @options={{this.remainingContacts}} />
@@ -87,7 +87,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2 class="header">Contact Alt Chips</h2>
+  <h2 class="header">Contact Alt</h2>
   <div class="layout-row layout-align-center-center">
     {{! BEGIN-SNIPPET chips.contact-alt }}
     <PaperContactChips @readOnly={{readOnly}} @removeItem={{this.removeAltContact}} @addItem={{this.addAltContact}} @placeholder="Add a contact" @content={{this.selectedAltContacts}} @options={{this.remainingAltContacts}} @nameField="shortName" @emailField="emailAddress" @imageField="profileImage" @searchField="emailAddress" />

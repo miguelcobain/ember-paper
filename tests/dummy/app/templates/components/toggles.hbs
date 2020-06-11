@@ -1,7 +1,7 @@
 <Doc>
-  <h1>Switch</h1>
+  <h1 class="header">Switch</h1>
 
-  <h2>Basic Usage</h2>
+  <h2 class="header">Basic Usage</h2>
   <div class="layout-column layout-align-center-center">
     {{! BEGIN-SNIPPET switch.basic-usage }}
     <PaperSwitch @value={{booleanProp1}} @onChange={{action (mut booleanProp1)}}>
@@ -30,9 +30,9 @@
     </CodeBlock>
   {{/let}}
 
-  <h1>Checkbox</h1>
+  <h1 class="header">Checkbox</h1>
 
-  <h2>Basic Usage</h2>
+  <h2 class="header">Basic Usage</h2>
   <div class="layout-column layout-align-center-center">
     {{! BEGIN-SNIPPET checkbox.basic-usage }}
     <PaperCheckbox @value={{value1}} @onChange={{action (mut value1)}}>
@@ -73,9 +73,9 @@
     </CodeBlock>
   {{/let}}
 
-  <h1> Radio </h1>
+  <h1 class="header"> Radio </h1>
 
-  <h2>Basic Usage</h2>
+  <h2 class="header">Basic Usage</h2>
   <div class="layout-column layout-align-center-center">
     {{! BEGIN-SNIPPET radio.basic-usage }}
     <PaperRadio @toggle={{true}} @value="Toggable" @groupValue={{toggleValue}} @onChange={{action (mut toggleValue)}}>
@@ -94,7 +94,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2>Group Usage</h2>
+  <h2 class="header">Group Usage</h2>
   <div class="layout-column layout-align-center-center">
     <p>
       Selected Value: <span class="radio-value">{{selectedFruit}}</span>
@@ -115,7 +115,7 @@
     </CodeBlock>
   {{/let}}
 
-  <h2>Template</h2>
+  <h2 class="header">Template</h2>
   <div class="layout-column layout-align-center-center">
     {{! BEGIN-SNIPPET radio.template}}
     <PaperRadioGroup @groupValue={{selectedComponent}} @onChange={{action (mut selectedComponent)}} as |group|>
