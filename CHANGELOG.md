@@ -1,5 +1,9 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.31
+- [#1147](https://github.com/miguelcobain/ember-paper/pull/1147) Use click instead of mouseUp to clear autocomplete (allowClear=true)
+- [#1154](https://github.com/miguelcobain/ember-paper/pull/1154) Fixed clearing a date field leaves it marked invalid in Chrome 83 (more info [#1153](https://github.com/miguelcobain/ember-paper/issues/1153))
+
 ### 1.0.0-beta.30
 - [#1144](https://github.com/miguelcobain/ember-paper/pull/1144) fix paper menu positioning
 - [#1143](https://github.com/miguelcobain/ember-paper/pull/1143) fix paper-item mouseEnter/mouseLeave deprecations
