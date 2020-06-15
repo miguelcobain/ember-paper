@@ -1,7 +1,9 @@
 import Route from '@ember/routing/route';
 
 export default class extends Route {
-  beforeModel() {
-    this.transitionTo('layout.introduction')
+  beforeModel(transition) {
+    if(transition.to.name === 'layout.index') {
+      this.transitionTo('layout.introduction');
+    }
   }
 }

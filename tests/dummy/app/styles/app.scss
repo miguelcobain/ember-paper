@@ -1,11 +1,15 @@
 @import 'ember-paper';
-@import 'demo';
 
+$flexbox-shadow: inset 0px 0px 5px 0 rgba(0,0,0,0.16);
 $flexbox-color1: paper-color('deep-purple', '200');
 $flexbox-color2: paper-color('orange', '400');
 $flexbox-color3: paper-color('blue', '300');
 $flexbox-color4: paper-color('teal', '200');
 $flexbox-color5: paper-color('pink', '300');
+$flexbox-color6: paper-color('lime', '300');
+$flexbox-color7: paper-color('amber', '300');
+
+@import 'demo';
 
 .application-navbar a {
   border: none;

@@ -1307,3 +1307,67 @@ md-toast {
     background: paper-color($warn, '400');
   }
 }
+
+
+.example div div {
+  box-shadow: $flexbox-shadow;
+  text-align: center;
+  color: $dark-contrast-color;
+}
+
+.introduction-example {
+  height: 350px;
+
+  .box-one {
+    background-color: $flexbox-color1;
+  }
+
+  .box-two-one {
+    background-color: $flexbox-color2;
+  }
+  .box-two-two {
+    background-color: $flexbox-color3;
+  }
+  .box-two-three {
+    background-color: $flexbox-color4;
+  }
+  .box-three {
+    background-color: $flexbox-color5;
+  }
+}
+
+.example {
+  > div {
+    height: 100%;
+  }
+
+  div > div {
+    padding: 12px;
+
+    &:nth-child(1) {
+      background-color: $flexbox-color1;
+    }
+    &:nth-child(2) {
+      background-color: $flexbox-color2;
+    }
+    &:nth-child(3) {
+      background-color: $flexbox-color3;
+    }
+    &:nth-child(4) {
+      background-color: $flexbox-color4;
+    }
+    &:nth-child(5) {
+      background-color: $flexbox-color5;
+    }
+    &:nth-child(6) {
+      background-color: $flexbox-color6;
+    }
+    &:nth-child(7) {
+      background-color: $flexbox-color7;
+    }
+  }
+}
+
+.example-2 > div {
+  height: 100%;
+}

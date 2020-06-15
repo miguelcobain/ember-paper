@@ -8,7 +8,7 @@
     on the container's child elements:
   </p>
 
-  <PaperCard as |card|>
+<div class="layout-column layout-align-center-center">
     <div class="example example-1">
       {{! BEGIN-SNIPPET layout-children.example1 }}
       <div class="layout-row">
@@ -18,9 +18,12 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    <card.content>
-    </card.content>
-  </PaperCard>
+</div>
+{{#let (get-code-snippet "layout-children.example1.hbs") as |snippet|}}
+  <CodeBlock @language="markup">
+{{snippet.source}}
+  </CodeBlock>
+{{/let}}
 
   <p>
     Add the <code>flex</code> class to a layout's child element and the element will flex (grow or shrink)
@@ -28,7 +31,7 @@
     with respect to its parent container and the other elements within the container.
   </p>
 
-  <PaperCard as |card|>
+<div class="layout-column layout-align-center-center">
     <div class="example example-2">
       {{! BEGIN-SNIPPET layout-children.example2 }}
       <div class="layout-row layout-wrap">
@@ -42,9 +45,12 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    <card.content>
-    </card.content>
-  </PaperCard>
+</div>
+{{#let (get-code-snippet "layout-children.example2.hbs") as |snippet|}}
+  <CodeBlock @language="markup">
+{{snippet.source}}
+  </CodeBlock>
+{{/let}}
 
   <p>
     A layout child's <code>flex</code> class can be given an integer parameter from 0-100.
@@ -56,7 +62,7 @@
     <code>flex-50</code>, <code>flex-66</code>, <code>flex-75</code>, ... <code>flex-100</code>.
   </p>
 
-  <PaperCard as |card|>
+<div class="layout-column layout-align-center-center">
     <div class="example example-3">
       {{! BEGIN-SNIPPET layout-children.example3 }}
       <div class="layout-row">
@@ -69,9 +75,12 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    <card.content>
-    </card.content>
-  </PaperCard>
+</div>
+{{#let (get-code-snippet "layout-children.example3.hbs") as |snippet|}}
+  <CodeBlock @language="markup">
+{{snippet.source}}
+  </CodeBlock>
+{{/let}}
 
   <h2>Additional Flex Parameters</h2>
 
@@ -80,36 +89,41 @@
     API easier to understand.
   </p>
 
-  <PaperCard as |card|>
-    <div class="example example-4">
-      {{! BEGIN-SNIPPET layout-children.example4 }}
-      <div class="layout-row layout-wrap">
-        <div class="flex-none">flex-none</div>
-        <div class="flex">flex</div>
-        <div class="flex-nogrow">flex-nogrow</div>
-        <div class="flex-grow">flex-grow</div>
-        <div class="flex-initial">flex-initial</div>
-        <div class="flex-auto">flex-auto</div>
-        <div class="flex-noshrink">flex-noshrink</div>
-      </div>
-      {{! END-SNIPPET }}
+<div class="layout-column layout-align-center-center">
+  <div class="example example-4">
+    {{! BEGIN-SNIPPET layout-children.example4 }}
+    <div class="layout-row layout-wrap">
+      <div class="flex-none">flex-none</div>
+      <div class="flex">flex</div>
+      <div class="flex-nogrow">flex-nogrow</div>
+      <div class="flex-grow">flex-grow</div>
+      <div class="flex-initial">flex-initial</div>
+      <div class="flex-auto">flex-auto</div>
+      <div class="flex-noshrink">flex-noshrink</div>
     </div>
-    <card.content>
+    {{! END-SNIPPET }}
+  </div>
+</div>
+{{#let (get-code-snippet "layout-children.example4.hbs") as |snippet|}}
+  <CodeBlock @language="markup">
+{{snippet.source}}
+  </CodeBlock>
+{{/let}}
 
-      {{paper-api
-        (p-section
-          (p-row "flex" "Will grow and shrink as needed. Starts with a size of 0%. Same as `flex-0`.")
-          (p-row "flex-none" "Will not grow or shrink. Sized based on its `width` and `height` values.")
-          (p-row "flex-initial" "Will shrink as needed. Starts with a size based on its `width` and `height` values.")
-          (p-row "flex-auto" "Will shrink as needed. Starts with a size based on its `width` and `height` values.")
-          (p-row "flex-grow" "Will grow and shrink as needed. Starts with a size of 100%. Same as `flex-100`.")
-          (p-row "flex-nogrow" "Will shrink as needed, but won't grow. Starts with a size based on its `width` and `height` values.")
-          (p-row "flex-noshrink" "Will grow as needed, but won't shrink. Starts with a size based on its `width` and `height` values.")
-        )
-        header=(p-row "Class" "Effect")
-      }}
-    </card.content>
-  </PaperCard>
+<div class="layout-column layout-align-center-center">
+  {{paper-api
+    (p-section
+      (p-row "flex" "Will grow and shrink as needed. Starts with a size of 0%. Same as `flex-0`.")
+      (p-row "flex-none" "Will not grow or shrink. Sized based on its `width` and `height` values.")
+      (p-row "flex-initial" "Will shrink as needed. Starts with a size based on its `width` and `height` values.")
+      (p-row "flex-auto" "Will shrink as needed. Starts with a size based on its `width` and `height` values.")
+      (p-row "flex-grow" "Will grow and shrink as needed. Starts with a size of 100%. Same as `flex-100`.")
+      (p-row "flex-nogrow" "Will shrink as needed, but won't grow. Starts with a size based on its `width` and `height` values.")
+      (p-row "flex-noshrink" "Will grow as needed, but won't shrink. Starts with a size based on its `width` and `height` values.")
+    )
+    header=(p-row "Class" "Effect")
+  }}
+</div>
 
   <h2>Ordering HTML Elements</h2>
 
@@ -118,7 +132,7 @@
     Any integer parameter value from -20 to 20 is accepted.
   </p>
 
-  <PaperCard as |card|>
+<div class="layout-column layout-align-center-center">
     <div class="example example-5">
       {{! BEGIN-SNIPPET layout-children.example5 }}
       <div class="layout-row">
@@ -129,8 +143,12 @@
       </div>
       {{! END-SNIPPET }}
     </div>
-    <card.content>
-    </card.content>
-  </PaperCard>
+</div>
+
+{{#let (get-code-snippet "layout-children.example5.hbs") as |snippet|}}
+  <CodeBlock @language="markup">
+{{snippet.source}}
+  </CodeBlock>
+{{/let}}
 
 </PaperContent>
