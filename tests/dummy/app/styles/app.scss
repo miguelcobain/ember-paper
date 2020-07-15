@@ -11,30 +11,6 @@ $flexbox-color7: paper-color('amber', '300');
 
 @import 'demo';
 
-.application-navbar a {
-  border: none;
-  line-height: 64px;
-  font-size: 18px;
-  padding: 0 16px;
-
-  &.active::after {
-    bottom: 1px;
-    content: " ";
-    display: block;
-    position: relative;
-    border-bottom: 3px solid paper-color('cyan', '200');
-  }
-}
-
-@media (max-width: 959px) and (min-width: 0) {
-  .application-navbar a {
-    line-height: 50px;
-
-    &.active::after {
-      bottom: -1px;
-    }
-  }
-}
 
 pre.code-block {
   background-color: rgba(0,0,0,.06) !important;
