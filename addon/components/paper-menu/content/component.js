@@ -56,6 +56,10 @@ class PaperMenuContent extends Component {
   @action
   async animateOut(element) {
     let parentElement = this.renderInPlace ? element.parentElement.parentElement : element.parentElement;
+
+    // workaround for https://github.com/miguelcobain/ember-paper/issues/1151. See also https://github.com/emberjs/ember.js/issues/18795.
+    if (!parentElement) return;
+
     let clone = element.cloneNode(true);
     clone.id = `${clone.id}--clone`;
     parentElement.appendChild(clone);
