@@ -1,5 +1,9 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.32
+- [40e98b1](https://github.com/miguelcobain/ember-paper/commit/40e98b122808fd6d30a9c358fe14d03990ea04eb) allow disabling `<PaperMenu>` (closes [#774](https://github.com/miguelcobain/ember-paper/issues/774))
+- [d1336ee](https://github.com/miguelcobain/ember-paper/commit/d1336eef959e3016f696e72210f4327719ad94b4) add workaround for `Cannot read property 'appendChild' of null` error when running integration test with `<PaperMenu>` (closes [#1151](https://github.com/miguelcobain/ember-paper/issues/1151))
+
 ### 1.0.0-beta.31
 - [#1147](https://github.com/miguelcobain/ember-paper/pull/1147) Use click instead of mouseUp to clear autocomplete (allowClear=true)
 - [#1154](https://github.com/miguelcobain/ember-paper/pull/1154) Fixed clearing a date field leaves it marked invalid in Chrome 83 (more info [#1153](https://github.com/miguelcobain/ember-paper/issues/1153))
