@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.33
+- [9ab6fd6](https://github.com/miguelcobain/ember-paper/commit/9ab6fd67563a94b95795e35940571a680638d1e3) fixes `<PaperMenu>` flying into screen from left side (closes [#1160](https://github.com/miguelcobain/ember-paper/issues/1160))
+
 ### 1.0.0-beta.32
 - [40e98b1](https://github.com/miguelcobain/ember-paper/commit/40e98b122808fd6d30a9c358fe14d03990ea04eb) allow disabling `<PaperMenu>` (closes [#774](https://github.com/miguelcobain/ember-paper/issues/774))
 - [d1336ee](https://github.com/miguelcobain/ember-paper/commit/d1336eef959e3016f696e72210f4327719ad94b4) add workaround for `Cannot read property 'appendChild' of null` error when running integration test with `<PaperMenu>` (closes [#1151](https://github.com/miguelcobain/ember-paper/issues/1151))
