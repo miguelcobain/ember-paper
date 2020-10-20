@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.34
+- [a30be23](https://github.com/miguelcobain/ember-paper/commit/a30be233d27239a7976b74ca631e3574ec47af74) bump `ember-cli-polyfill-importer` version. Previous version could be causing some build errors for not finding the polyfill files.
+
 ### 1.0.0-beta.33
 - [9ab6fd6](https://github.com/miguelcobain/ember-paper/commit/9ab6fd67563a94b95795e35940571a680638d1e3) fixes `<PaperMenu>` flying into screen from left side (closes [#1160](https://github.com/miguelcobain/ember-paper/issues/1160))
 
