@@ -1,5 +1,8 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.35
+- [09886b7](https://github.com/miguelcobain/ember-paper/commit/09886b7b68bc4cdb2dc163c72b598224ef842a4b) bump `ember-cli-polyfill-importer` version again. Turns out the previous version didn't fix all of the problems.
+
 ### 1.0.0-beta.34
 - [a30be23](https://github.com/miguelcobain/ember-paper/commit/a30be233d27239a7976b74ca631e3574ec47af74) bump `ember-cli-polyfill-importer` version. Previous version could be causing some build errors for not finding the polyfill files.
 
