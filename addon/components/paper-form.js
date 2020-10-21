@@ -40,6 +40,9 @@ export default Component.extend(ParentMixin, {
   },
 
   actions: {
+    setAllChilds(property, value) {
+      this.get('childComponents').setEach(property, value);
+    },
     onValidityChange() {
       if (this.get('lastIsValid') !== this.get('isValid') || this.get('lastIsTouched') !== this.get('isTouched')) {
         invokeAction(this, 'onValidityChange', this.get('isValid'), this.get('isTouched'), this.get('isInvalidAndTouched'));
