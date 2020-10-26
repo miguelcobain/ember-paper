@@ -33,11 +33,6 @@
   </PowerSelect>
 
   {{#unless this.hideAllMessages}}
-    <div class="md-errors-spacer" id={{concat this.inputElementId "-char-count"}}>
-      {{#if @maxlength}}
-        <div class="md-char-counter">{{this.renderCharCount}}</div>
-      {{/if}}
-    </div>
     {{#if this.isInvalidAndTouched}}
       <div class="md-input-messages-animation md-auto-hide" id={{concat this.inputElementId "-error-messages"}}>
         {{#each this.validationErrorMessages as |error index|}}
