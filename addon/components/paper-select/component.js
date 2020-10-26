@@ -4,6 +4,7 @@ import template from './template';
 import { tagName, layout } from '@ember-decorators/component';
 import { action } from '@ember/object';
 import { and } from '@ember/object/computed';
+import { guidFor } from '@ember/object/internals';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
@@ -28,6 +29,8 @@ class PaperSelect extends Component.extend(ValidationMixin, ChildMixin) {
   validationProperty = 'selected';
   isTouched = false;
   isFocused = false;
+  hideAllMessages = false;
+  inputElementId = 'input-' + guidFor(this);
 
   @and('isInvalid', 'isTouched')
   isInvalidAndTouched;
