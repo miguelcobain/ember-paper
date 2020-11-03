@@ -3,22 +3,90 @@ import template from './template';
 
 import { tagName, layout } from '@ember-decorators/component';
 import { action, computed } from '@ember/object';
+import { tracked } from '@glimmer/tracking'
 import calculatePosition from 'ember-paper/utils/calculate-ac-position';
 
-import ValidationMixin from 'ember-paper/mixins/validation-mixin';
-
+import { invokeAction } from 'ember-invoke-action';
 import { assert } from '@ember/debug';
 
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
+
+import { buildComputedValidationMessages, notifyValidityChange } from 'ember-paper/utils/validation';
+import requiredValidator from 'ember-paper/validators/required';
+import minValidator from 'ember-paper/validators/min';
+import maxValidator from 'ember-paper/validators/max';
+import minlengthValidator from 'ember-paper/validators/minlength';
+import maxlengthValidator from 'ember-paper/validators/maxlength';
+
+const validations = [
+  requiredValidator,
+  minValidator,
+  maxValidator,
+  minlengthValidator,
+  maxlengthValidator
+];
+
 @tagName('')
 @layout(template)
-class PaperAutocomplete extends Component.extend(ValidationMixin) {
+class PaperAutocomplete extends Component {
 
+  @tracked
   isTouched = false;
+
+  @computed('isTouched')
+  get formHasBeenValidated () {
+    return this.isTouched
+  }
+
+  set formHasBeenValidated (value) {
+    this.isTouched = value
+  }
+
+  validations = validations;
+
+  @tracked
+  errorMessages
+
+  @tracked
+  customValidations = []
+
+  @tracked
+  errors = []
+
+  @computed(
+    'onSearchTextChange',
+    'onSelectionChange',
+    'searchText',
+    'selected',
+    'errors.[]',
+    'customValidations.[]',
+    'errorMessages',
+    requiredValidator.param,
+    minValidator.param,
+    maxValidator.param,
+    minlengthValidator.param,
+    maxlengthValidator.param
+  )
+  get validationErrorMessages () {
+    const validationProperty = this.onSearchTextChange ? 'searchText' : 'selected';
+
+    return buildComputedValidationMessages.call(this, validationProperty)
+  }
+
+  @computed.bool('validationErrorMessages.length')
+  hasErrorMessages
+
+  @computed.reads('hasErrorMessages')
+  isInvalid
+
+  @computed.not('isInvalid')
+  isValid
 
   init() {
     this._initComponent();
     super.init(...arguments);
+
+    invokeAction(this, 'onRegister', this.get('elementId'), this.get('isValid'), this.get('isTouched'), this.get('isInvalidAndTouched'));
   }
 
   // Init autocomplete component
@@ -31,6 +99,18 @@ class PaperAutocomplete extends Component.extend(ValidationMixin) {
     assert('<PaperAutocomplete> requires at least one of the `@onSelectionChange` or `@onSearchTextChange` functions to be provided.', hasTextChange || hasSelectionChange);
   }
 
+  destroy () {
+    const eltId = this.get('elementId')
+
+    super.destroy(...arguments);
+
+    invokeAction(this, 'onUnregister', eltId);
+  }
+
+  notifyValidityChange() {
+    notifyValidityChange.call(this);
+  }
+
   @action
   _onChange() {
     if (this.onSelectionChange) {
@@ -39,15 +119,6 @@ class PaperAutocomplete extends Component.extend(ValidationMixin) {
   }
 
   calculatePosition = calculatePosition;
-
-  @computed('onSearchTextChange', 'onSelectionChange')
-  get validationProperty() {
-    if (this.onSearchTextChange) {
-      return 'searchText';
-    } else {
-      return 'selected';
-    }
-  }
 
   didReceiveAttrs() {
     super.didReceiveAttrs(...arguments);

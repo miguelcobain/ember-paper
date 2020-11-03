@@ -92,6 +92,10 @@
     <PaperCardContent>
 
       <p>
+        You can pass a <code>customValidations</code> array property to each input component (see <code>paper-input</code> for more details).
+      </p>
+
+      <p>
         If you prefer, you can trigger the submit action without using a submit button.
         <code>paper-form</code> also yields an <code>onSubmit</code> action you
         can use wherever you like, e.g: <br>
@@ -103,16 +107,21 @@
       </p>
 
       <p>
-        You can also extend paper-input to make your own custom components
-        (money inputs, phone inputs, etc.) and the form validation will still
-        work out of the box!
-        Just replace <strong>paper-input</strong> with your component's name.
+        Extending <code>paper-input</code> component will give you the opportunity to override some default behavior.
+        You can also work with any components you'd like.
+        For this, <code>paper-form</code> yields three actions and one property :
+        <ul>
+          <li><code>register</code>: to inform the form your component is influencing the global valid state</li>
+          <li><code>unregister</code>: to detach your component when it destroys (usually called in <code>willDestroyElement</code> hook)</li>
+          <li><code>validityChange</code>: to inform the form that the validity of your component changed</li>
+          <li><code>formHasBeenValidated</code>: changes when form is submitted / resetted</li>
+        </ul>
       </p>
 
       {{! BEGIN-SNIPPET form.custom-components }}
       <PaperForm @onSubmit={{action "customSubmitAction"}} as |form|>
         <div class="layout-row">
-          <PaperInput @label="Favorite Number" @value={{favoriteNumber}} @onChange={{action (mut favoriteNumber)}} @required={{true}} @min={{1}} @max={{10}} />
+          <PaperInput @label="Favorite Number" @value={{favoriteNumber}} @onRegister={{action form.register}} @onUnegister={{action form.unregister}} @onValidityChange={{action form.validityChange}} @onChange={{action (mut favoriteNumber)}} @required={{true}} @min={{1}} @max={{10}} />
         </div>
         <div class="layout-row">
           <form.submit-button @raised={{true}} @primary={{true}}>Submit</form.submit-button>

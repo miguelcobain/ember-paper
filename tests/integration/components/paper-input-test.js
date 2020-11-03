@@ -288,13 +288,13 @@ module('Integration | Component | paper-input', function(hooks) {
     this.value = 'aaabbbccc';
     this.customValidations = [{
       param: 'notinclude',
-      message: 'You can\'t include the substring %@.',
-      validate: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) === -1
+      message: 'You can\'t include the substring cc.',
+      validate: (value) => typeof value === 'string' && value.indexOf('cc') === -1
     }];
 
     await render(hbs`
       {{paper-input value=value onChange=dummyOnChange isTouched=true
-        maxlength=8 customValidations=customValidations notinclude="cc"}}
+        maxlength=8 customValidations=customValidations}}
     `);
 
     assert.dom('.paper-input-error').exists({ count: 2 }, 'renders two errors');
@@ -321,15 +321,14 @@ module('Integration | Component | paper-input', function(hooks) {
     assert.dom('.paper-input-error:first-child').hasText('This is required.');
   });
 
-  test('changing param in custom validations works', async function(assert) {
+  test('changing custom validations works', async function(assert) {
     assert.expect(6);
 
     this.value = 'aaabbbccc';
-    this.notinclude = 'cc';
     this.customValidations = [{
       param: 'notinclude',
-      message: 'You can\'t include the substring %@.',
-      validate: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) === -1
+      message: 'You can\'t include the substring cc.',
+      validate: (value) => typeof value === 'string' && value.indexOf('cc') === -1
     }];
 
     await render(hbs`
@@ -341,7 +340,11 @@ module('Integration | Component | paper-input', function(hooks) {
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
     assert.dom('.paper-input-error:last-child').hasText("You can't include the substring cc.");
 
-    this.set('notinclude', 'bb');
+    this.set('customValidations', [{
+      param: 'notinclude',
+      message: 'You can\'t include the substring bb.',
+      validate: (value) => typeof value === 'string' && value.indexOf('bb') === -1
+    }]);
 
     assert.dom('.paper-input-error').exists({ count: 2 });
     assert.dom('.paper-input-error:first-child').hasText('Must not exceed 8 characters.');
@@ -373,16 +376,16 @@ module('Integration | Component | paper-input', function(hooks) {
     this.value = 'aaabbbccc';
     this.customValidations = [{
       param: 'notinclude',
-      message: 'You can\'t include the substring %@.',
-      validate: (value, notinclude) => typeof value === 'string' && value.indexOf(notinclude) === -1
+      message: 'You can\'t include the substring cc.',
+      validate: (value) => typeof value === 'string' && value.indexOf('cc') === -1
     }];
 
     await render(hbs`
       {{paper-input value=value onChange=dummyOnChange isTouched=true
-        maxlength=8 customValidations=customValidations notinclude="cc"
+        maxlength=8 customValidations=customValidations
         errorMessages=(hash
           maxlength="Too small, baby!"
-          notinclude="Can't have %@, baby!"
+          notinclude="Can't have cc, baby!"
         )}}
     `);
 
@@ -402,7 +405,9 @@ module('Integration | Component | paper-input', function(hooks) {
       attribute: 'foo'
     }];
 
-    await render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
+    await render(hbs`{{paper-input onChange=dummyOnChange errors=errors}}`);
+
+    await triggerEvent('input:first-of-type', 'blur');
 
     assert.dom('.paper-input-error').exists({ count: 2 }, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('foo should be a number.');
@@ -417,7 +422,9 @@ module('Integration | Component | paper-input', function(hooks) {
       'foo should be smaller than 12.'
     ];
 
-    await render(hbs`{{paper-input onChange=dummyOnChange errors=errors isTouched=true}}`);
+    await render(hbs`{{paper-input onChange=dummyOnChange errors=errors}}`);
+
+    await triggerEvent('input:first-of-type', 'blur');
 
     assert.dom('.paper-input-error').exists({ count: 2 }, 'renders two errors');
     assert.dom('.paper-input-error:first-child').hasText('foo should be a number.');
