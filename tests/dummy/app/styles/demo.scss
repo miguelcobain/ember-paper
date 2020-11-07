@@ -146,6 +146,14 @@ ul li:first-child {
   margin: 16px;
 }
 
+.doc-content--text-page {
+  margin: 0 auto;
+}
+
+.doc-content-example {
+  position: relative;
+}
+
 .doc-code-example {
   /* Initially we don't want any height, and we want the contents to be hidden */
   max-height: 0;
@@ -164,10 +172,6 @@ ul li:first-child {
   pre {
     margin-top: 0;
   }
-}
-
-.doc-content-example {
-  position: relative;
 }
 
 .list-demo .face {
