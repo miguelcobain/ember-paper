@@ -12,6 +12,9 @@ export default class extends Controller {
   @tracked toastText = 'Hello world';
   @tracked toastClass = '';
 
+  @tracked showToast = false;
+  @tracked showToastWithout = false;
+
   @action
   openToast() {
     this.showToast = true;
@@ -33,11 +36,6 @@ export default class extends Controller {
 
   @action
   openServiceActionToast() {
-    console.log({
-      duration: 4000,
-      toastClass: this.toastClass,
-      position: 'top right',
-    });
     this.paperToaster.show(this.toastText, {
       duration: 4000,
       toastClass: this.toastClass,
