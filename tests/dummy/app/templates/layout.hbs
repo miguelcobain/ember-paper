@@ -1,0 +1,42 @@
+<PaperSidenavContainer>
+  <PaperSidenav @class="md-whiteframe-z2" @lockedOpen={{true}} style="min-height: 100vh;">
+    <PaperContent @scroll-y={{true}}>
+      <PaperList>
+        <PaperItem @class="md-2-line" @href={{href-to "layout.introduction"}}>
+          {{paper-icon "view_compact"}}
+          <div class="md-list-item-text">
+            Introduction
+          </div>
+        </PaperItem>
+      </PaperList>
+      <PaperList>
+        <PaperItem @class="md-2-line" @href={{href-to "layout.child-alignment"}}>
+          {{paper-icon "view_day"}}
+          <div class="md-list-item-text">
+            Child Alignments
+          </div>
+        </PaperItem>
+      </PaperList>
+      <PaperList>
+        <PaperItem @class="md-2-line" @href={{href-to "layout.layout-children"}}>
+          {{paper-icon "view_comfy"}}
+          <div class="md-list-item-text">
+            Layout Children
+          </div>
+        </PaperItem>
+      </PaperList>
+      <PaperList>
+        <PaperItem @class="md-2-line" @href={{href-to "layout.layout-containers"}}>
+          {{paper-icon "view_quilt"}}
+          <div class="md-list-item-text">
+            Layout Containers
+          </div>
+        </PaperItem>
+      </PaperList>
+    </PaperContent>
+  </PaperSidenav>
+
+  <div class="flex layout-column">
+    {{outlet}}
+  </div>
+</PaperSidenavContainer>

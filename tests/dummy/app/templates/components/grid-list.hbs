@@ -1,0 +1,100 @@
+<Doc>
+  <h1 class="header">Grid</h1>
+  <h2 class="header">Basic Usage</h2>
+  <div class="layout-column layout-align-center-center" style="height:300px;">
+    <PaperContent @class="md-whiteframe-z1" style="height:100%;width:100%;">
+
+      {{! BEGIN-SNIPPET grid-list.basic-usage }}
+      <PaperGridList @cols="1 md-2 gt-md-6" @rowHeight="gt-md-1:1 2:2" @gutter="12px gt-sm-8px" as |grid|>
+
+        <grid.tile @class="gray" @rowspan="2" @colspan="sm-1 gt-sm-2" as |tile|>
+          <tile.footer>
+            <h3>#1: (3r x 2c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+        <grid.tile @class="green" as |tile|>
+          <tile.footer>
+            <h3>#2: (1r x 1c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+        <grid.tile @class="yellow" as |tile|>
+          <tile.footer>
+            <h3>#3: (1r x 1c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+        <grid.tile @class="blue" @rowspan="2" as |tile|>
+          <tile.footer>
+            <h3>#4: (2r x 1c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+        <grid.tile @class="red" @rowspan="2" @colspan="sm-1 gt-sm-2" as |tile|>
+          <tile.footer>
+            <h3>#5: (2r x 2c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+        <grid.tile @class="green" @rowspan="2" as |tile|>
+          <tile.footer>
+            <h3>#6: (2r x 1c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+      </PaperGridList>
+      {{! END-SNIPPET }}
+    </PaperContent>
+  </div>
+
+  {{#let (get-code-snippet "grid-list.basic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Dynamic Tiles</h2>
+  <div class="layout-column layout-align-center-center" style="height:300px;">
+    <PaperContent @class="md-whiteframe-z1" style="height:100%;width:100%;">
+      {{! BEGIN-SNIPPET grid-list.dynamic-tiles }}
+      <PaperGridList @cols="sm-2 md-4 gt-md-6" @rowHeight="4:3 gt-md-1:1" @gutter="8px gt-sm-4px" as |grid|>
+        {{#each tiles as |dynamicTile|}}
+          <grid.tile @rowspan={{dynamicTile.span.row}} @colspan={{concat dynamicTile.span.col " xs-1"}} @class={{dynamicTile.background}} as |tile|>
+            <md-icon></md-icon>
+            <tile.footer>
+              <h3>{{dynamicTile.title}}</h3>
+            </tile.footer>
+          </grid.tile>
+        {{/each}}
+      </PaperGridList>
+      {{! END-SNIPPET }}
+    </PaperContent>
+  </div>
+
+  {{#let (get-code-snippet "grid-list.dynamic-tiles.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Responsive and Animated Usage</h2>
+  <div class="layout-column layout-align-center-center" style="height:300px;">
+    <PaperContent @class="md-whiteframe-z1" style="height:100%;width:100%;">
+      {{! BEGIN-SNIPPET grid-list.responsive }}
+      <PaperGridList @class="grid-list-demo-responsiveTiles" @cols="3 md-8 gt-md-12" @rowHeight="4:3 gt-md-1:1" @gutter="4px md-8px gt-md-16px" as |grid|>
+        {{#each colorTiles as |tile|}}
+          <grid.tile @colspan={{tile.colspan}} @rowspan={{tile.rowspan}} @class={{tile.style}}></grid.tile>
+        {{/each}}
+      </PaperGridList>
+      {{! END-SNIPPET }}
+    </PaperContent>
+  </div>
+
+  {{#let (get-code-snippet "grid-list.responsive.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+</Doc>

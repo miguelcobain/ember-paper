@@ -1,0 +1,160 @@
+<Doc>
+  <h1 class="header">Sidenav</h1>
+  <h2 class="header">Basic Usage</h2>
+  <div class="layout-column layout-align-center-center">
+    <div class="layout-align-space-around-stretch layout-row">
+      <div class="layout-column layout-align-start-center">
+        <h4>Direction</h4>
+        <PaperRadioGroup @groupValue={{direction}} @onChange={{action (mut direction)}} as |group|>
+          <group.radio @value="up">Up</group.radio>
+          <group.radio @value="down">Down</group.radio>
+          <group.radio @value="left">Left</group.radio>
+          <group.radio @value="right">Right</group.radio>
+        </PaperRadioGroup>
+      </div>
+
+      <div class="layout-column layout-align-start-center">
+        <h4>Open/Closed</h4>
+        <PaperCheckbox @value={{open}} @onChange={{action (mut open)}}>
+          open
+        </PaperCheckbox>
+      </div>
+
+      <div class="layout-column layout-align-start-center">
+        <h4>Animation</h4>
+        <PaperRadioGroup @groupValue={{animation}} @onChange={{action (mut animation)}} as |group|>
+          <group.radio @value="fling">Fling</group.radio>
+          <group.radio @value="scale">Scale</group.radio>
+        </PaperRadioGroup>
+      </div>
+
+    </div>
+
+    <PaperContent>
+      <div class="layout-align-center-center layout-row" style="min-height: 300px; overflow: hidden">
+        {{! BEGIN-SNIPPET speed-dial.basic-usage}}
+        <PaperSpeedDial @animation={{animation}} @direction={{direction}} @open={{open}} @onToggle={{action (mut open)}} as |dial|>
+          <dial.trigger>
+            <PaperButton @fab={{true}}>
+              {{paper-icon "menu"}}
+            </PaperButton>
+          </dial.trigger>
+
+          <dial.actions as |actions|>
+            <actions.action>
+              <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
+                {{paper-icon "people"}}
+              </PaperButton>
+            </actions.action>
+
+            <actions.action>
+              <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
+                {{paper-icon "accessibility"}}
+              </PaperButton>
+            </actions.action>
+
+            <actions.action>
+              <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
+                {{paper-icon "check-circle"}}
+              </PaperButton>
+            </actions.action>
+          </dial.actions>
+        </PaperSpeedDial>
+        {{! END-SNIPPET }}
+      </div>
+    </PaperContent>
+  </div>
+
+  <div>
+    <p>
+      You may supply a direction of <code>left</code>, <code>up</code>, <code>down</code>, or
+      <code>right</code> through the <code>direction</code> attribute. Default value is <code>down</code>.
+    </p>
+    <p>
+      There are also two available animations. Specify <code>fling</code> or <code>scale</code> strings
+      through the <code>animation</code> attribute. Default value is <code>fling</code>.
+    </p>
+    <p>
+      The component can also take a <code>open</code> attribute and an <code>onToggle</code> pair, much like
+      <code>paper-sidenav</code>. Use the pair to control the open status of the speed dial.
+    </p>
+  </div>
+
+  {{#let (get-code-snippet "speed-dial.basic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Advanced Usage</h2>
+  <div class="layout-column layout-align-center-center">
+    <div>
+      <p>
+        By default, it only works when you hover the speed dial's trigger. However, if you want to
+        open it by hovering the whole speed dial space including its actions, you can pass in
+        <code>hoverFull=true</code>. Try it with the following checkbox:
+      </p>
+      <PaperCheckbox @value={{hoverFull}} @onChange={{action (mut hoverFull)}}>
+        hoverFull
+      </PaperCheckbox>
+    </div>
+    <div>
+      {{! BEGIN-SNIPPET speed-dial.advanced-usage}}
+      <PaperSpeedDial @onMouseEnter={{action (mut open2) true}} @onMouseLeave={{action (mut open2) false}} @open={{open2}} @onToggle={{action (mut open2)}} @hoverFull={{hoverFull}} as |dial|>
+        <dial.trigger>
+          <PaperButton @fab={{true}}>
+            {{paper-icon "menu"}}
+          </PaperButton>
+        </dial.trigger>
+
+        <dial.actions as |actions|>
+          <actions.action>
+            <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
+              {{paper-icon "people"}}
+            </PaperButton>
+          </actions.action>
+
+          <actions.action>
+            <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
+              {{paper-icon "accessibility"}}
+            </PaperButton>
+          </actions.action>
+
+          <actions.action>
+            <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
+              {{paper-icon "check-circle"}}
+            </PaperButton>
+          </actions.action>
+        </dial.actions>
+      </PaperSpeedDial>
+      {{! END-SNIPPET }}
+    </div>
+
+    <div>
+      You can use the <code>onMouseEnter</code> and <code>onMouseLeave</code> actions to control
+      the <code>open</code> attribute. This results in a speed dial that opens when you hover it.
+    </div>
+  </div>
+
+  {{#let (get-code-snippet "speed-dial.advanced-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+</Doc>
+
+{{#if showDialog}}
+  <PaperDialog @fullscreen={{fullscreen}} @onClose={{action (mut showDialog) false}}>
+
+    <PaperDialogContent>
+      <h2 class="md-title">An action was clicked!</h2>
+      <p>Close this dialog and try another button.</p>
+    </PaperDialogContent>
+
+    <PaperDialogActions @class="layout-row">
+      <span class="flex"></span>
+      <PaperButton @primary={{true}} @onClick={{action (mut showDialog) false}}>Okay!</PaperButton>
+    </PaperDialogActions>
+
+  </PaperDialog>
+{{/if}}

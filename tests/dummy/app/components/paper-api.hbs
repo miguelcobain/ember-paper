@@ -1,0 +1,38 @@
+{{#if title}}
+  <i class="paper-api--title">{{title}}</i>
+{{/if}}
+
+{{yield}}
+{{! template-lint-disable table-groups }}
+<table class="paper-api--table">
+  {{#if header}}
+    <thead>
+      <tr>
+        {{#each header as |heading|}}
+          <th>{{heading}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+  {{/if}}
+  {{#each categories as |category|}}
+    <tbody>
+      {{#each category as |row|}}
+        {{#if (is-subheading row)}}
+          <tr class="subheading">
+            <td colspan="3">{{row}}</td>
+          </tr>
+        {{else}}
+          <tr>
+            {{#each row as |cell index|}}
+              {{#if index}}
+                <td>{{cell}}</td>
+              {{else}}
+                <td><code>{{cell}}</code></td>
+              {{/if}}
+            {{/each}}
+          </tr>
+        {{/if}}
+      {{/each}}
+    </tbody>
+  {{/each}}
+</table>

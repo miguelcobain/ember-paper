@@ -1,0 +1,103 @@
+<Doc>
+  <h1 class="header">Chips</h1>
+  <PaperCheckbox @value={{readOnly}} @onChange={{action (mut readOnly)}}>
+    Read Only
+  </PaperCheckbox>
+
+  <h2>Default Template</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.default }}
+    <PaperChips @content={{this.fruitNames}} @readOnly={{readOnly}} @removeItem={{this.removeItem}} @addItem={{this.addItem}} @placeholder="Add a tag" />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "chips.default.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Custom Template</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.custom }}
+    <PaperChips @readOnly={{readOnly}} @removeItem={{this.removeCustomItem}} @addItem={{this.addCustomItem}} @placeholder="Add a tag" @content={{this.customFruitNames}} as |item|>
+      <strong>{{item}}</strong>
+      <em>(fruit)</em>
+    </PaperChips>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "chips.custom.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Autocomplete</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.autocomplete }}
+    <PaperChips @readOnly={{readOnly}} @removeItem={{this.removeVegetable}} @addItem={{this.addVegetable}} @placeholder="Add a vegetable" @content={{this.vegetables}} @options={{this.remainingVegetables}} @searchField="name" @noMatchesMessage="Not found. Click to add." as |item|>
+      <strong>{{item.name}}</strong>
+      {{#if item.family}}
+        <em>{{item.family}}</em>
+      {{/if}}
+    </PaperChips>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "chips.autocomplete.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Autocomplete (requires match)</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.autocomplete-requires-match }}
+    <PaperChips @readOnly={{readOnly}} @removeItem={{this.removeVegeName}} @addItem={{this.addVegeName}} @placeholder="Add a vegetable" @content={{this.vegeNames}} @options={{this.remainingVegeNames}} @requireMatch={{true}} />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "chips.autocomplete-requires-match.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+
+  <h2 class="header">Contact</h2>
+  <div class="layout-column layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.contact }}
+    <PaperContactChips @readOnly={{readOnly}} @removeItem={{this.removeContact}} @addItem={{this.addContact}} @placeholder="Add a contact" @content={{this.selectedContacts}} @options={{this.remainingContacts}} />
+    {{! END-SNIPPET }}
+
+    <blockquote>
+      <code>paper-contact-chips</code> expects the name, email address and image
+      to be supplied as <code>name</code>, <code>email</code> and <code>image</code>
+      respectively. If your field names differ from these, specify them using the
+      <code>nameField</code>, <code>emailField</code> and <code>imageField</code>
+      parameters, and specify <code>searchField</code> to configure which field the
+      autocomplete should search against:
+    </blockquote>
+  </div>
+
+  {{#let (get-code-snippet "chips.contact.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Contact Alt</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET chips.contact-alt }}
+    <PaperContactChips @readOnly={{readOnly}} @removeItem={{this.removeAltContact}} @addItem={{this.addAltContact}} @placeholder="Add a contact" @content={{this.selectedAltContacts}} @options={{this.remainingAltContacts}} @nameField="shortName" @emailField="emailAddress" @imageField="profileImage" @searchField="emailAddress" />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "chips.contact-alt.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+</Doc>

@@ -1,0 +1,143 @@
+<Doc>
+  <h1 class="header"> Loading </h1>
+  <h2 class="header"> Circlular </h2>
+  <h3 class="header">Determinate</h3>
+  <p>For operations where the percentage of the operation completed can be determined, use a determinate indicator. They give users a quick sense of how long an operation will take.</p>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET progress-circular.determinate }}
+    <PaperProgressCircular @value={{determinateValue}} />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "progress-circular.determinate.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h3 class="header">Indeterminate</h3>
+  <p>For operations where the user is asked to wait a moment while something finishes up, and it’s not necessary to expose what's happening behind the scenes and how long it will take, use an indeterminate indicator.</p>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET progress-circular.indeterminate }}
+    <PaperProgressCircular />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "progress-circular.indeterminate.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h3 class="header">Theming</h3>
+  <div class="layout-row layout-align-space-around-center">
+    {{! BEGIN-SNIPPET progress-circular.theming }}
+    <PaperProgressCircular @class="md-hue-2" @diameter={{25}} />
+    <PaperProgressCircular @accent={{true}} @diameter={{40}} />
+    <PaperProgressCircular @accent={{true}} @class="md-hue-1" @diameter={{60}} />
+    <PaperProgressCircular @warn={{true}} @class="md-hue-3" @diameter={{70}} />
+    <PaperProgressCircular @warn={{true}} @diameter={{96}} />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "progress-circular.theming.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h3 class="header">Playground</h3>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET progress-circular.playground }}
+    <PaperProgressCircular @value={{sliderValue}} @diameter={{sliderDiameter}} @strokeRatio={{strokeRatio}} @disabled={{isDisabled}} />
+    {{! END-SNIPPET }}
+
+    <div style="margin-left: 50px;">
+      <PaperCheckbox @value={{isIndeterminate}} @onChange={{action "setIndeterminate"}}>
+        Indeterminate
+      </PaperCheckbox>
+      <PaperCheckbox @value={{isDisabled}} @onChange={{action (mut isDisabled)}}>
+        Disabled
+      </PaperCheckbox>
+      <div class="layout layout-align-center-center slider-container">
+        <span class="flex">Value ({{if sliderValue sliderValue "null"}})</span>
+        <PaperSlider @class="flex" @value={{sliderValue}} @min={{0}} @max={{100}} @onChange={{action "setValue"}} />
+      </div>
+
+      <div class="layout layout-align-center-center slider-container">
+        <span class="flex">Diameter ({{sliderDiameter}})</span>
+        <PaperSlider @class="flex" @value={{sliderDiameter}} @min={{0}} @max={{300}} @onChange={{action (mut sliderDiameter)}} />
+      </div>
+
+      <div class="layout layout-align-center-center slider-container">
+        <span class="flex">Stroke ratio ({{strokeRatio}})</span>
+        <PaperSlider @class="flex" @value={{strokeRatio}} @min={{0}} @max={{0.5}} @step={{0.0025}} @onChange={{action (mut strokeRatio)}} />
+      </div>
+    </div>
+  </div>
+
+  {{#let (get-code-snippet "progress-circular.playground.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header"> Linear </h2>
+
+  <h3 class="header">Determinate mode</h3>
+  <p>For operations where the percentage of the operation completed can be determined, use a determinate indicator. They give users a quick sense of how long an operation will take.</p>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET progress-linear.determinate }}
+    <PaperProgressLinear @value={{determinateValue}} />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "progress-linear.determinate.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h3 class="header">Indeterminate mode</h3>
+  <p>For operations where the user is asked to wait a moment while something finishes up, and it's not necessary to expose what's happening behind the scenes and how long it will take, use an indeterminate indicator:</p>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET progress-linear.indeterminate }}
+    <PaperProgressLinear />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "progress-linear.indeterminate.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h3 class="header">Buffer mode</h3>
+  <p>For operations where the user wants to indicate some activity or loading from the server, use the buffer indicator:</p>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET progress-linear.buffer }}
+    <PaperProgressLinear @warn={{true}} @value={{determinateValue}} @bufferValue={{determinateValue2}} />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "progress-linear.buffer.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h3 class="header">Query mode</h3>
+  <p>For situations where the user wants to indicate pre-loading (until the loading can actually be made), use the query indicator:</p>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET progress-linear.query }}
+    <PaperProgressLinear @accent={{true}} @mode={{mode}} @value={{determinateValue}} />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "progress-linear.query.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+</Doc>

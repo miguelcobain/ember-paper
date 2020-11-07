@@ -1,0 +1,117 @@
+<Doc>
+
+  <h1 class="header">Select</h1>
+  <h2 class="header">Basic Usage</h2>
+  <div class="layout-column layout-align-center-center">
+    <p>Enter an address</p>
+    <p>
+      <PaperCheckbox @label="Disable select" @value={{disableSelect}} @onChange={{action (mut disableSelect)}} />
+    </p>
+    <div class="layout-row">
+      {{! BEGIN-SNIPPET select.basic-usage }}
+      <PaperInput @label="Street Name" @value={{street}} @onChange={{action (mut street)}} />
+      <PaperInput @label="City" @value={{city}} @onChange={{action (mut city)}} />
+      <PaperSelect @disabled={{disableSelect}} @label="State" @options={{states}} @selected={{userState}} @onChange={{action (mut userState)}} as |state|>
+        {{state.abbrev}}
+      </PaperSelect>
+      {{! END-SNIPPET }}
+    </div>
+  </div>
+
+  {{#let (get-code-snippet "select.basic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <div class="layout-column layout-align-center-center">
+    <p>Paper select is based on Ember power select, advanced documentation can be found <a href="https://ember-power-select.com/docs">here</a>.</p>
+    {{#paper-api
+        (p-section
+          (p-row "disabled" "boolean" "Should the select field be disabled? Default is `false`.")
+          (p-row "label" "string" "Field label. Same as paper-input.")
+          (p-row "options" "array" "List of selectable options.")
+          (p-row "selected" "object" "Value of selected option.")
+        )
+          title="Select Helpers"
+    }}
+    {{/paper-api}}
+  </div>
+
+  <h2 class="header">Option groups</h2>
+
+  <div class="layout-column layout-align-center-center">
+    <p>Pick your pizza below</p>
+    <div class="layout-row">
+      {{! BEGIN-SNIPPET select.option-groups }}
+      <PaperSelect @options={{sizes}} @label="Size" @required={{true}} @selected={{pizzaSize}} @onChange={{action (mut pizzaSize)}} as |size|>
+        {{size}}
+      </PaperSelect>
+      <PaperSelect @options={{groupedToppings}} @label="Topping" @selected={{topping}} @onChange={{action (mut topping)}} as |topping|>
+        {{topping}}
+      </PaperSelect>
+      {{! END-SNIPPET }}
+    </div>
+  </div>
+
+  {{#let (get-code-snippet "select.option-groups.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Options with async search</h2>
+
+  <div class="layout-column layout-align-center-center">
+    <p>
+      Select will correctly resolve any promise you pass to the <code>options</code> property.
+    </p>
+    <div class="layout-column layout-align-center-center" style="height: 130px;">
+      {{! BEGIN-SNIPPET select.async-search }}
+      <PaperSelect @placeholder="Assign to a user" @selected={{selectedUser}} @options={{users}} @onChange={{action (mut selectedUser)}} as |user|>
+        {{user.name}}
+      </PaperSelect>
+
+      {{#if selectedUser}}
+        <p>You have selected the user <code>{{selectedUser.name}}</code></p>
+      {{/if}}
+      {{! END-SNIPPET }}
+    </div>
+  </div>
+
+  {{#let (get-code-snippet "select.async-search.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Select with Search</h2>
+  <p>Paper select can include a paper-input field at the top of the dropdown which acts as a live filter for the paper-select options. For additional documentation on search, please refer to the power-select docs <a href="https://ember-power-select.com/docs/the-search">here</a>.</p>
+  <div class="layout-column layout-align-center-center">
+    <div class="layout-column layout-align-center-center" style="height: 130px;">
+      {{! BEGIN-SNIPPET select.select-header }}
+      <PaperSelect @placeholder="Vegetable" @selected={{selectedVegetable}} @options={{vegetables}} @searchField="name" @searchPlaceholder="Search for a vegetable.." @searchEnabled={{true}} @onChange={{action (mut selectedVegetable)}} as |vegetable|>
+        {{vegetable.name}}
+      </PaperSelect>
+      {{! END-SNIPPET }}
+    </div>
+  </div>
+
+  {{#let (get-code-snippet "select.select-header.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <div class="layout-column layout-align-center-center">
+    {{#paper-api
+        (p-section
+          (p-row "searchField" "string" "Field name of provided options which search filter should compare against.")
+          (p-row "searchPlaceholder" "string" "Placeholder for paper-input which is displayed at top of paper-select dropdown.")
+          (p-row "searchEnabled" "boolean" "Enable paper-select to be searchable. Default is false.")
+        )
+          title="Select Search Helpers"
+    }}
+    {{/paper-api}}
+  </div>
+</Doc>

@@ -1,0 +1,313 @@
+<Doc>
+  <h1 class="header">List</h1>
+
+  <h2 class="header">3 Line Item</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET list.3-line }}
+    <PaperList>
+      <PaperSubheader>3 line item</PaperSubheader>
+      {{#each listData as |item|}}
+        <PaperItem @class="md-3-line">
+          <img src={{item.img}} alt={{item.name}} class="md-avatar">
+          <div class="md-list-item-text">
+            <h3>{{item.name}}</h3>
+            <h4>{{item.email}}</h4>
+            <p>Some longer notes here could be here. But they aren't.</p>
+          </div>
+        </PaperItem>
+      {{/each}}
+    </PaperList>
+
+    <PaperList>
+      <PaperSubheader>3 line item, long paragraph</PaperSubheader>
+      {{#each listData as |item|}}
+        <PaperItem @class="md-3-line md-long-text">
+          <img src={{item.img}} alt={{item.name}} class="md-avatar">
+          <div class="md-list-item-text">
+            <h3>{{item.name}}</h3>
+            <p>
+              Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
+              Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
+              velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+            </p>
+          </div>
+        </PaperItem>
+      {{/each}}
+    </PaperList>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "list.3-line.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">2 Line Item</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET list.2-line }}
+    <PaperList>
+      <PaperSubheader>2 line item</PaperSubheader>
+      {{#each listData as |item|}}
+        <PaperItem @class="md-2-line">
+          <img src={{item.img}} alt={{item.name}} class="md-avatar">
+          <div class="md-list-item-text">
+            <h3>{{item.name}}</h3>
+            <p>{{item.email}}</p>
+          </div>
+        </PaperItem>
+      {{/each}}
+    </PaperList>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "list.2-line.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Icons</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET list.icons }}
+    <PaperList>
+      <PaperSubheader>Icons</PaperSubheader>
+      {{#each phoneNumbers as |phone|}}
+        <PaperItem @class="md-2-line">
+          {{paper-icon "phone" class="md-avatar-icon"}}
+          <div class="md-list-item-text">
+            <h3>{{phone.number}}</h3>
+            <p>{{phone.type}}</p>
+          </div>
+        </PaperItem>
+      {{/each}}
+    </PaperList>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "list.icons.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Single Actions</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET list.singe-actions }}
+    <PaperList>
+      <PaperSubheader>Single Action Checkboxes</PaperSubheader>
+      {{#each toppings as |topping|}}
+        <PaperItem as |controls|>
+          <p>{{topping.name}}</p>
+          <div class="md-secondary-container">
+            <controls.checkbox @value={{topping.enabled}} @secondary={{true}} @onChange={{action (mut topping.enabled)}} />
+          </div>
+        </PaperItem>
+      {{/each}}
+    </PaperList>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "list.singe-actions.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+  {{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Secondary Buttons</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET list.secondary-buttons }}
+    <PaperList>
+      <PaperSubheader>Secondary Buttons</PaperSubheader>
+      <PaperItem as |controls|>
+        <p>Clicking the button to the right will fire the secondary action</p>
+        <div class="md-secondary-container">
+          <controls.button @secondary={{true}} @onClick={{action "transitionTo" "more info"}}>
+            More Info
+          </controls.button>
+        </div>
+      </PaperItem>
+      <PaperItem @onClick={{action "transitionTo" "primary action"}} as |controls|>
+        <p>Click anywhere to fire the primary action, or the button to fire the secondary</p>
+        <div class="md-secondary-container">
+          <controls.button @secondary={{true}} @onClick={{action "transitionTo" "secondary action"}}>
+            More Info
+          </controls.button>
+        </div>
+      </PaperItem>
+    </PaperList>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "list.secondary-buttons.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+  {{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Clickable Secondary Controls</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET list.clickable-secondary-controls }}
+    <PaperList>
+      <PaperSubheader>Clickable Items with Secondary Controls</PaperSubheader>
+      <PaperItem @onClick={{action "transitionToWifiMenu"}} as |controls|>
+        {{paper-icon "network-wifi"}}
+        <p>Wi-Fi</p>
+        <div class="md-secondary-container">
+          <controls.switch @secondary={{true}} @value={{wifiEnabled}} @onChange={{action (mut wifiEnabled)}} />
+        </div>
+      </PaperItem>
+      <PaperItem @onClick={{action "transitionToBluetoothMenu"}} as |controls|>
+        {{paper-icon "bluetooth"}}
+        <p>Bluetooth</p>
+        <div class="md-secondary-container">
+          <controls.switch @secondary={{true}} @value={{bluetoothEnabled}} @onChange={{action (mut bluetoothEnabled)}} />
+        </div>
+      </PaperItem>
+      <PaperItem @onClick={{action "transitionToDataUsage"}}>
+        {{paper-icon "data-usage"}}
+        <p>Data Usage</p>
+      </PaperItem>
+    </PaperList>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "list.clickable-secondary-controls.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+  {{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Checkbox Secondary Controls</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET list.checkbox-secondary-controls }}
+    <PaperList>
+      <PaperSubheader>Checkbox with Secondary Action</PaperSubheader>
+      {{#each messageData as |item|}}
+        <PaperItem as |controls|>
+          <controls.checkbox @value={{item.checked}} @onChange={{action (mut item.checked)}} />
+          <p>{{item.message}}</p>
+          <div class="md-secondary-container">
+            <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryMessageClick" item}}>
+              {{paper-icon "message"}}
+            </controls.button>
+          </div>
+        </PaperItem>
+      {{/each}}
+    </PaperList>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "list.checkbox-secondary-controls.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+  {{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Avatar with Secondary Controls</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET list.avatar-secondary-controls }}
+    <PaperList>
+      <PaperSubheader>Avatar with Secondary Action Icon</PaperSubheader>
+      {{#each listData as |item|}}
+        <PaperItem @onClick={{action "goToPerson" item}} as |controls|>
+          <img src={{item.img}} alt={{item.name}} class="md-avatar">
+          <p>{{item.name}}</p>
+          <div class="md-secondary-container">
+            <controls.checkbox @value={{item.checked}} @onChange={{action (mut item.checked)}} />
+            <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryMessageClick" item}}>
+              {{paper-icon "email"}}
+            </controls.button>
+            <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryMessageClick" item}}>
+              {{paper-icon "message"}}
+            </controls.button>
+          </div>
+        </PaperItem>
+      {{/each}}
+    </PaperList>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "list.avatar-secondary-controls.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+  {{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Clickable Avatars</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET list.clickable-avatars }}
+    <PaperList>
+      <PaperSubheader>Clickable Avatars</PaperSubheader>
+      {{#each listData as |item|}}
+        <PaperItem @class="md-3-line" @onClick={{action "goToPerson" item}}>
+          <img src={{item.img}} alt={{item.name}} class="md-avatar">
+          <div class="md-list-item-text">
+            <h3>{{item.name}}</h3>
+            <h4>{{item.email}}</h4>
+            <p>Some notes here.</p>
+          </div>
+        </PaperItem>
+      {{/each}}
+    </PaperList>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "list.clickable-avatars.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+  {{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Avatars Secondary Control Icons</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET list.avatars-secondary-control-icons }}
+    <PaperList>
+      <PaperSubheader>Avatar with Secondary Action Icon</PaperSubheader>
+      {{#each listData as |item|}}
+        <PaperItem @class="md-3-line" @onClick={{action "goToPerson" item}} as |controls|>
+          <img src={{item.img}} alt={{item.name}} class="md-avatar">
+          <div class="md-list-item-text">
+            <h3>{{item.name}}</h3>
+            <h4>{{item.email}}</h4>
+            <p>Some notes here.</p>
+          </div>
+          <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryPersonClick" item}}>
+            {{paper-icon "phone"}}
+          </controls.button>
+        </PaperItem>
+      {{/each}}
+    </PaperList>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "list.avatars-secondary-control-icons.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+  {{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Radio Actions</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET list.single-actions-radios }}
+    <PaperList>
+      <PaperSubheader>Single Action Radios</PaperSubheader>
+      {{#each toppings as |topping|}}
+        <PaperItem as |controls|>
+          <p>{{topping.name}}</p>
+          <div class="md-secondary-container">
+            <controls.radio @groupValue={{radioSelectedTopping}} @value={{topping}} @secondary={{true}} @onChange={{action (mut radioSelectedTopping)}} />
+          </div>
+        </PaperItem>
+      {{/each}}
+    </PaperList>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "list.single-actions-radios.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+  {{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+</Doc>

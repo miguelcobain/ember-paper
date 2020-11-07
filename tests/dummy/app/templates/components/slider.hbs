@@ -1,0 +1,91 @@
+<Doc>
+  <h1 class="header">Slider</h1>
+  <h2 class="header">Basic Usage</h2>
+  <div class="layout-column layout-align-center-center">
+    {{! BEGIN-SNIPPET slider.basic-usage }}
+    <h2>
+      RGB <span style={{colorStyle}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </h2>
+
+    <div class="layout layout-align-center-center slider-container">
+      <span>R</span>
+      <PaperSlider @class="flex" @min={{0}} @max={{255}} @value={{this.red}} @onChange={{action (mut this.red)}} />
+      ({{this.red}})
+    </div>
+
+    <div class="layout layout-align-center-center slider-container">
+      <span>G</span>
+      <PaperSlider @class="flex md-accent" @min={{0}} @max={{255}} @value={{this.green}} @onChange={{action (mut this.green)}} />
+      ({{this.green}})
+    </div>
+
+    <div class="layout layout-align-center-center slider-container">
+      <span>B</span>
+      <PaperSlider @class="flex md-primary" @min={{0}} @max={{255}} @value={{this.blue}} @onChange={{action (mut this.blue)}} />
+      ({{this.blue}})
+    </div>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "slider.basic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Theming</h2>
+  <div class="layout-column layout-align-center-center">
+    {{! BEGIN-SNIPPET slider.theming }}
+    <div class="layout layout-align-center-center slider-container">
+      <div class="layout flex layout-align-center-center">
+        <span>default</span>
+      </div>
+      <PaperSlider @class="flex" @discrete={{true}} @value={{rating1}} @step={{1}} @min={{1}} @max={{5}} @onChange={{action (mut rating1)}} />
+    </div>
+    <div class="layout layout-align-center-center slider-container">
+      <div class="layout flex layout-align-center-center">
+        <span>md-warn</span>
+      </div>
+      <PaperSlider @class="flex" @warn={{true}} @discrete={{true}} @value={{rating2}} @step={{1}} @min={{1}} @max={{5}} @onChange={{action (mut rating2)}} />
+    </div>
+    <div class="layout layout-align-center-center slider-container">
+      <div class="layout flex layout-align-center-center">
+        <span>md-primary</span>
+      </div>
+      <PaperSlider @class="flex" @primary={{true}} @discrete={{true}} @value={{rating3}} @step={{1}} @min={{1}} @max={{5}} @onChange={{action (mut rating3)}} />
+    </div>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "slider.theming.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Disabled</h2>
+  <div class="layout-column layout-align-center-center">
+    {{! BEGIN-SNIPPET slider.disabled }}
+    <PaperSlider @class="flex" @value={{disabled1}} @disabled={{true}} @onChange={{action (mut disabled1)}} />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "slider.disabled.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Disabled, Discrete</h2>
+  <div class="layout-column layout-align-center-center">
+    {{! BEGIN-SNIPPET slider.disabled-discrete }}
+    <PaperSlider @value={{discreteDisabled1}} @disabled={{true}} @discrete={{true}} @step={{3}} @min={{0}} @max={{10}} />
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "slider.disabled-discrete.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+</Doc>

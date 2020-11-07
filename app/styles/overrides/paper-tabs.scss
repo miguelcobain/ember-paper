@@ -1,0 +1,7 @@
+md-tabs.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > a.md-tab:not([disabled]).md-active {
+  color: paper-var(--primary-contrast);
+}
+
+md-tabs.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > a.md-tab:not([disabled]) {
+  color: paper-var(--primary-100);
+}

@@ -1,0 +1,81 @@
+<Doc>
+  <h1 class="header">Tooltip</h1>
+  <h2 class="header">Basic Usage</h2>
+  <div class="layout-column layout-align-center-center">
+    <p>
+      You can render tooltips using the paper-tooltip component. This component
+      will attach to the immediate parent element and use it for positioning.
+    </p>
+
+    <p>
+      You can control the position of you tooltip using the
+      <code>position</code> property which can be one of <code>bottom</code> (default),
+      <code>top</code>, <code>left</code> or <code>right</code>. Try it:
+    </p>
+
+    <div class="layout-row layout-align-space-around-center md-padding">
+      {{! BEGIN-SNIPPET tooltip.basic-usage }}
+      <PaperButton @raised={{true}}>
+        A button
+        <PaperTooltip @position={{position}}>
+          Hey! I'm a tooltip. Çup?
+        </PaperTooltip>
+      </PaperButton>
+
+      <PaperButton @iconButton={{true}} @raised={{true}}>
+        {{paper-icon "create"}}
+        <PaperTooltip @position={{position}}>
+          Create
+        </PaperTooltip>
+      </PaperButton>
+
+      <PaperButton @fab={{true}} @raised={{true}} @accent={{true}}>
+        {{paper-icon "delete"}}
+        <PaperTooltip @position={{position}}>
+          Delete
+        </PaperTooltip>
+      </PaperButton>
+
+      <div>
+        {{#paper-icon "info"}}
+          <PaperTooltip @position={{position}}>
+            Icon tooltip
+          </PaperTooltip>
+        {{/paper-icon}}
+      </div>
+      {{! END-SNIPPET }}
+    </div>
+
+    <PaperRadioGroup @groupValue={{position}} @onChange={{action (mut position)}} as |group|>
+      <group.radio @value="bottom">
+        Bottom
+      </group.radio>
+      <group.radio @value="top">
+        Top
+      </group.radio>
+      <group.radio @value="left">
+        Left
+      </group.radio>
+      <group.radio @value="right">
+        Right
+      </group.radio>
+    </PaperRadioGroup>
+  </div>
+
+  {{#let (get-code-snippet "tooltip.basic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <div class="layout-column layout-align-center-center">
+    {{paper-api
+      (p-section
+        (p-row "zIndex" "number" "Controls the z-index of the tooltip. By default it is 100.")
+        (p-row "position" "string" "Controls the position of the tooltip. Use one of `bottom` (default), `top`, `left` or `right`")
+        (p-row "parent" "element or selector" "Existing element where the tooltip will be rendered. Defaults to the global paper-wormhole.")
+        (p-row "attachTo" "element or selector" "Existing element that the tooltip will use to position itself. Defaults to the immediate parent element of the tooltip.")
+      )
+    }}
+  </div>
+</Doc>

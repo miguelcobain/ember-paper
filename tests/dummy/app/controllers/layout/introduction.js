@@ -1,7 +1,8 @@
 import Controller from '@ember/controller';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  box1Height: 20,
-  direction: 'row',
-  hideBox: true
-});
+export default class extends Controller {
+  @tracked box1Height = 20;
+  @tracked direction = 'row';
+  @tracked hideBox = true;
+}

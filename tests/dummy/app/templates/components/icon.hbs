@@ -1,0 +1,51 @@
+<Doc>
+  <h1 class="header">Icon</h1>
+  <p>
+    See the <a href="https://design.google.com/icons/" rel="noopener" target="_blank">Material Icons page</a> for an overview of
+    available icons.
+  </p>
+
+  <h2 class="header">Basic Icons</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET icons.basic-usage }}
+    <PaperIcon @positionalIcon="check-circle"/>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "icons.basic-usage.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Changing Sizes</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET icons.sizes }}
+    <PaperIcon @positionalIcon="check-circle" @size=12/>
+    <PaperIcon @positionalIcon="check-circle" @size=18/>
+    <PaperIcon @positionalIcon="check-circle" @size=24/>
+    <PaperIcon @positionalIcon="check-circle" @size=36/>
+    <PaperIcon @positionalIcon="check-circle" @size=48/>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "icons.sizes.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+
+  <h2 class="header">Spinners</h2>
+  <div class="layout-row layout-align-center-center">
+    {{! BEGIN-SNIPPET icons.spinners }}
+    <PaperIcon @positionalIcon="rotate-right" @spin=true/>
+    <PaperIcon @positionalIcon="rotate-left" @reverseSpin=true/>
+    {{! END-SNIPPET }}
+  </div>
+
+  {{#let (get-code-snippet "icons.spinners.hbs") as |snippet|}}
+    <CodeBlock @language="markup">
+{{snippet.source}}
+    </CodeBlock>
+  {{/let}}
+</Doc>

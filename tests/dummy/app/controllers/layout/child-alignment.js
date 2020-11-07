@@ -1,13 +1,17 @@
 import Controller from '@ember/controller';
-import { computed } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  layoutClass: computed('layoutDirection', function() {
-    return `layout-${this.get('layoutDirection')}`;
-  }),
+export default class extends Controller {
+  @tracked layoutDirection = 'row';
+  @tracked mainDirection = 'center';
+  @tracked perpDirection = 'center';
 
-  layoutAlignClass: computed('mainDirection', 'perpDirection', function() {
-    let { mainDirection, perpDirection } = this.getProperties('mainDirection', 'perpDirection');
+  get layoutClass() {
+    return `layout-${this.layoutDirection}`;
+  }
+
+  get layoutAlignClass() {
+    const { mainDirection, perpDirection } = this;
 
     if (!mainDirection && !perpDirection) {
       return 'layout-align';
@@ -20,9 +24,5 @@ export default Controller.extend({
     }
 
     return '';
-  }),
-
-  layoutDirection: 'row',
-  mainDirection: 'center',
-  perpDirection: 'center'
-});
+  }
+}

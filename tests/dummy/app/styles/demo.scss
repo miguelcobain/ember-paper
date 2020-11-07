@@ -1,10 +1,6 @@
 /***************
  * Styles specific for the ember-paper demo site
  ***************/
-@import 'highlight-overrides';
-@import 'modules/all';
-@import 'layout-demo';
-
 html {
   font-size: 62.5%;
   line-height: 1.4;
@@ -15,142 +11,57 @@ body {
 }
 
 table {
-  margin-bottom: 8px;
-  max-width: 100%;
-  width: 100%;
-  border-spacing: 0;
-  border-radius: 2px;
-  overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(0,0,0,.12);
+    border-collapse: collapse;
+    font-size: 13px;
+    background-color: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)
 }
 
-.table-wrapper {
-  flex: 1;
-  overflow: auto;
+thead {
+    padding-bottom: 3px;
+}
+
+th {
+  position: relative;
+  vertical-align: bottom;
+  text-overflow: ellipsis;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0;
+  height: 48px;
+  font-size: 12px;
+  color: rgba(0,0,0,.54);
+  padding-bottom: 8px;
+  box-sizing: border-box;
+}
+
+td {
+  vertical-align: middle;
+  position: relative;
+  height: 48px;
+  border-top: 1px solid rgba(0,0,0,.12);
+  border-bottom: 1px solid rgba(0,0,0,.12);
+  padding: 12px 18px;
+  box-sizing: border-box;
+}
+
+.paper-api--title {
+  margin: 5px;
 }
 
 #main {
   position: relative;
+  height: 100vh;
 }
 
  md-select-menu md-content md-option:not([disabled]):focus, md-select-menu.md-default-theme md-content md-option:not([disabled]):hover, md-select-menu md-content md-option:not([disabled]):hover {
     background: rgb(238,238,238);
 }
 
-.header {
-  background-color: #106CC8;
-  color: white;
-  text-align: center;
-  font-weight: bold;
-}
-
 .flex-start {
   align-self: flex-start;
-}
-
-/***************
- * TYPE DEFAULTS
- ***************/
-a {
-  color: #106CC8;
-  text-decoration: none;
-  font-weight: 400;
-  border-bottom: 1px solid rgba(64, 84, 178, 0.25);
-  -webkit-transition: border-bottom 0.35s;
-  -moz-transition: border-bottom 0.35s;
-  -ms-transition: border-bottom 0.35s;
-  -o-transition: border-bottom 0.35s;
-  transition: border-bottom 0.35s;
-}
-
-a:hover, a:focus {
-  border-bottom: 1px solid #4054B2;
-}
-
-a.md-button {
-  border-bottom: none;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-}
-
-h1 {
-  font-size: 3.400rem;
-  font-weight: 400;
-  line-height: 4rem;
-}
-
-h2 {
-  font-size: 2.400rem;
-  font-weight: 400;
-  line-height: 3.2rem;
-}
-
-h3 {
-  font-size: 2.000rem;
-  font-weight: 500;
-  letter-spacing: 0.005em;
-}
-
-h4 {
-  font-size: 1.600rem;
-  font-weight: 400;
-  letter-spacing: 0.010em;
-  line-height: 2.4rem;
-}
-
-p {
-  font-size: 1.6rem;
-  font-weight: 400;
-  letter-spacing: 0.010em;
-  line-height: 1.6em;
-  margin: 0.8em 0 1.6em;
-}
-
-strong {
-  font-weight: 500;
-}
-
-td, th {
-  padding: 12px 16px;
-  text-align: left;
-}
-
-td {
-  vertical-align: top;
-}
-
-td.description *:first-child {
-  margin-top: 0;
-}
-
-td.description *:last-child {
-  margin-bottom: 0;
-}
-
-tr:nth-child(odd) td {
-  background-color: lighten(paper-color($primary, '50'), 2);
-}
-
-tr:nth-child(even) td {
-  background-color: lighten(paper-color($primary, '50'), 4);
-}
-
-th {
-  background-color: paper-color($primary, '400');
-  color: white;
-}
-
-tr.subheading td {
-  background-color: paper-color($primary, '100');
-}
-
-blockquote {
-  border-left: 3px solid rgba(0, 0, 0, 0.12);
-  font-style: italic;
-  margin-left: 0;
-  padding-left: 16px;
 }
 
 /*
@@ -173,16 +84,6 @@ ul li:first-child {
 .preview-block {
   background: #f5f5f5;
   padding: 20px;
-}
-
-md-toolbar.md-default-theme.page-main-toolbar {
-  background-color: paper-color('grey', '100');
-  color: $dark-contrast-color;
-
-  md-icon, .md-button md-icon {
-    color: $dark-contrast-color;
-    margin-top: -2px;
-  }
 }
 
 .nav-github {
@@ -239,99 +140,18 @@ md-toolbar.md-default-theme.page-main-toolbar {
   background: paper-color($color-grey, '500');
 }
 
-.site-sidenav,
-.site-sidenav.md-locked-open-add-active,
-.site-sidenav.md-locked-open {
-  width:     272px;
-  min-width: 272px;
-  max-width: 272px;
-}
-.site-sidenav > * {
-  min-width: 218px;
-}
-md-sidenav.site-sidenav {
-  background-color: paper-color($primary, '400');
-  background-color: paper-var(--primary-400);
-
-  md-toolbar.md-default-theme {
-    background: linear-gradient(to bottom, paper-color($primary, '600'), paper-color($primary, '400'));
-    background: linear-gradient(to bottom, paper-var(--primary-600), paper-var(--primary-400));
-    border-bottom: 1px solid rgba(#fff, .1);
-    color: #fff;
-
-    height: 180px;
-    min-height: 180px;
-    max-height: 180px;
-
-    .logo {
-      font-size: 54px;
-      font-weight: 500;
-      width: 100%;
-      height: 100%;
-
-      img {
-        width: 150px;
-      }
-
-      div {
-        font-weight: bold;
-        margin-top: -20px;
-      }
-    }
-  }
-
-  md-content {
-    background: transparent;
-    color: $light-contrast-color;
-    md-icon {
-      color: inherit;
-    }
-  }
-
-  .menu-item {
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: 500;
-
-    .expand-icon {
-      position: relative;
-      right: -36px;
-      transition: transform 250ms linear;
-    }
-
-    &.expanded .expand-icon {
-      transform: rotate(-180deg);
-    }
-  }
-
-  .submenu-item {
-    .md-list-item-inner {
-      padding-left: 36px;
-    }
-  }
-
-  .menu-item, .submenu-item {
-    min-height: 40px;
-
-    &.active, &:hover {
-      background-color: rgba(#fff, .1);
-    }
-
-    .md-list-item-inner {
-      min-height: 40px;
-
-      md-icon {
-        margin-top: 0;
-        margin-bottom: 0;
-      }
-    }
-  }
-}
-
 /* DEMO PAGE STYLES */
 .doc-content {
   max-width: 864px;
   margin: 16px;
+}
+
+.doc-content--text-page {
+  margin: 0 auto;
+}
+
+.doc-content-example {
+  position: relative;
 }
 
 .doc-code-example {
@@ -352,10 +172,6 @@ md-sidenav.site-sidenav {
   pre {
     margin-top: 0;
   }
-}
-
-.doc-content-example {
-  position: relative;
 }
 
 .list-demo .face {
@@ -434,12 +250,11 @@ md-sidenav.site-sidenav {
   width: 50px;
 }
 
-.card-demo {
-  .card-media {
-    background-color: #999999;
-    height: 100%;
-    width: 100%;
-  }
+.card-media {
+  border-radius: 5px;
+  background-color: #999999;
+  height: 100%;
+  width: 100%;
 }
 
 /************
@@ -1486,48 +1301,8 @@ md-sidenav.site-sidenav {
   .bg-78909c {
     background: #78909c;
   }
-
 }
 
-/* Inputs demo */
-md-input-container .hint {
-  position: absolute;
-  left: 2px;
-  right: auto;
-  bottom: 7px;
-  font-size: 12px;
-  line-height: 14px;
-  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-  color: grey;
-}
-
-/* CHIPS demo */
-.chipsdemoContactChips .ember-power-select-trigger {
-    min-width: 400px;
-}
-
-/* Slider demo */
-.slider-demo {
-  .slider-container > :first-child {
-    margin-right: 16px;
-  }
-
-  .slider-container > md-input-container {
-    max-width: 56px;
-    margin-left: 16px;
-  }
-}
-
-/* tabs demo */
-.tabs-demo .md-padding h1:first-child {
-  margin-top: 0;
-}
-
-md-tabs.md-primary {
-  border-radius: 0px;
-}
-
-/* toast demo */
 md-toast {
   &.md-accent > .md-toast-content {
     background: paper-color($accent, '400');
@@ -1535,4 +1310,68 @@ md-toast {
   &.md-warn > .md-toast-content {
     background: paper-color($warn, '400');
   }
+}
+
+
+.example div div {
+  box-shadow: $flexbox-shadow;
+  text-align: center;
+  color: $dark-contrast-color;
+}
+
+.introduction-example {
+  height: 350px;
+
+  .box-one {
+    background-color: $flexbox-color1;
+  }
+
+  .box-two-one {
+    background-color: $flexbox-color2;
+  }
+  .box-two-two {
+    background-color: $flexbox-color3;
+  }
+  .box-two-three {
+    background-color: $flexbox-color4;
+  }
+  .box-three {
+    background-color: $flexbox-color5;
+  }
+}
+
+.example {
+  > div {
+    height: 100%;
+  }
+
+  div > div {
+    padding: 12px;
+
+    &:nth-child(1) {
+      background-color: $flexbox-color1;
+    }
+    &:nth-child(2) {
+      background-color: $flexbox-color2;
+    }
+    &:nth-child(3) {
+      background-color: $flexbox-color3;
+    }
+    &:nth-child(4) {
+      background-color: $flexbox-color4;
+    }
+    &:nth-child(5) {
+      background-color: $flexbox-color5;
+    }
+    &:nth-child(6) {
+      background-color: $flexbox-color6;
+    }
+    &:nth-child(7) {
+      background-color: $flexbox-color7;
+    }
+  }
+}
+
+.example-2 > div {
+  height: 100%;
 }
