@@ -5,6 +5,7 @@ import { not, and } from '@ember/object/computed';
 
 import Component from '@ember/component';
 import { tagName, layout } from '@ember-decorators/component';
+import { run } from '@ember/runloop';
 import { get, set, action } from '@ember/object';
 import template from '../templates/components/paper-form';
 import { A } from '@ember/array';
@@ -86,10 +87,14 @@ export default class PaperForm extends Component {
   }
 
   setNewValidity () {
-    this.set('isValid', this.getIsValid());
-    this.set('isTouched', this.getIsTouched());
+    run.next(() => {
+      if (!get(this, 'isDestroying')) {
+        this.set('isValid', this.getIsValid());
+        this.set('isTouched', this.getIsTouched());
 
-    invokeAction(this, 'onValidityChange', get(this, 'isValid'), get(this, 'isTouched'), get(this, 'isInvalidAndTouched'));
+        invokeAction(this, 'onValidityChange', get(this, 'isValid'), get(this, 'isTouched'), get(this, 'isInvalidAndTouched'));
+      }
+    })
   }
 
   @action

@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerEvent, click, waitFor, setupOnerror } from '@ember/test-helpers';
+import { render, triggerEvent, click, waitFor, settled, setupOnerror } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper form', function(hooks) {
@@ -37,6 +37,8 @@ module('Integration | Component | paper form', function(hooks) {
       message: 'foo should be smaller than 12.',
       attribute: 'foo'
     }]);
+
+    await settled();
 
     assert.dom('.invalid-div').exists({ count: 1 });
     assert.dom('.valid-div').doesNotExist();
@@ -273,6 +275,8 @@ module('Integration | Component | paper form', function(hooks) {
       message: 'foo should be smaller than 12.',
       attribute: 'foo'
     }]);
+
+    await settled();
 
     assert.dom('.invalid-div').exists({ count: 1 });
     assert.dom('.valid-div').doesNotExist();

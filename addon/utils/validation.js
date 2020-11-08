@@ -1,6 +1,5 @@
 import { assert, warn } from '@ember/debug';
 import { isArray } from '@ember/array';
-import { run } from '@ember/runloop';
 import { get, set } from '@ember/object';
 import { loc } from '@ember/string';
 import { invokeAction } from 'ember-invoke-action';
@@ -74,15 +73,11 @@ export function notifyValidityChange() {
     lastIsValid !== isValid
     || lastIsTouched !== isTouched
   ) {
-    run.next(() => {
-      if (!this.isDestroyed) {
-        invokeAction(this, 'onValidityChange', {
-          elementId: get(this, 'elementId'),
-          isValid,
-          isTouched,
-          isInvalidAndTouched
-        });
-      }
+    invokeAction(this, 'onValidityChange', {
+      elementId: get(this, 'elementId'),
+      isValid,
+      isTouched,
+      isInvalidAndTouched
     });
 
     set(this, 'lastIsValid', isValid);
