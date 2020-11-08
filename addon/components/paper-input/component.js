@@ -5,14 +5,13 @@ import { or, bool, and, not } from '@ember/object/computed';
 
 import Component from '@ember/component';
 import { tagName, layout } from '@ember-decorators/component';
-import { computed, set, action } from '@ember/object';
+import { computed, set, get } from '@ember/object';
 import { tracked } from '@glimmer/tracking'
 import { isEmpty } from '@ember/utils';
 import { run } from '@ember/runloop';
 import { assert } from '@ember/debug';
 import template from './template';
-import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import ColorMixin from 'ember-paper/mixins/color-mixin';
+import colorClassNameBindings from 'ember-paper/utils/color-class-bindings';
 import { buildComputedValidationMessages, notifyValidityChange } from 'ember-paper/utils/validation';
 import requiredValidator from 'ember-paper/validators/required';
 import minValidator from 'ember-paper/validators/min';
@@ -32,28 +31,68 @@ const validations = [
 /**
  * @class PaperInput
  * @extends Ember.Component
- * @uses FocusableMixin
- * @uses ColorMixin
  */
 @tagName('md-input-container')
 @layout(template)
-export default class PaperInput extends Component.extend(FocusableMixin, ColorMixin) {
-  classNames = ['md-default-theme'];
+export default class PaperInput extends Component {
+  classNameBindings = ['computedClasses']
 
-  classNameBindings = [
-    'hasValue:md-input-has-value',
-    'isInvalidAndTouched:md-input-invalid',
-    'hasLeftIcon:md-icon-left',
-    'hasRightIcon:md-icon-right',
-    'focused:md-input-focused',
-    'block:md-block',
-    'placeholder:md-input-has-placeholder'
-  ];
+  @computed(
+    'hasValue',
+    'isInvalidAndTouched',
+    'hasLeftIcon',
+    'hasRightIcon',
+    'focused',
+    'block',
+    'placeholder',
+    ...colorClassNameBindings.map(binding => binding.param)
+  )
+  get computedClasses () {
+    const classes = [
+      'md-default-theme'
+    ]
+
+    if (get(this, 'hasValue')) {
+      classes.push('md-input-has-value')
+    }
+
+    if (get(this, 'isInvalidAndTouched')) {
+      classes.push('md-input-invalid')
+    }
+
+    if (get(this, 'hasLeftIcon')) {
+      classes.push('md-icon-left')
+    }
+
+    if (get(this, 'hasRightIcon')) {
+      classes.push('md-icon-right')
+    }
+
+    if (get(this, 'focused')) {
+      classes.push('md-input-focused')
+    }
+
+    if (get(this, 'block')) {
+      classes.push('md-block')
+    }
+
+    if (get(this, 'placeholder')) {
+      classes.push('md-input-has-placeholder')
+    }
+
+    colorClassNameBindings.forEach(binding => {
+      if (this[binding.param]) {
+        classes.push(binding.class)
+      }
+    })
+
+    return classes.join(' ')
+  }
 
   type = 'text';
-  autofocus = false;
-  tabindex = null;
-  hideAllMessages = false;
+
+  @tracked
+  focused = false;
 
   @tracked
   isTouched = false;
@@ -67,27 +106,26 @@ export default class PaperInput extends Component.extend(FocusableMixin, ColorMi
   validations = validations;
 
   @tracked
-  errorMessages
+  errorMessages;
 
   @tracked
-  customValidations = []
+  value = '';
 
   @tracked
-  errors = []
+  customValidations = [];
+
+  @tracked
+  errors = [];
 
   @computed(
     'value',
     'errors.[]',
     'customValidations.[]',
     'errorMessages',
-    requiredValidator.param,
-    minValidator.param,
-    maxValidator.param,
-    minlengthValidator.param,
-    maxlengthValidator.param,
+    ...validations.map(validator => validator.param),
   )
   get validationErrorMessages () {
-    return buildComputedValidationMessages.call(this, 'value')
+    return buildComputedValidationMessages.call(this, 'value');
   }
 
   @bool('validationErrorMessages.length')
@@ -102,8 +140,8 @@ export default class PaperInput extends Component.extend(FocusableMixin, ColorMi
 
   @computed('value', 'isNativeInvalid')
   get hasValue () {
-    let value = this.get('value');
-    let isNativeInvalid = this.get('isNativeInvalid');
+    const value = get(this, 'value');
+    const isNativeInvalid = get(this, 'isNativeInvalid');
 
     return !isEmpty(value) || isNativeInvalid;
   }
@@ -111,26 +149,15 @@ export default class PaperInput extends Component.extend(FocusableMixin, ColorMi
   @computed('label', 'focused')
   get shouldAddPlaceholder () {
     // if has label, only add placeholder when focused
-    return isEmpty(this.get('label')) || this.get('focused');
+    return isEmpty(get(this, 'label')) || get(this, 'focused');
   }
 
-  @computed('elementId')
-  get inputElementId () {
-    // elementId can be set from outside and it will override the computed value.
-    // Please check the deprecations for further details
-    // https://deprecations.emberjs.com/v3.x/#toc_computed-property-override
-    return `input-${this.get('elementId')}`;
-  }
+  inputElementId
 
-  set inputElementId (value) {
-    // To make sure the context updates properly, We are manually set value using @ember/object#set as recommended.
-    return set(this, "elementId", value);
-  }
-
-  @computed('value')
+  @computed('value', 'maxlength')
   get renderCharCount () {
-    let currentLength = this.get('value') ? this.get('value').length : 0;
-    return `${currentLength}/${this.get('maxlength')}`;
+    let currentLength = get(this, 'value') ? get(this, 'value.length') : 0;
+    return `${currentLength}/${get(this, 'maxlength')}`;
   }
 
   @bool('icon')
@@ -146,66 +173,63 @@ export default class PaperInput extends Component.extend(FocusableMixin, ColorMi
   init () {
     super.init(...arguments);
 
-    invokeAction(this, 'onRegister', this.get('elementId'));
+    assert('{{paper-input}} requires an `onChange` action or null for no action.', get(this, 'onChange') !== undefined);
+
+    if (get(this, 'onRegister')) {
+      invokeAction(this, 'onRegister', get(this, 'elementId'));
+    }
+
+    if (!get(this, 'inputElementId')) {
+      set(this, 'inputElementId', `input-${get(this, 'elementId')}`)
+    }
   }
 
   didReceiveAttrs () {
     super.didReceiveAttrs(...arguments);
 
-    assert('{{paper-input}} requires an `onChange` action or null for no action.', this.get('onChange') !== undefined);
-
-    let { value, errors } = this.getProperties('value', 'errors');
-    let { _prevValue, _prevErrors } = this.getProperties('_prevValue', '_prevErrors');
-
-    if (value !== _prevValue || errors !== _prevErrors) {
-      this.notifyValidityChange();
-    }
-
-    this._prevValue = value;
-    this._prevErrors = errors;
+    this.notifyValidityChange();
   }
 
   didInsertElement () {
     super.didInsertElement(...arguments);
 
-    if (this.get('textarea')) {
-      this._growTextareaOnResize = run.bind(this, this.growTextarea);
-      window.addEventListener('resize', this._growTextareaOnResize);
-    }
-  }
+    if (get(this, 'textarea')) {
+      set(this, '_growTextareaOnResize', run.bind(this, this.growTextarea));
 
-  didRender () {
-    super.didRender(...arguments);
-    // setValue below ensures that the input value is the same as this.value
-    this.setValue(this.get('value'));
-    this.growTextarea();
+      window.addEventListener('resize', get(this, '_growTextareaOnResize'));
+    }
   }
 
   willDestroyElement () {
     super.willDestroyElement(...arguments);
 
-    if (this.get('textarea')) {
-      window.removeEventListener('resize', this._growTextareaOnResize);
-      this._growTextareaOnResize = null;
+    if (get(this, 'textarea')) {
+      window.removeEventListener('resize', get(this, '_growTextareaOnResize'));
+
+      set(this, '_growTextareaOnResize', null);
     }
   }
 
-  destroy () {
-    const eltId = this.get('elementId')
+  willDestroy () {
+    const eltId = get(this, 'elementId');
 
-    super.destroy(...arguments);
+    super.willDestroy(...arguments);
 
-    invokeAction(this, 'onUnregister', eltId);
+    if (get(this, 'onUnregister')) {
+      invokeAction(this, 'onUnregister', eltId);
+    }
   }
 
   growTextarea () {
-    if (this.get('textarea')) {
+    if (get(this, 'textarea')) {
       const inputElement = this.element.querySelector('input, textarea');
+
       inputElement.classList.add('md-no-flex');
       inputElement.setAttribute('rows', 1);
 
-      const minRows = this.get('passThru.rows');
+      const minRows = get(this, 'passThru.rows');
       let height = this.getHeight(inputElement);
+
       if (minRows) {
         if (!this.lineHeight) {
           inputElement.style.minHeight = 0;
@@ -218,7 +242,7 @@ export default class PaperInput extends Component.extend(FocusableMixin, ColorMi
         }
 
         let proposedHeight = Math.round(height / this.lineHeight);
-        let maxRows = this.get('passThru.maxRows') || Number.MAX_VALUE;
+        let maxRows = get(this, 'passThru.maxRows') || Number.MAX_VALUE;
         let rowsToSet = Math.min(proposedHeight, maxRows);
 
         inputElement.style.height = `${this.lineHeight * rowsToSet}px`;
@@ -232,7 +256,9 @@ export default class PaperInput extends Component.extend(FocusableMixin, ColorMi
       } else {
         inputElement.style.height = 'auto';
         inputElement.scrollTop = 0;
+
         let height = this.getHeight(inputElement);
+
         if (height) {
           inputElement.style.height = `${height}px`;
         }
@@ -262,41 +288,45 @@ export default class PaperInput extends Component.extend(FocusableMixin, ColorMi
     notifyValidityChange.call(this);
   }
 
-  @action
-  handleInput (e) {
+  input (e) {
     invokeAction(this, 'onChange', e.target.value);
+
     // setValue below ensures that the input value is the same as this.value
     run.next(() => {
       if (this.isDestroyed) {
         return;
       }
-      this.setValue(this.get('value'));
+      this.setValue(get(this, 'value'));
     });
 
     this.growTextarea();
 
-    let inputElement = this.element.querySelector('input');
+    const inputElement = this.element.querySelector('input');
     let isNativeInvalid = inputElement && inputElement.validity && inputElement.validity.badInput;
 
-    if (this.type === 'date' && e.target.value === '') {
+    if (get(this, 'type') === 'date' && e.target.value === '') {
       // Chrome doesn't fire the onInput event when clearing the second and third date components.
       // This means that we won't see another event when badInput becomes false if the user is clearing
       // the date field.  The reported value is empty, though, so we can already mark it as valid.
       isNativeInvalid = false;
     }
 
-    this.set('isNativeInvalid', isNativeInvalid);
+    set(this, 'isNativeInvalid', isNativeInvalid);
     this.notifyValidityChange();
   }
 
   focusOut (e) {
+    set(this, 'isTouched', true);
+    set(this, 'focused', true);
+
     invokeAction(this, 'onBlur', e);
 
-    this.set('isTouched', true);
     this.notifyValidityChange();
   }
 
   focusIn (e) {
+    set(this, 'focused', false);
+
     invokeAction(this, 'onFocus', e);
   }
 }
