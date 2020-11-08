@@ -1,6 +1,6 @@
 import { assert, warn } from '@ember/debug';
-import { isArray, A } from '@ember/array';
-import { get } from '@ember/object';
+import { isArray } from '@ember/array';
+import { get, set } from '@ember/object';
 import { loc } from '@ember/string';
 import { invokeAction } from 'ember-invoke-action';
 
@@ -13,33 +13,33 @@ import { invokeAction } from 'ember-invoke-action';
  * @return computed property that depends on the supplied property name
  */
 export function buildComputedValidationMessages(property) {
-  const validators = A();
-  const messages = A();
+  const validators = [];
+  const messages = [];
 
   // built-in validations
-  validators.pushObjects(this.get('validations'));
+  validators.push(...get(this, 'validations'));
 
   // custom validations
-  let customValidators = this.get('customValidations');
+  let customValidators = get(this, 'customValidations');
 
   assert('`customValidations` must be an array', isArray(customValidators));
 
-  validators.pushObjects(customValidators);
+  validators.push(...customValidators);
 
   // execute validations
-  let currentValue = this.get(property);
+  let currentValue = get(this, property);
 
   validators.forEach((validation) => {
     assert('validation must include a `validate(value)` function', validation && validation.validate && typeof validation.validate === 'function');
 
     try {
       let valParam = get(validation, 'param');
-      let paramValue = valParam ? this.get(valParam) : undefined;
+      let paramValue = valParam ? get(this, valParam) : undefined;
 
       if (!validation.validate(currentValue, paramValue)) {
-        const message = this.get(`errorMessages.${valParam}`) || get(validation, 'message');
+        const message = get(this, `errorMessages.${valParam}`) || get(validation, 'message');
 
-        messages.pushObject({
+        messages.push({
           message: loc(message.string || message, paramValue, currentValue)
         });
       }
@@ -51,11 +51,11 @@ export function buildComputedValidationMessages(property) {
   });
 
   // error messages array
-  let errors = this.get('errors') || [];
+  let errors = get(this, 'errors') || [];
 
   assert('`errors` must be an array', isArray(errors));
 
-  messages.pushObjects(errors.map((e) => {
+  messages.push(...errors.map((e) => {
     return get(e, 'message') ? e : { message: e };
   }));
 
@@ -63,25 +63,25 @@ export function buildComputedValidationMessages(property) {
 }
 
 export function notifyValidityChange() {
-  const isValid = this.get('isValid');
-  const lastIsValid = this.get('lastIsValid');
-  const isTouched = this.get('isTouched');
-  const lastIsTouched = this.get('lastIsTouched');
-  const isInvalidAndTouched = this.get('isInvalidAndTouched');
+  const isValid = get(this, 'isValid');
+  const lastIsValid = get(this, 'lastIsValid');
+  const isTouched = get(this, 'isTouched');
+  const lastIsTouched = get(this, 'lastIsTouched');
+  const isInvalidAndTouched = get(this, 'isInvalidAndTouched');
 
   if (
     lastIsValid !== isValid
     || lastIsTouched !== isTouched
   ) {
     invokeAction(this, 'onValidityChange', {
-      elementId: this.get('elementId'),
+      elementId: get(this, 'elementId'),
       isValid,
       isTouched,
       isInvalidAndTouched
     });
 
-    this.set('lastIsValid', isValid);
-    this.set('lastIsTouched', isTouched);
+    set(this, 'lastIsValid', isValid);
+    set(this, 'lastIsTouched', isTouched);
   }
 }
 

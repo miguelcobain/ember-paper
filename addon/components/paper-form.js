@@ -5,7 +5,7 @@ import { not, and } from '@ember/object/computed';
 
 import Component from '@ember/component';
 import { tagName, layout } from '@ember-decorators/component';
-import { set, action } from '@ember/object';
+import { get, set, action } from '@ember/object';
 import template from '../templates/components/paper-form';
 import { A } from '@ember/array';
 import { invokeAction } from 'ember-invoke-action';
@@ -41,7 +41,7 @@ export default class PaperForm extends Component {
   childComponents = A()
 
   updateValidity ({ childId, isValid, isTouched, isInvalidAndTouched }) {
-    const child = this.get('childComponents').findBy('childId', childId);
+    const child = get(this, 'childComponents').findBy('childId', childId);
 
     if (child) {
       const lastIsValid = child.isValid;
@@ -63,11 +63,11 @@ export default class PaperForm extends Component {
   }
 
   triggerValidityChange () {
-    const lastIsValid = this.get('isValid');
-    const lastIsTouched = this.get('isTouched');
+    const lastIsValid = get(this, 'isValid');
+    const lastIsTouched = get(this, 'isTouched');
 
     if (
-      this.get('finishFirstRender')
+      get(this, 'finishFirstRender')
       && (
         lastIsValid !== this.getIsValid()
         || lastIsTouched !== this.getIsTouched()
@@ -78,18 +78,18 @@ export default class PaperForm extends Component {
   }
 
   getIsValid () {
-    return this.get('childComponents').isEvery('isValid')
+    return get(this, 'childComponents').isEvery('isValid')
   }
 
   getIsTouched () {
-    return this.get('childComponents').isAny('isTouched')
+    return get(this, 'childComponents').isAny('isTouched')
   }
 
   setNewValidity () {
     this.set('isValid', this.getIsValid());
     this.set('isTouched', this.getIsTouched());
 
-    invokeAction(this, 'onValidityChange', this.get('isValid'), this.get('isTouched'), this.get('isInvalidAndTouched'));
+    invokeAction(this, 'onValidityChange', get(this, 'isValid'), get(this, 'isTouched'), get(this, 'isInvalidAndTouched'));
   }
 
   @action
@@ -105,7 +105,7 @@ export default class PaperForm extends Component {
   }
 
   didRender () {
-    if (!this.get('finishFirstRender')) {
+    if (!get(this, 'finishFirstRender')) {
       this.set('finishFirstRender', true)
 
       this.setNewValidity()
@@ -124,7 +124,7 @@ export default class PaperForm extends Component {
 
   @action
   onInternalSubmit () {
-    if (this.get('isInvalid')) {
+    if (get(this, 'isInvalid')) {
       this.set('formHasBeenValidated', true);
 
       invokeAction(this, 'onInvalid');
@@ -137,16 +137,16 @@ export default class PaperForm extends Component {
 
   @action
   onRegister (childId) {
-    this.get('childComponents').pushObject({ childId });
+    get(this, 'childComponents').pushObject({ childId });
   }
 
   @action
   onUnregister (childId) {
     if (!this.isDestroying) {
-      const child = this.get('childComponents').findBy('childId', childId)
+      const child = get(this, 'childComponents').findBy('childId', childId)
 
       if (child) {
-        this.get('childComponents').removeObject(child);
+        get(this, 'childComponents').removeObject(child);
 
         this.triggerValidityChange()
       }
