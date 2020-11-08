@@ -10,7 +10,7 @@ import { tracked } from '@glimmer/tracking'
 import { isEmpty } from '@ember/utils';
 import { run } from '@ember/runloop';
 import { assert } from '@ember/debug';
-import template from '../templates/components/paper-input';
+import template from './template';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import { buildComputedValidationMessages, notifyValidityChange } from 'ember-paper/utils/validation';
