@@ -11,6 +11,9 @@ import { ESCAPE, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, DOWN_ARROW, ENTER } from 'em
 
 import { advanceSelectableOption } from 'ember-power-select/utils/group-utils';
 
+import { getOwner } from '@ember/application';
+import ebdGetParent from 'ember-paper/utils/ebd-get-parent';
+
 function waitForAnimations(element, callback) {
   let computedStyle = window.getComputedStyle(element);
   if (computedStyle.transitionDuration && computedStyle.transitionDuration !== '0s') {
@@ -64,6 +67,12 @@ class PaperSelectEbdContent extends Component {
   @action
   async animateOut(dropdownElement) {
     let parentElement = this.renderInPlace ? dropdownElement.parentElement.parentElement : dropdownElement.parentElement;
+
+    // workaround for https://github.com/miguelcobain/ember-paper/issues/1166
+    if (!parentElement) {
+      parentElement = ebdGetParent(getOwner(this))
+    }
+
     let clone = dropdownElement.cloneNode(true);
     clone.id = `${clone.id}--clone`;
     parentElement.appendChild(clone);
