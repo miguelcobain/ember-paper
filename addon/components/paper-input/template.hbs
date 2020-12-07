@@ -32,9 +32,6 @@
     readonly={{@passThru.readonly}}
     form={{@passThru.form}}
     spellcheck={{@passThru.spellcheck}}
-    {{did-insert this.bindResize}}
-    {{did-update this.growTextarea}}
-    {{will-destroy this.unbindResize}}
     ...attributes
   >{{@value}}</textarea>
 {{else}}
