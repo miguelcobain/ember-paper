@@ -3,10 +3,9 @@ import template from './template';
 
 import { tagName, layout } from '@ember-decorators/component';
 import { action } from '@ember/object';
-import { and } from '@ember/object/computed';
-import ChildMixin from 'ember-paper/mixins/child-mixin';
-
-import ValidationMixin from 'ember-paper/mixins/validation-mixin';
+import { tracked } from '@glimmer/tracking'
+import { computed } from '@ember/object';
+import { invokeAction } from 'ember-invoke-action';
 
 import clamp from 'ember-paper/utils/clamp';
 
@@ -21,19 +20,96 @@ function getOffsetRect(node) {
   } : { left: 0, top: 0, width: 0, height: 0 };
 }
 
+import { buildComputedValidationMessages, notifyValidityChange } from 'ember-paper/utils/validation';
+import requiredValidator from 'ember-paper/validators/required';
+import minValidator from 'ember-paper/validators/min';
+import maxValidator from 'ember-paper/validators/max';
+import minlengthValidator from 'ember-paper/validators/minlength';
+import maxlengthValidator from 'ember-paper/validators/maxlength';
+
+const validations = [
+  requiredValidator,
+  minValidator,
+  maxValidator,
+  minlengthValidator,
+  maxlengthValidator
+];
+
 @tagName('')
 @layout(template)
-class PaperSelect extends Component.extend(ValidationMixin, ChildMixin) {
+class PaperSelect extends Component {
 
-  validationProperty = 'selected';
+  @tracked
   isTouched = false;
   isFocused = false;
 
-  @and('isInvalid', 'isTouched')
+  @computed('isTouched')
+  get formHasBeenValidated () {
+    return this.isTouched
+  }
+
+  set formHasBeenValidated (value) {
+    this.isTouched = value
+  }
+
+  @tracked
+  errorMessages
+
+  @tracked
+  customValidations = []
+
+  @tracked
+  errors = []
+
+  @computed.and('isInvalid', 'isTouched')
   isInvalidAndTouched;
 
-  @and('isFocused', 'selected')
+  @computed.and('isFocused', 'selected')
   isFocusedAndSelected;
+
+  validations = validations;
+
+  @computed(
+    'selected',
+    'errors.[]',
+    'customValidations.[]',
+    'errorMessages',
+    requiredValidator.param,
+    minValidator.param,
+    maxValidator.param,
+    minlengthValidator.param,
+    maxlengthValidator.param
+  )
+  get validationErrorMessages () {
+    return buildComputedValidationMessages.call(this, 'selected')
+  }
+
+  @computed.bool('validationErrorMessages.length')
+  hasErrorMessages
+
+  @computed.reads('hasErrorMessages')
+  isInvalid
+
+  @computed.not('isInvalid')
+  isValid
+
+  init() {
+    super.init(...arguments);
+
+    invokeAction(this, 'onRegister', this.get('elementId'), this.get('isValid'), this.get('isTouched'), this.get('isInvalidAndTouched'));
+  }
+
+  destroy () {
+    const eltId = this.get('elementId')
+
+    super.destroy(...arguments);
+
+    invokeAction(this, 'onUnregister', eltId);
+  }
+
+  notifyValidityChange() {
+    notifyValidityChange.call(this);
+  }
 
   didReceiveAttrs() {
     super.didReceiveAttrs(...arguments);

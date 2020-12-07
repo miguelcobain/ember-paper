@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerEvent, click } from '@ember/test-helpers';
+import { render, triggerEvent, click, waitFor, settled, setupOnerror } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | paper form', function(hooks) {
@@ -9,6 +9,8 @@ module('Integration | Component | paper form', function(hooks) {
 
   test('`isInvalid` and `isValid` work as expected', async function(assert) {
     assert.expect(4);
+
+    this.set('errors', []);
 
     await render(hbs`
       {{#paper-form as |form|}}
@@ -35,6 +37,8 @@ module('Integration | Component | paper form', function(hooks) {
       message: 'foo should be smaller than 12.',
       attribute: 'foo'
     }]);
+
+    await settled();
 
     assert.dom('.invalid-div').exists({ count: 1 });
     assert.dom('.valid-div').doesNotExist();
@@ -97,6 +101,8 @@ module('Integration | Component | paper form', function(hooks) {
       assert.notOk(isInvalidAndTouched);
     });
 
+    this.set('errors', []);
+
     await render(hbs`
       {{#paper-form onValidityChange=(action onValidityChange) as |form|}}
         {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
@@ -128,6 +134,92 @@ module('Integration | Component | paper form', function(hooks) {
 
   });
 
+  test('form `onValidityChange` action is invoked on dynamic component removal', async function(assert) {
+    // paper-form triggers `onValidityChange` when components are added / deleted
+    // so we expect three runs: one for first render / one for delete / one for add back
+    assert.expect(9);
+
+    this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
+      assert.notOk(isValid);
+      assert.notOk(isTouched);
+      assert.notOk(isInvalidAndTouched);
+    });
+
+    this.set('showChild', true);
+
+    await render(hbs`
+      {{#paper-form onValidityChange=(action onValidityChange) as |form|}}
+        {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
+
+        {{#if showChild}}
+          {{form.input class="show" value=bar onChange=(action (mut bar)) label="Bar" required=true}}
+        {{else}}
+          <div class="not-show"></div>
+        {{/if}}
+      {{/paper-form}}
+    `);
+
+    this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
+      assert.ok(isValid);
+      assert.notOk(isTouched);
+      assert.notOk(isInvalidAndTouched);
+    });
+
+    this.set('showChild', false);
+
+    await waitFor('.not-show', { timeout: 5000 });
+
+    this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
+      assert.notOk(isValid);
+      assert.notOk(isTouched);
+      assert.notOk(isInvalidAndTouched);
+    });
+
+    this.set('showChild', true);
+
+    await waitFor('.show', { timeout: 5000 });
+  });
+
+  test('form backtracking isValid property', async function(assert) {
+    assert.expect(6);
+
+    setupOnerror(function (error) {
+      assert.notOk(error)
+    })
+
+    this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
+      assert.notOk(isValid);
+      assert.notOk(isTouched);
+      assert.notOk(isInvalidAndTouched);
+    });
+
+    this.set('showChild', true);
+
+    await render(hbs`
+      {{#if showChild}}
+        {{#paper-form class="show" onValidityChange=(action onValidityChange) as |form|}}
+          {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
+          {{form.input value=bar onChange=(action (mut bar)) label="Bar" required=true}}
+        {{/paper-form}}
+      {{else}}
+        {{#paper-form class="not-show" onValidityChange=(action onValidityChange) as |form|}}
+          {{form.input value=foo2 onChange=(action (mut foo2)) label="Foo2"}}
+          {{form.input value=bar2 onChange=(action (mut bar2)) label="Bar2"}}
+        {{/paper-form}}
+      {{/if}}
+    `);
+
+    this.set('onValidityChange', (isValid, isTouched, isInvalidAndTouched) => {
+      assert.ok(isValid);
+      assert.notOk(isTouched);
+      assert.notOk(isInvalidAndTouched);
+    });
+
+    this.set('showChild', false);
+
+    await waitFor('.not-show', { timeout: 5000 });
+  });
+
   test('form is reset after submit action is invoked', async function(assert) {
     assert.expect(3);
 
@@ -136,8 +228,7 @@ module('Integration | Component | paper form', function(hooks) {
         {{form.input value=foo onChange=(action (mut foo)) label="Foo"}}
         {{form.input value=bar onChange=(action (mut bar)) label="Bar"}}
 
-        <button onclick={{action form.onSubmit}}>Submit</button>
-
+        <button type="button" onclick={{action form.onSubmit}}>Submit</button>
       {{/paper-form}}
     `);
 
@@ -157,10 +248,12 @@ module('Integration | Component | paper form', function(hooks) {
   test('works without using contextual components', async function(assert) {
     assert.expect(4);
 
+    this.set('errors', [])
+
     await render(hbs`
       {{#paper-form as |form|}}
-        {{paper-input value=foo onChange=(action (mut foo)) label="Foo"}}
-        {{paper-input value=bar onChange=(action (mut bar)) label="Bar" errors=errors}}
+        {{paper-input value=foo onRegister=(action form.register) onUnegister=(action form.unregister) onValidityChange=(action form.validityChange) formHasBeenValidated=form.formHasBeenValidated onChange=(action (mut foo)) label="Foo"}}
+        {{paper-input value=bar onRegister=(action form.register) onUnegister=(action form.unregister) onValidityChange=(action form.validityChange) formHasBeenValidated=form.formHasBeenValidated onChange=(action (mut bar)) label="Bar" errors=errors}}
 
         {{#if form.isInvalid}}
           <div class="invalid-div">Form is invalid!</div>
@@ -182,6 +275,8 @@ module('Integration | Component | paper form', function(hooks) {
       message: 'foo should be smaller than 12.',
       attribute: 'foo'
     }]);
+
+    await settled();
 
     assert.dom('.invalid-div').exists({ count: 1 });
     assert.dom('.valid-div').doesNotExist();

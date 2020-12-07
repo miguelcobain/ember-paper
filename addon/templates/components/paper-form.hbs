@@ -3,20 +3,30 @@
   isInvalid=isInvalid
   isTouched=isTouched
   isInvalidAndTouched=isInvalidAndTouched
+  formHasBeenValidated=formHasBeenValidated
   input=(component inputComponent
-    parentComponent=this
-    onValidityChange=(action "onValidityChange")
+    onValidityChange=(action "onChildValidityChange")
+    onRegister=(action "onRegister")
+    onUnregister=(action "onUnregister")
+    formHasBeenValidated=formHasBeenValidated
   )
   submit-button=(component submitButtonComponent
     type="submit"
   )
   select=(component selectComponent
-  	parentComponent=this
-  	onValidityChange=(action "onValidityChange")
+  	onValidityChange=(action "onChildValidityChange")
+    onRegister=(action "onRegister")
+    onUnregister=(action "onUnregister")
+    formHasBeenValidated=formHasBeenValidated
   )
   autocomplete=(component autocompleteComponent
-  	parentComponent=this
-  	onValidityChange=(action "onValidityChange")
+  	onValidityChange=(action "onChildValidityChange")
+    onRegister=(action "onRegister")
+    onUnregister=(action "onUnregister")
+    formHasBeenValidated=formHasBeenValidated
   )
-  onSubmit=(action "onSubmit")
+  onSubmit=(action "onInternalSubmit")
+  register=(action "onRegister")
+  unregister=(action "onUnregister")
+  validityChange=(action "onChildValidityChange")
 )}}

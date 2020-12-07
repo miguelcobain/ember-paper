@@ -1,3 +1,1 @@
-import PaperInput from 'ember-paper/components/paper-input';
-
-export default PaperInput;
+export { default } from 'ember-paper/components/paper-input/component';
