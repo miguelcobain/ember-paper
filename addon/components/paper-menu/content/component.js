@@ -78,6 +78,7 @@ class PaperMenuContent extends Component {
     } else {
       parentElement.removeChild(clone);
     }
+    this.returnFocus(element);
   }
 
   @action
@@ -92,6 +93,14 @@ class PaperMenuContent extends Component {
 
     if (focusTarget) {
       focusTarget.focus();
+    }
+  }
+
+  @action
+  async returnFocus(element) {
+    const ariaOwningElement = document.querySelector(`[aria-owns=${element.id}]`);
+    if (ariaOwningElement) {
+     ariaOwningElement.firstElementChild.focus();
     }
   }
 
