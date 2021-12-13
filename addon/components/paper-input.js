@@ -13,7 +13,7 @@ import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ChildMixin from 'ember-paper/mixins/child-mixin';
 import ValidationMixin from 'ember-paper/mixins/validation-mixin';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
  * @class PaperInput
@@ -48,19 +48,19 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   isInvalid: or('hasErrorMessages', 'isNativeInvalid'),
 
   hasValue: computed('value', 'isNativeInvalid', function() {
-    let value = this.get('value');
-    let isNativeInvalid = this.get('isNativeInvalid');
+    let value = this.value;
+    let isNativeInvalid = this.isNativeInvalid;
     return !isEmpty(value) || isNativeInvalid;
   }),
 
   shouldAddPlaceholder: computed('label', 'focused', function() {
     // if has label, only add placeholder when focused
-    return isEmpty(this.get('label')) || this.get('focused');
+    return isEmpty(this.label) || this.focused;
   }),
 
   inputElementId: computed('elementId', {
     get() {
-      return `input-${this.get('elementId')}`;
+      return `input-${this.elementId}`;
     },
     // elementId can be set from outside and it will override the computed value.
     // Please check the deprecations for further details
@@ -74,8 +74,8 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
 
 
   renderCharCount: computed('value', function() {
-    let currentLength = this.get('value') ? this.get('value').length : 0;
-    return `${currentLength}/${this.get('maxlength')}`;
+    let currentLength = this.value ? this.value.length : 0;
+    return `${currentLength}/${this.maxlength}`;
   }),
 
   hasLeftIcon: bool('icon'),
@@ -87,10 +87,10 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   // Lifecycle hooks
   didReceiveAttrs() {
     this._super(...arguments);
-    assert('{{paper-input}} requires an `onChange` action or null for no action.', this.get('onChange') !== undefined);
+    assert('{{paper-input}} requires an `onChange` action or null for no action.', this.onChange !== undefined);
 
-    let { value, errors } = this.getProperties('value', 'errors');
-    let { _prevValue, _prevErrors } = this.getProperties('_prevValue', '_prevErrors');
+    let { value, errors } = this;
+    let { _prevValue, _prevErrors } = this;
     if (value !== _prevValue || errors !== _prevErrors) {
       this.notifyValidityChange();
     }
@@ -100,7 +100,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
 
   didInsertElement() {
     this._super(...arguments);
-    if (this.get('textarea')) {
+    if (this.textarea) {
       this._growTextareaOnResize = run.bind(this, this.growTextarea);
       window.addEventListener('resize', this._growTextareaOnResize);
     }
@@ -109,20 +109,20 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   didRender() {
     this._super(...arguments);
     // setValue below ensures that the input value is the same as this.value
-    this.setValue(this.get('value'));
+    this.setValue(this.value);
     this.growTextarea();
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    if (this.get('textarea')) {
+    if (this.textarea) {
       window.removeEventListener('resize', this._growTextareaOnResize);
       this._growTextareaOnResize = null;
     }
   },
 
   growTextarea() {
-    if (this.get('textarea')) {
+    if (this.textarea) {
       let inputElement = this.element.querySelector('input, textarea');
       inputElement.classList.add('md-no-flex');
       inputElement.setAttribute('rows', 1);
@@ -187,7 +187,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
         if (this.isDestroyed) {
           return;
         }
-        this.setValue(this.get('value'));
+        this.setValue(this.value);
       });
       this.growTextarea();
       let inputElement = this.element.querySelector('input');

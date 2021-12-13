@@ -66,11 +66,11 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
       this.set('value', false);
       await render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
-      assert.equal(this.get('value'), false);
+      assert.equal(this.value, false);
 
       await triggerKeyEvent('md-checkbox', 'keypress', keyCode);
 
-      assert.equal(this.get('value'), true);
+      assert.equal(this.value, true);
     });
 
     test(`should be possible to uncheck with key code ${keyCode}`, async function(assert) {
@@ -78,11 +78,11 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
       this.set('value', true);
       await render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
-      assert.equal(this.get('value'), true);
+      assert.equal(this.value, true);
 
       await triggerKeyEvent('md-checkbox', 'keypress', keyCode);
 
-      assert.equal(this.get('value'), false);
+      assert.equal(this.value, false);
     });
   });
 

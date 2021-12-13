@@ -8,7 +8,7 @@ import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-grid-tile';
 import { ChildMixin } from 'ember-composability-tools';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 const positionCSS = (positions) => {
   return `calc((${positions.unit} + ${positions.gutter}) * ${positions.offset})`;
@@ -40,7 +40,7 @@ export default Component.extend(ChildMixin, {
 
   didUpdateAttrs() {
     this._super(...arguments);
-    let gridList = this.get('gridList');
+    let gridList = this.gridList;
 
     // Debounces until the next run loop
     run.debounce(gridList, gridList.updateGrid, 0);
@@ -52,27 +52,27 @@ export default Component.extend(ChildMixin, {
   },
 
   colspanMedia: computed('colspan', function() {
-    return this.get('gridList')._extractResponsiveSizes(this.get('colspan'));
+    return this.gridList._extractResponsiveSizes(this.colspan);
   }),
 
   currentColspan: computed('colspanMedia', 'gridList.currentMedia.[]', function() {
-    let colspan = this.get('gridList')._getAttributeForMedia(this.get('colspanMedia'), this.get('gridList.currentMedia'));
+    let colspan = this.gridList._getAttributeForMedia(this.colspanMedia, this.get('gridList.currentMedia'));
     return parseInt(colspan, 10) || 1;
   }),
 
   rowspanMedia: computed('rowspan', function() {
-    return this.get('gridList')._extractResponsiveSizes(this.get('rowspan'));
+    return this.gridList._extractResponsiveSizes(this.rowspan);
   }),
 
   currentRowspan: computed('rowspanMedia', 'gridList.currentMedia.[]', function() {
-    let rowspan = this.get('gridList')._getAttributeForMedia(this.get('rowspanMedia'), this.get('gridList.currentMedia'));
+    let rowspan = this.gridList._getAttributeForMedia(this.rowspanMedia, this.get('gridList.currentMedia'));
     return parseInt(rowspan, 10) || 1;
   }),
 
   _tileStyle() {
-    let position = this.get('position');
-    let currentColspan = this.get('currentColspan');
-    let currentRowspan = this.get('currentRowspan');
+    let position = this.position;
+    let currentColspan = this.currentColspan;
+    let currentRowspan = this.currentRowspan;
     let rowCount = this.get('gridList.rowCount');
     let colCount = this.get('gridList.currentCols');
     let gutter = this.get('gridList.currentGutter');

@@ -3,7 +3,7 @@
 const path = require('path');
 const resolve = require('resolve');
 const version = require('./package.json').version;
-const BroccoliMergeTrees = require('broccoli-merge-trees');
+const { MergeTrees } = require('broccoli-merge-trees');
 const writeFile = require('broccoli-file-creator');
 const Funnel = require('broccoli-funnel');
 const AngularScssFilter = require('./lib/angular-scss-filter');
@@ -483,7 +483,7 @@ module.exports = {
       trees.push(tree);
     }
 
-    return new BroccoliMergeTrees(trees);
+    return new MergeTrees(trees);
   },
 
   treeForStyles(tree) {
@@ -523,7 +523,7 @@ module.exports = {
       filteredScssFiles.map((path) => `@import './angular-material/${path}';`).join('\n')
     );
 
-    let mergedTrees = new BroccoliMergeTrees([angularScssFiles, importer, tree], { overwrite: true });
+    let mergedTrees = new MergeTrees([angularScssFiles, importer, tree], { overwrite: true });
     return this._super.treeForStyles(mergedTrees);
   },
 
@@ -638,7 +638,7 @@ module.exports = {
 
     let baseName = name.replace(regex, '');
     baseName = baseName.replace(/(\/component|\/template\b)/, '');
-    baseName = baseName.substring(0, baseName.lastIndexOf('.')); 
+    baseName = baseName.substring(0, baseName.lastIndexOf('.'));
     let isWhitelisted = whitelist.indexOf(baseName) !== -1;
     let isBlacklisted = blacklist.indexOf(baseName) !== -1;
 

@@ -15,7 +15,7 @@
         {{on "click" (fn this.handleChipClick index)}}>
 
         <div class="md-chip-content" tabindex="-1" aria-hidden="true">
-          {{#if hasBlock}}
+          {{#if (has-block)}}
             {{yield item "chip"}}
           {{else}}
             <span>{{item}}</span>
@@ -50,7 +50,7 @@
             @inputClass="md-input"
             @options={{@options}}
             @closeOnSelect={{true}}
-            @defaultHighlighted={{if @defaultHighlighted @defaultHighlighted null}}
+            @defaultHighlighted={{if @defaultHighlighted @defaultHighlighted (action "noop")}}
             @placeholder={{@placeholder}}
             @searchField={{@searchField}}
             @search={{@search}}
@@ -62,7 +62,7 @@
             @onOpen={{this.handleAutocompleteOpen}}
             @onCreate={{this.handleAddItem}}
             as |item|>
-            {{#if hasBlock}}
+            {{#if (has-block)}}
               {{yield item "suggestion"}}
             {{else}}
               <span>{{item}}</span>

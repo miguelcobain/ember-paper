@@ -5,7 +5,7 @@ import Mixin from '@ember/object/mixin';
 
 import { computed } from '@ember/object';
 import EventsMixin from './events-mixin';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
  * @class FocusableMixin
@@ -24,12 +24,12 @@ export default Mixin.create(EventsMixin, {
   attributeBindings: ['tabindex', 'disabledAttr:disabled'],
 
   disabledAttr: computed('disabled', function() {
-    return this.get('disabled') ? 'disabled' : null;
+    return this.disabled ? 'disabled' : null;
   }),
 
   // Alow element to be focusable by supplying a tabindex 0
   tabindex: computed('disabled', function() {
-    return this.get('disabled') ? '-1' : '0';
+    return this.disabled ? '-1' : '0';
   }),
 
   toggle: false,
@@ -67,7 +67,7 @@ export default Mixin.create(EventsMixin, {
    * They bubble by default.
    */
   focusIn() {
-    if (!this.get('disabled') && !this.get('focusOnlyOnKey') || !this.get('pressed')) {
+    if (!this.disabled && !this.focusOnlyOnKey || !this.pressed) {
       this.set('focused', true);
     }
   },

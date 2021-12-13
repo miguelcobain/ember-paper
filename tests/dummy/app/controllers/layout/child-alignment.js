@@ -3,11 +3,11 @@ import { computed } from '@ember/object';
 
 export default Controller.extend({
   layoutClass: computed('layoutDirection', function() {
-    return `layout-${this.get('layoutDirection')}`;
+    return `layout-${this.layoutDirection}`;
   }),
 
   layoutAlignClass: computed('mainDirection', 'perpDirection', function() {
-    let { mainDirection, perpDirection } = this.getProperties('mainDirection', 'perpDirection');
+    let { mainDirection, perpDirection } = this;
 
     if (!mainDirection && !perpDirection) {
       return 'layout-align';

@@ -122,7 +122,7 @@ module('Integration | Component | paper sidenav', function(hooks) {
     await click('md-sidenav');
   });
 
-  test('should trigger an action when clicking inside sidenav with `closeOnClick=true` (default)', async function(assert) {
+  test('should not trigger an action when clicking inside sidenav with `closeOnClick=false`', async function(assert) {
     assert.expect(0);
 
     this.set('sidenavToggle', (value) => {

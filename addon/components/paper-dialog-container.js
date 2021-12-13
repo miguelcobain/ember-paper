@@ -2,7 +2,7 @@
  * @module ember-paper
  */
 import Component from '@ember/component';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
  * @class PaperDialogContainer

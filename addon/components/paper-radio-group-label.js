@@ -9,8 +9,8 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    if (this.get('setAriaLabelledby')) {
-      this.get('setAriaLabelledby')(this.elementId);
+    if (this.setAriaLabelledby) {
+      this.setAriaLabelledby(this.elementId);
     }
   }
 });

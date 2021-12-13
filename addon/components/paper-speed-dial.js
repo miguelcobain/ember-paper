@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-speed-dial';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 export default Component.extend({
   layout,
@@ -17,16 +17,16 @@ export default Component.extend({
 
   animation: 'fling',
   animationClass: computed('animation', function() {
-    return `md-${this.get('animation')}`;
+    return `md-${this.animation}`;
   }),
 
   direction: 'down',
   directionClass: computed('direction', function() {
-    return `md-${this.get('direction')}`;
+    return `md-${this.direction}`;
   }),
 
   shouldHideActions: computed('animation', 'elementDidRender', function() {
-    return this.get('animation') === 'fling' && !this.get('elementDidRender');
+    return this.animation === 'fling' && !this.elementDidRender;
   }),
 
   _mouseEnterHandler: undefined,
@@ -70,7 +70,7 @@ export default Component.extend({
   },
 
   toggle() {
-    this.changeOpenValue(!this.get('open'));
+    this.changeOpenValue(!this.open);
   },
 
   close() {
@@ -79,7 +79,7 @@ export default Component.extend({
 
   changeOpenValue(value) {
     // support non DDAU scenario
-    if (this.get('onToggle')) {
+    if (this.onToggle) {
       invokeAction(this, 'onToggle', value);
     } else {
       this.set('open', value);

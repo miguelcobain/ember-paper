@@ -7,7 +7,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import layout from '../templates/components/paper-item';
 import { ParentMixin } from 'ember-composability-tools';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 /**
  * @class PaperItem
  * @extends Ember.Component
@@ -23,7 +23,7 @@ export default Component.extend(ParentMixin, {
   // Ripple Overrides
   // disable ripple when we have a primary action or when we don't have a proxied component
   noink: computed('hasPrimaryAction', 'hasProxiedComponent', function() {
-    return this.get('hasPrimaryAction') || !this.get('hasProxiedComponent');
+    return this.hasPrimaryAction || !this.hasProxiedComponent;
   }),
 
   classNameBindings: [
@@ -44,11 +44,11 @@ export default Component.extend(ParentMixin, {
   hasPrimaryAction: or('onClick', 'href'),
 
   noProxy: computed('hasPrimaryAction', 'hasProxiedComponent', function() {
-    return !this.get('hasPrimaryAction') && !this.get('hasProxiedComponent');
+    return !this.hasPrimaryAction && !this.hasProxiedComponent;
   }),
 
   secondaryItem: computed('proxiedComponents.[]', function() {
-    let proxiedComponents = this.get('proxiedComponents');
+    let proxiedComponents = this.proxiedComponents;
     return proxiedComponents.objectAt(0);
   }),
 
@@ -73,8 +73,8 @@ export default Component.extend(ParentMixin, {
   },
 
   click() {
-    this.get('proxiedComponents').forEach((component) => {
-      if (component.processProxy && !component.get('disabled') && (component.get('bubbles') | !this.get('hasPrimaryAction'))) {
+    this.proxiedComponents.forEach((component) => {
+      if (component.processProxy && !component.get('disabled') && (component.get('bubbles') | !this.hasPrimaryAction)) {
         component.processProxy();
       }
     });

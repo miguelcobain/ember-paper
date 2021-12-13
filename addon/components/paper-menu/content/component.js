@@ -2,11 +2,14 @@ import Component from '@ember/component';
 import template from './template';
 
 import { action, computed } from '@ember/object';
-import { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
+import { nextTick } from 'ember-css-transitions/utils/transition-utils';
 
 import { tagName, layout } from '@ember-decorators/component';
 
 import { ESCAPE, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, DOWN_ARROW } from 'ember-paper/utils/key-constants';
+
+import { getOwner } from '@ember/application';
+import ebdGetParent from 'ember-paper/utils/ebd-get-parent';
 
 function waitForAnimations(element, callback) {
   let computedStyle = window.getComputedStyle(element);
@@ -58,8 +61,9 @@ class PaperMenuContent extends Component {
     let parentElement = this.renderInPlace ? element.parentElement.parentElement : element.parentElement;
 
     // workaround for https://github.com/miguelcobain/ember-paper/issues/1151. See also https://github.com/emberjs/ember.js/issues/18795.
+    // & https://github.com/miguelcobain/ember-paper/issues/1166
     if (!parentElement) {
-      parentElement = document.getElementById('ember-basic-dropdown-wormhole');
+      parentElement = ebdGetParent(getOwner(this));
     }
 
     let clone = element.cloneNode(true);

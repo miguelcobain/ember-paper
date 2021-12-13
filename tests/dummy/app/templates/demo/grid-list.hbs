@@ -46,7 +46,7 @@
     </PaperGridList>
 
   </PaperContent>
-  {{ END-SNIPPET }}
+  {{! END-SNIPPET }}
 
   <h3>Template</h3>
   <CodeSnippet @name="grid-list.basic-usage.hbs" />
@@ -80,7 +80,7 @@
 
       {{#each colorTiles as |tile|}}
 
-        <grid.tile @colspan={{tile.colspan}} @rowspan={{tile.rowspan}} @class={{tile.style}}>
+        <grid.tile @colspan={{tile.colspan}} @rowspan={{tile.rowspan}} class={{tile.style}}>
         </grid.tile>
 
       {{/each}}

@@ -14,7 +14,7 @@ import minValidator from 'ember-paper/validators/min';
 import maxValidator from 'ember-paper/validators/max';
 import minlengthValidator from 'ember-paper/validators/minlength';
 import maxlengthValidator from 'ember-paper/validators/maxlength';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
  * In order to make validation generic it is required that components using the validation mixin
@@ -36,7 +36,7 @@ function buildComputedValidationMessages(property, validations = [], customValid
     validations.pushObjects(this.validations());
 
     // custom validations
-    let customValidations = this.get('customValidations');
+    let customValidations = this.customValidations;
     assert('`customValidations` must be an array', isArray(customValidations));
     validations.pushObjects(customValidations);
 
@@ -59,7 +59,7 @@ function buildComputedValidationMessages(property, validations = [], customValid
     });
 
     // error messages array
-    let errors = this.get('errors') || [];
+    let errors = this.errors || [];
     assert('`errors` must be an array', isArray(errors));
     messages.pushObjects(errors.map((e) => {
       return get(e, 'message') ? e : { message: e };
@@ -80,12 +80,12 @@ export default Mixin.create({
 
   init() {
     this._super(...arguments);
-    assert('validationProperty must be set', this.get('validationProperty'));
-    if (!this.get('validationErrorMessages')) {
+    assert('validationProperty must be set', this.validationProperty);
+    if (!this.validationErrorMessages) {
       let computedValidationMessages = buildComputedValidationMessages(
-        this.get('validationProperty'),
+        this.validationProperty,
         this.validations(),
-        this.get('customValidations')
+        this.customValidations
       );
       defineProperty(this, 'validationErrorMessages', computedValidationMessages);
     }
@@ -126,10 +126,10 @@ export default Mixin.create({
   },
 
   notifyValidityChange() {
-    let isValid = this.get('isValid');
-    let lastIsValid = this.get('lastIsValid');
-    let isTouched = this.get('isTouched');
-    let lastIsTouched = this.get('lastIsTouched');
+    let isValid = this.isValid;
+    let lastIsValid = this.lastIsValid;
+    let isTouched = this.isTouched;
+    let lastIsTouched = this.lastIsTouched;
     if (lastIsValid !== isValid || lastIsTouched !== isTouched) {
       invokeAction(this, 'onValidityChange', isValid);
       this.set('lastIsValid', isValid);

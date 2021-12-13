@@ -1,0 +1,7 @@
+<md-sidenav
+  {{on 'click' (fn this.handleClick @closeOnClick @isLockedOpen @onToggle)}}
+  tabindex='-1'
+  class="{{this.positionClass}} {{if this.isLockedOpen 'md-locked-open'}} {{if this.closed 'md-closed'}} {{@class}}"
+  ...attributes>
+  {{yield}}
+</md-sidenav>

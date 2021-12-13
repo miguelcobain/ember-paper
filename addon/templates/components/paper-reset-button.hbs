@@ -1,0 +1,7 @@
+<button
+  {{on 'click' (fn this.handleClick @onReset)}}
+  {{css-transition 'ng' didTransitionOut=@onDidTransitionOut}}
+  type="button"
+  ...attributes>
+  {{yield}}
+</button>

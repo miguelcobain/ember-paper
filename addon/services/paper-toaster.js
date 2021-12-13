@@ -3,7 +3,6 @@ import { assign } from '@ember/polyfills';
 import { run } from '@ember/runloop';
 import { A } from '@ember/array';
 import Service from '@ember/service';
-import { tryInvoke } from '@ember/utils';
 import EObject from '@ember/object';
 import config from 'ember-get-config';
 
@@ -19,27 +18,27 @@ export default Service.extend({
 
   show(text, options) {
     let t = EObject.create(assign({ text, show: true }, this.buildOptions(options)));
-    this.get('queue').pushObject(t);
+    this.queue.pushObject(t);
     return t;
   },
 
   showComponent(componentName, options) {
     let t = EObject.create(assign({ componentName, show: true }, this.buildOptions(options)));
-    this.get('queue').pushObject(t);
+    this.queue.pushObject(t);
     return t;
   },
 
   cancelToast(toast) {
     toast.set('show', false);
 
-    if (this.get('activeToast') === toast) {
+    if (this.activeToast === toast) {
       run.later(() => {
-        tryInvoke(toast, 'onClose');
-        this.get('queue').removeObject(toast);
+        if (toast.onClose) { toast.onClose() }
+        this.queue.removeObject(toast);
       }, 400);
     } else {
-      tryInvoke(toast, 'onClose');
-      this.get('queue').removeObject(toast);
+      if (toast.onClose) { toast.onClose() }
+      this.queue.removeObject(toast);
     }
   },
 

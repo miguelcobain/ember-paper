@@ -41,13 +41,13 @@ export default Controller.extend({
     },
 
     addChapter() {
-      let index = Math.max(...this.get('chapters').mapBy('index')) + 1;
+      let index = Math.max(...this.chapters.mapBy('index')) + 1;
       let chapter = {
         index,
-        title: this.get('newTitle'),
-        body: this.get('newContent')
+        title: this.newTitle,
+        body: this.newContent
       };
-      this.get('chapters').pushObject(chapter);
+      this.chapters.pushObject(chapter);
       this.set('selectedChapter', chapter);
       this.setProperties({
         newTitle: '',
@@ -56,13 +56,13 @@ export default Controller.extend({
     },
 
     removeChapter(t) {
-      if (this.get('selectedChapter') === t) {
-        let chapters = this.get('chapters');
+      if (this.selectedChapter === t) {
+        let chapters = this.chapters;
         let index = chapters.indexOf(t);
         let newSelection = chapters.objectAt(index + 1) || chapters.objectAt(index - 1);
         this.set('selectedChapter', newSelection);
       }
-      this.get('chapters').removeObject(t);
+      this.chapters.removeObject(t);
     },
 
     noop() {}

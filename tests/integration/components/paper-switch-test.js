@@ -78,11 +78,11 @@ module('Integration | Component | paper switch', function(hooks) {
 
       this.set('switchValue', false);
       await render(hbs`{{paper-switch value=switchValue onChange=(action (mut switchValue))}}`);
-      assert.equal(this.get('switchValue'), false);
+      assert.equal(this.switchValue, false);
 
       await triggerKeyEvent('md-switch', 'keypress', keyCode);
 
-      assert.equal(this.get('switchValue'), true);
+      assert.equal(this.switchValue, true);
     });
 
     test(`should be possible to switch off with key code ${keyCode}`, async function(assert) {
@@ -90,11 +90,11 @@ module('Integration | Component | paper switch', function(hooks) {
 
       this.set('switchValue', true);
       await render(hbs`{{paper-switch value=switchValue onChange=(action (mut switchValue))}}`);
-      assert.equal(this.get('switchValue'), true);
+      assert.equal(this.switchValue, true);
 
       await triggerKeyEvent('md-switch', 'keypress', keyCode);
 
-      assert.equal(this.get('switchValue'), false);
+      assert.equal(this.switchValue, false);
     });
   });
 

@@ -1,20 +1,15 @@
 {{yield}}
 {{#if activeToast.show}}
-  {{#paper-toast
-    onClose=(action onClose activeToast)
-    position=activeToast.position
-    duration=activeToast.duration
-    class=activeToast.toastClass
-    parent=parent as |toast|}}
+  <PaperToast @onClose={{action onClose activeToast}} @position={{activeToast.position}} @duration={{activeToast.duration}} @class={{activeToast.toastClass}} @parent={{parent}} as |toast|>
     {{#if activeToast.componentName}}
       {{component activeToast.componentName}}
     {{else}}
-      {{#toast.text}}{{activeToast.text}}{{/toast.text}}
+      <toast.text>{{activeToast.text}}</toast.text>
       {{#if activeToast.action}}
-        {{#paper-button primary=activeToast.action.primary accent=activeToast.action.accent warn=activeToast.action.warn onClick=activeToast.action.onClick}}
+        <PaperButton @primary={{activeToast.action.primary}} @accent={{activeToast.action.accent}} @warn={{activeToast.action.warn}} @onClick={{activeToast.action.onClick}}>
           {{activeToast.action.label}}
-        {{/paper-button}}
+        </PaperButton>
       {{/if}}
     {{/if}}
-  {{/paper-toast}}
+  </PaperToast>
 {{/if}}

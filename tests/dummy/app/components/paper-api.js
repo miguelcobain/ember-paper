@@ -32,7 +32,7 @@ export default Component.extend({
 
   categories: computed('categorySpec', function() {
     let categories = [];
-    this.get('categorySpec').forEach((category) => {
+    this.categorySpec.forEach((category) => {
       category = typeOf(category) === 'string' ? this.get(category) : category;
       categories.push(this.getEscapedCategory(category));
     });
@@ -40,7 +40,7 @@ export default Component.extend({
   }),
 
   getEscapedCategory(category) {
-    let shouldSort = this.get('sort');
+    let shouldSort = this.sort;
 
     if (shouldSort) {
       category = category.slice().sort(function(a, b) {

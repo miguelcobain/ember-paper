@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, fillIn } from '@ember/test-helpers';
+import { render, fillIn, waitUntil, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { clickTrigger, selectChoose } from 'ember-power-select/test-support/helpers';
 
@@ -40,11 +40,15 @@ module('Integration | Component | paper-select', function(hooks) {
       {{size}}
     {{/paper-select}}`);
 
+    assert.dom('md-backdrop').doesNotExist();
+
     await clickTrigger('md-input-container');
 
     assert.dom('md-backdrop').exists();
 
     await clickTrigger('md-input-container');
+
+    await waitUntil(() => !find('md-backdrop'), { timeout: 2000 });
 
     assert.dom('md-backdrop').doesNotExist();
   });
@@ -65,7 +69,7 @@ module('Integration | Component | paper-select', function(hooks) {
 
     await selectChoose('md-input-container', 'large (16-inch)');
 
-    assert.equal(this.get('selectedSize'), 'large (16-inch)');
+    assert.equal(this.selectedSize, 'large (16-inch)');
   });
 
   test('header is rendered above content', async function(assert) {

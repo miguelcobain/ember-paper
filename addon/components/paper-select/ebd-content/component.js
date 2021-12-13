@@ -5,11 +5,14 @@ import { tagName, layout } from '@ember-decorators/component';
 import { computed, action } from '@ember/object';
 
 import { next, scheduleOnce } from '@ember/runloop';
-import { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
+import { nextTick } from 'ember-css-transitions/utils/transition-utils';
 
 import { ESCAPE, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, DOWN_ARROW, ENTER } from 'ember-paper/utils/key-constants';
 
 import { advanceSelectableOption } from 'ember-power-select/utils/group-utils';
+
+import { getOwner } from '@ember/application';
+import ebdGetParent from 'ember-paper/utils/ebd-get-parent';
 
 function waitForAnimations(element, callback) {
   let computedStyle = window.getComputedStyle(element);
@@ -64,6 +67,12 @@ class PaperSelectEbdContent extends Component {
   @action
   async animateOut(dropdownElement) {
     let parentElement = this.renderInPlace ? dropdownElement.parentElement.parentElement : dropdownElement.parentElement;
+
+    // workaround for https://github.com/miguelcobain/ember-paper/issues/1166
+    if (!parentElement) {
+      parentElement = ebdGetParent(getOwner(this));
+    }
+
     let clone = dropdownElement.cloneNode(true);
     clone.id = `${clone.id}--clone`;
     parentElement.appendChild(clone);

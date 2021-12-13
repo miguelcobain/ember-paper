@@ -12,7 +12,7 @@ export default Controller.extend({
   }),
 
   userState: computed(function() {
-    return this.get('states').objectAt(4);
+    return this.states.objectAt(4);
   }),
 
   sizes: A([

@@ -1,3 +1,16 @@
-<div class="md-toast-content">
-  {{yield}}
-</div>
+<md-toast
+  {{css-transition
+    enterClass="ng-enter"
+    enterActiveClass="ng-enter"
+    enterToClass="ng-enter-active"
+    leaveClass="ng-dummyclass"
+    leaveActiveClass="ng-leave"
+    leaveToClass="ng-leave-active"}}
+  {{toast-hammer enabled=@swipeToClose onClose=@onClose}}
+  style="transform:translate(0px, 0)"
+  class="{{if @left 'md-left' 'md-right'}} {{if @top 'md-top' 'md-bottom'}} {{if @capsule 'md-capsule'}} {{@class}}"
+  ...attributes>
+  <div class="md-toast-content">
+    {{yield}}
+  </div>
+</md-toast>

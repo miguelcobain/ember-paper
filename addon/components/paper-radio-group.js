@@ -10,7 +10,7 @@ import layout from '../templates/components/paper-radio-group';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import { ParentMixin } from 'ember-composability-tools';
 import { isPresent } from '@ember/utils';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
  * @class PaperRadioGroup
@@ -35,7 +35,7 @@ export default Component.extend(FocusableMixin, ParentMixin, {
   // Lifecycle hooks
   init() {
     this._super(...arguments);
-    assert('{{paper-radio-group}} requires an `onChange` action or null for no action', this.get('onChange') !== undefined);
+    assert('{{paper-radio-group}} requires an `onChange` action or null for no action', this.onChange !== undefined);
   },
 
   attributeBindings: [
@@ -64,17 +64,17 @@ export default Component.extend(FocusableMixin, ParentMixin, {
   },
 
   select(increment) {
-    let groupValue = this.get('groupValue');
+    let groupValue = this.groupValue;
     let index = 0;
 
     if (isPresent(groupValue)) {
-      index = this.get('childValues').indexOf(groupValue);
+      index = this.childValues.indexOf(groupValue);
       index += increment;
       let length = this.get('childValues.length');
       index = ((index % length) + length) % length;
     }
 
-    let childRadio = this.get('enabledChildRadios').objectAt(index);
+    let childRadio = this.enabledChildRadios.objectAt(index);
     childRadio.set('focused', true);
     invokeAction(this, 'onChange', childRadio.get('value'));
   },

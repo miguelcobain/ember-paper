@@ -471,7 +471,7 @@ module('Integration | Component | paper-input', function(hooks) {
     await fillIn('input', '12345');
 
     assert.dom('input').hasValue('foo');
-    assert.equal(this.get('value'), 'foo');
+    assert.equal(this.value, 'foo');
   });
 
   test('errors only show after input is touched and input is invalid', async function(assert) {

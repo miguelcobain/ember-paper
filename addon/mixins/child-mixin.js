@@ -22,7 +22,7 @@ export default Mixin.create({
         return this._parentComponent;
       }
 
-      return this.nearestOfType(this.get('parentClass'));
+      return this.nearestOfType(this.parentClass);
     },
 
     set(key, value) {
@@ -32,15 +32,15 @@ export default Mixin.create({
 
   init() {
     this._super(...arguments);
-    if (this.get('parentComponent')) {
-      this.get('parentComponent').register(this);
+    if (this.parentComponent) {
+      this.parentComponent.register(this);
     }
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    if (this.get('parentComponent')) {
-      this.get('parentComponent').unregister(this);
+    if (this.parentComponent) {
+      this.parentComponent.unregister(this);
     }
   }
 });

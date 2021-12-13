@@ -21,7 +21,7 @@ module('Integration | Component | paper item', function(hooks) {
     await settled();
     await click('md-checkbox');
 
-    assert.ok(this.get('checkboxEnabled'));
+    assert.ok(this.checkboxEnabled);
 
   });
 
@@ -40,7 +40,7 @@ module('Integration | Component | paper item', function(hooks) {
     await settled();
     await click('.md-list-item-inner');
 
-    assert.notOk(this.get('checkboxEnabled'));
+    assert.notOk(this.checkboxEnabled);
 
   });
 
@@ -57,7 +57,7 @@ module('Integration | Component | paper item', function(hooks) {
     `);
     await settled();
     await click('.md-list-item-inner');
-    assert.ok(this.get('checkboxEnabled'));
+    assert.ok(this.checkboxEnabled);
   });
 
   test('single action radios should react to item clicks', async function(assert) {
@@ -87,11 +87,11 @@ module('Integration | Component | paper item', function(hooks) {
 
     await click(items[0]);
 
-    assert.equal(this.get('selectedValue'), 'some value 1');
+    assert.equal(this.selectedValue, 'some value 1');
 
     await click(items[1]);
 
-    assert.equal(this.get('selectedValue'), 'some value 2');
+    assert.equal(this.selectedValue, 'some value 2');
 
   });
 
@@ -121,8 +121,8 @@ module('Integration | Component | paper item', function(hooks) {
     await settled();
 
     await click('md-checkbox');
-    assert.ok(this.get('checked'));
-    assert.notOk(this.get('secondaryValue'));
+    assert.ok(this.checked);
+    assert.notOk(this.secondaryValue);
   });
 
   test('Item checkbox with secondary action and no primary action is toggled by primary click', async function(assert) {
@@ -144,8 +144,8 @@ module('Integration | Component | paper item', function(hooks) {
     await settled();
 
     await click('.md-list-item-inner');
-    assert.ok(this.get('checked'));
-    assert.notOk(this.get('secondaryValue'));
+    assert.ok(this.checked);
+    assert.notOk(this.secondaryValue);
 
   });
 
@@ -155,7 +155,7 @@ module('Integration | Component | paper item', function(hooks) {
     this.set('checked', false);
     this.set('primaryValue', false);
     this.set('primaryAction', () => {
-      this.set('primaryValue', !this.get('primaryValue'));
+      this.set('primaryValue', !this.primaryValue);
     });
 
     await render(hbs`
@@ -172,9 +172,9 @@ module('Integration | Component | paper item', function(hooks) {
     await settled();
 
     await click('button.md-secondary');
-    assert.ok(this.get('secondaryValue'));
-    assert.notOk(this.get('primaryValue'));
-    assert.notOk(this.get('checked'));
+    assert.ok(this.secondaryValue);
+    assert.notOk(this.primaryValue);
+    assert.notOk(this.checked);
   });
 
   test('Item checkbox with secondary action and primary action dont bubble primary action on checkbox click when checkbox action exists', async function(assert) {
@@ -183,7 +183,7 @@ module('Integration | Component | paper item', function(hooks) {
     this.set('checked', false);
     this.set('primaryValue', false);
     this.set('primaryAction', () => {
-      this.set('primaryValue', !this.get('primaryValue'));
+      this.set('primaryValue', !this.primaryValue);
     });
 
     await render(hbs`
@@ -202,15 +202,15 @@ module('Integration | Component | paper item', function(hooks) {
 
     await click('md-checkbox');
 
-    assert.ok(this.get('checked'));
-    assert.notOk(this.get('primaryValue'));
-    assert.notOk(this.get('secondaryValue'));
+    assert.ok(this.checked);
+    assert.notOk(this.primaryValue);
+    assert.notOk(this.secondaryValue);
 
     await click('button');
 
-    assert.ok(this.get('checked'));
-    assert.ok(this.get('primaryValue'));
-    assert.notOk(this.get('secondaryValue'));
+    assert.ok(this.checked);
+    assert.ok(this.primaryValue);
+    assert.notOk(this.secondaryValue);
 
   });
 });

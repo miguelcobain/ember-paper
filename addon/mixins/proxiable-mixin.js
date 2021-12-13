@@ -23,7 +23,7 @@ export default Mixin.create(ChildMixin, {
 
   mouseDown() {
     this._super(...arguments);
-    let parentComponent = this.get('parentComponent');
+    let parentComponent = this.parentComponent;
     if (parentComponent) {
       parentComponent.set('mouseActive', true);
       run.later(() => {
@@ -37,7 +37,7 @@ export default Mixin.create(ChildMixin, {
 
   focusIn() {
     this._super(...arguments);
-    let parentComponent = this.get('parentComponent');
+    let parentComponent = this.parentComponent;
     if (parentComponent && !parentComponent.get('mouseActive')) {
       parentComponent.set('focused', true);
     }
@@ -45,7 +45,7 @@ export default Mixin.create(ChildMixin, {
 
   focusOut() {
     this._super(...arguments);
-    let parentComponent = this.get('parentComponent');
+    let parentComponent = this.parentComponent;
     if (parentComponent) {
       parentComponent.set('focused', false);
     }

@@ -10,7 +10,7 @@ export default Controller.extend({
   value6: false,
 
   isIndeterminate: computed('value7', function() {
-    return this.get('value7') === undefined;
+    return this.value7 === undefined;
   }),
 
   actions: {

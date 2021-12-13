@@ -6,7 +6,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { getOwner } from '@ember/application';
 import layout from '../templates/components/paper-dialog';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
  * @class PaperDialog
@@ -35,10 +35,10 @@ export default Component.extend({
   destinationId: computed('defaultedParent', function() {
     let config = getOwner(this).resolveRegistration('config:environment');
 
-    if (config.environment === 'test' && !this.get('parent')) {
+    if (config.environment === 'test' && !this.parent) {
       return '#ember-testing';
     }
-    let parent = this.get('defaultedParent');
+    let parent = this.defaultedParent;
     let parentEle = typeof parent === 'string' ? document.querySelector(parent) : parent;
     // If the parentEle isn't found, assume that it is an id, but that the DOM doesn't
     // exist yet. This only happens during integration tests or if entire application
@@ -58,16 +58,16 @@ export default Component.extend({
 
   // Find the element referenced by destinationId
   destinationEl: computed('destinationId', function() {
-    return document.querySelector(this.get('destinationId'));
+    return document.querySelector(this.destinationId);
   }),
 
   didInsertElement() {
     this._super(...arguments);
-    if (this.get('escapeToClose')) {
+    if (this.escapeToClose) {
 
-      this._destinationEle = document.querySelector(this.get('destinationId'));
+      this._destinationEle = document.querySelector(this.destinationId);
       this._onKeyDown = (e) => {
-        if (e.keyCode === 27 && this.get('onClose')) {
+        if (e.keyCode === 27 && this.onClose) {
           invokeAction(this, 'onClose');
         }
       };
@@ -78,7 +78,7 @@ export default Component.extend({
 
   willDestroyElement() {
     this._super(...arguments);
-    if (this.get('escapeToClose') && this._destinationEle) {
+    if (this.escapeToClose && this._destinationEle) {
       this._destinationEle.removeEventListener('keydown', this._onKeyDown);
       this._onKeyDown = null;
     }
@@ -86,7 +86,7 @@ export default Component.extend({
 
   actions: {
     outsideClicked() {
-      if (this.get('clickOutsideToClose') && this.get('onClose')) {
+      if (this.clickOutsideToClose && this.onClose) {
         invokeAction(this, 'onClose');
       }
     }

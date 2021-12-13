@@ -65,46 +65,46 @@ export default Component.extend(ColorMixin, {
   endIndeterminate: 149,
 
   mode: computed('value', function() {
-    let value = this.get('value');
+    let value = this.value;
     return isPresent(value) ? MODE_DETERMINATE : MODE_INDETERMINATE;
   }),
 
   spinnerClass: computed('mode', function() {
-    let mode = this.get('mode');
+    let mode = this.mode;
     return mode === MODE_DETERMINATE || mode === MODE_INDETERMINATE ? `md-mode-${mode}` : 'ng-hide';
   }),
 
   isIndeterminate: equal('mode', MODE_INDETERMINATE).readOnly(),
 
   strokeWidth: computed('strokeRatio', 'diameter', function() {
-    return this.get('strokeRatio') * this.get('diameter');
+    return this.strokeRatio * this.diameter;
   }),
 
   strokeDasharray: computed('mode', 'diameter', 'strokeWidth', function() {
-    if (this.get('mode') === MODE_INDETERMINATE) {
-      return (this.get('diameter') - this.get('strokeWidth')) * Math.PI * 0.75;
+    if (this.mode === MODE_INDETERMINATE) {
+      return (this.diameter - this.strokeWidth) * Math.PI * 0.75;
     } else {
-      return (this.get('diameter') - this.get('strokeWidth')) * Math.PI;
+      return (this.diameter - this.strokeWidth) * Math.PI;
     }
   }),
 
   d: computed('diameter', 'strokeWidth', 'isIndeterminate', function() {
-    return this.getSvgArc(this.get('diameter'), this.get('strokeWidth'), this.get('isIndeterminate'));
+    return this.getSvgArc(this.diameter, this.strokeWidth, this.isIndeterminate);
   }),
 
   pathDiameter: computed('diameter', 'strokeWidth', function() {
-    return this.get('diameter') - this.get('strokeWidth');
+    return this.diameter - this.strokeWidth;
   }),
 
   containerStyle: computed('diameter', function() {
-    let diameter = this.get('diameter');
+    let diameter = this.diameter;
     let width = `width: ${diameter}px`;
     let height = `height: ${diameter}px`;
     return htmlSafe([width, height].join('; '));
   }),
 
   svgStyle: computed('diameter', function() {
-    let diameter = this.get('diameter');
+    let diameter = this.diameter;
     let width = `width: ${diameter}px`;
     let height = `height: ${diameter}px`;
     let transformOrigin = `transform-origin: ${diameter / 2}px ${diameter / 2}px ${diameter / 2}px`;
@@ -112,24 +112,24 @@ export default Component.extend(ColorMixin, {
   }),
 
   pathStyle: computed('strokeWidth', function() {
-    return htmlSafe(`stroke-width: ${this.get('strokeWidth')}px`);
+    return htmlSafe(`stroke-width: ${this.strokeWidth}px`);
   }),
 
   didInsertElement() {
     this._super(...arguments);
 
-    if (this.get('mode') === MODE_INDETERMINATE) {
+    if (this.mode === MODE_INDETERMINATE) {
       this.startIndeterminateAnimation();
     }
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
-    let newValue = clamp(this.get('value'), 0, 100);
-    let newDisabled = this.get('disabled');
+    let newValue = clamp(this.value, 0, 100);
+    let newDisabled = this.disabled;
 
-    let diameterChanged = this.oldDiameter !== this.get('diameter');
-    let strokeRatioChanged = this.oldStrokeRatio !== this.get('strokeRatio');
+    let diameterChanged = this.oldDiameter !== this.diameter;
+    let strokeRatioChanged = this.oldStrokeRatio !== this.strokeRatio;
 
     if (this.oldValue !== newValue || diameterChanged || strokeRatioChanged) {
       this.startDeterminateAnimation(this.oldValue || 0, newValue);
@@ -140,14 +140,14 @@ export default Component.extend(ColorMixin, {
       // disabled changed
       if (newDisabled && this.lastDrawFrame) {
         cAF(this.lastDrawFrame);
-      } else if (this.get('mode') === MODE_INDETERMINATE) {
+      } else if (this.mode === MODE_INDETERMINATE) {
         this.startIndeterminateAnimation();
       }
       this.oldValue = newValue;
     }
 
-    this.oldDiameter = this.get('diameter');
-    this.oldStrokeRatio = this.get('strokeRatio');
+    this.oldDiameter = this.diameter;
+    this.oldStrokeRatio = this.strokeRatio;
   },
 
   willDestroyElement() {
@@ -164,8 +164,8 @@ export default Component.extend(ColorMixin, {
 
   iterationCount: 0,
   startIndeterminateAnimation() {
-    this.renderCircle(this.get('startIndeterminate'), this.get('endIndeterminate'),
-      this.get('easeFnIndeterminate'), this.get('durationIndeterminate'), this.iterationCount, 75);
+    this.renderCircle(this.startIndeterminate, this.endIndeterminate,
+      this.easeFnIndeterminate, this.durationIndeterminate, this.iterationCount, 75);
 
     // The % 4 technically isn't necessary, but it keeps the rotation
     // under 360, instead of becoming a crazy large number.
@@ -181,8 +181,8 @@ export default Component.extend(ColorMixin, {
     let id = ++this.lastAnimationId;
     let startTime = now();
     let changeInValue = animateTo - animateFrom;
-    let diameter = this.get('diameter');
-    let strokeWidth = this.get('strokeWidth');
+    let diameter = this.diameter;
+    let strokeWidth = this.strokeWidth;
     let rotation = -90 * iterationCount;
 
     let renderFrame = (value, diameter, strokeWidth, dashLimit) => {
@@ -211,7 +211,7 @@ export default Component.extend(ColorMixin, {
           this.lastDrawFrame = rAF(animation);
         }
 
-        if (currentTime >= animationDuration && this.get('mode') === MODE_INDETERMINATE) {
+        if (currentTime >= animationDuration && this.mode === MODE_INDETERMINATE) {
           this.startIndeterminateAnimation();
         }
       };
