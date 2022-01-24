@@ -22,29 +22,29 @@ export default Controller.extend({
   isInvalid: not('isValid'),
 
   primary: computed('palettes.@each.name', function() {
-    return this.get('palettes').find((p) => p.name === 'pink');
+    return this.palettes.find((p) => p.name === 'pink');
   }),
 
   accent: computed('palettes.@each.name', function() {
-    return this.get('palettes').find((p) => p.name === 'green');
+    return this.palettes.find((p) => p.name === 'green');
   }),
 
   warn: computed('palettes.@each.name', function() {
-    return this.get('palettes').find((p) => p.name === 'red');
+    return this.palettes.find((p) => p.name === 'red');
   }),
 
   actions: {
     // BEGIN-SNIPPET theme.service
     installTheme() {
-      this.get('paperTheme').installTheme('main', {
-        primary: this.get('primary').palette,
-        accent: this.get('accent').palette,
-        warn: this.get('warn').palette
+      this.paperTheme.installTheme('main', {
+        primary: this.primary.palette,
+        accent: this.accent.palette,
+        warn: this.warn.palette
       });
     },
 
     uninstallTheme() {
-      this.get('paperTheme').uninstallTheme('main');
+      this.paperTheme.uninstallTheme('main');
     }
     // END-SNIPPET
   }

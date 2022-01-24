@@ -15,11 +15,11 @@
 
     @calculatePosition={{this.calculatePosition}}
     @extra={{hash label=@label}}
-    @_ebdTriggerComponent={{component "paper-select/ebd-trigger" label=@label selected=@selected required=@required disabled=@disabled}}
+    @ebdTriggerComponent={{component "paper-select/ebd-trigger" label=@label selected=@selected required=@required disabled=@disabled}}
     @triggerComponent="paper-select/eps-trigger"
     @triggerClass="{{if this.isInvalid "ng-invalid"}} {{if this.isTouched "ng-dirty"}}"
 
-    @_ebdContentComponent={{component "paper-select/ebd-content" searchEnabled=@searchEnabled select=this.publicAPI}}
+    @ebdContentComponent={{component "paper-select/ebd-content" searchEnabled=@searchEnabled select=this.publicAPI}}
     @optionsComponent="paper-select/options"
     @beforeOptionsComponent="paper-select/search"
     @noMatchesMessageComponent="paper-select/no-matches-message"

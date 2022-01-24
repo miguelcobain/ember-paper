@@ -4,7 +4,7 @@ import { tagName, layout } from '@ember-decorators/component';
 import { bind, later, cancel } from '@ember/runloop';
 import { computed, action } from '@ember/object';
 import { supportsPassiveEventListeners } from 'ember-paper/utils/browser-features';
-import { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
+import { nextTick } from 'ember-css-transitions/utils/transition-utils';
 
 const DURATION = 400;
 
@@ -222,7 +222,7 @@ class PaperRipple extends Component {
     let height = this.rippleElement.clientHeight;
     let x = Math.max(Math.abs(width - left), left) * 2;
     let y = Math.max(Math.abs(height - top), top) * 2;
-    let size = getSize(this.get('fitRipple'), x, y);
+    let size = getSize(this.fitRipple, x, y);
     let color = this.color();
 
     let rippleCss = `

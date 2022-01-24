@@ -1,7 +1,7 @@
-{{#-in-element destinationEl}}
-  {{#paper-toast-inner swipe=swipeAction swipeToClose=swipeToClose onClose=onClose top=top left=left capsule=capsule class=class}}
+{{#in-element destinationEl insertBefore=null}}
+  <PaperToastInner @swipeToClose={{swipeToClose}} @onClose={{onClose}} @top={{top}} @left={{left}} @capsule={{capsule}} @class={{class}}>
     {{yield (hash
       text=(component "paper-toast-text")
     )}}
-  {{/paper-toast-inner}}
-{{/-in-element}}
+  </PaperToastInner>
+{{/in-element}}

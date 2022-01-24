@@ -247,7 +247,7 @@ module('Integration | Component | paper-grid-list', function(hooks) {
     assert.equal(tilePosition('.TWO'), 2);
     assert.equal(tilePosition('.THREE'), 3);
 
-    run(() => this.get('tiles').insertAt(2, 'FOUR'));
+    run(() => this.tiles.insertAt(2, 'FOUR'));
     await waitUntil(() => find('.FOUR'));
 
     assert.equal(tilePosition('.ONE'), 1, 'ONE');
@@ -276,7 +276,7 @@ module('Integration | Component | paper-grid-list', function(hooks) {
     assert.equal(tilePosition('.TWO'), 2);
     assert.equal(tilePosition('.THREE'), 3);
 
-    run(() => this.get('tiles').removeAt(1));
+    run(() => this.tiles.removeAt(1));
     await waitUntil(() => !find('.TWO'));
 
     assert.equal(find('.TWO'), null);
@@ -304,7 +304,7 @@ module('Integration | Component | paper-grid-list', function(hooks) {
     assert.equal(tilePosition('.TWO'), 2);
     assert.equal(tilePosition('.THREE'), 3);
 
-    run(() => this.get('tiles').reverseObjects());
+    run(() => this.tiles.reverseObjects());
     await waitUntil(() => find('.TWO'));
 
     assert.equal(tilePosition('.ONE'), 3);

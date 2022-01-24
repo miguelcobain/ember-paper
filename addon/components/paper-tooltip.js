@@ -22,10 +22,10 @@ export default Component.extend({
   destinationId: computed('defaultedParent', function() {
     let config = getOwner(this).resolveRegistration('config:environment');
 
-    if (config.environment === 'test' && !this.get('parent')) {
+    if (config.environment === 'test' && !this.parent) {
       return '#ember-testing';
     }
-    let parent = this.get('defaultedParent');
+    let parent = this.defaultedParent;
     let parentEle = typeof parent === 'string'
       ? document.querySelector(parent)
       : parent;
@@ -46,17 +46,17 @@ export default Component.extend({
 
   // Find the element referenced by destinationId
   destinationEl: computed('destinationId', function() {
-    return document.querySelector(this.get('destinationId'));
+    return document.querySelector(this.destinationId);
   }),
 
   zIndex: 100,
 
   containerStyle: computed('zIndex', function() {
-    return htmlSafe(`pointer-events: none; z-index: ${this.get('zIndex')};`);
+    return htmlSafe(`pointer-events: none; z-index: ${this.zIndex};`);
   }),
 
   anchorElement: computed('attachTo', function() {
-    let attachTo = this.get('attachTo');
+    let attachTo = this.attachTo;
     if (attachTo) {
       return document.querySelector(attachTo);
     } else {
@@ -66,7 +66,7 @@ export default Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    let anchorElement = this.get('anchorElement');
+    let anchorElement = this.anchorElement;
 
     let leaveHandler = () => {
       if (!this.isDestroyed) {

@@ -1,25 +1,11 @@
 import Component from '@ember/component';
-import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
+import layout from '../templates/components/paper-reset-button';
 
-export default Component.extend(TransitionMixin, {
-  tagName: 'button',
-  type: 'button',
-  attributeBindings: ['tabindex', 'type'],
-  transitionClass: 'ng',
-  onReset: null,
+export default Component.extend({
+  tagName: '',
+  layout,
 
-  mouseUp(e) {
-    let onReset = this.get('onReset');
-    if (onReset === null) {
-      return;
-    }
-    onReset(e);
-  },
-
-  didTransitionOut() {
-    this._super(...arguments);
-    if (this.get('onDidTransitionOut')) {
-      this.get('onDidTransitionOut')();
-    }
+  handleClick(onReset, e) {
+    if (onReset) { onReset(e) }
   }
 });

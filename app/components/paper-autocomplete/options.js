@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-autocomplete/options/component';
+export { default } from 'ember-paper/components/paper-autocomplete/options/index';

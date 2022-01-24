@@ -1,0 +1,8 @@
+<button
+  {{on 'click' (fn this.handleClick @onReset)}}
+  {{css-transition 'ng' didTransitionOut=@onDidTransitionOut}}
+  type="button"
+  tabindex="-1"
+  ...attributes>
+  {{yield}}
+</button>

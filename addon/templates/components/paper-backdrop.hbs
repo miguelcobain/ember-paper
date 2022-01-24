@@ -1,0 +1,15 @@
+<md-backdrop
+  {{on "click" (fn this.sendClickAction @onClick)}}
+  {{on "touchEnd" (fn this.sendClickAction @onClick)}}
+  {{css-transition
+    enterClass="ng-enter"
+    enterActiveClass="ng-enter-active"
+    enterToClass="ng-dummyclass"
+    leaveClass="ng-dummyclass"
+    leaveActiveClass="ng-leave"
+    leaveToClass="ng-leave-active"}}
+  class="md-default-theme ng-enter {{if @opaque 'md-opaque'}} {{if @isLockedOpen 'md-locked-open'}}"
+  style={{if @fixed 'position:fixed;'}}
+  ...attributes>
+  {{yield}}
+</md-backdrop>

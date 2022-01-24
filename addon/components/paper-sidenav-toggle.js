@@ -19,7 +19,7 @@ export default Component.extend({
   paperSidenav: service(),
 
   toggle() {
-    this.get('paperSidenav').toggle(this.get('name'));
+    this.paperSidenav.toggle(this.name);
   }
 
 });

@@ -10,7 +10,7 @@ import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-grid-list';
 import { ParentMixin } from 'ember-composability-tools';
 import gridLayout from '../utils/grid-layout';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 const mediaRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+)(?!\S)/g;
 const rowHeightRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+(?:[a-z]{2,3}|%)?|\d+:\d+|fit)(?!\S)/g;
@@ -114,7 +114,7 @@ export default Component.extend(ParentMixin, {
   updateGrid() {
     applyStyles(this.element, this._gridStyle());
 
-    this.get('tiles').forEach((tile) => tile.updateTile());
+    this.tiles.forEach((tile) => tile.updateTile());
     invokeAction(this, 'onUpdate');
   },
 
@@ -122,11 +122,11 @@ export default Component.extend(ParentMixin, {
     this._setTileLayout();
 
     let style = {};
-    let colCount = this.get('currentCols');
-    let gutter = this.get('currentGutter');
-    let rowHeight = this.get('currentRowHeight');
-    let rowMode = this.get('currentRowMode');
-    let rowCount = this.get('rowCount');
+    let colCount = this.currentCols;
+    let gutter = this.currentGutter;
+    let rowHeight = this.currentRowHeight;
+    let rowMode = this.currentRowMode;
+    let rowCount = this.rowCount;
 
     switch (rowMode) {
       case 'fixed': {
@@ -158,7 +158,7 @@ export default Component.extend(ParentMixin, {
   // Calculates tile positions
   _setTileLayout() {
     let tiles = this.orderedTiles();
-    let layoutInfo = gridLayout(this.get('currentCols'), tiles);
+    let layoutInfo = gridLayout(this.currentCols, tiles);
 
     tiles.forEach((tile, i) => tile.set('position', layoutInfo.positions[i]));
 
@@ -170,7 +170,7 @@ export default Component.extend(ParentMixin, {
     // Convert NodeList to native javascript array, to be able to use indexOf.
     let domTiles = Array.prototype.slice.call(this.element.querySelectorAll('md-grid-tile'));
 
-    return this.get('tiles').sort((a, b) => {
+    return this.tiles.sort((a, b) => {
       return domTiles.indexOf(a.get('element')) > domTiles.indexOf(b.get('element')) ? 1 : -1;
     });
   },
@@ -200,7 +200,7 @@ export default Component.extend(ParentMixin, {
   },
 
   colsMedia: computed('cols', function() {
-    let sizes = this._extractResponsiveSizes(this.get('cols'));
+    let sizes = this._extractResponsiveSizes(this.cols);
     if (Object.keys(sizes).length === 0) {
       throw new Error('md-grid-list: No valid cols found');
     }
@@ -208,19 +208,19 @@ export default Component.extend(ParentMixin, {
   }),
 
   currentCols: computed('colsMedia', 'currentMedia.[]', function() {
-    return this._getAttributeForMedia(this.get('colsMedia'), this.get('currentMedia')) || 1;
+    return this._getAttributeForMedia(this.colsMedia, this.currentMedia) || 1;
   }),
 
   gutterMedia: computed('gutter', function() {
-    return this._extractResponsiveSizes(this.get('gutter'), rowHeightRegex);
+    return this._extractResponsiveSizes(this.gutter, rowHeightRegex);
   }),
 
   currentGutter: computed('gutterMedia', 'currentMedia.[]', function() {
-    return this._applyDefaultUnit(this._getAttributeForMedia(this.get('gutterMedia'), this.get('currentMedia')) || 1);
+    return this._applyDefaultUnit(this._getAttributeForMedia(this.gutterMedia, this.currentMedia) || 1);
   }),
 
   rowHeightMedia: computed('rowHeight', function() {
-    let rowHeights = this._extractResponsiveSizes(this.get('rowHeight'), rowHeightRegex);
+    let rowHeights = this._extractResponsiveSizes(this.rowHeight, rowHeightRegex);
     if (Object.keys(rowHeights).length === 0) {
       throw new Error('md-grid-list: No valid rowHeight found');
     }
@@ -228,7 +228,7 @@ export default Component.extend(ParentMixin, {
   }),
 
   currentRowHeight: computed('rowHeightMedia', 'currentMedia.[]', function() {
-    let rowHeight = this._getAttributeForMedia(this.get('rowHeightMedia'), this.get('currentMedia'));
+    let rowHeight = this._getAttributeForMedia(this.rowHeightMedia, this.currentMedia);
     // eslint-disable-next-line ember/no-side-effects
     this.set('currentRowMode', this._getRowMode(rowHeight));
     switch (this._getRowMode(rowHeight)) {

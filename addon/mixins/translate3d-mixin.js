@@ -5,7 +5,8 @@ import Mixin from '@ember/object/mixin';
 import { htmlSafe } from '@ember/string';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
-import { nextTick, computeTimeout } from 'ember-css-transitions/mixins/transition-mixin';
+import { nextTick, computeTimeout } from 'ember-css-transitions/utils/transition-utils';
+
 import { getOwner } from '@ember/application';
 
 /**
@@ -18,7 +19,7 @@ export default Mixin.create({
   classNameBindings: ['transformIn:md-transition-in'],
 
   fromStyle: computed('defaultedOpenFrom', function() {
-    return this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedOpenFrom')));
+    return this.toTransformCss(this.calculateZoomToOrigin(this.element, this.defaultedOpenFrom));
   }),
 
   centerStyle: computed(function() {
@@ -26,10 +27,10 @@ export default Mixin.create({
   }),
 
   translateStyle: computed('fromStyle', 'centerStyle', 'transformStyleApply', function() {
-    if (this.get('transformStyleApply') === 'from') {
-      return htmlSafe(this.get('fromStyle'));
-    } else if (this.get('transformStyleApply') === 'main') {
-      return htmlSafe(this.get('centerStyle'));
+    if (this.transformStyleApply === 'from') {
+      return htmlSafe(this.fromStyle);
+    } else if (this.transformStyleApply === 'main') {
+      return htmlSafe(this.centerStyle);
     } else {
       return htmlSafe('');
     }
@@ -51,11 +52,11 @@ export default Mixin.create({
           return;
         }
         run.later(() => {
-          if (!this.get('isDestroying') && !this.get('isDestroyed')) {
+          if (!this.isDestroying && !this.isDestroyed) {
             this.onTranslateFromEnd();
           }
         }, computeTimeout(this.element) || 0);
-        if (!this.get('isDestroying') && !this.get('isDestroyed')) {
+        if (!this.isDestroying && !this.isDestroyed) {
           this.set('transformStyleApply', 'main');
           this.set('transformIn', true);
         }
@@ -76,9 +77,9 @@ export default Mixin.create({
     let containerClone = this.element.parentNode.cloneNode(true);
     let dialogClone = containerClone.querySelector('md-dialog');
 
-    let parent = this.get('defaultedParent');
+    let parent = this.defaultedParent;
 
-    if (config.environment === 'test' && !this.get('parent')) {
+    if (config.environment === 'test' && !this.parent) {
       parent = '#ember-testing';
     }
 
@@ -87,11 +88,11 @@ export default Mixin.create({
       parentNode.parentNode.appendChild(containerClone);
     }
 
-    let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.get('defaultedCloseTo')));
+    let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.defaultedCloseTo));
 
-    let origin = typeof this.get('origin') === 'string'
-      ? document.querySelector(this.get('origin'))
-      : this.get('origin');
+    let origin = typeof this.origin === 'string'
+      ? document.querySelector(this.origin)
+      : this.origin;
 
     nextTick().then(() => {
       dialogClone.classList.remove('md-transition-in');

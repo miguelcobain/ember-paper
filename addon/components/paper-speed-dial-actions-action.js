@@ -16,7 +16,7 @@ export default Component.extend({
   attributeBindings: ['style'],
 
   style: computed('elementDidRender', 'speedDial.{animation,open,direction}', function() {
-    if (!this.get('elementDidRender')) {
+    if (!this.elementDidRender) {
       return;
     }
 

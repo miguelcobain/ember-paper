@@ -41,8 +41,8 @@ export default Component.extend(ColorMixin, {
         return this._mode;
       }
 
-      let value = this.get('value');
-      let bufferValue = this.get('bufferValue');
+      let value = this.value;
+      let bufferValue = this.bufferValue;
 
       if (isPresent(value)) {
         if (isPresent(bufferValue)) {
@@ -60,7 +60,7 @@ export default Component.extend(ColorMixin, {
   }),
 
   queryModeClass: computed('mode', function() {
-    let mode = this.get('mode');
+    let mode = this.mode;
     if ([MODE_QUERY, MODE_BUFFER, MODE_DETERMINATE, MODE_INDETERMINATE].includes(mode)) {
       return `md-mode-${mode}`;
     } else {
@@ -69,24 +69,24 @@ export default Component.extend(ColorMixin, {
   }),
 
   bar1Style: computed('clampedBufferValue', function() {
-    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${makeTransform(this.get('clampedBufferValue'))}`);
+    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${makeTransform(this.clampedBufferValue)}`);
   }),
 
   bar2Style: computed('clampedValue', 'mode', function() {
-    if (this.get('mode') === MODE_QUERY) {
+    if (this.mode === MODE_QUERY) {
       return htmlSafe('');
     }
 
-    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${makeTransform(this.get('clampedValue'))}`);
+    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${makeTransform(this.clampedValue)}`);
   }),
 
   clampedValue: computed('value', function() {
-    let value = this.get('value');
+    let value = this.value;
     return Math.max(0, Math.min(value || 0, 100));
   }),
 
   clampedBufferValue: computed('bufferValue', function() {
-    let value = this.get('bufferValue');
+    let value = this.bufferValue;
     return Math.max(0, Math.min(value || 0, 100));
   })
 

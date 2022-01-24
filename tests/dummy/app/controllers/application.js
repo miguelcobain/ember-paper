@@ -5,7 +5,7 @@ import { computed } from '@ember/object';
 export default Controller.extend({
   actions: {
     toggleExpandedItem(value, ev) {
-      if (this.get('expandedItem') === value) {
+      if (this.expandedItem === value) {
         value = null;
       }
       this.set('expandedItem', value);
@@ -14,7 +14,7 @@ export default Controller.extend({
   },
 
   expandedItem: computed('currentRouteName', function() {
-    if (this.get('currentRouteName').substr(0, 6) === 'layout') {
+    if (this.currentRouteName.substr(0, 6) === 'layout') {
       return 'layout';
     } else {
       return 'demos';

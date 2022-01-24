@@ -35,7 +35,7 @@ class PaperMenu extends Component {
 
   @computed('offset')
   get offsets() {
-    let offset = this.get('offset') || '0 0';
+    let offset = this.offset || '0 0';
     let [left, top] = offset.split(' ').map((s) => s.trim()).map(parseFloat);
     top = top || left;
 

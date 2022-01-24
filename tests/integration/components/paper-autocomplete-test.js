@@ -160,11 +160,15 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     assert.dom('.md-autocomplete-suggestions').exists('opened menu');
 
+    await waitFor('.md-autocomplete-suggestions li', { timeout: 2000 });
+
     assert.dom('.md-autocomplete-suggestions li').exists({ count: 8 }, 'only rendered 8 items');
 
     await fillIn('md-autocomplete-wrap input', 'four');
 
     await settled();
+
+    await waitFor('.md-autocomplete-suggestions li', { timeout: 2000 });
 
     assert.dom('.md-autocomplete-suggestions li').exists({ count: 1 }, 'only render searched item');
   });
@@ -224,7 +228,7 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     assert.dom('.md-autocomplete-suggestions').exists('autocomplete-suggestions list is opened');
 
-    assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
+    assert.equal(this.selectedItem, undefined, 'selectedItem is undefined');
   });
 
   test('we can highlight search results for properties that aren\'t text', async function(assert) {
@@ -257,7 +261,7 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     assert.dom('.md-autocomplete-suggestions').exists('autocomplete-suggestions list is opened');
 
-    assert.equal(this.get('selectedItem'), undefined, 'selectedItem is undefined');
+    assert.equal(this.selectedItem, undefined, 'selectedItem is undefined');
   });
 
   test('dropdown can be customized using dropdownClass', async function(assert) {
@@ -338,7 +342,7 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     assert.dom('form md-autocomplete button').hasAttribute('type', 'button', 'Clear has type="button"');
     await click('form md-autocomplete button');
-    assert.notOk(this.get('selectedItem'), 'The selected item is cleared');
-    assert.notOk(this.get('formSubmitted'), 'The outer form should not be submitted when the clear button is clicked');
+    assert.notOk(this.selectedItem, 'The selected item is cleared');
+    assert.notOk(this.formSubmitted, 'The outer form should not be submitted when the clear button is clicked');
   });
 });

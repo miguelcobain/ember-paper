@@ -10,7 +10,7 @@ import { run } from '@ember/runloop';
 import { guidFor } from '@ember/object/internals';
 import { getOwner } from '@ember/application';
 import layout from '../templates/components/paper-toast';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
  * @class PaperToast
@@ -27,12 +27,12 @@ export default Component.extend({
   position: 'bottom left',
 
   left: computed('position', function() {
-    let [, x] = this.get('position').split(' ');
+    let [, x] = this.position.split(' ');
     return x === 'left';
   }),
 
   top: computed('position', function() {
-    let [y] = this.get('position').split(' ');
+    let [y] = this.position.split(' ');
     return y === 'top';
   }),
 
@@ -45,11 +45,11 @@ export default Component.extend({
   destinationId: computed('defaultedParent', function() {
     let config = getOwner(this).resolveRegistration('config:environment');
 
-    if (config.environment === 'test' && !this.get('parent')) {
+    if (config.environment === 'test' && !this.parent) {
       return '#ember-testing';
     }
 
-    let parent = this.get('defaultedParent');
+    let parent = this.defaultedParent;
 
     let parentEle = typeof parent === 'string'
       ? document.querySelector(parent)
@@ -72,7 +72,7 @@ export default Component.extend({
 
   // Find the element referenced by destinationId
   destinationEl: computed('destinationId', function() {
-    return document.querySelector(this.get('destinationId'));
+    return document.querySelector(this.destinationId);
   }),
 
   constants: service(),
@@ -90,45 +90,39 @@ export default Component.extend({
 
   willInsertElement() {
     this._super(...arguments);
-    document.querySelector(this.get('destinationId')).classList.add('md-toast-animating');
+    document.querySelector(this.destinationId).classList.add('md-toast-animating');
   },
 
   didInsertElement() {
     this._super(...arguments);
 
-    if (this.get('duration') !== false) {
-      run.later(this, '_destroyMessage', this.get('duration'));
+    if (this.duration !== false) {
+      run.later(this, '_destroyMessage', this.duration);
     }
 
-    if (this.get('escapeToClose')) {
+    if (this.escapeToClose) {
       // Adding Listener to body tag, FIXME
       this._escapeToClose = run.bind(this, (e) => {
-        if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.get('onClose')) {
+        if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.onClose) {
           this._destroyMessage();
         }
       });
       document.body.addEventListener('keydown', this._escapeToClose);
     }
 
-    let y = this.get('top') ? 'top' : 'bottom';
+    let y = this.top ? 'top' : 'bottom';
 
-    document.querySelector(this.get('destinationId')).classList.add(`md-toast-open-${y}`);
+    document.querySelector(this.destinationId).classList.add(`md-toast-open-${y}`);
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    if (this.get('escapeToClose')) {
+    if (this.escapeToClose) {
       document.body.removeEventListener('keydown', this._escapeToClose);
       this._escapeToClose = null;
     }
 
-    let y = this.get('top') ? 'top' : 'bottom';
-    document.querySelector(this.get('destinationId')).classList.remove(`md-toast-open-${y}`, 'md-toast-animating');
-  },
-
-  swipeAction()  {
-    if (this.get('swipeToClose')) {
-      invokeAction(this, 'onClose');
-    }
+    let y = this.top ? 'top' : 'bottom';
+    document.querySelector(this.destinationId).classList.remove(`md-toast-open-${y}`, 'md-toast-animating');
   }
 });

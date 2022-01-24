@@ -4,7 +4,7 @@ import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-tab';
 import { ChildMixin } from 'ember-composability-tools';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 export default Component.extend(ChildMixin, FocusableMixin, {
   layout,
@@ -16,7 +16,7 @@ export default Component.extend(ChildMixin, FocusableMixin, {
   // <a> tags have browser styles or are usually styled by the user
   // this makes sure that tab item still looks good with an anchor tag
   style: computed('href', function() {
-    if (this.get('href')) {
+    if (this.href) {
       return htmlSafe('text-decoration: none; border: none;');
     } else {
       return undefined;
@@ -24,20 +24,20 @@ export default Component.extend(ChildMixin, FocusableMixin, {
   }),
 
   maybeHref: computed('href', 'disabled', function() {
-    if (this.get('href') && !this.get('disabled')) {
-      return this.get('href');
+    if (this.href && !this.disabled) {
+      return this.href;
     } else {
       return undefined;
     }
   }),
 
   isSelected: computed('selected', 'value', function() {
-    return this.get('selected') === this.get('value');
+    return this.selected === this.value;
   }),
 
   init() {
     this._super(...arguments);
-    if (this.get('href')) {
+    if (this.href) {
       this.set('tagName', 'a');
     }
   },
@@ -53,7 +53,7 @@ export default Component.extend(ChildMixin, FocusableMixin, {
   },
 
   click() {
-    if (!this.get('disabled')) {
+    if (!this.disabled) {
       invokeAction(this, 'onClick', ...arguments);
       invokeAction(this, 'onSelect', this);
     }

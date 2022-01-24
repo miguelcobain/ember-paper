@@ -22,7 +22,7 @@ export default Controller.extend({
   },
 
   stop() {
-    run.cancel(this.get('timer'));
+    run.cancel(this.timer);
   },
 
   sliderDiameter: 100,

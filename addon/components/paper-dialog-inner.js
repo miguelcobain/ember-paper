@@ -17,7 +17,7 @@ export default Component.extend(Translate3dMixin, {
   classNameBindings: ['contentOverflow:md-content-overflow', 'fullscreen:md-dialog-fullscreen'],
 
   onTranslateFromEnd() {
-    if (this.get('focusOnOpen')) {
+    if (this.focusOnOpen) {
       let focusableElements = this.element.querySelectorAll('[autofocus]');
       let toFocus = focusableElements[focusableElements.length - 1];
       if (!toFocus) {

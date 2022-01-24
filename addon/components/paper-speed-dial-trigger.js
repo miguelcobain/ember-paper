@@ -4,10 +4,10 @@ export default Component.extend({
   tagName: 'md-fab-trigger',
 
   click() {
-    this.get('speedDial').toggle();
+    this.speedDial.toggle();
   },
 
   focusOut() {
-    this.get('speedDial').close();
+    this.speedDial.close();
   }
 });

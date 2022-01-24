@@ -1,0 +1,96 @@
+{{! template-lint-disable no-unnecessary-concat }}
+{{#if @isGroup}}
+  {{#if @select.loading}}
+    {{#if @loadingMessage}}
+      <PaperProgressCircular/>
+    {{/if}}
+  {{/if}}
+
+  {{#let (component @optionsComponent) as |Options|}}
+    {{#each @options as |opt index|}}
+
+      {{#if (ember-power-select-is-group opt)}}
+
+        <md-optgroup class="ember-power-select-group" aria-disabled={{if @group.disabled "true"}}>
+          <label class="ember-power-select-group-name">{{opt.groupName}}</label>
+          <Options
+            @options={{opt.options}}
+            @select={{@select}}
+            @groupIndex="{{@groupIndex}}{{index}}."
+            @optionsComponent={{@optionsComponent}}
+            @groupComponent={{@groupComponent}}
+            @extra={{@extra}}
+            @isGroup={{true}}
+            role="group"
+            class="ember-power-select-options" as |option|>
+            {{yield option @select}}
+          </Options>
+        </md-optgroup>
+
+      {{else}}
+
+        <PaperSelect::Option
+          class="ember-power-select-option"
+          aria-selected="{{ember-power-select-is-selected opt @select.selected}}"
+          aria-disabled={{if opt.disabled "true"}}
+          aria-current="{{eq opt @select.highlighted}}"
+          data-option-index="{{@groupIndex}}{{index}}"
+          role="option"
+          tabindex={{if opt.disabled "-1" "0"}}
+          selected={{if (ember-power-select-is-selected opt @select.selected) "selected" undefined}}>
+          {{yield opt @select}}
+        </PaperSelect::Option>
+
+      {{/if}}
+
+    {{/each}}
+  {{/let}}
+{{else}}
+  <md-content class="md-power-select-options" role="listbox" {{did-insert this.addHandlers}}>
+    {{#if @select.loading}}
+      {{#if @loadingMessage}}
+        <PaperProgressCircular/>
+      {{/if}}
+    {{/if}}
+
+    {{#let (component @optionsComponent) as |Options|}}
+      {{#each @options as |opt index|}}
+
+        {{#if (ember-power-select-is-group opt)}}
+
+          <md-optgroup class="ember-power-select-group" aria-disabled={{if @group.disabled "true"}}>
+            <label class="ember-power-select-group-name">{{opt.groupName}}</label>
+            <Options
+              @options={{opt.options}}
+              @select={{@select}}
+              @groupIndex="{{@groupIndex}}{{index}}."
+              @optionsComponent={{@optionsComponent}}
+              @groupComponent={{@groupComponent}}
+              @extra={{@extra}}
+              @isGroup={{true}}
+              role="group"
+              class="ember-power-select-options" as |option|>
+              {{yield option @select}}
+            </Options>
+          </md-optgroup>
+
+        {{else}}
+
+          <PaperSelect::Option
+            class="ember-power-select-option"
+            aria-selected="{{ember-power-select-is-selected opt @select.selected}}"
+            aria-disabled={{if opt.disabled "true"}}
+            aria-current="{{eq opt @select.highlighted}}"
+            data-option-index="{{@groupIndex}}{{index}}"
+            role="option"
+            tabindex={{if opt.disabled "-1" "0"}}
+            selected={{if (ember-power-select-is-selected opt @select.selected) "selected" undefined}}>
+            {{yield opt @select}}
+          </PaperSelect::Option>
+
+        {{/if}}
+
+      {{/each}}
+    {{/let}}
+  </md-content>
+{{/if}}

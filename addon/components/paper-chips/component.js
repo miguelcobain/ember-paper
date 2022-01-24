@@ -58,7 +58,7 @@ class PaperChips extends Component {
         this.set('activeChip', this.activeChip + 1)
       }
 
-      if (this.get('activeChip') >= chips.length) {
+      if (this.activeChip >= chips.length) {
         this.set('activeChip', -1);
         input.focus();
       }
@@ -154,6 +154,9 @@ class PaperChips extends Component {
       this.set('activeChip', index);
     }
   }
+
+  @action
+  noop() {}
 }
 
 export default PaperChips;

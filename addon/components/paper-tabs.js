@@ -7,7 +7,7 @@ import { scheduleOnce, join } from '@ember/runloop';
 import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 export default Component.extend(ParentMixin, ColorMixin, {
   layout,
@@ -27,33 +27,33 @@ export default Component.extend(ParentMixin, ColorMixin, {
   movingRight: true,
 
   inkBar: computed('noInkBar', '_selectedTab.{width,left}', 'wrapperWidth', function() {
-    if (this.get('noInkBar')) {
+    if (this.noInkBar) {
       return null;
     }
 
-    let selectedTab = this.get('_selectedTab');
+    let selectedTab = this._selectedTab;
     if (!selectedTab || selectedTab.get('left') === undefined) {
       return null;
     }
 
     return {
       left: selectedTab.get('left'),
-      right: this.get('wrapperWidth') - selectedTab.get('left') - selectedTab.get('width')
+      right: this.wrapperWidth - selectedTab.get('left') - selectedTab.get('width')
     };
   }),
 
   paginationStyle: computed('currentOffset', function() {
-    return htmlSafe(`transform: translate3d(-${this.get('currentOffset')}px, 0px, 0px);`);
+    return htmlSafe(`transform: translate3d(-${this.currentOffset}px, 0px, 0px);`);
   }),
 
   shouldPaginate: true,
 
   shouldCenter: computed('shouldPaginate', 'center', function() {
-    return !this.get('shouldPaginate') && this.get('center');
+    return !this.shouldPaginate && this.center;
   }),
 
   shouldStretch: computed('shouldPaginate', 'currentStretch', function() {
-    return !this.get('shouldPaginate') && this.get('currentStretch');
+    return !this.shouldPaginate && this.currentStretch;
   }),
 
   didInsertElement() {
@@ -88,8 +88,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
    * invalidate their 'isSelected' property.
    */
   updateSelectedTab() {
-    let selectedTab = this.get('childComponents').findBy('isSelected');
-    let previousSelectedTab = this.get('_selectedTab');
+    let selectedTab = this.childComponents.findBy('isSelected');
+    let previousSelectedTab = this._selectedTab;
 
     if (selectedTab === previousSelectedTab) {
       return;
@@ -121,8 +121,8 @@ export default Component.extend(ParentMixin, ColorMixin, {
       return;
     }
 
-    let canvasWidth = this.get('canvasWidth');
-    let currentOffset = this.get('currentOffset');
+    let canvasWidth = this.canvasWidth;
+    let currentOffset = this.currentOffset;
 
     let tabLeftOffset = this.get('_selectedTab.left');
     let tabRightOffset = tabLeftOffset + this.get('_selectedTab.width');
@@ -151,14 +151,14 @@ export default Component.extend(ParentMixin, ColorMixin, {
   updateDimensions() {
     let canvasWidth = this.element.querySelector('md-tabs-canvas').offsetWidth;
     let wrapperWidth = this.element.querySelector('md-pagination-wrapper').offsetWidth;
-    this.get('childComponents').invoke('updateDimensions');
+    this.childComponents.invoke('updateDimensions');
     this.set('canvasWidth', canvasWidth);
     this.set('wrapperWidth', wrapperWidth);
     this.set('shouldPaginate', wrapperWidth > canvasWidth);
   },
 
   updateStretchTabs() {
-    let stretch = this.get('stretch');
+    let stretch = this.stretch;
     let currentStretch;
 
     // if `true` or `false` is specified, always/never "stretch tabs"
@@ -166,7 +166,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
     if (typeof stretch === 'boolean') {
       currentStretch = stretch;
     } else {
-      let mediaQuery = this.get('constants').MEDIA[stretch] || stretch;
+      let mediaQuery = this.constants.MEDIA[stretch] || stretch;
       currentStretch = window.matchMedia(mediaQuery).matches;
     }
 
@@ -176,28 +176,28 @@ export default Component.extend(ParentMixin, ColorMixin, {
   currentOffset: 0,
   canPageBack: gt('currentOffset', 0),
   canPageForward: computed('wrapperWidth', 'currentOffset', 'canvasWidth', function() {
-    return this.get('wrapperWidth') - this.get('currentOffset') > this.get('canvasWidth');
+    return this.wrapperWidth - this.currentOffset > this.canvasWidth;
   }),
 
   actions: {
     previousPage() {
-      let tab = this.get('childComponents').find((t) => {
+      let tab = this.childComponents.find((t) => {
         // ensure we are no stuck because of a tab with a width > canvasWidth
-        return (t.get('left') + t.get('width')) >= this.get('currentOffset');
+        return (t.get('left') + t.get('width')) >= this.currentOffset;
       });
       if (tab) {
-        let left = Math.max(0, tab.get('left') - this.get('canvasWidth'));
+        let left = Math.max(0, tab.get('left') - this.canvasWidth);
         this.set('currentOffset', left);
       }
     },
 
     nextPage() {
-      let tab = this.get('childComponents').find((t) => {
+      let tab = this.childComponents.find((t) => {
         // ensure tab's offset is greater than current
         // otherwise if the tab's width is greater than canvas we cannot paginate through it
-        return t.get('left') > this.get('currentOffset')
+        return t.get('left') > this.currentOffset
           // paginate until the first partially hidden tab
-          && t.get('left') + t.get('width') - this.get('currentOffset') > this.get('canvasWidth');
+          && t.get('left') + t.get('width') - this.currentOffset > this.canvasWidth;
       });
       if (tab) {
         this.set('currentOffset', tab.get('left'));
@@ -206,7 +206,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
 
     onChange(selected) {
       // support non DDAU scenario
-      if (this.get('onChange')) {
+      if (this.onChange) {
         invokeAction(this, 'onChange', selected.get('value'));
       } else {
         this.set('selected', selected.get('value'));

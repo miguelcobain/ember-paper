@@ -27,7 +27,7 @@ let PaperIconComponent = Component.extend(ColorMixin, {
   reverseSpin: false,
 
   iconClass: computed('icon', 'positionalIcon', function() {
-    let icon = this.getWithDefault('positionalIcon', this.get('icon'));
+    let icon = this.getWithDefault('positionalIcon', this.icon);
     return icon;
   }),
 
@@ -35,9 +35,9 @@ let PaperIconComponent = Component.extend(ColorMixin, {
   'aria-label': reads('iconClass'),
 
   spinClass: computed('spin', 'reverseSpin', function() {
-    if (this.get('spin')) {
+    if (this.spin) {
       return 'md-spin';
-    } else if (this.get('reverseSpin')) {
+    } else if (this.reverseSpin) {
       return 'md-spin-reverse';
     } else {
       return null;
@@ -45,7 +45,7 @@ let PaperIconComponent = Component.extend(ColorMixin, {
   }),
 
   sizeStyle: computed('size', function() {
-    let size = this.get('size');
+    let size = this.size;
 
     if (size) {
       return htmlSafe(`height: ${size}px; min-height: ${size}px; min-width: ${size}px; font-size: ${size}px; line-height: ${size}px;`);

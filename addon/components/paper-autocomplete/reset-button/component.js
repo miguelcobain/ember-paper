@@ -1,34 +1,13 @@
 import Component from '@ember/component';
-import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
-import { tagName, attribute } from '@ember-decorators/component';
+import template from './template';
+import { tagName, layout } from '@ember-decorators/component';
 
-@tagName('button')
-class PaperAutocompleteResetButton extends Component.extend(TransitionMixin) {
+@tagName('')
+@layout(template)
+export default class PaperAutocompleteResetButton extends Component {
 
-  @attribute
-  type = 'button';
-
-  @attribute
-  tabindex = '-1';
-
-  transitionClass = 'ng';
-  onReset = null;
-
-  click(e) {
-    let onReset = this.get('onReset');
-    if (onReset === null) {
-      return;
-    }
-    onReset(e);
-  }
-
-  didTransitionOut() {
-    super.didTransitionOut(...arguments);
-    if (this.onDidTransitionOut) {
-      this.onDidTransitionOut();
-    }
+  handleClick(onReset, e) {
+    if (onReset) { onReset(e) }
   }
 }
-
-export default PaperAutocompleteResetButton;

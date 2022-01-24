@@ -10,6 +10,6 @@ export default Component.extend({
   activeToast: reads('paperToaster.activeToast'),
 
   onClose(toast) {
-    this.get('paperToaster').cancelToast(toast);
+    this.paperToaster.cancelToast(toast);
   }
 });

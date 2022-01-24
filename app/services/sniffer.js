@@ -23,7 +23,7 @@ export default Service.extend({
   _window: null,
 
   android: computed('', function() {
-    return toInt((/android (\d+)/.exec(lowercase((this.get('_window').navigator || {}).userAgent)) || [])[1]);
+    return toInt((/android (\d+)/.exec(lowercase((this._window.navigator || {}).userAgent)) || [])[1]);
   }),
 
   init() {
@@ -64,7 +64,7 @@ export default Service.extend({
       transitions = !!(('transition' in bodyStyle) || (`${vendorPrefix}Transition` in bodyStyle));
       animations = !!(('animation' in bodyStyle) || (`${vendorPrefix}Animation` in bodyStyle));
 
-      if (this.get('android') && (!transitions || !animations)) {
+      if (this.android && (!transitions || !animations)) {
         transitions = isString(bodyStyle.webkitTransition);
         animations = isString(bodyStyle.webkitAnimation);
       }

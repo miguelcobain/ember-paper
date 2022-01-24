@@ -11,7 +11,7 @@ import layout from '../templates/components/paper-checkbox';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
-import { invokeAction } from 'ember-invoke-action';
+import { invokeAction } from 'ember-paper/utils/invoke-action';
 /**
  * @class PaperCheckbox
  * @extends Ember.Component
@@ -42,11 +42,11 @@ export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
   notIndeterminate: not('indeterminate'),
   isChecked: and('notIndeterminate', 'value'),
   ariaChecked: computed('isChecked', 'indeterminate', function() {
-    if (this.get('indeterminate')) {
+    if (this.indeterminate) {
       return 'mixed';
     }
 
-    return this.get('isChecked') ? 'true' : 'false';
+    return this.isChecked ? 'true' : 'false';
   }),
   labelId: computed('elementId', function() {
     return `${this.elementId}-label`;
@@ -54,15 +54,15 @@ export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
 
   init() {
     this._super(...arguments);
-    assert('{{paper-checkbox}} requires an `onChange` action or null for no action.', this.get('onChange') !== undefined);
+    assert('{{paper-checkbox}} requires an `onChange` action or null for no action.', this.onChange !== undefined);
   },
 
   click() {
-    if (!this.get('disabled')) {
-      invokeAction(this, 'onChange', !this.get('value'));
+    if (!this.disabled) {
+      invokeAction(this, 'onChange', !this.value);
     }
     // Prevent bubbling, if specified. If undefined, the event will bubble.
-    return this.get('bubbles');
+    return this.bubbles;
   },
 
   keyPress(ev) {
@@ -73,6 +73,6 @@ export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
   },
 
   processProxy() {
-    invokeAction(this, 'onChange', !this.get('value'));
+    invokeAction(this, 'onChange', !this.value);
   }
 });

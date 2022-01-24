@@ -1,40 +1,27 @@
-import { bool } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
-import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-tooltip-inner';
-import TransitionMixin, { nextTick } from 'ember-css-transitions/mixins/transition-mixin';
+import { nextTick } from 'ember-css-transitions/utils/transition-utils';
 import calculateTooltipPosition from 'ember-paper/utils/calculate-tooltip-position';
 
-export default Component.extend(TransitionMixin, {
+export default Component.extend({
   layout,
-  tagName: 'md-tooltip',
-  attributeBindings: ['style'],
-  classNames: ['md-tooltip', 'md-panel'],
-  classNameBindings: ['positionClass'],
-  // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
-  transitionClassNameBindings: ['show:md-show', 'hide:md-hide'],
-  show: bool('style'),
+  tagName: '',
 
   positionClass: computed('position', function() {
-    return `md-origin-${this.get('position')}`;
+    return `md-origin-${this.position}`;
   }),
 
-  didInsertElement() {
-    this._super(...arguments);
+  setupTooltip(element, [position, anchorElement]) {
     run.schedule('afterRender', () => {
-      if (!this.isDestroyed) {
-        let anchorElement = this.get('anchorElement');
-        let pos = calculateTooltipPosition(this.element, anchorElement, this.get('position'));
-        this.set('style', htmlSafe(`top: ${pos.top}px; left: ${pos.left}px`));
-        this.set('hide', true);
-        nextTick().then(nextTick).then(nextTick).then(nextTick).then(() => {
-          if (!this.isDestroyed) {
-            this.set('hide', false);
-          }
-        });
-      }
+      let pos = calculateTooltipPosition(element, anchorElement, position);
+      element.style.top = `${pos.top}px`;
+      element.style.left = `${pos.left}px`;
+      element.classList.add('md-show-add');
+      nextTick().then(nextTick).then(nextTick).then(nextTick).then(() => {
+        element.classList.add('md-show');
+      })
     });
   }
 });

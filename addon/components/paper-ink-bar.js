@@ -9,6 +9,6 @@ export default Component.extend({
   classNameBindings: ['movingRight:md-right:md-left'],
 
   style: computed('left', 'right', function() {
-    return htmlSafe(`left: ${this.get('left')}px; right: ${this.get('right')}px;`);
+    return htmlSafe(`left: ${this.left}px; right: ${this.right}px;`);
   })
 });

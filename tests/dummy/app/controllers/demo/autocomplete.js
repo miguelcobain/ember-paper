@@ -27,7 +27,7 @@ export default Controller.extend({
       this.set('searchText', str);
     },
     addCountry(name) {
-      this.get('items').addObject({ name, code: '' });
+      this.items.addObject({ name, code: '' });
     },
 
     searchCountries(term) {
@@ -38,7 +38,7 @@ export default Controller.extend({
 
         this.searchTimer = run.later(this, () => {
           let nameRegExp = new RegExp(escapeRegExp(`${term}`), 'i', 'g');
-          let countries = this.get('items');
+          let countries = this.items;
           let results = countries.filter((c) => nameRegExp.exec(c.name)) || [];
           resolve(results);
         }, XHR_TIMEOUT);

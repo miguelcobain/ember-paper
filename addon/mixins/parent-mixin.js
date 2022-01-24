@@ -16,10 +16,10 @@ export default Mixin.create({
   }),
 
   register(child) {
-    this.get('childComponents').pushObject(child);
+    this.childComponents.pushObject(child);
   },
 
   unregister(child) {
-    this.get('childComponents').removeObject(child);
+    this.childComponents.removeObject(child);
   }
 });

@@ -7,7 +7,7 @@ export default Controller.extend({
 
   listData: computed('numOfRows', function() {
     let contacts = [];
-    let numOfRows = this.get('numOfRows');
+    let numOfRows = this.numOfRows;
 
     for (let i = 0; i < numOfRows; i++) {
       contacts.push({

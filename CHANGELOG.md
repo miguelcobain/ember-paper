@@ -1,5 +1,9 @@
 # Ember Paper Changelog
 
+### 1.0.0-beta.36
+- [#1201](https://github.com/miguelcobain/ember-paper/pull/1201) BREAKING - update blocking dependencies and codebase
+  - Requires ember version >=3.20.0 < 4.0.0.
+  - Updated `ember-basic-dropdown` and `ember-power-select` to latest versions which use glimmer components. Will be breaking for applications with custom components that extend `paper-select` or `paper-autocomplete`.
 ### 1.0.0-beta.35
 - [09886b7](https://github.com/miguelcobain/ember-paper/commit/09886b7b68bc4cdb2dc163c72b598224ef842a4b) bump `ember-cli-polyfill-importer` version again. Turns out the previous version didn't fix all of the problems.
 

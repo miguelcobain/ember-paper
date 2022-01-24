@@ -20,16 +20,16 @@ export default Controller.extend({
     },
     // BEGIN-SNIPPET toaster
     openServiceToast() {
-      this.get('paperToaster').show(this.get('toastText'), {
+      this.paperToaster.show(this.toastText, {
         duration: 4000,
-        toastClass: this.get('toastClass')
+        toastClass: this.toastClass
       });
     },
 
     openServiceActionToast() {
-      this.get('paperToaster').show(this.get('toastText'), {
+      this.paperToaster.show(this.toastText, {
         duration: 4000,
-        toastClass: this.get('toastClass'),
+        toastClass: this.toastClass,
         action: {
           label: 'Undo',
           accent: true,
@@ -41,7 +41,7 @@ export default Controller.extend({
     },
     // END-SNIPPET
     cancelToast(toast) {
-      this.get('paperToaster').cancelToast(toast);
+      this.paperToaster.cancelToast(toast);
     },
     closeToast() {
       this.set('showToast', false);
