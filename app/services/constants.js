@@ -1,3 +1,4 @@
+/* eslint-disable ember/require-computed-property-dependencies, ember/no-get */
 import Service, { inject as service } from '@ember/service';
 import EObject, { computed } from '@ember/object';
 

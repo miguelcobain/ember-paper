@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-get, ember/avoid-leaking-state-in-ember-objects */
 /**
  * @module ember-paper
  */

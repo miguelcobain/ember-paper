@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-actions-hash */
 import { run } from '@ember/runloop';
 import RSVP from 'rsvp';
 import Controller from '@ember/controller';

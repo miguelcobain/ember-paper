@@ -1,3 +1,4 @@
+/* eslint-disable ember/require-computed-property-dependencies */
 /* globals FastBoot */
 import Service from '@ember/service';
 

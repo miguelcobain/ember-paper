@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-actions-hash */
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
 import { and, not } from '@ember/object/computed';

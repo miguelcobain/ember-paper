@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-actions-hash */
 import Controller from '@ember/controller';
 import { run } from '@ember/runloop';
 

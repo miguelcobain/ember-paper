@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-get */
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';

@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components */
 /**
  * @module ember-paper
  */

@@ -1,3 +1,4 @@
+/* eslint-disable ember/require-computed-property-dependencies, ember/no-actions-hash */
 import { filter } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';

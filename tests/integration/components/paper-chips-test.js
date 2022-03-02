@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-settled-after-test-helper */
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, triggerKeyEvent, fillIn, settled, waitFor } from '@ember/test-helpers';

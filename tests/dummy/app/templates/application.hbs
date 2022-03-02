@@ -1,3 +1,4 @@
+{{! template-lint-disable no-action no-implicit-this }}
 <PaperSidenavContainer @class="site-nav-container">
   <PaperSidenav @class="md-whiteframe-z2 site-sidenav" @lockedOpen="gt-sm" @open={{isSidenavOpen}} @onToggle={{action (mut isSidenavOpen)}}>
     <PaperToolbar @class="site-content-toolbar" @tall={{true}}>

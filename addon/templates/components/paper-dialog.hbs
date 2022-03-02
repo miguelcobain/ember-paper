@@ -1,3 +1,4 @@
+{{! template-lint-disable no-action no-implicit-this }}
 {{#in-element destinationEl insertBefore=null}}
   <PaperBackdrop @locked-open={{isLockedOpen}} @opaque={{opaque}} @fixed={{unless parent true}} @class="md-dialog-backdrop" @onClick={{action "outsideClicked"}} />
   <PaperDialogContainer @class={{readonly dialogContainerClass}} @outsideClicked={{action "outsideClicked"}}>

@@ -1,3 +1,4 @@
+{{! template-lint-disable no-implicit-this }}
 <PaperItem @onClick={{onClick}} @href={{href}} @class={{concat "menu-item" (if active " active") (if expanded " expanded")}}>
   {{yield}}
   {{#if canExpand}}

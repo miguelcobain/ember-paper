@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-mixins */
 /**
  * @module ember-paper
  */

@@ -1,3 +1,4 @@
+/* eslint-disable ember/require-computed-property-dependencies */
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import RSVP from 'rsvp';
