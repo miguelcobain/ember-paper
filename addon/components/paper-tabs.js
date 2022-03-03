@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/no-mixins, ember/require-tagless-components, ember/no-component-lifecycle-hooks, ember/no-get, ember/no-actions-hash */
 import { inject as service } from '@ember/service';
 import { gt } from '@ember/object/computed';
 import { computed } from '@ember/object';

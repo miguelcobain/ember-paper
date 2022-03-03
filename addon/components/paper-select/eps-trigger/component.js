@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/no-computed-properties-in-native-classes */
 import Component from '@ember/component';
 import template from './template';
 

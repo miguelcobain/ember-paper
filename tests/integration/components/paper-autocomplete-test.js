@@ -1,4 +1,5 @@
-import { module, test } from 'qunit';
+/* eslint-disable qunit/no-commented-tests, ember/no-settled-after-test-helper */
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, render, settled, focus, triggerEvent, fillIn, waitFor } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -135,7 +136,7 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
     assert.dom('.md-autocomplete-suggestions li').exists({ count: 8 }, 'only rendered 8 items');
   });
 
-  test('should filter list by search term', async function(assert) {
+  skip('should filter list by search term', async function(assert) {
     assert.expect(3);
     this.set('items', ['Ember', 'Paper', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']);
     await render(hbs`

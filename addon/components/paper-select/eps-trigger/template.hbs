@@ -1,3 +1,4 @@
+{{! template-lint-disable no-down-event-binding }}
 <md-select-value class="md-select-value {{if this.isPlaceholder "md-select-placeholder"}}">
   {{#if @select.selected}}
     <span class="ember-power-select-selected-item">{{yield @select.selected @select}}</span>

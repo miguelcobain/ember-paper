@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/no-computed-properties-in-native-classes, no-prototype-builtins */
 import Component from '@ember/component';
 import template from './template';
 import { tagName, layout } from '@ember-decorators/component';

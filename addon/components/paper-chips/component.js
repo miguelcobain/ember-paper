@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/classic-decorator-no-classic-methods */
 import Component from '@ember/component';
 import template from './template';
 

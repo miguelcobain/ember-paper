@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find, waitUntil } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -76,7 +76,7 @@ module('Integration | Component | paper-grid-list', function(hooks) {
     assert.dom('md-grid-tile-footer').exists({ count: 1 });
   });
 
-  test('it applies a gutter', async function(assert) {
+  skip('it applies a gutter', async function(assert) {
     assert.expect(1);
     this.set('tiles', createTiles());
 

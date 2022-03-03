@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, qunit/no-commented-tests */
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';

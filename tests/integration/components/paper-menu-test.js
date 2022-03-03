@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-settled-after-test-helper, qunit/no-assert-logical-expression */
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, click, findAll, triggerKeyEvent } from '@ember/test-helpers';

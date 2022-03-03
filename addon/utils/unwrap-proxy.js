@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-get */
 import ArrayProxy from '@ember/array/proxy';
 import ObjectProxy from '@ember/object/proxy';
 import { get } from '@ember/object';

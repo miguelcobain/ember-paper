@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-semi */
 import { assert } from '@ember/debug';
 import { get } from '@ember/object';
 

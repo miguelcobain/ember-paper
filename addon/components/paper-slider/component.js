@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/no-computed-properties-in-native-classes, ember/classic-decorator-no-classic-methods */
 /**
  * @module ember-paper
  */

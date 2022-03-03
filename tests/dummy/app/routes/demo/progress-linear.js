@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-controller-access-in-routes */
 import Route from '@ember/routing/route';
 import { on } from '@ember/object/evented';
 
