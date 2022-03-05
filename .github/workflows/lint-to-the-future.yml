@@ -1,0 +1,11 @@
+name: Lint to the Future Dashboard
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  deploy:
+    uses: mansona/lint-to-the-future-dashboard-action/.github/workflows/dashboard.yml@main
