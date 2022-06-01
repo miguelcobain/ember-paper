@@ -214,12 +214,12 @@
   <PaperCard as |card|>
     <card.content>
       <div class="layout layout-sm-row">
-        <PaperInput @class="flex-50" @label="User name" @value={{model.username}} @onChange={{action (mut model.username)}} @errors={{model.validations.attrs.username.messages}} />
+        <PaperInput @class="flex-50" @label="User name" @value={{model.username}} @onChange={{action (mut model.username)}} @errors={{this.usernameValidator}} />
       </div>
       <div class="layout layout-sm-row">
-        <PaperInput @label="Password" @class="flex-34" @type="password" @value={{model.password}} @onChange={{action (mut model.password)}} @errors={{model.validations.attrs.password.messages}} />
-        <PaperInput @label="E-mail" @class="flex-33" @type="email" @value={{model.email}} @onChange={{action (mut model.email)}} @errors={{model.validations.attrs.email.messages}} />
-        <PaperInput @label="Retype your e-mail" @class="flex-33" @type="email" @value={{model.emailConfirmation}} @onChange={{action (mut model.emailConfirmation)}} @errors={{model.validations.attrs.emailConfirmation.messages}} />
+        <PaperInput @label="Password" @class="flex-34" @type="password" @value={{model.password}} @onChange={{action (mut model.password)}} @errors={{this.passwordValidator}} />
+        <PaperInput @label="E-mail" @class="flex-33" @type="email" @value={{model.email}} @onChange={{action (mut model.email)}} @errors={{this.emailValidator}} />
+        <PaperInput @label="Retype your e-mail" @class="flex-33" @type="email" @value={{model.emailConfirmation}} @onChange={{action (mut model.emailConfirmation)}} @errors={{this.emailConfirmationValidator}} />
       </div>
     </card.content>
   </PaperCard>
