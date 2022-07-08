@@ -237,11 +237,9 @@ export default Component.extend(ColorMixin, {
     let end = `${offset},${radius}`;   // ie: (2.5, 25) or  9 o'clock
     let arcRadius = radius - offset;
 
-    /* eslint-disable */
     return 'M' + start
          + 'A' + arcRadius + ',' + arcRadius + ' 0 1 1 ' + end // 75% circle
          + (indeterminate ? '' : 'A' + arcRadius + ',' + arcRadius + ' 0 0 1 ' + start); // loop to start
-    /* eslint-enable */
   },
 
   /**

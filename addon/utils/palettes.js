@@ -1,4 +1,3 @@
-/* eslint-disable */
 // Auto Generated file from exportSass.
 export default  {
   "red": {
