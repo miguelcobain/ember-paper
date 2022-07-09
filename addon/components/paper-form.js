@@ -36,19 +36,19 @@ export default Component.extend(ParentMixin, {
   isInvalidAndTouched: and('isInvalid', 'isTouched'),
 
   submit() {
-    this.send('onSubmit');
+    this.send('localOnSubmit');
     return false;
   },
 
   actions: {
-    onValidityChange() {
+    localOnValidityChange() {
       if (this.lastIsValid !== this.isValid || this.lastIsTouched !== this.isTouched) {
         invokeAction(this, 'onValidityChange', this.isValid, this.isTouched, this.isInvalidAndTouched);
         this.set('lastIsValid', this.isValid);
         this.set('lastIsTouched', this.isTouched);
       }
     },
-    onSubmit() {
+    localOnSubmit() {
       if (this.isInvalid) {
         this.childComponents.setEach('isTouched', true);
         invokeAction(this, 'onInvalid');

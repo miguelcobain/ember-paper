@@ -6,18 +6,18 @@
   isInvalidAndTouched=isInvalidAndTouched
   input=(component inputComponent
     parentComponent=this
-    onValidityChange=(action "onValidityChange")
+    onValidityChange=(action "localOnValidityChange")
   )
   submit-button=(component submitButtonComponent
     type="submit"
   )
   select=(component selectComponent
   	parentComponent=this
-  	onValidityChange=(action "onValidityChange")
+  	onValidityChange=(action "localOnValidityChange")
   )
   autocomplete=(component autocompleteComponent
   	parentComponent=this
-  	onValidityChange=(action "onValidityChange")
+  	onValidityChange=(action "localOnValidityChange")
   )
-  onSubmit=(action "onSubmit")
+  onSubmit=(action "localOnSubmit")
 )}}
