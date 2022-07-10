@@ -205,7 +205,7 @@ export default Component.extend(ParentMixin, ColorMixin, {
       }
     },
 
-    onChange(selected) {
+    localOnChange(selected) {
       // support non DDAU scenario
       if (this.onChange) {
         invokeAction(this, 'onChange', selected.get('value'));
