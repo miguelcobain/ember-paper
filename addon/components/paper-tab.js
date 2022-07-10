@@ -1,4 +1,12 @@
-/* eslint-disable ember/no-classic-components, ember/no-mixins, ember/require-tagless-components */
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-mixins, ember/classic-decorator-hooks, ember/classic-decorator-no-classic-methods */
+import {
+  classNames,
+  attributeBindings,
+  classNameBindings,
+  tagName,
+  layout as templateLayout,
+} from '@ember-decorators/component';
+
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
@@ -7,41 +15,43 @@ import { ChildMixin } from 'ember-composability-tools';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
-export default Component.extend(ChildMixin, FocusableMixin, {
-  layout,
-  tagName: 'md-tab-item',
-  classNames: ['md-tab'],
-  classNameBindings: ['isSelected:md-active'],
-  attributeBindings: ['isSelected:aria-selected', 'style', 'maybeHref:href'],
-
+@templateLayout(layout)
+@tagName('md-tab-item')
+@classNames('md-tab')
+@classNameBindings('isSelected:md-active')
+@attributeBindings('isSelected:aria-selected', 'style', 'maybeHref:href')
+export default class PaperTab extends Component.extend(ChildMixin, FocusableMixin) {
   // <a> tags have browser styles or are usually styled by the user
   // this makes sure that tab item still looks good with an anchor tag
-  style: computed('href', function() {
+  @computed('href')
+  get style() {
     if (this.href) {
       return htmlSafe('text-decoration: none; border: none;');
     } else {
       return undefined;
     }
-  }),
+  }
 
-  maybeHref: computed('href', 'disabled', function() {
+  @computed('href', 'disabled')
+  get maybeHref() {
     if (this.href && !this.disabled) {
       return this.href;
     } else {
       return undefined;
     }
-  }),
+  }
 
-  isSelected: computed('selected', 'value', function() {
+  @computed('selected', 'value')
+  get isSelected() {
     return this.selected === this.value;
-  }),
+  }
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     if (this.href) {
       this.set('tagName', 'a');
     }
-  },
+  }
 
   // this method is called by the parent
   updateDimensions() {
@@ -51,7 +61,7 @@ export default Component.extend(ChildMixin, FocusableMixin, {
       left: this.element.offsetLeft,
       width: this.element.offsetWidth
     });
-  },
+  }
 
   click() {
     if (!this.disabled) {
@@ -59,4 +69,4 @@ export default Component.extend(ChildMixin, FocusableMixin, {
       invokeAction(this, 'onSelect', this);
     }
   }
-});
+}
