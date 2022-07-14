@@ -1,11 +1,9 @@
-/* eslint-disable ember/no-classic-components, ember/require-tagless-components, ember/no-component-lifecycle-hooks, ember/require-computed-property-dependencies, ember/no-get */
-/**
- * @module ember-paper
- */
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-computed-property-dependencies, ember/no-get, ember/classic-decorator-no-classic-methods */
+import { tagName, layout as templateLayout } from '@ember-decorators/component';
+import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-grid-tile';
 import { ChildMixin } from 'ember-composability-tools';
@@ -33,42 +31,46 @@ const applyStyles = (el, styles) => {
  * @class PaperGridTile
  * @extends Ember.Component
  */
-export default Component.extend(ChildMixin, {
-  layout,
-  tagName: 'md-grid-tile',
-
-  gridList: alias('parentComponent'),
+@templateLayout(layout)
+@tagName('md-grid-tile')
+export default class PaperGridTile extends Component.extend(ChildMixin) {
+  @alias('parentComponent')
+  gridList;
 
   didUpdateAttrs() {
-    this._super(...arguments);
+    super.didUpdateAttrs(...arguments);
     let gridList = this.gridList;
 
     // Debounces until the next run loop
     run.debounce(gridList, gridList.updateGrid, 0);
-  },
+  }
 
   updateTile() {
     applyStyles(this.element, this._tileStyle());
     invokeAction(this, 'onUpdate');
-  },
+  }
 
-  colspanMedia: computed('colspan', function() {
+  @computed('colspan')
+  get colspanMedia() {
     return this.gridList._extractResponsiveSizes(this.colspan);
-  }),
+  }
 
-  currentColspan: computed('colspanMedia', 'gridList.currentMedia.[]', function() {
+  @computed('colspanMedia', 'gridList.currentMedia.[]')
+  get currentColspan() {
     let colspan = this.gridList._getAttributeForMedia(this.colspanMedia, this.get('gridList.currentMedia'));
     return parseInt(colspan, 10) || 1;
-  }),
+  }
 
-  rowspanMedia: computed('rowspan', function() {
+  @computed('rowspan')
+  get rowspanMedia() {
     return this.gridList._extractResponsiveSizes(this.rowspan);
-  }),
+  }
 
-  currentRowspan: computed('rowspanMedia', 'gridList.currentMedia.[]', function() {
+  @computed('rowspanMedia', 'gridList.currentMedia.[]')
+  get currentRowspan() {
     let rowspan = this.gridList._getAttributeForMedia(this.rowspanMedia, this.get('gridList.currentMedia'));
     return parseInt(rowspan, 10) || 1;
-  }),
+  }
 
   _tileStyle() {
     let position = this.position;
@@ -143,5 +145,4 @@ export default Component.extend(ChildMixin, {
 
     return style;
   }
-
-});
+}
