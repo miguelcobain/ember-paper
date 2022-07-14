@@ -1,11 +1,9 @@
-/* eslint-disable ember/no-classic-components, ember/no-mixins, ember/require-tagless-components, ember/no-actions-hash */
-/**
- * @module ember-paper
- */
-import { not, and } from '@ember/object/computed';
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-mixins, ember/classic-decorator-no-classic-methods */
+import { tagName, layout as templateLayout } from '@ember-decorators/component';
+import { action, computed } from '@ember/object';
+import { and, not } from '@ember/object/computed';
 
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import layout from '../templates/components/paper-form';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
@@ -15,47 +13,52 @@ import { invokeAction } from 'ember-paper/utils/invoke-action';
  * @extends Ember.Component
  * @uses ParentMixin
  */
-export default Component.extend(ParentMixin, {
-  layout,
-  tagName: 'form',
+@templateLayout(layout)
+@tagName('form')
+export default class PaperForm extends Component.extend(ParentMixin) {
+  inputComponent = 'paper-input';
+  submitButtonComponent = 'paper-button';
+  selectComponent = 'paper-select';
+  autocompleteComponent = 'paper-autocomplete';
 
-  inputComponent: 'paper-input',
-  submitButtonComponent: 'paper-button',
-  selectComponent: 'paper-select',
-  autocompleteComponent: 'paper-autocomplete',
+  @not('isInvalid')
+  isValid;
 
-  isValid: not('isInvalid'),
-  isInvalid: computed('childComponents.@each.isInvalid', function() {
+  @computed('childComponents.@each.isInvalid')
+  get isInvalid() {
     return this.childComponents.isAny('isInvalid');
-  }),
+  }
 
-  isTouched: computed('childComponents.@each.isTouched', function() {
+  @computed('childComponents.@each.isTouched')
+  get isTouched() {
     return this.childComponents.isAny('isTouched');
-  }),
+  }
 
-  isInvalidAndTouched: and('isInvalid', 'isTouched'),
+  @and('isInvalid', 'isTouched')
+  isInvalidAndTouched;
 
   submit() {
-    this.send('onSubmit');
+    this.send('localOnSubmit');
     return false;
-  },
+  }
 
-  actions: {
-    onValidityChange() {
-      if (this.lastIsValid !== this.isValid || this.lastIsTouched !== this.isTouched) {
-        invokeAction(this, 'onValidityChange', this.isValid, this.isTouched, this.isInvalidAndTouched);
-        this.set('lastIsValid', this.isValid);
-        this.set('lastIsTouched', this.isTouched);
-      }
-    },
-    onSubmit() {
-      if (this.isInvalid) {
-        this.childComponents.setEach('isTouched', true);
-        invokeAction(this, 'onInvalid');
-      } else {
-        invokeAction(this, 'onSubmit');
-        this.childComponents.setEach('isTouched', false);
-      }
+  @action
+  localOnValidityChange() {
+    if (this.lastIsValid !== this.isValid || this.lastIsTouched !== this.isTouched) {
+      invokeAction(this, 'onValidityChange', this.isValid, this.isTouched, this.isInvalidAndTouched);
+      this.set('lastIsValid', this.isValid);
+      this.set('lastIsTouched', this.isTouched);
     }
   }
-});
+
+  @action
+  localOnSubmit() {
+    if (this.isInvalid) {
+      this.childComponents.setEach('isTouched', true);
+      invokeAction(this, 'onInvalid');
+    } else {
+      invokeAction(this, 'onSubmit');
+      this.childComponents.setEach('isTouched', false);
+    }
+  }
+}
