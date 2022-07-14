@@ -9,6 +9,6 @@ import { ChildMixin } from 'ember-composability-tools';
  * @extends PaperRadioBaseComponent
  * @uses ChildMixin
  */
-export default PaperRadioBaseComponent.extend(ChildMixin, {
-  shouldRegister: false
-});
+export default class PaperRadio extends PaperRadioBaseComponent.extend(ChildMixin) {
+ shouldRegister = false;
+}
