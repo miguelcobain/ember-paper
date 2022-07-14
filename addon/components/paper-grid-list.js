@@ -1,14 +1,14 @@
-/* eslint-disable ember/no-classic-components, ember/require-tagless-components, ember/no-component-lifecycle-hooks, ember/no-get */
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/require-tagless-components, ember/no-component-lifecycle-hooks, ember/no-get */
 /**
  * @module ember-paper
  */
 import { inject as service } from '@ember/service';
 
-import { alias } from '@ember/object/computed';
+import { tagName, layout } from '@ember-decorators/component';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
-import layout from '../templates/components/paper-grid-list';
+import template from '../templates/components/paper-grid-list';
 import { ParentMixin } from 'ember-composability-tools';
 import gridLayout from '../utils/grid-layout';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
@@ -38,34 +38,31 @@ const applyStyles = (el, styles) => {
   }
 };
 
-/**
- * @class PaperGridList
- * @extends Ember.Component
- */
-export default Component.extend(ParentMixin, {
-  layout,
-  tagName: 'md-grid-list',
+@tagName('md-grid-list')
+@layout(template)
+export default class PaperGridList extends Component.extend(ParentMixin) {
+  @service constants;
 
-  constants: service(),
-
-  tiles: alias('childComponents'),
+  get tiles() {
+    return this.childComponents;
+  }
 
   didInsertElement() {
-    this._super(...arguments);
+    super.didInsertElement(...arguments);
     this._installMediaListener();
-  },
+  }
 
   didUpdate() {
-    this._super(...arguments);
+    super.didUpdate(...arguments);
 
     // Debounces until the next run loop
     run.debounce(this, this.updateGrid, 0);
-  },
+  }
 
   willDestroyElement() {
-    this._super(...arguments);
+    super.willDestroyElement(...arguments);
     this._uninstallMediaListener();
-  },
+  }
 
   // Sets up a listener for each media query
   _installMediaListener() {
@@ -87,7 +84,7 @@ export default Component.extend(ParentMixin, {
 
       mediaList.addListener(this[listenerName]);
     }
-  },
+  }
 
   _uninstallMediaListener() {
     for (let mediaName in this.get('constants.MEDIA')) {
@@ -95,21 +92,21 @@ export default Component.extend(ParentMixin, {
       let mediaList = this.get(`${listenerName}List`);
       mediaList.removeListener(this[listenerName]);
     }
-  },
+  }
 
   _mediaDidChange(mediaName, matches) {
     this.set(mediaName, matches);
 
     // Debounces until the next run loop
     run.debounce(this, this._updateCurrentMedia, 0);
-  },
+  }
 
   _updateCurrentMedia() {
     let mediaPriorities = this.get('constants.MEDIA_PRIORITY');
     let currentMedia = mediaPriorities.filter((mediaName) => this.get(mediaName));
     this.set('currentMedia', currentMedia);
     this.updateGrid();
-  },
+  }
 
   // Updates styles and triggers onUpdate callbacks
   updateGrid() {
@@ -117,7 +114,7 @@ export default Component.extend(ParentMixin, {
 
     this.tiles.forEach((tile) => tile.updateTile());
     invokeAction(this, 'onUpdate');
-  },
+  }
 
   _gridStyle() {
     this._setTileLayout();
@@ -154,7 +151,7 @@ export default Component.extend(ParentMixin, {
     }
 
     return style;
-  },
+  }
 
   // Calculates tile positions
   _setTileLayout() {
@@ -164,7 +161,7 @@ export default Component.extend(ParentMixin, {
     tiles.forEach((tile, i) => tile.set('position', layoutInfo.positions[i]));
 
     this.set('rowCount', layoutInfo.rowCount);
-  },
+  }
 
   // Sorts tiles by their order in the dom
   orderedTiles() {
@@ -174,7 +171,7 @@ export default Component.extend(ParentMixin, {
     return this.tiles.sort((a, b) => {
       return domTiles.indexOf(a.get('element')) > domTiles.indexOf(b.get('element')) ? 1 : -1;
     });
-  },
+  }
 
   // Parses attribute string and returns hash of media sizes
   _extractResponsiveSizes(string, regex = mediaRegex) {
@@ -188,7 +185,7 @@ export default Component.extend(ParentMixin, {
       }
     }
     return matches;
-  },
+  }
 
   // Gets attribute for current media
   _getAttributeForMedia(sizes, currentMedia) {
@@ -198,37 +195,43 @@ export default Component.extend(ParentMixin, {
       }
     }
     return sizes.base;
-  },
+  }
 
-  colsMedia: computed('cols', function() {
+  @computed('cols')
+  get colsMedia() {
     let sizes = this._extractResponsiveSizes(this.cols);
     if (Object.keys(sizes).length === 0) {
       throw new Error('md-grid-list: No valid cols found');
     }
     return sizes;
-  }),
+  }
 
-  currentCols: computed('colsMedia', 'currentMedia.[]', function() {
+  @computed('colsMedia', 'currentMedia.[]')
+  get currentCols () {
     return this._getAttributeForMedia(this.colsMedia, this.currentMedia) || 1;
-  }),
+  }
 
-  gutterMedia: computed('gutter', function() {
+  @computed('gutter')
+  get gutterMedia () {
     return this._extractResponsiveSizes(this.gutter, rowHeightRegex);
-  }),
+  }
 
-  currentGutter: computed('gutterMedia', 'currentMedia.[]', function() {
+  @computed('gutterMedia', 'currentMedia.[]')
+  get currentGutter () {
     return this._applyDefaultUnit(this._getAttributeForMedia(this.gutterMedia, this.currentMedia) || 1);
-  }),
+  }
 
-  rowHeightMedia: computed('rowHeight', function() {
+  @computed('rowHeight')
+  get rowHeightMedia () {
     let rowHeights = this._extractResponsiveSizes(this.rowHeight, rowHeightRegex);
     if (Object.keys(rowHeights).length === 0) {
       throw new Error('md-grid-list: No valid rowHeight found');
     }
     return rowHeights;
-  }),
+  }
 
-  currentRowHeight: computed('rowHeightMedia', 'currentMedia.[]', function() {
+  @computed('rowHeightMedia', 'currentMedia.[]')
+  get currentRowHeight () {
     let rowHeight = this._getAttributeForMedia(this.rowHeightMedia, this.currentMedia);
     // eslint-disable-next-line ember/no-side-effects
     this.set('currentRowMode', this._getRowMode(rowHeight));
@@ -246,7 +249,7 @@ export default Component.extend(ParentMixin, {
     }
 
     return undefined;
-  }),
+  }
 
   _getRowMode(rowHeight) {
     if (rowHeight === 'fit') {
@@ -256,10 +259,10 @@ export default Component.extend(ParentMixin, {
     } else {
       return 'fixed';
     }
-  },
+  }
 
   _applyDefaultUnit(val) {
     return /\D$/.test(val) ? val : `${val}px`;
   }
 
-});
+}
