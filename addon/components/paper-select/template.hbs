@@ -33,4 +33,16 @@
     {{yield opt term}}
   </PowerSelect>
 
+  {{#unless this.hideAllMessages}}
+    {{#if this.isInvalidAndTouched}}
+      <div class="md-input-messages-animation md-auto-hide" id={{concat this.inputElementId "-error-messages"}}>
+        {{#each this.validationErrorMessages as |error index|}}
+          <div id="error-{{this.inputElementId}}-{{index}}" class="paper-input-error ng-enter ng-enter-active md-input-message-animation" style="opacity: 1; margin-top: 0">
+            {{error.message}}
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+  {{/unless}}
+
 </md-input-container>

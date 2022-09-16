@@ -91,9 +91,7 @@
   {{#if isInvalidAndTouched}}
     <div class="md-input-messages-animation md-auto-hide" id={{concat elementId "-error-messages"}}>
       {{#each validationErrorMessages as |error index|}}
-        <div id="error-{{inputElementId}}-{{index}}"
-        class="paper-input-error ng-enter ng-enter-active md-input-message-animation"
-        style="opacity: 1; margin-top: 0">
+        <div id="error-{{inputElementId}}-{{index}}" class="paper-input-error ng-enter ng-enter-active md-input-message-animation" style="opacity: 1; margin-top: 0">
           {{error.message}}
         </div>
       {{/each}}
