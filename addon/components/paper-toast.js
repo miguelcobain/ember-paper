@@ -7,7 +7,7 @@ import { inject as service } from '@ember/service';
 import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { later, bind } from '@ember/runloop';
 import { guidFor } from '@ember/object/internals';
 import { getOwner } from '@ember/application';
 import layout from '../templates/components/paper-toast';
@@ -27,12 +27,12 @@ export default Component.extend({
 
   position: 'bottom left',
 
-  left: computed('position', function() {
+  left: computed('position', function () {
     let [, x] = this.position.split(' ');
     return x === 'left';
   }),
 
-  top: computed('position', function() {
+  top: computed('position', function () {
     let [y] = this.position.split(' ');
     return y === 'top';
   }),
@@ -43,7 +43,7 @@ export default Component.extend({
 
   // Calculate the id of the wormhole destination, setting it if need be. The
   // id is that of the 'parent', if provided, or 'paper-wormhole' if not.
-  destinationId: computed('defaultedParent', function() {
+  destinationId: computed('defaultedParent', function () {
     let config = getOwner(this).resolveRegistration('config:environment');
 
     if (config.environment === 'test' && !this.parent) {
@@ -52,9 +52,8 @@ export default Component.extend({
 
     let parent = this.defaultedParent;
 
-    let parentEle = typeof parent === 'string'
-      ? document.querySelector(parent)
-      : parent;
+    let parentEle =
+      typeof parent === 'string' ? document.querySelector(parent) : parent;
 
     // If the parent isn't found, assume that it is an id, but that the DOM doesn't
     // exist yet. This only happens during integration tests or if entire application
@@ -72,7 +71,7 @@ export default Component.extend({
   }),
 
   // Find the element referenced by destinationId
-  destinationEl: computed('destinationId', function() {
+  destinationEl: computed('destinationId', function () {
     return document.querySelector(this.destinationId);
   }),
 
@@ -91,20 +90,25 @@ export default Component.extend({
 
   willInsertElement() {
     this._super(...arguments);
-    document.querySelector(this.destinationId).classList.add('md-toast-animating');
+    document
+      .querySelector(this.destinationId)
+      .classList.add('md-toast-animating');
   },
 
   didInsertElement() {
     this._super(...arguments);
 
     if (this.duration !== false) {
-      run.later(this, '_destroyMessage', this.duration);
+      later(this, '_destroyMessage', this.duration);
     }
 
     if (this.escapeToClose) {
       // Adding Listener to body tag, FIXME
-      this._escapeToClose = run.bind(this, (e) => {
-        if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.onClose) {
+      this._escapeToClose = bind(this, (e) => {
+        if (
+          e.keyCode === this.get('constants.KEYCODE.ESCAPE') &&
+          this.onClose
+        ) {
           this._destroyMessage();
         }
       });
@@ -113,7 +117,9 @@ export default Component.extend({
 
     let y = this.top ? 'top' : 'bottom';
 
-    document.querySelector(this.destinationId).classList.add(`md-toast-open-${y}`);
+    document
+      .querySelector(this.destinationId)
+      .classList.add(`md-toast-open-${y}`);
   },
 
   willDestroyElement() {
@@ -124,6 +130,8 @@ export default Component.extend({
     }
 
     let y = this.top ? 'top' : 'bottom';
-    document.querySelector(this.destinationId).classList.remove(`md-toast-open-${y}`, 'md-toast-animating');
-  }
+    document
+      .querySelector(this.destinationId)
+      .classList.remove(`md-toast-open-${y}`, 'md-toast-animating');
+  },
 });

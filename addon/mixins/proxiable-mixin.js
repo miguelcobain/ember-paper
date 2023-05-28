@@ -4,7 +4,7 @@
  */
 import Mixin from '@ember/object/mixin';
 
-import { run } from '@ember/runloop';
+import { next, later } from '@ember/runloop';
 import { ChildMixin } from 'ember-paper/mixins/ember-composability-tools';
 
 /**
@@ -13,13 +13,12 @@ import { ChildMixin } from 'ember-paper/mixins/ember-composability-tools';
  * @extends Ember.Mixin
  */
 export default Mixin.create(ChildMixin, {
-
   classNameBindings: ['secondary:md-secondary'],
 
   shouldRegister: false,
 
   registerWithParent() {
-    run.next(this, this._super);
+    next(this, this._super);
   },
 
   mouseDown() {
@@ -27,7 +26,7 @@ export default Mixin.create(ChildMixin, {
     let parentComponent = this.parentComponent;
     if (parentComponent) {
       parentComponent.set('mouseActive', true);
-      run.later(() => {
+      later(() => {
         if (parentComponent.isDestroyed) {
           return;
         }
@@ -50,5 +49,5 @@ export default Mixin.create(ChildMixin, {
     if (parentComponent) {
       parentComponent.set('focused', false);
     }
-  }
+  },
 });

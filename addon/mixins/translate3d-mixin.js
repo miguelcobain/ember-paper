@@ -5,8 +5,11 @@
 import Mixin from '@ember/object/mixin';
 import { htmlSafe } from '@ember/string';
 import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
-import { nextTick, computeTimeout } from 'ember-css-transitions/utils/transition-utils';
+import { schedule, later } from '@ember/runloop';
+import {
+  nextTick,
+  computeTimeout,
+} from 'ember-css-transitions/utils/transition-utils';
 
 import { getOwner } from '@ember/application';
 
@@ -15,27 +18,33 @@ import { getOwner } from '@ember/application';
  * @extends Ember.Mixin
  */
 export default Mixin.create({
-
   attributeBindings: ['translateStyle:style'],
   classNameBindings: ['transformIn:md-transition-in'],
 
-  fromStyle: computed('defaultedOpenFrom', function() {
-    return this.toTransformCss(this.calculateZoomToOrigin(this.element, this.defaultedOpenFrom));
+  fromStyle: computed('defaultedOpenFrom', function () {
+    return this.toTransformCss(
+      this.calculateZoomToOrigin(this.element, this.defaultedOpenFrom)
+    );
   }),
 
-  centerStyle: computed(function() {
+  centerStyle: computed(function () {
     return this.toTransformCss('');
   }),
 
-  translateStyle: computed('fromStyle', 'centerStyle', 'transformStyleApply', function() {
-    if (this.transformStyleApply === 'from') {
-      return htmlSafe(this.fromStyle);
-    } else if (this.transformStyleApply === 'main') {
-      return htmlSafe(this.centerStyle);
-    } else {
-      return htmlSafe('');
+  translateStyle: computed(
+    'fromStyle',
+    'centerStyle',
+    'transformStyleApply',
+    function () {
+      if (this.transformStyleApply === 'from') {
+        return htmlSafe(this.fromStyle);
+      } else if (this.transformStyleApply === 'main') {
+        return htmlSafe(this.centerStyle);
+      } else {
+        return htmlSafe('');
+      }
     }
-  }),
+  ),
 
   onTranslateFromEnd() {},
   onTranslateToEnd() {},
@@ -43,7 +52,7 @@ export default Mixin.create({
   didInsertElement() {
     this._super(...arguments);
 
-    run.schedule('afterRender', () => {
+    schedule('afterRender', () => {
       // Set translate3d style to start at the `from` origin
       this.set('transformStyleApply', 'from');
       // Wait while CSS takes affect
@@ -52,7 +61,7 @@ export default Mixin.create({
         if (this.isDestroyed) {
           return;
         }
-        run.later(() => {
+        later(() => {
           if (!this.isDestroying && !this.isDestroyed) {
             this.onTranslateFromEnd();
           }
@@ -89,23 +98,25 @@ export default Mixin.create({
       parentNode.parentNode.appendChild(containerClone);
     }
 
-    let toStyle = this.toTransformCss(this.calculateZoomToOrigin(this.element, this.defaultedCloseTo));
+    let toStyle = this.toTransformCss(
+      this.calculateZoomToOrigin(this.element, this.defaultedCloseTo)
+    );
 
-    let origin = typeof this.origin === 'string'
-      ? document.querySelector(this.origin)
-      : this.origin;
+    let origin =
+      typeof this.origin === 'string'
+        ? document.querySelector(this.origin)
+        : this.origin;
 
     nextTick().then(() => {
       dialogClone.classList.remove('md-transition-in');
       dialogClone.classList.add('md-transition-out');
       dialogClone.style.cssText = toStyle;
       nextTick().then(() => {
-        run.later(() => {
+        later(() => {
           if (containerClone.parentNode !== null) {
             containerClone.parentNode.removeChild(containerClone);
           }
           this.onTranslateToEnd(origin);
-
         }, computeTimeout(dialogClone) || 0);
       });
     });
@@ -124,9 +135,10 @@ export default Mixin.create({
    */
   calculateZoomToOrigin(element, originator) {
     let zoomStyle;
-    originator = typeof originator === 'string'
-      ? document.querySelector(originator)
-      : originator;
+    originator =
+      typeof originator === 'string'
+        ? document.querySelector(originator)
+        : originator;
     if (originator) {
       let originBnds = this.copyRect(originator.getBoundingClientRect());
       let dialogRect = this.copyRect(element.getBoundingClientRect());
@@ -137,7 +149,7 @@ export default Mixin.create({
         centerX: originCenterPt.x - dialogCenterPt.x,
         centerY: originCenterPt.y - dialogCenterPt.y,
         scaleX: Math.min(0.5, originBnds.width / dialogRect.width),
-        scaleY: Math.min(0.5, originBnds.height / dialogRect.height)
+        scaleY: Math.min(0.5, originBnds.height / dialogRect.height),
       };
     } else {
       zoomStyle = { centerX: 0, centerY: 0, scaleX: 0.5, scaleY: 0.5 };
@@ -171,8 +183,10 @@ export default Mixin.create({
       destination[key] = Math.round(source[key]);
     });
 
-    destination.width = destination.width || (destination.right - destination.left);
-    destination.height = destination.height || (destination.bottom - destination.top);
+    destination.width =
+      destination.width || destination.right - destination.left;
+    destination.height =
+      destination.height || destination.bottom - destination.top;
 
     return destination;
   },
@@ -184,9 +198,8 @@ export default Mixin.create({
    */
   centerPointFor(targetRect) {
     return {
-      x: Math.round(targetRect.left + (targetRect.width / 2)),
-      y: Math.round(targetRect.top + (targetRect.height / 2))
+      x: Math.round(targetRect.left + targetRect.width / 2),
+      y: Math.round(targetRect.top + targetRect.height / 2),
     };
-  }
-
+  },
 });

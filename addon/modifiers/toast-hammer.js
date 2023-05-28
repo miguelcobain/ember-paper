@@ -1,5 +1,5 @@
 import Modifier from 'ember-modifier';
-import { run } from '@ember/runloop';
+import { bind } from '@ember/runloop';
 
 /* global Hammer */
 
@@ -12,17 +12,23 @@ export default class ToastHammer extends Modifier {
       // Enable dragging the slider
       let containerManager = new Hammer.Manager(this.element, {
         dragLockToAxis: true,
-        dragBlockHorizontal: true
+        dragBlockHorizontal: true,
       });
-      let swipe = new Hammer.Swipe({ direction: Hammer.DIRECTION_ALL, threshold: 10 });
-      let pan = new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 10 });
+      let swipe = new Hammer.Swipe({
+        direction: Hammer.DIRECTION_ALL,
+        threshold: 10,
+      });
+      let pan = new Hammer.Pan({
+        direction: Hammer.DIRECTION_ALL,
+        threshold: 10,
+      });
       containerManager.add(swipe);
       containerManager.add(pan);
       containerManager
-        .on('panstart', run.bind(this, this.dragStart))
-        .on('panmove', run.bind(this, this.drag))
-        .on('panend', run.bind(this, this.dragEnd))
-        .on('swiperight swipeleft', run.bind(this, this.dragEnd));
+        .on('panstart', bind(this, this.dragStart))
+        .on('panmove', bind(this, this.drag))
+        .on('panend', bind(this, this.dragEnd))
+        .on('swiperight swipeleft', bind(this, this.dragEnd));
       this.hammer = containerManager;
     }
   }
@@ -38,14 +44,18 @@ export default class ToastHammer extends Modifier {
   }
 
   drag(event) {
-    if (!this.element.classList.contains('md-dragging')) { return }
+    if (!this.element.classList.contains('md-dragging')) {
+      return;
+    }
 
     this.setXPosition(event.deltaX);
   }
 
   dragEnd() {
     this.element.classList.remove('md-dragging');
-    if (this.onClose) { this.onClose() }
+    if (this.onClose) {
+      this.onClose();
+    }
   }
 
   teardownHammer() {

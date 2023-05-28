@@ -7,7 +7,7 @@ import { or, bool, and } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed, set } from '@ember/object';
 import { isEmpty } from '@ember/utils';
-import { run } from '@ember/runloop';
+import { next, bind } from '@ember/runloop';
 import { assert } from '@ember/debug';
 import layout from '../templates/components/paper-input';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
@@ -102,7 +102,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
   didInsertElement() {
     this._super(...arguments);
     if (this.textarea) {
-      this._growTextareaOnResize = run.bind(this, this.growTextarea);
+      this._growTextareaOnResize = bind(this, this.growTextarea);
       window.addEventListener('resize', this._growTextareaOnResize);
     }
   },
@@ -184,7 +184,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ChildMixin, Validati
     handleInput(e) {
       invokeAction(this, 'onChange', e.target.value);
       // setValue below ensures that the input value is the same as this.value
-      run.next(() => {
+      next(() => {
         if (this.isDestroyed) {
           return;
         }

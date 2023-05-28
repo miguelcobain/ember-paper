@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
 import Component from '@ember/component';
-import { run } from '@ember/runloop';
+import { debounce } from '@ember/runloop';
 import layout from '../templates/components/paper-grid-tile';
 import { ChildMixin } from 'ember-paper/mixins/ember-composability-tools';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
@@ -42,7 +42,7 @@ export default class PaperGridTile extends Component.extend(ChildMixin) {
     let gridList = this.gridList;
 
     // Debounces until the next run loop
-    run.debounce(gridList, gridList.updateGrid, 0);
+    debounce(gridList, gridList.updateGrid, 0);
   }
 
   updateTile() {

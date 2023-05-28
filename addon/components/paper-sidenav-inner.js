@@ -7,7 +7,7 @@ import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import layout from '../templates/components/paper-sidenav-inner';
 import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { bind } from '@ember/runloop';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
@@ -45,7 +45,7 @@ export default Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    this._updateOnResize = run.bind(this, this.updateLockedOpen);
+    this._updateOnResize = bind(this, this.updateLockedOpen);
     window.addEventListener('resize', this._updateOnResize);
     this.updateLockedOpen();
   },

@@ -1,7 +1,7 @@
 /* eslint-disable ember/no-classic-components, ember/require-tagless-components, ember/no-component-lifecycle-hooks */
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { next } from '@ember/runloop';
 import layout from '../templates/components/paper-speed-dial';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
@@ -55,7 +55,7 @@ export default Component.extend({
 
   didRender() {
     this._super(...arguments);
-    run.next(() => {
+    next(() => {
       if (!this.isDestroyed && !this.isDestroying) {
         this.set('elementDidRender', true);
       }

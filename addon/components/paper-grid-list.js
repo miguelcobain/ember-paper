@@ -7,7 +7,7 @@ import { inject as service } from '@ember/service';
 import { tagName, layout } from '@ember-decorators/component';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { debounce, bind } from '@ember/runloop';
 import template from '../templates/components/paper-grid-list';
 import { ParentMixin } from 'ember-paper/mixins/ember-composability-tools';
 import gridLayout from '../utils/grid-layout';
@@ -57,7 +57,7 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
     super.didUpdate(...arguments);
 
     // Debounces until the next run loop
-    run.debounce(this, this.updateGrid, 0);
+    debounce(this, this.updateGrid, 0);
   }
 
   willDestroyElement() {
@@ -78,7 +78,7 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
       // Creates a function based on mediaName so that removeListener can remove it.
       this.set(
         listenerName,
-        run.bind(this, (result) => {
+        bind(this, (result) => {
           this._mediaDidChange(mediaName, result.matches);
         })
       );
@@ -102,7 +102,7 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
     this.set(mediaName, matches);
 
     // Debounces until the next run loop
-    run.debounce(this, this._updateCurrentMedia, 0);
+    debounce(this, this._updateCurrentMedia, 0);
   }
 
   _updateCurrentMedia() {

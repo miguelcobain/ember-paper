@@ -1,6 +1,6 @@
 /* eslint-disable ember/no-actions-hash */
 import Controller from '@ember/controller';
-import { run } from '@ember/runloop';
+import { later, cancel } from '@ember/runloop';
 
 export default Controller.extend({
   mode: 'query',
@@ -13,17 +13,24 @@ export default Controller.extend({
   },
 
   setupTimer() {
-    this.set('timer', run.later(this, function() {
-      let value = this.incrementProperty('determinateValue', 1);
-      if (value > 100) {
-        this.set('determinateValue', 30);
-      }
-      this.setupTimer();
-    }, 100));
+    this.set(
+      'timer',
+      later(
+        this,
+        function () {
+          let value = this.incrementProperty('determinateValue', 1);
+          if (value > 100) {
+            this.set('determinateValue', 30);
+          }
+          this.setupTimer();
+        },
+        100
+      )
+    );
   },
 
   stop() {
-    run.cancel(this.timer);
+    cancel(this.timer);
   },
 
   sliderDiameter: 100,
@@ -45,7 +52,6 @@ export default Controller.extend({
         this.set('isIndeterminate', false);
         this.set('sliderValue', 50);
       }
-    }
-  }
-
+    },
+  },
 });
