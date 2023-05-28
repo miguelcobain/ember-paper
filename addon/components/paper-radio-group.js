@@ -9,7 +9,7 @@ import Component from '@ember/component';
 import { assert } from '@ember/debug';
 import layout from '../templates/components/paper-radio-group';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import { ParentMixin } from 'ember-composability-tools';
+import { ParentMixin } from 'ember-paper/mixins/ember-composability-tools';
 import { isPresent } from '@ember/utils';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
@@ -36,20 +36,19 @@ export default Component.extend(FocusableMixin, ParentMixin, {
   // Lifecycle hooks
   init() {
     this._super(...arguments);
-    assert('{{paper-radio-group}} requires an `onChange` action or null for no action', this.onChange !== undefined);
+    assert(
+      '{{paper-radio-group}} requires an `onChange` action or null for no action',
+      this.onChange !== undefined
+    );
   },
 
-  attributeBindings: [
-    'role',
-    'ariaLabelledby:aria-labelledby'
-  ],
+  attributeBindings: ['role', 'ariaLabelledby:aria-labelledby'],
 
   enabledChildRadios: filterBy('childComponents', 'disabled', false),
   childValues: mapBy('enabledChildRadios', 'value'),
   hasLabel: notEmpty('labelNode'),
 
   keyDown(ev) {
-
     switch (ev.which) {
       case this.get('constants.KEYCODE.LEFT_ARROW'):
       case this.get('constants.KEYCODE.UP_ARROW'):
@@ -83,6 +82,6 @@ export default Component.extend(FocusableMixin, ParentMixin, {
   actions: {
     onChange(value) {
       invokeAction(this, 'onChange', value);
-    }
-  }
+    },
+  },
 });
