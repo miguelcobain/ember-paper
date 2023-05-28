@@ -1,11 +1,11 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-component-lifecycle-hooks */
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-mixins */
 import { attributeBindings, classNameBindings, tagName, layout as templateLayout } from '@ember-decorators/component';
 import { computed } from '@ember/object';
 import { or, bool, filter } from '@ember/object/computed';
 
 import Component from '@ember/component';
 import layout from '../templates/components/paper-item';
-import { ParentMixin } from 'ember-composability-tools';
+import { ParentMixin } from 'ember-paper/mixins/ember-composability-tools';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 /**
  * @class PaperItem

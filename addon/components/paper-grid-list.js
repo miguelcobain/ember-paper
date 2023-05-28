@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes, ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/require-tagless-components, ember/no-component-lifecycle-hooks, ember/no-get */
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/require-tagless-components, ember/no-component-lifecycle-hooks, ember/no-get, ember/no-mixins*/
 /**
  * @module ember-paper
  */
@@ -9,12 +9,13 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import template from '../templates/components/paper-grid-list';
-import { ParentMixin } from 'ember-composability-tools';
+import { ParentMixin } from 'ember-paper/mixins/ember-composability-tools';
 import gridLayout from '../utils/grid-layout';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 const mediaRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+)(?!\S)/g;
-const rowHeightRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+(?:[a-z]{2,3}|%)?|\d+:\d+|fit)(?!\S)/g;
+const rowHeightRegex =
+  /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+(?:[a-z]{2,3}|%)?|\d+:\d+|fit)(?!\S)/g;
 
 const unitCSS = (units) => {
   return `${units.share}% - (${units.gutter} * ${units.gutterShare})`;
@@ -25,7 +26,7 @@ const dimensionCSS = (dimensions) => {
 };
 
 const media = (mediaName) => {
-  return ((mediaName.charAt(0) !== '(') ? (`(${mediaName})`) : mediaName);
+  return mediaName.charAt(0) !== '(' ? `(${mediaName})` : mediaName;
 };
 
 const mediaListenerName = (name) => {
@@ -75,9 +76,12 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
       this.set(`${listenerName}List`, mediaList);
 
       // Creates a function based on mediaName so that removeListener can remove it.
-      this.set(listenerName, run.bind(this, (result) => {
-        this._mediaDidChange(mediaName, result.matches);
-      }));
+      this.set(
+        listenerName,
+        run.bind(this, (result) => {
+          this._mediaDidChange(mediaName, result.matches);
+        })
+      );
 
       // Trigger initial grid calculations
       this._mediaDidChange(mediaName, mediaList.matches);
@@ -103,7 +107,9 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
 
   _updateCurrentMedia() {
     let mediaPriorities = this.get('constants.MEDIA_PRIORITY');
-    let currentMedia = mediaPriorities.filter((mediaName) => this.get(mediaName));
+    let currentMedia = mediaPriorities.filter((mediaName) =>
+      this.get(mediaName)
+    );
     this.set('currentMedia', currentMedia);
     this.updateGrid();
   }
@@ -128,7 +134,11 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
 
     switch (rowMode) {
       case 'fixed': {
-        style.height = dimensionCSS({ unit: rowHeight, span: rowCount, gutter });
+        style.height = dimensionCSS({
+          unit: rowHeight,
+          span: rowCount,
+          gutter,
+        });
         style.paddingBottom = '';
         break;
       }
@@ -137,10 +147,18 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
         let hGutterShare = colCount === 1 ? 0 : (colCount - 1) / colCount;
         let hShare = (1 / colCount) * 100;
         let vShare = hShare * (1 / rowHeight);
-        let vUnit = unitCSS({ share: vShare, gutterShare: hGutterShare, gutter });
+        let vUnit = unitCSS({
+          share: vShare,
+          gutterShare: hGutterShare,
+          gutter,
+        });
 
         style.height = '';
-        style.paddingBottom = dimensionCSS({ unit: vUnit, span: rowCount, gutter });
+        style.paddingBottom = dimensionCSS({
+          unit: vUnit,
+          span: rowCount,
+          gutter,
+        });
         break;
       }
       case 'fit': {
@@ -166,10 +184,15 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
   // Sorts tiles by their order in the dom
   orderedTiles() {
     // Convert NodeList to native javascript array, to be able to use indexOf.
-    let domTiles = Array.prototype.slice.call(this.element.querySelectorAll('md-grid-tile'));
+    let domTiles = Array.prototype.slice.call(
+      this.element.querySelectorAll('md-grid-tile')
+    );
 
     return this.tiles.sort((a, b) => {
-      return domTiles.indexOf(a.get('element')) > domTiles.indexOf(b.get('element')) ? 1 : -1;
+      return domTiles.indexOf(a.get('element')) >
+        domTiles.indexOf(b.get('element'))
+        ? 1
+        : -1;
     });
   }
 
@@ -207,23 +230,28 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
   }
 
   @computed('colsMedia', 'currentMedia.[]')
-  get currentCols () {
+  get currentCols() {
     return this._getAttributeForMedia(this.colsMedia, this.currentMedia) || 1;
   }
 
   @computed('gutter')
-  get gutterMedia () {
+  get gutterMedia() {
     return this._extractResponsiveSizes(this.gutter, rowHeightRegex);
   }
 
   @computed('gutterMedia', 'currentMedia.[]')
-  get currentGutter () {
-    return this._applyDefaultUnit(this._getAttributeForMedia(this.gutterMedia, this.currentMedia) || 1);
+  get currentGutter() {
+    return this._applyDefaultUnit(
+      this._getAttributeForMedia(this.gutterMedia, this.currentMedia) || 1
+    );
   }
 
   @computed('rowHeight')
-  get rowHeightMedia () {
-    let rowHeights = this._extractResponsiveSizes(this.rowHeight, rowHeightRegex);
+  get rowHeightMedia() {
+    let rowHeights = this._extractResponsiveSizes(
+      this.rowHeight,
+      rowHeightRegex
+    );
     if (Object.keys(rowHeights).length === 0) {
       throw new Error('md-grid-list: No valid rowHeight found');
     }
@@ -231,8 +259,11 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
   }
 
   @computed('rowHeightMedia', 'currentMedia.[]')
-  get currentRowHeight () {
-    let rowHeight = this._getAttributeForMedia(this.rowHeightMedia, this.currentMedia);
+  get currentRowHeight() {
+    let rowHeight = this._getAttributeForMedia(
+      this.rowHeightMedia,
+      this.currentMedia
+    );
     // eslint-disable-next-line ember/no-side-effects
     this.set('currentRowMode', this._getRowMode(rowHeight));
     switch (this._getRowMode(rowHeight)) {
@@ -264,5 +295,4 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
   _applyDefaultUnit(val) {
     return /\D$/.test(val) ? val : `${val}px`;
   }
-
 }

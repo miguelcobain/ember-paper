@@ -11,7 +11,7 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-tab';
-import { ChildMixin } from 'ember-composability-tools';
+import { ChildMixin } from 'ember-paper/mixins/ember-composability-tools';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 

@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-computed-property-dependencies, ember/no-get, ember/classic-decorator-no-classic-methods */
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-computed-property-dependencies, ember/no-get, ember/classic-decorator-no-classic-methods, ember/no-mixins */
 import { tagName, layout as templateLayout } from '@ember-decorators/component';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
@@ -6,7 +6,7 @@ import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 import { run } from '@ember/runloop';
 import layout from '../templates/components/paper-grid-tile';
-import { ChildMixin } from 'ember-composability-tools';
+import { ChildMixin } from 'ember-paper/mixins/ember-composability-tools';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 const positionCSS = (positions) => {
@@ -57,7 +57,10 @@ export default class PaperGridTile extends Component.extend(ChildMixin) {
 
   @computed('colspanMedia', 'gridList.currentMedia.[]')
   get currentColspan() {
-    let colspan = this.gridList._getAttributeForMedia(this.colspanMedia, this.get('gridList.currentMedia'));
+    let colspan = this.gridList._getAttributeForMedia(
+      this.colspanMedia,
+      this.get('gridList.currentMedia')
+    );
     return parseInt(colspan, 10) || 1;
   }
 
@@ -68,7 +71,10 @@ export default class PaperGridTile extends Component.extend(ChildMixin) {
 
   @computed('rowspanMedia', 'gridList.currentMedia.[]')
   get currentRowspan() {
-    let rowspan = this.gridList._getAttributeForMedia(this.rowspanMedia, this.get('gridList.currentMedia'));
+    let rowspan = this.gridList._getAttributeForMedia(
+      this.rowspanMedia,
+      this.get('gridList.currentMedia')
+    );
     return parseInt(rowspan, 10) || 1;
   }
 
@@ -100,7 +106,7 @@ export default class PaperGridTile extends Component.extend(ChildMixin) {
       paddingTop: '',
       marginTop: '',
       top: '',
-      height: ''
+      height: '',
     };
 
     let vShare, vUnit;
@@ -108,8 +114,16 @@ export default class PaperGridTile extends Component.extend(ChildMixin) {
     switch (rowMode) {
       case 'fixed': {
         // In fixed mode, simply use the given rowHeight.
-        style.top = positionCSS({ unit: rowHeight, offset: position.row, gutter });
-        style.height = dimensionCSS({ unit: rowHeight, span: currentRowspan, gutter });
+        style.top = positionCSS({
+          unit: rowHeight,
+          offset: position.row,
+          gutter,
+        });
+        style.height = dimensionCSS({
+          unit: rowHeight,
+          span: currentRowspan,
+          gutter,
+        });
         break;
       }
       case 'ratio': {
@@ -123,8 +137,16 @@ export default class PaperGridTile extends Component.extend(ChildMixin) {
         // paddingTop and marginTop are used to maintain the given aspect ratio, as
         // a percentage-based value for these properties is applied to the *width* of the
         // containing block. See http://www.w3.org/TR/CSS2/box.html#margin-properties
-        style.paddingTop = dimensionCSS({ unit: vUnit, span: currentRowspan, gutter });
-        style.marginTop = positionCSS({ unit: vUnit, offset: position.row, gutter });
+        style.paddingTop = dimensionCSS({
+          unit: vUnit,
+          span: currentRowspan,
+          gutter,
+        });
+        style.marginTop = positionCSS({
+          unit: vUnit,
+          offset: position.row,
+          gutter,
+        });
         break;
       }
       case 'fit': {
@@ -138,7 +160,11 @@ export default class PaperGridTile extends Component.extend(ChildMixin) {
         vUnit = unitCSS({ share: vShare, gutterShare: vGutterShare, gutter });
 
         style.top = positionCSS({ unit: vUnit, offset: position.row, gutter });
-        style.height = dimensionCSS({ unit: vUnit, span: currentRowspan, gutter });
+        style.height = dimensionCSS({
+          unit: vUnit,
+          span: currentRowspan,
+          gutter,
+        });
         break;
       }
     }
