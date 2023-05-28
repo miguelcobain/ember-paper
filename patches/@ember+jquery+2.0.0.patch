@@ -1,0 +1,30 @@
+diff --git a/node_modules/@ember/jquery/vendor/jquery/component.dollar.js b/node_modules/@ember/jquery/vendor/jquery/component.dollar.js
+index 8c0cfd5..331c796 100644
+--- a/node_modules/@ember/jquery/vendor/jquery/component.dollar.js
++++ b/node_modules/@ember/jquery/vendor/jquery/component.dollar.js
+@@ -1,6 +1,4 @@
+ import { assert, deprecate } from '@ember/debug';
+-import EmberObject from '@ember/object';
+-import Component from '@ember/component';
+ 
+ (function() {
+   /*
+@@ -8,6 +6,9 @@ import Component from '@ember/component';
+    * base class to be reopened without triggering the
+    * ember.component.reopen deprecation in Ember itself.
+    */
++  const EmberObject = require("@ember/object").default;
++  const Component = require("@ember/component").default;
++
+   EmberObject.reopen.call(Component, {
+     $(sel) {
+       assert(
+@@ -28,6 +29,8 @@ import Component from '@ember/component';
+       );
+ 
+       if (this.element) {
++        // same technique the shim uses
++        let jQuery = self['jQuery'];
+         return sel ? jQuery(sel, this.element) : jQuery(this.element);
+       }
+     }
