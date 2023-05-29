@@ -1,7 +1,7 @@
 /* eslint-disable ember/no-classic-components */
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { schedule } from '@ember/runloop';
 import layout from '../templates/components/paper-tooltip-inner';
 import { nextTick } from 'ember-css-transitions/utils/transition-utils';
 import calculateTooltipPosition from 'ember-paper/utils/calculate-tooltip-position';
@@ -15,7 +15,7 @@ export default Component.extend({
   }),
 
   setupTooltip(element, [position, anchorElement]) {
-    run.schedule('afterRender', () => {
+    schedule('afterRender', () => {
       let pos = calculateTooltipPosition(element, anchorElement, position);
       element.style.top = `${pos.top}px`;
       element.style.left = `${pos.left}px`;

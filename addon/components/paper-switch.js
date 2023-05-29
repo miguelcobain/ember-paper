@@ -7,7 +7,7 @@ import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { assert } from '@ember/debug';
 import { get, computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { bind } from '@ember/runloop';
 import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/paper-switch';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
@@ -86,15 +86,15 @@ export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
 
     // Enable dragging the switch container
     switchHammer.get('pan').set({ threshold: 1 });
-    switchHammer.on('panstart', run.bind(this, this._dragStart))
-      .on('panmove', run.bind(this, this._drag))
-      .on('panend', run.bind(this, this._dragEnd));
+    switchHammer.on('panstart', bind(this, this._dragStart))
+      .on('panmove', bind(this, this._drag))
+      .on('panend', bind(this, this._dragEnd));
 
     // Enable tapping gesture on the switch
     this._switchHammer = new Hammer(this.element);
-    this._switchHammer.on('tap', run.bind(this, this._dragEnd));
+    this._switchHammer.on('tap', bind(this, this._dragEnd));
 
-    this._onClickHandleNativeClick = run.bind(this, this._handleNativeClick);
+    this._onClickHandleNativeClick = bind(this, this._handleNativeClick);
 
     this.element.querySelector('.md-container')
       .addEventListener('click', this._onClickHandleNativeClick);

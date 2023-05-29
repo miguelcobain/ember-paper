@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import { run } from '@ember/runloop';
+import { later } from '@ember/runloop';
 import { A } from '@ember/array';
 import EObject, { computed } from '@ember/object';
 import { assign } from '@ember/polyfills';
@@ -89,10 +89,10 @@ export default Controller.extend({
   basicRows: 6,
 
   setupTimer() {
-    run.later(this, () => {
+    later(this, () => {
       this.recalculateColorTiles();
 
-      run.later(this, this.setupTimer);
+      later(this, this.setupTimer);
     }, 10 * 1000);
   },
 

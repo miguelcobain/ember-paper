@@ -2,7 +2,7 @@
 import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { later } from '@ember/runloop';
 import { htmlSafe } from '@ember/string';
 import { getOwner } from '@ember/application';
 import layout from '../templates/components/paper-tooltip';
@@ -72,7 +72,7 @@ export default Component.extend({
     let leaveHandler = () => {
       if (!this.isDestroyed) {
         this.set('hideTooltip', true);
-        run.later(() => {
+        later(() => {
           if (!this.isDestroyed) {
             this.set('renderTooltip', false);
           }

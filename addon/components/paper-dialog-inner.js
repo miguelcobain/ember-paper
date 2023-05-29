@@ -4,7 +4,7 @@
  */
 import Component from '@ember/component';
 
-import { run } from '@ember/runloop';
+import { bind } from '@ember/runloop';
 import Translate3dMixin from '../mixins/translate3d-mixin';
 
 /**
@@ -42,7 +42,7 @@ export default Component.extend(Translate3dMixin, {
     this.checkContentOverflow();
     // content overflow might change depending on load of images inside dialog.
     let imageElements = this.element.querySelectorAll('img');
-    this._checkContentOverflowOnLoad = run.bind(this, this.checkContentOverflow);
+    this._checkContentOverflowOnLoad = bind(this, this.checkContentOverflow);
     imageElements.forEach((image) => {
       image.addEventListener('load', this._checkContentOverflowOnLoad);
     });
