@@ -33,7 +33,6 @@
     "ember-cli-htmlbars": "^5.7.1",
     "ember-cli-polyfill-importer": "^0.0.4",
     "ember-cli-sass": "^10.0.1",
-    "ember-composability-tools": "^0.0.12",
     "ember-css-transitions": "^2.1.1",
     "ember-decorators": "^6.1.1",
     "ember-get-config": "^1.0.2",

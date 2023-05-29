@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/no-mixins, ember/require-tagless-components, ember/no-get, ember/no-actions-hash */
+/* eslint-disable ember/no-classic-components, ember/no-mixins, ember/require-tagless-components, ember/no-get, ember/no-actions-hash, ember/no-mixins */
 /**
  * @module ember-paper
  */
@@ -9,7 +9,7 @@ import Component from '@ember/component';
 import { assert } from '@ember/debug';
 import layout from '../templates/components/paper-radio-group';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import { ParentMixin } from 'ember-composability-tools';
+import { ParentMixin } from 'ember-paper/mixins/ember-composability-tools';
 import { isPresent } from '@ember/utils';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
