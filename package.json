@@ -51,7 +51,7 @@
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
-    "@ember/jquery": "^2.0.0",
+    "@ember/jquery": "2.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.9.3",
     "@embroider/test-setup": "^0.43.5",
