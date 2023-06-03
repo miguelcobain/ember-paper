@@ -1,12 +1,13 @@
-/* eslint-disable ember/no-actions-hash */
 import Controller from '@ember/controller';
+import { action, set } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  position: 'bottom',
+export default class DemoTooltipController extends Controller {
+  @tracked position = 'bottom';
+  @tracked showSourceCode = false;
 
-  actions: {
-    toggle(propName) {
-      this.toggleProperty(propName);
-    }
+  @action
+  toggle(propName) {
+    set(this, propName, !this[propName]);
   }
-});
+}
