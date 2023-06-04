@@ -1,4 +1,3 @@
-{{! template-lint-disable no-action no-implicit-this }}
 <PageToolbar @pageTitle="Tooltip" @isDemo={{true}} />
 
 <DocContent>
@@ -8,16 +7,20 @@
       <PaperToolbarTools>
         <h2>Basic Usage</h2>
         <span class="flex"></span>
-        <PaperButton @onClick={{action "toggle" "showSourceCode"}} @iconButton={{true}}>
+        <PaperButton
+          @iconButton={{true}}
+          @onClick={{fn this.toggle "showSourceCode"}}
+        >
           <PaperIcon @icon="code" />
           <PaperTooltip>
-            {{if showSourceCode "Hide" "Show"}} code
+            {{if this.showSourceCode "Hide" "Show"}}
+            code
           </PaperTooltip>
         </PaperButton>
       </PaperToolbarTools>
     </PaperToolbar>
 
-    <div class="doc-code-example {{if showSourceCode "is-visible"}}">
+    <div class="doc-code-example {{if this.showSourceCode 'is-visible'}}">
       <CodeSnippet @name="tooltip.hbs" />
     </div>
 
@@ -25,42 +28,49 @@
 
       <PaperCardContent>
         <p>
-          You can render tooltips using the paper-tooltip component. This component
-          will attach to the immediate parent element and use it for positioning.
+          You can render tooltips using the paper-tooltip component. This
+          component will attach to the immediate parent element and use it for
+          positioning.
         </p>
 
         <p>
           You can control the position of you tooltip using the
-          <code>position</code> property which can be one of <code>bottom</code> (default),
-          <code>top</code>, <code>left</code> or <code>right</code>. Try it:
+          <code>position</code>
+          property which can be one of
+          <code>bottom</code>
+          (default),
+          <code>top</code>,
+          <code>left</code>
+          or
+          <code>right</code>. Try it:
         </p>
 
         <div class="layout-row layout-align-space-around-center md-padding">
           {{! BEGIN-SNIPPET tooltip }}
           <PaperButton @raised={{true}}>
             A button
-            <PaperTooltip @position={{position}}>
+            <PaperTooltip @position={{this.position}}>
               Hey! I'm a tooltip. Çup?
             </PaperTooltip>
           </PaperButton>
 
           <PaperButton @iconButton={{true}} @raised={{true}}>
             {{paper-icon "create"}}
-            <PaperTooltip @position={{position}}>
+            <PaperTooltip @position={{this.position}}>
               Create
             </PaperTooltip>
           </PaperButton>
 
           <PaperButton @fab={{true}} @raised={{true}} @accent={{true}}>
             {{paper-icon "delete"}}
-            <PaperTooltip @position={{position}}>
+            <PaperTooltip @position={{this.position}}>
               Delete
             </PaperTooltip>
           </PaperButton>
 
           <div>
             {{#paper-icon "info"}}
-              <PaperTooltip @position={{position}}>
+              <PaperTooltip @position={{this.position}}>
                 Icon tooltip
               </PaperTooltip>
             {{/paper-icon}}
@@ -68,7 +78,11 @@
           {{! END-SNIPPET tooltip }}
         </div>
 
-        <PaperRadioGroup @groupValue={{position}} @onChange={{action (mut position)}} as |group|>
+        <PaperRadioGroup
+          @groupValue={{this.position}}
+          @onChange={{set this "position"}}
+          as |group|
+        >
           <group.radio @value="bottom">
             Bottom
           </group.radio>
@@ -85,10 +99,26 @@
 
         {{paper-api
           (p-section
-            (p-row "zIndex" "number" "Controls the z-index of the tooltip. By default it is 100.")
-            (p-row "position" "string" "Controls the position of the tooltip. Use one of `bottom` (default), `top`, `left` or `right`")
-            (p-row "parent" "element or selector" "Existing element where the tooltip will be rendered. Defaults to the global paper-wormhole.")
-            (p-row "attachTo" "element or selector" "Existing element that the tooltip will use to position itself. Defaults to the immediate parent element of the tooltip.")
+            (p-row
+              "zIndex"
+              "number"
+              "Controls the z-index of the tooltip. By default it is 100."
+            )
+            (p-row
+              "position"
+              "string"
+              "Controls the position of the tooltip. Use one of `bottom` (default), `top`, `left` or `right`"
+            )
+            (p-row
+              "parent"
+              "element or selector"
+              "Existing element where the tooltip will be rendered. Defaults to the global paper-wormhole."
+            )
+            (p-row
+              "attachTo"
+              "element or selector"
+              "Existing element that the tooltip will use to position itself. Defaults to the immediate parent element of the tooltip."
+            )
           )
         }}
 

@@ -1,0 +1,21 @@
+<div {{did-insert this.didInsert}}></div>
+
+{{#if this.renderTooltip}}
+  {{#in-element this.destinationEl insertBefore=null}}
+    <div
+      class="md-panel-outer-wrapper md-panel-is-showing"
+      style={{this.containerStyle}}
+    >
+      {{#if this.anchorElement}}
+        <PaperTooltipInner
+          @position={{this.position}}
+          @anchorElement={{this.anchorElement}}
+          @hide={{this.hideTooltip}}
+          ...attributes
+        >
+          {{yield}}
+        </PaperTooltipInner>
+      {{/if}}
+    </div>
+  {{/in-element}}
+{{/if}}

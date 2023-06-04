@@ -1,23 +1,21 @@
-/* eslint-disable ember/no-settled-after-test-helper, qunit/no-identical-names */
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, triggerEvent } from '@ember/test-helpers';
+import { render, triggerEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | paper-tooltip', function(hooks) {
+module('Integration | Component | paper-tooltip', function (hooks) {
   setupRenderingTest(hooks);
 
   ['focus', 'touchstart', 'mouseenter'].forEach((openEvent) => {
     ['blur', 'touchcancel', 'mouseleave'].forEach((closeEvent) => {
-      test(`opens after ${openEvent} and closes after ${closeEvent}`, async function(assert) {
-
+      test(`opens after ${openEvent} and closes after ${closeEvent}`, async function (assert) {
         await render(hbs`
-          {{#paper-button}}
+          <PaperButton>
             button
-            {{#paper-tooltip}}
+            <PaperTooltip>
               tooltip
-            {{/paper-tooltip}}
-          {{/paper-button}}
+            </PaperTooltip>
+          </PaperButton>
         `);
 
         await triggerEvent('.md-button', openEvent);
@@ -32,15 +30,14 @@ module('Integration | Component | paper-tooltip', function(hooks) {
   });
 
   ['scroll', 'blur', 'resize', 'orientationchange'].forEach((closeEvent) => {
-    test(`closes after global ${closeEvent}`, async function(assert) {
-
+    test(`closes after global ${closeEvent}`, async function (assert) {
       await render(hbs`
-        {{#paper-button}}
+        <PaperButton>
           button
-          {{#paper-tooltip}}
+          <PaperTooltip>
             tooltip
-          {{/paper-tooltip}}
-        {{/paper-button}}
+          </PaperTooltip>
+        </PaperButton>
       `);
 
       await triggerEvent('.md-button', 'mouseenter');
@@ -49,37 +46,18 @@ module('Integration | Component | paper-tooltip', function(hooks) {
 
       await triggerEvent(window, closeEvent);
 
-      await settled();
-
       assert.dom('md-tooltip').doesNotExist('tooltip was destroyed');
     });
   });
 
-  test('renders on bottom by default', async function(assert) {
-
+  test('renders on bottom by default', async function (assert) {
     await render(hbs`
-      {{#paper-button}}
+      <PaperButton>
         button
-        {{#paper-tooltip}}
+        <PaperTooltip>
           tooltip
-        {{/paper-tooltip}}
-      {{/paper-button}}
-    `);
-
-    await triggerEvent('.md-button', 'mouseenter');
-
-    assert.dom('md-tooltip').hasClass('md-origin-bottom');
-  });
-
-  test('renders on bottom by default', async function(assert) {
-
-    await render(hbs`
-      {{#paper-button}}
-        button
-        {{#paper-tooltip}}
-          tooltip
-        {{/paper-tooltip}}
-      {{/paper-button}}
+        </PaperTooltip>
+      </PaperButton>
     `);
 
     await triggerEvent('.md-button', 'mouseenter');
@@ -88,15 +66,15 @@ module('Integration | Component | paper-tooltip', function(hooks) {
   });
 
   ['bottom', 'top', 'left', 'right'].forEach((position) => {
-    test(`renders on ${position}`, async function(assert) {
+    test(`renders on ${position}`, async function (assert) {
       this.position = position;
       await render(hbs`
-        {{#paper-button}}
+        <PaperButton>
           button
-          {{#paper-tooltip position=position}}
+          <PaperTooltip @position={{this.position}}>
             tooltip
-          {{/paper-tooltip}}
-        {{/paper-button}}
+          </PaperTooltip>
+        </PaperButton>
       `);
 
       await triggerEvent('.md-button', 'mouseenter');
@@ -105,15 +83,14 @@ module('Integration | Component | paper-tooltip', function(hooks) {
     });
   });
 
-  test('custom class is applied on md-tooltip element', async function(assert) {
-
+  test('custom class is applied on md-tooltip element', async function (assert) {
     await render(hbs`
-      {{#paper-button}}
+      <PaperButton>
         button
-        {{#paper-tooltip class="my-tooltip"}}
+        <PaperTooltip class="my-tooltip">
           tooltip
-        {{/paper-tooltip}}
-      {{/paper-button}}
+        </PaperTooltip>
+      </PaperButton>
     `);
 
     await triggerEvent('.md-button', 'mouseenter');
@@ -121,4 +98,3 @@ module('Integration | Component | paper-tooltip', function(hooks) {
     assert.dom('md-tooltip').hasClass('my-tooltip');
   });
 });
-
