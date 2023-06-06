@@ -3,7 +3,7 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import RSVP from 'rsvp';
 import { A } from '@ember/array';
-import { run } from '@ember/runloop';
+import { later } from '@ember/runloop';
 
 export default Controller.extend({
 
@@ -47,7 +47,7 @@ export default Controller.extend({
         { id: 5, name: 'Velma Dinkley' }
       ]);
 
-      run.later(() => {
+      later(() => {
         /*
          * Two arguments to the resolve:
          * - data from the server

@@ -1,6 +1,6 @@
 import { reads } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
-import { run } from '@ember/runloop';
+import { later } from '@ember/runloop';
 import { A } from '@ember/array';
 import Service from '@ember/service';
 import EObject from '@ember/object';
@@ -32,7 +32,7 @@ export default Service.extend({
     toast.set('show', false);
 
     if (this.activeToast === toast) {
-      run.later(() => {
+      later(() => {
         if (toast.onClose) { toast.onClose() }
         this.queue.removeObject(toast);
       }, 400);

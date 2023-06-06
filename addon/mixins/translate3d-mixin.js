@@ -5,7 +5,7 @@
 import Mixin from '@ember/object/mixin';
 import { htmlSafe } from '@ember/string';
 import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { schedule, later } from '@ember/runloop';
 import { nextTick, computeTimeout } from 'ember-css-transitions/utils/transition-utils';
 
 import { getOwner } from '@ember/application';
@@ -43,7 +43,7 @@ export default Mixin.create({
   didInsertElement() {
     this._super(...arguments);
 
-    run.schedule('afterRender', () => {
+    schedule('afterRender', () => {
       // Set translate3d style to start at the `from` origin
       this.set('transformStyleApply', 'from');
       // Wait while CSS takes affect
@@ -52,7 +52,7 @@ export default Mixin.create({
         if (this.isDestroyed) {
           return;
         }
-        run.later(() => {
+        later(() => {
           if (!this.isDestroying && !this.isDestroyed) {
             this.onTranslateFromEnd();
           }
@@ -100,7 +100,7 @@ export default Mixin.create({
       dialogClone.classList.add('md-transition-out');
       dialogClone.style.cssText = toStyle;
       nextTick().then(() => {
-        run.later(() => {
+        later(() => {
           if (containerClone.parentNode !== null) {
             containerClone.parentNode.removeChild(containerClone);
           }

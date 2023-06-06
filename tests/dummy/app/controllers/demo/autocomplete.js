@@ -1,5 +1,5 @@
 /* eslint-disable ember/no-actions-hash */
-import { run } from '@ember/runloop';
+import { cancel, later } from '@ember/runloop';
 import RSVP from 'rsvp';
 import Controller from '@ember/controller';
 import { A } from '@ember/array';
@@ -35,9 +35,9 @@ export default Controller.extend({
       let XHR_TIMEOUT = Math.floor(Math.random() * 1000) + 100;
 
       return new RSVP.Promise((resolve) => {
-        run.cancel(this.searchTimer);
+        cancel(this.searchTimer);
 
-        this.searchTimer = run.later(this, () => {
+        this.searchTimer = later(this, () => {
           let nameRegExp = new RegExp(escapeRegExp(`${term}`), 'i', 'g');
           let countries = this.items;
           let results = countries.filter((c) => nameRegExp.exec(c.name)) || [];

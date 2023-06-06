@@ -7,7 +7,7 @@ import { inject as service } from '@ember/service';
 import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { bind, later } from '@ember/runloop';
 import { guidFor } from '@ember/object/internals';
 import { getOwner } from '@ember/application';
 import layout from '../templates/components/paper-toast';
@@ -98,12 +98,12 @@ export default Component.extend({
     this._super(...arguments);
 
     if (this.duration !== false) {
-      run.later(this, '_destroyMessage', this.duration);
+      later(this, '_destroyMessage', this.duration);
     }
 
     if (this.escapeToClose) {
       // Adding Listener to body tag, FIXME
-      this._escapeToClose = run.bind(this, (e) => {
+      this._escapeToClose = bind(this, (e) => {
         if (e.keyCode === this.get('constants.KEYCODE.ESCAPE') && this.onClose) {
           this._destroyMessage();
         }
