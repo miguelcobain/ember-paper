@@ -2,7 +2,6 @@
 
 const path = require('path');
 const resolve = require('resolve');
-const version = require('./package.json').version;
 const { MergeTrees } = require('broccoli-merge-trees');
 const writeFile = require('broccoli-file-creator');
 const Funnel = require('broccoli-funnel');
@@ -407,7 +406,6 @@ module.exports = {
 
     this.emberPaperOptions = Object.assign({}, app.options['ember-paper']);
 
-    app.import('vendor/ember-paper/register-version.js');
     app.import('vendor/hammerjs/hammer.js');
     app.import('vendor/propagating-hammerjs/propagating.js');
   },
@@ -462,11 +460,6 @@ module.exports = {
   treeForVendor(tree) {
     let trees = [];
 
-    let versionTree = writeFile(
-      'ember-paper/register-version.js',
-      `Ember.libraries.register('Ember Paper', '${version}');`
-    );
-
     let hammerJs = fastbootTransform(new Funnel(this.pathBase('hammerjs'), {
       files: ['hammer.js'],
       destDir: 'hammerjs'
@@ -477,7 +470,7 @@ module.exports = {
       destDir: 'propagating-hammerjs'
     }));
 
-    trees = trees.concat([hammerJs, propagatingHammerJs, versionTree]);
+    trees = trees.concat([hammerJs, propagatingHammerJs]);
 
     if (tree) {
       trees.push(tree);
