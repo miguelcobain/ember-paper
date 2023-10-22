@@ -482,8 +482,10 @@ module.exports = {
   treeForStyles(tree) {
     let coreScssFiles = [
       // core styles
-      'core/style/mixins.scss',
-      'core/style/variables.scss',
+      'core/style/_modules.scss',
+      'core/style/_variables.scss',
+      'components/input/_input-variables.scss',
+      'core/style/_mixins.scss',
       'core/style/structure.scss',
       'core/style/typography.scss',
       'core/style/layout.scss',
@@ -502,7 +504,7 @@ module.exports = {
 
     let filteredScssFiles = this.addStyles(coreScssFiles) || coreScssFiles;
 
-    let angularScssFiles = new Funnel(this.pathBase('angular-material-styles'), {
+    let angularScssFiles = new Funnel(this.pathBase('angular-material'), {
       files: filteredScssFiles,
       srcDir: '/src',
       destDir: 'angular-material',
