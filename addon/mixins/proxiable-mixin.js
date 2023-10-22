@@ -1,10 +1,11 @@
+/* eslint-disable ember/no-mixins */
 /**
  * @module ember-paper
  */
 import Mixin from '@ember/object/mixin';
 
 import { next, later } from '@ember/runloop';
-import { ChildMixin } from 'ember-composability-tools';
+import { ChildMixin } from 'ember-paper/mixins/ember-composability-tools';
 
 /**
  * @class ProxiableMixin

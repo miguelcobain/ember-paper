@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-computed-property-dependencies, ember/no-get, ember/classic-decorator-no-classic-methods */
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-computed-property-dependencies, ember/no-get, ember/classic-decorator-no-classic-methods, ember/no-mixins */
 import { tagName, layout as templateLayout } from '@ember-decorators/component';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
@@ -6,7 +6,7 @@ import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 import { debounce } from '@ember/runloop';
 import layout from '../templates/components/paper-grid-tile';
-import { ChildMixin } from 'ember-composability-tools';
+import { ChildMixin } from 'ember-paper/mixins/ember-composability-tools';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 const positionCSS = (positions) => {

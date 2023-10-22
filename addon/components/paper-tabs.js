@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-mixins, ember/no-component-lifecycle-hooks, ember/classic-decorator-no-classic-methods, ember/no-get */
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-mixins, ember/no-component-lifecycle-hooks, ember/classic-decorator-no-classic-methods, ember/no-get, ember/no-mixins */
 import { classNames, attributeBindings, tagName, layout as templateLayout } from '@ember-decorators/component';
 import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
@@ -7,7 +7,7 @@ import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
 import { scheduleOnce, join } from '@ember/runloop';
 import layout from '../templates/components/paper-tabs';
-import { ParentMixin } from 'ember-composability-tools';
+import { ParentMixin } from 'ember-paper/mixins/ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 

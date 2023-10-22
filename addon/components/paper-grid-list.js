@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes, ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-get */
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-get, ember/no-mixins */
 /**
  * @module ember-paper
  */
@@ -9,7 +9,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { bind, debounce } from '@ember/runloop';
 import template from '../templates/components/paper-grid-list';
-import { ParentMixin } from 'ember-composability-tools';
+import { ParentMixin } from 'ember-paper/mixins/ember-composability-tools';
 import gridLayout from '../utils/grid-layout';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
