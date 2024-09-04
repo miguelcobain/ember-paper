@@ -29,7 +29,7 @@ module('Integration | Component | paper radio', function(hooks) {
     assert.expect(1);
 
     this.set('handleChange', (value) => {
-      assert.equal(value, '1');
+      assert.strictEqual(value, '1');
     });
 
     await render(hbs`
@@ -50,7 +50,7 @@ module('Integration | Component | paper radio', function(hooks) {
 
     this.set('groupValue', '1');
     this.set('handleChange', (value) => {
-      assert.equal(value, null);
+      assert.strictEqual(value, null);
     });
 
     await render(hbs`
@@ -66,7 +66,7 @@ module('Integration | Component | paper radio', function(hooks) {
     assert.expect(0);
 
     this.set('handleChange', (checked) => {
-      assert.equal(checked, '1');
+      assert.strictEqual(checked, '1');
     });
 
     await render(hbs`

@@ -28,7 +28,7 @@ module('Integration | Component | paper progress linear', function(hooks) {
     let bar2 = find('.md-bar2');
     let bar2style = bar2.style.transform || bar2.style['-webkit-transform'];
 
-    assert.equal(bar2style, 'translateX(-25%) scale(0.5, 1)', 'Transition set correctly');
+    assert.strictEqual(bar2style, 'translateX(-25%) scale(0.5, 1)', 'Transition set correctly');
   });
 
   test('it sets transform based on buffer value', async function(assert) {
@@ -37,7 +37,7 @@ module('Integration | Component | paper progress linear', function(hooks) {
     let bar1 = find('.md-bar1');
     let bar1style = bar1.style.transform || bar1.style['-webkit-transform'];
 
-    assert.equal(bar1style, 'translateX(-12.5%) scale(0.75, 1)', 'Buffer bar transition set correctly');
+    assert.strictEqual(bar1style, 'translateX(-12.5%) scale(0.75, 1)', 'Buffer bar transition set correctly');
   });
 
   test('it should not set transition in query mode', async function(assert) {

@@ -69,7 +69,7 @@ module('Integration | Component | paper-select', function(hooks) {
 
     await selectChoose('md-input-container', 'large (16-inch)');
 
-    assert.equal(this.selectedSize, 'large (16-inch)');
+    assert.strictEqual(this.selectedSize, 'large (16-inch)');
   });
 
   test('header is rendered above content', async function(assert) {

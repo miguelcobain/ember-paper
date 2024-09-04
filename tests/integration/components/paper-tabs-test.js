@@ -104,7 +104,7 @@ module('Integration | Component | paper tabs', function(hooks) {
     assert.expect(1);
 
     this.onChange = (index) => {
-      assert.equal(index, 1);
+      assert.strictEqual(index, 1);
     };
 
     await render(hbs`
@@ -216,7 +216,7 @@ module('Integration | Component | paper tabs', function(hooks) {
     `);
 
     let tabs = findAll('a.md-tab');
-    assert.equal(tabs.length, 3);
+    assert.strictEqual(tabs.length, 3);
     tabs.forEach((t) => {
       assert.ok(t.hasAttribute('href'));
     });

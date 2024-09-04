@@ -229,7 +229,7 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     assert.dom('.md-autocomplete-suggestions').exists('autocomplete-suggestions list is opened');
 
-    assert.equal(this.selectedItem, undefined, 'selectedItem is undefined');
+    assert.strictEqual(this.selectedItem, undefined, 'selectedItem is undefined');
   });
 
   test('we can highlight search results for properties that aren\'t text', async function(assert) {
@@ -262,7 +262,7 @@ module('Integration | Component | paper-autocomplete', function(hooks) {
 
     assert.dom('.md-autocomplete-suggestions').exists('autocomplete-suggestions list is opened');
 
-    assert.equal(this.selectedItem, undefined, 'selectedItem is undefined');
+    assert.strictEqual(this.selectedItem, undefined, 'selectedItem is undefined');
   });
 
   test('dropdown can be customized using dropdownClass', async function(assert) {

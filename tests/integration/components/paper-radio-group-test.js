@@ -37,7 +37,7 @@ module('Integration | Component | paper-radio-group', function(hooks) {
     assert.expect(1);
 
     this.set('handleChange', (value) => {
-      assert.equal(value, '1');
+      assert.strictEqual(value, '1');
     });
 
     await render(hbs`
@@ -62,7 +62,7 @@ module('Integration | Component | paper-radio-group', function(hooks) {
 
     this.set('groupValue', '1');
     this.set('handleChange', (value) => {
-      assert.equal(value, null);
+      assert.strictEqual(value, null);
     });
 
     await render(hbs`
@@ -86,7 +86,7 @@ module('Integration | Component | paper-radio-group', function(hooks) {
     assert.expect(0);
 
     this.set('handleChange', (checked) => {
-      assert.equal(checked, '1');
+      assert.strictEqual(checked, '1');
     });
 
     await render(hbs`
@@ -126,11 +126,11 @@ module('Integration | Component | paper-radio-group', function(hooks) {
 
     await triggerKeyEvent('md-radio-group', 'keydown', 40);
 
-    assert.equal(this.groupValue, '1');
+    assert.strictEqual(this.groupValue, '1');
 
     await triggerKeyEvent('md-radio-group', 'keydown', 39);
 
-    assert.equal(this.groupValue, '2');
+    assert.strictEqual(this.groupValue, '2');
   });
 
   test('should be possible to select next with up/left arrow in a paper-radio-group', async function(assert) {
@@ -152,11 +152,11 @@ module('Integration | Component | paper-radio-group', function(hooks) {
 
     await triggerKeyEvent('md-radio-group', 'keydown', 38);
 
-    assert.equal(this.groupValue, '1');
+    assert.strictEqual(this.groupValue, '1');
 
     await triggerKeyEvent('md-radio-group', 'keydown', 37);
 
-    assert.equal(this.groupValue, '3');
+    assert.strictEqual(this.groupValue, '3');
   });
 
   test('should be possible to select next with down/right arrow in a paper-radio-group (when group.radio value is 0)', async function(assert) {
@@ -178,11 +178,11 @@ module('Integration | Component | paper-radio-group', function(hooks) {
 
     await triggerKeyEvent('md-radio-group', 'keydown', 40);
 
-    assert.equal(this.groupValue, 0);
+    assert.strictEqual(this.groupValue, 0);
 
     await triggerKeyEvent('md-radio-group', 'keydown', 39);
 
-    assert.equal(this.groupValue, '2');
+    assert.strictEqual(this.groupValue, '2');
   });
 
   /* test('the `onChange` action is mandatory for paper-radio-group', function(assert) {

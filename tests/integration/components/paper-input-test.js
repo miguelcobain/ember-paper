@@ -242,7 +242,7 @@ module('Integration | Component | paper-input', function(hooks) {
     assert.dom(input).hasAttribute('maxlength', '20');
     assert.dom(input).hasAttribute('max', '42');
     // not sure why hasAttribute doesn't work for multiple
-    assert.equal(input.multiple, true);
+    assert.strictEqual(input.multiple, true);
     assert.dom(input).hasAttribute('name', 'elementname');
     assert.dom(input).hasAttribute('pattern', '(999)999-9999');
     assert.dom(input).hasAttribute('readonly', 'true');
@@ -453,14 +453,14 @@ module('Integration | Component | paper-input', function(hooks) {
     await triggerEvent(input, 'input');
     await settled();
     assert.dom(input).hasValue('123');
-    assert.equal(this.value, '123', 'component value should be 123');
+    assert.strictEqual(this.value, '123', 'component value should be 123');
 
     input.value = 'abcdefg';
     await triggerEvent(input, 'input');
 
     await settled();
     assert.dom(input).hasValue('123');
-    assert.equal(this.value, '123', 'component value should be 123');
+    assert.strictEqual(this.value, '123', 'component value should be 123');
 
   });
 
@@ -472,7 +472,7 @@ module('Integration | Component | paper-input', function(hooks) {
     await fillIn('input', '12345');
 
     assert.dom('input').hasValue('foo');
-    assert.equal(this.value, 'foo');
+    assert.strictEqual(this.value, 'foo');
   });
 
   test('errors only show after input is touched and input is invalid', async function(assert) {
@@ -562,7 +562,7 @@ module('Integration | Component | paper-input', function(hooks) {
     let input = find('.md-input');
     let ariaDescribedbyValues = input.getAttribute('aria-describedby').split(' ');
 
-    assert.equal(ariaDescribedbyValues.length, 2);
+    assert.strictEqual(ariaDescribedbyValues.length, 2);
 
     assert.ok(ariaDescribedbyValues[0].includes('-char-count'));
 

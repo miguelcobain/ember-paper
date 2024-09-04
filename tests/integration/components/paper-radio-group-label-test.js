@@ -10,7 +10,7 @@ module('Integration | Component | paper-radio-group-label', function(hooks) {
     assert.expect(1);
 
     let setAriaLabelledby = (id) => {
-      assert.equal(this.element.querySelector('md-label').id, id, 'Calls `setAriaLabelledby` with correct param');
+      assert.strictEqual(this.element.querySelector('md-label').id, id, 'Calls `setAriaLabelledby` with correct param');
     };
 
     this.set('setAriaLabelledby', setAriaLabelledby);

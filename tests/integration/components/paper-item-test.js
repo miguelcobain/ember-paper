@@ -88,11 +88,11 @@ module('Integration | Component | paper item', function(hooks) {
 
     await click(items[0]);
 
-    assert.equal(this.selectedValue, 'some value 1');
+    assert.strictEqual(this.selectedValue, 'some value 1');
 
     await click(items[1]);
 
-    assert.equal(this.selectedValue, 'some value 2');
+    assert.strictEqual(this.selectedValue, 'some value 2');
 
   });
 

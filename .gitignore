@@ -9,6 +9,7 @@
 /node_modules/
 
 # misc
+.DS_Store
 /.env*
 /.pnp*
 /.sass-cache
@@ -23,7 +24,13 @@
 # ember-try
 /.node_modules.ember-try/
 /bower.json.ember-try
+/npm-shrinkwrap.json.ember-try
 /package.json.ember-try
+/package-lock.json.ember-try
+/yarn.lock.ember-try
+
+# broccoli-debug
+/DEBUG/
 
 # editors
 /.idea

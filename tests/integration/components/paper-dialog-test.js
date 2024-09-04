@@ -26,7 +26,7 @@ module('Integration | Component | paper-dialog', function(hooks) {
     let dialogContent = find('md-dialog').innerHTML
       .replace('<!--', '').replace('-->', '').trim();
 
-    assert.equal(dialogContent, '', 'has an empty dialog container');
+    assert.strictEqual(dialogContent, '', 'has an empty dialog container');
   });
 
   test('should yield content as a block component', async function(assert) {
@@ -66,7 +66,7 @@ module('Integration | Component | paper-dialog', function(hooks) {
       {{paper-dialog parent="#sagittarius-a"}}
     `);
 
-    assert.equal(window.getComputedStyle(find('md-backdrop')).getPropertyValue('position'), 'absolute', 'backdrop is absolute');
+    assert.strictEqual(window.getComputedStyle(find('md-backdrop')).getPropertyValue('position'), 'absolute', 'backdrop is absolute');
   });
 
   test('backdrop is opaque by default', async function(assert) {
@@ -92,7 +92,7 @@ module('Integration | Component | paper-dialog', function(hooks) {
       {{paper-dialog}}
     `);
 
-    assert.equal(find('md-backdrop').style.position, 'fixed', 'backdrop is fixed');
+    assert.strictEqual(find('md-backdrop').style.position, 'fixed', 'backdrop is fixed');
   });
 
   skip('applies transitions when opening and closing', async function(assert) {

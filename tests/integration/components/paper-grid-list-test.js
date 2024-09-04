@@ -92,7 +92,7 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
-    assert.equal(getStyle('.TWO', 'left'), '72.9844px');
+    assert.strictEqual(getStyle('.TWO', 'left'), '72.9844px');
   });
 
   test('it applies a fixed row height', async function(assert) {
@@ -111,7 +111,7 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
-    assert.equal(getStyle('.TWO', 'height'), '75px');
+    assert.strictEqual(getStyle('.TWO', 'height'), '75px');
   });
 
   test('it applies a row height ratio', async function(assert) {
@@ -130,8 +130,8 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
-    assert.equal(getStyle('.TWO', 'height'), '49.5px');
-    assert.equal(getStyle('.TWO', 'width'), '99.5px');
+    assert.strictEqual(getStyle('.TWO', 'height'), '49.5px');
+    assert.strictEqual(getStyle('.TWO', 'width'), '99.5px');
   });
 
   test('it applies a row height fit', async function(assert) {
@@ -150,7 +150,7 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
-    assert.equal(getStyle('.TWO', 'height').substr(0, 2), '39');
+    assert.strictEqual(getStyle('.TWO', 'height').substr(0, 2), '39');
   });
 
   test('it applies tile colspan', async function(assert) {
@@ -172,7 +172,7 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
-    assert.equal(getStyle('.COLSPAN', 'width'), '199px');
+    assert.strictEqual(getStyle('.COLSPAN', 'width'), '199px');
   });
 
   test('it applies tile rowspan', async function(assert) {
@@ -194,8 +194,8 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
-    assert.equal(getStyle('.ONE', 'height'), '149.25px');
-    assert.equal(getStyle('.ROWSPAN', 'height'), '299.5px');
+    assert.strictEqual(getStyle('.ONE', 'height'), '149.25px');
+    assert.strictEqual(getStyle('.ROWSPAN', 'height'), '299.5px');
   });
 
   test('it recalculates when cols changes', async function(assert) {
@@ -215,16 +215,16 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
-    assert.equal(tileRow('.ONE'), 1);
-    assert.equal(tileRow('.TWO'), 2);
-    assert.equal(tileRow('.THREE'), 3);
+    assert.strictEqual(tileRow('.ONE'), 1);
+    assert.strictEqual(tileRow('.TWO'), 2);
+    assert.strictEqual(tileRow('.THREE'), 3);
 
     this.set('cols', 3);
     await waitUntil(() => find('.THREE'));
 
-    assert.equal(tileRow('.ONE'), 1, 'ONE');
-    assert.equal(tileRow('.TWO'), 1, 'TWO');
-    assert.equal(tileRow('.THREE'), 1, 'THREE');
+    assert.strictEqual(tileRow('.ONE'), 1, 'ONE');
+    assert.strictEqual(tileRow('.TWO'), 1, 'TWO');
+    assert.strictEqual(tileRow('.THREE'), 1, 'THREE');
   });
 
   test('it recalculates when tile is added', async function(assert) {
@@ -243,17 +243,17 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
-    assert.equal(tilePosition('.ONE'), 1);
-    assert.equal(tilePosition('.TWO'), 2);
-    assert.equal(tilePosition('.THREE'), 3);
+    assert.strictEqual(tilePosition('.ONE'), 1);
+    assert.strictEqual(tilePosition('.TWO'), 2);
+    assert.strictEqual(tilePosition('.THREE'), 3);
 
     run(() => this.tiles.insertAt(2, 'FOUR'));
     await waitUntil(() => find('.FOUR'));
 
-    assert.equal(tilePosition('.ONE'), 1, 'ONE');
-    assert.equal(tilePosition('.TWO'), 2, 'TWO');
-    assert.equal(tilePosition('.FOUR'), 3, 'FOUR');
-    assert.equal(tilePosition('.THREE'), 4, 'THREE');
+    assert.strictEqual(tilePosition('.ONE'), 1, 'ONE');
+    assert.strictEqual(tilePosition('.TWO'), 2, 'TWO');
+    assert.strictEqual(tilePosition('.FOUR'), 3, 'FOUR');
+    assert.strictEqual(tilePosition('.THREE'), 4, 'THREE');
   });
 
   test('it recalculates when tile is removed', async function(assert) {
@@ -272,16 +272,16 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
-    assert.equal(tilePosition('.ONE'), 1);
-    assert.equal(tilePosition('.TWO'), 2);
-    assert.equal(tilePosition('.THREE'), 3);
+    assert.strictEqual(tilePosition('.ONE'), 1);
+    assert.strictEqual(tilePosition('.TWO'), 2);
+    assert.strictEqual(tilePosition('.THREE'), 3);
 
     run(() => this.tiles.removeAt(1));
     await waitUntil(() => !find('.TWO'));
 
-    assert.equal(find('.TWO'), null);
-    assert.equal(tilePosition('.ONE'), 1);
-    assert.equal(tilePosition('.THREE'), 2);
+    assert.strictEqual(find('.TWO'), null);
+    assert.strictEqual(tilePosition('.ONE'), 1);
+    assert.strictEqual(tilePosition('.THREE'), 2);
   });
 
   test('it reorders tiles when dom order changes', async function(assert) {
@@ -300,15 +300,15 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
-    assert.equal(tilePosition('.ONE'), 1);
-    assert.equal(tilePosition('.TWO'), 2);
-    assert.equal(tilePosition('.THREE'), 3);
+    assert.strictEqual(tilePosition('.ONE'), 1);
+    assert.strictEqual(tilePosition('.TWO'), 2);
+    assert.strictEqual(tilePosition('.THREE'), 3);
 
     run(() => this.tiles.reverseObjects());
     await waitUntil(() => find('.TWO'));
 
-    assert.equal(tilePosition('.ONE'), 3);
-    assert.equal(tilePosition('.TWO'), 2);
-    assert.equal(tilePosition('.THREE'), 1);
+    assert.strictEqual(tilePosition('.ONE'), 3);
+    assert.strictEqual(tilePosition('.TWO'), 2);
+    assert.strictEqual(tilePosition('.THREE'), 1);
   });
 });

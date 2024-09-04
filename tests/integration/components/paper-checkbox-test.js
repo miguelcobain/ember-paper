@@ -25,7 +25,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     this.set('value', true);
     this.set('handleChange', (value) => {
-      assert.equal(value, false);
+      assert.strictEqual(value, false);
     });
 
     await render(hbs`{{paper-checkbox value=value onChange=handleChange}}`);
@@ -38,7 +38,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     this.set('value', false);
     this.set('handleChange', (value) => {
-      assert.equal(value, true);
+      assert.strictEqual(value, true);
     });
 
     await render(hbs`{{paper-checkbox value=value onChange=handleChange}}`);
@@ -52,7 +52,7 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
     this.set('value', false);
     this.set('handleChange', (value) => {
-      assert.equal(value, true);
+      assert.strictEqual(value, true);
     });
 
     await render(hbs`{{paper-checkbox disabled=true value=value onChange=handleChange}}`);
@@ -67,11 +67,11 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
       this.set('value', false);
       await render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
-      assert.equal(this.value, false);
+      assert.strictEqual(this.value, false);
 
       await triggerKeyEvent('md-checkbox', 'keypress', keyCode);
 
-      assert.equal(this.value, true);
+      assert.strictEqual(this.value, true);
     });
 
     test(`should be possible to uncheck with key code ${keyCode}`, async function(assert) {
@@ -79,11 +79,11 @@ module('Integration | Component | paper checkbox', function(hooks) {
 
       this.set('value', true);
       await render(hbs`{{paper-checkbox value=value onChange=(action (mut value))}}`);
-      assert.equal(this.value, true);
+      assert.strictEqual(this.value, true);
 
       await triggerKeyEvent('md-checkbox', 'keypress', keyCode);
 
-      assert.equal(this.value, false);
+      assert.strictEqual(this.value, false);
     });
   });
 

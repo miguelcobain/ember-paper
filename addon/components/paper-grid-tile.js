@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-computed-property-dependencies, ember/no-get, ember/classic-decorator-no-classic-methods */
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/require-computed-property-dependencies, ember/no-get, ember/classic-decorator-no-classic-methods */
 import { tagName, layout as templateLayout } from '@ember-decorators/component';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
