@@ -4,14 +4,15 @@
  */
 import Component from '@ember/component';
 
-import layout from '../templates/components/paper-card-title-media';
+import { tagName, layout } from '@ember-decorators/component';
+import template from '../templates/components/paper-card-title-media';
 
 /**
  * @class PaperCardTitleMedia
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'md-card-title-media',
-  size: 'md'
-});
+@tagName('md-card-title-media')
+@layout(template)
+export default class PaperCardTitleMedia extends Component {
+  size = 'md';
+}
