@@ -8,7 +8,7 @@ import {
 
 import { computed } from '@ember/object';
 import Component from '@ember/component';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 import { ChildMixin } from 'ember-composability-tools';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';

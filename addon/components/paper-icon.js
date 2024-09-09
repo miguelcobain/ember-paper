@@ -6,7 +6,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { reads } from '@ember/object/computed';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 

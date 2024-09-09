@@ -1,7 +1,7 @@
 /* eslint-disable ember/no-get, prettier/prettier */
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 
 let color = {
   red: Math.floor(Math.random() * 255),
