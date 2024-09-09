@@ -9,7 +9,7 @@ import {
 
 import { computed } from '@ember/object';
 import Component from '@ember/component';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 import layout from '../templates/components/paper-tab';
 import { ChildMixin } from 'ember-composability-tools';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';

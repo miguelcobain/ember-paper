@@ -4,7 +4,7 @@
  */
 import Component from '@ember/component';
 
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 
 /**
  * @class PaperSidenavContainer

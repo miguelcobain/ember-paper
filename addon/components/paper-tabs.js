@@ -4,7 +4,7 @@ import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { gt } from '@ember/object/computed';
 import Component from '@ember/component';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 import { scheduleOnce, join } from '@ember/runloop';
 import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';

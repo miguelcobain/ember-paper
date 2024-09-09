@@ -3,7 +3,7 @@ import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { later } from '@ember/runloop';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 import { getOwner } from '@ember/application';
 import layout from '../templates/components/paper-tooltip';
 import getParent from 'ember-paper/utils/get-parent';
