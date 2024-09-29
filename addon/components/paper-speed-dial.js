@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/require-tagless-components, ember/no-component-lifecycle-hooks */
+/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-tagless-components, prettier/prettier */
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { next } from '@ember/runloop';

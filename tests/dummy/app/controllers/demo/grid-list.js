@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Controller from '@ember/controller';
 import { later } from '@ember/runloop';
 import { A } from '@ember/array';

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 

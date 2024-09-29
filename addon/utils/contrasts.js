@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 // Auto Generated file from exportSass.
 export default  {
   "light-contrast-color": "rgba(255, 255, 255, 0.87)",

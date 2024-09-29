@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/no-actions-hash */
+/* eslint-disable ember/no-actions-hash, ember/no-classic-components, prettier/prettier */
 /**
  * @module ember-paper
  */

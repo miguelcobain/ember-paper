@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { maxlength } from 'ember-paper/validators/maxlength';
 import { module, test } from 'qunit';
 

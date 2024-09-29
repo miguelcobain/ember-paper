@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
   Straight from ember-basic-dropdown/utils/calculate-position.js
 

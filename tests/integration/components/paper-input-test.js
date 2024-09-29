@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, qunit/no-assert-equal-boolean, qunit/no-commented-tests, ember/no-settled-after-test-helper */
+/* eslint-disable ember/no-classic-components, ember/no-settled-after-test-helper, prettier/prettier, qunit/no-assert-equal-boolean, qunit/no-commented-tests */
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';

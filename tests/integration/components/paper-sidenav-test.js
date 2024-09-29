@@ -1,4 +1,4 @@
-/* eslint-disable qunit/no-commented-tests */
+/* eslint-disable prettier/prettier, qunit/no-commented-tests */
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, click } from '@ember/test-helpers';
