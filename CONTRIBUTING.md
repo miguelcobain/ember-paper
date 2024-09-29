@@ -4,12 +4,12 @@
 
 * `git clone <repository-url>`
 * `cd my-addon`
-* `npm install`
+* `pnpm install`
 
 ## Linting
 
-* `npm run lint`
-* `npm run lint:fix`
+* `pnpm run lint`
+* `pnpm run lint:fix`
 
 ## Running tests
 
