@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-controller-access-in-routes */
+/* eslint-disable ember/no-controller-access-in-routes, prettier/prettier */
 import Route from '@ember/routing/route';
 import { on } from '@ember/object/evented';
 

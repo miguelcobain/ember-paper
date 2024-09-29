@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use strict';
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 

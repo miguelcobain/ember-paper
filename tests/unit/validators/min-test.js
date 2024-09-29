@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { min } from 'ember-paper/validators/min';
 import { module, test } from 'qunit';
 

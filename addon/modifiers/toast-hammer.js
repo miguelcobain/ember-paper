@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Modifier from 'ember-modifier';
 import { bind } from '@ember/runloop';
 

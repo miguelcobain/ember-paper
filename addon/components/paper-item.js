@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-component-lifecycle-hooks */
+/* eslint-disable ember/no-classic-components, ember/no-computed-properties-in-native-classes, prettier/prettier */
 import { attributeBindings, classNameBindings, tagName, layout as templateLayout } from '@ember-decorators/component';
 import { computed } from '@ember/object';
 import { or, bool, filter } from '@ember/object/computed';

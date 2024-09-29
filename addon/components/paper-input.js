@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/no-mixins, ember/require-tagless-components, ember/require-computed-property-dependencies, ember/no-component-lifecycle-hooks, ember/no-get, ember/no-actions-hash */
+/* eslint-disable ember/no-actions-hash, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-get, ember/no-mixins, ember/require-computed-property-dependencies, ember/require-tagless-components, prettier/prettier */
 /**
  * @module ember-paper
  */

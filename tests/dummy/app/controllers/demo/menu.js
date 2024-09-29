@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Controller from '@ember/controller';
 import { A } from '@ember/array';
 import { action } from '@ember/object';

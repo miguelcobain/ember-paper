@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import clamp from './clamp';
 
 export default function calculateTooltipPosition(tooltip, target, position) {

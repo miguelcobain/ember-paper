@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { DEBUG } from '@glimmer/env';
 import requirejs from 'require';
 
