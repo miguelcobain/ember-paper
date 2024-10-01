@@ -1,4 +1,4 @@
-<md-progress-linear md-mode={{this.mode}} md-buffer-value={{this.bufferValue}} class="md-default-theme" ...attributes>
+<md-progress-linear md-mode={{this.mode}} md-buffer-value={{this.bufferValue}} class="md-default-theme {{if this.warn "md-warn"}} {{if this.accent "md-accent"}} {{if this.primary "md-primary"}}" ...attributes>
   {{! template-lint-disable no-implicit-this }}
   <div class="md-container {{queryModeClass}}">
     <div class="md-dashed"></div>

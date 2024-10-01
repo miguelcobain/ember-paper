@@ -1,17 +1,15 @@
-/* eslint-disable ember/no-classic-components, ember/no-mixins */
+/* eslint-disable ember/no-classic-components */
 /**
  * @module ember-paper
  */
 import Component from '@ember/component';
-
-import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 /**
  * @class PaperToolbar
  * @extends Ember.Component
  * @uses ColorMixin
  */
-export default Component.extend(ColorMixin, {
+export default Component.extend({
   tagName: '',
   tall: false,
 });

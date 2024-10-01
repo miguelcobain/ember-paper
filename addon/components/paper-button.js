@@ -6,7 +6,6 @@ import { reads } from '@ember/object/computed';
 
 import Component from '@ember/component';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
@@ -17,7 +16,7 @@ import { invokeAction } from 'ember-paper/utils/invoke-action';
  * @uses ColorMixin
  * @uses ProxiableMixin
  */
-export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
+export default Component.extend(FocusableMixin, ProxiableMixin, {
   tagName: 'button',
   classNames: ['md-default-theme', 'md-button'],
   raised: false,
@@ -38,6 +37,9 @@ export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
     'iconButton:md-icon-button',
     'fab:md-fab',
     'mini:md-mini',
+    'warn:md-warn',
+    'accent:md-accent',
+    'primary:md-primary',
   ],
 
   init() {

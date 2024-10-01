@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/no-get, ember/no-mixins, ember/require-computed-property-dependencies */
+/* eslint-disable ember/no-classic-components, ember/no-get, ember/require-computed-property-dependencies */
 /**
  * @module ember-paper
  */
@@ -8,7 +8,6 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { isPresent } from '@ember/utils';
 import { htmlSafe } from '@ember/string';
-import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 function makeTransform(value) {
   let scale = value / 100;
@@ -26,7 +25,7 @@ const MODE_QUERY = 'query';
  * @extends Ember.Component
  * @uses ColorMixin
  */
-export default Component.extend(ColorMixin, {
+export default Component.extend({
   tagName: '',
   constants: service(),
 

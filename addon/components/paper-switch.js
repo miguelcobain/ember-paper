@@ -10,7 +10,6 @@ import { get, computed } from '@ember/object';
 import { bind } from '@ember/runloop';
 import { htmlSafe } from '@ember/string';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
@@ -23,10 +22,16 @@ import { invokeAction } from 'ember-paper/utils/invoke-action';
  * @uses ColorMixin
  * @uses ProxiableMixin
  */
-export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
+export default Component.extend(FocusableMixin, ProxiableMixin, {
   tagName: 'md-switch',
   classNames: ['paper-switch', 'md-default-theme'],
-  classNameBindings: ['value:md-checked', 'dragging:md-dragging'],
+  classNameBindings: [
+    'value:md-checked',
+    'dragging:md-dragging',
+    'warn:md-warn',
+    'accent:md-accent',
+    'primary:md-primary',
+  ],
   toggle: true,
   constants: service(),
   value: false,

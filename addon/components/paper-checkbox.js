@@ -9,7 +9,6 @@ import { not, and } from '@ember/object/computed';
 import Component from '@ember/component';
 import { assert } from '@ember/debug';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 /**
@@ -19,10 +18,16 @@ import { invokeAction } from 'ember-paper/utils/invoke-action';
  * @uses ColorMixin
  * @uses ProxiableMixin
  */
-export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
+export default Component.extend(FocusableMixin, ProxiableMixin, {
   tagName: 'md-checkbox',
   classNames: ['md-checkbox', 'md-default-theme'],
-  classNameBindings: ['isChecked:md-checked', 'indeterminate:md-indeterminate'],
+  classNameBindings: [
+    'isChecked:md-checked',
+    'indeterminate:md-indeterminate',
+    'warn:md-warn',
+    'accent:md-accent',
+    'primary:md-primary',
+  ],
 
   attributeBindings: [
     'role:role',
