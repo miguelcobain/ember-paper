@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/no-get, ember/no-mixins, ember/require-computed-property-dependencies, ember/require-tagless-components, prettier/prettier */
+/* eslint-disable ember/no-classic-components, ember/no-get, ember/no-mixins, ember/require-computed-property-dependencies, ember/require-tagless-components */
 /**
  * @module ember-paper
  */
@@ -8,7 +8,6 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { isPresent } from '@ember/utils';
 import { htmlSafe } from '@ember/string';
-import layout from '../templates/components/paper-progress-linear';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 function makeTransform(value) {
@@ -28,12 +27,9 @@ const MODE_QUERY = 'query';
  * @uses ColorMixin
  */
 export default Component.extend(ColorMixin, {
-  layout,
   tagName: 'md-progress-linear',
-
   attributeBindings: ['mode:md-mode', 'bufferValue:md-buffer-value'],
   classNames: ['md-default-theme'],
-
   constants: service(),
 
   mode: computed('value', {
@@ -56,39 +52,50 @@ export default Component.extend(ColorMixin, {
       }
     },
     set(key, value) {
-      return this._mode = value;
-    }
+      return (this._mode = value);
+    },
   }),
 
-  queryModeClass: computed('mode', function() {
+  queryModeClass: computed('mode', function () {
     let mode = this.mode;
-    if ([MODE_QUERY, MODE_BUFFER, MODE_DETERMINATE, MODE_INDETERMINATE].includes(mode)) {
+    if (
+      [MODE_QUERY, MODE_BUFFER, MODE_DETERMINATE, MODE_INDETERMINATE].includes(
+        mode
+      )
+    ) {
       return `md-mode-${mode}`;
     } else {
       return '';
     }
   }),
 
-  bar1Style: computed('clampedBufferValue', function() {
-    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${makeTransform(this.clampedBufferValue)}`);
+  bar1Style: computed('clampedBufferValue', function () {
+    return htmlSafe(
+      `${this.get('constants.CSS.TRANSFORM')}: ${makeTransform(
+        this.clampedBufferValue
+      )}`
+    );
   }),
 
-  bar2Style: computed('clampedValue', 'mode', function() {
+  bar2Style: computed('clampedValue', 'mode', function () {
     if (this.mode === MODE_QUERY) {
       return htmlSafe('');
     }
 
-    return htmlSafe(`${this.get('constants.CSS.TRANSFORM')}: ${makeTransform(this.clampedValue)}`);
+    return htmlSafe(
+      `${this.get('constants.CSS.TRANSFORM')}: ${makeTransform(
+        this.clampedValue
+      )}`
+    );
   }),
 
-  clampedValue: computed('value', function() {
+  clampedValue: computed('value', function () {
     let value = this.value;
     return Math.max(0, Math.min(value || 0, 100));
   }),
 
-  clampedBufferValue: computed('bufferValue', function() {
+  clampedBufferValue: computed('bufferValue', function () {
     let value = this.bufferValue;
     return Math.max(0, Math.min(value || 0, 100));
-  })
-
+  }),
 });
