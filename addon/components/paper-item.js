@@ -1,10 +1,13 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components */
-import { attributeBindings, classNameBindings, tagName, layout as templateLayout } from '@ember-decorators/component';
+/* eslint-disable ember/no-classic-components, ember/no-computed-properties-in-native-classes */
+import {
+  attributeBindings,
+  classNameBindings,
+  tagName,
+} from '@ember-decorators/component';
 import { computed } from '@ember/object';
 import { or, bool, filter } from '@ember/object/computed';
 
 import Component from '@ember/component';
-import layout from '../templates/components/paper-item';
 import { ParentMixin } from 'ember-composability-tools';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 /**
@@ -12,7 +15,6 @@ import { invokeAction } from 'ember-paper/utils/invoke-action';
  * @extends Ember.Component
  * @uses ParentMixin
  */
-@templateLayout(layout)
 @tagName('md-list-item')
 @classNameBindings(
   'hasProxiedComponent:md-proxy-focus',
@@ -35,7 +37,7 @@ export default class PaperItem extends Component.extend(ParentMixin) {
   role = 'listitem';
   tabindex = '-1';
 
-  @filter('childComponents', function(c) {
+  @filter('childComponents', function (c) {
     return !c.get('skipProxy');
   })
   proxiedComponents;
@@ -82,7 +84,11 @@ export default class PaperItem extends Component.extend(ParentMixin) {
 
   click() {
     this.proxiedComponents.forEach((component) => {
-      if (component.processProxy && !component.get('disabled') && (component.get('bubbles') | !this.hasPrimaryAction)) {
+      if (
+        component.processProxy &&
+        !component.get('disabled') &&
+        component.get('bubbles') | !this.hasPrimaryAction
+      ) {
         component.processProxy();
       }
     });

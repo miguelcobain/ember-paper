@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find, waitUntil } from '@ember/test-helpers';

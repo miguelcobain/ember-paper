@@ -1,10 +1,9 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-mixins, ember/classic-decorator-no-classic-methods */
-import { tagName, layout as templateLayout } from '@ember-decorators/component';
+/* eslint-disable ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/no-computed-properties-in-native-classes, ember/no-mixins */
+import { tagName } from '@ember-decorators/component';
 import { action, computed } from '@ember/object';
 import { and, not } from '@ember/object/computed';
 
 import Component from '@ember/component';
-import layout from '../templates/components/paper-form';
 import ParentMixin from 'ember-paper/mixins/parent-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
@@ -13,7 +12,6 @@ import { invokeAction } from 'ember-paper/utils/invoke-action';
  * @extends Ember.Component
  * @uses ParentMixin
  */
-@templateLayout(layout)
 @tagName('form')
 export default class PaperForm extends Component.extend(ParentMixin) {
   inputComponent = 'paper-input';
@@ -44,8 +42,17 @@ export default class PaperForm extends Component.extend(ParentMixin) {
 
   @action
   localOnValidityChange() {
-    if (this.lastIsValid !== this.isValid || this.lastIsTouched !== this.isTouched) {
-      invokeAction(this, 'onValidityChange', this.isValid, this.isTouched, this.isInvalidAndTouched);
+    if (
+      this.lastIsValid !== this.isValid ||
+      this.lastIsTouched !== this.isTouched
+    ) {
+      invokeAction(
+        this,
+        'onValidityChange',
+        this.isValid,
+        this.isTouched,
+        this.isInvalidAndTouched
+      );
       this.set('lastIsValid', this.isValid);
       this.set('lastIsTouched', this.isTouched);
     }

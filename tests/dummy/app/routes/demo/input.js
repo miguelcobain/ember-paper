@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-actions-hash */
+/* eslint-disable ember/no-actions-hash, prettier/prettier */
 import Route from '@ember/routing/route';
 
 export default Route.extend({

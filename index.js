@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use strict';
 
 const path = require('path');

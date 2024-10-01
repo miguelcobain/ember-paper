@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-get */
+/* eslint-disable ember/no-get, prettier/prettier */
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/template';

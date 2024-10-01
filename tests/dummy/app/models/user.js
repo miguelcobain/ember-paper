@@ -1,4 +1,4 @@
-/* eslint-disable ember/use-ember-data-rfc-395-imports */
+/* eslint-disable ember/use-ember-data-rfc-395-imports, prettier/prettier */
 // models/user.js
 
 import DS from 'ember-data';

@@ -1,4 +1,4 @@
-/* eslint-disable qunit/no-assert-equal-boolean, qunit/no-commented-tests */
+/* eslint-disable prettier/prettier, qunit/no-assert-equal-boolean, qunit/no-commented-tests */
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, triggerKeyEvent, click, focus } from '@ember/test-helpers';

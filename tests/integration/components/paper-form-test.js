@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components */
+/* eslint-disable ember/no-classic-components, prettier/prettier */
 import Component from '@ember/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';

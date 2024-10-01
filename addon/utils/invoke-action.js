@@ -1,4 +1,4 @@
-/* eslint-disable no-extra-semi */
+/* eslint-disable prettier/prettier */
 import { assert } from '@ember/debug';
 import { get } from '@ember/object';
 

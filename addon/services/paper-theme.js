@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Service from '@ember/service';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';

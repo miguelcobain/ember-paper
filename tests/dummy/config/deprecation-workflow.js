@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, prettier/prettier */
 self.deprecationWorkflow = self.deprecationWorkflow || {};
 self.deprecationWorkflow.config = {
   workflow: [

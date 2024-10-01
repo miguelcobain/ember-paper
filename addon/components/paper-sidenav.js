@@ -1,11 +1,10 @@
-/* eslint-disable ember/no-classic-components, ember/no-actions-hash */
+/* eslint-disable ember/no-actions-hash, ember/no-classic-components */
 /**
  * @module ember-paper
  */
 import { not } from '@ember/object/computed';
 
 import Component from '@ember/component';
-import layout from '../templates/components/paper-sidenav';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
@@ -13,9 +12,7 @@ import { invokeAction } from 'ember-paper/utils/invoke-action';
  * @extends Ember.Component
  */
 export default Component.extend({
-  layout,
   tagName: '',
-
   name: 'default',
   position: 'left',
   lockedOpen: 'gt-sm',
@@ -29,6 +26,6 @@ export default Component.extend({
     },
     onBackdropTap() {
       invokeAction(this, 'onToggle', false);
-    }
-  }
+    },
+  },
 });

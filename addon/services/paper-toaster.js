@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { reads } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
 import { later } from '@ember/runloop';

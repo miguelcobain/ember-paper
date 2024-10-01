@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/require-tagless-components, ember/no-get, ember/no-component-lifecycle-hooks */
+/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-get, ember/require-tagless-components, prettier/prettier */
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/template';

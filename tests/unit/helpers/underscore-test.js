@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { underscore } from 'dummy/helpers/-paper-underscore';
 import { module, test } from 'qunit';
 

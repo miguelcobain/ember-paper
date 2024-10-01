@@ -5,7 +5,6 @@
 /* globals FastBoot */
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import layout from '../templates/components/paper-sidenav-inner';
 import { computed } from '@ember/object';
 import { bind } from '@ember/runloop';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
@@ -17,11 +16,8 @@ import { invokeAction } from 'ember-paper/utils/invoke-action';
  */
 export default Component.extend({
   tagName: '',
-  layout,
-
   constants: service(),
   paperSidenav: service(),
-
   name: 'default',
   position: 'left',
   lockedOpen: 'gt-sm',
@@ -29,7 +25,7 @@ export default Component.extend({
   closeOnClick: true,
   tabindex: -1,
 
-  positionClass: computed('position', function() {
+  positionClass: computed('position', function () {
     return `md-sidenav-${this.position}`;
   }),
 
@@ -65,7 +61,6 @@ export default Component.extend({
   },
 
   updateLockedOpen() {
-
     let lockedOpen = this.lockedOpen;
     let isLockedOpen;
 
@@ -113,5 +108,5 @@ export default Component.extend({
     if (!this.isLockedOpen) {
       invokeAction(this, 'onToggle', this.closed);
     }
-  }
+  },
 });

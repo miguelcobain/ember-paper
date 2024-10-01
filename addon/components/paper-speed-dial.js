@@ -1,32 +1,34 @@
-/* eslint-disable ember/no-classic-components, ember/require-tagless-components, ember/no-component-lifecycle-hooks */
+/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-tagless-components */
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { next } from '@ember/runloop';
-import layout from '../templates/components/paper-speed-dial';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 export default Component.extend({
-  layout,
   tagName: 'md-fab-speed-dial',
 
   classNameBindings: [
-    'directionClass', 'open:md-is-open', 'animationClass',
-    'shouldHideActions:md-animations-waiting', 'hoverFull:md-hover-full'
+    'directionClass',
+    'open:md-is-open',
+    'animationClass',
+    'shouldHideActions:md-animations-waiting',
+    'hoverFull:md-hover-full',
   ],
 
   open: false,
-
   animation: 'fling',
-  animationClass: computed('animation', function() {
+
+  animationClass: computed('animation', function () {
     return `md-${this.animation}`;
   }),
 
   direction: 'down',
-  directionClass: computed('direction', function() {
+
+  directionClass: computed('direction', function () {
     return `md-${this.direction}`;
   }),
 
-  shouldHideActions: computed('animation', 'elementDidRender', function() {
+  shouldHideActions: computed('animation', 'elementDidRender', function () {
     return this.animation === 'fling' && !this.elementDidRender;
   }),
 
@@ -85,5 +87,5 @@ export default Component.extend({
     } else {
       this.set('open', value);
     }
-  }
+  },
 });

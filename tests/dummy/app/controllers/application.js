@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-actions-hash */
+/* eslint-disable ember/no-actions-hash, prettier/prettier */
 import { equal } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';

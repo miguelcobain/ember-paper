@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-get */
+/* eslint-disable ember/no-get, prettier/prettier */
 import { get } from '@ember/object';
 import Ember from 'ember';
 const { ViewUtils } = Ember;

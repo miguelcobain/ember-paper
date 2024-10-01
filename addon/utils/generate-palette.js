@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import tinycolor from 'tinycolor2';
 
 // Utility function to combine two rgb objects via Multiply
