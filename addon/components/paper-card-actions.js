@@ -1,17 +1,14 @@
-/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-tagless-components, prettier/prettier */
+/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-tagless-components */
 /**
  * @module ember-paper
  */
 import Component from '@ember/component';
-
-import layout from '../templates/components/paper-card-actions';
 
 /**
  * @class PaperCardActions
  * @extends Ember.Component
  */
 export default Component.extend({
-  layout,
   tagName: 'md-card-actions',
   classNameBindings: ['defaultClasses'],
 
@@ -25,5 +22,5 @@ export default Component.extend({
     if (!providedClasses || providedClasses.indexOf('layout-') === -1) {
       this.set('defaultClasses', 'layout-row layout-align-end-center');
     }
-  }
+  },
 });

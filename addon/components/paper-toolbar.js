@@ -1,10 +1,9 @@
-/* eslint-disable ember/no-classic-components, ember/no-mixins, ember/require-tagless-components, prettier/prettier */
+/* eslint-disable ember/no-classic-components, ember/no-mixins, ember/require-tagless-components */
 /**
  * @module ember-paper
  */
 import Component from '@ember/component';
 
-import layout from '../templates/components/paper-toolbar';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 /**
@@ -13,9 +12,8 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
  * @uses ColorMixin
  */
 export default Component.extend(ColorMixin, {
-  layout,
   tagName: 'md-toolbar',
   classNames: ['md-default-theme'],
   tall: false,
-  classNameBindings: ['tall:md-tall']
+  classNameBindings: ['tall:md-tall'],
 });

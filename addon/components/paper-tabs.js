@@ -1,21 +1,26 @@
-/* eslint-disable ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/no-computed-properties-in-native-classes, ember/no-get, ember/no-mixins, prettier/prettier */
-import { classNames, attributeBindings, tagName, layout as templateLayout } from '@ember-decorators/component';
+/* eslint-disable ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/no-computed-properties-in-native-classes, ember/no-get, ember/no-mixins */
+import {
+  classNames,
+  attributeBindings,
+  tagName,
+} from '@ember-decorators/component';
 import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { gt } from '@ember/object/computed';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
 import { scheduleOnce, join } from '@ember/runloop';
-import layout from '../templates/components/paper-tabs';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
-@templateLayout(layout)
 @tagName('md-tabs')
 @classNames('md-no-tab-content', 'md-default-theme')
 @attributeBindings('borderBottom:md-border-bottom')
-export default class PaperTabs extends Component.extend(ParentMixin, ColorMixin) {
+export default class PaperTabs extends Component.extend(
+  ParentMixin,
+  ColorMixin
+) {
   @service
   constants;
 
@@ -39,13 +44,16 @@ export default class PaperTabs extends Component.extend(ParentMixin, ColorMixin)
 
     return {
       left: selectedTab.get('left'),
-      right: this.wrapperWidth - selectedTab.get('left') - selectedTab.get('width')
+      right:
+        this.wrapperWidth - selectedTab.get('left') - selectedTab.get('width'),
     };
   }
 
   @computed('currentOffset')
   get paginationStyle() {
-    return htmlSafe(`transform: translate3d(-${this.currentOffset}px, 0px, 0px);`);
+    return htmlSafe(
+      `transform: translate3d(-${this.currentOffset}px, 0px, 0px);`
+    );
   }
 
   shouldPaginate = true;
@@ -99,7 +107,12 @@ export default class PaperTabs extends Component.extend(ParentMixin, ColorMixin)
       return;
     }
 
-    this.set('movingRight', !selectedTab || !previousSelectedTab || previousSelectedTab.get('left') < selectedTab.get('left'));
+    this.set(
+      'movingRight',
+      !selectedTab ||
+        !previousSelectedTab ||
+        previousSelectedTab.get('left') < selectedTab.get('left')
+    );
     this.set('_selectedTab', selectedTab);
 
     scheduleOnce('afterRender', this, this.fixOffsetIfNeeded);
@@ -154,7 +167,9 @@ export default class PaperTabs extends Component.extend(ParentMixin, ColorMixin)
 
   updateDimensions() {
     let canvasWidth = this.element.querySelector('md-tabs-canvas').offsetWidth;
-    let wrapperWidth = this.element.querySelector('md-pagination-wrapper').offsetWidth;
+    let wrapperWidth = this.element.querySelector(
+      'md-pagination-wrapper'
+    ).offsetWidth;
     this.childComponents.invoke('updateDimensions');
     this.set('canvasWidth', canvasWidth);
     this.set('wrapperWidth', wrapperWidth);
@@ -191,7 +206,7 @@ export default class PaperTabs extends Component.extend(ParentMixin, ColorMixin)
   previousPage() {
     let tab = this.childComponents.find((t) => {
       // ensure we are no stuck because of a tab with a width > canvasWidth
-      return (t.get('left') + t.get('width')) >= this.currentOffset;
+      return t.get('left') + t.get('width') >= this.currentOffset;
     });
     if (tab) {
       let left = Math.max(0, tab.get('left') - this.canvasWidth);
@@ -204,9 +219,11 @@ export default class PaperTabs extends Component.extend(ParentMixin, ColorMixin)
     let tab = this.childComponents.find((t) => {
       // ensure tab's offset is greater than current
       // otherwise if the tab's width is greater than canvas we cannot paginate through it
-      return t.get('left') > this.currentOffset
+      return (
+        t.get('left') > this.currentOffset &&
         // paginate until the first partially hidden tab
-        && t.get('left') + t.get('width') - this.currentOffset > this.canvasWidth;
+        t.get('left') + t.get('width') - this.currentOffset > this.canvasWidth
+      );
     });
     if (tab) {
       this.set('currentOffset', tab.get('left'));

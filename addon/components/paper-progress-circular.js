@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-mixins, ember/require-tagless-components, prettier/prettier */
+/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-mixins, ember/require-tagless-components */
 /**
  * @module ember-paper
  */
@@ -9,7 +9,6 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { isPresent } from '@ember/utils';
 import { htmlSafe } from '@ember/string';
-import layout from '../templates/components/paper-progress-circular';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import clamp from 'ember-paper/utils/clamp';
 
@@ -23,18 +22,22 @@ const MODE_INDETERMINATE = 'indeterminate';
  */
 const TICK = 17;
 
-const rAF = !window.requestAnimationFrame ? function(fn) {
-  return setTimeout(fn, TICK);
-} : window.requestAnimationFrame;
+const rAF = !window.requestAnimationFrame
+  ? function (fn) {
+      return setTimeout(fn, TICK);
+    }
+  : window.requestAnimationFrame;
 
-const cAF = !window. cancelAnimationFrame ? function(fn) {
-  return clearTimeout(fn, TICK);
-} : window. cancelAnimationFrame;
+const cAF = !window.cancelAnimationFrame
+  ? function (fn) {
+      return clearTimeout(fn, TICK);
+    }
+  : window.cancelAnimationFrame;
 
 const now = () => new Date().getTime();
 
 function linearEase(t, b, c, d) {
-  return c * t / d + b;
+  return (c * t) / d + b;
 }
 
 function materialEase(t, b, c, d) {
@@ -51,37 +54,39 @@ function materialEase(t, b, c, d) {
  * @uses ColorMixin
  */
 export default Component.extend(ColorMixin, {
-  layout,
   tagName: 'md-progress-circular',
   classNames: ['md-default-theme'],
   attributeBindings: ['value', 'mode:md-mode', 'containerStyle:style'],
-  classNameBindings: ['spinnerClass', 'disabled:_md-progress-circular-disabled'],
-
+  classNameBindings: [
+    'spinnerClass',
+    'disabled:_md-progress-circular-disabled',
+  ],
   diameter: 50,
   strokeRatio: 0.1,
-
   durationIndeterminate: 1333,
   easeFnIndeterminate: materialEase,
   startIndeterminate: 1,
   endIndeterminate: 149,
 
-  mode: computed('value', function() {
+  mode: computed('value', function () {
     let value = this.value;
     return isPresent(value) ? MODE_DETERMINATE : MODE_INDETERMINATE;
   }),
 
-  spinnerClass: computed('mode', function() {
+  spinnerClass: computed('mode', function () {
     let mode = this.mode;
-    return mode === MODE_DETERMINATE || mode === MODE_INDETERMINATE ? `md-mode-${mode}` : 'ng-hide';
+    return mode === MODE_DETERMINATE || mode === MODE_INDETERMINATE
+      ? `md-mode-${mode}`
+      : 'ng-hide';
   }),
 
   isIndeterminate: equal('mode', MODE_INDETERMINATE).readOnly(),
 
-  strokeWidth: computed('strokeRatio', 'diameter', function() {
+  strokeWidth: computed('strokeRatio', 'diameter', function () {
     return this.strokeRatio * this.diameter;
   }),
 
-  strokeDasharray: computed('mode', 'diameter', 'strokeWidth', function() {
+  strokeDasharray: computed('mode', 'diameter', 'strokeWidth', function () {
     if (this.mode === MODE_INDETERMINATE) {
       return (this.diameter - this.strokeWidth) * Math.PI * 0.75;
     } else {
@@ -89,30 +94,36 @@ export default Component.extend(ColorMixin, {
     }
   }),
 
-  d: computed('diameter', 'strokeWidth', 'isIndeterminate', function() {
-    return this.getSvgArc(this.diameter, this.strokeWidth, this.isIndeterminate);
+  d: computed('diameter', 'strokeWidth', 'isIndeterminate', function () {
+    return this.getSvgArc(
+      this.diameter,
+      this.strokeWidth,
+      this.isIndeterminate
+    );
   }),
 
-  pathDiameter: computed('diameter', 'strokeWidth', function() {
+  pathDiameter: computed('diameter', 'strokeWidth', function () {
     return this.diameter - this.strokeWidth;
   }),
 
-  containerStyle: computed('diameter', function() {
+  containerStyle: computed('diameter', function () {
     let diameter = this.diameter;
     let width = `width: ${diameter}px`;
     let height = `height: ${diameter}px`;
     return htmlSafe([width, height].join('; '));
   }),
 
-  svgStyle: computed('diameter', function() {
+  svgStyle: computed('diameter', function () {
     let diameter = this.diameter;
     let width = `width: ${diameter}px`;
     let height = `height: ${diameter}px`;
-    let transformOrigin = `transform-origin: ${diameter / 2}px ${diameter / 2}px ${diameter / 2}px`;
+    let transformOrigin = `transform-origin: ${diameter / 2}px ${
+      diameter / 2
+    }px ${diameter / 2}px`;
     return htmlSafe([width, height, transformOrigin].join('; '));
   }),
 
-  pathStyle: computed('strokeWidth', function() {
+  pathStyle: computed('strokeWidth', function () {
     return htmlSafe(`stroke-width: ${this.strokeWidth}px`);
   }),
 
@@ -164,9 +175,16 @@ export default Component.extend(ColorMixin, {
   },
 
   iterationCount: 0,
+
   startIndeterminateAnimation() {
-    this.renderCircle(this.startIndeterminate, this.endIndeterminate,
-      this.easeFnIndeterminate, this.durationIndeterminate, this.iterationCount, 75);
+    this.renderCircle(
+      this.startIndeterminate,
+      this.endIndeterminate,
+      this.easeFnIndeterminate,
+      this.durationIndeterminate,
+      this.iterationCount,
+      75
+    );
 
     // The % 4 technically isn't necessary, but it keeps the rotation
     // under 360, instead of becoming a crazy large number.
@@ -174,8 +192,20 @@ export default Component.extend(ColorMixin, {
   },
 
   lastAnimationId: 0,
-  renderCircle(animateFrom, animateTo, ease = linearEase, animationDuration = 100, iterationCount = 0, dashLimit = 100) {
-    if (this.isDestroyed || this.isDestroying || typeof FastBoot !== 'undefined') {
+
+  renderCircle(
+    animateFrom,
+    animateTo,
+    ease = linearEase,
+    animationDuration = 100,
+    iterationCount = 0,
+    dashLimit = 100
+  ) {
+    if (
+      this.isDestroyed ||
+      this.isDestroying ||
+      typeof FastBoot !== 'undefined'
+    ) {
       return;
     }
 
@@ -188,14 +218,18 @@ export default Component.extend(ColorMixin, {
 
     let renderFrame = (value, diameter, strokeWidth, dashLimit) => {
       if (!this.isDestroyed && !this.isDestroying && this.element) {
-
         let path = this.element.querySelector('path');
         if (!path) {
           return;
         }
-        path.setAttribute('stroke-dashoffset', this.getDashLength(diameter, strokeWidth, value, dashLimit));
-        path.setAttribute('transform', `rotate(${rotation} ${diameter / 2} ${diameter / 2})`);
-
+        path.setAttribute(
+          'stroke-dashoffset',
+          this.getDashLength(diameter, strokeWidth, value, dashLimit)
+        );
+        path.setAttribute(
+          'transform',
+          `rotate(${rotation} ${diameter / 2} ${diameter / 2})`
+        );
       }
     };
 
@@ -205,14 +239,22 @@ export default Component.extend(ColorMixin, {
     } else {
       let animation = () => {
         let currentTime = clamp(now() - startTime, 0, animationDuration);
-        renderFrame(ease(currentTime, animateFrom, changeInValue, animationDuration), diameter, strokeWidth, dashLimit);
+        renderFrame(
+          ease(currentTime, animateFrom, changeInValue, animationDuration),
+          diameter,
+          strokeWidth,
+          dashLimit
+        );
 
         // Do not allow overlapping animations
         if (id === this.lastAnimationId && currentTime < animationDuration) {
           this.lastDrawFrame = rAF(animation);
         }
 
-        if (currentTime >= animationDuration && this.mode === MODE_INDETERMINATE) {
+        if (
+          currentTime >= animationDuration &&
+          this.mode === MODE_INDETERMINATE
+        ) {
           this.startIndeterminateAnimation();
         }
       };
@@ -234,12 +276,22 @@ export default Component.extend(ColorMixin, {
     let radius = diameter / 2;
     let offset = strokeWidth / 2;
     let start = `${radius},${offset}`; // ie: (25, 2.5) or 12 o'clock
-    let end = `${offset},${radius}`;   // ie: (2.5, 25) or  9 o'clock
+    let end = `${offset},${radius}`; // ie: (2.5, 25) or  9 o'clock
     let arcRadius = radius - offset;
 
-    return 'M' + start
-         + 'A' + arcRadius + ',' + arcRadius + ' 0 1 1 ' + end // 75% circle
-         + (indeterminate ? '' : 'A' + arcRadius + ',' + arcRadius + ' 0 0 1 ' + start); // loop to start
+    return (
+      'M' +
+      start +
+      'A' +
+      arcRadius +
+      ',' +
+      arcRadius +
+      ' 0 1 1 ' +
+      end + // 75% circle
+      (indeterminate
+        ? ''
+        : 'A' + arcRadius + ',' + arcRadius + ' 0 0 1 ' + start)
+    ); // loop to start
   },
 
   /**
@@ -253,6 +305,10 @@ export default Component.extend(ColorMixin, {
    * @returns {number} Stroke length for progres circle
    */
   getDashLength(diameter, strokeWidth, value, limit) {
-    return (diameter - strokeWidth) * Math.PI * ((3 * (limit || 100) / 100) - (value / 100));
-  }
+    return (
+      (diameter - strokeWidth) *
+      Math.PI *
+      ((3 * (limit || 100)) / 100 - value / 100)
+    );
+  },
 });

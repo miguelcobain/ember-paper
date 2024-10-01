@@ -1,35 +1,30 @@
-/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-computed-property-dependencies, prettier/prettier */
+/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-computed-property-dependencies */
 import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { later } from '@ember/runloop';
 import { htmlSafe } from '@ember/string';
 import { getOwner } from '@ember/application';
-import layout from '../templates/components/paper-tooltip';
 import getParent from 'ember-paper/utils/get-parent';
 import { supportsPassiveEventListeners } from 'ember-paper/utils/browser-features';
 
 export default Component.extend({
   tagName: '',
-  layout,
-
   position: 'bottom',
-
   wormholeSelector: '#paper-wormhole',
   defaultedParent: or('parent', 'wormholeSelector'),
 
   // Calculate the id of the wormhole destination, setting it if need be. The
   // id is that of the 'parent', if provided, or 'paper-wormhole' if not.
-  destinationId: computed('defaultedParent', function() {
+  destinationId: computed('defaultedParent', function () {
     let config = getOwner(this).resolveRegistration('config:environment');
 
     if (config.environment === 'test' && !this.parent) {
       return '#ember-testing';
     }
     let parent = this.defaultedParent;
-    let parentEle = typeof parent === 'string'
-      ? document.querySelector(parent)
-      : parent;
+    let parentEle =
+      typeof parent === 'string' ? document.querySelector(parent) : parent;
     // If the parent isn't found, assume that it is an id, but that the DOM doesn't
     // exist yet. This only happens during integration tests or if entire application
     // route is a dialog.
@@ -46,17 +41,17 @@ export default Component.extend({
   }),
 
   // Find the element referenced by destinationId
-  destinationEl: computed('destinationId', function() {
+  destinationEl: computed('destinationId', function () {
     return document.querySelector(this.destinationId);
   }),
 
   zIndex: 100,
 
-  containerStyle: computed('zIndex', function() {
+  containerStyle: computed('zIndex', function () {
     return htmlSafe(`pointer-events: none; z-index: ${this.zIndex};`);
   }),
 
-  anchorElement: computed('attachTo', function() {
+  anchorElement: computed('attachTo', function () {
     let attachTo = this.attachTo;
     if (attachTo) {
       return document.querySelector(attachTo);
@@ -97,9 +92,11 @@ export default Component.extend({
 
     anchorElement.addEventListener('focus', enterEventHandler);
     anchorElement.addEventListener('mouseenter', enterEventHandler);
-    anchorElement.addEventListener('touchstart',
+    anchorElement.addEventListener(
+      'touchstart',
       enterEventHandler,
-      supportsPassiveEventListeners ? { passive: true } : false);
+      supportsPassiveEventListeners ? { passive: true } : false
+    );
 
     window.addEventListener('scroll', leaveHandler);
     window.addEventListener('blur', leaveHandler);
@@ -114,5 +111,5 @@ export default Component.extend({
     window.removeEventListener('blur', this.leaveHandler);
     window.removeEventListener('resize', this.leaveHandler);
     window.removeEventListener('orientationchange', this.leaveHandler);
-  }
+  },
 });
