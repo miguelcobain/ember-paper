@@ -15,7 +15,7 @@ import { tagName, layout } from '@ember-decorators/component';
  */
 @tagName('')
 @layout(template)
-class PaperAutocompleteHighlight extends Component {
+export default class PaperAutocompleteHighlight extends Component {
   flags = '';
 
   @computed('regex', 'label')
@@ -84,5 +84,3 @@ class PaperAutocompleteHighlight extends Component {
   }
 
 }
-
-export default PaperAutocompleteHighlight;

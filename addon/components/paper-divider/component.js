@@ -12,6 +12,4 @@ import template from './template';
  */
 @tagName('')
 @layout(template)
-class PaperDivider extends Component { }
-
-export default PaperDivider;
+export default class PaperDivider extends Component { }

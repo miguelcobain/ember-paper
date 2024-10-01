@@ -7,11 +7,9 @@ import { and } from '@ember/object/computed';
 
 @tagName('')
 @layout(template)
-class PaperSelectEbdTrigger extends Component {
+export default class PaperSelectEbdTrigger extends Component {
 
   @and('label', 'selected')
   shouldShowLabel;
 
 }
-
-export default PaperSelectEbdTrigger;

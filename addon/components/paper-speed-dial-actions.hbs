@@ -1,4 +1,6 @@
-{{! template-lint-disable no-implicit-this }}
-{{yield (hash
-  action=(component "paper-speed-dial-actions-action" speedDial=speedDial)
-)}}
+<md-fab-actions ...attributes>
+  {{! template-lint-disable no-implicit-this }}
+  {{yield (hash
+    action=(component "paper-speed-dial-actions-action" speedDial=speedDial)
+  )}}
+</md-fab-actions>

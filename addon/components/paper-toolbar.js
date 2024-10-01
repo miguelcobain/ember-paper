@@ -12,8 +12,6 @@ import ColorMixin from 'ember-paper/mixins/color-mixin';
  * @uses ColorMixin
  */
 export default Component.extend(ColorMixin, {
-  tagName: 'md-toolbar',
-  classNames: ['md-default-theme'],
+  tagName: '',
   tall: false,
-  classNameBindings: ['tall:md-tall'],
 });

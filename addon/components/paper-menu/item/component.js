@@ -9,7 +9,7 @@ import { tagName, layout } from '@ember-decorators/component';
 
 @tagName('')
 @layout(template)
-class PaperMenuItem extends Component {
+export default class PaperMenuItem extends Component {
 
   @or('onClick', 'href')
   shouldRenderButton;
@@ -32,5 +32,3 @@ class PaperMenuItem extends Component {
     }
   }
 }
-
-export default PaperMenuItem;

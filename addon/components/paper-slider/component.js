@@ -18,7 +18,7 @@ import { tagName, layout } from '@ember-decorators/component';
  */
 @tagName('')
 @layout(template)
-class PaperSlider extends Component {
+export default class PaperSlider extends Component {
 
   min = 0;
   max = 100;
@@ -219,5 +219,3 @@ class PaperSlider extends Component {
   }
 
 }
-
-export default PaperSlider;

@@ -7,7 +7,7 @@ import template from './template';
 
 @tagName('')
 @layout(template)
-class PaperMenu extends Component {
+export default class PaperMenu extends Component {
 
   @action
   close() {
@@ -51,5 +51,3 @@ class PaperMenu extends Component {
     return positionCalculator.drowdownPosition;
   }
 }
-
-export default PaperMenu;

@@ -9,6 +9,5 @@ import Component from '@ember/component';
  * @extends Ember.Component
  */
 export default Component.extend({
-  tagName: 'h2',
-  classNames: ['md-subheader'],
+  tagName: '',
 });

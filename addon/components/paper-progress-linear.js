@@ -27,9 +27,7 @@ const MODE_QUERY = 'query';
  * @uses ColorMixin
  */
 export default Component.extend(ColorMixin, {
-  tagName: 'md-progress-linear',
-  attributeBindings: ['mode:md-mode', 'bufferValue:md-buffer-value'],
-  classNames: ['md-default-theme'],
+  tagName: '',
   constants: service(),
 
   mode: computed('value', {

@@ -11,7 +11,7 @@ const DURATION = 400;
 
 @tagName('')
 @layout(template)
-class PaperRipple extends Component {
+export default class PaperRipple extends Component {
   _parentFinder = self.document ? self.document.createTextNode('') : '';
 
   center = false;
@@ -309,5 +309,3 @@ class PaperRipple extends Component {
     this.lastRipple = null;
   }
 }
-
-export default PaperRipple;

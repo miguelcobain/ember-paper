@@ -9,5 +9,5 @@ import Component from '@ember/component';
  * @extends Ember.Component
  */
 export default Component.extend({
-  tagName: 'md-card-header-text',
+  tagName: '',
 });

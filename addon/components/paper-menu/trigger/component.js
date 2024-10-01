@@ -6,8 +6,6 @@ import { tagName, layout } from '@ember-decorators/component';
 
 @tagName('')
 @layout(template)
-class PaperMenuTrigger extends Component {
+export default class PaperMenuTrigger extends Component {
 
 }
-
-export default PaperMenuTrigger;

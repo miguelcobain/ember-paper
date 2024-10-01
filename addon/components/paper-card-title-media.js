@@ -9,6 +9,6 @@ import Component from '@ember/component';
  * @extends Ember.Component
  */
 export default Component.extend({
-  tagName: 'md-card-title-media',
+  tagName: '',
   size: 'md',
 });

@@ -1,6 +1,8 @@
-{{! template-lint-disable no-implicit-this }}
-<div class="md-container {{queryModeClass}}">
-  <div class="md-dashed"></div>
-  <div class="md-bar md-bar1" style={{bar1Style}}></div>
-  <div class="md-bar md-bar2" style={{bar2Style}}></div>
-</div>
+<md-progress-linear md-mode={{this.mode}} md-buffer-value={{this.bufferValue}} class="md-default-theme" ...attributes>
+  {{! template-lint-disable no-implicit-this }}
+  <div class="md-container {{queryModeClass}}">
+    <div class="md-dashed"></div>
+    <div class="md-bar md-bar1" style={{bar1Style}}></div>
+    <div class="md-bar md-bar2" style={{bar2Style}}></div>
+  </div>
+</md-progress-linear>

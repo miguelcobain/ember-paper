@@ -12,6 +12,4 @@ import template from './template';
  */
 @tagName('')
 @layout(template)
-class PaperContent extends Component {}
-
-export default PaperContent;
+export default class PaperContent extends Component {}
