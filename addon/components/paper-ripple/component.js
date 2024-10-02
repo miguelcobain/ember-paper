@@ -5,7 +5,7 @@ import { tagName, layout } from '@ember-decorators/component';
 import { bind, later, cancel } from '@ember/runloop';
 import { computed, action } from '@ember/object';
 import { supportsPassiveEventListeners } from 'ember-paper/utils/browser-features';
-import { nextTick } from 'ember-css-transitions/utils/transition-utils';
+import { nextTick } from 'ember-css-transitions/modifiers/css-transition';
 
 const DURATION = 400;
 

@@ -6,7 +6,7 @@ import { tagName, layout } from '@ember-decorators/component';
 import { computed, action } from '@ember/object';
 
 import { next, scheduleOnce } from '@ember/runloop';
-import { nextTick } from 'ember-css-transitions/utils/transition-utils';
+import { nextTick } from 'ember-css-transitions/modifiers/css-transition';
 
 import { ESCAPE, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, DOWN_ARROW, ENTER } from 'ember-paper/utils/key-constants';
 

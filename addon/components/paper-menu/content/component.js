@@ -3,7 +3,7 @@ import Component from '@ember/component';
 import template from './template';
 
 import { action, computed } from '@ember/object';
-import { nextTick } from 'ember-css-transitions/utils/transition-utils';
+import { nextTick } from 'ember-css-transitions/modifiers/css-transition';
 
 import { tagName, layout } from '@ember-decorators/component';
 

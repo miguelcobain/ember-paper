@@ -2,7 +2,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { schedule } from '@ember/runloop';
-import { nextTick } from 'ember-css-transitions/utils/transition-utils';
+import { nextTick } from 'ember-css-transitions/modifiers/css-transition';
 import calculateTooltipPosition from 'ember-paper/utils/calculate-tooltip-position';
 
 export default Component.extend({
