@@ -22,7 +22,7 @@
       {{! BEGIN-SNIPPET sidenav.basic-usage }}
       <PaperSidenavContainer @class="inner-sidenav">
 
-        <PaperSidenav @class="md-whiteframe-z2" @name="left" @open={{leftSideBarOpen}} @onToggle={{action (mut leftSideBarOpen)}}>
+        <PaperSidenav class="md-whiteframe-z2" @name="left" @open={{leftSideBarOpen}} @onToggle={{action (mut leftSideBarOpen)}}>
           <PaperToolbar as |toolbar|>
             <toolbar.tools>Left Sidenav</toolbar.tools>
           </PaperToolbar>
@@ -59,7 +59,7 @@
           </div>
         </PaperCardContent>
 
-        <PaperSidenav @class="md-whiteframe-z2" @name="right" @position="right" @open={{rightSideBarOpen}} @lockedOpen={{false}} @onToggle={{action (mut rightSideBarOpen)}}>
+        <PaperSidenav class="md-whiteframe-z2" @name="right" @position="right" @open={{rightSideBarOpen}} @lockedOpen={{false}} @onToggle={{action (mut rightSideBarOpen)}}>
           <PaperToolbar as |toolbar|>
             <toolbar.tools>Right Sidenav</toolbar.tools>
           </PaperToolbar>
@@ -93,7 +93,7 @@
       {{! BEGIN-SNIPPET sidenav.persistent }}
       <PaperSidenavContainer @class="inner-sidenav">
 
-        <PaperSidenav @class="md-whiteframe-z2" @name="left2" @open={{leftSideBarOpen2}} @lockedOpen={{leftSideBarLockedOpen}} @onToggle={{action (mut leftSideBarOpen2)}}>
+        <PaperSidenav class="md-whiteframe-z2" @name="left2" @open={{leftSideBarOpen2}} @lockedOpen={{leftSideBarLockedOpen}} @onToggle={{action (mut leftSideBarOpen2)}}>
           <PaperToolbar as |toolbar|>
             <toolbar.tools>Left Sidenav</toolbar.tools>
           </PaperToolbar>

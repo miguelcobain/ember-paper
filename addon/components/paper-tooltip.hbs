@@ -2,7 +2,7 @@
 {{#if renderTooltip}}
   {{#in-element destinationEl insertBefore=null}}
     <div class="md-panel-outer-wrapper md-panel-is-showing" style={{containerStyle}}>
-      <PaperTooltipInner @class={{class}} @position={{position}} @anchorElement={{anchorElement}} @hide={{hideTooltip}} ...attributes>
+      <PaperTooltipInner class={{class}} @position={{position}} @anchorElement={{anchorElement}} @hide={{hideTooltip}} ...attributes>
         {{yield}}
       </PaperTooltipInner>
     </div>
