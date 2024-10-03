@@ -1,4 +1,3 @@
-{{! template-lint-disable no-implicit-this }}
 <md-contact-chips class="md-default-theme {{@class}}" ...attributes>
   <PaperChips
     class="md-contact-chips"
@@ -25,9 +24,9 @@
 
     {{#if (eq type "chip")}}
       <div class="md-contact-avatar">
-        <img src={{get item imageField}} alt={{get item nameField}}>
+        <img src={{get item this.imageField}} alt={{get item this.nameField}}>
       </div>
-      <span class="md-contact-name">{{get item nameField}}</span>
+      <span class="md-contact-name">{{get item this.nameField}}</span>
     {{/if}}
 
   </PaperChips>
