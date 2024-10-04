@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable no-action no-curly-component-invocation }}
 <PageToolbar @pageTitle="Child Alignment" @isLayout={{true}} />
 
 <DocContent @class="layout-docs alignment">
@@ -28,14 +28,14 @@
     <PaperToolbar as |toolbar|>
       <toolbar.tools>
         <h2>
-          <span class="layout-class">{{layoutClass}}</span>
-          <span class="layout-align-class">{{layoutAlignClass}}</span>
+          <span class="layout-class">{{this.layoutClass}}</span>
+          <span class="layout-align-class">{{this.layoutAlignClass}}</span>
         </h2>
       </toolbar.tools>
     </PaperToolbar>
     <div class="example interactive-demo">
       {{! BEGIN-SNIPPET child-alignment }}
-      <div class="{{layoutClass}} {{layoutAlignClass}}">
+      <div class="{{this.layoutClass}}{{this.layoutAlignClass}}">
         <div class="one">one</div>
         <div class="two">two</div>
         <div class="three">three</div>
@@ -46,7 +46,7 @@
       <div class="layout-row layout-align-space-between-start">
         <div class="demo-group">
           <h4>Layout Direction</h4>
-          <PaperRadioGroup @groupValue={{layoutDirection}} @onChange={{action (mut layoutDirection)}} as |group|>
+          <PaperRadioGroup @groupValue={{this.layoutDirection}} @onChange={{action (mut this.layoutDirection)}} as |group|>
             <group.radio @value="row">
               row
             </group.radio>
@@ -58,7 +58,7 @@
 
         <div class="demo-group">
           <h4>Alignment in Layout Direction</h4>
-          <PaperRadioGroup @groupValue={{mainDirection}} @onChange={{action (mut mainDirection)}} as |group|>
+          <PaperRadioGroup @groupValue={{this.mainDirection}} @onChange={{action (mut this.mainDirection)}} as |group|>
             <group.radio @value="">
               none
             </group.radio>
@@ -82,7 +82,7 @@
 
         <div class="demo-group">
           <h4>Alignment in Perpendicular Direction</h4>
-          <PaperRadioGroup @groupValue={{perpDirection}} @onChange={{action (mut perpDirection)}} as |group|>
+          <PaperRadioGroup @groupValue={{this.perpDirection}} @onChange={{action (mut this.perpDirection)}} as |group|>
             <group.radio @value="">
               <em>none</em>
             </group.radio>

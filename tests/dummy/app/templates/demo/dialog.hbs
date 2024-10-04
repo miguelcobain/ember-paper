@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable no-action no-curly-component-invocation }}
 <PageToolbar @pageTitle="Dialog" @isDemo={{true}} />
 
 <DocContent>
@@ -14,7 +14,7 @@
       </PaperToolbarTools>
     </PaperToolbar>
 
-    <div class="doc-code-example {{if showSourceCode "is-visible"}}">
+    <div class="doc-code-example {{if this.showSourceCode "is-visible"}}">
       <CodeSnippet @name="dialog.hbs" />
     </div>
 
@@ -38,8 +38,8 @@
           </PaperButton>
         </div>
 
-        {{#if result}}
-          <p>You dismissed the dialog with a result of "{{result}}".</p>
+        {{#if this.result}}
+          <p>You dismissed the dialog with a result of "{{this.result}}".</p>
         {{/if}}
 
         {{paper-api
@@ -70,8 +70,8 @@
 </DocContent>
 
 {{! BEGIN-SNIPPET dialog }}
-{{#if showDialogWithParent}}
-  <PaperDialog @class="flex-50" @onClose={{action "closeDialogWithParent" "cancel"}} @parent="#paper-dialog-demo" @origin={{dialogOrigin}} @clickOutsideToClose={{true}}>
+{{#if this.showDialogWithParent}}
+  <PaperDialog @class="flex-50" @onClose={{action "closeDialogWithParent" "cancel"}} @parent="#paper-dialog-demo" @origin={{this.dialogOrigin}} @clickOutsideToClose={{true}}>
     <form>
       <PaperToolbar>
         <PaperToolbarTools>
@@ -102,8 +102,8 @@
   </PaperDialog>
 {{/if}}
 
-{{#if showDialog}}
-  <PaperDialog @class="flex-77" @onClose={{action "closeDialog" "cancel"}} @origin={{dialogOrigin}} @clickOutsideToClose={{true}}>
+{{#if this.showDialog}}
+  <PaperDialog @class="flex-77" @onClose={{action "closeDialog" "cancel"}} @origin={{this.dialogOrigin}} @clickOutsideToClose={{true}}>
     <PaperToolbar>
       <PaperToolbarTools>
         <h2>Mango (Fruit)</h2>
@@ -128,29 +128,29 @@
   </PaperDialog>
 {{/if}}
 
-{{#if showPromptDialog}}
-  <PaperDialog @fullscreen={{fullscreen}} @onClose={{action "closePromptDialog" "cancel"}} @origin={{dialogOrigin}}>
+{{#if this.showPromptDialog}}
+  <PaperDialog @fullscreen={{this.fullscreen}} @onClose={{action "closePromptDialog" "cancel"}} @origin={{this.dialogOrigin}}>
 
     <PaperDialogContent>
       <h2 class="md-title">What would you name your dog?</h2>
       <p>Bowser is a common name.</p>
-      <PaperInput @placeholder="dog name" @autofocus={{true}} @value={{dogName}} @onChange={{action (mut dogName)}} />
+      <PaperInput @placeholder="dog name" @autofocus={{true}} @value={{this.dogName}} @onChange={{action (mut this.dogName)}} />
       <div>
-        <PaperCheckbox @value={{fullscreen}} @onChange={{action (mut fullscreen)}}>Display fullscreen at small window size breakpoints</PaperCheckbox>
+        <PaperCheckbox @value={{this.fullscreen}} @onChange={{action (mut this.fullscreen)}}>Display fullscreen at small window size breakpoints</PaperCheckbox>
       </div>
     </PaperDialogContent>
 
     <PaperDialogActions @class="layout-row">
       <span class="flex"></span>
       <PaperButton @primary={{true}} @onClick={{action "closePromptDialog" "cancel"}}>I'm a cat person</PaperButton>
-      <PaperButton @primary={{true}} @onClick={{action "closePromptDialog" "ok" dogName}}>Okay!</PaperButton>
+      <PaperButton @primary={{true}} @onClick={{action "closePromptDialog" "ok" this.dogName}}>Okay!</PaperButton>
     </PaperDialogActions>
 
   </PaperDialog>
 {{/if}}
 
-{{#if showAnimatedDialog}}
-  <PaperDialog @fullscreen={{fullscreen}} @onClose={{action "closeAnimatedDialog"}} @openFrom="#paper-dialog-demo" @closeTo="#bottom-of-card">
+{{#if this.showAnimatedDialog}}
+  <PaperDialog @fullscreen={{this.fullscreen}} @onClose={{action "closeAnimatedDialog"}} @openFrom="#paper-dialog-demo" @closeTo="#bottom-of-card">
 
     <PaperDialogContent>
       <h2 class="md-title">This dialog is animated!</h2>

@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-implicit-this }}
+{{! template-lint-disable no-action }}
 <PageToolbar @pageTitle="Sidenav" @isDemo={{true}} />
 
 <DocContent>
@@ -14,7 +14,7 @@
       </toolbar.tools>
     </PaperToolbar>
 
-    <div class="doc-code-example {{if showSourceCode "is-visible"}}">
+    <div class="doc-code-example {{if this.showSourceCode "is-visible"}}">
       <CodeSnippet @name="sidenav.basic-usage.hbs" />
     </div>
 
@@ -22,7 +22,7 @@
       {{! BEGIN-SNIPPET sidenav.basic-usage }}
       <PaperSidenavContainer @class="inner-sidenav">
 
-        <PaperSidenav @class="md-whiteframe-z2" @name="left" @open={{leftSideBarOpen}} @onToggle={{action (mut leftSideBarOpen)}}>
+        <PaperSidenav @class="md-whiteframe-z2" @name="left" @open={{this.leftSideBarOpen}} @onToggle={{action (mut this.leftSideBarOpen)}}>
           <PaperToolbar as |toolbar|>
             <toolbar.tools>Left Sidenav</toolbar.tools>
           </PaperToolbar>
@@ -38,10 +38,10 @@
               The right sidenav never "locks open" because we set <code>lockedOpen=false</code>.
             </p>
             <p>
-              Left sidenav is <strong>{{if leftSideBarOpen "opened" "closed"}}</strong>.
+              Left sidenav is <strong>{{if this.leftSideBarOpen "opened" "closed"}}</strong>.
             </p>
             <p>
-              Right sidenav is <strong>{{if rightSideBarOpen "opened" "closed"}}</strong>.
+              Right sidenav is <strong>{{if this.rightSideBarOpen "opened" "closed"}}</strong>.
             </p>
 
             <PaperSidenavToggle @name="left" as |toggleAction|>
@@ -59,7 +59,7 @@
           </div>
         </PaperCardContent>
 
-        <PaperSidenav @class="md-whiteframe-z2" @name="right" @position="right" @open={{rightSideBarOpen}} @lockedOpen={{false}} @onToggle={{action (mut rightSideBarOpen)}}>
+        <PaperSidenav @class="md-whiteframe-z2" @name="right" @position="right" @open={{this.rightSideBarOpen}} @lockedOpen={{false}} @onToggle={{action (mut this.rightSideBarOpen)}}>
           <PaperToolbar as |toolbar|>
             <toolbar.tools>Right Sidenav</toolbar.tools>
           </PaperToolbar>
@@ -85,7 +85,7 @@
       </toolbar.tools>
     </PaperToolbar>
 
-    <div class="doc-code-example {{if persistentCode "is-visible"}}">
+    <div class="doc-code-example {{if this.persistentCode "is-visible"}}">
       <CodeSnippet @name="sidenav.persistent.hbs" />
     </div>
 
@@ -93,7 +93,7 @@
       {{! BEGIN-SNIPPET sidenav.persistent }}
       <PaperSidenavContainer @class="inner-sidenav">
 
-        <PaperSidenav @class="md-whiteframe-z2" @name="left2" @open={{leftSideBarOpen2}} @lockedOpen={{leftSideBarLockedOpen}} @onToggle={{action (mut leftSideBarOpen2)}}>
+        <PaperSidenav @class="md-whiteframe-z2" @name="left2" @open={{this.leftSideBarOpen2}} @lockedOpen={{this.leftSideBarLockedOpen}} @onToggle={{action (mut this.leftSideBarOpen2)}}>
           <PaperToolbar as |toolbar|>
             <toolbar.tools>Left Sidenav</toolbar.tools>
           </PaperToolbar>
@@ -109,11 +109,11 @@
               This corresponds to the "persistent sidenav" pattern in the material spec.
             </p>
             <p>
-              Left sidenav is <strong>{{if leftSideBarLockedOpen "locked" "unlocked"}}</strong>.
+              Left sidenav is <strong>{{if this.leftSideBarLockedOpen "locked" "unlocked"}}</strong>.
             </p>
 
             <PaperButton @raised={{true}} @onClick={{action "toggle" "leftSideBarLockedOpen"}}>
-              {{if leftSideBarLockedOpen "Unlock" "Lock"}} left sidenav
+              {{if this.leftSideBarLockedOpen "Unlock" "Lock"}} left sidenav
             </PaperButton>
 
           </div>

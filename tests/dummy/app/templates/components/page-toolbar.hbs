@@ -1,4 +1,4 @@
-{{! template-lint-disable link-rel-noopener no-action no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable link-rel-noopener no-action no-curly-component-invocation }}
 <PaperToolbar @class="md-whiteframe-1dp page-main-toolbar" as |toolbar|>
   <toolbar.tools>
     <PaperSidenavToggle as |toggleAction|>
@@ -8,13 +8,13 @@
     </PaperSidenavToggle>
     <div class="layout-row flex">
       <h2>
-        {{#if isDemo}}
+        {{#if @isDemo}}
           Components {{paper-icon "chevron-right"}}
-        {{else if isLayout}}
+        {{else if @isLayout}}
           Layout {{paper-icon "chevron-right"}}
         {{/if}}
-        {{pageTitle}}
-        {{#if isWIP}}
+        {{@pageTitle}}
+        {{#if @isWIP}}
           {{paper-icon "warning" title="Not updated yet."}}
         {{/if}}
       </h2>

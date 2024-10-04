@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-implicit-this }}
+{{! template-lint-disable no-action }}
 <PageToolbar @pageTitle="Forms" @isDemo={{false}} />
 
 <DocContent @class="card-demo">
@@ -27,14 +27,14 @@
       <PaperForm @onSubmit={{action "basicSubmitAction"}} as |form|>
         <div class="layout-row">
           <div class="layout-column flex-50">
-            <form.input @label="First Name" @value={{firstName}} @onChange={{action (mut firstName)}} @required={{true}} />
-            <form.input @label="Last Name" @value={{lastName}} @onChange={{action (mut lastName)}} />
+            <form.input @label="First Name" @value={{this.firstName}} @onChange={{action (mut this.firstName)}} @required={{true}} />
+            <form.input @label="Last Name" @value={{this.lastName}} @onChange={{action (mut this.lastName)}} />
           </div>
           <div class="layout-column flex-50">
-            <form.autocomplete @required={{true}} @options={{items}} @selected={{selectedCountry}} @searchField="name" @labelPath="name" @label="Country" @noMatchesMessage="Oops this country doesn't exist." @onSelectionChange={{action (mut selectedCountry)}} as |country select|>
+            <form.autocomplete @required={{true}} @options={{this.items}} @selected={{this.selectedCountry}} @searchField="name" @labelPath="name" @label="Country" @noMatchesMessage="Oops this country doesn't exist." @onSelectionChange={{action (mut this.selectedCountry)}} as |country select|>
               <PaperAutocompleteHighlight @label={{country.name}} @searchText={{select.searchText}} @flags="i" />
             </form.autocomplete>
-            <form.input @type="number" @label="Age" @value={{age}} @onChange={{action (mut age)}} @min={{13}} @max={{65}} @required={{true}} />
+            <form.input @type="number" @label="Age" @value={{this.age}} @onChange={{action (mut this.age)}} @min={{13}} @max={{65}} @required={{true}} />
           </div>
         </div>
         <div class="layout-row">
@@ -67,7 +67,7 @@
       {{! BEGIN-SNIPPET form.disabled-submit }}
       <PaperForm @onSubmit={{action "disabledSubmitAction"}} as |form|>
         <div class="layout-row">
-          <form.input @label="Favorite Letter" @value={{favoriteLetter}} @onChange={{action (mut favoriteLetter)}} @required={{true}} @maxlength={{1}} />
+          <form.input @label="Favorite Letter" @value={{this.favoriteLetter}} @onChange={{action (mut this.favoriteLetter)}} @required={{true}} @maxlength={{1}} />
         </div>
         <div class="layout-row">
           <form.submit-button @raised={{true}} @primary={{true}} @disabled={{form.isInvalid}}>
@@ -113,7 +113,7 @@
       {{! BEGIN-SNIPPET form.custom-components }}
       <PaperForm @onSubmit={{action "customSubmitAction"}} as |form|>
         <div class="layout-row">
-          <PaperInput @label="Favorite Number" @value={{favoriteNumber}} @onChange={{action (mut favoriteNumber)}} @required={{true}} @min={{1}} @max={{10}} />
+          <PaperInput @label="Favorite Number" @value={{this.favoriteNumber}} @onChange={{action (mut this.favoriteNumber)}} @required={{true}} @min={{1}} @max={{10}} />
         </div>
         <div class="layout-row">
           <form.submit-button @raised={{true}} @primary={{true}}>Submit</form.submit-button>

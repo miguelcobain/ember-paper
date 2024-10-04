@@ -1,4 +1,3 @@
-{{! template-lint-disable no-implicit-this }}
 <PageToolbar @pageTitle="Grid List" @isDemo={{true}} />
 
 <DocContent>
@@ -57,7 +56,7 @@
   <PaperContent @class="md-whiteframe-z1 grid-list-demo-dynamicTiles">
     <PaperGridList @cols="sm-2 md-4 gt-md-6" @rowHeight="4:3 gt-md-1:1" @gutter="8px gt-sm-4px" as |grid|>
 
-      {{#each tiles as |dynamicTile|}}
+      {{#each this.tiles as |dynamicTile|}}
         <grid.tile @rowspan={{dynamicTile.span.row}} @colspan={{concat dynamicTile.span.col " xs-1"}} @class={{dynamicTile.background}} as |tile|>
           <md-icon></md-icon>
           <tile.footer>
@@ -79,7 +78,7 @@
 
     <PaperGridList @cols="3 md-8 gt-md-12" @rowHeight="4:3 gt-md-1:1" @gutter="4px md-8px gt-md-16px" as |grid|>
 
-      {{#each colorTiles as |tile|}}
+      {{#each this.colorTiles as |tile|}}
 
         <grid.tile @colspan={{tile.colspan}} @rowspan={{tile.rowspan}} class={{tile.style}}>
         </grid.tile>
