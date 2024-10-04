@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-implicit-this }}
+{{! template-lint-disable no-action }}
 {{#with (hash
   checkbox=(component "paper-checkbox" parentComponent=this bubbles=false shouldRegister=true)
   button=(component "paper-button" parentComponent=this bubbles=false shouldRegister=true skipProxy=true)
@@ -6,9 +6,9 @@
   radio=(component "paper-radio-proxiable" parentComponent=this bubbles=false shouldRegister=true)
 ) as |controls|}}
 
-  {{#if hasPrimaryAction}}
+  {{#if this.hasPrimaryAction}}
     <div class="md-button md-no-style">
-      <PaperButton @class="md-no-style" @onClick={{onClick}} @href={{href}} @target={{target}} @onMouseEnter={{action this.handleMouseEnter}} @onMouseLeave={{action this.handleMouseLeave}} />
+      <PaperButton @class="md-no-style" @onClick={{@onClick}} @href={{@href}} @target={{@target}} @onMouseEnter={{action this.handleMouseEnter}} @onMouseLeave={{action this.handleMouseLeave}} />
       <div class="md-list-item-inner">
         {{yield controls}}
       </div>
