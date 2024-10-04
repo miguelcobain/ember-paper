@@ -1,8 +1,7 @@
-{{! template-lint-disable no-implicit-this }}
-{{#if renderTooltip}}
-  {{#in-element destinationEl insertBefore=null}}
-    <div class="md-panel-outer-wrapper md-panel-is-showing" style={{containerStyle}}>
-      <PaperTooltipInner @class={{class}} @position={{position}} @anchorElement={{anchorElement}} @hide={{hideTooltip}} ...attributes>
+{{#if this.renderTooltip}}
+  {{#in-element this.destinationEl insertBefore=null}}
+    <div class="md-panel-outer-wrapper md-panel-is-showing" style={{this.containerStyle}}>
+      <PaperTooltipInner @class={{@class}} @position={{this.position}} @anchorElement={{this.anchorElement}} @hide={{this.hideTooltip}} ...attributes>
         {{yield}}
       </PaperTooltipInner>
     </div>
