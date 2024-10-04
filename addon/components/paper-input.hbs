@@ -12,7 +12,7 @@
     class="md-input {{if this.isInvalid "ng-invalid"}} {{if this.isTouched "ng-dirty"}}"
     id={{this.inputElementId}}
     placeholder={{if this.shouldAddPlaceholder @placeholder}}
-    disabled={{@disabled}}
+    disabled={{this.disabled}}
     autofocus={{this.autofocus}}
     aria-describedby={{concat this.elementId "-char-count " this.elementId "-error-messages"}}
     onfocus={{@onFocus}}
@@ -42,7 +42,7 @@
     id={{this.inputElementId}}
     placeholder={{if this.shouldAddPlaceholder @placeholder}}
     type={{this.type}}
-    disabled={{@disabled}}
+    disabled={{this.disabled}}
     autofocus={{this.autofocus}}
     aria-describedby={{concat this.elementId "-char-count " this.elementId "-error-messages"}}
     onfocus={{@onFocus}}
