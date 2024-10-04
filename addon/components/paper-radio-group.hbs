@@ -4,8 +4,8 @@
     setAriaLabelledby=(action (mut this.ariaLabelledby))
   )
   radio=(component this.radioComponent
-    toggle=@toggle
-    disabled=@disabled
+    toggle=this.toggle
+    disabled=this.disabled
     groupValue=@groupValue
     onChange=(action "onChange")
     parentComponent=this
