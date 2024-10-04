@@ -85,7 +85,7 @@
 {{#unless hideAllMessages}}
   <div class="md-errors-spacer" id={{concat elementId "-char-count"}}>
     {{#if maxlength}}
-      <div class="md-char-counter">{{renderCharCount}}</div>
+      <div class="md-char-counter">{{this.currentLength}}/{{@maxlength}}</div>
     {{/if}}
   </div>
   {{#if isInvalidAndTouched}}
