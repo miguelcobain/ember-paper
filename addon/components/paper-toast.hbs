@@ -1,6 +1,5 @@
-{{! template-lint-disable no-implicit-this }}
-{{#in-element destinationEl insertBefore=null}}
-  <PaperToastInner @swipeToClose={{swipeToClose}} @onClose={{onClose}} @top={{top}} @left={{left}} @capsule={{capsule}} @class={{class}}>
+{{#in-element this.destinationEl insertBefore=null}}
+  <PaperToastInner @swipeToClose={{this.swipeToClose}} @onClose={{@onClose}} @top={{this.top}} @left={{this.left}} @capsule={{this.capsule}} @class={{@class}}>
     {{yield (hash
       text=(component "paper-toast-text")
     )}}
