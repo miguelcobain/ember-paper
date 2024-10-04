@@ -90,7 +90,7 @@
   </div>
   {{#if this.isInvalidAndTouched}}
     <div class="md-input-messages-animation md-auto-hide" id={{concat this.elementId "-error-messages"}}>
-      {{#each @validationErrorMessages as |error index|}}
+      {{#each this.validationErrorMessages as |error index|}}
         <div id="error-{{this.inputElementId}}-{{index}}"
         class="paper-input-error ng-enter ng-enter-active md-input-message-animation"
         style="opacity: 1; margin-top: 0">
@@ -107,7 +107,7 @@
   isTouched=this.isTouched
   isInvalidAndTouched=this.isInvalidAndTouched
   hasValue=this.hasValue
-  validationErrorMessages=@validationErrorMessages
+  validationErrorMessages=this.validationErrorMessages
 )}}
 
 {{#if @iconRight}}
