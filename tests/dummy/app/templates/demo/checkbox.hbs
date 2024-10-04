@@ -1,36 +1,36 @@
-{{! template-lint-disable no-action no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable no-action no-curly-component-invocation }}
 <PageToolbar @pageTitle="Checkbox" @isDemo={{true}} />
 
 <DocContent>
   {{! BEGIN-SNIPPET checkbox }}
   <div class="layout-column">
-    <PaperCheckbox @value={{value1}} @onChange={{action (mut value1)}}>
-      A checkbox: {{value1}}
+    <PaperCheckbox @value={{this.value1}} @onChange={{action (mut this.value1)}}>
+      A checkbox: {{this.value1}}
     </PaperCheckbox>
 
-    <PaperCheckbox @value={{value2}} @onChange={{action (mut value2)}}>
-      A checkbox: {{if value2 "yep" "nope"}}
+    <PaperCheckbox @value={{this.value2}} @onChange={{action (mut this.value2)}}>
+      A checkbox: {{if this.value2 "yep" "nope"}}
     </PaperCheckbox>
 
-    <PaperCheckbox @value={{value3}} @onChange={{action (mut value3)}} @disabled={{true}}>
+    <PaperCheckbox @value={{this.value3}} @onChange={{action (mut this.value3)}} @disabled={{true}}>
       Checkbox (disabled)
     </PaperCheckbox>
 
-    <PaperCheckbox @value={{true}} @onChange={{action (mut value4)}} @disabled={{true}}>
+    <PaperCheckbox @value={{true}} @onChange={{action (mut this.value4)}} @disabled={{true}}>
       Checkbox (disabled and value)
     </PaperCheckbox>
 
-    <PaperCheckbox @value={{value5}} @onChange={{action (mut value5)}} @noink={{true}}>
+    <PaperCheckbox @value={{this.value5}} @onChange={{action (mut this.value5)}} @noink={{true}}>
       Checkbox (no ink)
     </PaperCheckbox>
 
-    <PaperCheckbox @label="Blockless version" @value={{value6}} @onChange={{action "toggleValue6"}} />
+    <PaperCheckbox @label="Blockless version" @value={{this.value6}} @onChange={{action "toggleValue6"}} />
 
-    <PaperCheckbox @indeterminate={{isIndeterminate}} @value={{value7}} @onChange={{action (mut value7)}}>
+    <PaperCheckbox @indeterminate={{this.isIndeterminate}} @value={{this.value7}} @onChange={{action (mut this.value7)}}>
       Indeterminate checkbox
     </PaperCheckbox>
 
-    <PaperCheckbox @disabled={{true}} @indeterminate={{isIndeterminate}} @value={{value7}} @onChange={{null}}>
+    <PaperCheckbox @disabled={{true}} @indeterminate={{this.isIndeterminate}} @value={{this.value7}} @onChange={{null}}>
       Indeterminate checkbox (disabled)
     </PaperCheckbox>
   </div>

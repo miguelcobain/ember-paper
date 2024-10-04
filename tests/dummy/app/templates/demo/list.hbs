@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-implicit-this }}
+{{! template-lint-disable no-action }}
 <PageToolbar @pageTitle="List" @isDemo={{true}} />
 
 <DocContent>
@@ -13,7 +13,7 @@
       {{! BEGIN-SNIPPET list }}
       <PaperList>
         <PaperSubheader>3 line item</PaperSubheader>
-        {{#each listData as |item|}}
+        {{#each this.listData as |item|}}
           <PaperItem @class="md-3-line">
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <div class="md-list-item-text">
@@ -27,7 +27,7 @@
         <PaperDivider />
 
         <PaperSubheader>2 line item</PaperSubheader>
-        {{#each listData as |item|}}
+        {{#each this.listData as |item|}}
           <PaperItem @class="md-2-line">
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <div class="md-list-item-text">
@@ -40,7 +40,7 @@
         <PaperDivider />
 
         <PaperSubheader>3 line item, long paragraph</PaperSubheader>
-        {{#each listData as |item|}}
+        {{#each this.listData as |item|}}
           <PaperItem @class="md-3-line md-long-text">
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <div class="md-list-item-text">
@@ -57,7 +57,7 @@
         <PaperDivider />
 
         <PaperSubheader>Icons</PaperSubheader>
-        {{#each phoneNumbers as |phone|}}
+        {{#each this.phoneNumbers as |phone|}}
           <PaperItem @class="md-2-line">
             {{paper-icon "phone" class="md-avatar-icon"}}
             <div class="md-list-item-text">
@@ -86,7 +86,7 @@
       <PaperList>
 
         <PaperSubheader>Single Action Checkboxes</PaperSubheader>
-        {{#each toppings as |topping|}}
+        {{#each this.toppings as |topping|}}
           <PaperItem as |controls|>
             <p>{{topping.name}}</p>
             <div class="md-secondary-container">
@@ -122,14 +122,14 @@
           {{paper-icon "network-wifi"}}
           <p>Wi-Fi</p>
           <div class="md-secondary-container">
-            <controls.switch @secondary={{true}} @value={{wifiEnabled}} @onChange={{action (mut wifiEnabled)}} />
+            <controls.switch @secondary={{true}} @value={{this.wifiEnabled}} @onChange={{action (mut this.wifiEnabled)}} />
           </div>
         </PaperItem>
         <PaperItem @onClick={{action "transitionToBluetoothMenu"}} as |controls|>
           {{paper-icon "bluetooth"}}
           <p>Bluetooth</p>
           <div class="md-secondary-container">
-            <controls.switch @secondary={{true}} @value={{bluetoothEnabled}} @onChange={{action (mut bluetoothEnabled)}} />
+            <controls.switch @secondary={{true}} @value={{this.bluetoothEnabled}} @onChange={{action (mut this.bluetoothEnabled)}} />
           </div>
         </PaperItem>
         <PaperItem @onClick={{action "transitionToDataUsage"}}>
@@ -140,7 +140,7 @@
         <PaperDivider />
 
         <PaperSubheader>Checkbox with Secondary Action</PaperSubheader>
-        {{#each messageData as |item|}}
+        {{#each this.messageData as |item|}}
           <PaperItem as |controls|>
             <controls.checkbox @value={{item.checked}} @onChange={{action (mut item.checked)}} />
             <p>{{item.message}}</p>
@@ -155,7 +155,7 @@
         <PaperDivider />
 
         <PaperSubheader>Avatar with Secondary Action Icon</PaperSubheader>
-        {{#each listData as |item|}}
+        {{#each this.listData as |item|}}
           <PaperItem @onClick={{action "goToPerson" item}} as |controls|>
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <p>{{item.name}}</p>
@@ -174,7 +174,7 @@
         <PaperDivider />
 
         <PaperSubheader>Clickable Avatars</PaperSubheader>
-        {{#each listData as |item|}}
+        {{#each this.listData as |item|}}
           <PaperItem @class="md-3-line" @onClick={{action "goToPerson" item}}>
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <div class="md-list-item-text">
@@ -188,7 +188,7 @@
         <PaperDivider />
 
         <PaperSubheader>Avatar with Secondary Action Icon</PaperSubheader>
-        {{#each listData as |item|}}
+        {{#each this.listData as |item|}}
           <PaperItem @class="md-3-line" @onClick={{action "goToPerson" item}} as |controls|>
             <img src={{item.img}} alt={{item.name}} class="md-avatar">
             <div class="md-list-item-text">
@@ -203,11 +203,11 @@
         {{/each}}
 
         <PaperSubheader>Single Action Radios</PaperSubheader>
-        {{#each toppings as |topping|}}
+        {{#each this.toppings as |topping|}}
           <PaperItem as |controls|>
             <p>{{topping.name}}</p>
             <div class="md-secondary-container">
-              <controls.radio @groupValue={{radioSelectedTopping}} @value={{topping}} @secondary={{true}} @onChange={{action (mut radioSelectedTopping)}} />
+              <controls.radio @groupValue={{this.radioSelectedTopping}} @value={{topping}} @secondary={{true}} @onChange={{action (mut this.radioSelectedTopping)}} />
             </div>
           </PaperItem>
         {{/each}}

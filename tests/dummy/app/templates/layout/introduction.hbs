@@ -1,4 +1,4 @@
-{{! template-lint-disable link-rel-noopener no-action no-implicit-this }}
+{{! template-lint-disable link-rel-noopener no-action }}
 <PageToolbar @pageTitle="Introduction" @isLayout={{true}} />
 
 <DocContent @class="layout-docs">
@@ -94,10 +94,10 @@
   <PaperCard as |card|>
     {{! BEGIN-SNIPPET layout-introduction }}
     <div class="layout-column example introduction-example">
-      <div class="flex-33 flex-md-{{box1Height}} box-one"></div>
-      <div class="flex-33 layout-{{direction}} layout-md-row box-two">
+      <div class="flex-33 flex-md-{{this.box1Height}} box-one"></div>
+      <div class="flex-33 layout-{{this.direction}} layout-md-row box-two">
         <div class="flex-20 flex-md-10 hide-lg box-two-one"></div>
-        <div class="flex-30 {{if hideBox "hide-md"}} flex-md-25 box-two-two"></div>
+        <div class="flex-30 {{if this.hideBox "hide-md"}} flex-md-25 box-two-two"></div>
         <div class="flex-20 flex-md-65 box-two-three"></div>
       </div>
       <div class="flex box-three"></div>
@@ -106,11 +106,11 @@
     <card.content>
 
       <div class="layout-row layout-align-space-between-start">
-        <PaperInput @value={{box1Height}} @label="box1Height" @type="number" @passThru={{hash min="0" max="100" step="5"}} @onChange={{action (mut box1Height)}} />
+        <PaperInput @value={{this.box1Height}} @label="box1Height" @type="number" @passThru={{hash min="0" max="100" step="5"}} @onChange={{action (mut this.box1Height)}} />
 
         <div class="demo-group">
           <h4>direction</h4>
-          <PaperRadioGroup @groupValue={{direction}} @onChange={{action (mut direction)}} as |group|>
+          <PaperRadioGroup @groupValue={{this.direction}} @onChange={{action (mut this.direction)}} as |group|>
             <group.radio @value="row">
               row
             </group.radio>
@@ -120,7 +120,7 @@
           </PaperRadioGroup>
         </div>
 
-        <PaperSwitch @value={{hideBox}} @onChange={{action (mut hideBox)}}>hideBox</PaperSwitch>
+        <PaperSwitch @value={{this.hideBox}} @onChange={{action (mut this.hideBox)}}>hideBox</PaperSwitch>
       </div>
 
       <CodeSnippet @name="layout-introduction.hbs" />

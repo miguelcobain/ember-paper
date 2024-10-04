@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-implicit-this }}
+{{! template-lint-disable no-action }}
 <PageToolbar @pageTitle="Divider" @isDemo={{true}} />
 
 <DocContent>
@@ -14,12 +14,12 @@
       </PaperToolbarTools>
     </PaperToolbar>
     <PaperContent>
-      <div class="doc-code-example {{if showSourceCodeFull "is-visible"}}">
+      <div class="doc-code-example {{if this.showSourceCodeFull "is-visible"}}">
         <CodeSnippet @name="divider.full.hbs" />
       </div>
       {{! BEGIN-SNIPPET divider.full }}
       <PaperList>
-        {{#each messages as |item|}}
+        {{#each this.messages as |item|}}
           <PaperItem @class="md-3-line">
             <div class="md-list-item-text">
               <h3>{{item.what}}</h3>
@@ -47,14 +47,14 @@
       </PaperToolbarTools>
     </PaperToolbar>
     <PaperContent>
-      <div class="doc-code-example {{if showSourceCodeInset "is-visible"}}">
+      <div class="doc-code-example {{if this.showSourceCodeInset "is-visible"}}">
         <CodeSnippet @name="divider.inset.hbs" />
       </div>
       {{! BEGIN-SNIPPET divider.inset }}
       <PaperList @classNames="list-demo">
-        {{#each messages as |item|}}
+        {{#each this.messages as |item index|}}
           <PaperItem @class="md-3-line">
-            <img src="{{item.face}}?{{$index}}" class="face" alt={{item.who}}>
+            <img src="{{item.face}}?{{index}}" class="face" alt={{item.who}}>
             <div class="md-list-item-text">
               <h3>{{item.what}}</h3>
               <h4>{{item.who}}</h4>

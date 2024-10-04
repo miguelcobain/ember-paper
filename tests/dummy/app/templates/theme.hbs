@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-implicit-this }}
+{{! template-lint-disable no-action }}
 <PageToolbar @pageTitle="Themes & Colors" @isDemo={{false}} />
 
 <PaperContent @class="md-padding">
@@ -130,22 +130,22 @@
 
     <PaperCard as |card|>
       <card.content @class="layout-row">
-        <PaperSelect @label="Primary palette" @class="flex" @required={{true}} @options={{palettes}} @selected={{primary}} @onChange={{action (mut primary)}} as |p|>
+        <PaperSelect @label="Primary palette" @class="flex" @required={{true}} @options={{this.palettes}} @selected={{this.primary}} @onChange={{action (mut this.primary)}} as |p|>
           {{p.name}}
         </PaperSelect>
 
-        <PaperSelect @label="Accent palette" @class="flex" @required={{true}} @options={{palettes}} @selected={{accent}} @onChange={{action (mut accent)}} as |p|>
+        <PaperSelect @label="Accent palette" @class="flex" @required={{true}} @options={{this.palettes}} @selected={{this.accent}} @onChange={{action (mut this.accent)}} as |p|>
           {{p.name}}
         </PaperSelect>
 
-        <PaperSelect @label="Warn palette" @class="flex" @required={{true}} @options={{palettes}} @selected={{warn}} @onChange={{action (mut warn)}} as |p|>
+        <PaperSelect @label="Warn palette" @class="flex" @required={{true}} @options={{this.palettes}} @selected={{this.warn}} @onChange={{action (mut this.warn)}} as |p|>
           {{p.name}}
         </PaperSelect>
 
       </card.content>
 
       <card.actions>
-        <PaperButton @primary={{true}} @raised={{true}} @disabled={{isInvalid}} @onClick={{action "installTheme"}}>
+        <PaperButton @primary={{true}} @raised={{true}} @disabled={{this.isInvalid}} @onClick={{action "installTheme"}}>
           Install Theme
         </PaperButton>
 

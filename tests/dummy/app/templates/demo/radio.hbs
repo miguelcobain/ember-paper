@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable no-action no-curly-component-invocation }}
 <PageToolbar @pageTitle="Radio" @isDemo={{true}} />
 <DocContent>
   <PaperCard @class="radio-button-demo">
@@ -9,10 +9,10 @@
       </p>
       <div class="layout-row layout-align-space-around">
         {{! BEGIN-SNIPPET radio.standalone-usage }}
-        <PaperRadio @toggle={{true}} @value="Toggable" @groupValue={{toggleValue}} @onChange={{action (mut toggleValue)}}>
+        <PaperRadio @toggle={{true}} @value="Toggable" @groupValue={{this.toggleValue}} @onChange={{action (mut this.toggleValue)}}>
           Toggable
         </PaperRadio>
-        <PaperRadio @label="Blockless" @toggle={{true}} @value="Blockless" @groupValue={{blocklessValue}} @onChange={{action (mut blocklessValue)}} />
+        <PaperRadio @label="Blockless" @toggle={{true}} @value="Blockless" @groupValue={{this.blocklessValue}} @onChange={{action (mut this.blocklessValue)}} />
         <PaperRadio @value={{false}} @disabled={{true}} @onChange={{null}}>
           Disabled
         </PaperRadio>
@@ -23,11 +23,11 @@
       <hr>
 
       <p>
-        Selected Value: <span class="radio-value">{{selectedFruit}}</span>
+        Selected Value: <span class="radio-value">{{this.selectedFruit}}</span>
       </p>
 
       {{! BEGIN-SNIPPET radio.basic-group-usage}}
-      <PaperRadioGroup @groupValue={{readonly selectedFruit}} @onChange={{action (mut selectedFruit)}} as |group|>
+      <PaperRadioGroup @groupValue={{readonly this.selectedFruit}} @onChange={{action (mut this.selectedFruit)}} as |group|>
         <group.radio @value="Apple" @primary={{true}}> Apple </group.radio>
         <group.radio @value="Banana" @warn={{true}}> Banana </group.radio>
         <group.radio @value="Mango"> Mango </group.radio>
@@ -42,10 +42,10 @@
         Graphic radio buttons
       </p>
       {{! BEGIN-SNIPPET radio.images }}
-      <PaperRadioGroup @groupValue={{selectedGraphic}} @onChange={{action (mut selectedGraphic)}} as |group|>
+      <PaperRadioGroup @groupValue={{this.selectedGraphic}} @onChange={{action (mut this.selectedGraphic)}} as |group|>
 
         <group.label>
-          <p>Selected Value: <span class="radio-value">{{selectedGraphic}}</span></p>
+          <p>Selected Value: <span class="radio-value">{{this.selectedGraphic}}</span></p>
         </group.label>
 
         <group.radio @value="graphic-1" @primary={{true}}>

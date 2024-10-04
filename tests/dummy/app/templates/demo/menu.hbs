@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-implicit-this }}
+{{! template-lint-disable no-action }}
 <PageToolbar @pageTitle="Menu" @isDemo={{true}} />
 
 <DocContent>
@@ -29,7 +29,7 @@
           </menu.trigger>
 
           <menu.content @width={{4}} as |content|>
-            {{#each items as |item|}}
+            {{#each this.items as |item|}}
               <content.menu-item @onClick={{action this.openSomething}}>
                 {{paper-icon item.icon}}
                 <span>{{item.title}}</span>
@@ -43,7 +43,7 @@
 
             <PaperDivider />
 
-            {{#each items as |item|}}
+            {{#each this.items as |item|}}
               <content.menu-item @onClick={{action this.openSomething}}>
                 {{paper-icon item.icon}} {{item.title}}
               </content.menu-item>
@@ -74,7 +74,7 @@
         <div class="menus layout-fill layout-wrap layout-row layout-align-space-between-center">
           <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
             <p>Target Mode Positioning (default)</p>
-            <PaperMenu @isOpen={{menuTwoIsOpen}} as |menu|>
+            <PaperMenu @isOpen={{this.menuTwoIsOpen}} as |menu|>
               <menu.trigger>
                 <PaperButton @onClick={{null}} @iconButton={{true}}>
                   {{paper-icon "local_phone" class="md-menu-origin"}}
@@ -82,7 +82,7 @@
               </menu.trigger>
 
               <menu.content as |content|>
-                {{#each items as |item|}}
+                {{#each this.items as |item|}}
                   <content.menu-item @onClick={{action this.openSomething}}>
                     {{paper-icon item.icon class="md-menu-align-target"}}
                     <span>{{item.title}}</span>
@@ -95,7 +95,7 @@
 
           <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
             <p>Target mode with <code class="paper">offset</code></p>
-            <PaperMenu @isOpen={{menuThreeIsOpen}} @offset="0 50" as |menu|>
+            <PaperMenu @isOpen={{this.menuThreeIsOpen}} @offset="0 50" as |menu|>
               <menu.trigger>
                 <PaperButton @onClick={{null}} @iconButton={{true}}>
                   {{paper-icon "local_phone" class="md-menu-origin"}}
@@ -103,7 +103,7 @@
               </menu.trigger>
 
               <menu.content as |content|>
-                {{#each items as |item|}}
+                {{#each this.items as |item|}}
                   <content.menu-item @onClick={{action this.openSomething}}>
                     {{paper-icon item.icon class="md-menu-align-target"}}
                     <span>{{item.title}}</span>
@@ -115,7 +115,7 @@
 
           <div class="layout-column flex-33 flex-sm-100 layout-align-center-center">
             <p><code class="paper">position="target-right target"</code></p>
-            <PaperMenu @isOpen={{menuFourIsOpen}} @position="target-right target" as |menu|>
+            <PaperMenu @isOpen={{this.menuFourIsOpen}} @position="target-right target" as |menu|>
               <menu.trigger>
                 <PaperButton @onClick={{null}} @iconButton={{true}}>
                   {{paper-icon "local_phone" class="md-menu-origin"}}
@@ -123,19 +123,19 @@
               </menu.trigger>
 
               <menu.content as |content|>
-                {{#each items as |item|}}
+                {{#each this.items as |item|}}
                   <content.menu-item @onClick={{action this.openSomething}}>
                     <p style="width: 190px;">{{item.title}}</p>
                     {{paper-icon item.icon class="md-menu-align-target"}}
                   </content.menu-item>
                 {{/each}}
-                {{#each items as |item|}}
+                {{#each this.items as |item|}}
                   <content.menu-item @onClick={{action this.openSomething}}>
                     <p style="width: 190px;">{{item.title}}</p>
                     {{paper-icon item.icon class="md-menu-align-target"}}
                   </content.menu-item>
                 {{/each}}
-                {{#each items as |item|}}
+                {{#each this.items as |item|}}
                   <content.menu-item @onClick={{action this.openSomething}}>
                     <p style="width: 190px;">{{item.title}}</p>
                     {{paper-icon item.icon class="md-menu-align-target"}}
@@ -186,7 +186,7 @@
               </menu.trigger>
 
               <menu.content @width={{6}} as |content|>
-                {{#each options as |item|}}
+                {{#each this.options as |item|}}
                   <content.menu-item @onClick={{action "openSomething"}}>
                     <span class="md-menu-align-target">Option</span> {{item}}
                   </content.menu-item>
@@ -205,7 +205,7 @@
               </menu.trigger>
 
               <menu.content @width={{4}} as |content|>
-                {{#each options as |item|}}
+                {{#each this.options as |item|}}
                   <content.menu-item @onClick={{action "openSomething"}}>
                     <span class="md-menu-align-target">Option</span> {{item}}
                   </content.menu-item>
@@ -224,7 +224,7 @@
               </menu.trigger>
 
               <menu.content @width={{2}} as |content|>
-                {{#each options as |item|}}
+                {{#each this.options as |item|}}
                   <content.menu-item @onClick={{action "openSomething"}}>
                     <span class="md-menu-align-target">Option</span> {{item}}
                   </content.menu-item>
@@ -265,7 +265,7 @@
               </menu.trigger>
 
               <menu.content @dense={{true}} as |content|>
-                {{#each options as |item|}}
+                {{#each this.options as |item|}}
                   <content.menu-item @onClick={{action "openSomething"}}>
                     <span class="md-menu-align-target">Option</span> {{item}}
                   </content.menu-item>

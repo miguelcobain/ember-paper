@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-curly-component-invocation no-implicit-this no-unbalanced-curlies }}
+{{! template-lint-disable no-action no-curly-component-invocation no-unbalanced-curlies }}
 <PageToolbar @pageTitle="Tabs" @isDemo={{true}} />
 
 <DocContent @class="tabs-demo">
@@ -15,14 +15,14 @@
         </PaperToolbarTools>
       </PaperToolbar>
 
-      <div class="doc-code-example {{if showBasicUsageSourceCode "is-visible"}}">
+      <div class="doc-code-example {{if this.showBasicUsageSourceCode "is-visible"}}">
         <CodeSnippet @name="basic-usage.hbs" />
       </div>
 
       <div class="doc-content-example">
         <PaperContent>
           {{! BEGIN-SNIPPET basic-usage}}
-          <PaperTabs @center={{center}} @stretch={{stretch}} @borderBottom={{borderBottom}} @selected={{selectedBasicTab}} @onChange={{action (mut selectedBasicTab)}} as |tabs|>
+          <PaperTabs @center={{this.center}} @stretch={{this.stretch}} @borderBottom={{this.borderBottom}} @selected={{this.selectedBasicTab}} @onChange={{action (mut this.selectedBasicTab)}} as |tabs|>
             <tabs.tab>
               Page One
             </tabs.tab>
@@ -40,7 +40,7 @@
             </tabs.tab>
           </PaperTabs>
 
-          {{#liquid-bind (hash tab=selectedBasicTab) class="md-padding" as |current|}}
+          {{#liquid-bind (hash tab=this.selectedBasicTab) class="md-padding" as |current|}}
             <h1 class="md-display-2">Tab {{current.tab}}</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -53,15 +53,15 @@
         </PaperContent>
         <PaperCardContent>
 
-          <PaperCheckbox @value={{center}} @onChange={{action (mut center)}}>
+          <PaperCheckbox @value={{this.center}} @onChange={{action (mut this.center)}}>
             Center tabs
           </PaperCheckbox>
 
-          <PaperCheckbox @value={{stretch}} @onChange={{action (mut stretch)}}>
+          <PaperCheckbox @value={{this.stretch}} @onChange={{action (mut this.stretch)}}>
             Stretch tabs
           </PaperCheckbox>
 
-          <PaperCheckbox @value={{borderBottom}} @onChange={{action (mut borderBottom)}}>
+          <PaperCheckbox @value={{this.borderBottom}} @onChange={{action (mut this.borderBottom)}}>
             Border bottom
           </PaperCheckbox>
 
@@ -111,25 +111,25 @@
         </PaperToolbarTools>
       </PaperToolbar>
 
-      <div class="doc-code-example {{if showDynamicUsageSourceCode "is-visible"}}">
+      <div class="doc-code-example {{if this.showDynamicUsageSourceCode "is-visible"}}">
         <CodeSnippet @name="dynamic-usage.hbs" />
       </div>
 
       <div class="doc-content-example">
         <PaperContent>
           {{! BEGIN-SNIPPET dynamic-usage}}
-          <PaperTabs @primary={{true}} @borderBottom={{true}} @selected={{selectedChapter}} @onChange={{action (mut selectedChapter)}} as |tabs|>
-            {{#each chapters as |chapter|}}
+          <PaperTabs @primary={{true}} @borderBottom={{true}} @selected={{this.selectedChapter}} @onChange={{action (mut this.selectedChapter)}} as |tabs|>
+            {{#each this.chapters as |chapter|}}
               <tabs.tab @value={{chapter}}>
                 {{chapter.title}}
               </tabs.tab>
             {{/each}}
           </PaperTabs>
 
-          {{#liquid-bind (hash tab=selectedChapter.index m=selectedChapter) class="md-padding dynamic-animation" as |current|}}
+          {{#liquid-bind (hash tab=this.selectedChapter.index m=this.selectedChapter) class="md-padding dynamic-animation" as |current|}}
             <h1 class="md-display-2">{{current.m.title}}</h1>
             <p>{{current.m.body}}</p>
-            <PaperButton @primary={{true}} @raised={{true}} @disabled={{eq chapters.length 1}} @onClick={{action "removeChapter" current.m}}>
+            <PaperButton @primary={{true}} @raised={{true}} @disabled={{eq this.chapters.length 1}} @onClick={{action "removeChapter" current.m}}>
               Remove chapter
             </PaperButton>
           {{/liquid-bind}}
@@ -141,10 +141,10 @@
 
       <PaperCardContent>
         <div class="md-padding layout-row layout-align-space-around-start">
-          <PaperInput @class="flex-20" @label="Title" @value={{newTitle}} @required={{true}} @onChange={{action (mut newTitle)}} />
-          <PaperInput @class="flex-60" @label="Content" @textarea={{true}} @value={{newContent}} @required={{true}} @onChange={{action (mut newContent)}} />
+          <PaperInput @class="flex-20" @label="Title" @value={{this.newTitle}} @required={{true}} @onChange={{action (mut this.newTitle)}} />
+          <PaperInput @class="flex-60" @label="Content" @textarea={{true}} @value={{this.newContent}} @required={{true}} @onChange={{action (mut this.newContent)}} />
           <div class="flex-20 layout-row layout-align-center-start">
-            <PaperButton @primary={{true}} @raised={{true}} @disabled={{not (and newTitle newContent)}} @onClick={{action "addChapter"}}>
+            <PaperButton @primary={{true}} @raised={{true}} @disabled={{not (and this.newTitle this.newContent)}} @onClick={{action "addChapter"}}>
               Add chapter
             </PaperButton>
           </div>
@@ -179,14 +179,14 @@
         </PaperToolbarTools>
       </PaperToolbar>
 
-      <div class="doc-code-example {{if showRoutableUsageSourceCode "is-visible"}}">
+      <div class="doc-code-example {{if this.showRoutableUsageSourceCode "is-visible"}}">
         <CodeSnippet @name="routable-usage.hbs" />
       </div>
 
       <div class="doc-content-example">
         <PaperContent>
           {{! BEGIN-SNIPPET routable-usage}}
-          <PaperTabs @selected={{currentRouteName}} @borderBottom={{true}} @onChange={{action "noop"}} as |tabs|>
+          <PaperTabs @selected={{this.currentRouteName}} @borderBottom={{true}} @onChange={{action "noop"}} as |tabs|>
             <tabs.tab @value="demo.tabs.index" @href={{href-to "demo.tabs.index"}}>
               Index
             </tabs.tab>
