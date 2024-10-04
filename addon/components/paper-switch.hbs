@@ -1,8 +1,8 @@
-{{! template-lint-disable no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable no-curly-component-invocation }}
 <div class="md-switch-bar"></div>
 <div class="md-container">
   <div class="md-bar"></div>
-  <div class="md-thumb-container" style={{thumbContainerStyle}}>
+  <div class="md-thumb-container" style={{this.thumbContainerStyle}}>
     <div class="md-thumb">
       <PaperRipple @center={{true}} @fitRipple={{true}}/>
     </div>
@@ -14,6 +14,6 @@
   </div>
 {{else}}
   <div class="md-label">
-    {{label}}
+    {{@label}}
   </div>
 {{/if}}
