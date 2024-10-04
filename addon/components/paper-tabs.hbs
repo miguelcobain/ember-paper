@@ -1,28 +1,28 @@
-{{! template-lint-disable no-action no-implicit-this }}
-<md-tabs-wrapper class={{if shouldStretch "md-stretch-tabs"}}>
+{{! template-lint-disable no-action }}
+<md-tabs-wrapper class={{if this.shouldStretch "md-stretch-tabs"}}>
 
-  {{#if shouldPaginate}}
-    <md-prev-button role="button" class={{unless canPageBack "md-disabled"}} onclick={{action "previousPage"}}>
+  {{#if this.shouldPaginate}}
+    <md-prev-button role="button" class={{unless this.canPageBack "md-disabled"}} onclick={{action "previousPage"}}>
       {{paper-icon "keyboard-arrow-left"}}
     </md-prev-button>
-    <md-next-button role="button" class={{unless canPageForward "md-disabled"}} onclick={{action "nextPage"}}>
+    <md-next-button role="button" class={{unless this.canPageForward "md-disabled"}} onclick={{action "nextPage"}}>
       {{paper-icon "keyboard-arrow-left"}}
     </md-next-button>
   {{/if}}
 
-  <md-tabs-canvas class="{{if shouldPaginate "md-paginated"}} {{if shouldCenter "md-center-tabs"}}" tabindex="-1" role="tablist">
-    <md-pagination-wrapper class={{if shouldCenter "md-center-tabs"}} style={{if shouldPaginate paginationStyle}}>
+  <md-tabs-canvas class="{{if this.shouldPaginate "md-paginated"}}{{if this.shouldCenter "md-center-tabs"}}" tabindex="-1" role="tablist">
+    <md-pagination-wrapper class={{if this.shouldCenter "md-center-tabs"}} style={{if this.shouldPaginate this.paginationStyle}}>
 
       {{yield (hash
         tab=(component "paper-tab"
-          noInk=noInk
-          selected=selected
+          noInk=this.noInk
+          selected=this.selected
           onSelect=(action "localOnChange")
         )
       )}}
 
-      {{#if inkBar}}
-        <PaperInkBar @movingRight={{movingRight}} @left={{inkBar.left}} @right={{inkBar.right}} />
+      {{#if this.inkBar}}
+        <PaperInkBar @movingRight={{this.movingRight}} @left={{this.inkBar.left}} @right={{this.inkBar.right}} />
       {{/if}}
 
     </md-pagination-wrapper>
