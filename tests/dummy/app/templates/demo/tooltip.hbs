@@ -45,25 +45,25 @@
           </PaperButton>
 
           <PaperButton @iconButton={{true}} @raised={{true}}>
-            {{paper-icon "create"}}
+            <PaperIcon @icon="create" />
             <PaperTooltip @position={{position}}>
               Create
             </PaperTooltip>
           </PaperButton>
 
           <PaperButton @fab={{true}} @raised={{true}} @accent={{true}}>
-            {{paper-icon "delete"}}
+            <PaperIcon @icon="delete" />
             <PaperTooltip @position={{position}}>
               Delete
             </PaperTooltip>
           </PaperButton>
 
           <div>
-            {{#paper-icon "info"}}
+            <PaperIcon @icon="info">
               <PaperTooltip @position={{position}}>
                 Icon tooltip
               </PaperTooltip>
-            {{/paper-icon}}
+            </PaperIcon>
           </div>
           {{! END-SNIPPET tooltip }}
         </div>

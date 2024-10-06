@@ -24,20 +24,20 @@
 
           <menu.trigger>
             <PaperButton @iconButton={{true}}>
-              {{paper-icon "local_phone"}}
+              <PaperIcon @icon="local_phone" />
             </PaperButton>
           </menu.trigger>
 
           <menu.content @width={{4}} as |content|>
             {{#each items as |item|}}
               <content.menu-item @onClick={{action this.openSomething}}>
-                {{paper-icon item.icon}}
+                <PaperIcon @icon={{item.icon}} />
                 <span>{{item.title}}</span>
               </content.menu-item>
             {{/each}}
 
             <content.menu-item @onClick={{action this.openSomething}} @disabled={{true}}>
-              {{paper-icon "adb"}}
+              <PaperIcon @icon="adb" />
               <span>This is disabled.</span>
             </content.menu-item>
 
@@ -45,7 +45,7 @@
 
             {{#each items as |item|}}
               <content.menu-item @onClick={{action this.openSomething}}>
-                {{paper-icon item.icon}} {{item.title}}
+                <PaperIcon @icon={{item.icon}} /> {{item.title}}
               </content.menu-item>
             {{/each}}
           </menu.content>
@@ -77,14 +77,14 @@
             <PaperMenu @isOpen={{menuTwoIsOpen}} as |menu|>
               <menu.trigger>
                 <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
+                  <PaperIcon @icon="local_phone" @class="md-menu-origin" />
                 </PaperButton>
               </menu.trigger>
 
               <menu.content as |content|>
                 {{#each items as |item|}}
                   <content.menu-item @onClick={{action this.openSomething}}>
-                    {{paper-icon item.icon class="md-menu-align-target"}}
+                    <PaperIcon @icon={{item.icon}} @class="md-menu-align-target" />
                     <span>{{item.title}}</span>
                   </content.menu-item>
                 {{/each}}
@@ -98,14 +98,14 @@
             <PaperMenu @isOpen={{menuThreeIsOpen}} @offset="0 50" as |menu|>
               <menu.trigger>
                 <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
+                  <PaperIcon @icon="local_phone" @class="md-menu-origin" />
                 </PaperButton>
               </menu.trigger>
 
               <menu.content as |content|>
                 {{#each items as |item|}}
                   <content.menu-item @onClick={{action this.openSomething}}>
-                    {{paper-icon item.icon class="md-menu-align-target"}}
+                    <PaperIcon @icon={{item.icon}} @class="md-menu-align-target" />
                     <span>{{item.title}}</span>
                   </content.menu-item>
                 {{/each}}
@@ -118,7 +118,7 @@
             <PaperMenu @isOpen={{menuFourIsOpen}} @position="target-right target" as |menu|>
               <menu.trigger>
                 <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
+                  <PaperIcon @icon="local_phone" @class="md-menu-origin" />
                 </PaperButton>
               </menu.trigger>
 
@@ -126,19 +126,19 @@
                 {{#each items as |item|}}
                   <content.menu-item @onClick={{action this.openSomething}}>
                     <p style="width: 190px;">{{item.title}}</p>
-                    {{paper-icon item.icon class="md-menu-align-target"}}
+                    <PaperIcon @icon={{item.icon}} @class="md-menu-align-target" />
                   </content.menu-item>
                 {{/each}}
                 {{#each items as |item|}}
                   <content.menu-item @onClick={{action this.openSomething}}>
                     <p style="width: 190px;">{{item.title}}</p>
-                    {{paper-icon item.icon class="md-menu-align-target"}}
+                    <PaperIcon @icon={{item.icon}} @class="md-menu-align-target" />
                   </content.menu-item>
                 {{/each}}
                 {{#each items as |item|}}
                   <content.menu-item @onClick={{action this.openSomething}}>
                     <p style="width: 190px;">{{item.title}}</p>
-                    {{paper-icon item.icon class="md-menu-align-target"}}
+                    <PaperIcon @icon={{item.icon}} @class="md-menu-align-target" />
                   </content.menu-item>
                 {{/each}}
               </menu.content>
@@ -181,7 +181,7 @@
             <PaperMenu as |menu|>
               <menu.trigger>
                 <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
+                  <PaperIcon @icon="local_phone" @class="md-menu-origin" />
                 </PaperButton>
               </menu.trigger>
 
@@ -200,7 +200,7 @@
             <PaperMenu as |menu|>
               <menu.trigger>
                 <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
+                  <PaperIcon @icon="local_phone" @class="md-menu-origin" />
                 </PaperButton>
               </menu.trigger>
 
@@ -219,7 +219,7 @@
             <PaperMenu as |menu|>
               <menu.trigger>
                 <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
+                  <PaperIcon @icon="local_phone" @class="md-menu-origin" />
                 </PaperButton>
               </menu.trigger>
 
@@ -260,7 +260,7 @@
             <PaperMenu as |menu|>
               <menu.trigger>
                 <PaperButton @onClick={{null}} @iconButton={{true}}>
-                  {{paper-icon "local_phone" class="md-menu-origin"}}
+                  <PaperIcon @icon="local_phone" @class="md-menu-origin" />
                 </PaperButton>
               </menu.trigger>
 

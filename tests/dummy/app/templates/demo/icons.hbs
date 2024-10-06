@@ -14,7 +14,7 @@
   <h3>Basic Icons</h3>
   <div>
     {{! BEGIN-SNIPPET icons.basic-usage }}
-    {{paper-icon "check-circle"}}
+    <PaperIcon @icon="check-circle" />
     {{! END-SNIPPET }}
   </div>
   <CodeSnippet @name="icons.basic-usage.hbs" />
@@ -22,11 +22,11 @@
   <h3>Changing Sizes</h3>
   <div class="layout-row">
     {{! BEGIN-SNIPPET icons.sizes }}
-    {{paper-icon "check-circle" size=12}}
-    {{paper-icon "check-circle" size=18}}
-    {{paper-icon "check-circle" size=24}}
-    {{paper-icon "check-circle" size=36}}
-    {{paper-icon "check-circle" size=48}}
+    <PaperIcon @icon="check-circle" @size={{12}} />
+    <PaperIcon @icon="check-circle" @size={{18}} />
+    <PaperIcon @icon="check-circle" @size={{24}} />
+    <PaperIcon @icon="check-circle" @size={{36}} />
+    <PaperIcon @icon="check-circle" @size={{48}} />
     {{! END-SNIPPET }}
   </div>
   <CodeSnippet @name="icons.sizes.hbs" />
@@ -34,8 +34,8 @@
   <h3>Spinners</h3>
   <div>
     {{! BEGIN-SNIPPET icons.spinners }}
-    {{paper-icon "rotate-right" spin=true}}
-    {{paper-icon "rotate-left" reverseSpin=true}}
+    <PaperIcon @icon="rotate-right" @spin={{true}} />
+    <PaperIcon @icon="rotate-left" @reverseSpin={{true}} />
     {{! END-SNIPPET }}
   </div>
   <CodeSnippet @name="icons.spinners.hbs" />

@@ -59,7 +59,7 @@
         <PaperSubheader>Icons</PaperSubheader>
         {{#each phoneNumbers as |phone|}}
           <PaperItem @class="md-2-line">
-            {{paper-icon "phone" class="md-avatar-icon"}}
+            <PaperIcon @icon="phone" @class="md-avatar-icon" />
             <div class="md-list-item-text">
               <h3>{{phone.number}}</h3>
               <p>{{phone.type}}</p>
@@ -119,21 +119,21 @@
 
         <PaperSubheader>Clickable Items with Secondary Controls</PaperSubheader>
         <PaperItem @onClick={{action "transitionToWifiMenu"}} as |controls|>
-          {{paper-icon "network-wifi"}}
+          <PaperIcon @icon="network-wifi" />
           <p>Wi-Fi</p>
           <div class="md-secondary-container">
             <controls.switch @secondary={{true}} @value={{wifiEnabled}} @onChange={{action (mut wifiEnabled)}} />
           </div>
         </PaperItem>
         <PaperItem @onClick={{action "transitionToBluetoothMenu"}} as |controls|>
-          {{paper-icon "bluetooth"}}
+          <PaperIcon @icon="bluetooth" />
           <p>Bluetooth</p>
           <div class="md-secondary-container">
             <controls.switch @secondary={{true}} @value={{bluetoothEnabled}} @onChange={{action (mut bluetoothEnabled)}} />
           </div>
         </PaperItem>
         <PaperItem @onClick={{action "transitionToDataUsage"}}>
-          {{paper-icon "data-usage"}}
+          <PaperIcon @icon="data-usage" />
           <p>Data Usage</p>
         </PaperItem>
 
@@ -146,7 +146,7 @@
             <p>{{item.message}}</p>
             <div class="md-secondary-container">
               <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryMessageClick" item}}>
-                {{paper-icon "message"}}
+                <PaperIcon @icon="message" />
               </controls.button>
             </div>
           </PaperItem>
@@ -162,10 +162,10 @@
             <div class="md-secondary-container">
               <controls.checkbox @value={{item.checked}} @onChange={{action (mut item.checked)}} />
               <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryMessageClick" item}}>
-                {{paper-icon "email"}}
+                <PaperIcon @icon="email" />
               </controls.button>
               <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryMessageClick" item}}>
-                {{paper-icon "message"}}
+                <PaperIcon @icon="message" />
               </controls.button>
             </div>
           </PaperItem>
@@ -197,7 +197,7 @@
               <p>Some notes here.</p>
             </div>
             <controls.button @secondary={{true}} @iconButton={{true}} @onClick={{action "secondaryPersonClick" item}}>
-              {{paper-icon "phone"}}
+              <PaperIcon @icon="phone" />
             </controls.button>
           </PaperItem>
         {{/each}}

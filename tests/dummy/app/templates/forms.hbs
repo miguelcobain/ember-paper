@@ -12,14 +12,14 @@
 
     <PaperCardContent>
       <p>
-        ember-paper provides a <code>paper-form</code> to help you build forms
+        ember-paper provides a <code>{{"<PaperForm>"}}</code> to help you build forms
         and keep track of the form's global validity state. This component uses
         the html form tag by default, so expected form behavior will occur.
         (For example, pressing the enter key from within one of the form's
         inputs will submit the form.)
-        <code>paper-form</code> yields <code><LinkTo @route="demo.input">paper-input</LinkTo></code>,
-        <code><LinkTo @route="demo.select">paper-select</LinkTo></code>
-        and <code><LinkTo @route="demo.autocomplete">paper-autocomplete</LinkTo></code> controls.
+        <code>{{"<PaperForm>"}}</code> yields <code><LinkTo @route="demo.input">{{"<PaperInput>"}}</LinkTo></code>,
+        <code><LinkTo @route="demo.select">{{"<PaperSelect>"}}</LinkTo></code>
+        and <code><LinkTo @route="demo.autocomplete">{{"<PaperAutocomplete>"}}</LinkTo></code> controls.
         In the following example you can see how we use the yielded form controls:
       </p>
 
@@ -61,7 +61,7 @@
       <p>
         A typical use case for the global validity state is to toggle the submit button
         between a disabled and enabled state. Here is how you would do that with
-        <code>paper-form</code>:
+        <code>{{"<PaperForm>"}}</code>:
       </p>
 
       {{! BEGIN-SNIPPET form.disabled-submit }}
@@ -94,7 +94,7 @@
 
       <p>
         If you prefer, you can trigger the submit action without using a submit button.
-        <code>paper-form</code> also yields an <code>onSubmit</code> action you
+        <code>{{"<PaperForm>"}}</code> also yields an <code>onSubmit</code> action you
         can use wherever you like, e.g: <br>
         <pre>
           &lt;button onclick=\{{action form.onSubmit}}&gt;

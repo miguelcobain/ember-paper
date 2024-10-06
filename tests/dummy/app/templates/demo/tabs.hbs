@@ -80,7 +80,7 @@
         </p>
         <p>
           To reinforce this idea, each of the tabs optionally accepts a <code>value</code>
-          property which needs to match the <code>paper-tabs</code> <code>selected</code>
+          property which needs to match the <code>{{"<PaperTabs>"}}</code> <code>selected</code>
           property (see API table below for more info). You don't need to use the value property,
           though. Each tab is automatically given a value equal to its index. So, your <code>onChange</code>
           action will start getting integer values if you don't specify any value on the tabs.
@@ -106,7 +106,7 @@
           <h2>Dynamic Usage</h2>
           <span class="flex"></span>
           <PaperButton @onClick={{action "toggle" "showDynamicUsageSourceCode"}} @iconButton={{true}}>
-            {{paper-icon "code"}}
+            <PaperIcon @icon="code" />
           </PaperButton>
         </PaperToolbarTools>
       </PaperToolbar>
@@ -212,13 +212,13 @@
         <p>
           <em>
             <b>Hint:</b> use <code>ember-href-to</code> addon to easily generate
-            urls for your routes. It plays really well with <code>paper-tabs</code>,
-            <code>paper-buttons</code> and even <code>paper-item</code>s.
+            urls for your routes. It plays really well with <code>{{"<PaperTabs>"}}</code>,
+            <code>{{"<PaperButton>"}}</code>s and even <code>{{"<PaperItem>"}}</code>s.
           </em>
         </p>
         <p>
           <b>Hint:</b> for Ember versions less than 2.15, use the <code>ember-router-service-polyfill</code> addon to easily retrieve
-          the current route name and use it as the selected value to <code>paper-tabs</code>.
+          the current route name and use it as the selected value to <code>{{"<PaperTabs>"}}</code>.
         </p>
       </PaperCardContent>
     </PaperCard>

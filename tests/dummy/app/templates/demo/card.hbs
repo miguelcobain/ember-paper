@@ -31,9 +31,9 @@
             <div class="card-media"></div>
           </card.media>
           <card.actions @class="layout-column">
-            <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
-            <PaperButton @iconButton={{true}}>{{paper-icon "settings"}}</PaperButton>
-            <PaperButton @iconButton={{true}}>{{paper-icon "share"}}</PaperButton>
+            <PaperButton @iconButton={{true}}><PaperIcon @icon="favorite" /></PaperButton>
+            <PaperButton @iconButton={{true}}><PaperIcon @icon="settings" /></PaperButton>
+            <PaperButton @iconButton={{true}}><PaperIcon @icon="share" /></PaperButton>
           </card.actions>
         </card.content>
       </PaperCard>
@@ -141,18 +141,18 @@
           </p>
         </card.content>
         <card.actions>
-          <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
-          <PaperButton @iconButton={{true}}>{{paper-icon "settings"}}</PaperButton>
-          <PaperButton @iconButton={{true}}>{{paper-icon "share"}}</PaperButton>
+          <PaperButton @iconButton={{true}}><PaperIcon @icon="favorite" /></PaperButton>
+          <PaperButton @iconButton={{true}}><PaperIcon @icon="settings" /></PaperButton>
+          <PaperButton @iconButton={{true}}><PaperIcon @icon="share" /></PaperButton>
         </card.actions>
       </PaperCard>
 
       <PaperCard as |card|>
         <card.image @src="washedout.png" @alt="Washed Out" @title="Washed Out" />
         <card.actions>
-          <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
-          <PaperButton @iconButton={{true}}>{{paper-icon "settings"}}</PaperButton>
-          <PaperButton @iconButton={{true}}>{{paper-icon "share"}}</PaperButton>
+          <PaperButton @iconButton={{true}}><PaperIcon @icon="favorite" /></PaperButton>
+          <PaperButton @iconButton={{true}}><PaperIcon @icon="settings" /></PaperButton>
+          <PaperButton @iconButton={{true}}><PaperIcon @icon="share" /></PaperButton>
         </card.actions>
       </PaperCard>
 
@@ -199,8 +199,8 @@
         </card.title>
         <card.actions @class="layout-row layout-align-start-center" as |actions|>
           <actions.icons>
-            <PaperButton @iconButton={{true}}>{{paper-icon "favorite"}}</PaperButton>
-            <PaperButton @iconButton={{true}}>{{paper-icon "share"}}</PaperButton>
+            <PaperButton @iconButton={{true}}><PaperIcon @icon="favorite" /></PaperButton>
+            <PaperButton @iconButton={{true}}><PaperIcon @icon="share" /></PaperButton>
           </actions.icons>
           <PaperButton>Action 1</PaperButton>
           <PaperButton>Action 2</PaperButton>
@@ -234,7 +234,7 @@
           <PaperButton>Action 1</PaperButton>
           <PaperButton>Action 2</PaperButton>
           <actions.icons>
-            <PaperButton @iconButton={{true}}>{{paper-icon "expand-less"}}</PaperButton>
+            <PaperButton @iconButton={{true}}><PaperIcon @icon="expand-less" /></PaperButton>
           </actions.icons>
         </card.actions>
         <card.content>

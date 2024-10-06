@@ -9,7 +9,7 @@
           <h2>Basic Usage</h2>
           <span class="flex"></span>
           <PaperButton @onClick={{action "toggle" "showBasicUsageSourceCode"}} @iconButton={{true}}>
-            {{paper-icon "code"}}
+            <PaperIcon @icon="code" />
           </PaperButton>
         </PaperToolbarTools>
       </PaperToolbar>
@@ -25,26 +25,26 @@
             <PaperSpeedDial @animation={{animation}} @direction={{direction}} @open={{open}} @onToggle={{action (mut open)}} as |dial|>
               <dial.trigger>
                 <PaperButton @fab={{true}}>
-                  {{paper-icon "menu"}}
+                  <PaperIcon @icon="menu" />
                 </PaperButton>
               </dial.trigger>
 
               <dial.actions as |actions|>
                 <actions.action>
                   <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
-                    {{paper-icon "people"}}
+                    <PaperIcon @icon="people" />
                   </PaperButton>
                 </actions.action>
 
                 <actions.action>
                   <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
-                    {{paper-icon "accessibility"}}
+                    <PaperIcon @icon="accessibility" />
                   </PaperButton>
                 </actions.action>
 
                 <actions.action>
                   <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
-                    {{paper-icon "check-circle"}}
+                    <PaperIcon @icon="check-circle" />
                   </PaperButton>
                 </actions.action>
               </dial.actions>
@@ -97,7 +97,7 @@
         </p>
         <p>
           The component can also take a <code>open</code> attribute and an <code>onToggle</code> pair, much like
-          <code>paper-sidenav</code>. Use the pair to control the open status of the speed dial.
+          <code>{{"<PaperSidenav>"}}</code>. Use the pair to control the open status of the speed dial.
         </p>
       </PaperCardContent>
     </PaperCard>
@@ -110,7 +110,7 @@
           <h2>Advanced Usage</h2>
           <span class="flex"></span>
           <PaperButton @onClick={{action "toggle" "showAdvancedUsageSourceCode"}} @iconButton={{true}}>
-            {{paper-icon "code"}}
+            <PaperIcon @icon="code" />
           </PaperButton>
         </PaperToolbarTools>
       </PaperToolbar>
@@ -126,26 +126,26 @@
             <PaperSpeedDial @onMouseEnter={{action (mut open2) true}} @onMouseLeave={{action (mut open2) false}} @open={{open2}} @onToggle={{action (mut open2)}} @hoverFull={{hoverFull}} as |dial|>
               <dial.trigger>
                 <PaperButton @fab={{true}}>
-                  {{paper-icon "menu"}}
+                  <PaperIcon @icon="menu" />
                 </PaperButton>
               </dial.trigger>
 
               <dial.actions as |actions|>
                 <actions.action>
                   <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
-                    {{paper-icon "people"}}
+                    <PaperIcon @icon="people" />
                   </PaperButton>
                 </actions.action>
 
                 <actions.action>
                   <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
-                    {{paper-icon "accessibility"}}
+                    <PaperIcon @icon="accessibility" />
                   </PaperButton>
                 </actions.action>
 
                 <actions.action>
                   <PaperButton @mini={{true}} @onClick={{action (mut showDialog) true}}>
-                    {{paper-icon "check-circle"}}
+                    <PaperIcon @icon="check-circle" />
                   </PaperButton>
                 </actions.action>
               </dial.actions>

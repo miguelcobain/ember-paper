@@ -35,7 +35,7 @@
           <div class="layout-fill layout-align-start-center layout-column" style="height: 500px">
             <p>
               The left sidenav will "lock open" on a medium (>=960px wide) device.
-              The right sidenav never "locks open" because we set <code>lockedOpen=false</code>.
+              The right sidenav never "locks open" because we set <code>@lockedOpen={{false}}</code>.
             </p>
             <p>
               Left sidenav is <strong>{{if leftSideBarOpen "opened" "closed"}}</strong>.
@@ -80,7 +80,7 @@
         <h2>Persistent Sidenav</h2>
         <span class="flex"></span>
         <PaperButton @onClick={{action "toggle" "persistentCode"}} @iconButton={{true}}>
-          {{paper-icon "code"}}
+          <PaperIcon @icon="code" />
         </PaperButton>
       </toolbar.tools>
     </PaperToolbar>
@@ -105,7 +105,7 @@
         <PaperCardContent @class="flex">
           <div class="layout-fill layout-align-start-center layout-column" style="height: 500px">
             <p>
-              Another way of using the sidenav is to toggle the <code>lockedOpen</code> state.
+              Another way of using the sidenav is to toggle the <code>@lockedOpen</code> state.
               This corresponds to the "persistent sidenav" pattern in the material spec.
             </p>
             <p>

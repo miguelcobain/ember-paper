@@ -62,7 +62,7 @@
 
         <h3>duration</h3>
         <div class="layout layout-align-center-center slider-container">
-          {{paper-icon "watch later"}}
+          <PaperIcon @icon="watch later" />
           <PaperSlider @class="flex" @value={{duration}} @max={{6000}} @onChange={{action (mut duration)}} />
           <PaperInput @type="number" @value={{duration}} @onChange={{action (mut duration)}} />
         </div>
@@ -105,7 +105,7 @@
     <div class="doc-content-example">
       <PaperCardContent>
 
-        <p>Open a toast via <code>paperToaster</code> service and <code>\{{paper-toaster}}</code> component.</p>
+        <p>Open a toast via <code>paperToaster</code> service and <code>{{"<PaperToaster>"}}</code> component.</p>
 
         <h3>Options</h3>
 

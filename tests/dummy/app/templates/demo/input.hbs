@@ -202,13 +202,13 @@
 
   <h2>Setting validation messages from external validations</h2>
   <p>
-    While <code>\{{paper-input}}</code> supplies four
+    While <code>{{"<PaperInput>"}}</code> supplies four
     built-in validation rules and the ability to specify programmed custom
     validations, some projects need more complicated and elaborate validations,
     such as are provided by <code>ember-cp-validations</code> or another validation add-on.
     In this case, the code to validate the user input is outside of
-    <code>paper-input</code>, and only the resulting messages need be provided to the
-    <code>\{{paper-input}}</code> helper.
+    <code>{{"<PaperInput>"}}</code>, and only the resulting messages need be provided to the
+    <code>{{"<PaperInput>"}}</code> helper.
   </p>
   {{! BEGIN-SNIPPET input.external-validations }}
   <PaperCard as |card|>

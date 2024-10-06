@@ -6,7 +6,7 @@
   <PaperCard>
     <PaperCardContent>
       <h2>Basic Usage</h2>
-      <blockquote>Use <code>\{{paper-autocomplete}}</code> to search for matches from local or remote data sources.</blockquote>
+      <blockquote>Use <code>{{"<PaperAutocomplete>"}}</code> to search for matches from local or remote data sources.</blockquote>
       <form>
         {{! BEGIN-SNIPPET autocomplete.basic-usage }}
         <PaperAutocomplete @disabled={{firstDisabled}} @onCreate={{action "addCountry"}} @options={{items}} @allowClear={{true}} @defaultHighlighted={{if enableDefaultHighlighted highlightFirstMatch}} @searchText={{readonly countrySearchText}} @onSearchTextChange={{action (mut countrySearchText)}} @selected={{selectedCountry}} @search={{if simulateQuery (action "searchCountries")}} @searchField="name" @labelPath="name" @placeholder="Select a Country..." @noMatchesMessage="Oops this country doesn't exist. Create a new country?" @onSelectionChange={{action (mut selectedCountry)}} />
@@ -47,27 +47,25 @@
   <PaperCard>
     <PaperCardContent>
       <h2>Block Custom template</h2>
-      <blockquote>Use <code>\{{paper-autocomplete}}</code> with custom templates to show styled autocomplete results.</blockquote>
+      <blockquote>Use <code>{{"<PaperAutocomplete>"}}</code> with custom templates to show styled autocomplete results.</blockquote>
 
       {{!-- searchText=(readonly templateSeachText) --}}
 
       <form>
         {{! BEGIN-SNIPPET autocomplete.block-custom-template }}
-        {{#paper-autocomplete
-          placeholder="Type e.g. ember, paper, one, two etc."
-          options=arrayOfItems
-          selected=selectedItem
-          onSelectionChange=(action (mut selectedItem))
-          as |item term|}}
+        <PaperAutocomplete
+          @placeholder="Type e.g. ember, paper, one, two etc."
+          @options={{arrayOfItems}}
+          @selected={{selectedItem}}
+          @onSelectionChange={{action (mut selectedItem)}}
+        as |item term|>
           <span class="item-title">
-            {{paper-icon "star"}}
+            <PaperIcon @icon="star" />
             <span>
               <PaperAutocompleteHighlight @searchText={{term.searchText}} @flags="i" @label={{item}} />
             </span>
           </span>
-        {{else}}
-          Whoops! could not find!
-        {{/paper-autocomplete}}
+        </PaperAutocomplete>
         {{! END-SNIPPET }}
       </form>
 

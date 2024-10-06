@@ -3,19 +3,19 @@
   <toolbar.tools>
     <PaperSidenavToggle as |toggleAction|>
       <PaperButton @class="hide-gt-sm" @onClick={{action toggleAction}} @iconButton={{true}}>
-        {{paper-icon "menu"}}
+        <PaperIcon @icon="menu" />
       </PaperButton>
     </PaperSidenavToggle>
     <div class="layout-row flex">
       <h2>
         {{#if isDemo}}
-          Components {{paper-icon "chevron-right"}}
+          Components <PaperIcon @icon="chevron-right" />
         {{else if isLayout}}
-          Layout {{paper-icon "chevron-right"}}
+          Layout <PaperIcon @icon="chevron-right" />
         {{/if}}
         {{pageTitle}}
         {{#if isWIP}}
-          {{paper-icon "warning" title="Not updated yet."}}
+          <PaperIcon @icon="warning" @title="Not updated yet." />
         {{/if}}
       </h2>
 
