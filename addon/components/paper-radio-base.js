@@ -37,7 +37,7 @@ export default Component.extend(FocusableMixin, ColorMixin, {
   // Lifecycle hooks
   init() {
     assert(
-      '{{paper-radio}} requires an `onChange` action or null for no action.',
+      '<PaperRadio /> requires an `onChange` action or null for no action.',
       this.onChange !== undefined
     );
     this._super(...arguments);

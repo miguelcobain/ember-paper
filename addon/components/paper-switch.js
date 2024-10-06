@@ -57,7 +57,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
   init() {
     this._super(...arguments);
     assert(
-      '{{paper-switch}} requires an `onChange` action or null for no action.',
+      '<PaperSwitch /> requires an `onChange` action or null for no action.',
       this.onChange !== undefined
     );
   },

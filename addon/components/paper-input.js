@@ -92,7 +92,7 @@ export default Component.extend(
     didReceiveAttrs() {
       this._super(...arguments);
       assert(
-        '{{paper-input}} requires an `onChange` action or null for no action.',
+        '<PaperInput /> requires an `onChange` action or null for no action.',
         this.onChange !== undefined
       );
 

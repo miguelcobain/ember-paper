@@ -55,7 +55,7 @@ export default Component.extend(FocusableMixin, ColorMixin, ProxiableMixin, {
   init() {
     this._super(...arguments);
     assert(
-      '{{paper-checkbox}} requires an `onChange` action or null for no action.',
+      '<PaperCheckbox /> requires an `onChange` action or null for no action.',
       this.onChange !== undefined
     );
   },

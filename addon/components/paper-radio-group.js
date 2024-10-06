@@ -34,7 +34,7 @@ export default Component.extend(FocusableMixin, ParentMixin, {
   init() {
     this._super(...arguments);
     assert(
-      '{{paper-radio-group}} requires an `onChange` action or null for no action',
+      '<PaperRadioGroup /> requires an `onChange` action or null for no action',
       this.onChange !== undefined
     );
   },
