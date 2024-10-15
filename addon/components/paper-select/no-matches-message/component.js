@@ -7,8 +7,6 @@ import { tagName, layout } from '@ember-decorators/component';
 
 @tagName('')
 @layout(template)
-class PaperSelectNoMatchesMessage extends Component {
+export default class PaperSelectNoMatchesMessage extends Component {
 
 }
-
-export default PaperSelectNoMatchesMessage;

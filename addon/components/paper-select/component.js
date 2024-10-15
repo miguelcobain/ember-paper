@@ -24,7 +24,7 @@ function getOffsetRect(node) {
 
 @tagName('')
 @layout(template)
-class PaperSelect extends Component.extend(ValidationMixin, ChildMixin) {
+export default class PaperSelect extends Component.extend(ValidationMixin, ChildMixin) {
 
   validationProperty = 'selected';
   isTouched = false;
@@ -201,5 +201,3 @@ class PaperSelect extends Component.extend(ValidationMixin, ChildMixin) {
   }
 
 }
-
-export default PaperSelect;

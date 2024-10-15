@@ -36,7 +36,7 @@ function waitForAnimations(element, callback) {
 
 @tagName('')
 @layout(template)
-class PaperSelectEbdContent extends Component {
+export default class PaperSelectEbdContent extends Component {
 
   @computed('otherStyles', 'isActive')
   get customStyles() {
@@ -183,5 +183,3 @@ function isFocusable(el) {
   // is a menu-item, doesn't have tabindex -1 and is not disabled
   return el && el.tagName === 'MD-OPTION' && el.getAttribute('tabindex') !== -1 && el.getAttribute('disabled') === null && el.getAttribute('aria-disabled') !== true;
 }
-
-export default PaperSelectEbdContent;

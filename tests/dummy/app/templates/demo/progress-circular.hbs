@@ -49,17 +49,17 @@
       </PaperCheckbox>
       <div class="layout layout-align-center-center slider-container">
         <span class="flex">Value ({{if sliderValue sliderValue "null"}})</span>
-        <PaperSlider @class="flex" @value={{sliderValue}} @min={{0}} @max={{100}} @onChange={{action "setValue"}} />
+        <PaperSlider class="flex" @value={{sliderValue}} @min={{0}} @max={{100}} @onChange={{action "setValue"}} />
       </div>
 
       <div class="layout layout-align-center-center slider-container">
         <span class="flex">Diameter ({{sliderDiameter}})</span>
-        <PaperSlider @class="flex" @value={{sliderDiameter}} @min={{0}} @max={{300}} @onChange={{action (mut sliderDiameter)}} />
+        <PaperSlider class="flex" @value={{sliderDiameter}} @min={{0}} @max={{300}} @onChange={{action (mut sliderDiameter)}} />
       </div>
 
       <div class="layout layout-align-center-center slider-container">
         <span class="flex">Stroke ratio ({{strokeRatio}})</span>
-        <PaperSlider @class="flex" @value={{strokeRatio}} @min={{0}} @max={{0.5}} @step={{0.0025}} @onChange={{action (mut strokeRatio)}} />
+        <PaperSlider class="flex" @value={{strokeRatio}} @min={{0}} @max={{0.5}} @step={{0.0025}} @onChange={{action (mut strokeRatio)}} />
       </div>
 
     </div>

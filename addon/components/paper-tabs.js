@@ -1,6 +1,7 @@
-/* eslint-disable ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/no-computed-properties-in-native-classes, ember/no-get, ember/no-mixins */
+/* eslint-disable ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/no-computed-properties-in-native-classes, ember/no-get */
 import {
   classNames,
+  classNameBindings,
   attributeBindings,
   tagName,
 } from '@ember-decorators/component';
@@ -11,16 +12,13 @@ import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
 import { scheduleOnce, join } from '@ember/runloop';
 import { ParentMixin } from 'ember-composability-tools';
-import ColorMixin from 'ember-paper/mixins/color-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 @tagName('md-tabs')
 @classNames('md-no-tab-content', 'md-default-theme')
+@classNameBindings('warn:md-warn', 'accent:md-accent', 'primary:md-primary')
 @attributeBindings('borderBottom:md-border-bottom')
-export default class PaperTabs extends Component.extend(
-  ParentMixin,
-  ColorMixin
-) {
+export default class PaperTabs extends Component.extend(ParentMixin) {
   @service
   constants;
 

@@ -13,7 +13,7 @@ import { assert } from '@ember/debug';
 import { indexOfOption } from 'ember-power-select/utils/group-utils';
 @tagName('')
 @layout(template)
-class PaperAutocomplete extends Component.extend(ValidationMixin) {
+export default class PaperAutocomplete extends Component.extend(ValidationMixin) {
 
   isTouched = false;
 
@@ -168,5 +168,3 @@ class PaperAutocomplete extends Component.extend(ValidationMixin) {
   }
 
 }
-
-export default PaperAutocomplete;

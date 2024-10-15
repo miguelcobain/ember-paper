@@ -9,7 +9,7 @@ import { tagName, layout } from '@ember-decorators/component';
 
 @tagName('')
 @layout(template)
-class PaperChips extends Component {
+export default class PaperChips extends Component {
 
   activeChip = -1;
   searchText = '';
@@ -159,5 +159,3 @@ class PaperChips extends Component {
   @action
   noop() {}
 }
-
-export default PaperChips;

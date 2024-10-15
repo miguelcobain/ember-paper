@@ -16,19 +16,19 @@
 
       <div class="layout layout-align-center-center slider-container">
         <span>R</span>
-        <PaperSlider @class="flex" @min={{0}} @max={{255}} @value={{color.red}} @onChange={{action (mut color.red)}} />
+        <PaperSlider class="flex" @min={{0}} @max={{255}} @value={{color.red}} @onChange={{action (mut color.red)}} />
         <PaperInput @type="number" @value={{color.red}} @onChange={{action (mut color.red)}} />
       </div>
 
       <div class="layout layout-align-center-center slider-container">
         <span>G</span>
-        <PaperSlider @class="flex md-accent" @min={{0}} @max={{255}} @value={{color.green}} @onChange={{action (mut color.green)}} />
+        <PaperSlider class="flex md-accent" @min={{0}} @max={{255}} @value={{color.green}} @onChange={{action (mut color.green)}} />
         <PaperInput @type="number" @value={{color.green}} @onChange={{action (mut color.green)}} />
       </div>
 
       <div class="layout layout-align-center-center slider-container">
         <span>B</span>
-        <PaperSlider @class="flex md-primary" @min={{0}} @max={{255}} @value={{color.blue}} @onChange={{action (mut color.blue)}} />
+        <PaperSlider class="flex md-primary" @min={{0}} @max={{255}} @value={{color.blue}} @onChange={{action (mut color.blue)}} />
         <PaperInput @type="number" @value={{color.blue}} @onChange={{action (mut color.blue)}} />
       </div>
 
@@ -37,25 +37,25 @@
         <div class="layout flex-10 layout-align-center-center">
           <span>default</span>
         </div>
-        <PaperSlider @class="flex" @discrete={{true}} @value={{rating1}} @step={{1}} @min={{1}} @max={{5}} @onChange={{action (mut rating1)}} />
+        <PaperSlider class="flex" @discrete={{true}} @value={{rating1}} @step={{1}} @min={{1}} @max={{5}} @onChange={{action (mut rating1)}} />
       </div>
       <div class="layout layout-align-center-center slider-container">
         <div class="layout flex-10 layout-align-center-center">
           <span>md-warn</span>
         </div>
-        <PaperSlider @class="flex" @warn={{true}} @discrete={{true}} @value={{rating2}} @step={{1}} @min={{1}} @max={{5}} @onChange={{action (mut rating2)}} />
+        <PaperSlider class="flex" @warn={{true}} @discrete={{true}} @value={{rating2}} @step={{1}} @min={{1}} @max={{5}} @onChange={{action (mut rating2)}} />
       </div>
       <div class="layout layout-align-center-center slider-container">
         <div class="layout flex-10 layout-align-center-center">
           <span>md-primary</span>
         </div>
-        <PaperSlider @class="flex" @primary={{true}} @discrete={{true}} @value={{rating3}} @step={{1}} @min={{1}} @max={{5}} @onChange={{action (mut rating3)}} />
+        <PaperSlider class="flex" @primary={{true}} @discrete={{true}} @value={{rating3}} @step={{1}} @min={{1}} @max={{5}} @onChange={{action (mut rating3)}} />
       </div>
 
       <h2>Disabled</h2>
       <div class="layout layout-align-center-center slider-container">
         <PaperIcon @icon="brightness-low" />
-        <PaperSlider @class="flex" @value={{disabled1}} @disabled={{isSliderDisabled}} @onChange={{action (mut disabled1)}} />
+        <PaperSlider class="flex" @value={{disabled1}} @disabled={{isSliderDisabled}} @onChange={{action (mut disabled1)}} />
         <PaperInput @type="number" @value={{disabled1}} @onChange={{action (mut disabled1)}} />
       </div>
       <PaperCheckbox @value={{isSliderDisabled}} @onChange={{action (mut isSliderDisabled)}} />

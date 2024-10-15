@@ -4,7 +4,7 @@
 <DocContent>
   <h2>Basic Usage</h2>
   {{! BEGIN-SNIPPET grid-list.basic-usage }}
-  <PaperContent @class="md-whiteframe-z1 grid-list-demo1">
+  <PaperContent class="md-whiteframe-z1 grid-list-demo1">
 
     <PaperGridList @cols="1 md-2 gt-md-6" @rowHeight="gt-md-1:1 2:2" @gutter="12px gt-sm-8px" as |grid|>
 
@@ -54,11 +54,11 @@
 
   <h2>Dynamic Tiles</h2>
   {{! BEGIN-SNIPPET grid-list.dynamic-tiles }}
-  <PaperContent @class="md-whiteframe-z1 grid-list-demo-dynamicTiles">
+  <PaperContent class="md-whiteframe-z1 grid-list-demo-dynamicTiles">
     <PaperGridList @cols="sm-2 md-4 gt-md-6" @rowHeight="4:3 gt-md-1:1" @gutter="8px gt-sm-4px" as |grid|>
 
       {{#each tiles as |dynamicTile|}}
-        <grid.tile @rowspan={{dynamicTile.span.row}} @colspan={{concat dynamicTile.span.col " xs-1"}} @class={{dynamicTile.background}} as |tile|>
+        <grid.tile @rowspan={{dynamicTile.span.row}} @colspan={{concat dynamicTile.span.col " xs-1"}} class={{dynamicTile.background}} as |tile|>
           <md-icon></md-icon>
           <tile.footer>
             <h3>{{dynamicTile.title}}</h3>
@@ -75,7 +75,7 @@
 
   <h2>Responsive and Animated Usage</h2>
   {{! BEGIN-SNIPPET grid-list.responsive }}
-  <PaperContent @class="md-whiteframe-z1 grid-list-demo-responsiveTiles">
+  <PaperContent class="md-whiteframe-z1 grid-list-demo-responsiveTiles">
 
     <PaperGridList @cols="3 md-8 gt-md-12" @rowHeight="4:3 gt-md-1:1" @gutter="4px md-8px gt-md-16px" as |grid|>
 

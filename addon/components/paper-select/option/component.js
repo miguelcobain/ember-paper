@@ -14,7 +14,5 @@ import { tagName, layout } from '@ember-decorators/component';
  */
 @tagName('')
 @layout(template)
-class PaperSelectOption extends Component {
+export default class PaperSelectOption extends Component {
 }
-
-export default PaperSelectOption;

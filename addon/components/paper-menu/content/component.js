@@ -33,7 +33,7 @@ function waitForAnimations(element, callback) {
 
 @tagName('')
 @layout(template)
-class PaperMenuContent extends Component {
+export default class PaperMenuContent extends Component {
 
   isActive = false;
 
@@ -142,5 +142,3 @@ function isFocusable(el) {
   // is a menu-item, doesn't have tabindex -1 and is not disabled
   return el && el.tagName === 'MD-MENU-ITEM' && el.getAttribute('tabindex') !== -1 && el.getAttribute('disabled') === null;
 }
-
-export default PaperMenuContent;

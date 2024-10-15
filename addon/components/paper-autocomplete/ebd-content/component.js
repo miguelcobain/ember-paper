@@ -6,7 +6,7 @@ import { tagName, layout } from '@ember-decorators/component';
 
 @tagName('')
 @layout(template)
-class PaperAutocompleteEbdContent extends Component {
+export default class PaperAutocompleteEbdContent extends Component {
 
   customStyles = {
     'overflow-y': 'auto',
@@ -35,5 +35,3 @@ class PaperAutocompleteEbdContent extends Component {
   }
 
 }
-
-export default PaperAutocompleteEbdContent;

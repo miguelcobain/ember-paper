@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/require-tagless-components */
+/* eslint-disable ember/no-classic-components */
 /**
  * @module ember-paper
  */
@@ -9,5 +9,5 @@ import Component from '@ember/component';
  * @extends Ember.Component
  */
 export default Component.extend({
-  tagName: 'md-card-header-text',
+  tagName: '',
 });

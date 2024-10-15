@@ -63,7 +63,7 @@
         <h3>duration</h3>
         <div class="layout layout-align-center-center slider-container">
           {{paper-icon "watch later"}}
-          <PaperSlider @class="flex" @value={{duration}} @max={{6000}} @onChange={{action (mut duration)}} />
+          <PaperSlider class="flex" @value={{duration}} @max={{6000}} @onChange={{action (mut duration)}} />
           <PaperInput @type="number" @value={{duration}} @onChange={{action (mut duration)}} />
         </div>
 

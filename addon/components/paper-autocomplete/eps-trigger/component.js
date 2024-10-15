@@ -8,7 +8,7 @@ import unwrapProxy from 'ember-paper/utils/unwrap-proxy';
 
 @tagName('')
 @layout(template)
-class PaperSelectEpsTrigger extends Component {
+export default class PaperSelectEpsTrigger extends Component {
 
   @computed('select.{searchText,selected}')
   get text() {
@@ -76,5 +76,3 @@ class PaperSelectEpsTrigger extends Component {
   }
 
 }
-
-export default PaperSelectEpsTrigger;

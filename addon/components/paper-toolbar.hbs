@@ -1,3 +1,5 @@
-{{yield (hash
-  tools=(component "paper-toolbar-tools")
-)}}
+<md-toolbar class="md-default-theme {{if this.tall "md-tall"}} {{if this.warn "md-warn"}} {{if this.accent "md-accent"}} {{if this.primary "md-primary"}}" ...attributes>
+  {{yield (hash
+    tools=(component "paper-toolbar-tools")
+  )}}
+</md-toolbar>

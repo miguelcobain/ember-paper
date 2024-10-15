@@ -7,7 +7,6 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { assert } from '@ember/debug';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import ColorMixin from 'ember-paper/mixins/color-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
@@ -16,10 +15,15 @@ import { invokeAction } from 'ember-paper/utils/invoke-action';
  * @uses FocusableMixin
  * @uses ColorMixin
  */
-export default Component.extend(FocusableMixin, ColorMixin, {
+export default Component.extend(FocusableMixin, {
   tagName: 'md-radio-button',
   classNames: ['md-default-theme'],
-  classNameBindings: ['checked:md-checked'],
+  classNameBindings: [
+    'checked:md-checked',
+    'warn:md-warn',
+    'accent:md-accent',
+    'primary:md-primary',
+  ],
 
   attributeBindings: [
     'role',

@@ -1,8 +1,10 @@
-{{! template-lint-disable no-implicit-this }}
-{{#if (has-block)}}
-  <div class="md-media-{{size}}">
-    {{yield}}
-  </div>
-{{else}}
-  <img class="md-media-{{size}}" src={{src}} alt={{alt}} title={{title}}>
-{{/if}}
+<md-card-title-media ...attributes>
+  {{! template-lint-disable no-implicit-this }}
+  {{#if (has-block)}}
+    <div class="md-media-{{size}}">
+      {{yield}}
+    </div>
+  {{else}}
+    <img class="md-media-{{size}}" src={{src}} alt={{alt}} title={{title}}>
+  {{/if}}
+</md-card-title-media>

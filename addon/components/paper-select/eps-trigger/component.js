@@ -7,7 +7,7 @@ import { computed, action } from '@ember/object';
 
 @tagName('')
 @layout(template)
-class PaperSelectEpsTrigger extends Component {
+export default class PaperSelectEpsTrigger extends Component {
 
   @computed('placeholder', 'extra.label', 'select.selected')
   get isPlaceholder() {
@@ -24,5 +24,3 @@ class PaperSelectEpsTrigger extends Component {
   }
 
 }
-
-export default PaperSelectEpsTrigger;
