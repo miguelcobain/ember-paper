@@ -34,7 +34,7 @@
     "ember-cli-polyfill-importer": "^0.0.4",
     "ember-cli-sass": "^10.0.1",
     "ember-composability-tools": "^0.0.12",
-    "ember-css-transitions": "^3.1.0",
+    "ember-css-transitions": "^4.4.1",
     "ember-decorators": "^6.1.1",
     "ember-get-config": "^1.0.2",
     "ember-maybe-in-element": "^2.0.3",
