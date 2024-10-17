@@ -1,7 +1,24 @@
 {
   "name": "ember-paper",
-  "description": "The Ember approach to Material Design.",
   "version": "1.0.0-beta.36",
+  "description": "The Ember approach to Material Design.",
+  "keywords": [
+    "ember-addon",
+    "material",
+    "design",
+    "ember",
+    "paper"
+  ],
+  "bugs": {
+    "url": "https://github.com/miguelcobain/ember-paper/issues"
+  },
+  "repository": "https://github.com/adopted-ember-addons/ember-paper",
+  "license": "MIT",
+  "author": "Miguel Andrade <jmandrade0@gmail.com>",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
   "scripts": {
     "build": "ember build --environment=production",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel \"lint:!(fix)\"",
@@ -14,9 +31,6 @@
     "test": "npm-run-all lint test:*",
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each"
-  },
-  "bugs": {
-    "url": "https://github.com/miguelcobain/ember-paper/issues"
   },
   "dependencies": {
     "@html-next/vertical-collection": "^4.0.2",
@@ -95,24 +109,12 @@
     "prettier": "^2.3.2",
     "qunit": "^2.16.0",
     "qunit-dom": "^1.6.0",
+    "release-plan": "^0.9.0",
     "webpack": "^5.95.0"
   },
+  "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228",
   "engines": {
     "node": "12.* || 14.* || >= 16"
-  },
-  "keywords": [
-    "ember-addon",
-    "material",
-    "design",
-    "ember",
-    "paper"
-  ],
-  "repository": "https://github.com/miguelcobain/ember-paper",
-  "license": "MIT",
-  "author": "Miguel Andrade <jmandrade0@gmail.com>",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
@@ -121,6 +123,5 @@
     "versionCompatibility": {
       "ember": ">=3.20.0 < 4.0.0"
     }
-  },
-  "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228"
+  }
 }
