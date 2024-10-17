@@ -6,7 +6,9 @@ module.exports = function (defaults) {
   let app = new EmberAddon(defaults, {
     // Add options here
     snippetPaths: ['tests/dummy/snippets'],
-    snippetSearchPaths: ['tests/dummy/app']
+    snippetSearchPaths: ['tests/dummy/app'],
+    // don't fingerprint pngs
+    fingerprint: { extensions: ['js', 'css', 'map'] }
   });
 
   /*
