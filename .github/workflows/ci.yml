@@ -18,17 +18,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - name: Install Node
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: npm
+          cache: pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm i --frozen-lockfile
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
       - name: Run Tests
-        run: npm run test:ember
+        run: pnpm run test:ember
 
   floating:
     name: "Floating Dependencies"
@@ -36,14 +37,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: npm
+          cache: pnpm
       - name: Install Dependencies
-        run: npm install --no-shrinkwrap
+        run: pnpm install --no-lockfile
       - name: Run Tests
-        run: npm run test:ember
+        run: pnpm run test:ember
 
   try-scenarios:
     name: ${{ matrix.try-scenario }}
@@ -60,15 +62,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - name: Install Node
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: npm
+          cache: pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm i --frozen-lockfile
       - name: Run Tests
-        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
+        run: pnpm ember try:one ${{ matrix.try-scenario }}
 
   failing-try-scenarios:
     name: ${{ matrix.try-scenario }} Allowed to fail
@@ -90,16 +93,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - name: Install Node
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: npm
+          cache: pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm i --frozen-lockfile
       - name: Run Tests
         id: tests
-        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
+        run: pnpm ember try:one ${{ matrix.try-scenario }}
         continue-on-error: true
       - uses: mainmatter/continue-on-error-comment@v1
         with:

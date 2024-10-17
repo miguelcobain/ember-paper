@@ -79,7 +79,7 @@
     "ember-source": "~3.28.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^3.6.0",
-    "ember-try": "^1.4.0",
+    "ember-try": "^3.0.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-ember": "^10.5.4",
@@ -121,5 +121,6 @@
     "versionCompatibility": {
       "ember": ">=3.20.0 < 4.0.0"
     }
-  }
+  },
+  "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228"
 }
