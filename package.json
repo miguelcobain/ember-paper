@@ -53,7 +53,7 @@
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.4.2",
     "@embroider/test-setup": "^0.43.5",
-    "@faker-js/faker": "^8.0.2",
+    "@faker-js/faker": "^9.0.3",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
     "babel-eslint": "^10.1.0",

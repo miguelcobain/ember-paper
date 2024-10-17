@@ -14,7 +14,7 @@ export default Controller.extend({
       contacts.push({
         name: faker.person.fullName(),
         email: faker.internet.email(),
-        img: faker.internet.avatar()
+        img: faker.image.dataUri()
       });
     }
 
