@@ -61,8 +61,8 @@ class PaperMenuContent extends Component {
   async animateOut(element) {
     let parentElement = this.renderInPlace ? element.parentElement.parentElement : element.parentElement;
 
-    // workaround for https://github.com/miguelcobain/ember-paper/issues/1151. See also https://github.com/emberjs/ember.js/issues/18795.
-    // & https://github.com/miguelcobain/ember-paper/issues/1166
+    // workaround for https://github.com/adopted-ember-addons/ember-paper/issues/1151. See also https://github.com/emberjs/ember.js/issues/18795.
+    // & https://github.com/adopted-ember-addons/ember-paper/issues/1166
     if (!parentElement) {
       parentElement = ebdGetParent(getOwner(this));
     }
