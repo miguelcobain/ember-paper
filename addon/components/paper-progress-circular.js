@@ -8,7 +8,7 @@ import { equal } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { isPresent } from '@ember/utils';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import clamp from 'ember-paper/utils/clamp';
 

@@ -1,7 +1,7 @@
 /* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-get, ember/require-tagless-components, prettier/prettier */
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 
 function getElementIndex(node) {
   let index = 0;

@@ -8,7 +8,7 @@ import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { gt } from '@ember/object/computed';
 import Component from '@ember/component';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 import { scheduleOnce, join } from '@ember/runloop';
 import { ParentMixin } from 'ember-composability-tools';
 import ColorMixin from 'ember-paper/mixins/color-mixin';

@@ -3,7 +3,7 @@
  * @module ember-paper
  */
 import Mixin from '@ember/object/mixin';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 import { computed } from '@ember/object';
 import { schedule, later } from '@ember/runloop';
 import { nextTick, computeTimeout } from 'ember-css-transitions/utils/transition-utils';

@@ -8,7 +8,7 @@ import Component from '@ember/component';
 import { assert } from '@ember/debug';
 import { get, computed } from '@ember/object';
 import { bind } from '@ember/runloop';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
 import ColorMixin from 'ember-paper/mixins/color-mixin';
 import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
