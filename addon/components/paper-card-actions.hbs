@@ -1,3 +1,5 @@
-{{yield (hash
-  icons=(component "paper-card-icon-actions")
-)}}
+<md-card-actions class={{this.classes}} ...attributes>
+  {{yield (hash
+    icons=(component "paper-card-icon-actions")
+  )}}
+</md-card-actions>
