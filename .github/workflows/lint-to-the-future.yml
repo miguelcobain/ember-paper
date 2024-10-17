@@ -13,5 +13,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: mansona/lttf-dashboard@v1
         with:
-          folder: '/lint-to-the-future'
           token: ${{secrets.GITHUB_TOKEN}}
