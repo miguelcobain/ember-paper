@@ -157,5 +157,77 @@
       </PaperAutocomplete>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Button</h2>
+    </card.title>
+    <card.content>
+      <div class='layout-row'>
+        <PaperButton @onClick={{fn this.flatButton}}>Button with action</PaperButton>
+        <PaperButton @noink={{true}} @primary={{true}}>Primary (noink)</PaperButton>
+        <PaperButton @disabled={{true}}>disabled</PaperButton>
+        <PaperButton @warn={{true}}>warn</PaperButton>
+        <PaperButton @accent={{true}}>accent</PaperButton>
+        <PaperButton
+          @href='http://emberjs.com/images/tomsters/original.png'
+          @target='_blank'
+        >href link</PaperButton>
+      </div>
+      <p>
+        <PaperButton @raised={{true}} @onClick={{fn this.raisedButton}}>
+          Button with action
+        </PaperButton>
+        <PaperButton @raised={{true}} @primary={{true}}>Primary</PaperButton>
+        <PaperButton @raised={{true}} @disabled={{true}}>disabled</PaperButton>
+        <PaperButton @raised={{true}} @warn={{true}}>warn</PaperButton>
+        <PaperButton @raised={{true}} @accent={{true}}>accent</PaperButton>
+      </p>
+      <CustomButton>
+        <p>
+          <PaperButton @raised={{true}} @onClick={{fn this.targetButton}}>
+            Button with target
+          </PaperButton>
+          <PaperButton
+            @raised={{true}}
+            @primary={{true}}
+            @onClick={{fn this.targetButton}}
+          >
+            Button with bubble
+          </PaperButton>
+          <PaperButton
+            @raised={{true}}
+            @primary={{true}}
+            @onClick={{fn this.targetButton}}
+            @bubbles={{false}}
+          >
+            Button no bubble
+          </PaperButton>
+        </p>
+      </CustomButton>
+
+      <p>
+        <PaperButton @raised={{true}} @fab={{true}}>Fab</PaperButton>
+        <PaperButton
+          @raised={{true}}
+          @fab={{true}}
+          @accent={{true}}
+        >Fab</PaperButton>
+        <PaperButton @raised={{true}} @mini={{true}}>Mini</PaperButton>
+        <PaperButton
+          @raised={{true}}
+          @mini={{true}}
+          @primary={{true}}
+        >Mini</PaperButton>
+        <PaperButton @iconButton={{true}}>
+          <PaperIcon @icon='accessibility' />
+        </PaperButton>
+      </p>
+
+      <p>
+        <PaperButton @raised={{true}} @label='Blockless version' />
+      </p>
+    </card.content>
+  </PaperCard>
 </DocContent>
 {{outlet}}
