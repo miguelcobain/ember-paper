@@ -1,0 +1,161 @@
+<DocContent>
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Autocomplete</h2>
+    </card.title>
+    <card.content>
+      <p>
+        <PaperAutocomplete
+          @disabled={{true}}
+          @labelPath='name'
+          @noMatchesMessage="Oops this country doesn't exist. Create a new country?"
+          @onSelectionChange={{fn (mut this.selectedCountry)}}
+          @options={{this.countries}}
+          @placeholder='Select a Country...'
+          @searchField='name'
+          @searchText='Teehee'
+        />
+      </p>
+
+      <p>
+        <PaperAutocomplete
+          @disabled={{false}}
+          @labelPath='name'
+          @noMatchesMessage="Oops this country doesn't exist. Create a new country?"
+          @onSelectionChange={{fn (mut this.selectedCountry)}}
+          @options={{this.countries}}
+          @placeholder='Select a Country...'
+          @searchField='name'
+          @selected={{this.selectedCountry}}
+        />
+      </p>
+
+      <PaperAutocomplete
+        @allowClear={{false}}
+        @disabled={{false}}
+        @label='Select a Country...'
+        @labelPath='name'
+        @noMatchesMessage="Oops this country doesn't exist."
+        @onSelectionChange={{fn (mut this.selectedCountry2)}}
+        @options={{this.countries}}
+        @required={{false}}
+        @searchField='name'
+        @triggerClass='flex'
+        @selected={{this.selectedCountry}}
+        as |country select|
+      >
+        <PaperAutocompleteHighlight
+          @label={{country.name}}
+          @searchText={{select.searchText}}
+          @flags='i'
+        />
+      </PaperAutocomplete>
+
+      <PaperAutocomplete
+        @allowClear={{false}}
+        @disabled={{false}}
+        @label='Select a Country...'
+        @labelPath='name'
+        @noMatchesMessage="Oops this country doesn't exist."
+        @onSelectionChange={{fn (mut this.selectedCountry2)}}
+        @options={{this.countries}}
+        @required={{true}}
+        @searchField='name'
+        @triggerClass='flex'
+        @selected={{this.selectedCountry}}
+        as |country select|
+      >
+        <PaperAutocompleteHighlight
+          @label={{country.name}}
+          @searchText={{select.searchText}}
+          @flags='i'
+        />
+      </PaperAutocomplete>
+
+      <PaperAutocomplete
+        @allowClear={{false}}
+        @disabled={{true}}
+        @label='Select a Country...'
+        @labelPath='name'
+        @noMatchesMessage="Oops this country doesn't exist."
+        @onSelectionChange={{fn (mut this.selectedCountry2)}}
+        @options={{this.countries}}
+        @required={{false}}
+        @searchField='name'
+        @selected={{this.selectedCountry2}}
+        @triggerClass='flex'
+        as |country select|
+      >
+        <PaperAutocompleteHighlight
+          @label={{country.name}}
+          @searchText={{select.searchText}}
+          @flags='i'
+        />
+      </PaperAutocomplete>
+
+      <PaperAutocomplete
+        @allowClear={{false}}
+        @disabled={{true}}
+        @label='Select a Country...'
+        @labelPath='name'
+        @noMatchesMessage="Oops this country doesn't exist."
+        @onSelectionChange={{fn (mut this.selectedCountry2)}}
+        @options={{this.countries}}
+        @required={{true}}
+        @searchField='name'
+        @selected={{this.selectedCountry2}}
+        @triggerClass='flex'
+        as |country select|
+      >
+        <PaperAutocompleteHighlight
+          @label={{country.name}}
+          @searchText={{select.searchText}}
+          @flags='i'
+        />
+      </PaperAutocomplete>
+
+      <PaperAutocomplete
+        @allowClear={{true}}
+        @disabled={{false}}
+        @label='Select a Country...'
+        @labelPath='name'
+        @noMatchesMessage="Oops this country doesn't exist."
+        @onSelectionChange={{fn (mut this.selectedCountry2)}}
+        @options={{this.countries}}
+        @required={{false}}
+        @searchField='name'
+        @selected={{this.selectedCountry2}}
+        @triggerClass='flex'
+        as |country select|
+      >
+        <PaperAutocompleteHighlight
+          @label={{country.name}}
+          @searchText={{select.searchText}}
+          @flags='i'
+        />
+      </PaperAutocomplete>
+
+      <PaperAutocomplete
+        @allowClear={{true}}
+        @disabled={{false}}
+        @label='Select a Country...'
+        @labelPath='name'
+        @noMatchesMessage="Oops this country doesn't exist."
+        @onSelectionChange={{fn (mut this.selectedCountry2)}}
+        @options={{this.countries}}
+        @required={{true}}
+        @searchField='name'
+        @selected='not'
+        @triggerClass='flex'
+        as |country select|
+      >
+        <PaperAutocompleteHighlight
+          @label={{country.name}}
+          @searchText={{select.searchText}}
+          @flags='i'
+        />
+      </PaperAutocomplete>
+    </card.content>
+  </PaperCard>
+</DocContent>
+{{outlet}}
