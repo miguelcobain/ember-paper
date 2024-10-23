@@ -10,7 +10,7 @@
     "paper"
   ],
   "bugs": {
-    "url": "https://github.com/miguelcobain/ember-paper/issues"
+    "url": "https://github.com/adopted-ember-addons/ember-paper/issues"
   },
   "repository": "https://github.com/adopted-ember-addons/ember-paper",
   "license": "MIT",
@@ -118,7 +118,7 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "https://miguelcobain.github.io/ember-paper",
+    "demoURL": "https://ember-paper.netlify.app",
     "before": "ember-cli-sri",
     "versionCompatibility": {
       "ember": ">=3.20.0 < 4.0.0"

@@ -69,7 +69,7 @@ class PaperSelectEbdContent extends Component {
   async animateOut(dropdownElement) {
     let parentElement = this.renderInPlace ? dropdownElement.parentElement.parentElement : dropdownElement.parentElement;
 
-    // workaround for https://github.com/miguelcobain/ember-paper/issues/1166
+    // workaround for https://github.com/adopted-ember-addons/ember-paper/issues/1166
     if (!parentElement) {
       parentElement = ebdGetParent(getOwner(this));
     }
