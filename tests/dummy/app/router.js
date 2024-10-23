@@ -7,15 +7,16 @@ export default class Router extends EmberRouter {
   rootURL = config.rootURL;
 }
 
-Router.map(function() {
+Router.map(function () {
   this.route('introduction');
+  this.route('catalog');
   this.route('forms');
   this.route('typography');
   this.route('theme');
   this.route('cookbook');
   this.route('addons');
 
-  this.route('demo', { path: 'components' }, function() {
+  this.route('demo', { path: 'components' }, function () {
     this.route('autocomplete');
     this.route('button');
     this.route('card');
@@ -28,7 +29,7 @@ Router.map(function() {
     this.route('input');
     this.route('list');
     this.route('menu');
-    this.route('tabs', function() {
+    this.route('tabs', function () {
       this.route('nested-route');
     });
     this.route('progress-circular');
@@ -44,7 +45,7 @@ Router.map(function() {
     this.route('tooltip');
   });
 
-  this.route('layout', function() {
+  this.route('layout', function () {
     this.route('introduction');
     this.route('layout-containers');
     this.route('layout-children');
