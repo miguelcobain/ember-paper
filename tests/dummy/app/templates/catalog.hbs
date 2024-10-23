@@ -164,7 +164,7 @@
     </card.title>
     <card.content>
       <div class='layout-row'>
-        <PaperButton @onClick={{fn this.flatButton}}>Button with action</PaperButton>
+        <PaperButton @onClick={{this.flatButton}}>Button with action</PaperButton>
         <PaperButton @noink={{true}} @primary={{true}}>Primary (noink)</PaperButton>
         <PaperButton @disabled={{true}}>disabled</PaperButton>
         <PaperButton @warn={{true}}>warn</PaperButton>
@@ -175,7 +175,7 @@
         >href link</PaperButton>
       </div>
       <p>
-        <PaperButton @raised={{true}} @onClick={{fn this.raisedButton}}>
+        <PaperButton @raised={{true}} @onClick={{this.raisedButton}}>
           Button with action
         </PaperButton>
         <PaperButton @raised={{true}} @primary={{true}}>Primary</PaperButton>
@@ -185,20 +185,20 @@
       </p>
       <CustomButton>
         <p>
-          <PaperButton @raised={{true}} @onClick={{fn this.targetButton}}>
+          <PaperButton @raised={{true}} @onClick={{this.targetButton}}>
             Button with target
           </PaperButton>
           <PaperButton
             @raised={{true}}
             @primary={{true}}
-            @onClick={{fn this.targetButton}}
+            @onClick={{this.targetButton}}
           >
             Button with bubble
           </PaperButton>
           <PaperButton
             @raised={{true}}
             @primary={{true}}
-            @onClick={{fn this.targetButton}}
+            @onClick={{this.targetButton}}
             @bubbles={{false}}
           >
             Button no bubble
