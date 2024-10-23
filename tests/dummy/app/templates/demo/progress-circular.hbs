@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable no-action no-curly-component-invocation }}
 <PageToolbar @pageTitle="Progress Circular" @isDemo={{true}} />
 
 <DocContent>
@@ -7,7 +7,7 @@
   <p>For operations where the percentage of the operation completed can be determined, use a determinate indicator. They give users a quick sense of how long an operation will take.</p>
   <div class="layout-column layout-gt-sm-row layout-align-space-around">
     {{! BEGIN-SNIPPET progress-circular.determinate }}
-    <PaperProgressCircular @value={{determinateValue}} />
+    <PaperProgressCircular @value={{this.determinateValue}} />
     {{! END-SNIPPET }}
   </div>
   <CodeSnippet @name="progress-circular.determinate.hbs" />
@@ -38,28 +38,28 @@
   <div class="layout-column layout-gt-sm-row">
     {{! BEGIN-SNIPPET progress-circular.playground }}
     <div class="flex layout-row layout-align-space-around layout-align-center">
-      <PaperProgressCircular @value={{sliderValue}} @diameter={{sliderDiameter}} @strokeRatio={{strokeRatio}} @disabled={{isDisabled}} />
+      <PaperProgressCircular @value={{this.sliderValue}} @diameter={{this.sliderDiameter}} @strokeRatio={{this.strokeRatio}} @disabled={{this.isDisabled}} />
     </div>
     <div class="flex flex-gt-sm-33">
-      <PaperCheckbox @value={{isIndeterminate}} @onChange={{action "setIndeterminate"}}>
+      <PaperCheckbox @value={{this.isIndeterminate}} @onChange={{action "setIndeterminate"}}>
         Indeterminate
       </PaperCheckbox>
-      <PaperCheckbox @value={{isDisabled}} @onChange={{action (mut isDisabled)}}>
+      <PaperCheckbox @value={{this.isDisabled}} @onChange={{action (mut this.isDisabled)}}>
         Disabled
       </PaperCheckbox>
       <div class="layout layout-align-center-center slider-container">
-        <span class="flex">Value ({{if sliderValue sliderValue "null"}})</span>
-        <PaperSlider @class="flex" @value={{sliderValue}} @min={{0}} @max={{100}} @onChange={{action "setValue"}} />
+        <span class="flex">Value ({{if this.sliderValue this.sliderValue "null"}})</span>
+        <PaperSlider @class="flex" @value={{this.sliderValue}} @min={{0}} @max={{100}} @onChange={{action "setValue"}} />
       </div>
 
       <div class="layout layout-align-center-center slider-container">
-        <span class="flex">Diameter ({{sliderDiameter}})</span>
-        <PaperSlider @class="flex" @value={{sliderDiameter}} @min={{0}} @max={{300}} @onChange={{action (mut sliderDiameter)}} />
+        <span class="flex">Diameter ({{this.sliderDiameter}})</span>
+        <PaperSlider @class="flex" @value={{this.sliderDiameter}} @min={{0}} @max={{300}} @onChange={{action (mut this.sliderDiameter)}} />
       </div>
 
       <div class="layout layout-align-center-center slider-container">
-        <span class="flex">Stroke ratio ({{strokeRatio}})</span>
-        <PaperSlider @class="flex" @value={{strokeRatio}} @min={{0}} @max={{0.5}} @step={{0.0025}} @onChange={{action (mut strokeRatio)}} />
+        <span class="flex">Stroke ratio ({{this.strokeRatio}})</span>
+        <PaperSlider @class="flex" @value={{this.strokeRatio}} @min={{0}} @max={{0.5}} @step={{0.0025}} @onChange={{action (mut this.strokeRatio)}} />
       </div>
 
     </div>

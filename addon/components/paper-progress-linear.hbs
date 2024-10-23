@@ -1,6 +1,5 @@
-{{! template-lint-disable no-implicit-this }}
-<div class="md-container {{queryModeClass}}">
+<div class="md-container {{this.queryModeClass}}">
   <div class="md-dashed"></div>
-  <div class="md-bar md-bar1" style={{bar1Style}}></div>
-  <div class="md-bar md-bar2" style={{bar2Style}}></div>
+  <div class="md-bar md-bar1" style={{this.bar1Style}}></div>
+  <div class="md-bar md-bar2" style={{this.bar2Style}}></div>
 </div>

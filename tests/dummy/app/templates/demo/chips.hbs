@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-implicit-this }}
+{{! template-lint-disable no-action }}
 <PageToolbar @pageTitle="Chips" @isDemo={{true}} />
 
 <DocContent>
@@ -12,16 +12,16 @@
     <PaperCardContent>
       {{! BEGIN-SNIPPET chips.example }}
       <h2>Default Template</h2>
-      <PaperChips @content={{fruitNames}} @readOnly={{readOnly}} @removeItem={{action "removeItem"}} @addItem={{action "addItem"}} @placeholder="Add a tag" />
+      <PaperChips @content={{this.fruitNames}} @readOnly={{this.readOnly}} @removeItem={{action "removeItem"}} @addItem={{action "addItem"}} @placeholder="Add a tag" />
 
       <h2>Custom Template</h2>
-      <PaperChips @readOnly={{readOnly}} @removeItem={{action "removeCustomItem"}} @addItem={{action "addCustomItem"}} @placeholder="Add a tag" @content={{customFruitNames}} as |item|>
+      <PaperChips @readOnly={{this.readOnly}} @removeItem={{action "removeCustomItem"}} @addItem={{action "addCustomItem"}} @placeholder="Add a tag" @content={{this.customFruitNames}} as |item|>
         <strong>{{item}}</strong>
         <em>(fruit)</em>
       </PaperChips>
 
       <h2>Chips with Autocomplete</h2>
-      <PaperChips @readOnly={{readOnly}} @removeItem={{action "removeVegetable"}} @addItem={{action "addVegetable"}} @placeholder="Add a vegetable" @content={{vegetables}} @options={{remainingVegetables}} @searchField="name" @noMatchesMessage="Not found. Click to add." as |item|>
+      <PaperChips @readOnly={{this.readOnly}} @removeItem={{action "removeVegetable"}} @addItem={{action "addVegetable"}} @placeholder="Add a vegetable" @content={{this.vegetables}} @options={{this.remainingVegetables}} @searchField="name" @noMatchesMessage="Not found. Click to add." as |item|>
         <strong>{{item.name}}</strong>
         {{#if item.family}}
           <em>{{item.family}}</em>
@@ -29,7 +29,7 @@
       </PaperChips>
 
       <h2>Chips with Autocomplete (requires match)</h2>
-      <PaperChips @readOnly={{readOnly}} @removeItem={{action "removeVegeName"}} @addItem={{action "addVegeName"}} @placeholder="Add a vegetable" @content={{vegeNames}} @options={{remainingVegeNames}} @requireMatch={{true}} />
+      <PaperChips @readOnly={{this.readOnly}} @removeItem={{action "removeVegeName"}} @addItem={{action "addVegeName"}} @placeholder="Add a vegetable" @content={{this.vegeNames}} @options={{this.remainingVegeNames}} @requireMatch={{true}} />
       {{! END-SNIPPET }}
 
       <h3>Template</h3>
@@ -49,7 +49,7 @@
 
       {{! BEGIN-SNIPPET chips.contacts-example }}
       <h2>Contact Chips</h2>
-      <PaperContactChips @readOnly={{readOnly}} @removeItem={{action "removeContact"}} @addItem={{action "addContact"}} @placeholder="Add a contact" @content={{selectedContacts}} @options={{remainingContacts}} />
+      <PaperContactChips @readOnly={{this.readOnly}} @removeItem={{action "removeContact"}} @addItem={{action "addContact"}} @placeholder="Add a contact" @content={{this.selectedContacts}} @options={{this.remainingContacts}} />
 
       <blockquote>
         <code>paper-contact-chips</code> expects the name, email address and image
@@ -60,9 +60,9 @@
         autocomplete should search against:
       </blockquote>
 
-      <PaperContactChips @readOnly={{readOnly}} @removeItem={{action "removeAltContact"}} @addItem={{action "addAltContact"}} @placeholder="Add a contact" @content={{selectedAltContacts}} @options={{remainingAltContacts}} @nameField="shortName" @emailField="emailAddress" @imageField="profileImage" @searchField="emailAddress" />
+      <PaperContactChips @readOnly={{this.readOnly}} @removeItem={{action "removeAltContact"}} @addItem={{action "addAltContact"}} @placeholder="Add a contact" @content={{this.selectedAltContacts}} @options={{this.remainingAltContacts}} @nameField="shortName" @emailField="emailAddress" @imageField="profileImage" @searchField="emailAddress" />
 
-      <PaperCheckbox @value={{readOnly}} @onChange={{action (mut readOnly)}}>
+      <PaperCheckbox @value={{this.readOnly}} @onChange={{action (mut this.readOnly)}}>
         Read Only
       </PaperCheckbox>
       {{! END-SNIPPET }}

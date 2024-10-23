@@ -1,4 +1,4 @@
-{{! template-lint-disable no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable no-curly-component-invocation }}
 <div class="md-container">
   <div class="md-icon"></div>
   <PaperRipple
@@ -7,14 +7,14 @@
 </div>
 {{#if (has-block)}}
   <div class="md-label">
-    <span id={{labelId}}>
+    <span id={{this.labelId}}>
       {{yield}}
     </span>
   </div>
 {{else}}
   <div class="md-label">
-    <span id={{labelId}}>
-      {{label}}
+    <span id={{this.labelId}}>
+      {{@label}}
     </span>
   </div>
 {{/if}}

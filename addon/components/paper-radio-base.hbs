@@ -1,4 +1,4 @@
-{{! template-lint-disable no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable no-curly-component-invocation }}
 <div class="md-container">
   <div class="md-off"></div>
   <div class="md-on"></div>
@@ -15,7 +15,7 @@
 {{else}}
   <div class="md-label">
     <span>
-      {{label}}
+      {{@label}}
     </span>
   </div>
 {{/if}}

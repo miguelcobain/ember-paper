@@ -1,49 +1,49 @@
-{{! template-lint-disable no-action no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable no-action no-curly-component-invocation }}
 <PageToolbar @pageTitle="Input" @isDemo={{true}} />
 
 <DocContent>
   {{! BEGIN-SNIPPET input.basic-usage}}
   <div class="layout layout-sm-column">
-    <PaperInput @class="flex-30" @label="Name" @placeholder="Enter name" @value={{name}} @onChange={{action (mut name)}} />
-    <PaperInput @class="flex-30" @label="E-mail" @type="email" @value={{email}} @onChange={{action (mut email)}} />
-    <PaperInput @class="flex-40" @label="Password" @type="password" @value={{password}} @onChange={{action (mut password)}} />
+    <PaperInput @class="flex-30" @label="Name" @placeholder="Enter name" @value={{this.name}} @onChange={{action (mut this.name)}} />
+    <PaperInput @class="flex-30" @label="E-mail" @type="email" @value={{this.email}} @onChange={{action (mut this.email)}} />
+    <PaperInput @class="flex-40" @label="Password" @type="password" @value={{this.password}} @onChange={{action (mut this.password)}} />
   </div>
   <div class="layout layout-sm-column">
-    <PaperInput @class="flex" @label="Submission date" @type="date" @value={{date}} @onChange={{action (mut date)}} />
-    <PaperInput @class="flex" @label="Company (disabled)" @type="text" @value="Google" @disabled={{true}} @onChange={{action (mut foo)}} />
+    <PaperInput @class="flex" @label="Submission date" @type="date" @value={{this.date}} @onChange={{action (mut this.date)}} />
+    <PaperInput @class="flex" @label="Company (disabled)" @type="text" @value="Google" @disabled={{true}} @onChange={{action (mut this.foo)}} />
   </div>
 
-  <PaperInput @textarea={{true}} @block={{true}} @label="Biography" @maxlength={{150}} @passThru={{hash rows=5 maxRows=5}} @value={{biography}} @onChange={{action (mut biography)}} />
-  <p>Name: {{name}}</p>
-  <p>Email: {{email}}</p>
+  <PaperInput @textarea={{true}} @block={{true}} @label="Biography" @maxlength={{150}} @passThru={{hash rows=5 maxRows=5}} @value={{this.biography}} @onChange={{action (mut this.biography)}} />
+  <p>Name: {{this.name}}</p>
+  <p>Email: {{this.email}}</p>
 
   <h3>Input Errors</h3>
   <p>
-    <PaperInput @label="Address" @value={{address}} @onChange={{action (mut address)}} @required={{true}} @errorMessages={{hash
+    <PaperInput @label="Address" @value={{this.address}} @onChange={{action (mut this.address)}} @required={{true}} @errorMessages={{hash
         required="Address is required."
       }} />
-    <PaperInput @type="number" @label="Maximum Value" @value={{maxNumber}} @onChange={{action (mut maxNumber)}} @max="5" @errorMessages={{hash
+    <PaperInput @type="number" @label="Maximum Value" @value={{this.maxNumber}} @onChange={{action (mut this.maxNumber)}} @max="5" @errorMessages={{hash
         max="Enter 5 or less."
       }} />
-    <PaperInput @type="number" @label="Minimum Value" @value={{minNumber}} @onChange={{action (mut minNumber)}} @min="1" @errorMessages={{hash
+    <PaperInput @type="number" @label="Minimum Value" @value={{this.minNumber}} @onChange={{action (mut this.minNumber)}} @min="1" @errorMessages={{hash
         min="Enter at least 1."
       }} />
-    <PaperInput @label="Maximum Character Length" @value={{maxLength}} @onChange={{action (mut maxLength)}} @required={{true}} @maxlength={{10}} @errorMessages={{hash
+    <PaperInput @label="Maximum Character Length" @value={{this.maxLength}} @onChange={{action (mut this.maxLength)}} @required={{true}} @maxlength={{10}} @errorMessages={{hash
         maxlength="Maximum length exceeded."
       }} />
-    <PaperInput @label="All Constraints" @value={{allConstraints}} @onChange={{action (mut allConstraints)}} @required={{true}} @min="2" @max="10" @maxlength="2" @errorMessages={{hash
+    <PaperInput @label="All Constraints" @value={{this.allConstraints}} @onChange={{action (mut this.allConstraints)}} @required={{true}} @min="2" @max="10" @maxlength="2" @errorMessages={{hash
         maxlength="Max length exceeded."
       }} />
-    <PaperInput @label="Required asterisk only" @value={{requiredStyle}} @onChange={{action (mut requiredStyle)}} @required="style" />
+    <PaperInput @label="Required asterisk only" @value={{this.requiredStyle}} @onChange={{action (mut this.requiredStyle)}} @required="style" />
   </p>
 
   <h3>Icons</h3>
   <p>
-    <PaperInput @label="Name" @value={{name}} @onChange={{action (mut name)}} @icon="person" />
-    <PaperInput @placeholder="Phone Number" @type="text" @value={{user.phone}} @onChange={{action (mut user.phone)}} @icon="phone" />
-    <PaperInput @label="Email (no messages)" @type="email" @value={{user.email}} @onChange={{action (mut user.email)}} @icon="email" @required={{true}} @hideAllMessages={{true}} />
-    <PaperInput @placeholder="Address" @type="text" @value={{user.address}} @onChange={{action (mut user.address)}} @icon="place" />
-    <PaperInput @label="Name on right" @type="text" @value={{name2}} @onChange={{action (mut name2)}} @iconRight="person" />
+    <PaperInput @label="Name" @value={{this.name}} @onChange={{action (mut this.name)}} @icon="person" />
+    <PaperInput @placeholder="Phone Number" @type="text" @value={{this.user.phone}} @onChange={{action (mut this.user.phone)}} @icon="phone" />
+    <PaperInput @label="Email (no messages)" @type="email" @value={{this.user.email}} @onChange={{action (mut this.user.email)}} @icon="email" @required={{true}} @hideAllMessages={{true}} />
+    <PaperInput @placeholder="Address" @type="text" @value={{this.user.address}} @onChange={{action (mut this.user.address)}} @icon="place" />
+    <PaperInput @label="Name on right" @type="text" @value={{this.name2}} @onChange={{action (mut this.name2)}} @iconRight="person" />
   </p>
   {{! END-SNIPPET }}
 
@@ -68,7 +68,7 @@
   </p>
   <p>
     {{! BEGIN-SNIPPET input.attributes }}
-    <PaperInput @value={{numberTest}} @onChange={{action (mut numberTest)}} @label="Number of bagels" @type="number" @passThru={{hash min="0" step="13" }} />
+    <PaperInput @value={{this.numberTest}} @onChange={{action (mut this.numberTest)}} @label="Number of bagels" @type="number" @passThru={{hash min="0" step="13" }} />
     {{! END-SNIPPET }}
 
     <CodeSnippet @name="input.attributes.hbs" />
@@ -126,10 +126,10 @@
   </p>
   <p>
     {{! BEGIN-SNIPPET input.actions }}
-    <PaperInput @label="Event demonstration" @value={{eventTest}} @onChange={{action (mut eventTest)}} @onFocus={{action "focusReceived"}} @onBlur={{action "blurReceived"}} @onKeyDown={{action "keyDownReceived"}} />
+    <PaperInput @label="Event demonstration" @value={{this.eventTest}} @onChange={{action (mut this.eventTest)}} @onFocus={{action "focusReceived"}} @onBlur={{action "blurReceived"}} @onKeyDown={{action "keyDownReceived"}} />
     {{! END-SNIPPET }}
-    {{#if eventName}}
-      <div>The leaf controller for this route received the sent <strong>{{eventName}}</strong> action.</div>
+    {{#if this.eventName}}
+      <div>The leaf controller for this route received the sent <strong>{{this.eventName}}</strong> action.</div>
     {{/if}}
     <CodeSnippet @name="input.actions.hbs" />
   </p>
@@ -152,7 +152,7 @@
     </p>
     <div>
       {{! BEGIN-SNIPPET input.textHelper }}
-      <PaperInput @value={{emailValue}} @onChange={{action (mut emailValue)}} @label="Email" @type="email" as |input|>
+      <PaperInput @value={{this.emailValue}} @onChange={{action (mut this.emailValue)}} @label="Email" @type="email" as |input|>
         {{#unless input.hasValue}}
           <div class="hint">How can we reach you?</div>
         {{/unless}}
@@ -162,7 +162,7 @@
     </div>
   {{/paper-api}}
 
-  {{#paper-api validationApi title="Custom Validations"}}
+  {{#paper-api this.validationApi title="Custom Validations"}}
     <p>
       In addition to <code>required</code>,
       <code>min</code>, <code>max</code>,
@@ -179,7 +179,7 @@
   </p>
   <p>
     {{! BEGIN-SNIPPET input.custom-validations }}
-    <PaperInput @label="E-mail" @type="email" @value={{customemail}} @onChange={{action (mut customemail)}} @customValidations={{emailValidation}} />
+    <PaperInput @label="E-mail" @type="email" @value={{this.customemail}} @onChange={{action (mut this.customemail)}} @customValidations={{this.emailValidation}} />
     {{! END-SNIPPET }}
   </p>
 
@@ -194,7 +194,7 @@
   </p>
   <p>
     {{! BEGIN-SNIPPET input.multiple-constraints }}
-    <PaperInput @class="md-block" @label="Value should be even and equal 4." @type="email" @value={{customMultiple}} @onChange={{action (mut customMultiple)}} @customValidations={{multipleConstraints}} />
+    <PaperInput @class="md-block" @label="Value should be even and equal 4." @type="email" @value={{this.customMultiple}} @onChange={{action (mut this.customMultiple)}} @customValidations={{this.multipleConstraints}} />
     {{! END-SNIPPET }}
   </p>
   <CodeSnippet @name="input.multiple-constraints.hbs" />
@@ -214,12 +214,12 @@
   <PaperCard as |card|>
     <card.content>
       <div class="layout layout-sm-row">
-        <PaperInput @class="flex-50" @label="User name" @value={{model.username}} @onChange={{action (mut model.username)}} @errors={{this.usernameValidator}} />
+        <PaperInput @class="flex-50" @label="User name" @value={{this.model.username}} @onChange={{action (mut this.model.username)}} @errors={{this.usernameValidator}} />
       </div>
       <div class="layout layout-sm-row">
-        <PaperInput @label="Password" @class="flex-34" @type="password" @value={{model.password}} @onChange={{action (mut model.password)}} @errors={{this.passwordValidator}} />
-        <PaperInput @label="E-mail" @class="flex-33" @type="email" @value={{model.email}} @onChange={{action (mut model.email)}} @errors={{this.emailValidator}} />
-        <PaperInput @label="Retype your e-mail" @class="flex-33" @type="email" @value={{model.emailConfirmation}} @onChange={{action (mut model.emailConfirmation)}} @errors={{this.emailConfirmationValidator}} />
+        <PaperInput @label="Password" @class="flex-34" @type="password" @value={{this.model.password}} @onChange={{action (mut this.model.password)}} @errors={{this.passwordValidator}} />
+        <PaperInput @label="E-mail" @class="flex-33" @type="email" @value={{this.model.email}} @onChange={{action (mut this.model.email)}} @errors={{this.emailValidator}} />
+        <PaperInput @label="Retype your e-mail" @class="flex-33" @type="email" @value={{this.model.emailConfirmation}} @onChange={{action (mut this.model.emailConfirmation)}} @errors={{this.emailConfirmationValidator}} />
       </div>
     </card.content>
   </PaperCard>

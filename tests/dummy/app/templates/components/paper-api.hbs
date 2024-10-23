@@ -1,22 +1,22 @@
-{{! template-lint-disable no-curly-component-invocation no-implicit-this }}
-{{#if title}}
-  <h3>{{title}}</h3>
+{{! template-lint-disable no-curly-component-invocation }}
+{{#if this.title}}
+  <h3>{{this.title}}</h3>
 {{/if}}
 
 {{yield}}
 <div class="table-wrapper">
   {{! template-lint-disable table-groups }}
   <table class="paper-api">
-    {{#if header}}
+    {{#if this.header}}
       <thead>
         <tr>
-          {{#each header as |heading|}}
+          {{#each this.header as |heading|}}
             <th>{{heading}}</th>
           {{/each}}
         </tr>
       </thead>
     {{/if}}
-    {{#each categories as |category|}}
+    {{#each this.categories as |category|}}
       <tbody>
         {{#each category as |row|}}
           {{#if (is-subheading row)}}

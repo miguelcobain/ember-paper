@@ -76,9 +76,8 @@ export default Component.extend(
       },
     }),
 
-    renderCharCount: computed('value', function () {
-      let currentLength = this.value ? this.value.length : 0;
-      return `${currentLength}/${this.maxlength}`;
+    currentLength: computed('value', function () {
+      return this.value ? this.value.length : 0;
     }),
 
     hasLeftIcon: bool('icon'),

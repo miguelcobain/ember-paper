@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-implicit-this }}
+{{! template-lint-disable no-action }}
 <PageToolbar @pageTitle="Tooltip" @isDemo={{true}} />
 
 <DocContent>
@@ -11,13 +11,13 @@
         <PaperButton @onClick={{action "toggle" "showSourceCode"}} @iconButton={{true}}>
           <PaperIcon @icon="code" />
           <PaperTooltip>
-            {{if showSourceCode "Hide" "Show"}} code
+            {{if this.showSourceCode "Hide" "Show"}} code
           </PaperTooltip>
         </PaperButton>
       </PaperToolbarTools>
     </PaperToolbar>
 
-    <div class="doc-code-example {{if showSourceCode "is-visible"}}">
+    <div class="doc-code-example {{if this.showSourceCode "is-visible"}}">
       <CodeSnippet @name="tooltip.hbs" />
     </div>
 
@@ -39,28 +39,28 @@
           {{! BEGIN-SNIPPET tooltip }}
           <PaperButton @raised={{true}}>
             A button
-            <PaperTooltip @position={{position}}>
+            <PaperTooltip @position={{this.position}}>
               Hey! I'm a tooltip. Çup?
             </PaperTooltip>
           </PaperButton>
 
           <PaperButton @iconButton={{true}} @raised={{true}}>
             {{paper-icon "create"}}
-            <PaperTooltip @position={{position}}>
+            <PaperTooltip @position={{this.position}}>
               Create
             </PaperTooltip>
           </PaperButton>
 
           <PaperButton @fab={{true}} @raised={{true}} @accent={{true}}>
             {{paper-icon "delete"}}
-            <PaperTooltip @position={{position}}>
+            <PaperTooltip @position={{this.position}}>
               Delete
             </PaperTooltip>
           </PaperButton>
 
           <div>
             {{#paper-icon "info"}}
-              <PaperTooltip @position={{position}}>
+              <PaperTooltip @position={{this.position}}>
                 Icon tooltip
               </PaperTooltip>
             {{/paper-icon}}
@@ -68,7 +68,7 @@
           {{! END-SNIPPET tooltip }}
         </div>
 
-        <PaperRadioGroup @groupValue={{position}} @onChange={{action (mut position)}} as |group|>
+        <PaperRadioGroup @groupValue={{this.position}} @onChange={{action (mut this.position)}} as |group|>
           <group.radio @value="bottom">
             Bottom
           </group.radio>

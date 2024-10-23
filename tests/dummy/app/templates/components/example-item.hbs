@@ -1,8 +1,8 @@
-{{! template-lint-disable no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable no-curly-component-invocation }}
 {{! BEGIN-SNIPPET autocomplete.example-item }}
 {{! app/templates/components/example-item.hbs }}
 <span class="item-title">
   {{paper-icon "star"}}
-  <span><PaperAutocompleteHighlight @searchText={{searchText}} @label={{item}} /> (index {{index}} )</span>
+  <span><PaperAutocompleteHighlight @searchText={{@searchText}} @label={{@item}} /> (index {{@index}} )</span>
 </span>
 {{! END-SNIPPET }}

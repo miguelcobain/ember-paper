@@ -1,4 +1,4 @@
-{{! template-lint-disable no-action no-implicit-this }}
+{{! template-lint-disable no-action }}
 <PageToolbar @pageTitle="Toast" @isDemo={{true}} />
 
 <DocContent>
@@ -14,7 +14,7 @@
       </PaperToolbarTools>
     </PaperToolbar>
 
-    <div class="doc-code-example {{if showSourceCode "is-visible"}}">
+    <div class="doc-code-example {{if this.showSourceCode "is-visible"}}">
       <CodeSnippet @name="toast.hbs" />
     </div>
 
@@ -37,24 +37,24 @@
         <div class="layout-row layout-wrap layout-xs-column layout-sm-column">
 
           <div class="flex">
-            <PaperRadioGroup @groupValue={{positionX}} @onChange={{action (mut positionX)}} as |group|>
+            <PaperRadioGroup @groupValue={{this.positionX}} @onChange={{action (mut this.positionX)}} as |group|>
               <group.radio @value="left">Left</group.radio>
               <group.radio @value="right">Right</group.radio>
             </PaperRadioGroup>
           </div>
           <div class="flex">
-            <PaperRadioGroup @groupValue={{positionY}} @onChange={{action (mut positionY)}} as |group|>
+            <PaperRadioGroup @groupValue={{this.positionY}} @onChange={{action (mut this.positionY)}} as |group|>
               <group.radio @value="top">Top</group.radio>
               <group.radio @value="bottom">Bottom</group.radio>
             </PaperRadioGroup>
           </div>
           <div class="flex">
-            <PaperCheckbox @value={{capsule}} @onChange={{action (mut capsule)}}>
+            <PaperCheckbox @value={{this.capsule}} @onChange={{action (mut this.capsule)}}>
               capsule
             </PaperCheckbox>
           </div>
           <div class="flex">
-            <PaperCheckbox @value={{swipeToClose}} @flex={{true}} @onChange={{action (mut swipeToClose)}}>
+            <PaperCheckbox @value={{this.swipeToClose}} @flex={{true}} @onChange={{action (mut this.swipeToClose)}}>
               swipeToClose
             </PaperCheckbox>
           </div>
@@ -63,8 +63,8 @@
         <h3>duration</h3>
         <div class="layout layout-align-center-center slider-container">
           {{paper-icon "watch later"}}
-          <PaperSlider @class="flex" @value={{duration}} @max={{6000}} @onChange={{action (mut duration)}} />
-          <PaperInput @type="number" @value={{duration}} @onChange={{action (mut duration)}} />
+          <PaperSlider @class="flex" @value={{this.duration}} @max={{6000}} @onChange={{action (mut this.duration)}} />
+          <PaperInput @type="number" @value={{this.duration}} @onChange={{action (mut this.duration)}} />
         </div>
 
         {{paper-api
@@ -98,7 +98,7 @@
       </PaperToolbarTools>
     </PaperToolbar>
 
-    <div class="doc-code-example {{if showSourceCode "is-visible"}}">
+    <div class="doc-code-example {{if this.showSourceCode "is-visible"}}">
       <CodeSnippet @name="toaster.js" />
     </div>
 
@@ -110,11 +110,11 @@
         <h3>Options</h3>
 
         <div class="layout-column">
-          <PaperInput @label="Toast text" @value={{toastText}} @onChange={{action (mut toastText)}} />
+          <PaperInput @label="Toast text" @value={{this.toastText}} @onChange={{action (mut this.toastText)}} />
 
           <strong>Toast class</strong>
           <div>
-            <PaperRadioGroup @class="layout-row" @groupValue={{toastClass}} @onChange={{action (mut toastClass)}} as |group|>
+            <PaperRadioGroup @class="layout-row" @groupValue={{this.toastClass}} @onChange={{action (mut this.toastClass)}} as |group|>
               <group.radio @value="">[none]</group.radio>
               <group.radio @value="md-accent">md-accent</group.radio>
               <group.radio @value="md-warn">md-warn</group.radio>
@@ -131,7 +131,7 @@
           </PaperButton>
         </div>
         <ul>
-          {{#each paperToaster.queue as |toast index|}}
+          {{#each this.paperToaster.queue as |toast index|}}
             <li>
               "{{toast.text}}" -
               {{#if (eq index 0)}}
@@ -191,15 +191,15 @@
 </DocContent>
 
 {{! BEGIN-SNIPPET toast }}
-{{#if showToast}}
-  <PaperToast @duration={{duration}} @position={{concat positionY " " positionX}} @capsule={{capsule}} @swipeToClose={{swipeToClose}} @onClose={{action "closeToast"}} as |toast|>
+{{#if this.showToast}}
+  <PaperToast @duration={{this.duration}} @position={{concat this.positionY " " this.positionX}} @capsule={{this.capsule}} @swipeToClose={{this.swipeToClose}} @onClose={{action "closeToast"}} as |toast|>
     <toast.text>Hello</toast.text>
     <PaperButton @accent={{true}} @onClick={{action "buttonAction"}}>Undo</PaperButton>
   </PaperToast>
 {{/if}}
 
-{{#if showToastWithout}}
-  <PaperToast @duration={{duration}} @position={{concat positionY " " positionX}} @capsule={{capsule}} @swipeToClose={{swipeToClose}} @onClose={{action "closeToastWithout"}} as |toast|>
+{{#if this.showToastWithout}}
+  <PaperToast @duration={{this.duration}} @position={{concat this.positionY " " this.positionX}} @capsule={{this.capsule}} @swipeToClose={{this.swipeToClose}} @onClose={{action "closeToastWithout"}} as |toast|>
     <toast.text>Hello</toast.text>
   </PaperToast>
 {{/if}}

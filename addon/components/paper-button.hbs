@@ -1,8 +1,8 @@
-{{! template-lint-disable no-curly-component-invocation no-implicit-this }}
+{{! template-lint-disable no-curly-component-invocation }}
 {{#if (has-block)}}
   {{yield}}
 {{else}}
-  {{label}}
+  {{@label}}
 {{/if}}
 
 <PaperRipple
