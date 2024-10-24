@@ -20,7 +20,7 @@ export default Controller.extend({
       contacts.push({
         name: faker.person.fullName(),
         email: faker.internet.email(),
-        image: faker.internet.avatar()
+        image: faker.image.avatar(),
       });
     }
 
@@ -48,7 +48,7 @@ export default Controller.extend({
       contacts.push({
         shortName: `${firstName} ${lastName[0]}`,
         emailAddress: `${firstName.toLowerCase()}.${lastName[0].toLowerCase()}@example.com`,
-        profileImage: faker.internet.avatar()
+        profileImage: faker.image.avatar(),
       });
     }
 
