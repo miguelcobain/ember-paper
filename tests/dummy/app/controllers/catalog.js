@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
+import { faker } from '@faker-js/faker';
 
 export default class CatalogController extends Controller {
   // Autocomplete
@@ -363,5 +364,38 @@ export default class CatalogController extends Controller {
   }
   @action chipsAddVegeName(item) {
     this.chipsVegeNames.pushObject(item);
+  }
+
+  // Contact Chips
+  contactChipsNumOfContacts = 10;
+  get contactChipsContacts() {
+    let contacts = [];
+    let numOfContacts = this.contactChipsNumOfContacts;
+
+    for (let i = 0; i < numOfContacts; i++) {
+      contacts.push({
+        name: faker.person.fullName(),
+        email: faker.internet.email(),
+        image: faker.image.avatar(),
+      });
+    }
+
+    return contacts;
+  }
+  get contactChipsSelectedContacts() {
+    return this.contactChipsContacts.filter((c, index) => {
+      return index % 2 === 0;
+    });
+  }
+  get contactChipsRemainingContacts() {
+    return this.contactChipsContacts.filter((c) => {
+      return this.contactChipsSelectedContacts.indexOf(c) === -1;
+    });
+  }
+  @action contactChipsAddContact(item) {
+    this.contactChipsSelectedContacts.pushObject(item);
+  }
+  @action contactChipsRemoveContact(item) {
+    this.contactChipsSelectedContacts.removeObject(item);
   }
 }

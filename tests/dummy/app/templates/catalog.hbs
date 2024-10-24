@@ -601,6 +601,32 @@
       <p><code>Chips with Autocomplete (requires match)</code></p>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Contact Chips</h2>
+    </card.title>
+    <card.content>
+      <PaperContactChips
+        @removeItem={{this.contactChipsRemoveContact}}
+        @addItem={{this.contactChipsAddContact}}
+        @placeholder='Add a contact'
+        @content={{this.contactChipsSelectedContacts}}
+        @options={{this.contactChipsRemainingContacts}}
+      />
+      <p><code>default</code></p>
+
+      <PaperContactChips
+        @readOnly={{true}}
+        @removeItem={{this.contactChipsRemoveContact}}
+        @addItem={{this.contactChipsAddContact}}
+        @placeholder='Add a contact'
+        @content={{this.contactChipsSelectedContacts}}
+        @options={{this.contactChipsRemainingContacts}}
+      />
+      <p><code>read only contact chips</code></p>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{outlet}}
