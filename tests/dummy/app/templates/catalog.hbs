@@ -542,6 +542,65 @@
       </div>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Chips</h2>
+    </card.title>
+    <card.content>
+      <PaperChips
+        @content={{this.chipsFruitNames}}
+        @readOnly={{this.chipsReadOnly}}
+        @removeItem={{this.chipsRemoveItem}}
+        @addItem={{this.chipsAddItem}}
+        @placeholder='Add a tag'
+      />
+      <p><code>default template</code></p>
+
+      <PaperChips
+        @readOnly={{this.chipsReadOnly}}
+        @removeItem={{this.chipsRemoveCustomItem}}
+        @addItem={{this.chipsAddCustomItem}}
+        @placeholder='Add a tag'
+        @content={{this.chipsCustomFruitNames}}
+        as |item|
+      >
+        <strong>{{item}}</strong>
+        <em>(fruit)</em>
+      </PaperChips>
+      <p><code>custom template</code></p>
+
+      <h3>Chips with Autocomplete</h3>
+      <PaperChips
+        @readOnly={{this.chipsReadOnly}}
+        @removeItem={{this.chipsRemoveVegetable}}
+        @addItem={{this.chipsAddVegetable}}
+        @placeholder='Add a vegetable'
+        @content={{this.chipsVegetables}}
+        @options={{this.chipsRemainingVegetables}}
+        @searchField='name'
+        @noMatchesMessage='Not found. Click to add.'
+        as |item|
+      >
+        <strong>{{item.name}}</strong>
+        {{#if item.family}}
+          <em>{{item.family}}</em>
+        {{/if}}
+      </PaperChips>
+      <p><code>Chips with Autocomplete</code></p>
+
+      <PaperChips
+        @readOnly={{this.chipsReadOnly}}
+        @removeItem={{this.chipsRemoveVegeName}}
+        @addItem={{this.chipsAddVegeName}}
+        @placeholder='Add a vegetable'
+        @content={{this.chipsVegeNames}}
+        @options={{this.chipsRemainingVegeNames}}
+        @requireMatch={{true}}
+      />
+      <p><code>Chips with Autocomplete (requires match)</code></p>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{outlet}}

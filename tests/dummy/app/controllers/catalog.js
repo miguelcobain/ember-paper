@@ -282,4 +282,86 @@ export default class CatalogController extends Controller {
   @action checkboxToggleCheckValue6() {
     this.checkboxValue6 = !this.checkboxValue6;
   }
+
+  // Chips
+  @tracked chipsFruitNames = A(['Apple', 'Banana', 'Orange']);
+  @action chipsRemoveItem(item) {
+    this.chipsFruitNames.removeObject(item);
+  }
+  @action chipsAddItem(item) {
+    this.chipsFruitNames.pushObject(item);
+  }
+
+  @tracked chipsCustomFruitNames = A(['Apple', 'Banana', 'Orange']);
+  @action chipsRemoveCustomItem(item) {
+    this.chipsCustomFruitNames.removeObject(item);
+  }
+  @action chipsAddCustomItem(item) {
+    this.chipsCustomFruitNames.pushObject(item);
+  }
+
+  @tracked chipsVegeNames = A(['Broccoli']);
+  @tracked chipsAllVegeNames = A([
+    'Broccoli',
+    'Cabbage',
+    'Carrot',
+    'Lettuce',
+    'Spinach',
+  ]);
+  get chipsRemainingVegeNames() {
+    return this.chipsAllVegeNames.filter((source) => {
+      return !this.chipsVegeNames.any(function (myVegeName) {
+        return source === myVegeName;
+      });
+    });
+  }
+
+  @tracked chipsVegetables = A([
+    {
+      name: 'Broccoli',
+      family: 'Brassica',
+    },
+  ]);
+  @action chipsRemoveVegetable(item) {
+    this.chipsVegetables.removeObject(item);
+  }
+  @action chipsAddVegetable(item) {
+    this.chipsVegetables.pushObject(item);
+  }
+
+  @tracked chipsAllVegetables = A([
+    {
+      name: 'Broccoli',
+      family: 'Brassica',
+    },
+    {
+      name: 'Cabbage',
+      family: 'Brassica',
+    },
+    {
+      name: 'Carrot',
+      family: 'Umbelliferous',
+    },
+    {
+      name: 'Lettuce',
+      family: 'Composite',
+    },
+    {
+      name: 'Spinach',
+      family: 'Goosefoot',
+    },
+  ]);
+  get chipsRemainingVegetables() {
+    return this.chipsAllVegetables.filter((source) => {
+      return !this.chipsVegetables.any(function (myVegetable) {
+        return source.name === myVegetable.name;
+      });
+    });
+  }
+  @action chipsRemoveVegeName(item) {
+    this.chipsVegeNames.removeObject(item);
+  }
+  @action chipsAddVegeName(item) {
+    this.chipsVegeNames.pushObject(item);
+  }
 }
