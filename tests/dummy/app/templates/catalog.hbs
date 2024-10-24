@@ -470,5 +470,78 @@
       </div>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Checkbox</h2>
+    </card.title>
+    <card.content>
+      <div class='layout-column'>
+        <PaperCheckbox
+          @value={{this.checkboxValue1}}
+          @onChange={{fn (mut this.checkboxValue1)}}
+        >
+          A checkbox:
+          {{this.checkboxValue1}}
+        </PaperCheckbox>
+
+        <PaperCheckbox
+          @value={{this.checkboxValue2}}
+          @onChange={{fn (mut this.checkboxValue2)}}
+        >
+          A checkbox:
+          {{if this.checkboxValue2 'yep' 'nope'}}
+        </PaperCheckbox>
+
+        <PaperCheckbox
+          @value={{this.checkboxValue3}}
+          @onChange={{fn (mut this.checkboxValue3)}}
+          @disabled={{true}}
+        >
+          Checkbox (disabled)
+        </PaperCheckbox>
+
+        <PaperCheckbox
+          @value={{true}}
+          @onChange={{fn (mut this.checkboxValue4)}}
+          @disabled={{true}}
+        >
+          Checkbox (disabled and value)
+        </PaperCheckbox>
+
+        <PaperCheckbox
+          @value={{this.checkboxValue5}}
+          @onChange={{fn (mut this.checkboxValue5)}}
+          @noink={{true}}
+        >
+          Checkbox (no ink)
+        </PaperCheckbox>
+
+        <PaperCheckbox
+          @label='Blockless version'
+          @value={{this.checkboxValue6}}
+          @onChange={{this.checkboxToggleCheckValue6}}
+        />
+
+        <PaperCheckbox
+          @indeterminate={{this.checkboxIsIndeterminate}}
+          @value={{this.checkboxValue7}}
+          @onChange={{fn (mut this.checkboxValue7)}}
+        >
+          Indeterminate checkbox
+        </PaperCheckbox>
+
+        <PaperCheckbox
+          @disabled={{true}}
+          @indeterminate={{this.checkboxIsIndeterminate}}
+          @value={{this.checkboxValue7}}
+          @onChange={{null}}
+        >
+          Indeterminate checkbox (disabled)
+        </PaperCheckbox>
+      </div>
+    </card.content>
+  </PaperCard>
 </DocContent>
+
 {{outlet}}

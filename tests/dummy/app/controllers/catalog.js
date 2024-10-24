@@ -1,8 +1,10 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
 
 export default class CatalogController extends Controller {
+  // Autocomplete
   countries = A([
     { name: 'Afghanistan', code: 'AF' },
     { name: 'Åland Islands', code: 'AX' },
@@ -264,5 +266,20 @@ export default class CatalogController extends Controller {
   @action
   targetButton() {
     alert('You pressed a target button.');
+  }
+
+  // Checkbox
+  checkboxValue1 = true;
+  checkboxValue2 = false;
+  checkboxValue3 = false;
+  checkboxValue4 = false;
+  checkboxValue5 = false;
+  @tracked checkboxValue6 = false;
+  @tracked checkboxValue7 = undefined;
+  get checkboxIsIndeterminate() {
+    return this.checkboxValue7 === undefined;
+  }
+  @action checkboxToggleCheckValue6() {
+    this.checkboxValue6 = !this.checkboxValue6;
   }
 }
