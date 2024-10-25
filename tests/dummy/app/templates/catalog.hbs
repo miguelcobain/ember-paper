@@ -1143,6 +1143,36 @@
       <p><code>non-determinate mode</code></p>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Progress Linear</h2>
+    </card.title>
+    <card.content
+      {{did-insert this.progressStart}}
+      {{will-destroy this.progressStop}}
+    >
+      <PaperProgressLinear @value={{this.progressDeterminateValue}} />
+      <p><code>determinate mode</code></p>
+
+      <PaperProgressLinear />
+      <p><code>non-determinate mode</code></p>
+
+      <PaperProgressLinear
+        @warn={{true}}
+        @value={{this.progressDeterminateValue}}
+        @bufferValue={{this.progressDeterminateValue2}}
+      />
+      <p><code>buffer mode</code></p>
+
+      <PaperProgressLinear
+        @accent={{true}}
+        @mode='query'
+        @value={{this.progressDeterminateValue}}
+      />
+      <p><code>query mode</code></p>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{#if this.dialogShowDialog}}
