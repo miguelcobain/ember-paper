@@ -762,6 +762,54 @@
       <p><code>spinners</code></p>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Input</h2>
+    </card.title>
+    <card.content>
+      <div class='layout layout-sm-column'>
+        <PaperInput
+          @class='flex-30'
+          @label='Name'
+          @placeholder='Enter name'
+          @value={{this.inputName}}
+          @onChange={{fn (mut this.inputName)}}
+        />
+        <PaperInput
+          @class='flex-30'
+          @label='E-mail'
+          @type='email'
+          @value={{this.inputEmail}}
+          @onChange={{fn (mut this.inputEmail)}}
+        />
+        <PaperInput
+          @class='flex-40'
+          @label='Password'
+          @type='password'
+          @value={{this.inputPassword}}
+          @onChange={{fn (mut this.inputPassword)}}
+        />
+      </div>
+      <div class='layout layout-sm-column'>
+        <PaperInput
+          @class='flex'
+          @label='Submission date'
+          @type='date'
+          @value={{this.inputDate}}
+          @onChange={{fn (mut this.inputDate)}}
+        />
+        <PaperInput
+          @class='flex'
+          @label='Company (disabled)'
+          @type='text'
+          @value='Google'
+          @disabled={{true}}
+          @onChange={{fn (mut this.inputFoo)}}
+        />
+      </div>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{#if this.dialogShowDialog}}
