@@ -810,6 +810,263 @@
       </div>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>List</h2>
+    </card.title>
+    <card.content>
+      <PaperList>
+        <PaperSubheader>3 line item</PaperSubheader>
+        {{#each this.listData as |item|}}
+          <PaperItem @class='md-3-line'>
+            <img src={{item.img}} alt={{item.name}} class='md-avatar' />
+            <div class='md-list-item-text'>
+              <h3>{{item.name}}</h3>
+              <h4>{{item.email}}</h4>
+              <p>Some longer notes here could be here. But they aren't.</p>
+            </div>
+          </PaperItem>
+        {{/each}}
+
+        <PaperDivider />
+
+        <PaperSubheader>2 line item</PaperSubheader>
+        {{#each this.listData as |item|}}
+          <PaperItem @class='md-2-line'>
+            <img src={{item.img}} alt={{item.name}} class='md-avatar' />
+            <div class='md-list-item-text'>
+              <h3>{{item.name}}</h3>
+              <p>{{item.email}}</p>
+            </div>
+          </PaperItem>
+        {{/each}}
+
+        <PaperDivider />
+
+        <PaperSubheader>3 line item, long paragraph</PaperSubheader>
+        {{#each this.listData as |item|}}
+          <PaperItem @class='md-3-line md-long-text'>
+            <img src={{item.img}} alt={{item.name}} class='md-avatar' />
+            <div class='md-list-item-text'>
+              <h3>{{item.name}}</h3>
+              <p>
+                Secondary line text Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Nam massa quam. Nulla metus metus, ullamcorper
+                vel, tincidunt sed, euismod in, nibh. Quisque volutpat
+                condimentum velit. Class aptent taciti sociosqu ad litora
+                torquent per conubia nostra, per inceptos himenaeos.
+              </p>
+            </div>
+          </PaperItem>
+        {{/each}}
+
+        <PaperDivider />
+
+        <PaperSubheader>Icons</PaperSubheader>
+        {{#each this.listPhoneNumbers as |phone|}}
+          <PaperItem @class='md-2-line'>
+            <PaperIcon @icon='phone' @class='md-avatar-icon' />
+            <div class='md-list-item-text'>
+              <h3>{{phone.number}}</h3>
+              <p>{{phone.type}}</p>
+            </div>
+          </PaperItem>
+        {{/each}}
+
+      </PaperList>
+    </card.content>
+  </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>List: controls</h2>
+    </card.title>
+    <card.content>
+      <PaperList>
+
+        <PaperSubheader>Single Action Checkboxes</PaperSubheader>
+        {{#each this.listToppings as |topping|}}
+          <PaperItem as |controls|>
+            <p>{{topping.name}}</p>
+            <div class='md-secondary-container'>
+              <controls.checkbox
+                @value={{topping.enabled}}
+                @secondary={{true}}
+                @onChange={{fn (mut topping.enabled)}}
+              />
+            </div>
+          </PaperItem>
+        {{/each}}
+
+        <PaperDivider />
+
+        <PaperSubheader>Secondary Buttons</PaperSubheader>
+        <PaperItem as |controls|>
+          <p>Clicking the button to the right will fire the secondary action</p>
+          <div class='md-secondary-container'>
+            <controls.button
+              @secondary={{true}}
+              @onClick={{fn this.listTransitionTo 'more info'}}
+            >
+              More Info
+            </controls.button>
+          </div>
+        </PaperItem>
+        <PaperItem
+          @onClick={{fn this.listTransitionTo 'primary action'}}
+          as |controls|
+        >
+          <p>Click anywhere to fire the primary action, or the button to fire
+            the secondary</p>
+          <div class='md-secondary-container'>
+            <controls.button
+              @secondary={{true}}
+              @onClick={{fn this.listTransitionTo 'secondary action'}}
+            >
+              More Info
+            </controls.button>
+          </div>
+        </PaperItem>
+
+        <PaperDivider />
+
+        <PaperSubheader>Clickable Items with Secondary Controls</PaperSubheader>
+        <PaperItem @onClick={{this.listTransitionToMenu}} as |controls|>
+          <PaperIcon @icon='network-wifi' />
+          <p>Wi-Fi</p>
+          <div class='md-secondary-container'>
+            <controls.switch
+              @secondary={{true}}
+              @value={{this.listWifiEnabled}}
+              @onChange={{fn (mut this.listWifiEnabled)}}
+            />
+          </div>
+        </PaperItem>
+        <PaperItem @onClick={{this.listTransitionToMenu}} as |controls|>
+          <PaperIcon @icon='bluetooth' />
+          <p>Bluetooth</p>
+          <div class='md-secondary-container'>
+            <controls.switch
+              @secondary={{true}}
+              @value={{this.listBluetoothEnabled}}
+              @onChange={{fn (mut this.listBluetoothEnabled)}}
+            />
+          </div>
+        </PaperItem>
+        <PaperItem @onClick={{this.listTransitionToMenu}}>
+          <PaperIcon @icon='data-usage' />
+          <p>Data Usage</p>
+        </PaperItem>
+
+        <PaperDivider />
+
+        <PaperSubheader>Checkbox with Secondary Action</PaperSubheader>
+        {{#each this.listMessageData as |item|}}
+          <PaperItem as |controls|>
+            <controls.checkbox
+              @value={{item.checked}}
+              @onChange={{fn (mut item.checked)}}
+            />
+            <p>{{item.message}}</p>
+            <div class='md-secondary-container'>
+              <controls.button
+                @secondary={{true}}
+                @iconButton={{true}}
+                @onClick={{fn this.listTransitionTo item}}
+              >
+                <PaperIcon @icon='message' />
+              </controls.button>
+            </div>
+          </PaperItem>
+        {{/each}}
+
+        <PaperDivider />
+
+        <PaperSubheader>Avatar with Secondary Action Icon</PaperSubheader>
+        {{#each this.listData as |item|}}
+          <PaperItem @onClick={{this.listTransitionToMenu}} as |controls|>
+            <img src={{item.img}} alt={{item.name}} class='md-avatar' />
+            <p>{{item.name}}</p>
+            <div class='md-secondary-container'>
+              <controls.checkbox
+                @value={{item.checked}}
+                @onChange={{fn (mut item.checked)}}
+              />
+              <controls.button
+                @secondary={{true}}
+                @iconButton={{true}}
+                @onClick={{this.listSecondaryMessageClick}}
+              >
+                <PaperIcon @icon='email' />
+              </controls.button>
+              <controls.button
+                @secondary={{true}}
+                @iconButton={{true}}
+                @onClick={{this.listSecondaryMessageClick}}
+              >
+                <PaperIcon @icon='message' />
+              </controls.button>
+            </div>
+          </PaperItem>
+        {{/each}}
+
+        <PaperDivider />
+
+        <PaperSubheader>Clickable Avatars</PaperSubheader>
+        {{#each this.listData as |item|}}
+          <PaperItem @class='md-3-line' @onClick={{this.listTransitionToMenu}}>
+            <img src={{item.img}} alt={{item.name}} class='md-avatar' />
+            <div class='md-list-item-text'>
+              <h3>{{item.name}}</h3>
+              <h4>{{item.email}}</h4>
+              <p>Some notes here.</p>
+            </div>
+          </PaperItem>
+        {{/each}}
+
+        <PaperDivider />
+
+        <PaperSubheader>Avatar with Secondary Action Icon</PaperSubheader>
+        {{#each this.listData as |item|}}
+          <PaperItem
+            @class='md-3-line'
+            @onClick={{this.listTransitionToMenu}}
+            as |controls|
+          >
+            <img src={{item.img}} alt={{item.name}} class='md-avatar' />
+            <div class='md-list-item-text'>
+              <h3>{{item.name}}</h3>
+              <h4>{{item.email}}</h4>
+              <p>Some notes here.</p>
+            </div>
+            <controls.button
+              @secondary={{true}}
+              @iconButton={{true}}
+              @onClick={{this.listTransitionToMenu}}
+            >
+              <PaperIcon @icon='phone' />
+            </controls.button>
+          </PaperItem>
+        {{/each}}
+
+        <PaperSubheader>Single Action Radios</PaperSubheader>
+        {{#each this.listToppings as |topping|}}
+          <PaperItem as |controls|>
+            <p>{{topping.name}}</p>
+            <div class='md-secondary-container'>
+              <controls.radio
+                @groupValue={{this.listRadioSelectedTopping}}
+                @value={{topping}}
+                @secondary={{true}}
+                @onChange={{fn (mut this.listRadioSelectedTopping)}}
+              />
+            </div>
+          </PaperItem>
+        {{/each}}
+      </PaperList>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{#if this.dialogShowDialog}}

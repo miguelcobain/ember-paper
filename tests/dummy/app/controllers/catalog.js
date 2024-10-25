@@ -415,4 +415,73 @@ export default class CatalogController extends Controller {
 
     return A(tiles);
   }
+
+  // List
+  listNumOfRows = 3;
+  get listData() {
+    let contacts = [];
+    let numOfRows = this.listNumOfRows;
+
+    for (let i = 0; i < numOfRows; i++) {
+      contacts.push({
+        name: faker.person.fullName(),
+        email: faker.internet.email(),
+        img: faker.image.dataUri(),
+      });
+    }
+
+    return contacts;
+  }
+  listPhoneNumbers = Object.freeze([
+    {
+      number: '(555) 251-1234',
+      type: 'Home',
+    },
+    {
+      number: '(555) 786-9841',
+      type: 'Mobile',
+    },
+    {
+      number: '(555) 314-1592',
+      type: 'Office',
+    },
+  ]);
+  listToppings = Object.freeze([
+    {
+      name: 'Pepperoni',
+      enabled: false,
+    },
+    {
+      name: 'Sausage',
+      enabled: false,
+    },
+    {
+      name: 'Black Olives',
+      enabled: true,
+    },
+    {
+      name: 'Green Peppers',
+      enabled: false,
+    },
+  ]);
+  listMessageData = Object.freeze([
+    {
+      message: 'Message A',
+    },
+    {
+      message: 'Message B',
+    },
+    {
+      message: 'Message C',
+    },
+  ]);
+  @action listTransitionTo(value) {
+    alert(`Imagine you transition to "${value}" here.`);
+  }
+  @action listTransitionToMenu() {
+    alert(`Imagine you transition to a menu here.`);
+  }
+  @action listSecondaryMessageClick() {
+    alert('Secondary actions can be used for one click actions.');
+  }
 }
