@@ -398,4 +398,10 @@ export default class CatalogController extends Controller {
   @action contactChipsRemoveContact(item) {
     this.contactChipsSelectedContacts.removeObject(item);
   }
+
+  // Dialog
+  @tracked dialogShowDialog = true;
+  @action dialogToggleOpen() {
+    this.dialogShowDialog = !this.dialogShowDialog;
+  }
 }

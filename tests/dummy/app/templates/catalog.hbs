@@ -627,6 +627,67 @@
       <p><code>read only contact chips</code></p>
     </card.content>
   </PaperCard>
+
+  <PaperCard>
+    <PaperCardTitle>
+      <h2>Dialog</h2>
+    </PaperCardTitle>
+
+    <div class='doc-content-example'>
+      <div id='paper-dialog-demo' class='paper-dialog-demo'></div>
+      <PaperCardContent>
+        <div class='layout-row layout-wrap'>
+          <PaperButton
+            @raised={{true}}
+            @primary={{true}}
+            @onClick={{this.dialogToggleOpen}}
+          >
+            Open Dialog
+          </PaperButton>
+        </div>
+      </PaperCardContent>
+    </div>
+  </PaperCard>
+  <span id='bottom-of-card'></span>
 </DocContent>
+
+{{#if this.dialogShowDialog}}
+  <PaperDialog
+    @class='flex-50'
+    @clickOutsideToClose={{true}}
+    @focusOnOpen={{false}}
+    @onClose={{this.dialogToggleOpen}}
+    @parent='#paper-dialog-demo'
+  >
+    <form>
+      <PaperToolbar>
+        <PaperToolbarTools>
+          <h2>Mango (Fruit)</h2>
+          <span class='flex'></span>
+          <PaperButton @iconButton={{true}} @onClick={{this.dialogToggleOpen}}>
+            <PaperIcon @icon='close' />
+          </PaperButton>
+        </PaperToolbarTools>
+      </PaperToolbar>
+
+      <PaperDialogContent>
+        <p>
+          This is a dialog rendered into a specific element. Clicking outside
+          the dialog will close it.
+        </p>
+      </PaperDialogContent>
+
+      <PaperDialogActions @class='layout-row'>
+        <span class='flex'></span>
+        <PaperButton @onClick={{this.dialogToggleOpen}}>
+          Cancel
+        </PaperButton>
+        <PaperButton @onClick={{this.dialogToggleOpen}}>
+          OK
+        </PaperButton>
+      </PaperDialogActions>
+    </form>
+  </PaperDialog>
+{{/if}}
 
 {{outlet}}
