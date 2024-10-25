@@ -1173,6 +1173,32 @@
       <p><code>query mode</code></p>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Radio</h2>
+    </card.title>
+    <card.content>
+      <PaperRadio
+        @toggle={{true}}
+        @value='Toggable'
+        @groupValue={{this.radioToggleValue}}
+        @onChange={{fn (mut this.radioToggleValue)}}
+      >
+        Toggable
+      </PaperRadio>
+      <PaperRadio
+        @label='Blockless'
+        @toggle={{false}}
+        @value='Blockless'
+        @onChange={{null}}
+        @checked={{true}}
+      />
+      <PaperRadio @value={{false}} @disabled={{true}} @onChange={{null}}>
+        Disabled
+      </PaperRadio>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{#if this.dialogShowDialog}}
