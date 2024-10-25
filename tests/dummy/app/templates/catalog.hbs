@@ -744,6 +744,24 @@
       </PaperGridList>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Icons</h2>
+    </card.title>
+    <card.content>
+      <PaperIcon @icon='check-circle' @size={{12}} />
+      <PaperIcon @icon='check-circle' @size={{18}} />
+      <PaperIcon @icon='check-circle' @size={{24}} />
+      <PaperIcon @icon='check-circle' @size={{36}} />
+      <PaperIcon @icon='check-circle' @size={{48}} />
+      <p><code>default</code></p>
+
+      <PaperIcon @icon='rotate-right' @spin={{true}} />
+      <PaperIcon @icon='rotate-left' @reverseSpin={{true}} />
+      <p><code>spinners</code></p>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{#if this.dialogShowDialog}}
