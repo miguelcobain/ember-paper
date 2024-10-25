@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { A } from '@ember/array';
 import { action } from '@ember/object';
+import { later, cancel } from '@ember/runloop';
 import { faker } from '@faker-js/faker';
 import { tracked } from '@glimmer/tracking';
 import { buildGridModel } from '../utils/grid-list';
@@ -505,5 +506,49 @@ export default class CatalogController extends Controller {
   ]);
   @action menuOpenSomething() {
     alert('Some action handler.');
+  }
+
+  // Progress
+  @tracked progressDeterminateValue = 0;
+  @tracked progressDeterminateValue2 = 0;
+  @tracked progressTimer = null;
+  @tracked progressTimer2 = null;
+  @action progressStart() {
+    this.progressDeterminateValue = 30;
+    this.progressDeterminateValue2 = 30;
+    this.progressSetupTimer();
+    this.progressSetupTimer2();
+  }
+  progressSetupTimer() {
+    this.progressTimer = later(
+      this,
+      function () {
+        this.progressDeterminateValue += 1;
+        this.progressDeterminateValue2 += 1.5;
+        if (this.progressDeterminateValue > 100) {
+          this.progressDeterminateValue = 30;
+          this.progressDeterminateValue2 = 30;
+        }
+
+        this.progressSetupTimer();
+      },
+      100
+    );
+  }
+  progressSetupTimer2() {
+    this.progressTimer2 = later(
+      this,
+      function () {
+        this.mode = this.mode === 'query' ? 'determinate' : 'query';
+        this.determinateValue = 30;
+        this.determinateValue2 = 30;
+        later(this, this.progressSetupTimer2);
+      },
+      7200
+    );
+  }
+  @action progressStop() {
+    cancel(this.progressTimer);
+    cancel(this.progressTimer2);
   }
 }

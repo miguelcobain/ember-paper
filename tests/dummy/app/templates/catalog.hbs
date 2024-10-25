@@ -1122,6 +1122,9 @@
       <h2>Progress Circular</h2>
     </card.title>
     <card.content>
+      <PaperProgressCircular @value={{this.progressDeterminateValue}} />
+      <p><code>determinate mode</code></p>
+
       <div class='layout-row layout-align-space-between'>
         <PaperProgressCircular @class='md-hue-2' @diameter={{25}} />
         <PaperProgressCircular @accent={{true}} @diameter={{40}} />
@@ -1137,6 +1140,7 @@
         />
         <PaperProgressCircular @warn={{true}} @diameter={{96}} />
       </div>
+      <p><code>non-determinate mode</code></p>
     </card.content>
   </PaperCard>
 </DocContent>
