@@ -3,6 +3,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
 import { faker } from '@faker-js/faker';
+import { buildGridModel } from '../utils/grid-list';
 
 export default class CatalogController extends Controller {
   // Autocomplete
@@ -403,5 +404,15 @@ export default class CatalogController extends Controller {
   @tracked dialogShowDialog = true;
   @action dialogToggleOpen() {
     this.dialogShowDialog = !this.dialogShowDialog;
+  }
+
+  // Grid List
+  get gridListTiles() {
+    let tiles = buildGridModel({
+      title: 'Svg-',
+      background: '',
+    });
+
+    return A(tiles);
   }
 }

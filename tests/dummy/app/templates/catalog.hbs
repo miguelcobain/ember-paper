@@ -662,6 +662,88 @@
       <p><code>divider: inset</code></p>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Grid List: default</h2>
+    </card.title>
+    <card.content @class='md-whiteframe-z1 grid-list-demo1'>
+      <PaperGridList
+        @cols='1 md-2 gt-md-6'
+        @rowHeight='gt-md-1:1 2:2'
+        @gutter='12px gt-sm-8px'
+        as |grid|
+      >
+
+        <grid.tile @class='gray' @rowspan='2' @colspan='sm-1 gt-sm-2' as |tile|>
+          <tile.footer>
+            <h3>#1: (3r x 2c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+        <grid.tile @class='green' as |tile|>
+          <tile.footer>
+            <h3>#2: (1r x 1c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+        <grid.tile @class='yellow' as |tile|>
+          <tile.footer>
+            <h3>#3: (1r x 1c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+        <grid.tile @class='blue' @rowspan='2' as |tile|>
+          <tile.footer>
+            <h3>#4: (2r x 1c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+        <grid.tile @class='red' @rowspan='2' @colspan='sm-1 gt-sm-2' as |tile|>
+          <tile.footer>
+            <h3>#5: (2r x 2c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+        <grid.tile @class='green' @rowspan='2' as |tile|>
+          <tile.footer>
+            <h3>#6: (2r x 1c)</h3>
+          </tile.footer>
+        </grid.tile>
+
+      </PaperGridList>
+    </card.content>
+  </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Grid List: dynamic tiles</h2>
+    </card.title>
+    <card.content @class='md-whiteframe-z1 grid-list-demo-dynamicTiles'>
+      <PaperGridList
+        @cols='sm-2 md-4 gt-md-6'
+        @rowHeight='4:3 gt-md-1:1'
+        @gutter='8px gt-sm-4px'
+        as |grid|
+      >
+
+        {{#each this.gridListTiles as |dynamicTile|}}
+          <grid.tile
+            @rowspan={{dynamicTile.span.row}}
+            @colspan={{concat dynamicTile.span.col ' xs-1'}}
+            @class={{dynamicTile.background}}
+            as |tile|
+          >
+            <md-icon></md-icon>
+            <tile.footer>
+              <h3>{{dynamicTile.title}}</h3>
+            </tile.footer>
+          </grid.tile>
+        {{/each}}
+
+      </PaperGridList>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{#if this.dialogShowDialog}}
