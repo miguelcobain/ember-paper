@@ -1117,6 +1117,28 @@
     </card.content>
   </PaperCard>
 
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Progress Circular</h2>
+    </card.title>
+    <card.content>
+      <div class='layout-row layout-align-space-between'>
+        <PaperProgressCircular @class='md-hue-2' @diameter={{25}} />
+        <PaperProgressCircular @accent={{true}} @diameter={{40}} />
+        <PaperProgressCircular
+          @accent={{true}}
+          @class='md-hue-1'
+          @diameter={{60}}
+        />
+        <PaperProgressCircular
+          @warn={{true}}
+          @class='md-hue-3'
+          @diameter={{70}}
+        />
+        <PaperProgressCircular @warn={{true}} @diameter={{96}} />
+      </div>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{#if this.dialogShowDialog}}
