@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
-import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
+import { action } from '@ember/object';
 import { faker } from '@faker-js/faker';
+import { tracked } from '@glimmer/tracking';
 import { buildGridModel } from '../utils/grid-list';
 
 export default class CatalogController extends Controller {
@@ -483,5 +483,27 @@ export default class CatalogController extends Controller {
   }
   @action listSecondaryMessageClick() {
     alert('Secondary actions can be used for one click actions.');
+  }
+
+  // Menu
+  menuOptions = A([1, 2, 3, 4, 5]);
+  menuItems = A([
+    {
+      icon: 'access_alarms',
+      title: 'Alarm',
+      isFirst: true,
+    },
+    {
+      icon: 'airplay',
+      title: 'Airplay',
+    },
+
+    {
+      icon: 'airplanemode_active',
+      title: 'Airplane mode',
+    },
+  ]);
+  @action menuOpenSomething() {
+    alert('Some action handler.');
   }
 }

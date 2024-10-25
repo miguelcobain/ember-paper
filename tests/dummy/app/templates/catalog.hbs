@@ -407,13 +407,13 @@
             </card.content>
             <card.actions>
               <PaperButton @iconButton={{true}}>
-                <PaperIcon @icon='favorite'/>
+                <PaperIcon @icon='favorite' />
               </PaperButton>
               <PaperButton @iconButton={{true}}>
-                <PaperIcon @icon='settings'/>
+                <PaperIcon @icon='settings' />
               </PaperButton>
               <PaperButton @iconButton={{true}}>
-                <PaperIcon @icon='share'/>
+                <PaperIcon @icon='share' />
               </PaperButton>
             </card.actions>
           </PaperCard>
@@ -426,13 +426,13 @@
             />
             <card.actions>
               <PaperButton @iconButton={{true}}>
-                <PaperIcon @icon='favorite'/>
+                <PaperIcon @icon='favorite' />
               </PaperButton>
               <PaperButton @iconButton={{true}}>
-                <PaperIcon @icon='settings'/>
+                <PaperIcon @icon='settings' />
               </PaperButton>
               <PaperButton @iconButton={{true}}>
-                <PaperIcon @icon='share'/>
+                <PaperIcon @icon='share' />
               </PaperButton>
             </card.actions>
           </PaperCard>
@@ -1067,6 +1067,56 @@
       </PaperList>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Menu</h2>
+    </card.title>
+    <card.content>
+      <div
+        class='menus layout-fill layout-wrap layout-row layout-align-space-between-center'
+      >
+        <div
+          class='layout-column flex-33 flex-sm-100 layout-align-center-center'
+        >
+          <PaperMenu @isOpen={{true}} as |menu|>
+            <menu.trigger @isOpen={{true}}>
+              <PaperButton @isOpen={{true}} @iconButton={{true}}>
+                <PaperIcon @icon='local_phone' />
+              </PaperButton>
+            </menu.trigger>
+
+            <menu.content @isOpen={{true}} @width={{4}} as |content|>
+              {{#each this.menuItems as |item|}}
+                <content.menu-item @onClick={{this.menuOpenSomething}}>
+                  <PaperIcon @icon={{item.icon}} />
+                  <span>{{item.title}}</span>
+                </content.menu-item>
+              {{/each}}
+
+              <content.menu-item
+                @onClick={{this.menuOpenSomething}}
+                @disabled={{true}}
+              >
+                <PaperIcon @icon='adb' />
+                <span>This is disabled.</span>
+              </content.menu-item>
+
+              <PaperDivider />
+
+              {{#each this.menuItems as |item|}}
+                <content.menu-item @onClick={{this.menuOpenSomething}}>
+                  <PaperIcon @icon={{item.icon}} />
+                  {{item.title}}
+                </content.menu-item>
+              {{/each}}
+            </menu.content>
+          </PaperMenu>
+        </div>
+      </div>
+    </card.content>
+  </PaperCard>
+
 </DocContent>
 
 {{#if this.dialogShowDialog}}
