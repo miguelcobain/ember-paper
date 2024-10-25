@@ -649,6 +649,19 @@
     </div>
   </PaperCard>
   <span id='bottom-of-card'></span>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Divider</h2>
+    </card.title>
+    <card.content>
+      <PaperDivider />
+      <p><code>divider: default</code></p>
+
+      <PaperDivider @inset={{true}} />
+      <p><code>divider: inset</code></p>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{#if this.dialogShowDialog}}
