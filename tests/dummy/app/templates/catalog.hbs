@@ -1433,6 +1433,197 @@
       </div>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Speed Dial</h2>
+    </card.title>
+    <card.content @class="layout layout-align-center-center">
+      <div>
+        <PaperSpeedDial
+          @animation='fling'
+          @direction='up'
+          @open={{this.speedDialOpen}}
+          @onToggle={{fn (mut this.speedDialOpen)}}
+          as |dial|
+        >
+          <dial.trigger>
+            <PaperButton @fab={{true}}>
+              <PaperIcon @icon='menu' />
+            </PaperButton>
+          </dial.trigger>
+
+          <dial.actions as |actions|>
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='people' />
+              </PaperButton>
+            </actions.action>
+
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='accessibility' />
+              </PaperButton>
+            </actions.action>
+
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='check-circle' />
+              </PaperButton>
+            </actions.action>
+          </dial.actions>
+        </PaperSpeedDial>
+        <p><code>up, fling</code></p>
+      </div>
+
+      <div>
+        <PaperSpeedDial
+          @animation='scale'
+          @direction='left'
+          @open={{this.speedDialOpen}}
+          @onToggle={{fn (mut this.speedDialOpen)}}
+          as |dial|
+        >
+          <dial.trigger>
+            <PaperButton @fab={{true}}>
+              <PaperIcon @icon='menu' />
+            </PaperButton>
+          </dial.trigger>
+
+          <dial.actions as |actions|>
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='people' />
+              </PaperButton>
+            </actions.action>
+
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='accessibility' />
+              </PaperButton>
+            </actions.action>
+
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='check-circle' />
+              </PaperButton>
+            </actions.action>
+          </dial.actions>
+        </PaperSpeedDial>
+        <p><code>left, scale</code></p>
+      </div>
+
+      <div>
+        <PaperSpeedDial
+          @animation='fling'
+          @direction='right'
+          @open={{this.speedDialOpen}}
+          @onToggle={{fn (mut this.speedDialOpen)}}
+          as |dial|
+        >
+          <dial.trigger>
+            <PaperButton @fab={{true}}>
+              <PaperIcon @icon='menu' />
+            </PaperButton>
+          </dial.trigger>
+
+          <dial.actions as |actions|>
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='people' />
+              </PaperButton>
+            </actions.action>
+
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='accessibility' />
+              </PaperButton>
+            </actions.action>
+
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='check-circle' />
+              </PaperButton>
+            </actions.action>
+          </dial.actions>
+        </PaperSpeedDial>
+        <p><code>right, fling</code></p>
+      </div>
+
+      <div>
+        <PaperSpeedDial
+          @animation='scale'
+          @direction='down'
+          @open={{this.speedDialOpen}}
+          @onToggle={{fn (mut this.speedDialOpen)}}
+          as |dial|
+        >
+          <dial.trigger>
+            <PaperButton @fab={{true}}>
+              <PaperIcon @icon='menu' />
+            </PaperButton>
+          </dial.trigger>
+
+          <dial.actions as |actions|>
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='people' />
+              </PaperButton>
+            </actions.action>
+
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='accessibility' />
+              </PaperButton>
+            </actions.action>
+
+            <actions.action>
+              <PaperButton
+                @mini={{true}}
+                @onClick={{null}}
+              >
+                <PaperIcon @icon='check-circle' />
+              </PaperButton>
+            </actions.action>
+          </dial.actions>
+        </PaperSpeedDial>
+        <p><code>down, scale</code></p>
+      </div>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{#if this.dialogShowDialog}}

@@ -575,4 +575,7 @@ export default class CatalogController extends Controller {
   @tracked sliderRating1 = 3;
   @tracked sliderRating2 = 2;
   @tracked sliderRating3 = 4;
+
+  // Speed Dial
+  @tracked speedDialOpen = true;
 }
