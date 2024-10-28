@@ -578,4 +578,14 @@ export default class CatalogController extends Controller {
 
   // Speed Dial
   @tracked speedDialOpen = true;
+
+  // Switch
+  @tracked switchProp1 = true;
+  @tracked switchProp2 = false;
+  @tracked switchProp3 = false;
+  @tracked switchProp4 = false;
+  @tracked switchProp5 = false;
+  @action switchToggle(which, newValue) {
+    this[`switchProp${which}`] = newValue;
+  }
 }

@@ -1438,7 +1438,7 @@
     <card.title>
       <h2>Speed Dial</h2>
     </card.title>
-    <card.content @class="layout layout-align-center-center">
+    <card.content @class='layout layout-align-center-center'>
       <div>
         <PaperSpeedDial
           @animation='fling'
@@ -1455,28 +1455,19 @@
 
           <dial.actions as |actions|>
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='people' />
               </PaperButton>
             </actions.action>
 
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='accessibility' />
               </PaperButton>
             </actions.action>
 
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='check-circle' />
               </PaperButton>
             </actions.action>
@@ -1501,28 +1492,19 @@
 
           <dial.actions as |actions|>
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='people' />
               </PaperButton>
             </actions.action>
 
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='accessibility' />
               </PaperButton>
             </actions.action>
 
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='check-circle' />
               </PaperButton>
             </actions.action>
@@ -1547,28 +1529,19 @@
 
           <dial.actions as |actions|>
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='people' />
               </PaperButton>
             </actions.action>
 
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='accessibility' />
               </PaperButton>
             </actions.action>
 
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='check-circle' />
               </PaperButton>
             </actions.action>
@@ -1593,28 +1566,19 @@
 
           <dial.actions as |actions|>
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='people' />
               </PaperButton>
             </actions.action>
 
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='accessibility' />
               </PaperButton>
             </actions.action>
 
             <actions.action>
-              <PaperButton
-                @mini={{true}}
-                @onClick={{null}}
-              >
+              <PaperButton @mini={{true}} @onClick={{null}}>
                 <PaperIcon @icon='check-circle' />
               </PaperButton>
             </actions.action>
@@ -1624,6 +1588,50 @@
       </div>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Switch</h2>
+    </card.title>
+    <card.content>
+      <PaperSwitch
+        @value={{this.switchProp1}}
+        @onChange={{action (mut this.switchProp1)}}
+      >
+        {{this.switchProp1}}
+      </PaperSwitch>
+
+      <PaperSwitch
+        @value={{this.switchProp2}}
+        @onChange={{action (mut this.switchProp2)}}
+      >
+        {{this.switchProp2}}
+      </PaperSwitch>
+
+      <PaperSwitch
+        @value={{this.switchProp3}}
+        @onChange={{fn this.switchToggle '3'}}
+        @disabled={{true}}
+      >
+        Disabled switch
+      </PaperSwitch>
+
+      <PaperSwitch
+        @value={{this.switchProp4}}
+        @onChange={{fn this.switchToggle '4'}}
+        @noink={{true}}
+      >
+        Noink switch
+      </PaperSwitch>
+
+      <PaperSwitch
+        @label='Blockless version'
+        @value={{this.switchProp5}}
+        @onChange={{fn this.switchToggle '5'}}
+      />
+    </card.content>
+  </PaperCard>
+
 </DocContent>
 
 {{#if this.dialogShowDialog}}
