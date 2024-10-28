@@ -1245,6 +1245,93 @@
       </div>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Sidenav</h2>
+    </card.title>
+    <card.content>
+      <PaperSidenavContainer @class='inner-sidenav'>
+
+        <PaperSidenav
+          @class='md-whiteframe-z2'
+          @name='left'
+          @open={{this.sidenavLeftSideBarOpen}}
+          @onToggle={{fn (mut this.sidenavLeftSideBarOpen)}}
+        >
+          <PaperToolbar as |toolbar|>
+            <toolbar.tools>Left Sidenav</toolbar.tools>
+          </PaperToolbar>
+          <PaperContent @padding={{true}}>
+            Çup?
+          </PaperContent>
+        </PaperSidenav>
+
+        <PaperCardContent @class='flex'>
+          <div
+            class='layout-fill layout-align-start-center layout-column'
+            style='height: 500px'
+          >
+            <p>
+              The left sidenav will "lock open" on a medium (>=960px wide)
+              device. The right sidenav never "locks open" because we set
+              <code>lockedOpen=false</code>.
+            </p>
+            <p>
+              Left sidenav is
+              <strong>{{if
+                  this.sidenavLeftSideBarOpen
+                  'opened'
+                  'closed'
+                }}</strong>.
+            </p>
+            <p>
+              Right sidenav is
+              <strong>{{if
+                  this.sidenavRightSideBarOpen
+                  'opened'
+                  'closed'
+                }}</strong>.
+            </p>
+
+            <PaperSidenavToggle @name='left' as |toggleAction|>
+              <PaperButton
+                @raised={{true}}
+                @classNames='hide-gt-sm'
+                @onClick={{toggleAction}}
+              >
+                Toggle left sidenav
+              </PaperButton>
+            </PaperSidenavToggle>
+
+            <PaperSidenavToggle @name='right' as |toggleAction|>
+              <PaperButton @raised={{true}} @onClick={{toggleAction}}>
+                Toggle right sidenav
+              </PaperButton>
+            </PaperSidenavToggle>
+
+          </div>
+        </PaperCardContent>
+
+        <PaperSidenav
+          @class='md-whiteframe-z2'
+          @name='right'
+          @position='right'
+          @open={{this.sidenavRightSideBarOpen}}
+          @lockedOpen={{false}}
+          @onToggle={{fn (mut this.sidenavRightSideBarOpen)}}
+        >
+          <PaperToolbar as |toolbar|>
+            <toolbar.tools>Right Sidenav</toolbar.tools>
+          </PaperToolbar>
+          <PaperContent @padding={{true}}>
+            Çup? I'm on the right side.
+          </PaperContent>
+        </PaperSidenav>
+
+      </PaperSidenavContainer>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{#if this.dialogShowDialog}}

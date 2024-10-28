@@ -561,4 +561,7 @@ export default class CatalogController extends Controller {
         .map((state) => ({ abbrev: state }))
     );
   }
+
+  // Sidenav
+  @tracked sidenavRightSideBarOpen = true;
 }
