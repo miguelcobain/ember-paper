@@ -172,7 +172,8 @@
         <PaperButton
           @href='http://emberjs.com/images/tomsters/original.png'
           @target='_blank'
-        >href link</PaperButton>
+        >href link
+        </PaperButton>
       </div>
       <p>
         <PaperButton @raised={{true}} @onClick={{this.raisedButton}}>
@@ -208,17 +209,11 @@
 
       <p>
         <PaperButton @raised={{true}} @fab={{true}}>Fab</PaperButton>
-        <PaperButton
-          @raised={{true}}
-          @fab={{true}}
-          @accent={{true}}
-        >Fab</PaperButton>
+        <PaperButton @raised={{true}} @fab={{true}} @accent={{true}}>Fab
+        </PaperButton>
         <PaperButton @raised={{true}} @mini={{true}}>Mini</PaperButton>
-        <PaperButton
-          @raised={{true}}
-          @mini={{true}}
-          @primary={{true}}
-        >Mini</PaperButton>
+        <PaperButton @raised={{true}} @mini={{true}} @primary={{true}}>Mini
+        </PaperButton>
         <PaperButton @iconButton={{true}}>
           <PaperIcon @icon='accessibility' />
         </PaperButton>
@@ -1197,6 +1192,57 @@
       <PaperRadio @value={{false}} @disabled={{true}} @onChange={{null}}>
         Disabled
       </PaperRadio>
+    </card.content>
+  </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Select</h2>
+    </card.title>
+    <card.content>
+      <div class='layout-row layout-align-space-between'>
+        <div>
+          <PaperSelect
+            @label='State'
+            @onChange={{fn (mut this.selectSelectedState)}}
+            @options={{this.selectStates}}
+            @selected={{this.selectSelectedState}}
+            as |state|
+          >
+            {{state.abbrev}}
+          </PaperSelect>
+          <p><code>default</code></p>
+        </div>
+
+        <div>
+          <PaperSelect
+            @disabled={{true}}
+            @label='State'
+            @onChange={{fn (mut this.selectSelectedState)}}
+            @options={{this.selectStates}}
+            @selected={{this.selectSelectedState}}
+            as |state|
+          >
+            {{state.abbrev}}
+          </PaperSelect>
+          <p><code>disabled</code></p>
+        </div>
+
+        <div>
+          <PaperSelect
+            @disabled={{false}}
+            @label='State'
+            @onChange={{fn (mut this.selectSelectedState)}}
+            @options={{this.selectStates}}
+            @required={{true}}
+            @selected={{this.selectSelectedState}}
+            as |state|
+          >
+            {{state.abbrev}}
+          </PaperSelect>
+          <p><code>required</code></p>
+        </div>
+      </div>
     </card.content>
   </PaperCard>
 </DocContent>
