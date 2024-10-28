@@ -1332,6 +1332,107 @@
       </PaperSidenavContainer>
     </card.content>
   </PaperCard>
+
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Slider</h2>
+    </card.title>
+    <card.content>
+      <PaperSlider
+        @class='flex'
+        @discrete={{true}}
+        @value={{this.sliderRating1}}
+        @step={{1}}
+        @min={{1}}
+        @max={{5}}
+        @onChange={{fn (mut this.sliderRating1)}}
+      />
+      <p><code>default</code></p>
+
+      <PaperSlider
+        @class='flex'
+        @warn={{true}}
+        @discrete={{true}}
+        @value={{this.sliderRating2}}
+        @step={{1}}
+        @min={{1}}
+        @max={{5}}
+        @onChange={{fn (mut this.sliderRating2)}}
+      />
+      <p><code>md-warn</code></p>
+
+      <PaperSlider
+        @class='flex'
+        @primary={{true}}
+        @discrete={{true}}
+        @value={{this.sliderRating3}}
+        @step={{1}}
+        @min={{1}}
+        @max={{5}}
+        @onChange={{fn (mut this.sliderRating3)}}
+      />
+      <p><code>md-primary</code></p>
+
+      <PaperSlider
+        @class='flex'
+        @value={{this.sliderDisabled1}}
+        @disabled={{true}}
+        @onChange={{fn (mut this.sliderDisabled1)}}
+      />
+      <p><code>disabled</code></p>
+
+      <div class='layout layout-column slider-container'>
+        <div class='layout layout-align-center-center slider-container'>
+          <span>R</span>
+          <PaperSlider
+            @class='flex'
+            @min={{0}}
+            @max={{255}}
+            @value={{this.sliderColor.red}}
+            @onChange={{fn (mut this.sliderColor.red)}}
+          />
+          <PaperInput
+            @type='number'
+            @value={{this.sliderColor.red}}
+            @onChange={{fn (mut this.sliderColor.red)}}
+          />
+        </div>
+
+        <div class='layout layout-align-center-center slider-container'>
+          <span>G</span>
+          <PaperSlider
+            @class='flex md-accent'
+            @min={{0}}
+            @max={{255}}
+            @value={{this.sliderColor.green}}
+            @onChange={{fn (mut this.sliderColor.green)}}
+          />
+          <PaperInput
+            @type='number'
+            @value={{this.sliderColor.green}}
+            @onChange={{fn (mut this.sliderColor.green)}}
+          />
+        </div>
+
+        <div class='layout layout-align-center-center slider-container'>
+          <span>B</span>
+          <PaperSlider
+            @class='flex md-primary'
+            @min={{0}}
+            @max={{255}}
+            @value={{this.sliderColor.blue}}
+            @onChange={{fn (mut this.sliderColor.blue)}}
+          />
+          <PaperInput
+            @type='number'
+            @value={{this.sliderColor.blue}}
+            @onChange={{fn (mut this.sliderColor.blue)}}
+          />
+        </div>
+        <p><code>non-discrete</code></p>
+      </div>
+    </card.content>
+  </PaperCard>
 </DocContent>
 
 {{#if this.dialogShowDialog}}

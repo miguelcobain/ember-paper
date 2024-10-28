@@ -564,4 +564,15 @@ export default class CatalogController extends Controller {
 
   // Sidenav
   @tracked sidenavRightSideBarOpen = true;
+
+  // Slider
+  @tracked sliderColor = {
+    red: 55,
+    green: 111,
+    blue: 222,
+  };
+  @tracked sliderDisabled1 = 22;
+  @tracked sliderRating1 = 3;
+  @tracked sliderRating2 = 2;
+  @tracked sliderRating3 = 4;
 }
