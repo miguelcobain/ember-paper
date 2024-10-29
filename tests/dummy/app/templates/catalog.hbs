@@ -1596,14 +1596,14 @@
     <card.content>
       <PaperSwitch
         @value={{this.switchProp1}}
-        @onChange={{action (mut this.switchProp1)}}
+        @onChange={{fn (mut this.switchProp1)}}
       >
         {{this.switchProp1}}
       </PaperSwitch>
 
       <PaperSwitch
         @value={{this.switchProp2}}
-        @onChange={{action (mut this.switchProp2)}}
+        @onChange={{fn (mut this.switchProp2)}}
       >
         {{this.switchProp2}}
       </PaperSwitch>
