@@ -1847,22 +1847,22 @@
       <PaperToolbar>
         <PaperToolbarTools>
           <PaperButton @iconButton={{true}}>
-            <PaperIcon @icon="menu"/>
+            <PaperIcon @icon='menu' />
           </PaperButton>
           <h2>
             Toolbar with Icon Buttons
           </h2>
-          <span class="flex"></span>
+          <span class='flex'></span>
           <PaperButton @iconButton={{true}}>
-            <PaperIcon @icon="favorite"/>
+            <PaperIcon @icon='favorite' />
           </PaperButton>
           <PaperButton @iconButton={{true}}>
-            <PaperIcon @icon="more_vert"/>
+            <PaperIcon @icon='more_vert' />
           </PaperButton>
         </PaperToolbarTools>
       </PaperToolbar>
 
-      <br>
+      <br />
       {{! with contextual components }}
       <PaperToolbar as |toolbar|>
         <toolbar.tools>
@@ -1870,17 +1870,17 @@
             Go Back
           </PaperButton>
           <h2>Toolbar with Standard Buttons</h2>
-          <span class="flex"></span>
+          <span class='flex'></span>
           <PaperButton @raised={{true}}>
             Learn More
           </PaperButton>
-          <PaperButton @mini={{true}} @aria-label="Favorite">
-            <PaperIcon @icon="favorite"/>
+          <PaperButton @mini={{true}} @aria-label='Favorite'>
+            <PaperIcon @icon='favorite' />
           </PaperButton>
         </toolbar.tools>
       </PaperToolbar>
 
-      <br>
+      <br />
 
       <PaperToolbar @tall={{true}} @accent={{true}}>
         <PaperToolbarTools>
@@ -1888,10 +1888,10 @@
         </PaperToolbarTools>
       </PaperToolbar>
 
-      <br>
+      <br />
 
       <PaperToolbar @tall={{true}} @warn={{true}}>
-        <span class="flex"></span>
+        <span class='flex'></span>
         <PaperToolbarTools>
           <h2>Toolbar: tall with actions pin to the bottom (tall=true warn=true)</h2>
         </PaperToolbarTools>
