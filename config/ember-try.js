@@ -80,6 +80,14 @@ module.exports = async function () {
       },
       embroiderSafe(),
       embroiderOptimized(),
+      {
+        name: 'no-deprecations',
+        npm: {
+          devDependencies: {
+            'ember-deprecation-error': '*',
+          },
+        },
+      },
     ],
   };
 };
