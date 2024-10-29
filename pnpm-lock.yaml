@@ -3025,8 +3025,8 @@ packages:
     resolution: {integrity: sha512-JxKQiJKX0Zr5Q2/bCaTx8P+UbfyMET1OQd61qu5xQFeWr1km3fGaxelSJtnfT27XQ5Uoztn2yIyeamAc/VX13g==}
     engines: {node: '>=0.12.0'}
 
-  elliptic@6.5.7:
-    resolution: {integrity: sha512-ESVCtTwiA+XhY3wyh24QqRGBoP3rEdDUl3EDUUo9tft074fi19IrdpH7hLCMMP3CIj7jb3W96rn8lt/BqIlt5Q==}
+  elliptic@6.6.0:
+    resolution: {integrity: sha512-dpwoQcLc/2WLQvJvLRHKZ+f9FgOdjnq11rurqwekGQygGPsYSK29OMMD2WalatiqQ+XGFDglTNixpPfI+lpaAA==}
 
   ember-assign-helper@0.4.0:
     resolution: {integrity: sha512-GKHhT4HD2fhtDnuBk6eCdCA8XGew9hY7TVs8zjrykegiI7weC0CGtpJscmIG3O0gEEb0d07UTkF2pjfNGLx4Nw==}
@@ -10069,7 +10069,7 @@ snapshots:
       browserify-rsa: 4.1.1
       create-hash: 1.2.0
       create-hmac: 1.1.7
-      elliptic: 6.5.7
+      elliptic: 6.6.0
       hash-base: 3.0.4
       inherits: 2.0.4
       parse-asn1: 5.1.7
@@ -10558,7 +10558,7 @@ snapshots:
   create-ecdh@4.0.4:
     dependencies:
       bn.js: 4.12.0
-      elliptic: 6.5.7
+      elliptic: 6.6.0
 
   create-hash@1.2.0:
     dependencies:
@@ -10818,7 +10818,7 @@ snapshots:
 
   element-closest@3.0.2: {}
 
-  elliptic@6.5.7:
+  elliptic@6.6.0:
     dependencies:
       bn.js: 4.12.0
       brorand: 1.1.0
