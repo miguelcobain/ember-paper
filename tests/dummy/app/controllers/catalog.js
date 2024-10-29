@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import { A } from '@ember/array';
 import { action } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
 import { later, cancel } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { faker } from '@faker-js/faker';
@@ -594,7 +593,9 @@ export default class CatalogController extends Controller {
   // Tabs
   tabsSelectedTab = 0;
   @service router;
-  @readOnly('router.currentRouteName') tabsCurrentRouteName;
+  get tabsCurrentRouteName() {
+    return this.router.currentRouteName;
+  }
 
   // Toast
   toastDuration = 60000;
