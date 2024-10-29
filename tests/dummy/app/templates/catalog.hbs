@@ -1899,6 +1899,52 @@
     </card.content>
   </PaperCard>
 
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Tooltip</h2>
+    </card.title>
+    <card.content @class='layout layout-align-space-around'>
+      <div class='layout-column layout-align-center-center'>
+        <PaperButton @raised={{true}}>
+          A button
+          <PaperTooltip @position='bottom'>
+            Hey! I'm a tooltip. Çup?
+          </PaperTooltip>
+        </PaperButton>
+        <p><code>position: bottom</code></p>
+      </div>
+
+      <div class='layout-column layout-align-center-center'>
+        <PaperButton @iconButton={{true}} @raised={{true}}>
+          <PaperIcon @icon='create' />
+          <PaperTooltip @position='top'>
+            Create
+          </PaperTooltip>
+        </PaperButton>
+        <p><code>position: top</code></p>
+      </div>
+
+      <div class='layout-column layout-align-center-center'>
+        <PaperButton @fab={{true}} @raised={{true}} @accent={{true}}>
+          <PaperIcon @icon='delete' />
+          <PaperTooltip @position='left'>
+            Delete
+          </PaperTooltip>
+        </PaperButton>
+        <p><code>position: left</code></p>
+      </div>
+
+      <div class='layout-column layout-align-center-center'>
+        <PaperIcon @icon='info'>
+          <PaperTooltip @position='right'>
+            Icon tooltip
+          </PaperTooltip>
+        </PaperIcon>
+        <p><code>position: right</code></p>
+      </div>
+    </card.content>
+  </PaperCard>
+
 </DocContent>
 
 {{#if this.dialogShowDialog}}
