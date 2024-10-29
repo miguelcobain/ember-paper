@@ -1,0 +1,11 @@
+.dialog-catalog {
+  min-height: 350px;
+}
+
+.toast-catalog {
+  min-height: 150px;
+
+  &--override-position {
+    position: relative !important;
+  }
+}
