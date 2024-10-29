@@ -1745,6 +1745,73 @@
     </card.content>
   </PaperCard>
 
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Toast</h2>
+    </card.title>
+    <card.content>
+      <div id='toast-catalog' class='toast-catalog'></div>
+
+      <PaperToast
+        @capsule={{false}}
+        @class='toast-catalog--override-position'
+        @duration={{this.toastDuration}}
+        @onClose={{null}}
+        @parent='.toast-catalog'
+        @swipeToClose={{false}}
+        as |toast|
+      >
+        <toast.text>default</toast.text>
+        <PaperButton @accent={{true}} @onClick={{null}}>
+          OK
+        </PaperButton>
+      </PaperToast>
+
+      <PaperToast
+        @capsule={{true}}
+        @class='toast-catalog--override-position'
+        @duration={{this.toastDuration}}
+        @onClose={{null}}
+        @parent='.toast-catalog'
+        @swipeToClose={{false}}
+        as |toast|
+      >
+        <toast.text>capsule</toast.text>
+        <PaperButton @warn={{true}} @onClick={{null}}>
+          CANCEL
+        </PaperButton>
+      </PaperToast>
+
+      <PaperToast
+        @duration={{this.toastDuration}}
+        @onClose={{null}}
+        @parent='.toast-catalog'
+        @swipeToClose={{false}}
+        @class='md-accent toast-catalog--override-position'
+        as |toast|
+      >
+        <toast.text>@class="md-accent"</toast.text>
+        <PaperButton @warn={{true}} @onClick={{null}}>
+          Wow, much accent
+        </PaperButton>
+      </PaperToast>
+
+      <PaperToast
+        @duration={{this.toastDuration}}
+        @onClose={{null}}
+        @parent='.toast-catalog'
+        @swipeToClose={{false}}
+        @class='md-warn toast-catalog--override-position'
+        as |toast|
+      >
+        <toast.text>@class="md-warn"</toast.text>
+        <PaperButton @accent={{true}} @onClick={{null}}>
+          UNDO
+        </PaperButton>
+      </PaperToast>
+    </card.content>
+  </PaperCard>
+
 </DocContent>
 
 {{#if this.dialogShowDialog}}

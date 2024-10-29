@@ -595,4 +595,7 @@ export default class CatalogController extends Controller {
   tabsSelectedTab = 0;
   @service router;
   @readOnly('router.currentRouteName') tabsCurrentRouteName;
+
+  // Toast
+  toastDuration = 60000;
 }
