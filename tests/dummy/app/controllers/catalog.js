@@ -1,7 +1,9 @@
 import Controller from '@ember/controller';
 import { A } from '@ember/array';
 import { action } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 import { later, cancel } from '@ember/runloop';
+import { inject as service } from '@ember/service';
 import { faker } from '@faker-js/faker';
 import { tracked } from '@glimmer/tracking';
 import { buildGridModel } from '../utils/grid-list';
@@ -588,4 +590,9 @@ export default class CatalogController extends Controller {
   @action switchToggle(which, newValue) {
     this[`switchProp${which}`] = newValue;
   }
+
+  // Tabs
+  tabsSelectedTab = 0;
+  @service router;
+  @readOnly('router.currentRouteName') tabsCurrentRouteName;
 }

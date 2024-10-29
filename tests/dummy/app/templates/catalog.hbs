@@ -1632,6 +1632,119 @@
     </card.content>
   </PaperCard>
 
+  <PaperCard as |card|>
+    <card.title>
+      <h2>Tabs</h2>
+    </card.title>
+
+    <card.content>
+      <div>
+        <PaperTabs
+          @onChange={{fn (mut this.tabsSelectedTab)}}
+          @selected={{this.tabsSelectedTab}}
+          as |tabs|
+        >
+          <tabs.tab>
+            Page One
+          </tabs.tab>
+          <tabs.tab @disabled={{true}}>
+            Page Two (disabled)
+          </tabs.tab>
+          <tabs.tab>
+            Page Three
+          </tabs.tab>
+          <tabs.tab>
+            Page Four
+          </tabs.tab>
+          <tabs.tab>
+            Page Five
+          </tabs.tab>
+        </PaperTabs>
+
+        <p><code>default (stretched)</code></p>
+      </div>
+
+      <div>
+        <PaperTabs
+          @center={{true}}
+          @stretch={{false}}
+          @onChange={{fn (mut this.tabsSelectedTab)}}
+          @selected={{this.tabsSelectedTab}}
+          as |tabs|
+        >
+          <tabs.tab>
+            Page One
+          </tabs.tab>
+          <tabs.tab @disabled={{true}}>
+            Page Two (disabled)
+          </tabs.tab>
+          <tabs.tab>
+            Page Three
+          </tabs.tab>
+          <tabs.tab>
+            Page Four
+          </tabs.tab>
+          <tabs.tab>
+            Page Five
+          </tabs.tab>
+        </PaperTabs>
+
+        <p><code>centered</code></p>
+      </div>
+
+      <div>
+        <PaperTabs
+          @borderBottom={{true}}
+          @center={{false}}
+          @onChange={{fn (mut this.tabsSelectedTab)}}
+          @selected={{this.tabsSelectedTab}}
+          @stretch={{true}}
+          as |tabs|
+        >
+          <tabs.tab>
+            Page One
+          </tabs.tab>
+          <tabs.tab @disabled={{true}}>
+            Page Two (disabled)
+          </tabs.tab>
+          <tabs.tab>
+            Page Three
+          </tabs.tab>
+          <tabs.tab>
+            Page Four
+          </tabs.tab>
+          <tabs.tab>
+            Page Five
+          </tabs.tab>
+        </PaperTabs>
+
+        <p><code>bottom border</code></p>
+      </div>
+
+      <div>
+        <PaperTabs
+          @selected={{this.tabsCurrentRouteName}}
+          @borderBottom={{true}}
+          @onChange={{null}}
+          as |tabs|
+        >
+          <tabs.tab @value='catalog.index' @href={{href-to 'catalog.index'}}>
+            Index
+          </tabs.tab>
+          <tabs.tab
+            @value='catalog.nested-route'
+            @href={{href-to 'catalog.nested-route'}}
+          >
+            Nested Route
+          </tabs.tab>
+        </PaperTabs>
+
+        <LiquidOutlet class='md-padding' />
+        <p><code>nested routing</code></p>
+      </div>
+    </card.content>
+  </PaperCard>
+
 </DocContent>
 
 {{#if this.dialogShowDialog}}
@@ -1672,5 +1785,3 @@
     </form>
   </PaperDialog>
 {{/if}}
-
-{{outlet}}

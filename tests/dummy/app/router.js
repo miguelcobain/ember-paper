@@ -8,7 +8,9 @@ export default class Router extends EmberRouter {
 
 Router.map(function () {
   this.route('introduction');
-  this.route('catalog');
+  this.route('catalog', function () {
+    this.route('nested-route');
+  });
   this.route('forms');
   this.route('typography');
   this.route('theme');
