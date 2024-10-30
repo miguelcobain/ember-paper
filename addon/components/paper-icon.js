@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/no-get-with-default, ember/no-mixins, ember/require-tagless-components */
+/* eslint-disable ember/no-classic-components, ember/no-get-with-default, ember/require-tagless-components */
 /**
  * @module ember-paper
  */
@@ -8,17 +8,19 @@ import { computed } from '@ember/object';
 import { reads } from '@ember/object/computed';
 import { htmlSafe } from '@ember/template';
 
-import ColorMixin from 'ember-paper/mixins/color-mixin';
-
 /**
  * @class PaperIcon
  * @extends Ember.Component
- * @uses ColorMixin
  */
-let PaperIconComponent = Component.extend(ColorMixin, {
+let PaperIconComponent = Component.extend({
   tagName: 'md-icon',
   classNames: ['paper-icon', 'md-font', 'material-icons', 'md-default-theme'],
-  classNameBindings: ['spinClass'],
+  classNameBindings: [
+    'spinClass',
+    'warn:md-warn',
+    'accent:md-accent',
+    'primary:md-primary',
+  ],
   attributeBindings: [
     'aria-hidden',
     'aria-label',
