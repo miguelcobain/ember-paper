@@ -1,59 +1,44 @@
-/* eslint-disable ember/no-classic-components, ember/no-mixins, ember/require-tagless-components */
 /**
  * @module ember-paper
  */
-import { reads } from '@ember/object/computed';
-
-import Component from '@ember/component';
-import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
-import { invokeAction } from 'ember-paper/utils/invoke-action';
+import Focusable from './-focusable';
+import { action } from '@ember/object';
 
 /**
  * @class PaperButton
- * @extends Ember.Component
- * @uses FocusableMixin
- * @uses ProxiableMixin
+ * @extends Focusable
  */
-export default Component.extend(FocusableMixin, ProxiableMixin, {
-  tagName: 'button',
-  classNames: ['md-default-theme', 'md-button'],
-  raised: false,
-  iconButton: false,
-
-  // circular button
-  fab: reads('mini'),
-
-  mini: false,
-  type: 'button',
-  href: null,
-  target: null,
-
-  attributeBindings: ['type', 'href', 'target', 'title', 'download', 'rel'],
-
-  classNameBindings: [
-    'raised:md-raised',
-    'iconButton:md-icon-button',
-    'fab:md-fab',
-    'mini:md-mini',
-    'warn:md-warn',
-    'accent:md-accent',
-    'primary:md-primary',
-  ],
-
-  init() {
-    this._super(...arguments);
-    if (this.href) {
-      this.setProperties({
-        tagName: 'a',
-        type: null,
-      });
+export default class PaperButton extends Focusable {
+  get tag() {
+    if (this.args.href) {
+      return 'a';
     }
-  },
 
-  click(e) {
-    invokeAction(this, 'onClick', e);
+    return 'button';
+  }
+
+  get type() {
+    if (this.args.type) {
+      return this.args.type;
+    }
+
+    return 'button';
+  }
+
+  get fab() {
+    return this.args.fab || this.args.mini;
+  }
+
+  @action handleClick(e) {
+    if (this.args.onClick) {
+      this.args.onClick(e);
+    }
+
     // Prevent bubbling, if specified. If undefined, the event will bubble.
-    return this.bubbles;
-  },
-});
+    if (this.args.bubbles === undefined) {
+      return true;
+    }
+
+    return this.args.bubbles;
+  }
+}
