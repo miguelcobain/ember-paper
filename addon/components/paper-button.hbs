@@ -1,11 +1,39 @@
-{{! template-lint-disable no-curly-component-invocation }}
-{{#if (has-block)}}
-  {{yield}}
-{{else}}
-  {{@label}}
-{{/if}}
+{{#let (element this.tag) as |Tag|}}
+  <Tag
+    class='md-default-theme md-button
+      {{if @raised " md-raised"}}
+      {{if @iconButton " md-icon-button"}}
+      {{if this.fab " md-fab"}}
+      {{if @mini " md-mini"}}
+      {{if @warn " md-warn"}}
+      {{if @accent " md-accent"}}
+      {{if @primary " md-primary"}}
+      {{if @secondary " md-secondary"}}
+      {{if this.focused " md-focused"}} {{@class}}'
+    disabled={{this.disabled}}
+    download={{@download}}
+    href={{@href}}
+    id={{@id}}
+    rel={{@rel}}
+    tabindex={{if this.disabled "-1" "0"}}
+    target={{@target}}
+    title={{@title}}
+    type={{this.type}}
+    {{did-insert this.registerListeners}}
+    {{will-destroy this.unregisterListeners}}
+    {{on 'click' this.handleClick}}
+    ...attributes
+  >
+    {{#if (has-block)}}
+      {{yield}}
+    {{else}}
+      {{@label}}
+    {{/if}}
 
-<PaperRipple
-  @fitRipple={{@iconButton}}
-  @center={{@iconButton}}
-  @dimBackground={{not @iconButton}}/>
+    <PaperRipple
+      @fitRipple={{@iconButton}}
+      @center={{@iconButton}}
+      @dimBackground={{not @iconButton}}
+    />
+  </Tag>
+{{/let}}
