@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-mixins, ember/require-tagless-components */
+/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/require-tagless-components */
 /**
  * @module ember-paper
  */
@@ -9,7 +9,6 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { isPresent } from '@ember/utils';
 import { htmlSafe } from '@ember/template';
-import ColorMixin from 'ember-paper/mixins/color-mixin';
 import clamp from 'ember-paper/utils/clamp';
 
 const MODE_DETERMINATE = 'determinate';
@@ -51,15 +50,17 @@ function materialEase(t, b, c, d) {
 /**
  * @class PaperProgressCircular
  * @extends Ember.Component
- * @uses ColorMixin
  */
-export default Component.extend(ColorMixin, {
+export default Component.extend({
   tagName: 'md-progress-circular',
   classNames: ['md-default-theme'],
   attributeBindings: ['value', 'mode:md-mode', 'containerStyle:style'],
   classNameBindings: [
     'spinnerClass',
     'disabled:_md-progress-circular-disabled',
+    'warn:md-warn',
+    'accent:md-accent',
+    'primary:md-primary',
   ],
   diameter: 50,
   strokeRatio: 0.1,

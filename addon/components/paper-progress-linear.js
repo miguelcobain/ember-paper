@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/no-get, ember/no-mixins, ember/require-computed-property-dependencies, ember/require-tagless-components */
+/* eslint-disable ember/no-classic-components, ember/no-get, ember/require-computed-property-dependencies */
 /**
  * @module ember-paper
  */
@@ -8,7 +8,6 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { isPresent } from '@ember/utils';
 import { htmlSafe } from '@ember/template';
-import ColorMixin from 'ember-paper/mixins/color-mixin';
 
 function makeTransform(value) {
   let scale = value / 100;
@@ -24,12 +23,9 @@ const MODE_QUERY = 'query';
 /**
  * @class PaperProgressLinear
  * @extends Ember.Component
- * @uses ColorMixin
  */
-export default Component.extend(ColorMixin, {
-  tagName: 'md-progress-linear',
-  attributeBindings: ['mode:md-mode', 'bufferValue:md-buffer-value'],
-  classNames: ['md-default-theme'],
+export default Component.extend({
+  tagName: '',
   constants: service(),
 
   mode: computed('value', {
