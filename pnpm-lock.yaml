@@ -105,6 +105,9 @@ importers:
       '@ember/test-helpers':
         specifier: ^2.4.2
         version: 2.9.4(@babel/core@7.25.8)(ember-source@3.28.12(@babel/core@7.25.8))
+      '@embroider/macros':
+        specifier: ^1.16.9
+        version: 1.16.9
       '@embroider/test-setup':
         specifier: ^0.43.5
         version: 0.43.5
