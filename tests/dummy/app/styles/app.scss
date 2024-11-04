@@ -10,29 +10,9 @@ $accent: 'pink';
  * Needed styles to set correct widths.
  */
 
-body {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-body.ember-application {
-  flex-direction: row;
-  flex: 1;
-  display: flex;
-}
-
-body > div.ember-view {
-  flex-direction: row;
-  flex: 1;
-  display: flex;
-}
-
-.site-nav-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+md-sidenav.md-locked-open {
+  position: sticky !important;
+  height: 100vh;
 }
 
 md-toolbar.md-warn {
