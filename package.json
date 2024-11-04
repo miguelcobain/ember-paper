@@ -67,6 +67,7 @@
     "@ember/jquery": "^1.1.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.4.2",
+    "@embroider/macros": "^1.16.9",
     "@embroider/test-setup": "^0.43.5",
     "@faker-js/faker": "^9.0.3",
     "@glimmer/component": "^1.0.4",
