@@ -1,6 +1,5 @@
 {{! template-lint-disable no-invalid-interactive }}
 <md-backdrop
-  {{lock-body}}
   {{on "click" (fn this.sendClickAction @onClick)}}
   {{on "touchEnd" (fn this.sendClickAction @onClick)}}
   {{css-transition
@@ -15,11 +14,3 @@
   ...attributes>
   {{yield}}
 </md-backdrop>
-
-{{!-- TODO once we move to a v2 addon we should be able to import a style properly here. I added this to prevent us needing to mess with complicated style build systems --}}
-{{!-- template-lint-disable no-forbidden-elements --}}
-<style>
-  .ember-paper-lockbody {
-    overflow: hidden;
-  }
-</style>

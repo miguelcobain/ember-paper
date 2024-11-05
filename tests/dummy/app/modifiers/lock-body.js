@@ -11,6 +11,6 @@ export default modifier(
     };
   },
   {
-    eager: false,
+    eager: true,
   }
 );
