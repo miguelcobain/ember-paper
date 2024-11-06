@@ -88,6 +88,15 @@ module.exports = async function () {
           },
         },
       },
+      {
+        name: 'ember-release-no-deprecations',
+        npm: {
+          devDependencies: {
+            'ember-source': await getChannelURL('release'),
+            'ember-deprecation-error': '*',
+          },
+        },
+      },
     ],
   };
 };
