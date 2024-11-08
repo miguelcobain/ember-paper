@@ -1,3 +1,5 @@
-{{yield (hash
-  tile=(component "paper-grid-tile")
-)}}
+<md-grid-list class={{@class}} {{did-insert this.didInsertNode}} {{did-update this.didUpdateNode @cols @gutter @rowHeight}} ...attributes>
+  {{yield (hash
+    tile=(component "paper-grid-tile" parent=this)
+  )}}
+</md-grid-list>
