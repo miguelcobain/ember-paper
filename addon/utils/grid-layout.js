@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /**
  * @module ember-paper
  */
@@ -32,17 +31,19 @@ function calculateGridfor(colCount, tiles) {
   let spaceTracker = newSpaceTracker();
 
   return {
-    positions: tiles.map(function(tile, i) {
+    positions: tiles.map(function (tile, i) {
       return reserveSpace(tile, i);
     }),
-    rowCount: curRow + Math.max(...spaceTracker)
+    rowCount: curRow + Math.max(...spaceTracker),
   };
 
   function reserveSpace(tile, i) {
-    let colspan = tile.get('currentColspan');
-    let rowspan = tile.get('currentRowspan');
+    let colspan = tile.currentColspan;
+    let rowspan = tile.currentRowspan;
     if (colspan > colCount) {
-      throw new Error(`md-grid-list: Tile at position ${i} has a colspan (${colspan}) that exceeds the column count (${colCount})`);
+      throw new Error(
+        `md-grid-list: Tile at position ${i} has a colspan (${colspan}) that exceeds the column count (${colCount})`
+      );
     }
 
     let start = 0;
@@ -74,7 +75,7 @@ function calculateGridfor(colCount, tiles) {
 
     return {
       col: start,
-      row: curRow
+      row: curRow,
     };
   }
 
