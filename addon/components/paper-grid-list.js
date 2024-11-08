@@ -1,16 +1,11 @@
-/* eslint-disable ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/no-computed-properties-in-native-classes, ember/no-get */
 /**
  * @module ember-paper
  */
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-
-import { tagName } from '@ember-decorators/component';
-import Component from '@ember/component';
-import { computed } from '@ember/object';
-import { bind, debounce } from '@ember/runloop';
-import { ParentMixin } from 'ember-composability-tools';
 import gridLayout from '../utils/grid-layout';
-import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 const mediaRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+)(?!\S)/g;
 const rowHeightRegex =
@@ -38,77 +33,161 @@ const applyStyles = (el, styles) => {
   }
 };
 
-@tagName('md-grid-list')
-export default class PaperGridList extends Component.extend(ParentMixin) {
+/**
+ * A responsive grid list component that arranges child tiles in a configurable grid layout
+ *
+ * @class PaperGridList
+ * @extends Component
+ * @arg {string} class
+ * @arg {string} cols
+ * @arg {string} gutter
+ * @arg {string} rowHeight
+ */
+export default class PaperGridList extends Component {
+  /**
+   * Service containing media query breakpoints and constants
+   */
   @service constants;
 
-  get tiles() {
-    return this.childComponents;
+  /**
+   * Set of child grid tile components
+   * @type {Set<PaperGridTile>}
+   */
+  @tracked children;
+  /**
+   * Currently active media query breakpoints
+   * @type {Array<string>}
+   */
+  @tracked currentMedia;
+  /**
+   * RAF ID for debouncing media query updates
+   * @type {number}
+   */
+  @tracked debounceUpdateCurrentMedia;
+  /**
+   * RAF ID for debouncing grid updates
+   * @type {number}
+   */
+  @tracked debounceUpdateGrid;
+  /**
+   * Reference to the component's DOM element
+   * @type {HTMLElement}
+   */
+  @tracked element;
+  /**
+   * Map of media query listener instances
+   * @type {Object}
+   */
+  @tracked listenerList = {};
+  /**
+   * Map of media query change handler functions
+   * @type {Object}
+   */
+  @tracked listeners = {};
+  /**
+   * Map of active media query states
+   * @type {Object}
+   */
+  @tracked media = {};
+  /**
+   * Number of rows in the grid
+   * @type {number}
+   */
+  @tracked rowCount;
+
+  constructor() {
+    super(...arguments);
+
+    this.children = new Set();
   }
 
-  didInsertElement() {
-    super.didInsertElement(...arguments);
+  @action didInsertNode(element) {
+    this.element = element;
     this._installMediaListener();
   }
 
-  didUpdate() {
-    super.didUpdate(...arguments);
+  @action didUpdateNode() {
+    if (this.debounceUpdateGrid) {
+      window.cancelAnimationFrame(this.debounceUpdateGrid);
+    }
 
-    // Debounces until the next run loop
-    debounce(this, this.updateGrid, 0);
+    // Debounce until the next frame
+    this.debounceUpdateGrid = window.requestAnimationFrame(
+      this.updateGrid.bind(this)
+    );
   }
 
-  willDestroyElement() {
-    super.willDestroyElement(...arguments);
+  willDestroy() {
+    super.willDestroy(...arguments);
     this._uninstallMediaListener();
+  }
+
+  /**
+   * Registers a child tile component
+   * @param {PaperGridTile} tile - The tile component to register
+   */
+  @action registerChild(tile) {
+    this.children.add(tile);
+  }
+
+  /**
+   * Unregisters a child tile component
+   * @param {PaperGridTile} tile - The tile component to unregister
+   */
+  @action unregisterChild(tile) {
+    this.children.delete(tile);
   }
 
   // Sets up a listener for each media query
   _installMediaListener() {
-    for (let mediaName in this.get('constants.MEDIA')) {
-      let query = this.get('constants.MEDIA')[mediaName] || media(mediaName);
+    for (let mediaName in this.constants.MEDIA) {
+      let query = this.constants.MEDIA[mediaName] || media(mediaName);
       let mediaList = window.matchMedia(query);
       let listenerName = mediaListenerName(mediaName);
 
       // Sets mediaList to a property so removeListener can access it
-      this.set(`${listenerName}List`, mediaList);
+      this.listenerList[`${listenerName}List`] = mediaList;
 
       // Creates a function based on mediaName so that removeListener can remove it.
-      this.set(
-        listenerName,
-        bind(this, (result) => {
-          this._mediaDidChange(mediaName, result.matches);
-        })
-      );
+      let onchange = (result) => {
+        this._mediaDidChange(mediaName, result.matches);
+      };
+      this.listeners[listenerName] = onchange.bind(this);
 
       // Trigger initial grid calculations
       this._mediaDidChange(mediaName, mediaList.matches);
 
-      mediaList.addListener(this[listenerName]);
+      mediaList.addListener(this.listeners[listenerName]);
     }
   }
 
   _uninstallMediaListener() {
-    for (let mediaName in this.get('constants.MEDIA')) {
+    for (let mediaName in this.constants.MEDIA) {
       let listenerName = mediaListenerName(mediaName);
-      let mediaList = this.get(`${listenerName}List`);
-      mediaList.removeListener(this[listenerName]);
+      let mediaList = this.listenerList[`${listenerName}List`];
+      if (mediaList) {
+        mediaList.removeListener(this.listeners[listenerName]);
+      }
     }
   }
 
   _mediaDidChange(mediaName, matches) {
-    this.set(mediaName, matches);
+    this.media[mediaName] = matches;
 
     // Debounces until the next run loop
-    debounce(this, this._updateCurrentMedia, 0);
+    if (this.debounceUpdateCurrentMedia) {
+      window.cancelAnimationFrame(this.debounceUpdateCurrentMedia);
+    }
+    this.debounceUpdateCurrentMedia = window.requestAnimationFrame(
+      this._updateCurrentMedia.bind(this)
+    );
   }
 
   _updateCurrentMedia() {
-    let mediaPriorities = this.get('constants.MEDIA_PRIORITY');
-    let currentMedia = mediaPriorities.filter((mediaName) =>
-      this.get(mediaName)
+    let mediaPriorities = this.constants.MEDIA_PRIORITY;
+    this.currentMedia = mediaPriorities.filter(
+      (mediaName) => this.media[mediaName]
     );
-    this.set('currentMedia', currentMedia);
     this.updateGrid();
   }
 
@@ -116,8 +195,10 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
   updateGrid() {
     applyStyles(this.element, this._gridStyle());
 
-    this.tiles.forEach((tile) => tile.updateTile());
-    invokeAction(this, 'onUpdate');
+    this.children.forEach((tile) => tile.updateTile());
+    if (this.args.onUpdate) {
+      this.args.onUpdate();
+    }
   }
 
   _gridStyle() {
@@ -171,26 +252,28 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
 
   // Calculates tile positions
   _setTileLayout() {
-    let tiles = this.orderedTiles();
+    let tiles = this.orderedTiles;
     let layoutInfo = gridLayout(this.currentCols, tiles);
 
-    tiles.forEach((tile, i) => tile.set('position', layoutInfo.positions[i]));
+    tiles.forEach((tile, i) => {
+      tile.position = layoutInfo.positions[i];
+    });
 
-    this.set('rowCount', layoutInfo.rowCount);
+    this.rowCount = layoutInfo.rowCount;
   }
 
-  // Sorts tiles by their order in the dom
-  orderedTiles() {
+  /**
+   * Returns child tiles sorted by DOM order
+   * @type {Array<PaperGridTile>}
+   */
+  get orderedTiles() {
     // Convert NodeList to native javascript array, to be able to use indexOf.
     let domTiles = Array.prototype.slice.call(
       this.element.querySelectorAll('md-grid-tile')
     );
 
-    return this.tiles.sort((a, b) => {
-      return domTiles.indexOf(a.get('element')) >
-        domTiles.indexOf(b.get('element'))
-        ? 1
-        : -1;
+    return Array.from(this.children).sort((a, b) => {
+      return domTiles.indexOf(a.element) > domTiles.indexOf(b.element) ? 1 : -1;
     });
   }
 
@@ -218,36 +301,51 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
     return sizes.base;
   }
 
-  @computed('cols')
+  /**
+   * Returns the parsed responsive column sizes
+   * @type {Object<string,number>}
+   */
   get colsMedia() {
-    let sizes = this._extractResponsiveSizes(this.cols);
+    let sizes = this._extractResponsiveSizes(this.args.cols);
     if (Object.keys(sizes).length === 0) {
       throw new Error('md-grid-list: No valid cols found');
     }
     return sizes;
   }
 
-  @computed('colsMedia', 'currentMedia.[]')
+  /**
+   * Returns the current number of columns based on active media queries
+   * @type {number}
+   */
   get currentCols() {
     return this._getAttributeForMedia(this.colsMedia, this.currentMedia) || 1;
   }
 
-  @computed('gutter')
+  /**
+   * Returns the parsed responsive gutter sizes
+   * @type {Object<string,string|number>}
+   */
   get gutterMedia() {
-    return this._extractResponsiveSizes(this.gutter, rowHeightRegex);
+    return this._extractResponsiveSizes(this.args.gutter, rowHeightRegex);
   }
 
-  @computed('gutterMedia', 'currentMedia.[]')
+  /**
+   * Returns the current gutter size based on active media queries
+   * @type {string}
+   */
   get currentGutter() {
     return this._applyDefaultUnit(
       this._getAttributeForMedia(this.gutterMedia, this.currentMedia) || 1
     );
   }
 
-  @computed('rowHeight')
+  /**
+   * Returns the parsed responsive row heights
+   * @type {Object<string,string|number>}
+   */
   get rowHeightMedia() {
     let rowHeights = this._extractResponsiveSizes(
-      this.rowHeight,
+      this.args.rowHeight,
       rowHeightRegex
     );
     if (Object.keys(rowHeights).length === 0) {
@@ -256,15 +354,29 @@ export default class PaperGridList extends Component.extend(ParentMixin) {
     return rowHeights;
   }
 
-  @computed('rowHeightMedia', 'currentMedia.[]')
+  /**
+   * Returns the calculated row height based on the current media query.
+   * @returns {string}
+   */
+  get rowHeight() {
+    return this._getAttributeForMedia(this.rowHeightMedia, this.currentMedia);
+  }
+
+  /**
+   * Current row height mode ('fixed', 'ratio', or 'fit')
+   * @type {string}
+   */
+  get currentRowMode() {
+    return this._getRowMode(this.rowHeight);
+  }
+
+  /**
+   * Returns the current row height based on the row mode.
+   * @type {string|number|undefined}
+   */
   get currentRowHeight() {
-    let rowHeight = this._getAttributeForMedia(
-      this.rowHeightMedia,
-      this.currentMedia
-    );
-    // eslint-disable-next-line ember/no-side-effects
-    this.set('currentRowMode', this._getRowMode(rowHeight));
-    switch (this._getRowMode(rowHeight)) {
+    let rowHeight = this.rowHeight;
+    switch (this.currentRowMode) {
       case 'fixed': {
         return this._applyDefaultUnit(rowHeight);
       }
