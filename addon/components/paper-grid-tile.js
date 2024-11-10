@@ -56,7 +56,6 @@ const applyStyles = (el, styles) => {
  * @extends Component
  * @arg {string} class
  * @arg {string} colspan
- * @arg {string} position
  * @arg {string} rowspan
  */
 export default class PaperGridTile extends Component {
