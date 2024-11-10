@@ -79,11 +79,12 @@ export default class PaperGridTile extends Component {
     super(...arguments);
 
     this.gridList = this.args.parent;
-    this.args.parent.registerChild(this);
   }
 
   @action didInsertNode(element) {
     this.element = element;
+
+    this.args.parent.registerChild(this);
   }
 
   @action didUpdateNode() {
