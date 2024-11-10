@@ -6,6 +6,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import gridLayout from '../utils/grid-layout';
+import { debounce } from '../utils/raf';
 
 const mediaRegex = /(^|\s)((?:print-)|(?:[a-z]{2}-){1,2})?(\d+)(?!\S)/g;
 const rowHeightRegex =
@@ -60,16 +61,6 @@ export default class PaperGridList extends Component {
    */
   @tracked currentMedia;
   /**
-   * RAF ID for debouncing media query updates
-   * @type {number}
-   */
-  @tracked debounceUpdateCurrentMedia;
-  /**
-   * RAF ID for debouncing grid updates
-   * @type {number}
-   */
-  @tracked debounceUpdateGrid;
-  /**
    * Reference to the component's DOM element
    * @type {HTMLElement}
    */
@@ -90,6 +81,16 @@ export default class PaperGridList extends Component {
    */
   @tracked media = {};
   /**
+   * RAF ID for debouncing media query updates
+   * @type {number}
+   */
+  @tracked rafUpdateCurrentMedia;
+  /**
+   * RAF ID for debouncing grid updates
+   * @type {number}
+   */
+  @tracked rafUpdateGrid;
+  /**
    * Number of rows in the grid
    * @type {number}
    */
@@ -107,14 +108,7 @@ export default class PaperGridList extends Component {
   }
 
   @action didUpdateNode() {
-    if (this.debounceUpdateGrid) {
-      window.cancelAnimationFrame(this.debounceUpdateGrid);
-    }
-
-    // Debounce until the next frame
-    this.debounceUpdateGrid = window.requestAnimationFrame(
-      this.updateGrid.bind(this)
-    );
+    this.updateGrid();
   }
 
   willDestroy() {
@@ -175,32 +169,37 @@ export default class PaperGridList extends Component {
 
   _mediaDidChange(mediaName, matches) {
     this.media[mediaName] = matches;
-
-    // Debounces until the next run loop
-    if (this.debounceUpdateCurrentMedia) {
-      window.cancelAnimationFrame(this.debounceUpdateCurrentMedia);
-    }
-    this.debounceUpdateCurrentMedia = window.requestAnimationFrame(
-      this._updateCurrentMedia.bind(this)
-    );
+    this._updateCurrentMedia();
   }
 
   _updateCurrentMedia() {
-    let mediaPriorities = this.constants.MEDIA_PRIORITY;
-    this.currentMedia = mediaPriorities.filter(
-      (mediaName) => this.media[mediaName]
+    // Debounce until the next frame
+    const updateCurrentMedia = () => {
+      let mediaPriorities = this.constants.MEDIA_PRIORITY;
+      this.currentMedia = mediaPriorities.filter(
+        (mediaName) => this.media[mediaName]
+      );
+      this.updateGrid();
+    };
+
+    this.rafUpdateCurrentMedia = debounce(
+      this.rafUpdateCurrentMedia,
+      updateCurrentMedia
     );
-    this.updateGrid();
   }
 
   // Updates styles and triggers onUpdate callbacks
   updateGrid() {
-    applyStyles(this.element, this._gridStyle());
+    // Debounce until the next frame
+    const updateGrid = () => {
+      applyStyles(this.element, this._gridStyle());
+      this.children.forEach((tile) => tile.updateTile());
+      if (this.args.onUpdate) {
+        this.args.onUpdate();
+      }
+    };
 
-    this.children.forEach((tile) => tile.updateTile());
-    if (this.args.onUpdate) {
-      this.args.onUpdate();
-    }
+    this.rafUpdateGrid = debounce(this.rafUpdateGrid, updateGrid);
   }
 
   _gridStyle() {
