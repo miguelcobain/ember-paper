@@ -128,6 +128,7 @@ export default class PaperGridList extends Component {
    */
   @action registerChild(tile) {
     this.children.add(tile);
+    this.updateGrid();
   }
 
   /**
@@ -136,6 +137,7 @@ export default class PaperGridList extends Component {
    */
   @action unregisterChild(tile) {
     this.children.delete(tile);
+    this.updateGrid();
   }
 
   // Sets up a listener for each media query
