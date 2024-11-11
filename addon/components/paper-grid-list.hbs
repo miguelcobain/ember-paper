@@ -2,6 +2,7 @@
   class={{@class}}
   {{did-insert this.didInsertNode}}
   {{did-update this.didUpdateNode @cols @gutter @rowHeight}}
+  {{mutation-observer this.didUpdateNode}}
   ...attributes
 >
   {{yield (hash tile=(component 'paper-grid-tile' parent=this))}}

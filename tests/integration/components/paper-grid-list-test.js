@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import { module, test, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find, waitUntil } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -335,7 +334,6 @@ module('Integration | Component | paper-grid-list', function (hooks) {
 
     this.tiles.reverseObjects();
     await waitUntil(browserFramesRendered);
-    await waitUntil(() => find('.TWO'));
 
     assert.equal(tilePosition('.ONE'), 3);
     assert.equal(tilePosition('.TWO'), 2);
