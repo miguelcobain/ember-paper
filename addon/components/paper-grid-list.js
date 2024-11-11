@@ -57,7 +57,7 @@ export default class PaperGridList extends Component {
   @tracked children;
   /**
    * Set of callbacks to notify children when they need to update their position.
-   * @type {Set<callback>}
+   * @type {Set<Function>}
    */
   @tracked childrenNotifyUpdate;
   /**
@@ -115,7 +115,7 @@ export default class PaperGridList extends Component {
   /**
    * Registers a child tile component
    * @param {PaperGridTile} tile - The tile component to register
-   * @param {callback} notifyUpdate - A callback to notify children on when they should update.
+   * @param {Function} notifyUpdate - A callback to notify children on when they should update.
    */
   @action registerChild(tile, notifyUpdate) {
     this.children.add(tile);
@@ -126,7 +126,7 @@ export default class PaperGridList extends Component {
   /**
    * Unregisters a child tile component
    * @param {PaperGridTile} tile - The tile component to unregister
-   * @param {callback} notifyUpdate - The notify callback to remove.
+   * @param {Function} notifyUpdate - The notify callback to remove.
    */
   @action unregisterChild(tile, notifyUpdate) {
     this.children.delete(tile);
