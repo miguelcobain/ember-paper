@@ -56,6 +56,11 @@ export default class PaperGridList extends Component {
    */
   @tracked children;
   /**
+   * Set of callbacks to notify children when they need to update their position.
+   * @type {Set<callback>}
+   */
+  @tracked childrenNotifyUpdate;
+  /**
    * Reference to the component's DOM element
    * @type {HTMLElement}
    */
@@ -90,6 +95,7 @@ export default class PaperGridList extends Component {
     super(...arguments);
 
     this.children = new Set();
+    this.childrenNotifyUpdate = new Set();
   }
 
   @action didInsertNode(element) {
@@ -109,18 +115,22 @@ export default class PaperGridList extends Component {
   /**
    * Registers a child tile component
    * @param {PaperGridTile} tile - The tile component to register
+   * @param {callback} notifyUpdate - A callback to notify children on when they should update.
    */
-  @action registerChild(tile) {
+  @action registerChild(tile, notifyUpdate) {
     this.children.add(tile);
+    this.childrenNotifyUpdate.add(notifyUpdate);
     this.updateGrid();
   }
 
   /**
    * Unregisters a child tile component
    * @param {PaperGridTile} tile - The tile component to unregister
+   * @param {callback} notifyUpdate - The notify callback to remove.
    */
-  @action unregisterChild(tile) {
+  @action unregisterChild(tile, notifyUpdate) {
     this.children.delete(tile);
+    this.childrenNotifyUpdate.delete(notifyUpdate);
     this.updateGrid();
   }
 
@@ -167,7 +177,7 @@ export default class PaperGridList extends Component {
     // Debounce until the next frame
     const updateGrid = () => {
       applyStyles(this.element, this._gridStyle());
-      this.children.forEach((tile) => tile.updateTile());
+      this.childrenNotifyUpdate.forEach((notify) => notify());
       if (this.args.onUpdate) {
         this.args.onUpdate();
       }
