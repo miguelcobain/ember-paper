@@ -3,7 +3,6 @@ import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find, waitUntil } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { run } from '@ember/runloop';
 import { A } from '@ember/array';
 
 function getStyle(selector, property) {
@@ -48,10 +47,23 @@ function createTiles() {
   return A(['ONE', 'TWO', 'THREE']);
 }
 
-module('Integration | Component | paper-grid-list', function(hooks) {
+/**
+ * browserFramesRendered waits two animation frames:
+ * - one frame to perform positional computations.
+ * - one frame for rendered output.
+ *
+ * @returns {Promise}
+ */
+function browserFramesRendered() {
+  return new Promise((resolve) =>
+    window.requestAnimationFrame(() => window.requestAnimationFrame(resolve))
+  );
+}
+
+module('Integration | Component | paper-grid-list', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders tiles with tag name', async function(assert) {
+  test('it renders tiles with tag name', async function (assert) {
     assert.expect(1);
     await render(hbs`
       {{#paper-grid-list cols="1" rowHeight="4:3" as |grid|}}
@@ -60,10 +72,11 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       {{/paper-grid-list}}
     `);
 
+    await waitUntil(browserFramesRendered);
     assert.dom('md-grid-tile').exists({ count: 1 });
   });
 
-  test('it renders tiles with footer', async function(assert) {
+  test('it renders tiles with footer', async function (assert) {
     assert.expect(1);
     await render(hbs`
       {{#paper-grid-list cols="1" rowHeight="4:3" as |grid|}}
@@ -74,10 +87,11 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       {{/paper-grid-list}}
     `);
 
+    await waitUntil(browserFramesRendered);
     assert.dom('md-grid-tile-footer').exists({ count: 1 });
   });
 
-  skip('it applies a gutter', async function(assert) {
+  test('it applies a gutter', async function (assert) {
     assert.expect(1);
     this.set('tiles', createTiles());
 
@@ -93,10 +107,11 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
+    await waitUntil(browserFramesRendered);
     assert.equal(getStyle('.TWO', 'left'), '72.9844px');
   });
 
-  test('it applies a fixed row height', async function(assert) {
+  test('it applies a fixed row height', async function (assert) {
     assert.expect(1);
     this.set('tiles', createTiles());
 
@@ -112,10 +127,11 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
+    await waitUntil(browserFramesRendered);
     assert.equal(getStyle('.TWO', 'height'), '75px');
   });
 
-  test('it applies a row height ratio', async function(assert) {
+  test('it applies a row height ratio', async function (assert) {
     assert.expect(2);
     this.set('tiles', createTiles());
 
@@ -131,11 +147,12 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
+    await waitUntil(browserFramesRendered);
     assert.equal(getStyle('.TWO', 'height'), '49.5px');
     assert.equal(getStyle('.TWO', 'width'), '99.5px');
   });
 
-  test('it applies a row height fit', async function(assert) {
+  test('it applies a row height fit', async function (assert) {
     assert.expect(1);
     this.set('tiles', createTiles());
 
@@ -151,10 +168,11 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
+    await waitUntil(browserFramesRendered);
     assert.equal(getStyle('.TWO', 'height').substr(0, 2), '39');
   });
 
-  test('it applies tile colspan', async function(assert) {
+  test('it applies tile colspan', async function (assert) {
     assert.expect(1);
     this.set('tiles', createTiles());
 
@@ -173,10 +191,11 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
+    await waitUntil(browserFramesRendered);
     assert.equal(getStyle('.COLSPAN', 'width'), '199px');
   });
 
-  test('it applies tile rowspan', async function(assert) {
+  test('it applies tile rowspan', async function (assert) {
     assert.expect(2);
     this.set('tiles', createTiles());
 
@@ -195,11 +214,12 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
+    await waitUntil(browserFramesRendered);
     assert.equal(getStyle('.ONE', 'height'), '149.25px');
     assert.equal(getStyle('.ROWSPAN', 'height'), '299.5px');
   });
 
-  test('it recalculates when cols changes', async function(assert) {
+  test('it recalculates when cols changes', async function (assert) {
     assert.expect(6);
     this.set('tiles', createTiles());
     this.set('cols', 1);
@@ -216,19 +236,20 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
+    await waitUntil(browserFramesRendered);
     assert.equal(tileRow('.ONE'), 1);
     assert.equal(tileRow('.TWO'), 2);
     assert.equal(tileRow('.THREE'), 3);
 
     this.set('cols', 3);
-    await waitUntil(() => find('.THREE'));
+    await waitUntil(browserFramesRendered);
 
     assert.equal(tileRow('.ONE'), 1, 'ONE');
     assert.equal(tileRow('.TWO'), 1, 'TWO');
     assert.equal(tileRow('.THREE'), 1, 'THREE');
   });
 
-  test('it recalculates when tile is added', async function(assert) {
+  test('it recalculates when tile is added', async function (assert) {
     assert.expect(7);
     this.set('tiles', createTiles());
 
@@ -244,11 +265,14 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
+    await waitUntil(browserFramesRendered);
+
     assert.equal(tilePosition('.ONE'), 1);
     assert.equal(tilePosition('.TWO'), 2);
     assert.equal(tilePosition('.THREE'), 3);
 
-    run(() => this.tiles.insertAt(2, 'FOUR'));
+    this.tiles.insertAt(2, 'FOUR');
+    await waitUntil(browserFramesRendered);
     await waitUntil(() => find('.FOUR'));
 
     assert.equal(tilePosition('.ONE'), 1, 'ONE');
@@ -257,7 +281,7 @@ module('Integration | Component | paper-grid-list', function(hooks) {
     assert.equal(tilePosition('.THREE'), 4, 'THREE');
   });
 
-  test('it recalculates when tile is removed', async function(assert) {
+  test('it recalculates when tile is removed', async function (assert) {
     assert.expect(6);
     this.set('tiles', createTiles());
 
@@ -273,19 +297,22 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
+    await waitUntil(browserFramesRendered);
+
     assert.equal(tilePosition('.ONE'), 1);
     assert.equal(tilePosition('.TWO'), 2);
     assert.equal(tilePosition('.THREE'), 3);
 
-    run(() => this.tiles.removeAt(1));
+    this.tiles.removeAt(1);
     await waitUntil(() => !find('.TWO'));
+    await waitUntil(browserFramesRendered);
 
     assert.equal(find('.TWO'), null);
     assert.equal(tilePosition('.ONE'), 1);
     assert.equal(tilePosition('.THREE'), 2);
   });
 
-  test('it reorders tiles when dom order changes', async function(assert) {
+  test('it reorders tiles when dom order changes', async function (assert) {
     assert.expect(6);
     this.set('tiles', createTiles());
 
@@ -301,11 +328,13 @@ module('Integration | Component | paper-grid-list', function(hooks) {
       </div>
     `);
 
+    await waitUntil(browserFramesRendered);
     assert.equal(tilePosition('.ONE'), 1);
     assert.equal(tilePosition('.TWO'), 2);
     assert.equal(tilePosition('.THREE'), 3);
 
-    run(() => this.tiles.reverseObjects());
+    this.tiles.reverseObjects();
+    await waitUntil(browserFramesRendered);
     await waitUntil(() => find('.TWO'));
 
     assert.equal(tilePosition('.ONE'), 3);
