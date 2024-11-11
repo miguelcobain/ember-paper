@@ -1,7 +1,10 @@
-<md-grid-tile class={{@class}} {{did-insert this.didInsertNode}} {{did-update this.didUpdateNode @colspan @rowspan}} ...attributes>
+<md-grid-tile
+  class={{@class}}
+  {{did-insert this.didInsertNode}}
+  {{did-update this.didUpdateNode @colspan @rowspan}}
+  ...attributes
+>
   <figure>
-    {{yield (hash
-      footer=(component "paper-grid-tile-footer")
-    )}}
+    {{yield (hash footer=(component 'paper-grid-tile-footer'))}}
   </figure>
 </md-grid-tile>

@@ -84,7 +84,7 @@ export default class PaperGridTile extends Component {
   @action didInsertNode(element) {
     this.element = element;
 
-    this.args.parent.registerChild(this);
+    this.args.parent.registerChild(this, this.updateTile);
   }
 
   @action didUpdateNode() {
@@ -94,7 +94,7 @@ export default class PaperGridTile extends Component {
   willDestroy() {
     super.willDestroy(...arguments);
 
-    this.args.parent.unregisterChild(this);
+    this.args.parent.unregisterChild(this, this.updateTile);
   }
 
   /**
