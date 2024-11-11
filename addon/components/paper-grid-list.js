@@ -56,11 +56,6 @@ export default class PaperGridList extends Component {
    */
   @tracked children;
   /**
-   * Currently active media query breakpoints
-   * @type {Array<string>}
-   */
-  @tracked currentMedia;
-  /**
    * Reference to the component's DOM element
    * @type {HTMLElement}
    */
@@ -80,11 +75,6 @@ export default class PaperGridList extends Component {
    * @type {Object}
    */
   @tracked media = {};
-  /**
-   * RAF ID for debouncing media query updates
-   * @type {number}
-   */
-  @tracked rafUpdateCurrentMedia;
   /**
    * RAF ID for debouncing grid updates
    * @type {number}
@@ -169,23 +159,7 @@ export default class PaperGridList extends Component {
 
   _mediaDidChange(mediaName, matches) {
     this.media[mediaName] = matches;
-    this._updateCurrentMedia();
-  }
-
-  _updateCurrentMedia() {
-    // Debounce until the next frame
-    const updateCurrentMedia = () => {
-      let mediaPriorities = this.constants.MEDIA_PRIORITY;
-      this.currentMedia = mediaPriorities.filter(
-        (mediaName) => this.media[mediaName]
-      );
-      this.updateGrid();
-    };
-
-    this.rafUpdateCurrentMedia = debounce(
-      this.rafUpdateCurrentMedia,
-      updateCurrentMedia
-    );
+    this.updateGrid();
   }
 
   // Updates styles and triggers onUpdate callbacks
@@ -312,6 +286,15 @@ export default class PaperGridList extends Component {
       throw new Error('md-grid-list: No valid cols found');
     }
     return sizes;
+  }
+
+  /**
+   * Returns the currently active media query breakpoints
+   * @type {Array<string>}
+   */
+  get currentMedia() {
+    let mediaPriorities = this.constants.MEDIA_PRIORITY;
+    return mediaPriorities.filter((mediaName) => this.media[mediaName]);
   }
 
   /**
