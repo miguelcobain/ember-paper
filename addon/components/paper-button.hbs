@@ -19,8 +19,8 @@
     target={{@target}}
     title={{@title}}
     type={{this.type}}
-    {{did-insert this.registerListeners}}
-    {{will-destroy this.unregisterListeners}}
+    {{did-insert this.didInsertNode}}
+    {{will-destroy this.willDestroyNode}}
     {{on 'click' this.handleClick}}
     ...attributes
   >
