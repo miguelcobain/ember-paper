@@ -38,7 +38,7 @@ export default class PaperItem extends Component.extend(ParentMixin) {
   tabindex = '-1';
 
   @filter('childComponents', function (c) {
-    return !c.get('skipProxy');
+    return !c.skipProxy;
   })
   proxiedComponents;
 
@@ -86,8 +86,8 @@ export default class PaperItem extends Component.extend(ParentMixin) {
     this.proxiedComponents.forEach((component) => {
       if (
         component.processProxy &&
-        !component.get('disabled') &&
-        component.get('bubbles') | !this.hasPrimaryAction
+        !component.disabled &&
+        component.bubbles | !this.hasPrimaryAction
       ) {
         component.processProxy();
       }
