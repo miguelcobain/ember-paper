@@ -101,17 +101,19 @@ export default class PaperButton extends Focusable {
     return this.args.fab || this.args.mini;
   }
 
+  get bubbles() {
+    return this.args.bubbles === undefined || this.args.bubbles;
+  }
+
   @action handleClick(e) {
     if (this.args.onClick) {
       this.args.onClick(e);
     }
 
     // Prevent bubbling, if specified. If undefined, the event will bubble.
-    if (this.args.bubbles === undefined) {
-      return true;
+    if (!this.bubbles) {
+      e.stopPropagation();
     }
-
-    return this.args.bubbles;
   }
 
   // Proxiable Handlers
