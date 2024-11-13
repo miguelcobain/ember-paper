@@ -1,28 +1,63 @@
-{{! template-lint-disable no-action }}
-{{#with (hash
-  checkbox=(component "paper-checkbox" parentComponent=this bubbles=false shouldRegister=true)
-  button=(component "paper-button" parentComponent=this bubbles=false shouldRegister=true skipProxy=true)
-  switch=(component "paper-switch" parentComponent=this bubbles=false shouldRegister=true)
-  radio=(component "paper-radio-proxiable" parentComponent=this bubbles=false shouldRegister=true)
-) as |controls|}}
+<md-list-item
+  class='{{if this.hasProxiedComponent " md-proxy-focus"}}
+    {{if this.shouldBeClickable " md-clickable"}}
+    {{if this.focused " md-focused"}}
+    {{if this.hasPrimaryAction " _md-button-wrap"}}
+    {{@class}}'
+  role='listitem'
+  tabindex='-1'
+  title={{@title}}
+  {{did-insert this.didInsertNode}}
+  {{will-destroy this.willDestroyNode}}
+  {{on 'click' this.localOnClick}}
+  ...attributes
+>
+  {{#with
+    (hash
+      checkbox=(component
+        'paper-checkbox' parentComponent=this bubbles=false shouldRegister=true
+      )
+      button=(component
+        'paper-button'
+        parentComponent=this
+        bubbles=false
+        shouldRegister=true
+        skipProxy=true
+      )
+      switch=(component
+        'paper-switch' parentComponent=this bubbles=false shouldRegister=true
+      )
+      radio=(component
+        'paper-radio-proxiable'
+        parentComponent=this
+        bubbles=false
+        shouldRegister=true
+      )
+    )
+    as |controls|
+  }}
 
-  {{#if this.hasPrimaryAction}}
-    <div class="md-button md-no-style">
-      <PaperButton @class="md-no-style" @onClick={{@onClick}} @href={{@href}} @target={{@target}} @onMouseEnter={{action this.handleMouseEnter}} @onMouseLeave={{action this.handleMouseLeave}} />
-      <div class="md-list-item-inner">
-        {{yield controls}}
+    {{#if this.hasPrimaryAction}}
+      <div class='md-button md-no-style'>
+        <PaperButton
+          @class='md-no-style'
+          @onClick={{@onClick}}
+          @href={{@href}}
+          @target={{@target}}
+          @onMouseEnter={{this.handleMouseEnter}}
+          @onMouseLeave={{this.handleMouseLeave}}
+        />
+        <div class='md-list-item-inner'>
+          {{yield controls}}
+        </div>
+        <PaperRipple @noink={{this.noink}} @dimBackground={{true}} />
       </div>
-      <PaperRipple
-        @noink={{this.noink}}
-        @dimBackground={{true}}/>
-    </div>
-  {{else}}
-    <div class="md-no-style md-list-item-inner">
-      {{yield controls}}
-      <PaperRipple
-        @noink={{this.noink}}
-        @dimBackground={{true}}/>
-    </div>
-  {{/if}}
+    {{else}}
+      <div class='md-no-style md-list-item-inner'>
+        {{yield controls}}
+        <PaperRipple @noink={{this.noink}} @dimBackground={{true}} />
+      </div>
+    {{/if}}
 
-{{/with}}
+  {{/with}}
+</md-list-item>
