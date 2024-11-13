@@ -1,5 +1,68 @@
 # Ember Paper Changelog
 
+## Release (2024-11-13)
+
+ember-paper 1.0.0-beta.37 (major)
+
+#### :boom: Breaking Change
+* `ember-paper`
+  * [#1279](https://github.com/adopted-ember-addons/ember-paper/pull/1279) update minimum supported Node version to 18 ([@mansona](https://github.com/mansona))
+
+#### :rocket: Enhancement
+* `ember-paper`
+  * [#1262](https://github.com/adopted-ember-addons/ember-paper/pull/1262) refactor: migrates to `htmlSafe` from `@ember/template`. ([@matthewhartstonge](https://github.com/matthewhartstonge))
+  * [#1260](https://github.com/adopted-ember-addons/ember-paper/pull/1260) build(deps): upgrades to `ember-css-transitions@^4.4.1`. ([@matthewhartstonge](https://github.com/matthewhartstonge))
+  * [#1257](https://github.com/adopted-ember-addons/ember-paper/pull/1257) build(deps): updates to `ember-css-transitions@^3.1.0`. ([@matthewhartstonge](https://github.com/matthewhartstonge))
+  * [#1249](https://github.com/adopted-ember-addons/ember-paper/pull/1249) update ember-auto-import to v2 ([@mansona](https://github.com/mansona))
+  * [#1240](https://github.com/adopted-ember-addons/ember-paper/pull/1240) fix: Ember is not defined error ([@wozny1989](https://github.com/wozny1989))
+  * [#1211](https://github.com/adopted-ember-addons/ember-paper/pull/1211) Improve compatibility with Embroider ([@Subtletree](https://github.com/Subtletree))
+
+#### :bug: Bug Fix
+* `ember-paper`
+  * [#1275](https://github.com/adopted-ember-addons/ember-paper/pull/1275) move ember-modifier to dependencies ([@mansona](https://github.com/mansona))
+
+#### :house: Internal
+* `ember-paper`
+  * [#1302](https://github.com/adopted-ember-addons/ember-paper/pull/1302) make release-plan do pre-releases for now ([@mansona](https://github.com/mansona))
+  * [#1288](https://github.com/adopted-ember-addons/ember-paper/pull/1288) feat: adds widget catalog ([@matthewhartstonge](https://github.com/matthewhartstonge))
+  * [#1293](https://github.com/adopted-ember-addons/ember-paper/pull/1293) chore: remove color mixin. ([@matthewhartstonge](https://github.com/matthewhartstonge))
+  * [#1274](https://github.com/adopted-ember-addons/ember-paper/pull/1274) docs: migrates url references to adopted-ember-addons. ([@matthewhartstonge](https://github.com/matthewhartstonge))
+  * [#1285](https://github.com/adopted-ember-addons/ember-paper/pull/1285) chore: remove no-implicit-this lint errors ([@matthewhartstonge](https://github.com/matthewhartstonge))
+  * [#1284](https://github.com/adopted-ember-addons/ember-paper/pull/1284) make sure ember-cli-deprecation-workflow config is up to date ([@mansona](https://github.com/mansona))
+  * [#1280](https://github.com/adopted-ember-addons/ember-paper/pull/1280) start using release-plan ([@mansona](https://github.com/mansona))
+  * [#1251](https://github.com/adopted-ember-addons/ember-paper/pull/1251) swap to pnpm ([@mansona](https://github.com/mansona))
+  * [#1278](https://github.com/adopted-ember-addons/ember-paper/pull/1278) update github actions ([@mansona](https://github.com/mansona))
+  * [#1277](https://github.com/adopted-ember-addons/ember-paper/pull/1277) move lint-to-the-future dashboard to root of github pages ([@mansona](https://github.com/mansona))
+  * [#1276](https://github.com/adopted-ember-addons/ember-paper/pull/1276) fix deployments on netlify ([@mansona](https://github.com/mansona))
+  * [#1255](https://github.com/adopted-ember-addons/ember-paper/pull/1255) update lint-to-the-future ([@mansona](https://github.com/mansona))
+  * [#1253](https://github.com/adopted-ember-addons/ember-paper/pull/1253) update lttf dashbaord ([@mansona](https://github.com/mansona))
+  * [#1252](https://github.com/adopted-ember-addons/ember-paper/pull/1252) run ember-component-template-colocation-migrator ([@mansona](https://github.com/mansona))
+  * [#1250](https://github.com/adopted-ember-addons/ember-paper/pull/1250) Re-enable the Prettier eslint plugin ([@mansona](https://github.com/mansona))
+  * [#1248](https://github.com/adopted-ember-addons/ember-paper/pull/1248) apply fix to allow continue-on-error-comment to work ([@mansona](https://github.com/mansona))
+  * [#1247](https://github.com/adopted-ember-addons/ember-paper/pull/1247) fix avatar images in docs ([@wozny1989](https://github.com/wozny1989))
+  * [#1246](https://github.com/adopted-ember-addons/ember-paper/pull/1246) add ember-cli-deprecation-workflow ([@mansona](https://github.com/mansona))
+  * [#1245](https://github.com/adopted-ember-addons/ember-paper/pull/1245) add continue-on-error-comment ([@mansona](https://github.com/mansona))
+  * [#1242](https://github.com/adopted-ember-addons/ember-paper/pull/1242) chore: get rid of deprecation - deprecated-run-loop-and-computed-dot-access ([@wozny1989](https://github.com/wozny1989))
+  * [#1218](https://github.com/adopted-ember-addons/ember-paper/pull/1218) Remove ember-cp-validations from demo application ([@mansona](https://github.com/mansona))
+  * [#1220](https://github.com/adopted-ember-addons/ember-paper/pull/1220) Convert PaperGridList to native class syntax ([@mansona](https://github.com/mansona))
+  * [#1223](https://github.com/adopted-ember-addons/ember-paper/pull/1223) Convert paper-form to class syntax ([@mansona](https://github.com/mansona))
+  * [#1224](https://github.com/adopted-ember-addons/ember-paper/pull/1224) update paper-grid-tile to use native class syntax ([@mansona](https://github.com/mansona))
+  * [#1225](https://github.com/adopted-ember-addons/ember-paper/pull/1225) update paper-item to use native class syntax ([@mansona](https://github.com/mansona))
+  * [#1226](https://github.com/adopted-ember-addons/ember-paper/pull/1226) update paper-radio to use native class syntax ([@mansona](https://github.com/mansona))
+  * [#1227](https://github.com/adopted-ember-addons/ember-paper/pull/1227) update paper-tab to use native class syntax ([@mansona](https://github.com/mansona))
+  * [#1228](https://github.com/adopted-ember-addons/ember-paper/pull/1228) update paper-tabs to class syntax ([@mansona](https://github.com/mansona))
+  * [#1222](https://github.com/adopted-ember-addons/ember-paper/pull/1222) Remove unused eslint-disable directives ([@mansona](https://github.com/mansona))
+  * [#1215](https://github.com/adopted-ember-addons/ember-paper/pull/1215) Setting up the lint-to-the-future dashboard ([@mansona](https://github.com/mansona))
+  * [#1221](https://github.com/adopted-ember-addons/ember-paper/pull/1221) build documentation site on every merge to master ([@mansona](https://github.com/mansona))
+  * [#1217](https://github.com/adopted-ember-addons/ember-paper/pull/1217) remove Ember 3.28 from ember-try scenarios ([@mansona](https://github.com/mansona))
+  * [#1212](https://github.com/adopted-ember-addons/ember-paper/pull/1212) Move from travis to github actions ([@mansona](https://github.com/mansona))
+
+#### Committers: 4
+- Adam Woźny ([@wozny1989](https://github.com/wozny1989))
+- Chris Manson ([@mansona](https://github.com/mansona))
+- Matthew Hartstonge ([@matthewhartstonge](https://github.com/matthewhartstonge))
+- Ryan Scott ([@Subtletree](https://github.com/Subtletree))
+
 ### 1.0.0-beta.36
 - [#1201](https://github.com/miguelcobain/ember-paper/pull/1201) BREAKING - update blocking dependencies and codebase
   - Requires ember version >=3.20.0 < 4.0.0.
