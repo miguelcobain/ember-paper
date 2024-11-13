@@ -85,9 +85,9 @@ export default class PaperItem extends Component.extend(ParentMixin) {
   click() {
     this.proxiedComponents.forEach((component) => {
       if (
-        component.processProxy &&
+        !!component.processProxy &&
         !component.disabled &&
-        component.bubbles | !this.hasPrimaryAction
+        !!(component.bubbles || !this.hasPrimaryAction)
       ) {
         component.processProxy();
       }
