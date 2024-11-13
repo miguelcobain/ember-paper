@@ -4,6 +4,7 @@ import { later } from '@ember/runloop';
 import { A } from '@ember/array';
 import EObject, { computed } from '@ember/object';
 import { buildGridModel, randomColor, randomSpan } from '../../utils/grid-list';
+import { isTesting } from '@embroider/macros';
 
 export default Controller.extend({
 
@@ -18,11 +19,14 @@ export default Controller.extend({
   basicRows: 6,
 
   setupTimer() {
-    later(this, () => {
-      this.recalculateColorTiles();
+    // this will cause test waiters to never complete in tests
+    if(!isTesting()) {
+      later(this, () => {
+        this.recalculateColorTiles();
 
-      later(this, this.setupTimer);
-    }, 10 * 1000);
+        later(this, this.setupTimer);
+      }, 10 * 1000);
+    }
   },
 
   tiles: computed(function() {

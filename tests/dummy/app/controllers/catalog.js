@@ -6,6 +6,7 @@ import { inject as service } from '@ember/service';
 import { faker } from '@faker-js/faker';
 import { tracked } from '@glimmer/tracking';
 import { buildGridModel } from '../utils/grid-list';
+import { isTesting } from '@embroider/macros';
 
 export default class CatalogController extends Controller {
   // Autocomplete
@@ -515,10 +516,12 @@ export default class CatalogController extends Controller {
   @tracked progressTimer = null;
   @tracked progressTimer2 = null;
   @action progressStart() {
-    this.progressDeterminateValue = 30;
-    this.progressDeterminateValue2 = 30;
-    this.progressSetupTimer();
-    this.progressSetupTimer2();
+    if (!isTesting()) {
+      this.progressDeterminateValue = 30;
+      this.progressDeterminateValue2 = 30;
+      this.progressSetupTimer();
+      this.progressSetupTimer2();
+    }
   }
   progressSetupTimer() {
     this.progressTimer = later(
@@ -549,8 +552,10 @@ export default class CatalogController extends Controller {
     );
   }
   @action progressStop() {
-    cancel(this.progressTimer);
-    cancel(this.progressTimer2);
+    if (!isTesting()) {
+      cancel(this.progressTimer);
+      cancel(this.progressTimer2);
+    }
   }
 
   // Select
@@ -597,6 +602,7 @@ export default class CatalogController extends Controller {
     return this.router.currentRouteName;
   }
 
-  // Toast
-  toastDuration = 60000;
+  // Toast duration needs to be falsey so that we can take a snapshot with percy
+  // TODO we might be able to clean this up later when we remove use of `later()` in the codebase
+  toastDuration = false;
 }

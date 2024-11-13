@@ -15,6 +15,9 @@ jobs:
   test:
     name: "Tests"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PERCY_TOKEN: web_fd6630a88fbe17df0319f50cf1ff005ba127bfea4c61fdd535c69275a648ec28
 
     steps:
       - uses: actions/checkout@v4
@@ -29,11 +32,12 @@ jobs:
       - name: Lint
         run: pnpm run lint
       - name: Run Tests
-        run: pnpm run test:ember
+        run: pnpm percy exec -- pnpm run test:ember
 
   floating:
     name: "Floating Dependencies"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v4
@@ -50,6 +54,7 @@ jobs:
   try-scenarios:
     name: ${{ matrix.try-scenario }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: "test"
 
     strategy:
@@ -76,6 +81,7 @@ jobs:
   failing-try-scenarios:
     name: ${{ matrix.try-scenario }} Allowed to fail
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: "test"
 
     permissions:
