@@ -17,7 +17,7 @@ export default class PaperButton extends Focusable {
   element;
   /**
    * The parent this component is bound to.
-   * @type {Boolean}
+   * @type {PaperForm|PaperItem|PaperTabs}
    */
   parent;
   /**
@@ -54,7 +54,7 @@ export default class PaperButton extends Focusable {
     this.registerListeners(element);
 
     if (this.shouldRegister) {
-      this.args.parentComponent.registerChild(this);
+      this.parent.registerChild(this);
     }
   }
 
@@ -77,7 +77,7 @@ export default class PaperButton extends Focusable {
     super.willDestroy(...arguments);
 
     if (this.shouldRegister) {
-      this.args.parentComponent.unregisterChild(this);
+      this.parent.unregisterChild(this);
     }
   }
 
