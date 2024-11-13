@@ -30,7 +30,7 @@ export default class PaperForm extends Component {
   autocompleteComponent;
 
   /**
-   * Set of form components
+   * Array of form components
    * @type {A}
    */
   @tracked children = A([]);
@@ -112,13 +112,11 @@ export default class PaperForm extends Component {
 
   @action localOnSubmit() {
     if (this.isInvalid) {
-      console.debug('form is invalid');
       this.children.setEach('isTouched', true);
       if (this.args.onInvalid) {
         this.args.onInvalid();
       }
     } else {
-      console.debug('form is submitted');
       if (this.args.onSubmit) {
         this.args.onSubmit();
       }
