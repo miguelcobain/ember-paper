@@ -1,23 +1,27 @@
-{{! template-lint-disable no-action }}
-{{yield (hash
-  isValid=this.isValid
-  isInvalid=this.isInvalid
-  isTouched=this.isTouched
-  isInvalidAndTouched=this.isInvalidAndTouched
-  input=(component this.inputComponent
-    parentComponent=this
-    onValidityChange=(action "localOnValidityChange")
-  )
-  submit-button=(component this.submitButtonComponent
-    type="submit"
-  )
-  select=(component this.selectComponent
-  	parentComponent=this
-  	onValidityChange=(action "localOnValidityChange")
-  )
-  autocomplete=(component this.autocompleteComponent
-  	parentComponent=this
-  	onValidityChange=(action "localOnValidityChange")
-  )
-  onSubmit=(action "localOnSubmit")
-)}}
+<form role='form' class={{@class}} {{on 'submit' this.submit}} ...attributes>
+  {{yield
+    (hash
+      isValid=this.isValid
+      isInvalid=this.isInvalid
+      isTouched=this.isTouched
+      isInvalidAndTouched=this.isInvalidAndTouched
+      input=(component
+        this.inputComponent
+        parentComponent=this
+        onValidityChange=this.localOnValidityChange
+      )
+      submit-button=(component this.submitButtonComponent type='submit')
+      select=(component
+        this.selectComponent
+        parentComponent=this
+        onValidityChange=this.localOnValidityChange
+      )
+      autocomplete=(component
+        this.autocompleteComponent
+        parentComponent=this
+        onValidityChange=this.localOnValidityChange
+      )
+      onSubmit=this.localOnSubmit
+    )
+  }}
+</form>
