@@ -3,7 +3,6 @@ import { A } from '@ember/array';
 import { action } from '@ember/object';
 import { later, cancel } from '@ember/runloop';
 import { inject as service } from '@ember/service';
-import { faker } from '@faker-js/faker';
 import { tracked } from '@glimmer/tracking';
 import { buildGridModel } from '../utils/grid-list';
 import { isTesting } from '@embroider/macros';
@@ -371,20 +370,8 @@ export default class CatalogController extends Controller {
   }
 
   // Contact Chips
-  contactChipsNumOfContacts = 10;
   get contactChipsContacts() {
-    let contacts = [];
-    let numOfContacts = this.contactChipsNumOfContacts;
-
-    for (let i = 0; i < numOfContacts; i++) {
-      contacts.push({
-        name: faker.person.fullName(),
-        email: faker.internet.email(),
-        image: faker.image.avatar(),
-      });
-    }
-
-    return contacts;
+    return defaultContacts();
   }
   get contactChipsSelectedContacts() {
     return this.contactChipsContacts.filter((c, index) => {
@@ -420,20 +407,8 @@ export default class CatalogController extends Controller {
   }
 
   // List
-  listNumOfRows = 3;
   get listData() {
-    let contacts = [];
-    let numOfRows = this.listNumOfRows;
-
-    for (let i = 0; i < numOfRows; i++) {
-      contacts.push({
-        name: faker.person.fullName(),
-        email: faker.internet.email(),
-        img: faker.image.dataUri(),
-      });
-    }
-
-    return contacts;
+    return defaultContacts().slice(0, 3);
   }
   listPhoneNumbers = Object.freeze([
     {
@@ -605,4 +580,69 @@ export default class CatalogController extends Controller {
   // Toast duration needs to be falsey so that we can take a snapshot with percy
   // TODO we might be able to clean this up later when we remove use of `later()` in the codebase
   toastDuration = false;
+}
+
+function defaultContacts() {
+  return [
+    {
+      name: 'Marc Upton III',
+      email: 'Clementine.Corwin77@gmail.com',
+      image: 'https://avatars.githubusercontent.com/u/34758178',
+      img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIyOTUiIGhlaWdodD0iMTYzMyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzdjMGVkYyIvPjx0ZXh0IHg9IjE0Ny41IiB5PSI4MTYuNSIgZm9udC1zaXplPSIyMCIgYWxpZ25tZW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIj4yOTV4MTYzMzwvdGV4dD48L3N2Zz4=',
+    },
+    {
+      name: 'Krystal Marks',
+      email: 'Michelle22@hotmail.com',
+      image: 'https://avatars.githubusercontent.com/u/74532735',
+      img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSI3MDUiIGhlaWdodD0iMzAwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2JhZWMyNSIvPjx0ZXh0IHg9IjM1Mi41IiB5PSIxNTAwIiBmb250LXNpemU9IjIwIiBhbGlnbm1lbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiPjcwNXgzMDAwPC90ZXh0Pjwvc3ZnPg==',
+    },
+    {
+      name: 'Dr. Charlene Pacocha',
+      email: 'Shane.Hagenes@gmail.com',
+      image: 'https://avatars.githubusercontent.com/u/20957179',
+      img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIxODgzIiBoZWlnaHQ9IjMyMzQiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMzZDJhYmQiLz48dGV4dCB4PSI5NDEuNSIgeT0iMTYxNyIgZm9udC1zaXplPSIyMCIgYWxpZ25tZW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIj4xODgzeDMyMzQ8L3RleHQ+PC9zdmc+',
+    },
+    {
+      name: 'Mrs. Ginger Mohr DDS',
+      email: 'Rhiannon32@gmail.com',
+      image: 'https://avatars.githubusercontent.com/u/11685726',
+      img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIxODcxIiBoZWlnaHQ9IjUxNyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VhODY1YSIvPjx0ZXh0IHg9IjkzNS41IiB5PSIyNTguNSIgZm9udC1zaXplPSIyMCIgYWxpZ25tZW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIj4xODcxeDUxNzwvdGV4dD48L3N2Zz4=',
+    },
+    {
+      name: 'Dr. Blake Macejkovic',
+      email: 'Laurianne.Gerlach@yahoo.com',
+      image: 'https://avatars.githubusercontent.com/u/84034715',
+      img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIyMDI3IiBoZWlnaHQ9IjI3MzAiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMyODlhNGEiLz48dGV4dCB4PSIxMDEzLjUiIHk9IjEzNjUiIGZvbnQtc2l6ZT0iMjAiIGFsaWdubWVudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSI+MjAyN3gyNzMwPC90ZXh0Pjwvc3ZnPg==',
+    },
+    {
+      name: 'Caleb Tillman',
+      email: 'Randall_OConner-Parker2@yahoo.com',
+      image: 'https://avatars.githubusercontent.com/u/95453771',
+      img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIyODk1IiBoZWlnaHQ9IjM4ODMiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNhYjI5NGMiLz48dGV4dCB4PSIxNDQ3LjUiIHk9IjE5NDEuNSIgZm9udC1zaXplPSIyMCIgYWxpZ25tZW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIj4yODk1eDM4ODM8L3RleHQ+PC9zdmc+',
+    },
+    {
+      name: 'Yolanda Lind',
+      email: 'Jesus.Gottlieb-Weimann26@hotmail.com',
+      image: 'https://avatars.githubusercontent.com/u/28673259',
+      img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIzMzA2IiBoZWlnaHQ9IjE5NTgiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiM5MDM2NGMiLz48dGV4dCB4PSIxNjUzIiB5PSI5NzkiIGZvbnQtc2l6ZT0iMjAiIGFsaWdubWVudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSI+MzMwNngxOTU4PC90ZXh0Pjwvc3ZnPg==',
+    },
+    {
+      name: 'Billy Mueller',
+      email: 'Destini.Rowe43@hotmail.com',
+      image: 'https://avatars.githubusercontent.com/u/55535921',
+      img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIzNjQ0IiBoZWlnaHQ9IjI1NjkiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNmNjgwYjEiLz48dGV4dCB4PSIxODIyIiB5PSIxMjg0LjUiIGZvbnQtc2l6ZT0iMjAiIGFsaWdubWVudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSI+MzY0NHgyNTY5PC90ZXh0Pjwvc3ZnPg==',
+    },
+    {
+      name: 'Bobbie Legros',
+      email: 'Cesar.Cole@yahoo.com',
+      image: 'https://avatars.githubusercontent.com/u/72438216',
+      img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIyNTcwIiBoZWlnaHQ9IjEyNjkiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlY2I5ZWEiLz48dGV4dCB4PSIxMjg1IiB5PSI2MzQuNSIgZm9udC1zaXplPSIyMCIgYWxpZ25tZW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIj4yNTcweDEyNjk8L3RleHQ+PC9zdmc+',
+    },
+    {
+      name: 'Frederick Lemke',
+      email: 'Sebastian82@yahoo.com',
+      image: 'https://avatars.githubusercontent.com/u/75817875',
+      img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIxOTI0IiBoZWlnaHQ9IjM1MjUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiM3NTJlYWIiLz48dGV4dCB4PSI5NjIiIHk9IjE3NjIuNSIgZm9udC1zaXplPSIyMCIgYWxpZ25tZW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIj4xOTI0eDM1MjU8L3RleHQ+PC9zdmc+',
+    },
+  ];
 }
