@@ -2,7 +2,6 @@
  * @module ember-paper
  */
 import Focusable from './-focusable';
-import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { assert } from '@ember/debug';
 
@@ -15,7 +14,7 @@ export default class PaperButton extends Focusable {
    * Reference to the component's DOM element
    * @type {HTMLElement}
    */
-  @tracked element;
+  element;
   /**
    * The parent this component is bound to.
    * @type {Boolean}
