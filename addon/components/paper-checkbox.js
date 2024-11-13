@@ -1,88 +1,160 @@
-/* eslint-disable ember/no-classic-components, ember/no-get, ember/no-mixins, ember/require-tagless-components */
 /**
  * @module ember-paper
  */
+import Focusable from './-focusable';
 import { inject as service } from '@ember/service';
-
-import { computed } from '@ember/object';
-import { not, and } from '@ember/object/computed';
-import Component from '@ember/component';
+import { action } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 import { assert } from '@ember/debug';
-import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
-import { invokeAction } from 'ember-paper/utils/invoke-action';
+
 /**
  * @class PaperCheckbox
- * @extends Ember.Component
- * @uses FocusableMixin
- * @uses ProxiableMixin
+ * @extends Component
  */
-export default Component.extend(FocusableMixin, ProxiableMixin, {
-  tagName: 'md-checkbox',
-  classNames: ['md-checkbox', 'md-default-theme'],
-  classNameBindings: [
-    'isChecked:md-checked',
-    'indeterminate:md-indeterminate',
-    'warn:md-warn',
-    'accent:md-accent',
-    'primary:md-primary',
-  ],
+export default class PaperCheckbox extends Focusable {
+  /**
+   * Service containing media query breakpoints and constants
+   */
+  @service constants;
 
-  attributeBindings: [
-    'role:role',
-    'ariaLabel:aria-label',
-    'ariaChecked:aria-checked',
-    'labelId:aria-labelledby',
-  ],
+  /**
+   * Reference to the component's DOM element
+   * @type {HTMLElement}
+   */
+  element;
+  /**
+   * The parent this component is bound to.
+   * @type {Boolean}
+   */
+  parent;
+  /**
+   * Marks whether the component should register itself to the supplied parent
+   * @type {Boolean}
+   */
+  shouldRegister;
+  /**
+   * Marks whether the component should skip being proxied.
+   * @type {Boolean}
+   */
+  skipProxy;
+  /**
+   * provides a globally unique component id for tracking bindings between aria
+   * tags and labels.
+   * @type {string}
+   */
+  labelId;
 
-  /* FocusableMixin Overrides */
-  focusOnlyOnKey: true,
+  /* Focusable Overrides */
+  focusOnlyOnKey = true;
 
-  constants: service(),
-  value: false,
-  role: 'checkbox',
-  notIndeterminate: not('indeterminate'),
-  isChecked: and('notIndeterminate', 'value'),
+  constructor(owner, args) {
+    super(owner, args);
 
-  ariaChecked: computed('isChecked', 'indeterminate', function () {
+    this.labelId = `${guidFor(args)}-label`;
+    this.shouldRegister = this.args.shouldRegister || false;
+    this.skipProxy = this.args.skipProxy || false;
+
+    if (this.shouldRegister) {
+      assert(
+        'A parent component should be supplied to <PaperCheckbox> when shouldRegister=true',
+        this.args.parentComponent
+      );
+      this.parent = this.args.parentComponent;
+    }
+
+    assert(
+      '<PaperCheckbox> requires an `onChange` action or null for no action.',
+      this.args.onChange !== undefined
+    );
+  }
+
+  /**
+   * Performs any required DOM setup.
+   * @param element
+   */
+  @action didInsertNode(element) {
+    this.element = element;
+    this.registerListeners(element);
+
+    if (this.shouldRegister) {
+      this.parent.registerChild(this);
+    }
+  }
+
+  @action didUpdateNode() {
+    // noop
+  }
+
+  /**
+   * Performs any required DOM teardown.
+   * @param element
+   */
+  @action willDestroyNode(element) {
+    this.unregisterListeners(element);
+  }
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+
+    if (this.shouldRegister) {
+      this.parent.unregisterChild(this);
+    }
+  }
+
+  get indeterminate() {
+    return this.args.indeterminate || false;
+  }
+
+  get notIndeterminate() {
+    return !this.indeterminate;
+  }
+
+  get value() {
+    return this.args.value || false;
+  }
+
+  get isChecked() {
+    return this.notIndeterminate && this.value;
+  }
+
+  get ariaChecked() {
     if (this.indeterminate) {
       return 'mixed';
     }
 
     return this.isChecked ? 'true' : 'false';
-  }),
+  }
 
-  labelId: computed('elementId', function () {
-    return `${this.elementId}-label`;
-  }),
+  get bubbles() {
+    return this.args.bubbles === undefined || this.args.bubbles;
+  }
 
-  init() {
-    this._super(...arguments);
-    assert(
-      '{{paper-checkbox}} requires an `onChange` action or null for no action.',
-      this.onChange !== undefined
-    );
-  },
-
-  click() {
+  @action onClick(e) {
     if (!this.disabled) {
-      invokeAction(this, 'onChange', !this.value);
-    }
-    // Prevent bubbling, if specified. If undefined, the event will bubble.
-    return this.bubbles;
-  },
+      if (this.args.onChange) {
+        this.args.onChange(!this.value);
+      }
 
-  keyPress(ev) {
-    if (
-      ev.which === this.get('constants.KEYCODE.SPACE') ||
-      ev.which === this.get('constants.KEYCODE.ENTER')
-    ) {
-      ev.preventDefault();
-      this.click();
+      // Prevent bubbling, if specified. If undefined, the event will bubble.
+      if (!this.bubbles) {
+        e.stopPropagation();
+      }
     }
-  },
+  }
+
+  @action onKeyPress(e) {
+    if (
+      e.which === this.constants.KEYCODE.SPACE ||
+      e.which === this.constants.KEYCODE.ENTER
+    ) {
+      e.preventDefault();
+      this.onClick();
+    }
+  }
 
   processProxy() {
-    invokeAction(this, 'onChange', !this.value);
-  },
-});
+    if (this.args.onChange) {
+      this.args.onChange(!this.value);
+    }
+  }
+}
