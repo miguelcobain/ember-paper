@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-mixins, ember/require-computed-property-dependencies, prettier/prettier */
+/* eslint-disable ember/no-mixins, ember/require-computed-property-dependencies */
 /**
  * @module ember-paper
  */
