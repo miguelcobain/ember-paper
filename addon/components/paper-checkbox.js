@@ -136,7 +136,7 @@ export default class PaperCheckbox extends Focusable {
       }
 
       // Prevent bubbling, if specified. If undefined, the event will bubble.
-      if (!this.bubbles) {
+      if (!this.bubbles && e) {
         e.stopPropagation();
       }
     }
