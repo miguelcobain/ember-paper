@@ -1,72 +1,142 @@
-/* eslint-disable ember/no-classic-components, ember/no-mixins, ember/require-tagless-components */
 /**
  * @module ember-paper
  */
-import Component from '@ember/component';
-
-import { computed } from '@ember/object';
+import Focusable from './-focusable';
+import { action } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 import { assert } from '@ember/debug';
-import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
  * @class PaperRadio
- * @extends Ember.Component
- * @uses FocusableMixin
+ * @extends Component
  */
-export default Component.extend(FocusableMixin, {
-  tagName: 'md-radio-button',
-  classNames: ['md-default-theme'],
-  classNameBindings: [
-    'checked:md-checked',
-    'warn:md-warn',
-    'accent:md-accent',
-    'primary:md-primary',
-  ],
+export default class PaperRadioBase extends Focusable {
+  /**
+   * Reference to the component's DOM element
+   * @type {HTMLElement}
+   */
+  element;
+  /**
+   * provides a globally unique component id for tracking bindings between aria
+   * tags and labels.
+   * @type {string}
+   */
+  labelId;
+  /**
+   * The parent this component is bound to.
+   * @type {PaperRadioGroup|PaperForm|PaperItem|PaperTabs}
+   */
+  parent;
+  /**
+   * Marks whether the component should register itself to the supplied parent
+   * @type {Boolean}
+   */
+  shouldRegister;
+  /**
+   * Marks whether the component should skip being proxied.
+   * @type {Boolean}
+   */
+  skipProxy;
 
-  attributeBindings: [
-    'role',
-    'ariaChecked:aria-checked',
-    'ariaLabel:aria-label',
-  ],
+  /**
+   * specifies whether
+   * @type {boolean}
+   */
+  toggle = false;
 
-  tabindex: null,
-  toggle: false,
-  role: 'radio',
-
-  /* FocusableMixin Overrides */
-  focusOnlyOnKey: true,
+  /* Focusable Overrides */
+  focusOnlyOnKey = true;
 
   // Lifecycle hooks
-  init() {
+  constructor(owner, args) {
+    super(owner, args);
+
+    this.labelId = `${guidFor(this)}-label`;
+    this.shouldRegister = this.args.shouldRegister || false;
+    this.skipProxy = this.args.skipProxy || false;
+    this.toggle = this.args.toggle || false;
+
+    if (this.shouldRegister) {
+      assert(
+        'A parent component should be supplied to <PaperRadio> when shouldRegister=true',
+        this.args.parentComponent
+      );
+      this.parent = this.args.parentComponent;
+    }
+
     assert(
-      '{{paper-radio}} requires an `onChange` action or null for no action.',
-      this.onChange !== undefined
+      '<PaperRadio> requires an `onChange` action or null for no action.',
+      this.args.onChange !== undefined
     );
-    this._super(...arguments);
-  },
+  }
 
-  checked: computed('groupValue', 'value', function () {
-    return this.groupValue === this.value;
-  }),
+  /**
+   * Performs any required DOM setup.
+   * @param element
+   */
+  @action didInsertNode(element) {
+    this.element = element;
+    this.registerListeners(element);
 
-  ariaChecked: computed('checked', function () {
+    if (this.shouldRegister) {
+      this.parent.registerChild(this);
+    }
+  }
+
+  @action didUpdateNode() {
+    // noop
+  }
+
+  /**
+   * Performs any required DOM teardown.
+   * @param element
+   */
+  @action willDestroyNode(element) {
+    this.unregisterListeners(element);
+  }
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+
+    if (this.shouldRegister) {
+      this.parent.unregisterChild(this);
+    }
+  }
+
+  get value() {
+    return this.args.value || false;
+  }
+
+  get checked() {
+    return this.args.groupValue === this.value;
+  }
+
+  get ariaChecked() {
     return this.checked ? 'true' : 'false';
-  }),
+  }
 
-  labelId: computed('elementId', function () {
-    return `${this.elementId}-label`;
-  }),
+  get bubbles() {
+    return this.args.bubbles === undefined || this.args.bubbles;
+  }
 
-  click() {
+  @action onClick(e) {
     if (!this.disabled) {
-      if (this.toggle) {
-        invokeAction(this, 'onChange', this.checked ? null : this.value);
-      } else {
-        invokeAction(this, 'onChange', this.value);
+      if (this.args.onChange) {
+        if (this.toggle) {
+          this.args.onChange(this.checked ? null : this.value);
+        } else {
+          this.args.onChange(this.value);
+        }
+      }
+
+      // Prevent bubbling, if specified. If undefined, the event will bubble.
+      if (!this.bubbles && e) {
+        e.stopPropagation();
       }
     }
-    // Prevent bubbling, if specified. If undefined, the event will bubble.
-    return this.bubbles;
-  },
-});
+  }
+
+  processProxy() {
+    this.onClick();
+  }
+}

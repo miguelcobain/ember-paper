@@ -1,15 +1,10 @@
-/* eslint-disable prettier/prettier */
 /**
  * @module ember-paper
  */
-import PaperRadioBaseComponent from './paper-radio-base';
-import { ChildMixin } from 'ember-composability-tools';
+import PaperRadioBase from './paper-radio-base';
 
 /**
  * @class PaperRadio
- * @extends PaperRadioBaseComponent
- * @uses ChildMixin
+ * @extends PaperRadioBase
  */
-export default class PaperRadio extends PaperRadioBaseComponent.extend(ChildMixin) {
- shouldRegister = false;
-}
+export default class PaperRadio extends PaperRadioBase {}
