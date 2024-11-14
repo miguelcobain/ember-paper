@@ -111,7 +111,7 @@ export default class PaperButton extends Focusable {
     }
 
     // Prevent bubbling, if specified. If undefined, the event will bubble.
-    if (!this.bubbles) {
+    if (!this.bubbles && e) {
       e.stopPropagation();
     }
   }
