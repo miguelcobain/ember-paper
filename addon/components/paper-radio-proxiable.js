@@ -1,17 +1,10 @@
-/* eslint-disable ember/no-mixins, prettier/prettier */
 /**
  * @module ember-paper
  */
-import PaperRadioBaseComponent from './paper-radio-base';
-import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
+import PaperRadioBase from './paper-radio-base';
 
 /**
  * @class PaperRadio
- * @extends PaperRadioBaseComponent
- * @uses ProxiableMixin
+ * @extends PaperRadioBase
  */
-export default PaperRadioBaseComponent.extend(ProxiableMixin, {
-  processProxy() {
-    this.click();
-  }
-});
+export default class PaperRadioProxiable extends PaperRadioBase {}
