@@ -81,6 +81,10 @@ export default class PaperGridTile extends Component {
     this.gridList = this.args.parent;
   }
 
+  /**
+   * Performs any required DOM setup.
+   * @param {HTMLElement} element
+   */
   @action didInsertNode(element) {
     this.element = element;
 
