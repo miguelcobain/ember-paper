@@ -19,10 +19,14 @@ export default class PaperItem extends Component {
   element;
 
   /**
-   * Set of child grid tile components
+   * Array of child components.
    * @type {A}
    */
   @tracked children;
+  /**
+   * marks whether the component is focused. Sets class `md-focused` if true.
+   * @type {boolean}
+   */
   @tracked focused = false;
 
   constructor(owner, args) {
@@ -35,6 +39,10 @@ export default class PaperItem extends Component {
     }
   }
 
+  /**
+   * Performs any required DOM setup.
+   * @param {HTMLElement} element
+   */
   @action didInsertNode(element) {
     element.addEventListener('mouseenter', this.handleMouseEnter);
     element.addEventListener('mouseleave', this.handleMouseLeave);
@@ -46,6 +54,10 @@ export default class PaperItem extends Component {
     // noop
   }
 
+  /**
+   * Performs any required DOM teardown.
+   * @param {HTMLElement} element
+   */
   @action willDestroyNode(element) {
     element.removeEventListener('mouseenter', this.handleMouseEnter);
     element.removeEventListener('mouseleave', this.handleMouseLeave);
