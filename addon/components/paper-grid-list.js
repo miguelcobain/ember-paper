@@ -98,6 +98,10 @@ export default class PaperGridList extends Component {
     this.childrenNotifyUpdate = new Set();
   }
 
+  /**
+   * Performs any required DOM setup.
+   * @param {HTMLElement} element
+   */
   @action didInsertNode(element) {
     this.element = element;
     this._installMediaListener();
