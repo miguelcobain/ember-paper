@@ -38,14 +38,9 @@ export default class PaperRadioBase extends Focusable {
    */
   skipProxy;
 
-  /**
-   * specifies whether
-   * @type {boolean}
-   */
-  toggle = false;
-
   /* Focusable Overrides */
   focusOnlyOnKey = true;
+  toggle = false;
 
   // Lifecycle hooks
   constructor(owner, args) {
