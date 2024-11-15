@@ -1,43 +1,141 @@
-/* eslint-disable ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-get, ember/no-mixins, ember/require-tagless-components, no-unused-vars */
+/* global Hammer */
 /**
  * @module ember-paper
  */
-import { inject as service } from '@ember/service';
-
-import Component from '@ember/component';
+import Focusable from './-focusable';
+import { tracked } from '@glimmer/tracking';
 import { assert } from '@ember/debug';
-import { get, computed } from '@ember/object';
-import { bind } from '@ember/runloop';
+import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/template';
-import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import ProxiableMixin from 'ember-paper/mixins/proxiable-mixin';
-import { invokeAction } from 'ember-paper/utils/invoke-action';
-
-/* global Hammer */
 
 /**
  * @class PaperSwitch
- * @extends Ember.Component
- * @uses FocusableMixin
- * @uses ProxiableMixin
+ * @extends Component
  */
-export default Component.extend(FocusableMixin, ProxiableMixin, {
-  tagName: 'md-switch',
-  classNames: ['paper-switch', 'md-default-theme'],
-  classNameBindings: [
-    'value:md-checked',
-    'dragging:md-dragging',
-    'warn:md-warn',
-    'accent:md-accent',
-    'primary:md-primary',
-  ],
-  toggle: true,
-  constants: service(),
-  value: false,
-  disabled: false,
-  dragging: false,
+export default class PaperSwitch extends Focusable {
+  @service constants;
 
-  thumbContainerStyle: computed('dragging', 'dragAmount', function () {
+  /**
+   * Reference to the component's DOM element
+   * @type {HTMLElement}
+   */
+  element;
+  /**
+   * The parent this component is bound to.
+   * @type {PaperRadioGroup|PaperForm|PaperItem|PaperTabs}
+   */
+  parent;
+  /**
+   * Marks whether the component should register itself to the supplied parent
+   * @type {Boolean}
+   */
+  shouldRegister;
+  /**
+   * Marks whether the component should skip being proxied.
+   * @type {Boolean}
+   */
+  skipProxy;
+
+  /* Focusable Overrides */
+  toggle = true;
+
+  /**
+   * specifies the positive amount the switch has been dragged.
+   * @type {number|null}
+   */
+  @tracked dragAmount = null;
+  /**
+   * specifies whether the switch is currently being dragged.
+   * @type {boolean}
+   */
+  @tracked dragging = false;
+  /**
+   * specifies the width of the switch to calculate drag deltas.
+   * @type {number}
+   */
+  @tracked switchWidth = 0;
+
+  // Lifecycle hooks
+  constructor(owner, args) {
+    super(owner, args);
+
+    this.shouldRegister = this.args.shouldRegister || false;
+    this.skipProxy = this.args.skipProxy || false;
+    this.toggle = this.args.toggle || false;
+
+    if (this.shouldRegister) {
+      assert(
+        'A parent component should be supplied to <PaperSwitch> when shouldRegister=true',
+        this.args.parentComponent
+      );
+      this.parent = this.args.parentComponent;
+    }
+
+    assert(
+      '<PaperSwitch> requires an `onChange` action or null for no action.',
+      this.args.onChange !== undefined
+    );
+  }
+
+  /**
+   * Performs any required DOM setup.
+   * @param element
+   */
+  @action didInsertNode(element) {
+    this.element = element;
+    this.registerListeners(element);
+
+    if (this.shouldRegister) {
+      this.parent.registerChild(this);
+    }
+
+    // Only setup if the switch is not disabled
+    if (!this.disabled) {
+      this._setupSwitch();
+    }
+  }
+
+  @action didUpdateNode() {
+    if (!this.disabled && !this._switchContainerHammer) {
+      this._setupSwitch();
+    } else if (!this.disabled && this._switchContainerHammer) {
+      this._switchContainerHammer.set({ enable: true });
+    } else if (this.disabled && this._switchContainerHammer) {
+      this._switchContainerHammer.set({ enable: false });
+    }
+  }
+
+  /**
+   * Performs any required DOM teardown.
+   * @param element
+   */
+  @action willDestroyNode(element) {
+    this.unregisterListeners(element);
+    this._teardownSwitch();
+  }
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+
+    if (this.shouldRegister) {
+      this.parent.unregisterChild(this);
+    }
+  }
+
+  /**
+   * specifies the current switch value.
+   * @type {boolean}
+   */
+  get value() {
+    return this.args.value;
+  }
+
+  /**
+   * Calculates and returns a css animation transform for the switch's thumb.
+   * @returns {string}
+   */
+  get thumbContainerStyle() {
     if (!this.dragging) {
       return htmlSafe('');
     }
@@ -47,47 +145,12 @@ export default Component.extend(FocusableMixin, ProxiableMixin, {
     return htmlSafe(
       `transform: ${transformProp};-webkit-transform: ${transformProp}`
     );
-  }),
-
-  didInsertElement() {
-    this._super(...arguments);
-
-    // Only setup if the switch is not disabled
-    if (!this.disabled) {
-      this._setupSwitch();
-    }
-  },
-
-  init() {
-    this._super(...arguments);
-    assert(
-      '{{paper-switch}} requires an `onChange` action or null for no action.',
-      this.onChange !== undefined
-    );
-  },
-
-  willDestroyElement() {
-    this._super(...arguments);
-    this._teardownSwitch();
-  },
-
-  didUpdateAttrs() {
-    this._super(...arguments);
-
-    if (!this.disabled && !this._switchContainerHammer) {
-      this._setupSwitch();
-    } else if (!this.disabled && this._switchContainerHammer) {
-      this._switchContainerHammer.set({ enable: true });
-    } else if (this.disabled && this._switchContainerHammer) {
-      this._switchContainerHammer.set({ enable: false });
-    }
-  },
+  }
 
   _setupSwitch() {
-    this.set(
-      'switchWidth',
-      this.element.querySelector('.md-thumb-container').offsetWidth
-    );
+    this.switchWidth = this.element.querySelector(
+      '.md-thumb-container'
+    ).offsetWidth;
 
     let switchContainer = this.element.querySelector('.md-container');
     let switchHammer = new Hammer(switchContainer);
@@ -96,20 +159,20 @@ export default Component.extend(FocusableMixin, ProxiableMixin, {
     // Enable dragging the switch container
     switchHammer.get('pan').set({ threshold: 1 });
     switchHammer
-      .on('panstart', bind(this, this._dragStart))
-      .on('panmove', bind(this, this._drag))
-      .on('panend', bind(this, this._dragEnd));
+      .on('panstart', this._dragStart.bind(this))
+      .on('panmove', this._drag.bind(this))
+      .on('panend', this._dragEnd.bind(this));
 
     // Enable tapping gesture on the switch
     this._switchHammer = new Hammer(this.element);
-    this._switchHammer.on('tap', bind(this, this._dragEnd));
+    this._switchHammer.on('tap', this._dragEnd.bind(this));
 
-    this._onClickHandleNativeClick = bind(this, this._handleNativeClick);
+    this._onClickHandleNativeClick = this._handleNativeClick.bind(this);
 
     this.element
       .querySelector('.md-container')
       .addEventListener('click', this._onClickHandleNativeClick);
-  },
+  }
 
   _handleNativeClick(ev) {
     let bubbles = this.bubbles;
@@ -119,7 +182,7 @@ export default Component.extend(FocusableMixin, ProxiableMixin, {
     }
 
     return bubbles;
-  },
+  }
 
   _teardownSwitch() {
     if (this._switchContainerHammer) {
@@ -130,19 +193,19 @@ export default Component.extend(FocusableMixin, ProxiableMixin, {
       .querySelector('.md-container')
       .removeEventListener('click', this._onClickHandleNativeClick);
     this._onClickHandleNativeClick = null;
-  },
+  }
 
   _dragStart() {
-    this.set('dragAmount', +this.value);
-    this.set('dragging', true);
-  },
+    this.dragAmount = +this.value;
+    this.dragging = true;
+  }
 
   _drag(event) {
     if (!this.disabled) {
       // Set the amount the switch has been dragged
-      this.set('dragAmount', +this.value + event.deltaX / this.switchWidth);
+      this.dragAmount = +this.value + event.deltaX / this.switchWidth;
     }
-  },
+  }
 
   _dragEnd() {
     if (!this.disabled) {
@@ -154,31 +217,35 @@ export default Component.extend(FocusableMixin, ProxiableMixin, {
         (value && dragAmount < 0.5) ||
         (!value && dragAmount > 0.5)
       ) {
-        invokeAction(this, 'onChange', !value);
+        if (this.args.onChange) {
+          this.args.onChange(!value);
+        }
       }
-      this.set('dragging', false);
-      this.set('dragAmount', null);
+      this.dragging = false;
+      this.dragAmount = null;
     }
-  },
+  }
 
-  focusIn() {
+  @action handleFocusIn() {
     // Focusing in w/o being pressed should use the default behavior
     if (!this.pressed) {
-      this._super(...arguments);
+      super.handleFocusIn(...arguments);
     }
-  },
+  }
 
-  keyPress(ev) {
+  @action handleKeyPress(ev) {
     if (
-      ev.which === this.get('constants.KEYCODE.SPACE') ||
-      ev.which === this.get('constants.KEYCODE.ENTER')
+      ev.which === this.constants.KEYCODE.SPACE ||
+      ev.which === this.constants.KEYCODE.ENTER
     ) {
       ev.preventDefault();
       this._dragEnd();
     }
-  },
+  }
 
   processProxy() {
-    invokeAction(this, 'onChange', !this.value);
-  },
-});
+    if (this.args.onChange) {
+      this.args.onChange(!this.value);
+    }
+  }
+}
