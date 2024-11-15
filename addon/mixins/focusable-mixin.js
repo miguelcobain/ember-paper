@@ -1,20 +1,15 @@
-/* eslint-disable prettier/prettier */
 /**
  * @module ember-paper
  */
 import Mixin from '@ember/object/mixin';
-
 import { computed } from '@ember/object';
-import EventsMixin from './events-mixin';
 import { invokeAction } from 'ember-paper/utils/invoke-action';
 
 /**
  * @class FocusableMixin
  * @extends Ember.Mixin
- * @uses EventsMixin
  */
-export default Mixin.create(EventsMixin, {
-
+export default Mixin.create({
   disabled: false,
   pressed: false,
   active: false,
@@ -24,12 +19,12 @@ export default Mixin.create(EventsMixin, {
   classNameBindings: ['focused:md-focused'],
   attributeBindings: ['tabindex', 'disabledAttr:disabled'],
 
-  disabledAttr: computed('disabled', function() {
+  disabledAttr: computed('disabled', function () {
     return this.disabled ? 'disabled' : null;
   }),
 
-  // Alow element to be focusable by supplying a tabindex 0
-  tabindex: computed('disabled', function() {
+  // Allow element to be focusable by supplying a tabindex 0
+  tabindex: computed('disabled', function () {
     return this.disabled ? '-1' : '0';
   }),
 
@@ -40,15 +35,18 @@ export default Mixin.create(EventsMixin, {
   focusOnlyOnKey: false,
 
   _mouseEnterHandler: undefined,
+  _mouseMoveHandler: undefined,
   _mouseLeaveHandler: undefined,
 
   didInsertElement() {
     this._super(...arguments);
 
     this._mouseEnterHandler = this.handleMouseEnter.bind(this);
+    this._mouseMoveHandler = this.handleMouseMove.bind(this);
     this._mouseLeaveHandler = this.handleMouseLeave.bind(this);
 
     this.element.addEventListener('mouseenter', this._mouseEnterHandler);
+    this.element.addEventListener('mousemove', this._mouseMoveHandler);
     this.element.addEventListener('mouseleave', this._mouseLeaveHandler);
   },
 
@@ -56,9 +54,11 @@ export default Mixin.create(EventsMixin, {
     this._super(...arguments);
 
     this.element.removeEventListener('mouseenter', this._mouseEnterHandler);
+    this.element.removeEventListener('mousemove', this._mouseMoveHandler);
     this.element.removeEventListener('mouseleave', this._mouseLeaveHandler);
 
     this._mouseEnterHandler = undefined;
+    this._mouseMoveHandler = undefined;
     this._mouseLeaveHandler = undefined;
   },
 
@@ -68,7 +68,7 @@ export default Mixin.create(EventsMixin, {
    * They bubble by default.
    */
   focusIn() {
-    if (!this.disabled && !this.focusOnlyOnKey || !this.pressed) {
+    if ((!this.disabled && !this.focusOnlyOnKey) || !this.pressed) {
       this.set('focused', true);
     }
   },
@@ -82,10 +82,38 @@ export default Mixin.create(EventsMixin, {
     invokeAction(this, 'onMouseEnter', e);
   },
 
+  touchStart(e) {
+    return this.down(e);
+  },
+
+  mouseDown(e) {
+    this.down(e);
+  },
+
+  touchEnd(e) {
+    return this.up(e);
+  },
+
+  mouseUp(e) {
+    return this.up(e);
+  },
+
+  touchCancel(e) {
+    return this.up(e);
+  },
+
   handleMouseLeave(e) {
     this.set('hover', false);
-    this._super(e);
+    this.up(e);
     invokeAction(this, 'onMouseLeave', e);
+  },
+
+  up() {
+    this.set('pressed', false);
+
+    if (!this.toggle) {
+      this.set('active', false);
+    }
   },
 
   down() {
@@ -96,12 +124,23 @@ export default Mixin.create(EventsMixin, {
       this.set('active', true);
     }
   },
+  contextMenu() {},
 
-  up() {
-    this.set('pressed', false);
+  /*
+   * Move events
+   */
 
-    if (!this.toggle) {
-      this.set('active', false);
-    }
-  }
+  handleMouseMove(e) {
+    return this.move(e);
+  },
+
+  touchMove(e) {
+    return this.move(e);
+  },
+
+  pointerMove(e) {
+    return this.move(e);
+  },
+
+  move() {},
 });
