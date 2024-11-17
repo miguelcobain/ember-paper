@@ -51,7 +51,7 @@
         <CodeSnippet @name="divider.inset.hbs" />
       </div>
       {{! BEGIN-SNIPPET divider.inset }}
-      <PaperList @classNames="list-demo">
+      <PaperList @class="list-demo">
         {{#each this.messages as |item index|}}
           <PaperItem @class="md-3-line">
             <img src="/{{item.face}}?{{index}}" class="face" alt={{item.who}}>
