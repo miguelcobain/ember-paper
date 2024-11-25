@@ -89,6 +89,11 @@ export default class Focusable extends Component {
    * They bubble by default.
    */
   @action handleFocusIn(e) {
+    if (this.disabled) {
+      // elements should not be able to be focused if disabled.
+      return;
+    }
+
     if ((!this.disabled && !this.focusOnlyOnKey) || !this.pressed) {
       this.focused = true;
       if (this.args.onFocusIn) {
