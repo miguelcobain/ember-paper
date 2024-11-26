@@ -1,150 +1,334 @@
-/* eslint-disable ember/no-actions-hash, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-get, ember/no-mixins, ember/require-computed-property-dependencies, ember/require-tagless-components */
 /**
  * @module ember-paper
  */
-import { or, bool, and } from '@ember/object/computed';
-
-import Component from '@ember/component';
-import { computed, set } from '@ember/object';
+import Focusable from './-focusable';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 import { isEmpty } from '@ember/utils';
-import { bind, next } from '@ember/runloop';
 import { assert } from '@ember/debug';
-import FocusableMixin from 'ember-paper/mixins/focusable-mixin';
-import ChildMixin from 'ember-paper/mixins/child-mixin';
-import ValidationMixin from 'ember-paper/mixins/validation-mixin';
-import { invokeAction } from 'ember-paper/utils/invoke-action';
+import Validation from '../lib/validation';
+import { A } from '@ember/array';
 
 /**
  * @class PaperInput
- * @extends Ember.Component
- * @uses FocusableMixin
- * @uses ChildMixin
- * @uses ValidationMixin
+ * @extends Component
  */
-export default Component.extend(FocusableMixin, ChildMixin, ValidationMixin, {
-  tagName: 'md-input-container',
-  classNames: ['md-default-theme'],
+export default class PaperInput extends Focusable {
+  /**
+   * tracks the validity of an input.
+   *
+   * @type {Validation}
+   * @private
+   */
+  validation;
 
-  classNameBindings: [
-    'hasValue:md-input-has-value',
-    'isInvalidAndTouched:md-input-invalid',
-    'hasLeftIcon:md-icon-left',
-    'hasRightIcon:md-icon-right',
-    'focused:md-input-focused',
-    'block:md-block',
-    'placeholder:md-input-has-placeholder',
-    'warn:md-warn',
-    'accent:md-accent',
-    'primary:md-primary',
-  ],
+  /**
+   * A unique id to identify the input element.
+   *
+   * @type{string}
+   * @readonly
+   */
+  inputElementId;
+  /**
+   * Stores a reference to the component's input element.
+   *
+   * @type {HTMLInputElement}
+   * @private
+   */
+  #inputElement;
+  /**
+   * The parent this component is bound to.
+   *
+   * @type {PaperRadioGroup|PaperForm|PaperItem|PaperTabs}
+   * @private
+   */
+  #parent;
+  /**
+   * Marks whether the component should register itself to the supplied parent.
+   *
+   * @type {Boolean}
+   * @public
+   */
+  shouldRegister;
+  /**
+   * Marks whether the component should skip being proxied.
+   *
+   * @type {Boolean}
+   * @public
+   */
+  skipProxy;
+  /**
+   * iconComponent specifies the icon component to use.
+   *
+   * @type {string}
+   * @readonly
+   * @default "paper-icon"
+   */
+  iconComponent;
+  /**
+   * type specifies the input's type. See {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types MDN}
+   * for a list of available input types.
+   *
+   * @type {string}
+   * @readonly
+   * @default "text"
+   */
+  type;
+  /**
+   * used to calculate how much to grow a textarea by.
+   *
+   * @type {number}
+   * @private
+   */
+  @tracked lineHeight;
 
-  type: 'text',
-  autofocus: false,
-  tabindex: null,
-  hideAllMessages: false,
-  isTouched: false,
-  iconComponent: 'paper-icon',
+  /**
+   * @constructor
+   * @param owner
+   * @param args
+   */
+  constructor(owner, args) {
+    super(owner, args);
 
-  // override validation mixin `isInvalid` to account for the native input validity
-  isInvalid: or('hasErrorMessages', 'isNativeInvalid'),
+    this.iconComponent = this.args.iconComponent || 'paper-icon';
+    this.type = this.args.type || 'text';
+    const elementId =
+      this.args.elementId || this.args.inputElementId || guidFor(this);
+    this.inputElementId = this.args.inputElementId || `input-${elementId}`;
+    this.lineHeight = this.args.lineHeight || null;
 
-  hasValue: computed('value', 'isNativeInvalid', function () {
-    let value = this.value;
-    let isNativeInvalid = this.isNativeInvalid;
-    return !isEmpty(value) || isNativeInvalid;
-  }),
-
-  shouldAddPlaceholder: computed('label', 'focused', function () {
-    // if has label, only add placeholder when focused
-    return isEmpty(this.label) || this.focused;
-  }),
-
-  inputElementId: computed('elementId', {
-    get() {
-      return `input-${this.elementId}`;
-    },
-    // elementId can be set from outside and it will override the computed value.
-    // Please check the deprecations for further details
-    // https://deprecations.emberjs.com/v3.x/#toc_computed-property-override
-    set(key, value) {
-      // To make sure the context updates properly, We are manually set value using @ember/object#set as recommended.
-      return set(this, 'elementId', value);
-    },
-  }),
-
-  currentLength: computed('value', function () {
-    return this.value ? this.value.length : 0;
-  }),
-
-  hasLeftIcon: bool('icon'),
-  hasRightIcon: bool('iconRight'),
-  isInvalidAndTouched: and('isInvalid', 'isTouched'),
-
-  // property that validations should be run on
-  validationProperty: 'value',
-
-  // Lifecycle hooks
-  didReceiveAttrs() {
-    this._super(...arguments);
-    assert(
-      '{{paper-input}} requires an `onChange` action or null for no action.',
-      this.onChange !== undefined
+    // Construct Input Validation and pass through of custom attributes.
+    this.validation = new Validation(
+      elementId,
+      this.args.onValidityChange || null,
+      this.args.validations,
+      this.args.customValidations,
+      this.args.errors,
+      this.args.errorMessages,
+      this.args.isTouched
     );
 
-    let { value, errors } = this;
-    let { _prevValue, _prevErrors } = this;
-    if (value !== _prevValue || errors !== _prevErrors) {
-      this.notifyValidityChange();
+    if (this.shouldRegister) {
+      assert(
+        'A parent component should be supplied to <PaperInput> when shouldRegister=true',
+        this.args.parentComponent
+      );
+      this.#parent = this.args.parentComponent;
     }
-    this._prevValue = value;
-    this._prevErrors = errors;
-  },
 
-  didInsertElement() {
-    this._super(...arguments);
-    if (this.textarea) {
-      this._growTextareaOnResize = bind(this, this.growTextarea);
-      window.addEventListener('resize', this._growTextareaOnResize);
-    }
-  },
+    assert(
+      '<PaperInput> requires an `onChange` action or null for no action.',
+      this.args.onChange !== undefined
+    );
+  }
 
-  didRender() {
-    this._super(...arguments);
-    // setValue below ensures that the input value is the same as this.value
+  /**
+   * Performs any required DOM setup.
+   *
+   * @param {HTMLElement} element - the node that has been added to the DOM.
+   */
+  @action didInsertNode(element) {
+    this.registerListeners(element);
+
+    let inputElement = element.querySelector('input, textarea');
+    this.#inputElement = inputElement;
+    this.validation.didInsertNode(inputElement);
+
+    // setValue ensures that the input value is the same as this.value
     this.setValue(this.value);
     this.growTextarea();
-  },
 
-  willDestroyElement() {
-    this._super(...arguments);
-    if (this.textarea) {
-      window.removeEventListener('resize', this._growTextareaOnResize);
-      this._growTextareaOnResize = null;
+    if (this.args.textarea) {
+      window.addEventListener('resize', this.growTextarea.bind(this));
     }
-  },
 
+    if (this.shouldRegister) {
+      this.#parent.registerChild(this);
+    }
+  }
+
+  /**
+   * didUpdateNode is called when tracked component attributes change.
+   */
+  @action didUpdateNode() {
+    if (this.args.errors) {
+      this.validation.errors = this.args.errors;
+    }
+
+    // setValue ensures that the input value is the same as this.value
+    this.setValue(this.value);
+    this.growTextarea();
+  }
+
+  /**
+   * Performs any required DOM teardown.
+   *
+   * @param {HTMLElement} element - the node to be removed from the DOM.
+   */
+  @action willDestroyNode(element) {
+    this.unregisterListeners(element);
+
+    if (this.args.textarea) {
+      window.removeEventListener('resize', this.growTextarea.bind(this));
+    }
+  }
+
+  /**
+   * lifecycle hook to perform non-DOM related teardown.
+   */
+  willDestroy() {
+    super.willDestroy(...arguments);
+
+    if (this.shouldRegister) {
+      this.#parent.unregisterChild(this);
+    }
+  }
+
+  /**
+   * isBlock adds css class `md-block` which sets `display: block`.
+   *
+   * This indirection is required to maintain api compatibility as @block is
+   * reserved by glimmer.
+   *
+   * @returns {boolean}
+   */
+  get isBlock() {
+    return this.args.block || false;
+  }
+
+  /**
+   * This is a little bit of a hack to un-proxy the values in args so that we
+   * can track all changes. As users can define dynamic validations, we need to
+   * be able to account for random args coming in.
+   *
+   * @returns {Object}
+   */
+  get params() {
+    return { ...this.args };
+  }
+
+  /**
+   * returns an array of errors supplied as an argument to the component.
+   *
+   * @returns {A}
+   */
+  get errors() {
+    return this.args.errors || A([]);
+  }
+
+  /**
+   * value returns the value passed in to the component, or an empty string if
+   * undefined.
+   *
+   * @returns {string}
+   */
+  get value() {
+    return this.args.value || '';
+  }
+
+  /**
+   * returns true if we have a non-empty value, or is considered natively
+   * invalid.
+   *
+   * @returns {boolean}
+   */
+  get hasValue() {
+    return !isEmpty(this.value) || this.validation.isNativeInvalid;
+  }
+
+  /**
+   * returns true if a label has been supplied, or if the input is focused.
+   *
+   * @returns {boolean}
+   */
+  get shouldAddPlaceholder() {
+    // if input has label, only add placeholder when focused
+    return isEmpty(this.args.label) || this.focused;
+  }
+
+  /**
+   * returns the current number of characters that {@link value} contains.
+   *
+   * @returns {number}
+   */
+  get currentLength() {
+    return this.value ? this.value.length : 0;
+  }
+
+  /**
+   * returns true if icon has been passed in to the component.
+   *
+   * @returns {boolean}
+   */
+  get hasLeftIcon() {
+    return !isEmpty(this.args.icon);
+  }
+
+  /**
+   * returns true if iconRight has been passed in to the component.
+   *
+   * @returns {boolean}
+   */
+  get hasRightIcon() {
+    return !isEmpty(this.args.iconRight);
+  }
+
+  /**
+   * minRows returns the user specified minimum number of rows.
+   *
+   * @returns {number}
+   * @default 0
+   */
+  get minRows() {
+    if (this.args.passThru && this.args.passThru.rows) {
+      return this.args.passThru.rows;
+    }
+
+    return 0;
+  }
+
+  /**
+   * minRows returns the user specified maximum number of rows.
+   *
+   * @returns {number}
+   * @default Number.MAX_VALUE
+   */
+  get maxRows() {
+    if (this.args.passThru && this.args.passThru.maxRows) {
+      return this.args.passThru.maxRows;
+    }
+
+    return Number.MAX_VALUE;
+  }
+
+  /**
+   * calculates and grows a text area based on line-height.
+   */
   growTextarea() {
-    if (this.textarea) {
-      let inputElement = this.element.querySelector('input, textarea');
-      inputElement.classList.add('md-no-flex');
-      inputElement.setAttribute('rows', 1);
+    if (this.args.textarea) {
+      let inputElement = this.#inputElement;
 
-      let minRows = this.get('passThru.rows');
+      inputElement.classList.add('md-no-flex');
+      inputElement.setAttribute('rows', '1');
+
+      let minRows = this.minRows;
       let height = this.getHeight(inputElement);
       if (minRows) {
-        if (!this.lineHeight) {
-          inputElement.style.minHeight = 0;
-          this.lineHeight = inputElement.clientHeight;
+        let lineHeight = this.lineHeight;
+        if (!lineHeight) {
+          inputElement.style.minHeight = '0';
+          lineHeight = this.#inputElement.clientHeight;
           inputElement.style.minHeight = null;
         }
-        if (this.lineHeight) {
-          height = Math.max(height, this.lineHeight * minRows);
+        if (lineHeight) {
+          height = Math.max(height, lineHeight * minRows);
         }
-        let proposedHeight = Math.round(height / this.lineHeight);
-        let maxRows = this.get('passThru.maxRows') || Number.MAX_VALUE;
-        let rowsToSet = Math.min(proposedHeight, maxRows);
+        let proposedHeight = Math.round(height / lineHeight);
+        let maxRows = this.maxRows;
+        let rowsToSet = Math.min(proposedHeight, maxRows).toString();
 
-        inputElement.style.height = `${this.lineHeight * rowsToSet}px`;
+        inputElement.style.height = `${lineHeight * rowsToSet}px`;
         inputElement.setAttribute('rows', rowsToSet);
 
         if (proposedHeight >= maxRows) {
@@ -152,6 +336,8 @@ export default Component.extend(FocusableMixin, ChildMixin, ValidationMixin, {
         } else {
           inputElement.classList.remove('md-textarea-scrollable');
         }
+
+        this.lineHeight = lineHeight;
       } else {
         inputElement.style.height = 'auto';
         inputElement.scrollTop = 0;
@@ -163,51 +349,72 @@ export default Component.extend(FocusableMixin, ChildMixin, ValidationMixin, {
 
       inputElement.classList.remove('md-no-flex');
     }
-  },
+  }
 
+  /**
+   * returns the input elements current height.
+   *
+   * @param {HTMLInputElement} inputElement
+   * @returns {number}
+   */
   getHeight(inputElement) {
     let { offsetHeight } = inputElement;
     let line = inputElement.scrollHeight - offsetHeight;
     return offsetHeight + (line > 0 ? line : 0);
-  },
+  }
 
+  /**
+   * pushes the given value into the input field.
+   *
+   * @param {*} value
+   */
   setValue(value) {
     // normalize falsy values to empty string
     value = isEmpty(value) ? '' : value;
 
-    if (this.element.querySelector('input, textarea').value !== value) {
-      this.element.querySelector('input, textarea').value = value;
+    if (this.#inputElement.value !== value) {
+      this.#inputElement.value = value;
     }
-  },
 
-  actions: {
-    handleInput(e) {
-      invokeAction(this, 'onChange', e.target.value);
-      // setValue below ensures that the input value is the same as this.value
-      next(() => {
-        if (this.isDestroyed) {
-          return;
-        }
-        this.setValue(this.value);
-      });
-      this.growTextarea();
-      let inputElement = this.element.querySelector('input');
-      let isNativeInvalid =
-        inputElement && inputElement.validity && inputElement.validity.badInput;
-      if (this.type === 'date' && e.target.value === '') {
-        // Chrome doesn't fire the onInput event when clearing the second and third date components.
-        // This means that we won't see another event when badInput becomes false if the user is clearing
-        // the date field.  The reported value is empty, though, so we can already mark it as valid.
-        isNativeInvalid = false;
-      }
-      this.set('isNativeInvalid', isNativeInvalid);
-      this.notifyValidityChange();
-    },
+    // Calculate Input Validity
+    this.validation.value = value;
+    this.validation.validate(this.args);
+    this.validation.notifyOnChange();
+  }
 
-    handleBlur(e) {
-      invokeAction(this, 'onBlur', e);
-      this.set('isTouched', true);
-      this.notifyValidityChange();
-    },
-  },
-});
+  /**
+   * handleInput is called when input is received.
+   * Calls onChange if supplied.
+   *
+   * @param {Event} e - the input event.
+   */
+  @action handleInput(e) {
+    if (this.args.onChange) {
+      this.args.onChange(e.target.value);
+    }
+
+    if (this.isDestroyed) {
+      return;
+    }
+
+    // setValue below ensures that the input value is the same as this.value
+    this.setValue(this.value);
+    this.growTextarea();
+  }
+
+  /**
+   * handleBlur is called when the input element has lost focus.
+   * Calls onBlur if supplied.
+   *
+   * @param {Event} e - the input event.
+   */
+  @action handleBlur(e) {
+    if (this.args.onBlur) {
+      this.args.onBlur(e);
+    }
+
+    this.validation.isTouched = true;
+    this.validation.validate(this.args);
+    this.validation.notifyOnValidityChange();
+  }
+}
