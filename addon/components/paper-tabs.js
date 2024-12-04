@@ -23,6 +23,7 @@ export default class PaperTabs extends Component {
    * @private
    */
   @tracked elementTabsCanvas;
+  @tracked elementTabsCanvasOffsetWidth;
   /**
    * Reference to the component's md-pagination-wrapper DOM element.
    *
@@ -30,28 +31,29 @@ export default class PaperTabs extends Component {
    * @private
    */
   @tracked elementPaginationWrapper;
+  @tracked elementPaginationWrapperOffsetWidth;
   /**
    * Array of tab components.
    *
    * @type {A}
    */
   @tracked children;
-  /**
-   * tracks the outer width of the element displaying the tabs.
-   *
-   * `>[[ tab ][ tab ]     ]<`
-   *
-   * @type {number}
-   */
-  @tracked canvasWidth;
-  /**
-   * tracks the width of the tabs within the tab canvas. See {@link canvasWidth}.
-   *
-   * `[>[ tab ][ tab ]<     ]`
-   *
-   * @type {number}
-   */
-  @tracked wrapperWidth;
+  // /**
+  //  * tracks the outer width of the element displaying the tabs.
+  //  *
+  //  * `>[[ tab ][ tab ]     ]<`
+  //  *
+  //  * @type {number}
+  //  */
+  // @tracked canvasWidth;
+  // /**
+  //  * tracks the width of the tabs within the tab canvas. See {@link canvasWidth}.
+  //  *
+  //  * `[>[ tab ][ tab ]<     ]`
+  //  *
+  //  * @type {number}
+  //  */
+  // @tracked wrapperWidth;
   /**
    * used to offset tabs based on pagination.
    *
@@ -59,7 +61,7 @@ export default class PaperTabs extends Component {
    *
    * @type {number}
    */
-  @tracked currentOffset;
+  @tracked _previousOffset;
   /**
    * holds a reference to the currently selected tab.
    *
@@ -79,7 +81,7 @@ export default class PaperTabs extends Component {
    *
    * @type {boolean}
    */
-  @tracked shouldPaginate = false;
+  // @tracked shouldPaginate = false;
   /**
    * _selected provides auto-tracking of selected tabs, this is kept private, so
    * that {@link selected} can output either the auto-tracked number, or a
@@ -95,9 +97,9 @@ export default class PaperTabs extends Component {
     super(owner, args);
 
     this.children = A([]);
-    this.canvasWidth = 0;
-    this.wrapperWidth = 0;
-    this.currentOffset = 0;
+    // this.canvasWidth = 0;
+    // this.wrapperWidth = 0;
+    // this.currentOffset = 0;
     this._selected = 0;
   }
 
@@ -108,23 +110,46 @@ export default class PaperTabs extends Component {
   @action didInsertNode(element) {
     this.element = element;
     this.elementTabsCanvas = element.querySelector('md-tabs-canvas');
+    this.elementPaginationWrapperOffsetWidth =
+      this.elementTabsCanvas.offsetWidth;
+
     this.elementPaginationWrapper = element.querySelector(
       'md-pagination-wrapper'
     );
+    this.elementPaginationWrapperOffsetWidth =
+      this.elementPaginationWrapper.offsetWidth;
 
-    window.addEventListener('resize', this.updateCanvasWidth);
-    window.addEventListener('orientationchange', this.updateCanvasWidth);
+    // window.addEventListener('resize', this.updateCanvasWidth);
+    // window.addEventListener('orientationchange', this.updateCanvasWidth);
+    window.addEventListener('resize', this.updateCanvasOffset);
+    window.addEventListener('orientationchange', this.updateCanvasOffset);
+    window.addEventListener('resize', this.updateWrapperOffset);
+    window.addEventListener('orientationchange', this.updateWrapperOffset);
 
     // Do an initial sizing computation.
     this.didUpdateNode(element);
   }
 
+  /**
+   * @param {Event} e
+   */
+  @action updateCanvasOffset(e) {
+    this.elementTabsCanvasOffsetWidth = this.elementTabsCanvas.offsetWidth;
+  }
+  /**
+   * @param {Event} e
+   */
+  @action updateWrapperOffset(e) {
+    this.elementPaginationWrapperOffsetWidth =
+      this.elementPaginationWrapper.offsetWidth;
+  }
+
   @action didUpdateNode() {
     // this makes sure that the tabs react to stretch and center changes
     // this method is also called whenever one of the tab is re-rendered (content changes)
-    this.updateCanvasWidth();
+    // this.updateCanvasWidth();
     this.updateSelectedTab();
-    this.fixOffsetIfNeeded();
+    // this.fixOffsetIfNeeded();
   }
 
   /**
@@ -170,7 +195,7 @@ export default class PaperTabs extends Component {
    * @returns {boolean}
    */
   get canPageForward() {
-    return this.wrapperWidth - this.currentOffset > this.canvasWidth;
+    return this.wrapperWidth - this.currentOffset > this.elementTabsCanvasOffsetWidth;
   }
 
   /**
@@ -190,6 +215,19 @@ export default class PaperTabs extends Component {
    */
   get noInk() {
     return this.args.noInk || false;
+  }
+
+  /**
+   * Returns a user supplied value, or the auto-tracked tab selection via
+   * {@link _selected}.
+   *
+   * @returns {any|number}
+   */
+  get selected() {
+    return this.args.selected || this._selected;
+  }
+  set selected(value) {
+    this._selected = value;
   }
 
   get inkBar() {
@@ -274,8 +312,9 @@ export default class PaperTabs extends Component {
    * forces re-computation of element widths and tab offset.
    */
   @action updateCanvasWidth() {
-    this.updateDimensions();
-    this.fixOffsetIfNeeded();
+    // TODO: this shouldn't be needed if reacting correctly.
+    // this.updateDimensions();
+    // this.fixOffsetIfNeeded();
   }
 
   /**
@@ -302,15 +341,15 @@ export default class PaperTabs extends Component {
   /**
    * updates the pagination tab offset if needed.
    */
-  @action fixOffsetIfNeeded() {
+  get currentOffset() {
     if (this.isDestroying || this.isDestroyed || !this.selectedTab) {
       // Don't attempt to compute if elements have not been added or are being
       // removed from the DOM.
       return;
     }
 
-    let canvasWidth = this.canvasWidth;
-    let currentOffset = this.currentOffset;
+    let canvasWidth = this.elementTabsCanvasOffsetWidth;
+    let currentOffset = this._previousOffset || 0;
 
     let { left, width } = this.selected;
     let tabLeftOffset = left;
@@ -334,7 +373,36 @@ export default class PaperTabs extends Component {
       return;
     }
 
-    this.currentOffset = newOffset;
+    this._previousOffset = newOffset;
+    return newOffset;
+  }
+  set offset(newOffset) {
+    this._previousOffset = newOffset;
+  }
+
+  get canvasWidth() {
+    return this.elementTabsCanvas ? this.elementTabsCanvas.offsetWidth : 0;
+  }
+
+  get wrapperWidth() {
+    return this.elementPaginationWrapper
+      ? this.elementPaginationWrapper.offsetWidth
+      : 0;
+  }
+
+  get shouldPaginate() {
+    console.log({
+      shouldPaginate:
+        this.elementPaginationWrapperOffsetWidth >
+        this.elementTabsCanvasOffsetWidth,
+      wrapperWidth: this.elementPaginationWrapperOffsetWidth,
+      canvasWidth: this.elementTabsCanvasOffsetWidth,
+    });
+    // return this.wrapperWidth > this.canvasWidth;
+    return (
+      this.elementPaginationWrapperOffsetWidth >
+      this.elementTabsCanvasOffsetWidth
+    );
   }
 
   /**
@@ -347,12 +415,14 @@ export default class PaperTabs extends Component {
       return;
     }
 
-    let canvasWidth = this.elementTabsCanvas.offsetWidth;
-    let wrapperWidth = this.elementPaginationWrapper.offsetWidth;
-    this.children.forEach((c) => c.updateDimensions());
-    this.canvasWidth = canvasWidth;
-    this.wrapperWidth = wrapperWidth;
-    this.shouldPaginate = wrapperWidth > canvasWidth;
+    // TODO: it's reactive!
+
+    // let canvasWidth = this.elementTabsCanvas.offsetWidth;
+    // let wrapperWidth = this.elementPaginationWrapper.offsetWidth;
+    // this.children.forEach((c) => c.updateDimensions());
+    // this.canvasWidth = canvasWidth;
+    // this.wrapperWidth = wrapperWidth;
+    // this.shouldPaginate = wrapperWidth > canvasWidth;
   }
 
   /**
@@ -364,7 +434,7 @@ export default class PaperTabs extends Component {
       return t.left + t.width >= this.currentOffset;
     });
     if (tab) {
-      this.currentOffset = Math.max(0, tab.left - this.canvasWidth);
+      this.offset = Math.max(0, tab.left - this.elementTabsCanvasOffsetWidth);
     }
   }
 
@@ -373,16 +443,17 @@ export default class PaperTabs extends Component {
    */
   @action nextPage() {
     let tab = this.children.find((t) => {
+      let currentOffset = this.currentOffset;
       // ensure tab's offset is greater than current otherwise if the tab's
       // width is greater than canvas we cannot paginate through it.
       return (
-        t.left > this.currentOffset &&
+        t.left > currentOffset &&
         // paginate until the first partially hidden tab
-        t.left + t.width - this.currentOffset > this.canvasWidth
+        t.left + t.width - currentOffset > this.elementTabsCanvasOffsetWidth
       );
     });
     if (tab) {
-      this.currentOffset = tab.left;
+      this.offset = tab.left;
     }
   }
 

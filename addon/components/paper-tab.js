@@ -17,7 +17,7 @@ export default class PaperTab extends Focusable {
    *
    * @type {HTMLElement}
    */
-  element;
+  @tracked element;
   /**
    * The parent this component is bound to.
    *
@@ -51,13 +51,13 @@ export default class PaperTab extends Focusable {
    *
    * @type{number}
    */
-  @tracked left;
+  // @tracked left;
   /**
    * the layout width of the element as an integer.
    *
    * @type{number}
    */
-  @tracked width;
+  // @tracked width;
 
   /**
    * @constructor
@@ -89,8 +89,8 @@ export default class PaperTab extends Focusable {
    */
   @action didInsertNode(element) {
     this.element = element;
-    this.left = element.offsetLeft;
-    this.width = element.offsetWidth;
+    // this.left = element.offsetLeft;
+    // this.width = element.offsetWidth;
 
     this.registerListeners(element);
 
@@ -164,13 +164,25 @@ export default class PaperTab extends Focusable {
     return this.args.selected === this.value;
   }
 
-  // this method is called by the parent
-  updateDimensions() {
-    // this is the true current width
-    // it is used to calculate the ink bar position & pagination offset
-    this.left = this.element.offsetLeft;
-    this.width = this.element.offsetWidth;
+  get el() {
+    return this.element;
   }
+
+  get left() {
+    console.log('lefting');
+    return this.element ? this.element.offsetLeft : 0;
+  }
+  get width() {
+    return this.element ? this.element.offsetWidth : 0;
+  }
+
+  // this method is called by the parent
+  // updateDimensions() {
+  //   // this is the true current width
+  //   // it is used to calculate the ink bar position & pagination offset
+  //   this.left = this.element.offsetLeft;
+  //   this.width = this.element.offsetWidth;
+  // }
 
   get value() {
     // enable support for user supplied value

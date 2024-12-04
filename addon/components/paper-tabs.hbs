@@ -9,15 +9,14 @@
   {{did-insert this.didInsertNode}}
   {{did-update
     this.didUpdateNode
-    this.children
-    this.shouldCenter
-    this.shouldStretch
+
     this.selected
   }}
   {{will-destroy this.willDestroyNode}}
   ...attributes
 >
   <md-tabs-wrapper class={{if this.shouldStretch 'md-stretch-tabs'}}>
+    {{log this.shouldPaginate}}
     {{#if this.shouldPaginate}}
       <md-prev-button
         role='button'
