@@ -1,93 +1,281 @@
-/* eslint-disable ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/no-computed-properties-in-native-classes, ember/no-get */
-import {
-  classNames,
-  classNameBindings,
-  attributeBindings,
-  tagName,
-} from '@ember-decorators/component';
-import { action, computed } from '@ember/object';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { A } from '@ember/array';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { gt } from '@ember/object/computed';
-import Component from '@ember/component';
 import { htmlSafe } from '@ember/template';
-import { scheduleOnce, join } from '@ember/runloop';
-import { ParentMixin } from 'ember-composability-tools';
-import { invokeAction } from 'ember-paper/utils/invoke-action';
 
-@tagName('md-tabs')
-@classNames('md-no-tab-content', 'md-default-theme')
-@classNameBindings('warn:md-warn', 'accent:md-accent', 'primary:md-primary')
-@attributeBindings('borderBottom:md-border-bottom')
-export default class PaperTabs extends Component.extend(ParentMixin) {
-  @service
-  constants;
+export default class PaperTabs extends Component {
+  @service constants;
+  @service fastboot;
 
-  selected = 0; // select first tab by default
-  noInkBar = false;
-  noInk = false;
-  ariaLabel = null;
-  stretch = 'sm';
-  movingRight = true;
+  /**
+   * Reference to the component's DOM element.
+   *
+   * @type {HTMLElement}
+   * @private
+   */
+  @tracked element;
+  /**
+   * Reference to the component's md-tabs-canvas DOM element.
+   *
+   * @type {HTMLElement}
+   * @private
+   */
+  @tracked elementTabsCanvas;
+  /**
+   * Reference to the component's md-pagination-wrapper DOM element.
+   *
+   * @type {HTMLElement}
+   * @private
+   */
+  @tracked elementPaginationWrapper;
+  /**
+   * Array of tab components.
+   *
+   * @type {A}
+   */
+  @tracked children;
+  /**
+   * tracks the outer width of the element displaying the tabs.
+   *
+   * `>[[ tab ][ tab ]     ]<`
+   *
+   * @type {number}
+   */
+  @tracked canvasWidth;
+  /**
+   * tracks the width of the tabs within the tab canvas. See {@link canvasWidth}.
+   *
+   * `[>[ tab ][ tab ]<     ]`
+   *
+   * @type {number}
+   */
+  @tracked wrapperWidth;
+  /**
+   * used to offset tabs based on pagination.
+   *
+   * `>[ tab ][ tab ]< [ [<-] [ tab ]     [->] ]`
+   *
+   * @type {number}
+   */
+  @tracked currentOffset;
+  /**
+   * holds a reference to the currently selected tab.
+   *
+   * @type {PaperTab}
+   * @private
+   */
+  @tracked selectedTab = null;
+  /**
+   * tracks the direction in which inkbar should be animated.
+   *
+   * @type {boolean}
+   */
+  @tracked movingRight = true;
+  /**
+   * set to true if the tab bar should enable paginating through tabs via
+   * left/right navigation arrows.
+   *
+   * @type {boolean}
+   */
+  @tracked shouldPaginate = false;
+  /**
+   * _selected provides auto-tracking of selected tabs, this is kept private, so
+   * that {@link selected} can output either the auto-tracked number, or a
+   * user supplied value.
+   *
+   * @type {number|any}
+   * @private
+   * @default 0 - the first tab when using auto-numbering.
+   */
+  @tracked _selected;
 
-  @computed('noInkBar', '_selectedTab.{width,left}', 'wrapperWidth')
+  constructor(owner, args) {
+    super(owner, args);
+
+    this.children = A([]);
+    this.canvasWidth = 0;
+    this.wrapperWidth = 0;
+    this.currentOffset = 0;
+    this._selected = 0;
+  }
+
+  /**
+   * Performs any required DOM setup.
+   * @param element
+   */
+  @action didInsertNode(element) {
+    this.element = element;
+    this.elementTabsCanvas = element.querySelector('md-tabs-canvas');
+    this.elementPaginationWrapper = element.querySelector(
+      'md-pagination-wrapper'
+    );
+
+    window.addEventListener('resize', this.updateCanvasWidth);
+    window.addEventListener('orientationchange', this.updateCanvasWidth);
+
+    // Do an initial sizing computation.
+    this.didUpdateNode(element);
+  }
+
+  @action didUpdateNode() {
+    // this makes sure that the tabs react to stretch and center changes
+    // this method is also called whenever one of the tab is re-rendered (content changes)
+    this.updateCanvasWidth();
+    this.updateSelectedTab();
+    this.fixOffsetIfNeeded();
+  }
+
+  /**
+   * Performs any required DOM teardown.
+   * @param {HTMLElement} element
+   */
+  @action willDestroyNode() {
+    window.removeEventListener('resize', this.updateCanvasWidth);
+    window.removeEventListener('orientationchange', this.updateCanvasWidth);
+  }
+
+  /**
+   * Registers a child form component
+   * @param {PaperTab} child - The paper tab component to register
+   */
+  @action registerChild(child) {
+    // automatically set value if not manually set
+    if (child.value === undefined) {
+      child.value = this.children.length;
+    }
+
+    this.children.pushObject(child);
+  }
+  /**
+   * Removes a registered child form component
+   * @param {Component} child - The form component to unregister
+   */
+  @action unregisterChild(child) {
+    this.children.removeObject(child);
+  }
+
+  /**
+   * whether we can allow paginating to a previous number of tabs to display.
+   *
+   * @returns {boolean}
+   */
+  get canPageBack() {
+    return this.currentOffset > 0;
+  }
+
+  /**
+   * whether we can allow paginating to the next number of tabs to display.
+   * @returns {boolean}
+   */
+  get canPageForward() {
+    return this.wrapperWidth - this.currentOffset > this.canvasWidth;
+  }
+
+  /**
+   * disables the animated bar that sits at the bottom of the currently
+   * selected tab.
+   *
+   * @type {boolean}
+   */
+  get noInkBar() {
+    return this.args.noInkBar || false;
+  }
+
+  /**
+   * passes down to the individual tabs.
+   *
+   * @type {boolean}
+   */
+  get noInk() {
+    return this.args.noInk || false;
+  }
+
   get inkBar() {
     if (this.noInkBar) {
       return null;
     }
 
-    let selectedTab = this._selectedTab;
-    if (!selectedTab || selectedTab.get('left') === undefined) {
+    let selectedTab = this.selectedTab;
+    if (!selectedTab || selectedTab.left === undefined) {
       return null;
     }
 
     return {
-      left: selectedTab.get('left'),
-      right:
-        this.wrapperWidth - selectedTab.get('left') - selectedTab.get('width'),
+      left: selectedTab.left,
+      right: this.wrapperWidth - selectedTab.left - selectedTab.width,
     };
   }
 
-  @computed('currentOffset')
+  /**
+   * returns a 3d translate based on the number of tabs to offset by depending
+   * on the current pagination.
+   *
+   * @returns {string}
+   */
   get paginationStyle() {
     return htmlSafe(
       `transform: translate3d(-${this.currentOffset}px, 0px, 0px);`
     );
   }
 
-  shouldPaginate = true;
+  /**
+   * Returns a user supplied value, or the auto-tracked tab selection via
+   * {@link _selected}.
+   *
+   * @returns {any|number}
+   */
+  get selected() {
+    return this.args.selected || this._selected;
+  }
 
-  @computed('shouldPaginate', 'center')
+  /**
+   * returns true if the tabs should be centered.
+   *
+   * Only applicable if the number of tabs don't overflow, causing pagination
+   * to be enabled.
+   *
+   * @returns {boolean}
+   */
   get shouldCenter() {
-    return !this.shouldPaginate && this.center;
+    let center = this.args.center ?? false;
+    return !this.shouldPaginate && center;
   }
 
-  @computed('shouldPaginate', 'currentStretch')
+  /**
+   * returns true if the tabs should be stretched based on either matching a
+   * provided media query {e.g. sm, md} or being set to true.
+   *
+   * Only applicable if the number of tabs don't overflow, causing pagination
+   * to be enabled.
+   *
+   * @returns {boolean}
+   */
   get shouldStretch() {
-    return !this.shouldPaginate && this.currentStretch;
+    let stretch = this.args.stretch ?? 'sm';
+    let shouldStretch;
+
+    // if `true` or `false` is specified, always/never "stretch tabs"
+    // otherwise proceed with normal matchMedia test
+    if (typeof stretch === 'boolean') {
+      shouldStretch = stretch;
+    } else {
+      let mediaQuery = this.constants.MEDIA[stretch] || stretch;
+      shouldStretch = !this.fastboot.isFastBoot
+        ? window.matchMedia(mediaQuery).matches
+        : false;
+    }
+
+    return !this.shouldPaginate && shouldStretch;
   }
 
-  didInsertElement() {
-    super.didInsertElement(...arguments);
-
-    this.updateCanvasWidth = () => {
-      join(() => {
-        this.updateDimensions();
-        this.updateStretchTabs();
-      });
-    };
-
-    window.addEventListener('resize', this.updateCanvasWidth);
-    window.addEventListener('orientationchange', this.updateCanvasWidth);
-
-    scheduleOnce('afterRender', this, this.fixOffsetIfNeeded);
-  }
-
-  didRender() {
-    super.didRender(...arguments);
-    // this makes sure that the tabs react to stretch and center changes
-    // this method is also called whenever one of the tab is re-rendered (content changes)
-    this.updateSelectedTab();
-    this.updateCanvasWidth();
+  /**
+   * forces re-computation of element widths and tab offset.
+   */
+  @action updateCanvasWidth() {
+    this.updateDimensions();
+    this.fixOffsetIfNeeded();
   }
 
   /**
@@ -97,53 +285,39 @@ export default class PaperTabs extends Component.extend(ParentMixin) {
    * nested <paper-tab> because we pass the 'selected' property to them that will
    * invalidate their 'isSelected' property.
    */
-  updateSelectedTab() {
-    let selectedTab = this.childComponents.findBy('isSelected');
-    let previousSelectedTab = this._selectedTab;
-
+  @action updateSelectedTab() {
+    let selectedTab = this.children.findBy('isSelected');
+    let previousSelectedTab = this.selectedTab;
     if (selectedTab === previousSelectedTab) {
       return;
     }
 
-    this.set(
-      'movingRight',
+    this.movingRight =
       !selectedTab ||
-        !previousSelectedTab ||
-        previousSelectedTab.get('left') < selectedTab.get('left')
-    );
-    this.set('_selectedTab', selectedTab);
-
-    scheduleOnce('afterRender', this, this.fixOffsetIfNeeded);
+      !previousSelectedTab ||
+      previousSelectedTab.left < selectedTab.left;
+    this.selectedTab = selectedTab;
   }
 
-  willDestroyElement() {
-    super.willDestroyElement(...arguments);
-    window.removeEventListener('resize', this.updateCanvasWidth);
-    window.removeEventListener('orientationchange', this.updateCanvasWidth);
-  }
-
-  registerChild(childComponent) {
-    super.registerChild(...arguments);
-    // automatically set value if not manually set
-    if (childComponent.get('value') === undefined) {
-      let length = this.childComponents.get('length');
-      childComponent.set('value', length - 1);
-    }
-  }
-
-  fixOffsetIfNeeded() {
-    if (this.isDestroying || this.isDestroyed) {
+  /**
+   * updates the pagination tab offset if needed.
+   */
+  @action fixOffsetIfNeeded() {
+    if (this.isDestroying || this.isDestroyed || !this.selectedTab) {
+      // Don't attempt to compute if elements have not been added or are being
+      // removed from the DOM.
       return;
     }
 
     let canvasWidth = this.canvasWidth;
     let currentOffset = this.currentOffset;
 
-    let tabLeftOffset = this.get('_selectedTab.left');
-    let tabRightOffset = tabLeftOffset + this.get('_selectedTab.width');
+    let { left, width } = this.selected;
+    let tabLeftOffset = left;
+    let tabRightOffset = tabLeftOffset + width;
 
     let newOffset;
-    if (canvasWidth < this.get('_selectedTab.width')) {
+    if (canvasWidth < width) {
       // align with selectedTab if canvas smaller than selected tab
       newOffset = tabLeftOffset;
     } else if (tabRightOffset - currentOffset > canvasWidth) {
@@ -160,81 +334,71 @@ export default class PaperTabs extends Component.extend(ParentMixin) {
       return;
     }
 
-    this.set('currentOffset', newOffset);
+    this.currentOffset = newOffset;
   }
 
-  updateDimensions() {
-    let canvasWidth = this.element.querySelector('md-tabs-canvas').offsetWidth;
-    let wrapperWidth = this.element.querySelector(
-      'md-pagination-wrapper'
-    ).offsetWidth;
-    this.childComponents.invoke('updateDimensions');
-    this.set('canvasWidth', canvasWidth);
-    this.set('wrapperWidth', wrapperWidth);
-    this.set('shouldPaginate', wrapperWidth > canvasWidth);
-  }
-
-  updateStretchTabs() {
-    let stretch = this.stretch;
-    let currentStretch;
-
-    // if `true` or `false` is specified, always/never "stretch tabs"
-    // otherwise proceed with normal matchMedia test
-    if (typeof stretch === 'boolean') {
-      currentStretch = stretch;
-    } else {
-      let mediaQuery = this.constants.MEDIA[stretch] || stretch;
-      currentStretch = window.matchMedia(mediaQuery).matches;
+  /**
+   * sets widths based on the current tab canvas and pagination wrapper
+   * elements.
+   */
+  @action updateDimensions() {
+    if (!this.element) {
+      // node not added to the DOM yet...
+      return;
     }
 
-    this.set('currentStretch', currentStretch);
+    let canvasWidth = this.elementTabsCanvas.offsetWidth;
+    let wrapperWidth = this.elementPaginationWrapper.offsetWidth;
+    this.children.forEach((c) => c.updateDimensions());
+    this.canvasWidth = canvasWidth;
+    this.wrapperWidth = wrapperWidth;
+    this.shouldPaginate = wrapperWidth > canvasWidth;
   }
 
-  currentOffset = 0;
-
-  @gt('currentOffset', 0)
-  canPageBack;
-
-  @computed('wrapperWidth', 'currentOffset', 'canvasWidth')
-  get canPageForward() {
-    return this.wrapperWidth - this.currentOffset > this.canvasWidth;
-  }
-
-  @action
-  previousPage() {
-    let tab = this.childComponents.find((t) => {
-      // ensure we are no stuck because of a tab with a width > canvasWidth
-      return t.get('left') + t.get('width') >= this.currentOffset;
+  /**
+   * computes if a tab offset is required when paginating backwards.
+   */
+  @action previousPage() {
+    let tab = this.children.find((t) => {
+      // ensure we are not stuck because of a tab with a width > canvasWidth
+      return t.left + t.width >= this.currentOffset;
     });
     if (tab) {
-      let left = Math.max(0, tab.get('left') - this.canvasWidth);
-      this.set('currentOffset', left);
+      this.currentOffset = Math.max(0, tab.left - this.canvasWidth);
     }
   }
 
-  @action
-  nextPage() {
-    let tab = this.childComponents.find((t) => {
-      // ensure tab's offset is greater than current
-      // otherwise if the tab's width is greater than canvas we cannot paginate through it
+  /**
+   * computes if a tab offset is required when paginating forwards.
+   */
+  @action nextPage() {
+    let tab = this.children.find((t) => {
+      // ensure tab's offset is greater than current otherwise if the tab's
+      // width is greater than canvas we cannot paginate through it.
       return (
-        t.get('left') > this.currentOffset &&
+        t.left > this.currentOffset &&
         // paginate until the first partially hidden tab
-        t.get('left') + t.get('width') - this.currentOffset > this.canvasWidth
+        t.left + t.width - this.currentOffset > this.canvasWidth
       );
     });
     if (tab) {
-      this.set('currentOffset', tab.get('left'));
+      this.currentOffset = tab.left;
     }
   }
 
-  @action
-  localOnChange(selected) {
+  /**
+   * sets the current selected tab value, or passes the value up to the user to
+   * pass back down.
+   *
+   * @param {PaperTab} selected
+   */
+  @action localOnChange(selected) {
     // support non DDAU scenario
-    if (this.onChange) {
-      invokeAction(this, 'onChange', selected.get('value'));
+    if (this.args.onChange) {
+      this.args.onChange(selected.value);
     } else {
-      this.set('selected', selected.get('value'));
+      // update our private reference
+      this._selected = selected.value;
     }
   }
 }
