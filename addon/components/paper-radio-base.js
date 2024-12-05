@@ -47,17 +47,9 @@ export default class PaperRadioBase extends Focusable {
     super(owner, args);
 
     this.labelId = `${guidFor(this)}-label`;
-    this.shouldRegister = this.args.shouldRegister || false;
+
     this.skipProxy = this.args.skipProxy || false;
     this.toggle = this.args.toggle || false;
-
-    if (this.shouldRegister) {
-      assert(
-        'A parent component should be supplied to <PaperRadio> when shouldRegister=true',
-        this.args.parentComponent
-      );
-      this.parent = this.args.parentComponent;
-    }
 
     assert(
       '<PaperRadio> requires an `onChange` action or null for no action.',
@@ -72,10 +64,6 @@ export default class PaperRadioBase extends Focusable {
   @action didInsertNode(element) {
     this.element = element;
     this.registerListeners(element);
-
-    if (this.shouldRegister) {
-      this.parent.registerChild(this);
-    }
   }
 
   @action didUpdateNode() {
@@ -92,10 +80,6 @@ export default class PaperRadioBase extends Focusable {
 
   willDestroy() {
     super.willDestroy(...arguments);
-
-    if (this.shouldRegister) {
-      this.parent.unregisterChild(this);
-    }
   }
 
   get value() {
@@ -129,9 +113,5 @@ export default class PaperRadioBase extends Focusable {
         e.stopPropagation();
       }
     }
-  }
-
-  processProxy() {
-    this.onClick();
   }
 }
