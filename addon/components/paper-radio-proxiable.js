@@ -1,10 +1,14 @@
 /**
  * @module ember-paper
  */
-import PaperRadioBase from './paper-radio-base';
+import PaperRadio from './paper-radio';
 
 /**
  * @class PaperRadio
  * @extends PaperRadioBase
  */
-export default class PaperRadioProxiable extends PaperRadioBase {}
+export default class PaperRadioProxiable extends PaperRadio {
+  processProxy() {
+    this.onClick();
+  }
+}
