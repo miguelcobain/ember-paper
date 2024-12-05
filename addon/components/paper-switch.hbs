@@ -1,12 +1,11 @@
 <md-switch
   class='paper-switch md-default-theme
-    {{if @accent " md-accent"}}
-    {{if @primary " md-primary"}}
-    {{if @warn " md-warn"}}
-    {{if this.dragging " md-dragging"}}
-    {{if this.focused " md-focused"}}
-    {{if this.value " md-checked"}}
-    {{@class}}'
+    {{~if @accent " md-accent"}}
+    {{~if @primary " md-primary"}}
+    {{~if @warn " md-warn"}}
+    {{~if this.dragging " md-dragging"}}
+    {{~if this.focused " md-focused"}}
+    {{~if this.value " md-checked"}} {{@class}}'
   disabled={{this.disabled}}
   tabindex={{if this.disabled '-1' '0'}}
   {{did-insert this.didInsertNode}}
