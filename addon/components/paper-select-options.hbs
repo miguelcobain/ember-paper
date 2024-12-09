@@ -29,7 +29,7 @@
 
       {{else}}
 
-        <PaperSelect::Option
+        <PaperSelectOption
           class="ember-power-select-option"
           aria-selected="{{ember-power-select-is-selected opt @select.selected}}"
           aria-disabled={{if opt.disabled "true"}}
@@ -39,7 +39,7 @@
           tabindex={{if opt.disabled "-1" "0"}}
           selected={{if (ember-power-select-is-selected opt @select.selected) "selected" undefined}}>
           {{yield opt @select}}
-        </PaperSelect::Option>
+        </PaperSelectOption>
 
       {{/if}}
 
@@ -76,7 +76,7 @@
 
         {{else}}
 
-          <PaperSelect::Option
+          <PaperSelectOption
             class="ember-power-select-option"
             aria-selected="{{ember-power-select-is-selected opt @select.selected}}"
             aria-disabled={{if opt.disabled "true"}}
@@ -86,7 +86,7 @@
             tabindex={{if opt.disabled "-1" "0"}}
             selected={{if (ember-power-select-is-selected opt @select.selected) "selected" undefined}}>
             {{yield opt @select}}
-          </PaperSelect::Option>
+          </PaperSelectOption>
 
         {{/if}}
 
