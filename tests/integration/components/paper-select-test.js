@@ -1,18 +1,25 @@
-/* eslint-disable prettier/prettier */
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, fillIn, waitUntil, find } from '@ember/test-helpers';
+import { click, render, fillIn, waitUntil, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { clickTrigger, selectChoose } from 'ember-power-select/test-support/helpers';
+import {
+  clickTrigger,
+  selectChoose,
+} from 'ember-power-select/test-support/helpers';
 
-module('Integration | Component | paper-select', function(hooks) {
+module('Integration | Component | paper-select', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
-    this.set('sizes', ['small (12-inch)', 'medium (14-inch)', 'large (16-inch)', 'insane (42-inch)']);
+  hooks.beforeEach(function () {
+    this.set('sizes', [
+      'small (12-inch)',
+      'medium (14-inch)',
+      'large (16-inch)',
+      'insane (42-inch)',
+    ]);
   });
 
-  test('opens on click', async function(assert) {
+  test('opens on click', async function (assert) {
     await render(hbs`{{#paper-select
       disabled=disableSelect
       placeholder="Size"
@@ -29,7 +36,7 @@ module('Integration | Component | paper-select', function(hooks) {
     assert.dom('md-select-menu').exists();
   });
 
-  test('backdrop removed if select closed', async function(assert) {
+  test('backdrop removed if select closed', async function (assert) {
     await render(hbs`{{#paper-select
       disabled=disableSelect
       placeholder="Size"
@@ -54,7 +61,7 @@ module('Integration | Component | paper-select', function(hooks) {
     assert.dom('md-backdrop').doesNotExist();
   });
 
-  test('it can select an option', async function(assert) {
+  test('it can select an option', async function (assert) {
     await render(hbs`{{#paper-select
       disabled=disableSelect
       placeholder="Size"
@@ -73,7 +80,46 @@ module('Integration | Component | paper-select', function(hooks) {
     assert.equal(this.selectedSize, 'large (16-inch)');
   });
 
-  test('header is rendered above content', async function(assert) {
+  test('it can be disabled', async function (assert) {
+    await render(hbs`{{#paper-select
+      disabled=true
+      placeholder="Size"
+      options=sizes
+      selected=selectedSize
+      onChange=(action (mut selectedSize))
+    as |size|
+    }}
+      {{size}}
+    {{/paper-select}}`);
+
+    assert.dom('md-select').exists();
+    assert.dom('md-select').hasProperty('disabled', undefined);
+  });
+
+  test('it can be validated', async function (assert) {
+    await render(hbs`{{#paper-select
+      required=true
+      placeholder="Size"
+      options=sizes
+      selected=selectedSize
+      onChange=(action (mut selectedSize))
+    as |size|}}
+      {{size}}
+    {{/paper-select}}
+    <div id="not-paper-select"></div>`);
+
+    assert.dom('md-select').exists();
+    assert.dom('md-select').doesNotHaveClass('ng-dirty');
+    assert.dom('md-select').doesNotHaveClass('ng-invalid');
+
+    await clickTrigger('md-input-container');
+    await click('#not-paper-select');
+
+    assert.dom('md-select').hasClass('ng-dirty');
+    assert.dom('md-select').hasClass('ng-invalid');
+  });
+
+  test('header is rendered above content', async function (assert) {
     await render(hbs`{{#paper-select
       disabled=disableSelect
       placeholder="Size"
@@ -92,7 +138,7 @@ module('Integration | Component | paper-select', function(hooks) {
     assert.dom('md-select-menu > md-content').exists();
   });
 
-  test('it can search a value', async function(assert) {
+  test('it can search a value', async function (assert) {
     await render(hbs`{{#paper-select
       disabled=disableSelect
       placeholder="Size"
@@ -116,7 +162,7 @@ module('Integration | Component | paper-select', function(hooks) {
     assert.dom('md-select-menu md-option').hasText('small (12-inch)');
   });
 
-  test('it shows search message before entering search string', async function(assert) {
+  test('it shows search message before entering search string', async function (assert) {
     this.search = (value) => this.sizes.filter((size) => size.includes(value));
 
     await render(hbs`{{#paper-select
