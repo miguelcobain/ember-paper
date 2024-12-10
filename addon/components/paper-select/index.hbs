@@ -24,26 +24,26 @@
     @calculatePosition={{this.calculatePosition}}
     @extra={{hash label=@label}}
     @ebdTriggerComponent={{component
-      'paper-select-ebd-trigger'
+      'paper-select/ebd-trigger'
       label=@label
       selected=@selected
       required=@required
       disabled=@disabled
     }}
-    @triggerComponent='paper-select-eps-trigger'
+    @triggerComponent='paper-select/eps-trigger'
     @triggerClass='{{if this.validation.isInvalid "ng-invalid"}} {{if
       this.validation.isTouched
       "ng-dirty"
     }}'
     @ebdContentComponent={{component
-      'paper-select-ebd-content'
+      'paper-select/ebd-content'
       searchEnabled=@searchEnabled
       select=this.publicAPI
     }}
-    @optionsComponent='paper-select-options'
-    @beforeOptionsComponent='paper-select-search'
-    @noMatchesMessageComponent='paper-select-no-matches-message'
-    @searchMessageComponent='paper-select-search-message'
+    @optionsComponent='paper-select/options'
+    @beforeOptionsComponent='paper-select/search'
+    @noMatchesMessageComponent='paper-select/no-matches-message'
+    @searchMessageComponent='paper-select/search-message'
     @onClose={{this.handleClose}}
     @onOpen={{this.handleOpen}}
     @onFocus={{this.handleFocus}}
