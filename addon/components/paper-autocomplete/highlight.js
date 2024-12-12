@@ -1,26 +1,15 @@
-/* eslint-disable ember/no-classic-components, ember/no-computed-properties-in-native-classes, prettier/prettier */
 /**
  * @module ember-paper
  */
-import Component from '@ember/component';
-
-import { computed } from '@ember/object';
-import template from './template';
-
-import { tagName, layout } from '@ember-decorators/component';
+import Component from '@glimmer/component';
 
 /**
  * @class PaperAutocompleteHighlight
- * @extends Ember.Component
+ * @extends Component
  */
-@tagName('')
-@layout(template)
-class PaperAutocompleteHighlight extends Component {
-  flags = '';
-
-  @computed('regex', 'label')
+export default class PaperAutocompleteHighlight extends Component {
   get tokens() {
-    let string = `${this.label}`;
+    let string = `${this.args.label}`;
     let regex = this.regex;
 
     let tokens = [];
@@ -32,13 +21,13 @@ class PaperAutocompleteHighlight extends Component {
       if (prev) {
         tokens.push({
           text: prev,
-          isMatch: false
+          isMatch: false,
         });
       }
 
       tokens.push({
         text: match,
-        isMatch: true
+        isMatch: true,
       });
 
       lastIndex = index + match.length;
@@ -49,17 +38,16 @@ class PaperAutocompleteHighlight extends Component {
     if (last) {
       tokens.push({
         text: last,
-        isMatch: false
+        isMatch: false,
       });
     }
 
     return tokens;
   }
 
-  @computed('searchText', 'flags')
   get regex() {
-    let flags = this.flags;
-    let text = this.searchText;
+    let flags = this.args.flags;
+    let text = this.args.searchText;
     return this.getRegExp(text, flags);
   }
 
@@ -76,13 +64,13 @@ class PaperAutocompleteHighlight extends Component {
       endFlag = '$';
     }
 
-    return new RegExp(startFlag + regexTerm + endFlag, flags.replace(/[$^]/g, ''));
+    return new RegExp(
+      startFlag + regexTerm + endFlag,
+      flags.replace(/[$^]/g, '')
+    );
   }
 
   sanitizeRegex(term) {
     return term && term.toString().replace(/[\\^$*+?.()|{}[\]]/g, '\\$&');
   }
-
 }
-
-export default PaperAutocompleteHighlight;
