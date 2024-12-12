@@ -1,12 +1,16 @@
-{{! template-lint-disable no-action no-down-event-binding require-input-label }}
+{{! template-lint-disable no-down-event-binding require-input-label }}
 <md-autocomplete-wrap
-  class="{{unless @extra.label "md-whiteframe-z1"}} {{if @select.isOpen "md-menu-showing"}} {{if this.showingClearButton "md-show-clear-button"}} layout-row"
-  {{did-insert this.didInsert}}>
+  class='layout-row
+    {{~unless @extra.label " md-whiteframe-z1"}}
+    {{~if @select.isOpen " md-menu-showing"}}
+    {{~if this.showingClearButton " md-show-clear-button"}}'
+  {{did-insert this.didInsertNode}}
+>
   {{#if @extra.label}}
     <PaperInput
       @label={{@extra.label}}
       @value={{this.text}}
-      class="ember-paper-autocomplete-search-input flex {{@extra.inputClass}}"
+      class='ember-paper-autocomplete-search-input flex {{@extra.inputClass}}'
       @isTouched={{@isTouched}}
       @required={{@extra.required}}
       @passThru={{@extra.passThru}}
@@ -16,16 +20,18 @@
       @onBlur={{@onBlur}}
       @onKeyDown={{@onKeydown}}
       @errors={{@errors}}
-      @hideAllMessages={{@hideAllMessages}}/>
+      @hideAllMessages={{@hideAllMessages}}
+    />
   {{else}}
-    <input type="search"
+    <input
+      type='search'
       value={{this.text}}
-      class="ember-paper-autocomplete-search-input flex {{@extra.inputClass}}"
+      class='ember-paper-autocomplete-search-input flex {{@extra.inputClass}}'
       placeholder={{@placeholder}}
       disabled={{@select.disabled}}
       accept={{@extra.passThru.accept}}
       autofocus={{@extra.passThru.autofocus}}
-      autocomplete={{or @extra.passThru.autocomplete "off"}}
+      autocomplete={{or @extra.passThru.autocomplete 'off'}}
       autosave={{@extra.passThru.autosave}}
       form={{@extra.passThru.form}}
       formaction={{@extra.passThru.formaction}}
@@ -39,19 +45,25 @@
       selectionDirection={{@extra.passThru.selectionDirection}}
       spellcheck={{@extra.passThru.spellcheck}}
       step={{@extra.passThru.step}}
-      {{on "input" @onInput}}
-      {{on "focus" @onFocus}}
-      {{on "blur" @onBlur}}
-      {{on "keydown" @onKeydown}}>
+      {{on 'input' @onInput}}
+      {{on 'focus' @onFocus}}
+      {{on 'blur' @onBlur}}
+      {{on 'keydown' @onKeydown}}
+    />
   {{/if}}
 
   {{#if (and @select.loading @select.isActive)}}
-    <PaperProgressLinear class={{if @extra.label "md-inline"}} />
+    <PaperProgressLinear class={{if @extra.label 'md-inline'}} />
   {{/if}}
 
-  {{#if (and (or @select.selected this.text) @allowClear (not @select.disabled))}}
-    <PaperAutocomplete::ResetButton @onReset={{action this.clear}} @onDidTransitionOut={{action this.resetButtonDestroyed}}>
-      <PaperIcon @icon="close"/>
+  {{#if
+    (and (or @select.selected this.text) @allowClear (not @select.disabled))
+  }}
+    <PaperAutocomplete::ResetButton
+      @onReset={{this.handleClear}}
+      @onDidTransitionOut={{this.handleResetButtonDestroyed}}
+    >
+      <PaperIcon @icon='close' />
     </PaperAutocomplete::ResetButton>
   {{/if}}
 </md-autocomplete-wrap>
