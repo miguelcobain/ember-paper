@@ -9,7 +9,6 @@ import { action } from '@ember/object';
 /**
  * @class PaperItem
  * @extends Ember.Component
- * @uses ParentMixin
  */
 export default class PaperItem extends Component {
   /**
