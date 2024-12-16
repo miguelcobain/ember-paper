@@ -53,17 +53,13 @@ export default class PaperSelectEpsTrigger extends Component {
     return selected;
   }
 
-  get searchText() {
-    return this.args.select.searchText;
-  }
-
   get text() {
     let text = this.selectedText;
     if (text) {
       return text;
     }
 
-    return this.searchText;
+    return this.args.searchText || '';
   }
 
   get showingClearButton() {
