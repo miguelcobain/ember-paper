@@ -1,0 +1,71 @@
+<PowerSelect
+  @selected={{@selected}}
+  @options={{@options}}
+  @onChange={{this.handleOnChange}}
+  @disabled={{@disabled}}
+  @placeholder={{@placeholder}}
+  @searchEnabled={{@searchEnabled}}
+  @searchField={{@searchField}}
+  @searchPlaceholder={{@searchPlaceholder}}
+  @search={{@search}}
+  @registerAPI={{fn (mut this.publicAPI)}}
+  @allowClear={{@allowClear}}
+  @noMatchesMessage={{@noMatchesMessage}}
+  @defaultHighlighted={{@defaultHighlighted}}
+  @triggerClass={{@triggerClass}}
+  @dropdownClass={{@dropdownClass}}
+  @closeOnSelect={{@closeOnSelect}}
+  @matcher={{@matcher}}
+  @eventType={{@eventType}}
+  @animationEnabled={{false}}
+  @calculatePosition={{this.calculatePosition}}
+  @extra={{hash
+    label=@label
+    labelPath=@labelPath
+    required=@required
+    passThru=@passThru
+    inputClass=@inputClass
+  }}
+  @ebdTriggerComponent={{component
+    'paper-autocomplete/ebd-trigger'
+    label=@label
+    disabled=@disabled
+  }}
+  @triggerComponent={{component
+    'paper-autocomplete/eps-trigger'
+    isTouched=this.isTouched
+    hideAllMessages=@hideAllMessages
+    validationErrorMessages=@validationErrorMessages
+    errors=@errors
+    searchText=this.searchText
+  }}
+  @ebdContentComponent={{component
+    'paper-autocomplete/ebd-content'
+    select=this.publicAPI
+  }}
+  @optionsComponent='paper-autocomplete/options'
+  @noMatchesMessageComponent={{component
+    'paper-autocomplete/no-matches-message'
+    onCreate=this.handleOnCreate
+  }}
+  @onClose={{this.handleClose}}
+  @onOpen={{this.handleOpen}}
+  @onFocus={{this.handleFocus}}
+  @onBlur={{this.handleBlur}}
+  @onInput={{this.handleOnInput}}
+  @scrollTo={{this.handleScrollTo}}
+  @onKeydown={{@onKeydown}}
+  {{did-insert this.didInsertNode}}
+  {{did-update this.didUpdateNode @searchText @selected}}
+  as |option term|
+>
+  {{#if (has-block)}}
+    {{yield option term}}
+  {{else}}
+    <PaperAutocomplete::Highlight
+      @label={{if @labelPath (get option @labelPath) option}}
+      @searchText={{term.searchText}}
+      @flags='i'
+    />
+  {{/if}}
+</PowerSelect>
