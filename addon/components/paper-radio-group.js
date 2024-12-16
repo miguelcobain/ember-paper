@@ -12,9 +12,7 @@ import { isPresent } from '@ember/utils';
 
 /**
  * @class PaperRadioGroup
- * @extends Ember.Component
- * @uses FocusableMixin
- * @uses ParentMixin
+ * @extends Focusable
  */
 export default class PaperRadioGroup extends Focusable {
   @service constants;
