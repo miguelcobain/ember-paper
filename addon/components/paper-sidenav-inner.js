@@ -12,7 +12,6 @@ import { invokeAction } from 'ember-paper/utils/invoke-action';
 /**
  * @class PaperSidenavInner
  * @extends Ember.Component
- * @uses TransitionMixin
  */
 export default Component.extend({
   tagName: '',
