@@ -6,7 +6,6 @@ import Component from '@ember/component';
 /**
  * @class PaperBackdrop
  * @extends Ember.Component
- * @uses TransitionMixin
  */
 export default Component.extend({
   tagName: '',
