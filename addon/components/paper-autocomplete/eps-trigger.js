@@ -88,7 +88,7 @@ export default class PaperSelectEpsTrigger extends Component {
     }
   }
 
-  @action _onInput(value) {
+  @action handleOnInput(value) {
     if (this.args.onInput) {
       this.args.onInput({ target: { value } });
     }
