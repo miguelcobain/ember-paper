@@ -39,12 +39,12 @@ export default class PaperSelectEpsTrigger extends Component {
     this.inputElement = element.querySelector('input');
   }
 
-  get selected() {
-    return unwrapProxy(this.args.select.selected);
+  get select() {
+    return this.args.select;
   }
 
   get selectedText() {
-    let selected = this.selected;
+    let selected = unwrapProxy(this.select.selected);
     let labelPath = this.args.extra.labelPath;
     if (selected && labelPath) {
       return selected[labelPath];
@@ -70,10 +70,10 @@ export default class PaperSelectEpsTrigger extends Component {
     // make room for clear button:
     // - if we're enabled
     // - or if we're disabled but the button still wasn't destroyed
+    let select = this.select;
     return (
       this.args.allowClear &&
-      (!this.args.select.disabled ||
-        (this.args.select.disabled && !this.resetButtonDestroyed))
+      (!select.disabled || (select.disabled && !this.resetButtonDestroyed))
     );
   }
 
@@ -81,7 +81,7 @@ export default class PaperSelectEpsTrigger extends Component {
     let isLetter = (e.keyCode >= 48 && e.keyCode <= 90) || e.keyCode === 32; // Keys 0-9, a-z or SPACE
     let isSpecialKeyWhileClosed =
       !isLetter &&
-      !this.args.select.isOpen &&
+      !this.select.isOpen &&
       [13, 27, 38, 40].indexOf(e.keyCode) > -1;
     if (isLetter || isSpecialKeyWhileClosed) {
       e.stopPropagation();
@@ -99,7 +99,7 @@ export default class PaperSelectEpsTrigger extends Component {
     if (this.args.onClear) {
       this.args.onClear();
     } else {
-      this.args.select.actions.select(null);
+      this.select.actions.select(null);
       this.args?.onInput({ target: { value: '' } });
     }
     this.args?.onFocus(e);
