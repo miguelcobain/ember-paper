@@ -3,7 +3,6 @@
  */
 import PaperRadioBase from './paper-radio-base';
 import { action } from '@ember/object';
-import { assert } from '@ember/debug';
 
 /**
  * @class PaperRadio

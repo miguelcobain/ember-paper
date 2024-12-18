@@ -3,7 +3,6 @@
  */
 import Focusable from './-focusable';
 import { action } from '@ember/object';
-import { assert } from '@ember/debug';
 
 /**
  * @class PaperButton

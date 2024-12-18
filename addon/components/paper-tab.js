@@ -5,7 +5,6 @@ import Focusable from './-focusable';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { htmlSafe } from '@ember/template';
-import { assert } from '@ember/debug';
 
 /**
  * @class PaperTab
