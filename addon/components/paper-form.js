@@ -76,11 +76,11 @@ export default class PaperForm extends Component {
   }
 
   get isInvalid() {
-    return this.children.isAny('isInvalid');
+    return this.children.isAny('validation.isInvalid');
   }
 
   get isTouched() {
-    return this.children.isAny('isTouched');
+    return this.children.isAny('validation.isTouched');
   }
 
   get isInvalidAndTouched() {
@@ -112,7 +112,7 @@ export default class PaperForm extends Component {
 
   @action localOnSubmit() {
     if (this.isInvalid) {
-      this.children.setEach('isTouched', true);
+      this.children.setEach('validation.isTouched', true);
       if (this.args.onInvalid) {
         this.args.onInvalid();
       }
@@ -120,7 +120,7 @@ export default class PaperForm extends Component {
       if (this.args.onSubmit) {
         this.args.onSubmit();
       }
-      this.children.setEach('isTouched', false);
+      this.children.setEach('validation.isTouched', false);
     }
   }
 }
