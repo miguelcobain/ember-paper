@@ -30,13 +30,11 @@ export default class PaperRadio extends PaperRadioBase {
     super(owner, args);
 
     this.skipProxy = this.args.skipProxy || false;
-    this.shouldRegister = this.args.shouldRegister || false;
-    if (this.shouldRegister) {
-      assert(
-        'A parent component should be supplied to <PaperRadio> when shouldRegister=true',
-        this.args.parentComponent
-      );
-      this.parent = this.args.parentComponent;
+    this.shouldRegister = this.args.shouldRegister ?? true;
+
+    let parentComponent = this.args.parentComponent;
+    if (parentComponent && this.shouldRegister) {
+      this.parent = parentComponent;
     }
   }
 
@@ -47,16 +45,18 @@ export default class PaperRadio extends PaperRadioBase {
   @action didInsertNode(element) {
     super.didInsertNode(element);
 
-    if (this.shouldRegister) {
-      this.parent.registerChild(this);
+    let parent = this.parent;
+    if (parent && this.shouldRegister) {
+      parent.registerChild(this);
     }
   }
 
   willDestroy() {
     super.willDestroy(...arguments);
 
-    if (this.shouldRegister) {
-      this.parent.unregisterChild(this);
+    let parent = this.parent;
+    if (parent && this.shouldRegister) {
+      parent.unregisterChild(this);
     }
   }
 }

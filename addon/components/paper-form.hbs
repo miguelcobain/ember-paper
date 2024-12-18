@@ -9,12 +9,14 @@
         this.inputComponent
         parentComponent=this
         onValidityChange=this.localOnValidityChange
+        shouldRegister=true
       )
       submit-button=(component this.submitButtonComponent type='submit')
       select=(component
         this.selectComponent
         parentComponent=this
         onValidityChange=this.localOnValidityChange
+        shouldRegister=true
       )
       autocomplete=(component
         this.autocompleteComponent
