@@ -186,7 +186,7 @@
       <div class="doc-content-example">
         <PaperContent>
           {{! BEGIN-SNIPPET routable-usage}}
-          <PaperTabs @selected={{this.currentRouteName}} @borderBottom={{true}} @onChange={{action "noop"}} as |tabs|>
+          <PaperTabs @selected={{this.router.currentRouteName}} @borderBottom={{true}} @onChange={{action "noop"}} as |tabs|>
             <tabs.tab @value="demo.tabs.index" @href={{href-to "demo.tabs.index"}}>
               Index
             </tabs.tab>
