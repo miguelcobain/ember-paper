@@ -1,0 +1,7 @@
+# Unlabeled Changes
+
+* `ember-paper`
+  * [#1316](https://github.com/adopted-ember-addons/ember-paper/pull/1316) chore(deps): updates to `release-plan@^0.11.0`. ([@matthewhartstonge](https://github.com/matthewhartstonge))
+
+
+*Cannot plan release until the above changes are labeled*.
