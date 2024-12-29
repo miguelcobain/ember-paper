@@ -241,8 +241,8 @@ importers:
         specifier: ^1.6.0
         version: 1.6.0
       release-plan:
-        specifier: github:embroider-build/release-plan#allow-configurable-impact-levels
-        version: https://codeload.github.com/embroider-build/release-plan/tar.gz/b8855fec328d0d5585dd883551cf6868e9027612(encoding@0.1.13)
+        specifier: ^0.11.0
+        version: 0.11.0(encoding@0.1.13)
       webpack:
         specifier: ^5.95.0
         version: 5.95.0
@@ -6025,9 +6025,8 @@ packages:
     resolution: {integrity: sha512-1DHODs4B8p/mQHU9kr+jv8+wIC9mtG4eBHxWxIq5mhjE3D5oORhCc6deRKzTjs9DcfRFmj9BHSDguZklqCGFWQ==}
     hasBin: true
 
-  release-plan@https://codeload.github.com/embroider-build/release-plan/tar.gz/b8855fec328d0d5585dd883551cf6868e9027612:
-    resolution: {tarball: https://codeload.github.com/embroider-build/release-plan/tar.gz/b8855fec328d0d5585dd883551cf6868e9027612}
-    version: 0.10.0
+  release-plan@0.11.0:
+    resolution: {integrity: sha512-241SKOFD87J4mAE8mbXR6xDaqTYIvB8O1itH1bTWvY6q5X/xP4wNlhmx7NGXrzq3z9tCP3OcjzoOi19RC9yTsA==}
     hasBin: true
 
   remote-git-tags@3.0.0:
@@ -15193,7 +15192,7 @@ snapshots:
     dependencies:
       jsesc: 3.0.2
 
-  release-plan@https://codeload.github.com/embroider-build/release-plan/tar.gz/b8855fec328d0d5585dd883551cf6868e9027612(encoding@0.1.13):
+  release-plan@0.11.0(encoding@0.1.13):
     dependencies:
       '@manypkg/get-packages': 2.2.2
       '@npmcli/package-json': 5.2.1
