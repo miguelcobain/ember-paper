@@ -51,15 +51,12 @@ export default class PaperCheckbox extends Focusable {
     super(owner, args);
 
     this.labelId = `${guidFor(args)}-label`;
-    this.shouldRegister = this.args.shouldRegister || false;
+    this.shouldRegister = this.args.shouldRegister ?? false;
     this.skipProxy = this.args.skipProxy || false;
 
-    if (this.shouldRegister) {
-      assert(
-        'A parent component should be supplied to <PaperCheckbox> when shouldRegister=true',
-        this.args.parentComponent
-      );
-      this.parent = this.args.parentComponent;
+    let parentComponent = this.args.parentComponent;
+    if (parentComponent && this.shouldRegister) {
+      this.parent = parentComponent;
     }
 
     assert(
@@ -76,8 +73,9 @@ export default class PaperCheckbox extends Focusable {
     this.element = element;
     this.registerListeners(element);
 
-    if (this.shouldRegister) {
-      this.parent.registerChild(this);
+    let parent = this.parent;
+    if (parent && this.shouldRegister) {
+      parent.registerChild(this);
     }
   }
 
@@ -96,8 +94,9 @@ export default class PaperCheckbox extends Focusable {
   willDestroy() {
     super.willDestroy(...arguments);
 
-    if (this.shouldRegister) {
-      this.parent.unregisterChild(this);
+    let parent = this.parent;
+    if (parent && this.shouldRegister) {
+      parent.unregisterChild(this);
     }
   }
 

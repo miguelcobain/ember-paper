@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-mixins, ember/require-computed-property-dependencies, prettier/prettier */
+/* eslint-disable ember/no-mixins, ember/require-computed-property-dependencies */
 /**
  * @module ember-paper
  */
@@ -12,7 +12,6 @@ import ParentMixin from 'ember-paper/mixins/parent-mixin';
  * @extends Ember.Mixin
  */
 export default Mixin.create({
-
   // override to look for a specific parent class
   parentClass: ParentMixin,
 
@@ -27,21 +26,27 @@ export default Mixin.create({
     },
 
     set(key, value) {
-      return this._parentComponent = value;
-    }
+      return (this._parentComponent = value);
+    },
   }),
 
   init() {
     this._super(...arguments);
     if (this.parentComponent) {
-      this.parentComponent.register(this);
+      let register = this.parentComponent.register
+        ? this.parentComponent.register
+        : this.parentComponent.registerChild;
+      register(this);
     }
   },
 
   willDestroyElement() {
     this._super(...arguments);
     if (this.parentComponent) {
-      this.parentComponent.unregister(this);
+      let unregister = this.parentComponent.register
+        ? this.parentComponent.unregister
+        : this.parentComponent.unregisterChild;
+      unregister(this);
     }
-  }
+  },
 });

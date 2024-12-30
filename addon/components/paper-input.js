@@ -36,14 +36,14 @@ export default class PaperInput extends Focusable {
    * @type {HTMLInputElement}
    * @private
    */
-  #inputElement;
+  inputElement;
   /**
    * The parent this component is bound to.
    *
    * @type {PaperRadioGroup|PaperForm|PaperItem|PaperTabs}
    * @private
    */
-  #parent;
+  parent;
   /**
    * Marks whether the component should register itself to the supplied parent.
    *
@@ -97,6 +97,7 @@ export default class PaperInput extends Focusable {
       this.args.elementId || this.args.inputElementId || guidFor(this);
     this.inputElementId = this.args.inputElementId || `input-${elementId}`;
     this.lineHeight = this.args.lineHeight || null;
+    this.shouldRegister = this.args.shouldRegister ?? true;
 
     // Construct Input Validation and pass through of custom attributes.
     this.validation = new Validation(
@@ -109,12 +110,9 @@ export default class PaperInput extends Focusable {
       this.args.isTouched
     );
 
-    if (this.shouldRegister) {
-      assert(
-        'A parent component should be supplied to <PaperInput> when shouldRegister=true',
-        this.args.parentComponent
-      );
-      this.#parent = this.args.parentComponent;
+    let parentComponent = this.args.parentComponent;
+    if (parentComponent && this.shouldRegister) {
+      this.parent = parentComponent;
     }
 
     assert(
@@ -132,7 +130,7 @@ export default class PaperInput extends Focusable {
     this.registerListeners(element);
 
     let inputElement = element.querySelector('input, textarea');
-    this.#inputElement = inputElement;
+    this.inputElement = inputElement;
     this.validation.didInsertNode(inputElement);
 
     // setValue ensures that the input value is the same as this.value
@@ -143,8 +141,9 @@ export default class PaperInput extends Focusable {
       window.addEventListener('resize', this.growTextarea.bind(this));
     }
 
-    if (this.shouldRegister) {
-      this.#parent.registerChild(this);
+    let parent = this.parent;
+    if (parent && this.shouldRegister) {
+      parent.registerChild(this);
     }
   }
 
@@ -180,8 +179,9 @@ export default class PaperInput extends Focusable {
   willDestroy() {
     super.willDestroy(...arguments);
 
-    if (this.shouldRegister) {
-      this.#parent.unregisterChild(this);
+    let parent = this.parent;
+    if (parent && this.shouldRegister) {
+      parent.unregisterChild(this);
     }
   }
 
@@ -307,7 +307,7 @@ export default class PaperInput extends Focusable {
    */
   growTextarea() {
     if (this.args.textarea) {
-      let inputElement = this.#inputElement;
+      let inputElement = this.inputElement;
 
       inputElement.classList.add('md-no-flex');
       inputElement.setAttribute('rows', '1');
@@ -318,7 +318,7 @@ export default class PaperInput extends Focusable {
         let lineHeight = this.lineHeight;
         if (!lineHeight) {
           inputElement.style.minHeight = '0';
-          lineHeight = this.#inputElement.clientHeight;
+          lineHeight = this.inputElement.clientHeight;
           inputElement.style.minHeight = null;
         }
         if (lineHeight) {
@@ -372,8 +372,8 @@ export default class PaperInput extends Focusable {
     // normalize falsy values to empty string
     value = isEmpty(value) ? '' : value;
 
-    if (this.#inputElement.value !== value) {
-      this.#inputElement.value = value;
+    if (this.inputElement.value !== value) {
+      this.inputElement.value = value;
     }
 
     // Calculate Input Validity

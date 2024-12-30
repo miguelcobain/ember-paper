@@ -5,7 +5,6 @@ import Focusable from './-focusable';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { htmlSafe } from '@ember/template';
-import { assert } from '@ember/debug';
 
 /**
  * @class PaperTab
@@ -72,13 +71,10 @@ export default class PaperTab extends Focusable {
       this.tag = 'a';
     }
 
-    this.shouldRegister = this.args.shouldRegister || true;
-    if (this.shouldRegister) {
-      assert(
-        'A parent component should be supplied to <PaperTab>',
-        this.args.parentComponent
-      );
-      this.parent = this.args.parentComponent;
+    this.shouldRegister = this.args.shouldRegister ?? true;
+    let parentComponent = this.args.parentComponent;
+    if (parentComponent && this.shouldRegister) {
+      this.parent = parentComponent;
     }
   }
 
@@ -94,8 +90,9 @@ export default class PaperTab extends Focusable {
 
     this.registerListeners(element);
 
-    if (this.shouldRegister) {
-      this.parent.registerChild(this);
+    let parent = this.parent;
+    if (parent && this.shouldRegister) {
+      parent.registerChild(this);
     }
   }
 
@@ -123,8 +120,9 @@ export default class PaperTab extends Focusable {
   willDestroy() {
     super.willDestroy();
 
-    if (this.shouldRegister) {
-      this.parent.unregisterChild(this);
+    let parent = this.parent;
+    if (parent && this.shouldRegister) {
+      parent.unregisterChild(this);
     }
   }
 

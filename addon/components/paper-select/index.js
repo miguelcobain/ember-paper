@@ -41,7 +41,7 @@ export default class PaperSelect extends Component {
    * @type {PaperRadioGroup|PaperForm|PaperItem|PaperTabs}
    * @private
    */
-  #parent;
+  parent;
   /**
    * Marks whether the component should register itself to the supplied parent.
    *
@@ -68,6 +68,7 @@ export default class PaperSelect extends Component {
 
     this.didAnimateScale = false;
     this.isFocused = false;
+    this.shouldRegister = this.args.shouldRegister ?? true;
 
     const elementId =
       this.args.elementId || this.args.inputElementId || guidFor(this);
@@ -83,12 +84,9 @@ export default class PaperSelect extends Component {
       this.args.isTouched
     );
 
-    if (this.shouldRegister) {
-      assert(
-        'A parent component should be supplied to <PaperInput> when shouldRegister=true',
-        this.args.parentComponent
-      );
-      this.#parent = this.args.parentComponent;
+    let parentComponent = this.args.parentComponent;
+    if (parentComponent && this.shouldRegister) {
+      this.parent = parentComponent;
     }
 
     assert(
@@ -106,8 +104,9 @@ export default class PaperSelect extends Component {
     // setValue ensures that the input value is the same as this.value
     this.validation.value = this.args.selected;
 
-    if (this.shouldRegister) {
-      this.#parent.registerChild(this);
+    let parent = this.parent;
+    if (parent && this.shouldRegister) {
+      parent.registerChild(this);
     }
   }
 
@@ -140,8 +139,9 @@ export default class PaperSelect extends Component {
   willDestroy() {
     super.willDestroy(...arguments);
 
-    if (this.shouldRegister) {
-      this.#parent.unregisterChild(this);
+    let parent = this.parent;
+    if (parent && this.shouldRegister) {
+      parent.unregisterChild(this);
     }
   }
 
