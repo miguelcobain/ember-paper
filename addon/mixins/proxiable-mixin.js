@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /**
  * @module ember-paper
  */
@@ -13,7 +12,6 @@ import { ChildMixin } from 'ember-composability-tools';
  * @extends Ember.Mixin
  */
 export default Mixin.create(ChildMixin, {
-
   classNameBindings: ['secondary:md-secondary'],
 
   shouldRegister: false,
@@ -26,12 +24,12 @@ export default Mixin.create(ChildMixin, {
     this._super(...arguments);
     let parentComponent = this.parentComponent;
     if (parentComponent) {
-      parentComponent.set('mouseActive', true);
+      parentComponent.mouseActive = true;
       later(() => {
         if (parentComponent.isDestroyed) {
           return;
         }
-        parentComponent.set('mouseActive', false);
+        parentComponent.mouseActive = false;
       }, 100);
     }
   },
@@ -39,8 +37,8 @@ export default Mixin.create(ChildMixin, {
   focusIn() {
     this._super(...arguments);
     let parentComponent = this.parentComponent;
-    if (parentComponent && !parentComponent.get('mouseActive')) {
-      parentComponent.set('focused', true);
+    if (parentComponent && !parentComponent.mouseActive) {
+      parentComponent.focused = true;
     }
   },
 
@@ -48,7 +46,7 @@ export default Mixin.create(ChildMixin, {
     this._super(...arguments);
     let parentComponent = this.parentComponent;
     if (parentComponent) {
-      parentComponent.set('focused', false);
+      parentComponent.focused = false;
     }
-  }
+  },
 });

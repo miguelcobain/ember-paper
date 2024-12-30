@@ -1,104 +1,162 @@
-/* eslint-disable ember/no-classic-components, ember/no-computed-properties-in-native-classes */
-import {
-  attributeBindings,
-  classNameBindings,
-  tagName,
-} from '@ember-decorators/component';
-import { computed } from '@ember/object';
-import { or, bool, filter } from '@ember/object/computed';
+/**
+ * @module ember-paper
+ */
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { A } from '@ember/array';
+import { action } from '@ember/object';
 
-import Component from '@ember/component';
-import { ParentMixin } from 'ember-composability-tools';
-import { invokeAction } from 'ember-paper/utils/invoke-action';
 /**
  * @class PaperItem
  * @extends Ember.Component
  * @uses ParentMixin
  */
-@tagName('md-list-item')
-@classNameBindings(
-  'hasProxiedComponent:md-proxy-focus',
-  'shouldBeClickable:md-clickable',
-  'focused:md-focused',
-  'hasPrimaryAction:_md-button-wrap'
-)
-@attributeBindings('role', 'tabindex', 'title')
-export default class PaperItem extends Component.extend(ParentMixin) {
-  _mouseEnterHandler = undefined;
-  _mouseLeaveHandler = undefined;
+export default class PaperItem extends Component {
+  /**
+   * Reference to the component's DOM element
+   * @type {HTMLElement}
+   */
+  element;
+
+  /**
+   * Array of child components.
+   * @type {A}
+   */
+  @tracked children;
+  /**
+   * marks whether the component is focused. Sets class `md-focused` if true.
+   * @type {boolean}
+   */
+  @tracked focused = false;
+
+  constructor(owner, args) {
+    super(owner, args);
+
+    this.children = A([]);
+
+    if (this.args.role) {
+      this.role = this.args.role;
+    }
+  }
+
+  /**
+   * Performs any required DOM setup.
+   * @param {HTMLElement} element
+   */
+  @action didInsertNode(element) {
+    element.addEventListener('mouseenter', this.handleMouseEnter);
+    element.addEventListener('mouseleave', this.handleMouseLeave);
+
+    this.element = element;
+  }
+
+  @action didUpdateNode() {
+    // noop
+  }
+
+  /**
+   * Performs any required DOM teardown.
+   * @param {HTMLElement} element
+   */
+  @action willDestroyNode(element) {
+    element.removeEventListener('mouseenter', this.handleMouseEnter);
+    element.removeEventListener('mouseleave', this.handleMouseLeave);
+  }
+
+  /**
+   * Registers a child component
+   * @param {Component} child - The component to register
+   */
+  @action registerChild(child) {
+    this.children.pushObject(child);
+  }
+
+  /**
+   * Unregisters a child component
+   * @param {Component} child - The component to unregister
+   */
+  @action unregisterChild(child) {
+    this.children.removeObject(child);
+  }
 
   // Ripple Overrides
-  // disable ripple when we have a primary action or when we don't have a proxied component
-  @computed('hasPrimaryAction', 'hasProxiedComponent')
+  /**
+   * disable ripple when we have a primary action or when we don't have a proxied component
+   * @returns {boolean}
+   */
   get noink() {
     return this.hasPrimaryAction || !this.hasProxiedComponent;
   }
 
-  role = 'listitem';
-  tabindex = '-1';
+  /**
+   * Returns registered child proxy components.
+   * @returns {Component[]}
+   */
+  get proxiedComponents() {
+    return this.children.filter((c) => {
+      return !c.skipProxy;
+    });
+  }
 
-  @filter('childComponents', function (c) {
-    return !c.skipProxy;
-  })
-  proxiedComponents;
+  /**
+   * @returns {boolean}
+   */
+  get hasProxiedComponent() {
+    return this.proxiedComponents ? this.proxiedComponents.length > 0 : false;
+  }
 
-  @bool('proxiedComponents.length')
-  hasProxiedComponent;
+  /**
+   * @returns {boolean}
+   */
+  get shouldBeClickable() {
+    return this.hasProxiedComponent || !!this.args.onClick;
+  }
 
-  @or('hasProxiedComponent', 'onClick')
-  shouldBeClickable;
+  /**
+   * @returns {boolean}
+   */
+  get hasPrimaryAction() {
+    return !!this.args.onClick || !!this.args.href;
+  }
 
-  @or('onClick', 'href')
-  hasPrimaryAction;
-
-  @computed('hasPrimaryAction', 'hasProxiedComponent')
+  /**
+   * dead code?
+   * @returns {boolean}
+   */
   get noProxy() {
     return !this.hasPrimaryAction && !this.hasProxiedComponent;
   }
 
-  @computed('proxiedComponents.[]')
+  /**
+   * Returns a secondary component.
+   * @returns {Component}
+   */
   get secondaryItem() {
     let proxiedComponents = this.proxiedComponents;
     return proxiedComponents.objectAt(0);
   }
 
-  didInsertElement() {
-    super.didInsertElement(...arguments);
-
-    this._mouseEnterHandler = this.handleMouseEnter.bind(this);
-    this._mouseLeaveHandler = this.handleMouseLeave.bind(this);
-
-    this.element.addEventListener('mouseenter', this._mouseEnterHandler);
-    this.element.addEventListener('mouseleave', this._mouseLeaveHandler);
-  }
-
-  willDestroyElement() {
-    super.willDestroyElement(...arguments);
-
-    this.element.removeEventListener('mouseenter', this._mouseEnterHandler);
-    this.element.removeEventListener('mouseleave', this._mouseLeaveHandler);
-
-    this._mouseEnterHandler = undefined;
-    this._mouseLeaveHandler = undefined;
-  }
-
-  click() {
+  @action localOnClick() {
     this.proxiedComponents.forEach((component) => {
       if (
-        component.processProxy &&
+        !!component.processProxy &&
         !component.disabled &&
-        component.bubbles | !this.hasPrimaryAction
+        !!(component.bubbles || !this.hasPrimaryAction)
       ) {
         component.processProxy();
       }
     });
   }
 
-  handleMouseEnter(e) {
-    invokeAction(this, 'onMouseEnter', e);
+  @action handleMouseEnter(e) {
+    if (this.args.onMouseEnter) {
+      this.args.onMouseEnter(e);
+    }
   }
 
-  handleMouseLeave(e) {
-    invokeAction(this, 'onMouseLeave', e);
+  @action handleMouseLeave(e) {
+    if (this.args.onMouseLeave) {
+      this.args.onMouseLeave(e);
+    }
   }
 }
