@@ -1,31 +1,76 @@
-{{! template-lint-disable no-action }}
-<md-tabs-wrapper class={{if this.shouldStretch "md-stretch-tabs"}}>
+<md-tabs
+  class='md-no-tab-content md-default-theme
+    {{~if @warn " md-warn"}}
+    {{~if @accent " md-accent"}}
+    {{~if @primary " md-primary"}}
+    {{@class}}'
+  md-border-bottom={{@borderBottom}}
+  aria-label={{@ariaLabel}}
+  {{did-insert this.didInsertNode}}
+  {{did-update
+    this.didUpdateNode
+    this.children
+    this.shouldCenter
+    this.shouldStretch
+    this.selected
+  }}
+  {{will-destroy this.willDestroyNode}}
+  ...attributes
+>
+  <md-tabs-wrapper class={{if this.shouldStretch 'md-stretch-tabs'}}>
+    {{#if this.shouldPaginate}}
+      <md-prev-button
+        role='button'
+        class={{unless this.canPageBack 'md-disabled'}}
+        {{on 'click' this.previousPage}}
+      >
+        <PaperIcon @icon='keyboard-arrow-left' />
+      </md-prev-button>
+      <md-next-button
+        role='button'
+        class={{unless this.canPageForward 'md-disabled'}}
+        {{on 'click' this.nextPage}}
+      >
+        {{!
+          md-next-button has a css rule that transforms the icon 180 degrees
+          to point the right way
+        }}
+        <PaperIcon @icon='keyboard-arrow-left' />
+      </md-next-button>
+    {{/if}}
 
-  {{#if this.shouldPaginate}}
-    <md-prev-button role="button" class={{unless this.canPageBack "md-disabled"}} onclick={{action "previousPage"}}>
-      {{paper-icon "keyboard-arrow-left"}}
-    </md-prev-button>
-    <md-next-button role="button" class={{unless this.canPageForward "md-disabled"}} onclick={{action "nextPage"}}>
-      {{paper-icon "keyboard-arrow-left"}}
-    </md-next-button>
-  {{/if}}
+    <md-tabs-canvas
+      class='{{if this.shouldPaginate "md-paginated"}}
+        {{~if this.shouldCenter " md-center-tabs"}}'
+      tabindex='-1'
+      role='tablist'
+    >
+      <md-pagination-wrapper
+        class={{if this.shouldCenter 'md-center-tabs'}}
+        style={{if this.shouldPaginate this.paginationStyle}}
+      >
+        {{yield
+          (hash
+            tab=(component
+              'paper-tab'
+              noInk=this.noInk
+              parentComponent=this
+              selected=this.selected
+              onSelect=this.localOnChange
+            )
+          )
+        }}
 
-  <md-tabs-canvas class="{{if this.shouldPaginate "md-paginated"}}{{if this.shouldCenter "md-center-tabs"}}" tabindex="-1" role="tablist">
-    <md-pagination-wrapper class={{if this.shouldCenter "md-center-tabs"}} style={{if this.shouldPaginate this.paginationStyle}}>
-
-      {{yield (hash
-        tab=(component "paper-tab"
-          noInk=this.noInk
-          selected=this.selected
-          onSelect=(action "localOnChange")
-        )
-      )}}
-
-      {{#if this.inkBar}}
-        <PaperInkBar @movingRight={{this.movingRight}} @left={{this.inkBar.left}} @right={{this.inkBar.right}} />
-      {{/if}}
-
-    </md-pagination-wrapper>
-  </md-tabs-canvas>
-
-</md-tabs-wrapper>
+        {{#if this.inkBar}}
+          {{#let this.inkBar as |inkBar|}}
+            <PaperInkBar
+              @movingRight={{this.movingRight}}
+              @left={{inkBar.left}}
+              @right={{inkBar.right}}
+            />
+          {{/let}}
+        {{/if}}
+      </md-pagination-wrapper>
+    </md-tabs-canvas>
+  </md-tabs-wrapper>
+</md-tabs>
