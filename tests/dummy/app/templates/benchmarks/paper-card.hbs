@@ -1,0 +1,74 @@
+<h1>paper-card benchmark</h1>
+<div style="height: 4000px; overflow: scroll;">
+  {{#el-benchmarker label="paper-card"}}
+    {{#each rows as |r|}}
+      <div class="layout-row layout-xs-column">
+        <div class="layout-column flex-xs flex-gt-xs-50">
+          {{#paper-card as |card|}}
+            {{#card.title as |title|}}
+              {{#title.text as |text|}}
+                {{#text.headline}}Card with image{{/text.headline}}
+                {{#text.subhead}}Large{{/text.subhead}}
+              {{/title.text}}
+              {{title.media size="lg" src="tomster.png" alt="Tomster" title="Tomster"}}
+            {{/card.title}}
+            {{#card.actions}}
+              <button>Action 1</button>
+              <button>Action 2</button>
+            {{/card.actions}}
+          {{/paper-card}}
+
+          {{#paper-card as |card|}}
+            {{#card.title as |title|}}
+              {{#title.text as |text|}}
+                {{#text.headline}}Card with block{{/text.headline}}
+                {{#text.subhead}}Extra large{{/text.subhead}}
+              {{/title.text}}
+            {{/card.title}}
+            {{#card.content class="layout-row layout-align-space-between"}}
+              {{#card.media size="xl"}}
+                <div class="card-media"></div>
+              {{/card.media}}
+              {{#card.actions class="layout-column"}}
+                <button>{{paper-icon "favorite"}}</button>
+                <button>{{paper-icon "settings"}}</button>
+                <button>{{paper-icon "share"}}</button>
+              {{/card.actions}}
+            {{/card.content}}
+          {{/paper-card}}
+        </div>
+        <div class="layout-column flex-xs flex-gt-xs-50">
+          {{#paper-card as |card|}}
+            {{#card.title as |title|}}
+              {{#title.text as |text|}}
+                {{#text.headline}}Card with image{{/text.headline}}
+                {{#text.subhead}}Small{{/text.subhead}}
+              {{/title.text}}
+              {{title.media size="sm" src="tomster.png" alt="Tomster" title="Tomster"}}
+            {{/card.title}}
+            {{#card.actions}}
+              <button>Action 1</button>
+              <button>Action 2</button>
+            {{/card.actions}}
+          {{/paper-card}}
+
+          {{#paper-card as |card|}}
+            {{#card.title as |title|}}
+              {{#title.text as |text|}}
+                {{#text.headline}}Card with block{{/text.headline}}
+                {{#text.subhead}}Medium{{/text.subhead}}
+              {{/title.text}}
+              {{#title.media size="md"}}
+                <div class="card-media"></div>
+              {{/title.media}}
+            {{/card.title}}
+            {{#card.actions}}
+              <button>Action 1</button>
+              <button>Action 2</button>
+            {{/card.actions}}
+          {{/paper-card}}
+        </div>
+      </div>
+    {{/each}}
+  {{/el-benchmarker}}
+</div>
