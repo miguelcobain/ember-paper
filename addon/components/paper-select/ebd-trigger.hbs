@@ -1,5 +1,4 @@
-
-{{#if this.shouldShowLabel}}
+{{#if (and @label @selected)}}
   <label
     for="ember-basic-dropdown-trigger-{{@dropdown.uniqueId}}"
     class={{if @required "md-required"}}>

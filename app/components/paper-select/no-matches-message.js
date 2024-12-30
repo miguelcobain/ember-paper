@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-select/no-matches-message/component';
+export { default } from 'ember-paper/components/paper-select/no-matches-message';

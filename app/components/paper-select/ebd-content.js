@@ -1,1 +1,1 @@
-export { default } from 'ember-paper/components/paper-select/ebd-content/component';
+export { default } from 'ember-paper/components/paper-select/ebd-content';

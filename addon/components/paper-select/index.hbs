@@ -1,0 +1,56 @@
+{{! template-lint-disable no-action }}
+<md-input-container
+  class='{{@class}}
+    {{~if @selected " md-input-has-value"}}
+    {{~if this.validation.isInvalidAndTouched " md-input-invalid"}}
+    {{~if this.isFocusedAndSelected " md-input-focused"}}'
+  {{did-insert this.didInsertNode}}
+  {{did-update this.didUpdateNode @selected}}
+  ...attributes
+>
+
+  <PowerSelect
+    @selected={{@selected}}
+    @options={{@options}}
+    @onChange={{@onChange}}
+    @disabled={{@disabled}}
+    @placeholder={{@placeholder}}
+    @search={{@search}}
+    @searchEnabled={{@searchEnabled}}
+    @searchField={{@searchField}}
+    @searchPlaceholder={{@searchPlaceholder}}
+    @registerAPI={{action (mut this.publicAPI)}}
+    @animationEnabled={{false}}
+    @calculatePosition={{this.calculatePosition}}
+    @extra={{hash label=@label}}
+    @ebdTriggerComponent={{component
+      'paper-select/ebd-trigger'
+      label=@label
+      selected=@selected
+      required=@required
+      disabled=@disabled
+    }}
+    @triggerComponent='paper-select/eps-trigger'
+    @triggerClass='{{if this.validation.isInvalid "ng-invalid"}} {{if
+      this.validation.isTouched
+      "ng-dirty"
+    }}'
+    @ebdContentComponent={{component
+      'paper-select/ebd-content'
+      searchEnabled=@searchEnabled
+      select=this.publicAPI
+    }}
+    @optionsComponent='paper-select/options'
+    @beforeOptionsComponent='paper-select/search'
+    @noMatchesMessageComponent='paper-select/no-matches-message'
+    @searchMessageComponent='paper-select/search-message'
+    @onClose={{this.handleClose}}
+    @onOpen={{this.handleOpen}}
+    @onFocus={{this.handleFocus}}
+    @onBlur={{this.handleBlur}}
+    as |opt term|
+  >
+    {{yield opt term}}
+  </PowerSelect>
+
+</md-input-container>
