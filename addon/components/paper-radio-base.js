@@ -87,7 +87,7 @@ export default class PaperRadioBase extends Focusable {
   }
 
   get checked() {
-    return this.args.groupValue === this.value;
+    return this.args.groupValue === this.value || this.args.checked;
   }
 
   get ariaChecked() {
