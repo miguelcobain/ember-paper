@@ -1,19 +1,35 @@
-{{! template-lint-disable no-curly-component-invocation }}
-<div class="md-switch-bar"></div>
-<div class="md-container">
-  <div class="md-bar"></div>
-  <div class="md-thumb-container" style={{this.thumbContainerStyle}}>
-    <div class="md-thumb">
-      <PaperRipple @center={{true}} @fitRipple={{true}}/>
+<md-switch
+  class='paper-switch md-default-theme
+    {{~if @accent " md-accent"}}
+    {{~if @primary " md-primary"}}
+    {{~if @warn " md-warn"}}
+    {{~if this.dragging " md-dragging"}}
+    {{~if this.focused " md-focused"}}
+    {{~if this.value " md-checked"}} {{@class}}'
+  disabled={{this.disabled}}
+  tabindex={{if this.disabled '-1' '0'}}
+  {{did-insert this.didInsertNode}}
+  {{did-update this.didUpdateNode this.disabled this._switchContainerHammer}}
+  {{will-destroy this.willDestroyNode}}
+  {{on 'keypress' this.handleKeyPress}}
+  ...attributes
+>
+  <div class='md-switch-bar'></div>
+  <div class='md-container'>
+    <div class='md-bar'></div>
+    <div class='md-thumb-container' style={{this.thumbContainerStyle}}>
+      <div class='md-thumb'>
+        <PaperRipple @center={{true}} @fitRipple={{true}} />
+      </div>
     </div>
   </div>
-</div>
-{{#if (has-block)}}
-  <div class="md-label">
-    {{yield}}
-  </div>
-{{else}}
-  <div class="md-label">
-    {{@label}}
-  </div>
-{{/if}}
+  {{#if (has-block)}}
+    <div class='md-label'>
+      {{yield}}
+    </div>
+  {{else}}
+    <div class='md-label'>
+      {{@label}}
+    </div>
+  {{/if}}
+</md-switch>
