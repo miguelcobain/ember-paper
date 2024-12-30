@@ -1,21 +1,39 @@
-{{! template-lint-disable no-curly-component-invocation }}
-<div class="md-container">
-  <div class="md-off"></div>
-  <div class="md-on"></div>
-  <PaperRipple
-    @center={{true}}
-    @fitRipple={{true}}/>
-</div>
-{{#if (has-block)}}
-  <div class="md-label">
-    <span>
-      {{yield}}
-    </span>
+<md-radio-button
+  class='md-default-theme
+    {{if this.checked " md-checked"}}
+    {{if @warn " md-warn"}}
+    {{if @accent " md-accent"}}
+    {{if @primary " md-primary"}}
+    {{if @secondary " md-secondary"}}
+    {{if this.focused " md-focused"}}
+    {{@class}}'
+  aria-checked={{this.ariaChecked}}
+  aria-label={{@ariaLabel}}
+  aria-labelledby={{this.labelId}}
+  disabled={{this.disabled}}
+  role='radio'
+  tabindex={{if this.disabled '-1' '0'}}
+  {{did-insert this.didInsertNode}}
+  {{will-destroy this.willDestroyNode}}
+  {{on 'click' this.onClick}}
+  ...attributes
+>
+  <div class='md-container'>
+    <div class='md-off'></div>
+    <div class='md-on'></div>
+    <PaperRipple @center={{true}} @fitRipple={{true}} />
   </div>
-{{else}}
-  <div class="md-label">
-    <span>
-      {{@label}}
-    </span>
-  </div>
-{{/if}}
+  {{#if (has-block)}}
+    <div class='md-label'>
+      <span>
+        {{yield}}
+      </span>
+    </div>
+  {{else}}
+    <div class='md-label'>
+      <span>
+        {{@label}}
+      </span>
+    </div>
+  {{/if}}
+</md-radio-button>

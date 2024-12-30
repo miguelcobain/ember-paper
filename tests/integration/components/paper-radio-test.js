@@ -25,6 +25,22 @@ module('Integration | Component | paper radio', function(hooks) {
     assert.dom('md-radio-button').doesNotHaveClass('md-checked');
   });
 
+  test('should set and remove checked css class if checked is passed in', async function(assert) {
+    assert.expect(2);
+
+    this.set('checked', true);
+    await render(hbs`
+      {{#paper-radio value="1" checked=checked onChange=(action (mut checked))}}
+        Radio button 1
+      {{/paper-radio}}
+    `);
+    assert.dom('md-radio-button').hasClass('md-checked');
+
+    this.set('checked', false);
+    assert.dom('md-radio-button').doesNotHaveClass('md-checked');
+  });
+
+
   test('should trigger an action when checking', async function(assert) {
     assert.expect(1);
 
