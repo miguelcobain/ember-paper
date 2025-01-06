@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/require-tagless-components, prettier/prettier */
+/* eslint-disable ember/no-classic-components */
 /**
  * @module ember-paper
  */
@@ -8,7 +8,6 @@ import Component from '@ember/component';
  * @class PaperCardHeaderSubhead
  * @extends Ember.Component
  */
-export default Component.extend({
-  tagName: 'span',
-  classNames: ['md-subhead']
-});
+export default class PaperCardHeaderSubhead extends Component {
+  tagName = '';
+}
