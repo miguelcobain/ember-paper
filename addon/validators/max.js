@@ -2,6 +2,7 @@
 /**
  * @module ember-paper
  */
+import config from 'ember-get-config';
 import { isEmpty } from '@ember/utils';
 
 export function max(value, max) {
@@ -10,6 +11,9 @@ export function max(value, max) {
 
 export default {
   param: 'max',
-  message: 'Must be less than %@.',
+  message: config['ember-paper']
+  && config['ember-paper'].errorMessages
+  && config['ember-paper'].errorMessages.max
+    ? config['ember-paper'].errorMessages.max : 'Must be less than %@.',
   validate: max
 };

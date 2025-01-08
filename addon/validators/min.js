@@ -2,6 +2,7 @@
 /**
  * @module ember-paper
  */
+import config from 'ember-get-config';
 import { isEmpty } from '@ember/utils';
 
 export function min(value, min) {
@@ -10,6 +11,9 @@ export function min(value, min) {
 
 export default {
   param: 'min',
-  message: 'Must be at least %@.',
+  message: config['ember-paper']
+  && config['ember-paper'].errorMessages
+  && config['ember-paper'].errorMessages.min
+    ? config['ember-paper'].errorMessages.min : 'Must be at least %@.',
   validate: min
 };

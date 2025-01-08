@@ -2,6 +2,7 @@
 /**
  * @module ember-paper
  */
+import config from 'ember-get-config';
 import { isNone, isEmpty } from '@ember/utils';
 
 export function maxlength(value, maxlength) {
@@ -10,6 +11,9 @@ export function maxlength(value, maxlength) {
 
 export default {
   param: 'maxlength',
-  message: 'Must not exceed %@ characters.',
+  message: config['ember-paper']
+  && config['ember-paper'].errorMessages
+  && config['ember-paper'].errorMessages.maxlength
+    ? config['ember-paper'].errorMessages.maxlength : 'Must not exceed %@ characters.',
   validate: maxlength
 };
