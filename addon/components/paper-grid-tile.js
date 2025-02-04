@@ -1,25 +1,48 @@
-/* eslint-disable ember/classic-decorator-no-classic-methods, ember/no-classic-components, ember/no-computed-properties-in-native-classes, ember/no-get, ember/require-computed-property-dependencies */
-import { tagName } from '@ember-decorators/component';
-import { computed } from '@ember/object';
-import { alias } from '@ember/object/computed';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-import Component from '@ember/component';
-import { debounce } from '@ember/runloop';
-import { ChildMixin } from 'ember-composability-tools';
-import { invokeAction } from 'ember-paper/utils/invoke-action';
-
+/**
+ * Converts a unit value and span into a CSS calc expression for positioning
+ * @param {Object} positions - Position parameters
+ * @param {string} positions.unit - The base unit value
+ * @param {number} positions.offset - The offset multiplier
+ * @param {string} positions.gutter - The gutter size
+ * @returns {string} The CSS calc expression
+ */
 const positionCSS = (positions) => {
   return `calc((${positions.unit} + ${positions.gutter}) * ${positions.offset})`;
 };
 
+/**
+ * Converts a unit value and span into a CSS calc expression for dimensions
+ * @param {Object} dimensions - Dimension parameters
+ * @param {string} dimensions.unit - The base unit value
+ * @param {number} dimensions.span - The span multiplier
+ * @param {string} dimensions.gutter - The gutter size
+ * @returns {string} The CSS calc expression
+ */
 const dimensionCSS = (dimensions) => {
   return `calc((${dimensions.unit}) * ${dimensions.span} + (${dimensions.span} - 1) * ${dimensions.gutter})`;
 };
 
+/**
+ * Converts share and gutter values into a CSS calc expression for units
+ * @param {Object} units - Unit parameters
+ * @param {number} units.share - The percentage share
+ * @param {number} units.gutterShare - The gutter share
+ * @param {string} units.gutter - The gutter size
+ * @returns {string} The CSS calc expression
+ */
 const unitCSS = (units) => {
   return `${units.share}% - (${units.gutter} * ${units.gutterShare})`;
 };
 
+/**
+ * Applies a set of styles to an HTML element
+ * @param {HTMLElement} el - The target element
+ * @param {Object} styles - Object containing style properties and values
+ */
 const applyStyles = (el, styles) => {
   for (let key in styles) {
     el.style[key] = styles[key];
@@ -27,64 +50,116 @@ const applyStyles = (el, styles) => {
 };
 
 /**
+ * A tile component that represents a cell within a grid list
+ *
  * @class PaperGridTile
- * @extends Ember.Component
+ * @extends Component
+ * @arg {string} class
+ * @arg {string} colspan
+ * @arg {string} rowspan
  */
-@tagName('md-grid-tile')
-export default class PaperGridTile extends Component.extend(ChildMixin) {
-  @alias('parentComponent')
-  gridList;
+export default class PaperGridTile extends Component {
+  /**
+   * Reference to the tile's DOM element
+   * @type {HTMLElement}
+   */
+  @tracked element;
+  /**
+   * Reference to the parent grid list component
+   * @type {PaperGridList}
+   */
+  @tracked gridList;
+  /**
+   * Current position of the tile in the grid
+   * @type {{row: number, col: number}}
+   */
+  @tracked position;
 
-  didUpdateAttrs() {
-    super.didUpdateAttrs(...arguments);
-    let gridList = this.gridList;
+  constructor() {
+    super(...arguments);
 
-    // Debounces until the next run loop
-    debounce(gridList, gridList.updateGrid, 0);
+    this.gridList = this.args.parent;
   }
 
-  updateTile() {
-    applyStyles(this.element, this._tileStyle());
-    invokeAction(this, 'onUpdate');
+  /**
+   * Performs any required DOM setup.
+   * @param {HTMLElement} element
+   */
+  @action didInsertNode(element) {
+    this.element = element;
+
+    this.args.parent.registerChild(this, this.updateTile);
   }
 
-  @computed('colspan')
+  @action didUpdateNode() {
+    this.gridList.didUpdateNode();
+  }
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+
+    this.args.parent.unregisterChild(this, this.updateTile);
+  }
+
+  /**
+   * Returns the parsed responsive column span sizes
+   * @type {Object<string,string>}
+   */
   get colspanMedia() {
-    return this.gridList._extractResponsiveSizes(this.colspan);
+    return this.gridList._extractResponsiveSizes(this.args.colspan);
   }
 
-  @computed('colspanMedia', 'gridList.currentMedia.[]')
+  /**
+   * Returns the current column span based on active media queries
+   * @type {number}
+   */
   get currentColspan() {
     let colspan = this.gridList._getAttributeForMedia(
       this.colspanMedia,
-      this.get('gridList.currentMedia')
+      this.gridList.currentMedia
     );
     return parseInt(colspan, 10) || 1;
   }
 
-  @computed('rowspan')
+  /**
+   * Returns the parsed responsive row span sizes
+   * @type {Object<string,string>}
+   */
   get rowspanMedia() {
-    return this.gridList._extractResponsiveSizes(this.rowspan);
+    return this.gridList._extractResponsiveSizes(this.args.rowspan);
   }
 
-  @computed('rowspanMedia', 'gridList.currentMedia.[]')
+  /**
+   * Returns the current row span based on active media queries
+   * @type {number}
+   */
   get currentRowspan() {
     let rowspan = this.gridList._getAttributeForMedia(
       this.rowspanMedia,
-      this.get('gridList.currentMedia')
+      this.gridList.currentMedia
     );
     return parseInt(rowspan, 10) || 1;
   }
 
+  /**
+   * Updates the tile's styles when the grid layout changes
+   */
+  @action updateTile() {
+    applyStyles(this.element, this._tileStyle());
+    if (this.args.onUpdate) {
+      this.args.onUpdate();
+    }
+  }
+
   _tileStyle() {
-    let position = this.position;
+    let position = this.position; // this is set/updated by the parent
     let currentColspan = this.currentColspan;
     let currentRowspan = this.currentRowspan;
-    let rowCount = this.get('gridList.rowCount');
-    let colCount = this.get('gridList.currentCols');
-    let gutter = this.get('gridList.currentGutter');
-    let rowMode = this.get('gridList.currentRowMode');
-    let rowHeight = this.get('gridList.currentRowHeight');
+    let rowCount = this.gridList.rowCount;
+    let colCount = this.gridList.currentCols;
+    let gutter = this.gridList.currentGutter;
+    let rowMode = this.gridList.currentRowMode;
+    let rowHeight = this.gridList.currentRowHeight;
 
     // Percent of the available horizontal space that one column takes up.
     let hShare = (1 / colCount) * 100;
