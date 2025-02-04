@@ -170,5 +170,9 @@ export default class Focusable extends Component {
     }
   }
 
-  move() {}
+  move(e) {
+    if (this.args.move) {
+      this.args.move(e);
+    }
+  }
 }
