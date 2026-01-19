@@ -98,7 +98,9 @@ export default Component.extend({
       supportsPassiveEventListeners ? { passive: true } : false
     );
 
-    window.addEventListener('scroll', leaveHandler);
+    let scrollContainer = this.get('scrollContainer');
+
+    scrollContainer ? scrollContainer.addEventListener('scroll', leaveHandler) : window.addEventListener('scroll', leaveHandler);
     window.addEventListener('blur', leaveHandler);
     window.addEventListener('resize', leaveHandler);
     window.addEventListener('orientationchange', leaveHandler);
@@ -107,7 +109,10 @@ export default Component.extend({
 
   willDestroyElement() {
     this._super(...arguments);
-    window.removeEventListener('scroll', this.leaveHandler);
+
+    let scrollContainer = this.get('scrollContainer');
+
+    scrollContainer ? scrollContainer.removeEventListener('scroll', this.leaveHandler) : window.removeEventListener('scroll', this.leaveHandler);
     window.removeEventListener('blur', this.leaveHandler);
     window.removeEventListener('resize', this.leaveHandler);
     window.removeEventListener('orientationchange', this.leaveHandler);
