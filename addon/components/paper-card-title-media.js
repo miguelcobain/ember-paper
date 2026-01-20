@@ -1,4 +1,4 @@
-/* eslint-disable ember/no-classic-components, ember/require-tagless-components */
+/* eslint-disable ember/no-classic-components */
 /**
  * @module ember-paper
  */
@@ -8,7 +8,7 @@ import Component from '@ember/component';
  * @class PaperCardTitleMedia
  * @extends Ember.Component
  */
-export default Component.extend({
-  tagName: 'md-card-title-media',
-  size: 'md',
-});
+export default class PaperCardTitleMedia extends Component {
+  tagName = '';
+  size = 'md';
+}
