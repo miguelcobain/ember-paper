@@ -52,4 +52,8 @@ Router.map(function () {
     this.route('layout-children');
     this.route('child-alignment');
   });
+
+  this.route('benchmarks', function() {
+    this.route('paper-card');
+  });
 });
