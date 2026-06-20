@@ -16,7 +16,7 @@
         <MenuItem @onClick={{fn this.toggleExpandedItem "demos"}} @expanded={{this.demosExpanded}} @canExpand={{true}}>Components</MenuItem>
 
         <div class="submenu">
-          {{#liquid-if this.demosExpanded}}
+          {{#liquid-if predicate=this.demosExpanded}}
             <SubmenuItem @active={{is-active "demo.autocomplete" this.router.currentRouteName}} @href={{href-to "demo.autocomplete"}}>Autocomplete</SubmenuItem>
             <SubmenuItem @active={{is-active "demo.button" this.router.currentRouteName}} @href={{href-to "demo.button"}}>Button</SubmenuItem>
             <SubmenuItem @active={{is-active "demo.card" this.router.currentRouteName}} @href={{href-to "demo.card"}}>Card</SubmenuItem>
@@ -49,7 +49,7 @@
 
         <MenuItem @onClick={{fn this.toggleExpandedItem "layout"}} @expanded={{this.layoutExpanded}} @canExpand={{true}}>Layout</MenuItem>
         <div class="submenu">
-          {{#liquid-if this.layoutExpanded}}
+          {{#liquid-if predicate=this.layoutExpanded}}
             <SubmenuItem @active={{is-active "layout.introduction" this.router.currentRouteName}} @href={{href-to "layout.introduction"}}>Introduction</SubmenuItem>
             <SubmenuItem @active={{is-active "layout.layout-containers" this.router.currentRouteName}} @href={{href-to "layout.layout-containers"}}>Layout Containers</SubmenuItem>
             <SubmenuItem @active={{is-active "layout.layout-children" this.router.currentRouteName}} @href={{href-to "layout.layout-children"}}>Layout Children</SubmenuItem>
