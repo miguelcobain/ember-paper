@@ -102,10 +102,14 @@ export default class PaperItem extends Component {
   }
 
   handleMouseEnter(e) {
-    invokeAction(this, 'onMouseEnter', e);
+    if(this){
+      invokeAction(this, 'onMouseEnter', e);
+    }
   }
 
   handleMouseLeave(e) {
-    invokeAction(this, 'onMouseLeave', e);
+    if(this){
+      invokeAction(this, 'onMouseLeave', e);
+    }
   }
 }
