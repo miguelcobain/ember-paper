@@ -16,7 +16,7 @@
         <MenuItem @onClick={{fn this.toggleExpandedItem "demos"}} @expanded={{this.demosExpanded}} @canExpand={{true}}>Components</MenuItem>
 
         <div class="submenu">
-          {{#liquid-if this.demosExpanded}}
+          <LiquidIf @predicate={{this.demosExpanded}}>
             <SubmenuItem @active={{is-active "demo.autocomplete" this.router.currentRouteName}} @href={{href-to "demo.autocomplete"}}>Autocomplete</SubmenuItem>
             <SubmenuItem @active={{is-active "demo.button" this.router.currentRouteName}} @href={{href-to "demo.button"}}>Button</SubmenuItem>
             <SubmenuItem @active={{is-active "demo.card" this.router.currentRouteName}} @href={{href-to "demo.card"}}>Card</SubmenuItem>
@@ -41,7 +41,7 @@
             <SubmenuItem @active={{is-active "demo.toast" this.router.currentRouteName}} @href={{href-to "demo.toast"}}>Toast</SubmenuItem>
             <SubmenuItem @active={{is-active "demo.toolbar" this.router.currentRouteName}} @href={{href-to "demo.toolbar"}}>Toolbar</SubmenuItem>
             <SubmenuItem @active={{is-active "demo.tooltip" this.router.currentRouteName}} @href={{href-to "demo.tooltip"}}>Tooltip</SubmenuItem>
-          {{/liquid-if}}
+          </LiquidIf>
         </div>
         <MenuItem @active={{is-active "forms" this.router.currentRouteName}} @href={{href-to "forms"}}>Forms</MenuItem>
         <MenuItem @active={{is-active "typography" this.router.currentRouteName}} @href={{href-to "typography"}}>Typography</MenuItem>
@@ -49,12 +49,12 @@
 
         <MenuItem @onClick={{fn this.toggleExpandedItem "layout"}} @expanded={{this.layoutExpanded}} @canExpand={{true}}>Layout</MenuItem>
         <div class="submenu">
-          {{#liquid-if this.layoutExpanded}}
+          <LiquidIf @predicate={{this.layoutExpanded}}>
             <SubmenuItem @active={{is-active "layout.introduction" this.router.currentRouteName}} @href={{href-to "layout.introduction"}}>Introduction</SubmenuItem>
             <SubmenuItem @active={{is-active "layout.layout-containers" this.router.currentRouteName}} @href={{href-to "layout.layout-containers"}}>Layout Containers</SubmenuItem>
             <SubmenuItem @active={{is-active "layout.layout-children" this.router.currentRouteName}} @href={{href-to "layout.layout-children"}}>Layout Children</SubmenuItem>
             <SubmenuItem @active={{is-active "layout.child-alignment" this.router.currentRouteName}} @href={{href-to "layout.child-alignment"}}>Child Alignment</SubmenuItem>
-          {{/liquid-if}}
+          </LiquidIf>
         </div>
 
         <MenuItem @active={{is-active "cookbook" this.router.currentRouteName}} @href={{href-to "cookbook"}}>Cookbook</MenuItem>
