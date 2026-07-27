@@ -1,5 +1,5 @@
 {{#in-element this.destinationEl insertBefore=null}}
-  <PaperBackdrop @skipLockBody={{@skipLockBody}} @locked-open={{@isLockedOpen}} @opaque={{this.opaque}} @fixed={{unless @parent true}} @class="md-dialog-backdrop" @onClick={{this.outsideClicked}} />
+  <PaperBackdrop class="md-dialog-backdrop" @skipLockBody={{@skipLockBody}} @locked-open={{@isLockedOpen}} @opaque={{this.opaque}} @fixed={{unless @parent true}} @onClick={{this.outsideClicked}} />
   <PaperDialogContainer @class={{readonly @dialogContainerClass}} @outsideClicked={{this.outsideClicked}}>
     <PaperDialogInner @class={{readonly @class}} @origin={{@origin}} @defaultedParent={{this.defaultedParent}} @defaultedOpenFrom={{this.defaultedOpenFrom}} @defaultedCloseTo={{this.defaultedCloseTo}} @fullscreen={{@fullscreen}} @focusOnOpen={{this.focusOnOpen}}>
       {{yield}}
