@@ -75,11 +75,11 @@ class PaperMenuContent extends Component {
 
     if (!this.isDestroyed) {
       this.set('isActive', false);
-      clone.classList.add('md-leave');
       waitForAnimations(clone, function() {
         clone.classList.remove('md-active');
         parentElement.removeChild(clone);
       });
+      clone.classList.add('md-leave');
     } else {
       parentElement.removeChild(clone);
     }
